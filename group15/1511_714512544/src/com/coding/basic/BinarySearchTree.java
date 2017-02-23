@@ -231,6 +231,9 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         }
     }
 
+    //按层遍历，每层从左到右输出
+    public void  printNodeAtLevel(){
 
+    }
     
 }
