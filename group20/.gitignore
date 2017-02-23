@@ -39,3 +39,5 @@ proguard/
 # Mac file
 .DS_Store
 
+# Do not ignore .jar file
+!*.jar
