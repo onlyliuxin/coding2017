@@ -43,25 +43,11 @@ public class BinaryTreeNode {
     }
 
     public BinaryTreeNode insert(Object o) {
-        BinaryTreeNode newNode = new BinaryTreeNode(o);
-        if ((int)data<(int)o) {
-            this.right = newNode;
-        } else {
-            this.left = newNode;
-        }
-        return newNode;
+        return null;
     }
 
     public BinaryTreeNode(Object o){
         this.setData(o);
-    }
-
-
-
-    public static void main(String[] args) {
-        BinaryTreeNode binaryTreeNode = new BinaryTreeNode(1);
-        binaryTreeNode.insert(2);
-        System.out.println(binaryTreeNode.getRight().getData());
     }
 
 }
