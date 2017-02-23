@@ -7,6 +7,7 @@ public class BinarySearchTreeNode<T>{
 	private T data;
 	private BinarySearchTreeNode<T> left;
 	private BinarySearchTreeNode<T> right;
+	private int state;  //递归状态
 
 	public BinarySearchTreeNode(T data) {
 		this.data = data;
@@ -32,5 +33,10 @@ public class BinarySearchTreeNode<T>{
 	public void setRight(BinarySearchTreeNode<T> right) {
 		this.right = right;
 	}
-	
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
 }

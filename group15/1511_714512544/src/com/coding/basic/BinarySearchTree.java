@@ -1,5 +1,7 @@
 package com.coding.basic;
 
+import edu.princeton.cs.algs4.Stack;
+
 /**
  * 二叉树
  	5
@@ -125,6 +127,108 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     	}
     	System.out.print(n.getData()+" ");
     }
-    
+
+    /**
+     * 非递归实现前序遍历
+     */
+    public void preOrderWithoutRecursion(){
+        if(root == null){ //根节点为空
+            return;
+        }
+
+        Stack<BinarySearchTreeNode<T>> stack = new Stack<>();  //存放未执行完的节点
+        stack.push(root);  //首先push根节点
+        BinarySearchTreeNode<T> current = null;
+
+        while(!stack.isEmpty()){    //栈内还有节点
+            current = stack.peek(); //得到栈顶节点
+            if(current.getState() == 0){
+                System.out.print(current.getData() + " ");  //打印数据
+                current.setState(1);
+            }else if(current.getState() == 1){
+                if(current.getLeft() != null){
+                    stack.push(current.getLeft());
+                }
+                current.setState(2);  //确认是否有左子树
+            }else if(current.getState() == 2){
+                if(current.getRight() != null){
+                    stack.push(current.getRight());
+                }
+                current.setState(3);  //确认是否有右子树
+            }else if(current.getState() == 3){
+                stack.pop();          //删除栈顶节点
+                current.setState(0);
+            }
+        }
+    }
+
+    /**
+     * 非递归实现中序遍历
+     */
+    public void midOrderWithoutRecursion(){
+        if(root == null){ //根节点为空
+            return;
+        }
+
+        Stack<BinarySearchTreeNode<T>> stack = new Stack<>();  //存放未执行完的节点
+        stack.push(root);  //首先push根节点
+        BinarySearchTreeNode<T> current = null;
+
+        while(!stack.isEmpty()){    //栈内还有节点
+            current = stack.peek(); //得到栈顶节点
+            if(current.getState() == 0){
+                if(current.getLeft() != null){
+                    stack.push(current.getLeft());
+                }
+                current.setState(1);
+            }else if(current.getState() == 1){
+                System.out.print(current.getData() + " ");  //打印数据
+                current.setState(2);  //确认是否有左子树
+            }else if(current.getState() == 2){
+                if(current.getRight() != null){
+                    stack.push(current.getRight());
+                }
+                current.setState(3);  //确认是否有右子树
+            }else if(current.getState() == 3){
+                stack.pop();          //删除栈顶节点
+                current.setState(0);
+            }
+        }
+    }
+
+    /**
+     * 非递归实现后序遍历
+     */
+    public void postOrderWithoutRecursion(){
+        if(root == null){ //根节点为空
+            return;
+        }
+
+        Stack<BinarySearchTreeNode<T>> stack = new Stack<>();  //存放未执行完的节点
+        stack.push(root);  //首先push根节点
+        BinarySearchTreeNode<T> current = null;
+
+        while(!stack.isEmpty()){    //栈内还有节点
+            current = stack.peek(); //得到栈顶节点
+            if(current.getState() == 0){
+                if(current.getLeft() != null){
+                    stack.push(current.getLeft());
+                }
+                current.setState(1);
+            }else if(current.getState() == 1){
+                if(current.getRight() != null){
+                    stack.push(current.getRight());
+                }
+                current.setState(2);  //确认是否有左子树
+            }else if(current.getState() == 2){
+
+                System.out.print(current.getData() + " ");  //打印数据
+                current.setState(3);  //确认是否有右子树
+            }else if(current.getState() == 3){
+                stack.pop();          //删除栈顶节点
+                current.setState(0);
+            }
+        }
+    }
     
 }

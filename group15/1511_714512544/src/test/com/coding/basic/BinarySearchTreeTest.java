@@ -1,103 +1,123 @@
-package test.com.coding.basic; 
+package test.com.coding.basic;
+
+import static org.junit.Assert.*;
 
 import com.coding.basic.BinarySearchTree;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.Before; 
-import org.junit.After; 
 
-/** 
-* BinarySearchTree Tester. 
-* 
-* @author <Authors name> 
-* @since <pre>¶þÔÂ 23, 2017</pre> 
-* @version 1.0 
-*/ 
-public class BinarySearchTreeTest { 
+public class BinarySearchTreeTest {
 
-@Before
-public void before() throws Exception { 
-} 
+	@Before
+	public void setUp() throws Exception {
+	}
 
-@After
-public void after() throws Exception { 
-} 
+	@After
+	public void tearDown() throws Exception {
+	}
 
-/** 
-* 
-* Method: getRoot() 
-* 
-*/ 
-@Test
-public void testGetRoot() throws Exception { 
-//TODO: Test goes here... 
-} 
+	@Test
+	public void testInsert() {
+		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+		bst.insert(5);
+		bst.insert(2);
+		bst.insert(7);
+		bst.insert(1);
+		bst.insert(6);
+		bst.insert(4);
+		bst.insert(8);
+	}
 
-/** 
-* 
-* Method: setRoot(BinarySearchTreeNode<T> root) 
-* 
-*/ 
-@Test
-public void testSetRoot() throws Exception { 
-//TODO: Test goes here... 
-} 
+	@Test
+	public void testContains() {
+		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+		bst.insert(5);
+		bst.insert(2);
+		bst.insert(7);
+		bst.insert(1);
+		bst.insert(6);
+		bst.insert(4);
+		bst.insert(8);
+		assertEquals(true,bst.contains(8));
+	}
+	
+	@Test
+	public void testPreOrder(){
+		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+		bst.insert(5);
+		bst.insert(2);
+		bst.insert(7);
+		bst.insert(1);
+		bst.insert(6);
+		bst.insert(4);
+		bst.insert(8);
+		bst.preOrder(bst.getRoot());
+	}
 
-/** 
-* 
-* Method: insert(T data) 
-* 
-*/ 
-@Test
-public void testInsert() throws Exception {
-    BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
-    bst.insert(5);
-    bst.insert(2);
-    bst.insert(7);
-    bst.insert(1);
-    bst.insert(6);
-    bst.insert(4);
-    bst.insert(8);
-} 
+	@Test
+	public void testPreOrderWithoutRecursion(){
+		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+		bst.insert(5);
+		bst.insert(2);
+		bst.insert(7);
+		bst.insert(1);
+		bst.insert(6);
+		bst.insert(4);
+		bst.insert(8);
+		bst.preOrderWithoutRecursion();
+	}
+	
+	@Test
+	public void testMidOrder(){
+		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+		bst.insert(5);
+		bst.insert(2);
+		bst.insert(7);
+		bst.insert(1);
+		bst.insert(6);
+		bst.insert(4);
+		bst.insert(8);
+		bst.midOrder(bst.getRoot());
+	}
 
-/** 
-* 
-* Method: contains(T data) 
-* 
-*/ 
-@Test
-public void testContains() throws Exception { 
-//TODO: Test goes here... 
-} 
+	@Test
+	public void testMidOrderWithoutRecursion(){
+		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+		bst.insert(5);
+		bst.insert(2);
+		bst.insert(7);
+		bst.insert(1);
+		bst.insert(6);
+		bst.insert(4);
+		bst.insert(8);
+		bst.midOrderWithoutRecursion();
+	}
+	
+	@Test
+	public void testPostOrder(){
+		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+		bst.insert(5);
+		bst.insert(2);
+		bst.insert(7);
+		bst.insert(1);
+		bst.insert(6);
+		bst.insert(4);
+		bst.insert(8);
+		bst.postOrder(bst.getRoot());
+	}
 
-/** 
-* 
-* Method: preOrder(BinarySearchTreeNode<T> n) 
-* 
-*/ 
-@Test
-public void testPreOrder() throws Exception { 
-//TODO: Test goes here... 
-} 
+	@Test
+	public void testPostOrderWithoutRecursion(){
+		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+		bst.insert(5);
+		bst.insert(2);
+		bst.insert(7);
+		bst.insert(1);
+		bst.insert(6);
+		bst.insert(4);
+		bst.insert(8);
+		bst.postOrderWithoutRecursion();
+	}
 
-/** 
-* 
-* Method: midOrder(BinarySearchTreeNode<T> n) 
-* 
-*/ 
-@Test
-public void testMidOrder() throws Exception { 
-//TODO: Test goes here... 
-} 
-
-/** 
-* 
-* Method: postOrder(BinarySearchTreeNode<T> n) 
-* 
-*/ 
-@Test
-public void testPostOrder() throws Exception { 
-//TODO: Test goes here... 
-} 
-
-
-} 
+}
