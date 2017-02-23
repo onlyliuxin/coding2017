@@ -9,6 +9,8 @@ public class ArrayList implements List{
 	@Override
 	public void add(Object o) {
 		
+		this.elementDate[this.size]=o;
+		this.size++;
 	}
 
 	@Override
