@@ -1,8 +1,11 @@
-package BasicDataStructureTest;
+package week01.BasicDataStructureTest;
 
-import org.junit.*;
-import BasicDataStructure.Iterator;
-import BasicDataStructure.LinkedList;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import week01.BasicDataStructure.Iterator;
+import week01.BasicDataStructure.LinkedList;
 
 public class LinkedListTest {
 	

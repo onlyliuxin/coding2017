@@ -1,8 +1,11 @@
-package BasicDataStructureTest;
+package week01.BasicDataStructureTest;
 
-import org.junit.*;
-import BasicDataStructure.ArrayList;
-import BasicDataStructure.Iterator;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import week01.BasicDataStructure.ArrayList;
+import week01.BasicDataStructure.Iterator;
 
 public class ArrayListTest {
 	

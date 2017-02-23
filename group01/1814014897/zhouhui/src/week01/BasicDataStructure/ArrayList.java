@@ -1,4 +1,4 @@
-package BasicDataStructure;
+package week01.BasicDataStructure;
 
 import java.util.Arrays;
 

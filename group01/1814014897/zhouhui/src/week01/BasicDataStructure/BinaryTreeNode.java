@@ -1,4 +1,4 @@
-package BasicDataStructure;
+package week01.BasicDataStructure;
 
 public  class BinaryTreeNode{
 	

@@ -1,7 +1,10 @@
-package BasicDataStructureTest;
+package week01.BasicDataStructureTest;
 
-import org.junit.*;
-import BasicDataStructure.BinaryTreeNode;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import week01.BasicDataStructure.BinaryTreeNode;
 
 
 public class BinaryTreeNodeTest {
