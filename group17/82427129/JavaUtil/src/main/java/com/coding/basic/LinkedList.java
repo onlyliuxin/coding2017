@@ -12,7 +12,7 @@ public class LinkedList implements List {
 	}
 	
 	public void add(Object o){
-		
+		add(size,o);
 	}
 	public void add(int index , Object o){
 		rangeCheck(index);
