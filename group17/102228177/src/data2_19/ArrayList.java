@@ -1,5 +1,9 @@
 package data2_19;
 
+import java.util.ConcurrentModificationException;
+import java.util.NoSuchElementException;
+
+
 public class ArrayList implements List{
 	public static final int defLen = 10;
 	private Object[] elements;
@@ -97,9 +101,32 @@ public class ArrayList implements List{
 		return size;
 	}
 	
-//	public Iterator iterator(){
-//		return null;
-//	}
+	public Iterator iterator(){
+		return new ArrayListIterator();
+	}
+	
+	private class ArrayListIterator implements Iterator{
+		int cursor;
+		
+		@Override
+		public boolean hasNext() {
+			return cursor != size;
+		}
+
+		@Override
+		public Object next() {
+			int i = cursor;
+			if(i >= size){
+                throw new NoSuchElementException();
+			}
+			if (i >= elements.length){
+				throw new ConcurrentModificationException();
+			}
+			cursor = i+1;        
+			return elements[i];
+		}
+	}
+	
 	public static void main(String[] args) {
 		ArrayList list = new ArrayList();
 		list.add(0);
@@ -111,6 +138,11 @@ public class ArrayList implements List{
 		list.remove(3);
 		for (int i = 0; i < list.size(); i++) {
 			System.out.println(i+":"+list.get(i));
+		}
+		
+		Iterator it =  list.iterator();
+		while (it.hasNext()) {
+			System.out.println(it.next());
 		}
 	}
 }
