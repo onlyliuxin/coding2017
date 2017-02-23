@@ -21,6 +21,7 @@ public class MyBinarySearchTreeTest {
 		tree.insert(8);
 	}
 
+	@SuppressWarnings("static-access")
 	@Test
 	public void testInsert() {
 		tree.insert(1);
@@ -46,6 +47,7 @@ public class MyBinarySearchTreeTest {
 		assertEquals(true, tree.find(10));
 	}
 
+	@SuppressWarnings("static-access")
 	@Test
 	public void testDelete() {
 		tree.insert(1);
