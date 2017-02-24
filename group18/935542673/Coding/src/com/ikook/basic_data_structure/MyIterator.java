@@ -1,5 +1,8 @@
 package com.ikook.basic_data_structure;
 
+/**
+ * @author ikook   QQ号码: 935542673
+ */
 public interface MyIterator {
 	
 	public boolean hasNext();  // 判断是否有元素没有被遍历
