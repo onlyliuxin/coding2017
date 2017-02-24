@@ -2,7 +2,7 @@
 
 1. 实现了ArrayList、LinkedList、Queue(依靠LinkedList实现)、Stack(依靠ArrayList实现)
 
-   - ArrayList实现了一下方法：
+   1.1 ArrayList实现了一下方法：
 
    ```
     （1）add(Object): 添加元素到集合；
@@ -16,7 +16,7 @@
     （9）iterator(): 返回一个迭代器的实现类。
    ```
 
-   - LinkedList实现了一下方法：
+   1.2 LinkedList实现了一下方法：
 
    ```
     （1）addFirst(Object): 在链表头部插入新的元素；
