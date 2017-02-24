@@ -202,4 +202,37 @@ public class LinkedList<E> implements List<E> {
             this.next = next;
         }
     }
+
+    public Iterator iterator(){
+        return new LinkedListIterator<>();
+    }
+
+    private class LinkedListIterator<E> implements Iterator<E>{
+
+        private int cursor;//游标
+
+        private int lastRet = -1;//可被删除元素下标
+
+        @Override
+        public boolean hasNext() {
+            return cursor!=size;
+        }
+
+        @Override
+        public E next() {
+            int i = cursor;
+            cursor++;
+            return (E) LinkedList.this.get(lastRet=i);
+        }
+
+        @Override
+        public void remove() {
+            if(lastRet<0){
+                throw new IllegalStateException();
+            }
+            cursor = lastRet;
+            LinkedList.this.remove(lastRet);
+            lastRet = -1;
+        }
+    }
 }

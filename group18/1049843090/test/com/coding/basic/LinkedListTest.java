@@ -115,4 +115,15 @@ public class LinkedListTest {
 
     }
 
+    @Test
+    public void iterator() throws Exception {
+        Iterator iterator = linkedList.iterator();
+        assertEquals(false,iterator.hasNext());
+        linkedList.add("A");
+        assertEquals(true,iterator.hasNext());
+        assertEquals("A",iterator.next());
+        iterator.remove();
+        assertEquals(0,linkedList.size());
+    }
+
 }
