@@ -51,6 +51,7 @@ public class MyArrayListTest {
 	
 	@Test
 	public void testGet() {
+		assertEquals("111", list.get(0));
 		assertEquals(new Date(), list.get(4));
 	}
 	
@@ -70,6 +71,22 @@ public class MyArrayListTest {
 	public void testSet() {
 		assertEquals(33, list.set(2, "333"));
 		assertEquals("333", list.get(2));
+	}
+	
+	@Test
+	public void testIterator() {
+		int i = 0;
+		for(MyIterator iter = list.iterator(); iter.hesNext();) {
+			Object str = (Object) iter.next();
+			assertEquals(list.get(i++), str);
+		}
+		
+		int j = list.size();
+		for(MyIterator iter = list.iterator(); iter.hesNext();) {
+		    iter.next();
+			iter.remove();
+			assertEquals( --j , list.size());
+		}
 	}
 
 }

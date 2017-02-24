@@ -1,5 +1,8 @@
 package com.ikook.basic_data_structure;
 
+import java.util.ConcurrentModificationException;
+import java.util.NoSuchElementException;
+
 /**
  * @author ikook;  QQ号码: 935542673
  */
@@ -154,5 +157,59 @@ public class MyArrayList implements MyList{
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	/**
+	 * 返回一个迭代器的实现
+	 * @return
+	 */
+	public MyIterator iterator() {
+		return new Iter();
+	}
+	
+	/**
+	 * 迭代器的实现类
+	 * @author ikook
+	 */
+	private class Iter implements MyIterator {
+		
+		int cursor; // 返回下一个元素的索引
+		int lastRet = -1; // 返回最后一个元素的索引(始终指向刚遍历完的元素)，如果没有元素了，则为 -1
+
+		@Override
+		public boolean hesNext() {
+			return cursor != size;  // cursor 等于 size 则集合遍历完。
+		}
+
+		@Override
+		public Object next() {
+			
+			try{
+				int i = cursor;
+				Object next = get(i);
+				lastRet = i;
+				cursor = i + 1;
+				return next;
+			} catch (IndexOutOfBoundsException e) {
+				throw new NoSuchElementException("没有找到指定的元素, 迭代器遍历失败");
+			}
+			
+		}
+
+		@Override
+		public void remove() {
+			if (lastRet < 0) {
+				throw new IllegalStateException("非法状态异常，删除失败");
+			}
+			
+			try{
+				MyArrayList.this.remove(lastRet);
+				cursor = lastRet;
+				lastRet = -1;
+			} catch (IndexOutOfBoundsException e) {
+				throw new ConcurrentModificationException("竞争者改变异常，删除失败");
+			}
+		}
+		
 	}
 }
