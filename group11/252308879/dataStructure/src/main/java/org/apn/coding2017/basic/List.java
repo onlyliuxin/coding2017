@@ -8,6 +8,8 @@ public interface List {
 
     boolean add(Object o);
 
+    boolean add(int index, Object o);
+
     Object set(int index, Object element);
 
     Object get(int index);

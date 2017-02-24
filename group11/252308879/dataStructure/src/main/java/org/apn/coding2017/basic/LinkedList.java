@@ -7,22 +7,19 @@ public class LinkedList implements List {
 
     Node last;
 
-    private static class Node {
-        Object item;
-        Node next;
-    }
 
     public boolean add(Object o) {
 
-        return  true;
+        return true;
     }
 
     public Object set(int index, Object element) {
         return null;
     }
 
-    public void add(int index, Object o) {
+    public boolean add(int index, Object o) {
 
+        return true;
     }
 
     public Object get(int index) {
@@ -44,7 +41,30 @@ public class LinkedList implements List {
     public Iterator iterator() {
         return null;
     }
+    
+    private static class Node {
+        Object item;
+        Node next;
 
+        Node(Object item, Node next) {
+            this.item = item;
+            this.next = next;
+        }
+        public Object getItem() {
+            return item;
+        }
 
+        public void setItem(Object item) {
+            this.item = item;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        public void setNext(Node next) {
+            this.next = next;
+        }
+    }
 
 }
