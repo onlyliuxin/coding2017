@@ -1,5 +1,7 @@
 package com.coding.basic;
 
+import java.util.Properties;
+
 public class BinaryTreeNode {
 
 	private TreeData treeData;
@@ -25,11 +27,36 @@ public class BinaryTreeNode {
 	public void setRight(BinaryTreeNode right) {
 		this.right = right;
 	}
+
+	public void PriOder(BinaryTreeNode Node)
+	{
+		if (Node.treeData != null)
+		{
+				System.out.println(Node.treeData.getT());
+				if (Node.left != null)
+				{
+					PriOder(Node.left);
+				}
+				if (Node.right != null)
+				{
+					PriOder(Node.right);
+				}
+		}
+
+	}
+
 	
 	public BinaryTreeNode insert(TreeData o){
+		if (this.treeData == null && this.left == null && this.right == null)
+		{
+			this.treeData = o;
+			this.left = null;
+			this.right = null;
+			return null;
+		}
 
 		//遍历寻找元素应该插入的位置
-		if (o.compareTo(this.treeData) < 0)
+		if (o.compareTo(this.treeData) <= 0)
 		{
 			if (this.left != null)
 			{
