@@ -1,22 +1,22 @@
 package assignment;
 
 //
-public class MyStack {
-	private MyArrayList elementData = new MyArrayList();
+public class MyStack<T> {
+	private MyArrayList<T> elementData = new MyArrayList<>();
 
-	public void push(Object o) {
+	public void push(T o) {
 		elementData.add(o);
 	}
 
-	public Object pop() {
+	public T pop() {
 		if (!isEmpty()) {
-			Object data = elementData.remove(elementData.size() - 1);
+			T data = elementData.remove(elementData.size() - 1);
 			return data;
 		}
 		throw new StackIsEmptyException();
 	}
 
-	public Object peek() {
+	public T peek() {
 		return elementData.get(elementData.size() - 1);
 	}
 

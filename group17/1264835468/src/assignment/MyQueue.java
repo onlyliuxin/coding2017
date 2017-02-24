@@ -1,14 +1,14 @@
 package assignment;
 
 //
-public class MyQueue {
-	private MyLinkedList elementData = new MyLinkedList();
+public class MyQueue<T> {
+	private MyLinkedList<T> elementData = new MyLinkedList<>();
 
-	public void enQueue(Object o) {
+	public void enQueue(T o) {
 		elementData.addLast(o);
 	}
 
-	public Object deQueue() {
+	public T deQueue() {
 		if (!isEmpty()) {
 			return elementData.remove(0);
 		}

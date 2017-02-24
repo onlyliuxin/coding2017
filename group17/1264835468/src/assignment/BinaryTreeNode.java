@@ -1,42 +1,37 @@
 package assignment;
 
 //
-public class BinaryTreeNode implements Comparable<BinaryTreeNode> {
-	private Comparable data;
-	private BinaryTreeNode left;
-	private BinaryTreeNode right;
+public class BinaryTreeNode<T extends Comparable<? super T>> {
+	private T data;
+	private BinaryTreeNode<T> left;
+	private BinaryTreeNode<T> right;
 
-	public BinaryTreeNode(Comparable data) {
+	public BinaryTreeNode(T data) {
 		this.data = data;
 	}
 
-	public Comparable getData() {
+	public T getData() {
 		return data;
 	}
 
-	public void setData(Comparable data) {
+	public void setData(T data) {
 		this.data = data;
 	}
 
-	public BinaryTreeNode getLeft() {
+	public BinaryTreeNode<T> getLeft() {
 		return left;
 	}
 
-	public void setLeft(BinaryTreeNode left) {
+	public void setLeft(BinaryTreeNode<T> left) {
 		this.left = left;
 	}
 
-	public BinaryTreeNode getRight() {
+	public BinaryTreeNode<T> getRight() {
 		return right;
 	}
 
-	public void setRight(BinaryTreeNode right) {
+	public void setRight(BinaryTreeNode<T> right) {
 		this.right = right;
-	}
-
-	@Override
-	public int compareTo(BinaryTreeNode o) {
-		return data.compareTo(o.data);
 	}
 
 	@Override
@@ -56,4 +51,9 @@ public class BinaryTreeNode implements Comparable<BinaryTreeNode> {
 		}
 		return stringBuilder.toString();
 	}
+
+	public static void main(String[] args) {
+		// BinaryTreeNode<Integer> binaryTreeNode = new BinaryTreeNode<>(1);
+	}
+
 }

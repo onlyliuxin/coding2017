@@ -3,7 +3,7 @@ package assignment;
 //
 import java.util.Arrays;
 
-public class MyArrayList {
+public class MyArrayList<E> implements List<E>, Iterable<E> {
 	private Object[] elementData;
 	private static final int DEFAULT_SIZE = 10;
 	private int size;
@@ -13,7 +13,8 @@ public class MyArrayList {
 	}
 
 	public MyArrayList(int initSize) {
-		if (initSize <= DEFAULT_SIZE) {
+		if (initSize < 0) throw new IllegalArgumentException(initSize + " < 0");
+		if (initSize == 0) {
 			elementData = new Object[DEFAULT_SIZE];
 		}
 		else {
@@ -22,26 +23,27 @@ public class MyArrayList {
 		size = 0;
 	}
 
-	public void add(Object o) {
+	public void add(E o) {
 		growIfNeed();
 		elementData[size++] = o;
 	}
 
-	public void add(int index, Object o) {
+	public void add(int index, E o) {
 		growIfNeed();
 		System.arraycopy(elementData, index, elementData, index + 1, size - index);
 		elementData[index] = o;
 		size++;
 	}
 
-	public Object get(int index) {
+	@SuppressWarnings("unchecked")
+	public E get(int index) {
 		rangeCheck(index);
-		return elementData[index];
+		return (E) elementData[index];
 	}
 
-	public Object remove(int index) {
+	public E remove(int index) {
 		rangeCheck(index);
-		Object target = get(index);
+		E target = get(index);
 		// moveForwardFrom(index + 1);
 		System.arraycopy(elementData, index + 1, elementData, index, size - index - 1);
 		size--;
@@ -66,17 +68,26 @@ public class MyArrayList {
 		elementData = Arrays.copyOf(elementData, elementData.length * 2);
 	}
 
-	private void moveBackwardFrom(int index) {
-		for (int i = size - 1; i >= index; i--) {
-			elementData[i + 1] = elementData[i];
-		}
+	@Override
+	public Iterator<E> iterator() {
+		return new ArrayIterator<>();
 	}
 
-	private void moveForwardFrom(int index) {
-		for (int i = index; i < size; i++) {
-			elementData[i - 1] = elementData[i];
+	private class ArrayIterator<E> implements Iterator<E> {
+		private int currentPos = 0;
+
+		@Override
+		public boolean hasNext() {
+			return currentPos < size;
 		}
-		elementData[size] = null;
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public E next() {
+			rangeCheck(currentPos);
+			return (E) elementData[currentPos++];
+		}
+
 	}
 
 	@Override

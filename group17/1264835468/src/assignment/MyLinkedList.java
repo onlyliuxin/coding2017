@@ -1,62 +1,62 @@
 package assignment;
 
 //
-public class MyLinkedList {
-	private Node head;
+public class MyLinkedList<E> implements List<E>, Iterable<E> {
+	private Node<E> head;
 	private int size;
 
 	public MyLinkedList() {
 		size = 0;
 	}
 
-	public void add(Object o) {
+	public void add(E o) {
 		if (head == null)
 			addFirst(o);
 		else
 			addLast(o);
 	}
 
-	public void addFirst(Object o) {
-		Node oldFirst = head;
-		head = new Node(o, oldFirst);
+	public void addFirst(E o) {
+		Node<E> oldFirst = head;
+		head = new Node<>(o, oldFirst);
 		size++;
 	}
 
-	public void addLast(Object o) {
+	public void addLast(E o) {
 		if (head == null) {
 			addFirst(o);
 		}
 		else {
-			Node oldLast = movePtrTo(size - 1);
-			oldLast.next = new Node(o, null);
+			Node<E> oldLast = movePtrTo(size - 1);
+			oldLast.next = new Node<>(o, null);
 			size++;
 		}
 
 	}
 
-	public void add(int index, Object o) {
+	public void add(int index, E o) {
 		rangeCheck(index - 1);
 		if (index == 0) {
 			addFirst(o);
 			return;
 		}
-		Node temp = movePtrTo(index - 1);
-		Node oldNext = temp.next;
-		Node newNext = new Node(o, oldNext);
+		Node<E> temp = movePtrTo(index - 1);
+		Node<E> oldNext = temp.next;
+		Node<E> newNext = new Node<>(o, oldNext);
 		temp.next = newNext;
 		size++;
 	}
 
-	public Object remove(int index) {
+	public E remove(int index) {
 		rangeCheck(index);
-		Object data;
+		E data;
 		if (index == 0) {
 			data = head.data;
 			head = head.next;
 		}
 		else {
-			Node pre = movePtrTo(index - 1);
-			Node target = pre.next;
+			Node<E> pre = movePtrTo(index - 1);
+			Node<E> target = pre.next;
 			pre.next = target.next;
 			data = target.data;
 		}
@@ -64,7 +64,7 @@ public class MyLinkedList {
 		return data;
 	}
 
-	public Object get(int index) {
+	public E get(int index) {
 		return movePtrTo(index).data;
 	}
 
@@ -72,8 +72,8 @@ public class MyLinkedList {
 		return size;
 	}
 
-	private Node movePtrTo(int index) {
-		Node resultNode = head;
+	private Node<E> movePtrTo(int index) {
+		Node<E> resultNode = head;
 		for (int i = 0; i < index; i++) {
 			resultNode = resultNode.next;
 		}
@@ -89,7 +89,7 @@ public class MyLinkedList {
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder('[');
-		Node temp = head;
+		Node<E> temp = head;
 		while (temp != null) {
 			stringBuilder.append(String.valueOf(temp.toString()) + ",");
 			temp = temp.next;
@@ -99,11 +99,11 @@ public class MyLinkedList {
 		return stringBuilder.toString();
 	}
 
-	private static class Node {
-		private Object data;
-		private Node next;
+	private static class Node<T> {
+		private T data;
+		private Node<T> next;
 
-		public Node(Object data, Node next) {
+		public Node(T data, Node<T> next) {
 			this.data = data;
 			this.next = next;
 		}
@@ -112,5 +112,31 @@ public class MyLinkedList {
 		public String toString() {
 			return data.toString();
 		}
+	}
+
+	@Override
+	public Iterator<E> iterator() {
+		return new ListIterator();
+	}
+
+	private class ListIterator implements Iterator<E> {
+		Node<E> currentNode;
+
+		public ListIterator() {
+			currentNode = head;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return currentNode.next != null;
+		}
+
+		@Override
+		public E next() {
+			Node<E> temp = currentNode;
+			currentNode = currentNode.next;
+			return temp.data;
+		}
+
 	}
 }
