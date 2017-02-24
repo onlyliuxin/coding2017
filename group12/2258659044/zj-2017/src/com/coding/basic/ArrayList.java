@@ -13,9 +13,7 @@ public class ArrayList implements List {
 	private Object[] newElementData;
 	
 	public void add(Object o){
-		if(size>=elementData.length){//扩容
-			grow();
-		}
+		grow();
 		elementData[size] = o;		
 		size ++;
 	}
@@ -24,9 +22,7 @@ public class ArrayList implements List {
 		if(index>size){
 			throw new IndexOutOfBoundsException("Index: "+index+",Size:"+size);
 		}
-		if(size>=elementData.length||index>=elementData.length-1){//长度不够需要扩容
-			grow();			
-		} 
+		grow(); 
 		if(index<size){//长度足够需要移动
 			newElementData = new Object[elementData.length];
 			System.arraycopy(elementData, 0, newElementData, 0, index);
@@ -34,11 +30,7 @@ public class ArrayList implements List {
 			elementData = newElementData;
 		}
 		elementData[index] = o;	
-		if(index>size){
-			size = index+1;
-		}else{
-			size ++;
-		}
+		size ++;
 	}
 	
 	public Object get(int index){
@@ -66,9 +58,11 @@ public class ArrayList implements List {
 	 */
 	private void grow(){
 		
-		newElementData = new Object[size+GENE];
-		System.arraycopy(elementData, 0, newElementData, 0, elementData.length);
-		elementData = newElementData;
+		if(size>=elementData.length){//长度不够需要扩容
+			newElementData = new Object[size+GENE];
+			System.arraycopy(elementData, 0, newElementData, 0, elementData.length);
+			elementData = newElementData;		
+		}		
 	}
 	
 	
