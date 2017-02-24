@@ -2,9 +2,7 @@
 
 1. 实现了ArrayList、LinkedList、Queue(依靠LinkedList实现)、Stack(依靠ArrayList实现)
 
-   ​
-
-   1.1  ArrayList实现了一下方法：
+   - ArrayList实现了一下方法：
 
    ```
     （1）add(Object): 添加元素到集合；
@@ -18,7 +16,7 @@
     （9）iterator(): 返回一个迭代器的实现类。
    ```
 
-   1.2  LinkedList实现了一下方法：
+   - LinkedList实现了一下方法：
 
    ```
     （1）addFirst(Object): 在链表头部插入新的元素；
@@ -38,7 +36,7 @@
     （15）iterator(): 返回一个迭代器的实现类。         
    ```
 
-   1.3  Queue实现了一下方法：
+   - Queue实现了一下方法：
 
    ```
     （1）enQueue(Object): 入队操作；
@@ -47,7 +45,7 @@
     （4）isEmpty(): 判断队列是否为空。
    ```
 
-   1.4  Stack实现了一下方法：
+   - Stack实现了一下方法：
 
    ```
     （1）push(Object)：入栈操作；
@@ -56,12 +54,11 @@
     （4）isEmpty()：判断栈是否为空；
     （5）size()：获取栈的深度。
    ```
+   ​
 
 2. 实现了BinarySearchTree、Iterator接口
 
-   ​
-
-   1.1  BinarySearchTree实现了一下方法：
+   - BinarySearchTree实现了一下方法：
 
    ```
      （1）insert(int)：插入操作；
@@ -70,16 +67,15 @@
      （4）inorderTraverse(Node)：遍历操作，采用中序遍历。
    ```
 
-   1.2  Iterator定义了一下方法：
+   - Iterator定义了一下方法：
 
    ```
      （1）hasNext()：判断是否有元素没有被遍历；
      （2）next()：返回游标当前位置的元素并将游标移动到下一个位置；
      （3）remove()：删除游标左边的元素，在执行完 next 之后该操作只能执行一次。
    ```
+   ​
 
 3. 对应以上类做了单元测试
-
-   ​
 
     说明：由于作业以实现基本的数据结构为主，则在实现单元测试时，只对正常情况进行了测试，一些异常情况并进行编写测试用例。
