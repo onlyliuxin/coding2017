@@ -100,7 +100,6 @@ public class LinkedList implements List {
 
 	
 	public void addFirst(Object o) {
-
 	}
 
 	public void addLast(Object o) {
