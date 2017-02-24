@@ -299,4 +299,61 @@ public class MyLinkedList implements MyList{
 			this.next = next;
 		}
 	}
+	
+	/**
+	 * 返回一个迭代器的实现类
+	 * @return
+	 */
+	public MyIterator iterator() {
+		return new LinkIter();
+	}
+	
+	/**
+	 * 迭代器的实现类
+	 * @author ikook
+	 */
+	private class LinkIter implements MyIterator {
+		private Node lastRet; //始终指向刚遍历完的节点
+		private Node next; // 当前指向的节点
+		private int nextIndex; //当前节点的索引值
+		
+		LinkIter () {
+			next = node(0);
+			nextIndex = 0;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return nextIndex < size;
+		}
+
+		@Override
+		public Object next() {
+			if(!hasNext()) {
+				throw new NoSuchElementException("没有找到指定的元素, 迭代器遍历失败");
+			}
+			
+			lastRet = next;
+			next = next.next;
+			nextIndex++;
+			return lastRet.data;
+		}
+
+		@Override
+		public void remove() {
+			if(lastRet == null) {
+				throw new IllegalStateException("非法状态异常，删除失败");
+			}
+			
+			Node lastNext = lastRet.next;
+			deleteElement(lastRet);
+			if(next == lastRet) {
+				next = lastNext;
+			} else {
+				nextIndex--;
+			}
+			lastRet = null;
+		}
+		
+	}
 }
