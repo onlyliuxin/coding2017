@@ -34,9 +34,9 @@ public class LinkedList implements List {
 			linkLast(o);
 		} else {
 			Node prevNode = getNodeByIndex(index - 1); // 取到当前下标的前一个节点
-			Node currentNode = getNodeByIndex(index);  // 取到当前下标节点
-			Node newNode = new Node(o, currentNode);   // 创建新节点，新节点的下一个节点为当前下标节点
-			
+			Node currentNode = getNodeByIndex(index); // 取到当前下标节点
+			Node newNode = new Node(o, currentNode); // 创建新节点，新节点的下一个节点为当前下标节点
+
 			if (prevNode == null) { // 如果前一个节点为空，说明从头部插入
 				head = newNode;
 			} else {
@@ -59,14 +59,46 @@ public class LinkedList implements List {
 		return getNodeByIndex(index).data;
 	}
 
+	/**
+	 * 根据下标移除链表元素
+	 *
+	 * @Method remove
+	 * @param index
+	 * @return
+	 * @see com.guodong.datastructure.List#remove(int)
+	 */
 	public Object remove(int index) {
-		return null;
+		checkIndexForGet(index);
+
+		Node prevNode = getNodeByIndex(index - 1); // 获取当前index前一个元素
+		Node currentNode = null;
+		if (prevNode == null) {
+			currentNode = getNodeByIndex(index); // 如果前一个为空，则把下一个元素赋值给链表头
+			head = currentNode.next;
+		} else {
+			currentNode = prevNode.next; // 如果不为空，则把前一个节点跟后一个节点链接
+			prevNode.next = currentNode.next;
+		}
+		Node nextNode = currentNode.next;
+
+		if (nextNode == null) { // 如果后一个节点为空，则把链尾赋值为前一个节点
+			last = prevNode;
+		} else {
+			currentNode.next = null; // 如果后一个节点不为空，不做任何处理，只打断当前节点的链接
+		}
+		Object data = currentNode.data;
+		currentNode.data = null; // 清空当前节点的值，等待垃圾回收
+
+		size--;
+
+		return data;
 	}
 
 	public int size() {
 		return size;
 	}
 
+	
 	public void addFirst(Object o) {
 
 	}
@@ -140,7 +172,7 @@ public class LinkedList implements List {
 			throw new IndexOutOfBoundsException("Index:" + index + ",Size:" + size);
 		}
 	}
-	
+
 	/**
 	 * 检查下标是否合法
 	 *
