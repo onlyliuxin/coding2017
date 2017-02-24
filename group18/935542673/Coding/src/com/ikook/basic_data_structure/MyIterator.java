@@ -2,7 +2,7 @@ package com.ikook.basic_data_structure;
 
 public interface MyIterator {
 	
-	public boolean hesNext();  // 判断是否有元素没有被遍历
+	public boolean hasNext();  // 判断是否有元素没有被遍历
 	
 	public Object next();  // 返回游标当前位置的元素并将游标移动到下一个位置
 	
