@@ -9,7 +9,7 @@ public class Stack {
 //	}
 
 	public void push(Object o){
-		elementData.add(0);
+		elementData.add(o);
 	}
 	
 	public Object pop(){

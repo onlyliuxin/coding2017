@@ -12,6 +12,8 @@ public class TreeData<T extends  Comparable<T>>  implements  Comparable<TreeData
         return t;
     }
 
+    public void setT(T o) { t = o;}
+
     @Override
     public int compareTo(TreeData<T> o) {
         return getT().compareTo(o.getT());

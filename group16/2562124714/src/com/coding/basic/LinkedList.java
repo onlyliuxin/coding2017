@@ -5,6 +5,11 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
 import java.awt.*;
 
 public class LinkedList implements List {
+	public LinkedList()
+	{
+		head = null;
+		this.Size = 0;
+	}
 	
 	private Node head;
 	private int Size;
@@ -98,7 +103,7 @@ public class LinkedList implements List {
 	}
 	
 	public void addFirst(Object o){
-		Node NewNode = new Node(0);
+		Node NewNode = new Node(o);
 
 		if (null == this.head)
 		{
