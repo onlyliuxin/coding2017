@@ -1,7 +1,6 @@
 package datastructure.basic;
 
 public interface Iterator {
-	public boolean hasNext();
-	public Object next();
-
+	boolean hasNext();
+	Object next();
 }

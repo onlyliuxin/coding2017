@@ -1,5 +1,7 @@
 package datastructure.basic;
 
+import datastructure.exception.EmptyListException;
+
 public class LinkedList implements List {
 	
 	private Node head;
@@ -8,58 +10,86 @@ public class LinkedList implements List {
 	public LinkedList() {
 	    head = new Node();
     }
-	
-	public void add(Object o){
+
+    @Override
+	public void add(Object o) {
         addLast(o);
 	}
 
-	public void add(int index , Object o){
+	@Override
+	public void add(int index , Object o) {
 	    Node pre = findNode(index - 1);
 	    Node node = new Node();
 	    node.data = o;
 	    addNode(node, pre);
 	}
 
-	public Object get(int index){
+	@Override
+	public Object get(int index) {
 	    checkIndex(index);
-		return findNode(index);
+		return findNode(index).data;
 	}
-	public Object remove(int index){
+
+	@Override
+	public Object remove(int index) {
 	    checkIndex(index);
 	    Node pre = findNode(index - 1);
 	    Node removed = pre.next;
 	    removeNode(removed, pre);
 		return removed.data;
 	}
-	
-	public int size(){
+
+	@Override
+	public int size() {
 		return size;
 	}
 	
-	public void addFirst(Object o){
+	public void addFirst(Object o) {
 		Node node = new Node();
 		node.data = o;
 		addNode(node, head);
 	}
-	public void addLast(Object o){
+
+	public void addLast(Object o) {
         Node node = new Node();
         node.data = o;
-        Node pre = findNode(size());
+        Node pre = findNode(size() - 1);
         addNode(node, pre);
 	}
-	public Object removeFirst(){
+
+	public Object removeFirst() {
+		if (size() == 0) {
+			throw new EmptyListException();
+		}
 	    Node removed = head.next;
 		removeNode(head.next, head);
 		return removed.data;
 	}
-	public Object removeLast(){
+
+	public Object removeLast() {
+		if (size() == 0) {
+			throw new EmptyListException();
+		}
 	    return remove(size() - 1);
 	}
-	public Iterator iterator(){
-		return null;
+
+	@Override
+	public Iterator iterator() {
+		return new Iterator() {
+			Node node = head;
+			@Override
+			public boolean hasNext() {
+				return node.next != null;
+			}
+
+			@Override
+			public Object next() {
+				node = node.next;
+				return node.data;
+			}
+		};
 	}
-	
-	
+
 	private static class Node{
 		Object data;
 		Node next;

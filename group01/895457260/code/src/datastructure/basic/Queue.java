@@ -1,12 +1,22 @@
 package datastructure.basic;
 
+import datastructure.exception.EmptyQueueException;
+
 public class Queue {
 	//数组实现自增长的循环队列
-	private Object[] array = new Object[10];
+	private Object[] array;
 	private int head = 0;
 	private int rear = 0;
 
-	public void enQueue(Object o){
+	public Queue() {
+	    this.array = new Object[10];
+    }
+
+	public Queue(int initCapacity) {
+	    this.array = new Object[initCapacity];
+    }
+
+	public void enQueue(Object o) {
 		int target = mapIndex(rear);
 		autoGrow();
 		array[target] = o;
@@ -14,16 +24,19 @@ public class Queue {
 	}
 	
 	public Object deQueue() {
+	    if (isEmpty()) {
+	        throw new EmptyQueueException();
+        }
 		Object obj = array[mapIndex(head)];
 		head++;
 		return obj;
 	}
-	
-	public boolean isEmpty(){
+
+    public boolean isEmpty() {
 		return head == rear;
 	}
 	
-	public int size(){
+	public int size() {
 		return rear - head;
 	}
 
@@ -51,22 +64,5 @@ public class Queue {
 
 	private int mapIndex(int index) {
 		return index >= capacity() ? index % capacity() : index;
-	}
-
-	public static void main(String[] args) {
-		Queue queue = new Queue();
-		for (int i = 0; i < 22; ++i) {
-			queue.enQueue(i);
-		}
-		for (int i = 0; i < 6; ++i) {
-			System.out.print(queue.deQueue() + " ");
-		}
-		for (int i = 22; i < 41; ++i) {
-			queue.enQueue(i);
-		}
-		while (!queue.isEmpty()) {
-			System.out.print(queue.deQueue() + " ");
-		}
-		System.out.println();
 	}
 }

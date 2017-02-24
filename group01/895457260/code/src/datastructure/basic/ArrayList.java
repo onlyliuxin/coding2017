@@ -1,10 +1,10 @@
 package datastructure.basic;
 
 public class ArrayList implements List {
-	
+
 	private int size = 0;
-	
-	Object[] elementData;
+
+	private Object[] elementData;
 
 	public ArrayList() {
         elementData = new Object[100];
@@ -14,37 +14,37 @@ public class ArrayList implements List {
         elementData = new Object[initCapacity];
     }
 
-	public void add(Object o){
+	public void add(Object o) {
 		autoGrow();
 		elementData[size()] = o;
 		size++;
 	}
 
-    public void add(int index, Object o){
+    public void add(int index, Object o) {
         autoGrow();
         System.arraycopy(elementData, index, elementData, index + 1, size() - index);
         elementData[index] = o;
         size++;
 	}
 
-	public Object get(int index){
+	public Object get(int index) {
 	    checkIndex(index);
 		return elementData[index];
 	}
 
-	public Object remove(int index){
+	public Object remove(int index) {
 	    checkIndex(index);
 	    Object removed = elementData[index];
-	    System.arraycopy(elementData, index + 1, elementData, index, size() - index);
+	    System.arraycopy(elementData, index + 1, elementData, index, size() - index - 1);
 	    size--;
 		return removed;
 	}
 
-    public int size(){
+    public int size() {
 		return size;
 	}
 
-	public Iterator iterator(){
+	public Iterator iterator() {
 		return new Iterator() {
 		    int index = -1;
             @Override
@@ -82,4 +82,55 @@ public class ArrayList implements List {
         return "index: " + index + ", size: " + size();
     }
 
+	public static void main(String[] args) {
+		ArrayList list = new ArrayList();
+		for (int i = 0; i < 10; ++i) {
+			list.add(i);
+			list.add(10 - i);
+		}
+		System.out.println("------------------size");
+		System.out.println("size: " + list.size());
+
+		System.out.println("------------------for(int i)");
+		for (int i = 0; i < list.size(); ++i) {
+			System.out.print(list.get(i) + " ");
+		}
+
+		System.out.println("\n-----------------iterator");
+		Iterator iterator = list.iterator();
+		while (iterator.hasNext()) {
+			System.out.print(iterator.next() + " ");
+		}
+
+		System.out.println("\n-----------------add at index 0    100~104");
+		for (int i = 100; i < 105; ++i) {
+			list.add(0, i);
+		}
+		list.print();
+		System.out.println("-----------------add at last    200~204");
+		for (int i = 200; i < 205; ++i) {
+			list.add(list.size(), i);
+		}
+		list.print();
+
+		System.out.println("-----------------removeFirst x4");
+		for (int i = 0; i < 4; ++i) {
+			list.remove(0);
+		}
+		list.print();
+
+		System.out.println("\n-----------------removeLast x4");
+		for (int i = 0; i < 4; ++i) {
+			list.remove(list.size() - 1);
+		}
+		list.print();
+	}
+
+	public void print() {
+		Iterator iterator = iterator();
+		while (iterator.hasNext()) {
+			System.out.print(iterator.next() + " ");
+		}
+		System.out.println("\nsize: " + size());
+	}
 }
