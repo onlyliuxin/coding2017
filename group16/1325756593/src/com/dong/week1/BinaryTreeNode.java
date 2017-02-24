@@ -1,32 +1,39 @@
 package com.dong.week1;
 
 public class BinaryTreeNode {
+	private TreeNode node;
 	
-	private Object data;
-	private BinaryTreeNode left;
-	private BinaryTreeNode right;
+	  private static class  TreeNode{  
+	        private int key=0;  
+	        private TreeNode leftChild=null;  
+	        private TreeNode rightChild=null;  
+	          
+	        public TreeNode(){}  
+	          
+	        /** 
+	         * @param key  ²ãĞò±àÂë 
+	         * @param data Êı¾İÓò 
+	         */  
+	        public TreeNode(int key){  
+	            this.key=key;  
+	            this.leftChild=null;  
+	            this.rightChild=null;  
+	        }  
+	  
+	  
+	    }  
 	
-	public Object getData() {
-		return data;
-	}
-	public void setData(Object data) {
-		this.data = data;
-	}
-	public BinaryTreeNode getLeft() {
-		return left;
-	}
-	public void setLeft(BinaryTreeNode left) {
-		this.left = left;
-	}
-	public BinaryTreeNode getRight() {
-		return right;
-	}
-	public void setRight(BinaryTreeNode right) {
-		this.right = right;
-	}
 	
-	public BinaryTreeNode insert(Object o){
-		return  null;
+	
+	public TreeNode insert(TreeNode  o){
+		if(node == null){
+			return o;
+		}		
+		if(node.key > o.key){
+			return insert(o.leftChild);
+		}else{
+			return insert(node.leftChild);
+		}
 	}
 	
 }
