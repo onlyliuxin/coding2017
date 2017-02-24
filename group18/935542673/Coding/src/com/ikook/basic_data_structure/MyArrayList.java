@@ -177,7 +177,7 @@ public class MyArrayList implements MyList{
 		int lastRet = -1; // 返回最后一个元素的索引(始终指向刚遍历完的元素)，如果没有元素了，则为 -1
 
 		@Override
-		public boolean hesNext() {
+		public boolean hasNext() {
 			return cursor != size;  // cursor 等于 size 则集合遍历完。
 		}
 

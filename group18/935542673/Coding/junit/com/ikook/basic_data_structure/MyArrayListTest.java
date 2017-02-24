@@ -76,13 +76,13 @@ public class MyArrayListTest {
 	@Test
 	public void testIterator() {
 		int i = 0;
-		for(MyIterator iter = list.iterator(); iter.hesNext();) {
+		for(MyIterator iter = list.iterator(); iter.hasNext();) {
 			Object str = (Object) iter.next();
 			assertEquals(list.get(i++), str);
 		}
 		
 		int j = list.size();
-		for(MyIterator iter = list.iterator(); iter.hesNext();) {
+		for(MyIterator iter = list.iterator(); iter.hasNext();) {
 		        iter.next();
 			iter.remove();
 			assertEquals( --j , list.size());
