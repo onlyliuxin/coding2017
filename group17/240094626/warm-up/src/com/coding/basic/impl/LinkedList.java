@@ -5,6 +5,10 @@ import java.util.NoSuchElementException;
 import com.coding.basic.Iterator;
 import com.coding.basic.List;
 
+/**
+ * 双向链表简单实现
+ * @author 240094626
+ */
 public class LinkedList implements List {
 	/**头节点（空的）*/
 	private Node header = new Node(null, null, null); 
@@ -104,7 +108,7 @@ public class LinkedList implements List {
 
 
 	@Override
-	public int getSize() {
+	public int size() {
 		return size;
 	}
 	
