@@ -10,4 +10,4 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ArrayListTest.class, LinkedListTest.class,
         BinarySortedTreeTest.class, QueueTest.class, StackTest.class})
-public class DataStructureTestSuite {}
+public class TestSuite {}

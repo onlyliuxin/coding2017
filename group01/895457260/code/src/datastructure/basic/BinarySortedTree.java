@@ -8,17 +8,17 @@ public class BinarySortedTree<T extends Comparable> {
 
     private BinaryTreeNode root = null;
 
-    public void traversal(Visitor visitor) {
-        traversal(root, visitor);
+    public void traverse(Visitor visitor) {
+        traverse(root, visitor);
     }
 
-    private void traversal(BinaryTreeNode node, Visitor visitor) {
+    private void traverse(BinaryTreeNode node, Visitor visitor) {
         if (node == null) {
             return;
         }
-        traversal(node.getLeft(), visitor);
+        traverse(node.getLeft(), visitor);
         visitor.visit(node);
-        traversal(node.getRight(), visitor);
+        traverse(node.getRight(), visitor);
     }
 
     public interface Visitor {

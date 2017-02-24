@@ -43,7 +43,7 @@ public class BinarySortedTreeTest {
         final Object[] left = new Object[addValues.length];
         final Object[] value = new Object[addValues.length];
         final Object[] right = new Object[addValues.length];
-        tree.traversal(new BinarySortedTree.Visitor() {
+        tree.traverse(new BinarySortedTree.Visitor() {
             int pos = 0;
             @Override
             public void visit(BinaryTreeNode node) {
