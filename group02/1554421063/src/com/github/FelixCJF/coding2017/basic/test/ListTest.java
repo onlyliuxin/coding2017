@@ -6,17 +6,18 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import com.github.FelixCJF.coding2017.basic.ArrayList;
 import com.github.FelixCJF.coding2017.basic.Iterator;
 import com.github.FelixCJF.coding2017.basic.List;
 
 public class ListTest {
 	
 	
-	protected static List aList;
-	
+	//protected static List aList = new ArrayList();
 	
 	@Test
 	public void testFunctional() {
+		List aList = new ArrayList();
 		aList.add(1);
 		aList.add(2);
 		assertEquals(1, aList.get(0));
@@ -41,6 +42,7 @@ public class ListTest {
 	
 	@Test
 	public void testAdd() {
+		List aList = new ArrayList();
 		for (int i=0; i<100; i++)
 			aList.add(i);
 		assertEquals(0, aList.get(0));
@@ -50,6 +52,7 @@ public class ListTest {
 	
 	@Test
 	public void testRemove() {
+		List aList = new ArrayList();
 		aList.add(1);
 		aList.add(2);
 		aList.add(3);
@@ -73,6 +76,7 @@ public class ListTest {
 	
 	@Test
 	public void testSize() {
+		List aList = new ArrayList();
 		for (int i=0; i<10; i++)
 			aList.add(i*2);
 		assertEquals(10, aList.size());
@@ -83,6 +87,7 @@ public class ListTest {
 	
 	@Test
 	public void testException() {
+		List aList = new ArrayList();
 		expectedEx.expect(Exception.class);
 		
 		aList.remove(1);
@@ -93,6 +98,7 @@ public class ListTest {
 	
 	@Test
 	public void testIterator() {
+		List aList = new ArrayList();
 		Iterator it = aList.iterator();
 		assertEquals(false, it.hasNext());
 		

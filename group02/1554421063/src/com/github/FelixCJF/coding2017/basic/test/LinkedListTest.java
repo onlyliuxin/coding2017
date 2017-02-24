@@ -7,7 +7,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.FelixCJF.coding2017.basic.ArrayList;
 import com.github.FelixCJF.coding2017.basic.LinkedList;
+import com.github.FelixCJF.coding2017.basic.List;
 
 public class LinkedListTest extends ListTest{
 
@@ -15,6 +17,7 @@ public class LinkedListTest extends ListTest{
 	
 	@Before
 	public void setUpLinkedList() {
+		List aList = new ArrayList();
 		aList = new LinkedList();
 		aLinkedList = new LinkedList();
 	}

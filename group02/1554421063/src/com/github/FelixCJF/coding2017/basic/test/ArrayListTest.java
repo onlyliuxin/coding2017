@@ -6,9 +6,9 @@ import com.github.FelixCJF.coding2017.basic.ArrayList;
 
 public class ArrayListTest extends ListTest {
 	
-	@Before
+/*	@Before
 	public void setUpArrayList() {
 		aList = new ArrayList();
-	}
+	}*/
 	
 }
