@@ -139,7 +139,7 @@ public class MyBinarySearchTree {
 	 * @param deleleNode
 	 * @return
 	 */
-	public Node getSuccessor(Node deleleNode) {
+	private Node getSuccessor(Node deleleNode) {
 		Node successsor = null;
 		Node successsorParent = null;
 		Node current = deleleNode.right;
@@ -162,7 +162,7 @@ public class MyBinarySearchTree {
 	 * @param root
 	 * @param sb
 	 */
-	public void display(Node root, StringBuilder sb) {
+	private void display(Node root, StringBuilder sb) {
 		if (root != null) {
 			display(root.left, sb);
 			sb.append(root.data + " ");
