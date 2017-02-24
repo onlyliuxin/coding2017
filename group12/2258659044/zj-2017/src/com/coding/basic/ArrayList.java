@@ -43,7 +43,7 @@ public class ArrayList implements List {
 	
 	public Object get(int index){
 		
-		if(index>=size){
+		if(index>size){
 			throw new IndexOutOfBoundsException("Index: "+index+",Size:"+size);
 		}
 		return elementData[index];
