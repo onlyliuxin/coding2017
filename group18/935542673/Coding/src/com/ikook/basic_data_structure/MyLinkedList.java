@@ -294,7 +294,6 @@ public class MyLinkedList implements MyList{
 		Node next; // 下一个节点
 
 		public Node(Node previous, Object data, Node next) {
-			super();
 			this.previous = previous;
 			this.data = data;
 			this.next = next;
