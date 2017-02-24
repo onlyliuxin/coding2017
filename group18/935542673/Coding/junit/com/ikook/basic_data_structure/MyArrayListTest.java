@@ -83,7 +83,7 @@ public class MyArrayListTest {
 		
 		int j = list.size();
 		for(MyIterator iter = list.iterator(); iter.hesNext();) {
-		    iter.next();
+		        iter.next();
 			iter.remove();
 			assertEquals( --j , list.size());
 		}
