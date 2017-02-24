@@ -60,11 +60,49 @@ public class ArrayList implements List {
 	}
 	
 	public Iterator iterator(){
-		return null;
+		return new IteratorArrayList(this);
 	}
 	@Override
 	public String toString() {
 		return "ArrayList [size=" + size + ", elementData=" + Arrays.toString(elementData) + "]";
+	}
+
+	
+	private class IteratorArrayList implements Iterator{
+		
+		private ArrayList arrayList;
+		private int index=0;
+		
+
+		public IteratorArrayList(ArrayList arrayList) {
+			super();
+			this.arrayList = arrayList;
+		}
+
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			return this.arrayList.size() >index;
+		}
+
+		@Override
+		public Object next() {
+			// TODO Auto-generated method stub
+			if(hasNext()){
+				return  this.arrayList.get(index++);
+			}
+			return null;
+		}
+		
+	}
+	
+	public static void main(String[] args) {
+		ArrayList arrayList= new ArrayList();
+		
+		Iterator iterator=  arrayList.iterator();
+		while(iterator.hasNext()){
+			System.out.println(iterator.next());
+		}
 	}
 
 	

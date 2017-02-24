@@ -1,6 +1,5 @@
 package com.dong.week1;
 
-
 public class LinkedList implements List {
 	
 	private int size = 0;
@@ -141,7 +140,7 @@ public class LinkedList implements List {
 		return retVal;
 	}
 	public Iterator iterator(){
-		return null;
+		return new IteratorArrayLinkedList(this);
 	}
 	
 	
@@ -166,11 +165,44 @@ public class LinkedList implements List {
 	public String toString() {
 		return "LinkedList [size=" + size + ", head=" + head + ", tail=" + tail + "]";
 	}
+	
+	
+	private class IteratorArrayLinkedList implements Iterator{
+		private LinkedList list;
+		private int index = 0;
+		
+			
+
+
+		public IteratorArrayLinkedList(LinkedList list) {
+			super();
+			this.list = list;
+		}
+
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			return this.list.size() >index;
+		}
+
+		@Override
+		public Object next() {
+			// TODO Auto-generated method stub
+			if(hasNext()){
+				return  this.list.get(index++);
+			}
+			return null;
+		}
+}
 	public static void main(String[] args) {
-		LinkedList list = new LinkedList();
-	//	System.out.println(list.size);
-		list.add(1);
-		list.add(2);
-		System.out.println(list.removeFirst());
-	}
+		
+		LinkedList arrayList= new LinkedList();
+		
+		Iterator iterator=  arrayList.iterator();
+		while(iterator.hasNext()){
+			System.out.println(iterator.next());
+		}
+	
+}
+	
 }
