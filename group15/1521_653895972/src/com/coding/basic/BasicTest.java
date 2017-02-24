@@ -11,10 +11,10 @@ public class BasicTest {
     @Test
     public void test() {
         //测试
-//        testArrayList();
-//        testLinkedList();
-//        testBinaryTreeNode();
-//        testStack();
+        testArrayList();
+        testLinkedList();
+        testBinaryTreeNode();
+        testStack();
         testQueue();
     }
 
@@ -59,91 +59,125 @@ public class BasicTest {
     }
     public void testLinkedList() {
         System.out.println("-------------------LinkedList 测试开始-------------------");
+
         System.out.println("new 一个实例");
         LinkedList list = new LinkedList();
-        System.out.println("1.add(\"A\") 添加元素----A");
+
+        System.out.println("添加元素----A");
         list.add("A");
+        Assert.assertEquals(list.get(list.size()-1),"A");
         System.out.println("结果："+list);
+
         System.out.println();
-        System.out.println("2.add(\"B\") 添加元素----B");
+        System.out.println("添加元素----B");
         list.add("B");
+        Assert.assertEquals(list.get(list.size()-1),"B");
         System.out.println("结果："+list);
+
         System.out.println();
-        System.out.println("3.add(3) 添加元素----3");
+        System.out.println("添加元素----3");
         list.add(3);
+        Assert.assertEquals(list.get(list.size()-1),3);
         System.out.println("结果："+list);
+
         System.out.println();
-        System.out.println("4.add(1, 3) 在下标1插入元素----3");
+        System.out.println("在下标1插入元素----3");
         list.add(1, 3);
+        Assert.assertEquals(list.get(1),3);
         System.out.println("结果："+list);
+
         System.out.println();
-        System.out.println("5.add(3, 6) 在下标3插入元素----6");
+        System.out.println("在下标3插入元素----6");
         list.add(3, 6);
+        Assert.assertEquals(list.get(3),6);
         System.out.println("结果："+list);
+
         System.out.println();
-        System.out.println("6.remove(0) 删除下标0元素");
+        System.out.println("删除下标0元素");
         list.remove(0);
         System.out.println("结果："+list);
+
         System.out.println();
-        System.out.println("7.size() 获取size");
+        System.out.println("获取size");
         System.out.println("结果："+list.size());
+
         System.out.println();
-        System.out.println("8.addFirst(\"F\") 在首位前插入F");
+        System.out.println("在首位前插入F");
         list.addFirst("F");
+        Assert.assertEquals(list.get(0),"F");
         System.out.println("结果："+list);
-        System.out.println("9.addLast(\"K\") 在末位前插入K");
+
+        System.out.println();
+        System.out.println("在末位前插入K");
         list.addLast("K");
+        Assert.assertEquals(list.get(list.size()-1),"K");
         System.out.println("结果："+list);
-        System.out.println("10.removeFirst() 删除首位");
+
+        System.out.println();
+        System.out.println("删除首位");
         list.removeFirst();
         System.out.println("结果："+list);
-        System.out.println("11.removeLast() 删除末尾");
+
+        System.out.println();
+        System.out.println("删除末尾");
         list.removeLast();
         System.out.println("结果："+list);
+
         System.out.println();
-        System.out.println("12.迭代器");
+        System.out.println("迭代器输出：");
         Iterator i = list.iterator();
         while (i.hasNext()){
-            System.out.println(i.next());
+            System.out.print(i.next()+" ");
         }
         System.out.println("-------------------LinkedList 测试结束-------------------");
     }
+
+    /**
+     * 测试 ArrayList
+     */
     public void testArrayList() {
         System.out.println("-------------------ArrayList 测试开始-------------------");
+
         System.out.println("new 一个实例");
         ArrayList list = new ArrayList();
-        System.out.println("1.添加元素----A");
+
+        System.out.println("添加元素 A");
         list.add("A");
-        Assert.assertEquals(list.get(0),"A");
-        System.out.println("结果："+list);
-        System.out.println();
-        System.out.println("2.添加元素----B");
+        Assert.assertEquals(list.get(list.size()-1),"A");
+
+        System.out.println("添加元素 B");
         list.add("B");
-        System.out.println("结果："+list);
-        System.out.println();
-        System.out.println("3.添加元素----3");
+        Assert.assertEquals(list.get(list.size()-1),"B");
+
+        System.out.println("添加元素 3");
         list.add(3);
-        System.out.println("结果："+list);
-        System.out.println();
-        System.out.println("4.在下标1插入元素----3");
+        Assert.assertEquals(list.get(list.size()-1),3);
+        System.out.println("输出："+list);
+
+        System.out.println("添加元素 3 到索引 1");
         list.add(1, 3);
-        System.out.println("结果："+list);
-        System.out.println();
-        System.out.println("5.在下标3插入元素----6");
+        Assert.assertEquals(list.get(1),3);
+        System.out.println("输出："+list);
+
+        System.out.println("添加元素 6 到索引 3");
         list.add(3, 6);
-        System.out.println("结果："+list);
-        System.out.println();
-        System.out.println("6.删除下标0元素");
-        list.remove(0);
-        System.out.println("结果："+list);
-        System.out.println();
-        System.out.println("7.获取size");
-        System.out.println("结果："+list.size());
-        System.out.println();
-        System.out.println("8.迭代器");
+        Assert.assertEquals(list.get(3),6);
+        System.out.println("输出："+list);
+
+        System.out.println("移除 索引 4 元素");
+        Object rm = list.remove(4);
+        System.out.println("输出："+list);
+
+        System.out.println("获取 索引 4 元素");
+        Object get = list.get(4);
+        Assert.assertNotEquals(rm,get);
+
+        System.out.println("输出："+list);
+        System.out.println("数量："+list.size());
         Iterator i = list.iterator();
+        System.out.print("迭代器输出：");
         while (i.hasNext()){
-            System.out.println(i.next());
+            System.out.print(i.next()+" ");
         }
         System.out.println("-------------------ArrayList 测试结束-------------------");
     }
