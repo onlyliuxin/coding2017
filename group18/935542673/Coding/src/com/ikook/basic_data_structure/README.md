@@ -1,6 +1,9 @@
 ##  2017编程提高社群作业：实现基本的数据结构(2017.2.19)
 
 1. 实现了ArrayList、LinkedList、Queue(依靠LinkedList实现)、Stack(依靠ArrayList实现)
+
+   ​
+
    1.1  ArrayList实现了一下方法：
 
    ```
@@ -55,6 +58,9 @@
    ```
 
 2. 实现了BinarySearchTree、Iterator接口
+
+   ​
+
    1.1  BinarySearchTree实现了一下方法：
 
    ```
@@ -73,4 +79,7 @@
    ```
 
 3. 对应以上类做了单元测试
+
+   ​
+
     说明：由于作业以实现基本的数据结构为主，则在实现单元测试时，只对正常情况进行了测试，一些异常情况并进行编写测试用例。
