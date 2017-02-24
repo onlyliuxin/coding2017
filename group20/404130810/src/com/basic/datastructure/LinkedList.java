@@ -1,53 +1,117 @@
 package com.basic.datastructure;
 
-public class LinkedList implements List{
+public class LinkedList implements List {
 	private Node first;
 	private Node last;
-	
+
 	private int size;
-	
-	public void add(Object o){
-		if(first == null){
-			first = new Node(o,null);
+
+	public void add(Object o) {
+		addLast(o);
+	}
+
+	public void add(int index, Object o) {
+		checkRange(index);
+		if (index == 0) {
+			addFirst(o);
+		} else if (index == size) {
+			addLast(o);
+		} else {
+
 		}
-		size ++;
 	}
-	public void add(int index , Object o){
-		
-	}
-	public Object get(int index){
+
+	public Object get(int index) {
+		checkRange(index);
+		if(size > 0){
+			int loopTimes = 0;
+			Node p = first;
+			while(index > loopTimes){
+				p = p.next;
+				loopTimes ++;
+			}
+			return p;
+		}
+
 		return null;
 	}
-	public Object remove(int index){
+
+	public Object remove(int index) {
 		return null;
 	}
-	
-	public int size(){
+
+	public int size() {
 		return size;
 	}
-	
-	public void addFirst(Object o){
-		
+
+	private void addFirst(Object o) {
+		if (size == 0) {
+			first = new Node(o);
+			last = first;
+		} else {
+			Node tmpNode = new Node(o);
+			tmpNode.next = first;
+			first = tmpNode;
+		}
+		size++;
 	}
-	public void addLast(Object o){
-		
+
+	private void addLast(Object o) {
+		if (size == 0) {
+			first = new Node(o);
+			last = first;
+		} else {
+			last.next = new Node(o);
+			last = last.next;
+		}
+		size++;
 	}
-	public Object removeFirst(){
+
+	public Object removeFirst() {
+		Node tmpNode = first;
+		first = first.next;
+		size--;
+		return tmpNode;
+	}
+
+	public Object removeLast() {
+		Node tmpNode = last;
+
 		return null;
 	}
-	public Object removeLast(){
-		return null;
-	}
-	
-	
-	private static class Node{
-		Object item;
-		Node next;
-		Node(Object item, Node next){
-			this.item = item;
-			this.next = next;
+
+	private void checkRange(int index) {
+		if (index > size || index < 0) {
+			throw new IndexOutOfBoundsException("Index: " + index + "Size: " + size);
 		}
 	}
 
-}
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		Node p = first;
+		while (p != null) {
+			sb.append(p.item + "\n");
+			p = p.next;
+		}
+		return sb.toString();
+	}
 
+	private static class Node {
+		private Object item;
+		private Node next;
+
+		Node(Object item) {
+			this.item = item;
+		}
+	}
+
+	public static void main(String[] args) {
+		LinkedList list = new LinkedList();
+		for (int i = 0; i < 5; i++) {
+			list.add(i);
+		}
+		list.get(5);
+
+		System.out.println(list);
+	}
+}
