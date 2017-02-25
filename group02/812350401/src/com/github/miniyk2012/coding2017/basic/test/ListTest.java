@@ -85,7 +85,6 @@ public class ListTest {
 		aList.remove(1);
 		aList.add(3);
 		aList.add(2, 5);
-		expectedEx.expect(Exception.class);
 	}
 	
 	@Test
@@ -110,6 +109,9 @@ public class ListTest {
 		assertEquals(1, it.next());
 		assertEquals(3, it.next());
 		assertEquals(false, it.hasNext());	
+		
+		expectedEx.expect(Exception.class);
+		it.next();
 	}
 
 }
