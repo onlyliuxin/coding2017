@@ -4,9 +4,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.pxshuo.basic.impl.ArrayList;
+import com.pxshuo.basic.impl.LinkedList;
 
-public class ArrayListTest {
-	ArrayList object = new ArrayList();
+public class LinkedListTest {
+	LinkedList object = new LinkedList();
 	
 	@Test
 	public void addTest() {
@@ -17,7 +18,7 @@ public class ArrayListTest {
 	@Test
 	public void addIndexTest(){
 		object.add(3,"Hello");
-		Assert.assertEquals("Hello", object.get(3) );
+		Assert.assertEquals("Hello", object.get(0));
 	}
 	
 	@Test

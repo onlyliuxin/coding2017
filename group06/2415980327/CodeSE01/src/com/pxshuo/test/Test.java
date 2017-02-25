@@ -52,6 +52,8 @@ public class Test {
 		binaryTree.add(new TreeData(4));
 		binaryTree.add(new TreeData(8));
 		
-		binaryTree.display();
+		System.out.println(binaryTree.get(5).getClass());
+		
+		//binaryTree.display();
 	}
 }

@@ -7,6 +7,10 @@ public class TreeData implements Comparable<Object> {
 		this.data = data;
 	}
 	
+	public int getData() {
+		return data;
+	}
+	
 	@Override
 	public String toString() {
 		return data + "";

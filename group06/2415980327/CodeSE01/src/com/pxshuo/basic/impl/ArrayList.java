@@ -24,6 +24,9 @@ public class ArrayList implements List{
 
 	@Override
 	public void add(int index, Object o) {
+		if (index > size + 1) {
+			return;
+		}
 		elements = grow();
 		int moveNum = size - index + 1;//本次操作需要移动的元素的个数；
 		size++;
@@ -53,6 +56,9 @@ public class ArrayList implements List{
 
 	@Override
 	public Object remove(int index) {
+		if (index > size) {
+			return null;
+		}
 		Object removeEle = elements[index];
 		int moveNum = size - index;//本次操作需要移动的元素的个数；
 		if (moveNum > 0) {
