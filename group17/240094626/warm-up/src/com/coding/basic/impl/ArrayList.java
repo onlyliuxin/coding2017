@@ -155,7 +155,7 @@ public class ArrayList implements List  {
 
 		@Override
 		public Object next() {
-			Object o = data[index++];
+			Object o = get(index++);
 			return o;
 		}
 		
