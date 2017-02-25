@@ -1,5 +1,7 @@
 package com.coding.basic.impl;
 
+import com.coding.basic.Iterator;
+
 /**
  * 栈的简单实现
  * @author 240094626
@@ -46,5 +48,31 @@ public class Stack {
 	 */
 	public int size(){
 		return elementData.size();
+	}
+	
+	public Iterator iterator(){
+		return new StackIterator();
+	}
+	private class StackIterator implements Iterator{
+		int index;
+
+		public StackIterator() {
+			index = 0;
+		}
+
+		@Override
+		public boolean hasNext() {
+			if(index < elementData.size()){
+				return true;
+			}
+			return false;
+		}
+
+		@Override
+		public Object next() {
+			return elementData.get(index);
+		}
+		
+		
 	}
 }

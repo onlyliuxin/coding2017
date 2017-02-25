@@ -111,6 +111,26 @@ public class LinkedList implements List {
 	public int size() {
 		return size;
 	}
+	/**
+	 * 环形链表结构，header.next就是第一个节点
+	 * @param o
+	 */
+	public void addFirst(Object o){
+		addBefore(o, header.next);
+	}
+	/**
+	 * 环形链表结构，header.pre就是最后一个节点
+	 * @param o
+	 */
+	public void addLast(Object o){
+		addBefore(o, header);
+	}
+	public Object removeFirst(){
+		return remove(header.next);
+	}
+	public Object removeLast(){
+		return remove(header.pre);
+	}
 	
 	public Iterator iterator(){
 		
@@ -154,7 +174,7 @@ public class LinkedList implements List {
 
 		@Override
 		public Object next() {
-			Node n = getNode(index);
+			Node n = getNode(index++);
 			return n.data;
 		}
 		

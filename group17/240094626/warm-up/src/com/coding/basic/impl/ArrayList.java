@@ -1,7 +1,6 @@
 package com.coding.basic.impl;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 
 import com.coding.basic.Iterator;
 import com.coding.basic.List;
@@ -37,7 +36,6 @@ public class ArrayList implements List  {
 	 * 构造函数，初始化容量为length的空列表
 	 */
 	public ArrayList(int length){
-		super();
 		if(length < 0){
 			throw new IllegalArgumentException("初始容量参数非法："+length);
 		}
@@ -71,7 +69,7 @@ public class ArrayList implements List  {
 	 * @comment：检验下标参数是否超限
 	 */
 	private void check(int index) {
-		if( index > data.length){
+		if( index >= size){
 			throw new IndexOutOfBoundsException("Index:"+index+",size:"+size);
 		}
 	}
@@ -163,24 +161,6 @@ public class ArrayList implements List  {
 		
 	}
 
-	// Test
-	public static void main(String[] args) {
-		ArrayList list = new ArrayList(5);
-		System.out.println(list.size());
-		list.add("1");
-		list.add(1,"hei");
-		
-		System.out.println(list.toString());
-		Iterator i = list.iterator();
-		while(i.hasNext()){
-			System.out.println(i.next());
-		}
-//		java.util.ArrayList<String> a = new java.util.ArrayList<String>();
-//		Iterator iterator = (Iterator) a.iterator();
-	}
-
-	
-	
 }
 
 
