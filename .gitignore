@@ -1,5 +1,4 @@
 *.class
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -15,5 +14,8 @@ hs_err_pid*
 .metadata
 .recommenders
 .idea/
-rebel.xml
-*.rebel
+*.iml
+rebel.*
+.rebel.*
+
+target
