@@ -16,7 +16,7 @@ public class MyLinkedList implements MyList {
 
     @Override
     public void add(int index, Object o) {
-        checkRange(index);
+        checkRangeAdd(index);
         Node insert = find(index);
         Node before = find(index - 1);
         Node node = new Node();
@@ -28,13 +28,13 @@ public class MyLinkedList implements MyList {
 
     @Override
     public Object get(int index) {
-        checkRange(index);
+        checkRangeGet(index);
         return find(index).data;
     }
 
     @Override
     public Object remove(int index) {
-        checkRange(index);
+        checkRangeGet(index);
         Node before = find(index - 1);
         Node remove = find(index);
         Node after = find(index + 1);
@@ -65,7 +65,7 @@ public class MyLinkedList implements MyList {
     }
 
     public Object removeFirst() {
-        checkRange(size - 1);
+        checkRangeGet(size - 1);
         Node remove = find(0);
         head.next = find(1);
         size--;
@@ -73,7 +73,7 @@ public class MyLinkedList implements MyList {
     }
 
     public Object removeLast() {
-        checkRange(size - 1);
+        checkRangeGet(size - 1);
         Node remove = find(size - 1);
         Node before = find(size - 2);
         before.next = null;
@@ -85,12 +85,17 @@ public class MyLinkedList implements MyList {
         return new MyLinkedListIterator();
     }
 
-    private void checkRange(int index) {
+    private void checkRangeGet(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size:" + size);
         }
     }
 
+    private void checkRangeAdd(int index) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size:" + size);
+        }
+    }
     private Node find(int index) {
         Node node = head;
         int pos = -1;
@@ -136,7 +141,7 @@ public class MyLinkedList implements MyList {
 
         @Override
         public Object next() {
-            checkRange(size);
+            checkRangeGet(size);
             node = node.next;
             size++;
             return node.data;

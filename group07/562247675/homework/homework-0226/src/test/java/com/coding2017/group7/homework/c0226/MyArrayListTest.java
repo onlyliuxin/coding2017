@@ -11,12 +11,13 @@ import org.junit.runners.MethodSorters;
 public class MyArrayListTest {
 
     private MyArrayList myList = new MyArrayList();
-    private final int mySize = 15;
+    private Object[] elements = new Object[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+    private final int mySize = elements.length;
 
     @Before
     public void setUp() throws Exception {
         for (int i = 0; i < mySize; i++) {
-            myList.add(i);
+            myList.add(i, i + 1);
         }
     }
 
@@ -46,11 +47,6 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void get() throws Exception {
-        Assert.assertTrue(myList.get(0).equals(0));
-    }
-
-    @Test
     public void remove() throws Exception {
         int index = mySize / 2;
         Object before = myList.get(index + 1);
@@ -59,11 +55,6 @@ public class MyArrayListTest {
         Assert.assertTrue(before.equals(after));
         Assert.assertEquals(myList.size(), mySize - 1);
 
-    }
-
-    @Test
-    public void size() throws Exception {
-        Assert.assertEquals(myList.size(), mySize);
     }
 
     @Test

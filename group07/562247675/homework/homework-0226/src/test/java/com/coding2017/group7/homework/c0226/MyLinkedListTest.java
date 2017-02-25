@@ -8,12 +8,13 @@ import org.junit.Test;
 public class MyLinkedListTest {
 
     private MyLinkedList myList = new MyLinkedList();
-    private final int mySize = 15;
+    private Object[] elements = new Object[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+    private final int mySize = elements.length;
 
     @Before
     public void setUp() throws Exception {
         for (int i = 0; i < mySize; i++) {
-            myList.add(i);
+            myList.add(i, i + 1);
         }
     }
 
@@ -42,24 +43,11 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void get() throws Exception {
-        Object get1 = myList.get(0);
-        Assert.assertTrue(get1.equals(myList.get(0)));
-        Object get2 = myList.get(mySize - 1);
-        Assert.assertTrue(get2.equals(myList.get(mySize - 1)));
-    }
-
-    @Test
     public void remove() throws Exception {
         myList.remove(0);
         myList.remove(myList.size() - 1);
         myList.remove(myList.size() / 2);
         Assert.assertEquals(myList.size(), mySize - 3);
-    }
-
-    @Test
-    public void size() throws Exception {
-        Assert.assertEquals(myList.size(), mySize);
     }
 
     @Test
