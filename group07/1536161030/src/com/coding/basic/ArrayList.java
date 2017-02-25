@@ -85,9 +85,9 @@ public class ArrayList implements List{
     	this.elementData = newElementData;
     	newElementData = null;
     }
-
+    
+    //
 	public boolean isEmpty() {
-		
 		return size == 0;
 	}
 	

@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import com.coding.basic.LinkedList;
 
+//
 public class LinkedListTest{
 	@Test
 	public void testAddObject() {

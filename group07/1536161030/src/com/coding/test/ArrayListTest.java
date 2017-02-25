@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import com.coding.basic.ArrayList;
 
+//
 public class ArrayListTest {
 
 	@Test

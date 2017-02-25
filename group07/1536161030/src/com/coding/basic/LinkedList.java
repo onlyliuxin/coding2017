@@ -131,7 +131,8 @@ public class LinkedList implements List {
             x = x.next;
         return x;
     }
-
+    
+    //
 	public boolean isEmpty() {
 		return head ==null;
 	}

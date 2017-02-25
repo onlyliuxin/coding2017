@@ -57,6 +57,7 @@ public class Queue {
         return diff;
     }
     
+    //
     public boolean isFull(){
     	return size == queue.length;
     }
