@@ -8,6 +8,7 @@ public class MyArrayList implements MyList {
 
     private Object[] elementData = new Object[10];
 
+    @Override
     public void add(Object o) {
         if (isFull()) {
             increase();
@@ -15,6 +16,7 @@ public class MyArrayList implements MyList {
         elementData[size++] = o;
     }
 
+    @Override
     public void add(int index, Object o) {
         checkRange(index);
         if (isFull()) {
@@ -25,11 +27,13 @@ public class MyArrayList implements MyList {
         size++;
     }
 
+    @Override
     public Object get(int index) {
         checkRange(index);
         return elementData[index];
     }
 
+    @Override
     public Object remove(int index) {
         checkRange(index);
         Object element = elementData[index];
@@ -39,6 +43,7 @@ public class MyArrayList implements MyList {
         return element;
     }
 
+    @Override
     public int size() {
         return size;
     }
@@ -80,6 +85,7 @@ public class MyArrayList implements MyList {
 
         @Override
         public Object next() {
+            checkRange(index);
             return elementData[index++];
         }
     }
