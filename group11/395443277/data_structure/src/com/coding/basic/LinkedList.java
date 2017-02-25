@@ -1,7 +1,8 @@
 package com.coding.basic;
 
+import java.util.NoSuchElementException;
+
 public class LinkedList implements List {
-	
 	private Node head;
 	
 	public void add(Object o){
@@ -126,11 +127,28 @@ public class LinkedList implements List {
 		return target;
 	}
 	public Iterator iterator(){
-		return null;
+		return new SeqIterator();
 	}
 	
+	private class SeqIterator implements Iterator {
+		Node curr = head;
+		
+		@Override
+		public boolean hasNext() {
+			return curr != null;
+		}
+
+		@Override
+		public Object next() {
+			if (!hasNext()) throw new NoSuchElementException();
+			Object target = curr.data;
+			curr = curr.next;
+			return target;
+		}
+
+	}
 	
-	private static  class Node{
+	private static class Node{
 		Object data;
 		Node next;
 		

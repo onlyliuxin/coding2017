@@ -57,8 +57,26 @@ public class ArrayList implements List {
 		return size;
 	}
 	
-	public Iterator iterator(){
-		return null;
+	public Iterator iterator (){
+		return new SeqIterator();
+	}
+	
+	private class SeqIterator implements Iterator {
+		int i = 0;
+		
+		@Override
+		public boolean hasNext() {
+			return i < size;
+		}
+
+		@Override
+		public Object next() {
+			if (!hasNext()) {
+				return null;
+			}
+			return elementData[i++];
+		}
+		
 	}
 	
 }

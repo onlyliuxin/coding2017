@@ -111,4 +111,17 @@ public class LinkedListTest {
 		assertEquals(3, list.removeLast());
 	}
 
+	@Test
+	public void testIterator() {
+		LinkedList list = new LinkedList();
+		list.add(4);
+		list.add(3);
+		list.add(2);
+		
+		Iterator it = list.iterator();
+		
+		assertEquals(4, it.next());
+		assertEquals(3, it.next());
+		assertEquals(2, it.next());
+	}
 }

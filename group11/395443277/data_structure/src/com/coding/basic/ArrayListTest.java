@@ -64,4 +64,21 @@ public class ArrayListTest {
 		assertEquals(6, list.get(4));
 	}
 
+	@Test
+	public void testIterator() {
+		ArrayList list = new ArrayList();
+		list.add(5);
+		list.add(4);
+		list.add(3);
+		list.add(2);
+		list.add(1);
+		
+		Iterator it = list.iterator();
+		if(it.hasNext()) {
+			assertEquals(5, it.next());
+			assertEquals(4, it.next());
+		}
+		
+	}	
+	
 }
