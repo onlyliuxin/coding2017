@@ -1,5 +1,7 @@
 ##  2017编程提高社群作业：实现基本的数据结构(2017.2.19)
 
+#### [所有基本数据结构实现类及接口](https://github.com/china-kook/coding2017/tree/master/group18/935542673/Coding/20170219/src/com/ikook/basic_data_structure)
+
 1. 实现了ArrayList、LinkedList、Queue(依靠LinkedList实现)、Stack(依靠ArrayList实现)
 
    1.1  ArrayList实现了以下方法：
@@ -76,8 +78,6 @@
    ```
    ​
 
-3. 对应以上类做了单元测试
+   #### [所有基本数据结构测试类](https://github.com/china-kook/coding2017/tree/master/group18/935542673/Coding/20170219/junit/com/ikook/basic_data_structure)
 
     说明：由于作业以实现基本的数据结构为主，则在实现单元测试时，只对正常情况进行了测试，一些异常情况并进行编写测试用例。
-
-   点击查看: [unit test](https://github.com/china-kook/coding2017/tree/master/group18/935542673/Coding/junit/com/ikook/basic_data_structure)
