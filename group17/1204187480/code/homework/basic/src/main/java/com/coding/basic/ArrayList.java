@@ -33,7 +33,7 @@ public class ArrayList implements List {
     }
 
     public void add(int index, Object o) {
-        checkIndex(index);
+        checkForAdd(index);
         enLargeElementData();
         // 备份 index 处及后面的数据
         Object[] elementsBehindIndex = backBehindElements(elementData, index);
@@ -62,6 +62,12 @@ public class ArrayList implements List {
 
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
+            throw new ArrayIndexOutOfBoundsException(String.format("index=%s, size=%s", index, size));
+        }
+    }
+
+    private void checkForAdd(int index) {
+        if (index < 0 || index > size) {
             throw new ArrayIndexOutOfBoundsException(String.format("index=%s, size=%s", index, size));
         }
     }
