@@ -97,12 +97,14 @@ public class ArrayList implements List {
 
 	public static void main(String[] args) {
 		ArrayList list = new ArrayList();
-		for (int i = 1; i <= 11; i++) {
+		for (int i = 0; i <= 11; i++) {
 			list.add(String.valueOf(i));
 		}
-		list.add(10,"test");
-		list.get(10);
-		list.remove(10);
-		System.out.println(list);
+		System.out.println(list.get(11));
+		//list.add(10,"test");
+		//list.get(10);
+		//list.remove(10);
+		//System.out.println(list);
 	}
+
 }
