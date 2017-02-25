@@ -8,8 +8,14 @@ public class BinaryTreeNode {
     private BinaryTreeNode left;
     private BinaryTreeNode right;
 
-    public Object getData() {
-        return data;
+    public BinaryTreeNode(Object o) {
+        this.data = o;
+        this.left = null;
+        this.right = null;
+    }
+
+    public int getData() {
+        return (int) data;
     }
 
     public void setData(Object data) {
@@ -33,6 +39,18 @@ public class BinaryTreeNode {
     }
 
     public BinaryTreeNode insert(Object o) {
-        return null;
+        BinaryTreeNode newNode = new BinaryTreeNode(o);
+        insertInto(this, newNode);
+        return this;
+    }
+
+    private void insertInto(BinaryTreeNode tree, BinaryTreeNode o) {
+        if (o.getData() <= tree.getData()) {
+            if (tree.getLeft() != null) insertInto(tree.getLeft(), o);
+            else tree.setLeft(o);
+        } else {
+            if (tree.getRight() != null) insertInto(tree.getRight(), o);
+            else tree.setRight(o);
+        }
     }
 }
