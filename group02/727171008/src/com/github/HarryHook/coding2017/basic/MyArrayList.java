@@ -5,6 +5,7 @@
 package com.github.HarryHook.coding2017.basic;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 public class MyArrayList implements List 
 {	
@@ -40,6 +41,7 @@ public class MyArrayList implements List
 			elementData[index] = o;
 		}  		
 		size++;
+		
 		/*
 		   //判断索引位置是否正确
         if (index > size || index < 0)
@@ -62,8 +64,12 @@ public class MyArrayList implements List
 	}
 	
 	public Object get(int index)
-	{
+	{	
+		//若index超出size应该抛出异常
+		if(index >= size)
+			 throw new IndexOutOfBoundsException( "Index: " + index + ", Size: " + size);
 		return  elementData[index];
+		
 	}
 	
 	public Object remove(int index)
@@ -83,7 +89,7 @@ public class MyArrayList implements List
 	    int oldCapacity = elementData.length;  
 	    if (minCapacity > oldCapacity) 
 	    {  
-	        Object oldData[] = elementData;   //防止copyof()执行的过程中新内存或者其他进程分配内存时占用旧内存
+	        //Object oldData[] = elementData;   //防止copyof()执行的过程中新内存或者其他进程分配内存时占用旧内存
 	        int newCapacity = (oldCapacity * 3)/2 + 1;  //增加50%+1
 	            if (newCapacity < minCapacity)  
 	                newCapacity = minCapacity;  
@@ -112,25 +118,33 @@ public class MyArrayList implements List
 		}
 		public Object next() 
 		{  
-			Object next = get(cursor);  
-			cursor ++;  
-			return next;  
+			  try { 
+		                Object next = get(cursor);  
+		                cursor++;
+		                return next;
+
+	            } catch (IndexOutOfBoundsException e)
+			  	{
+	                throw new NoSuchElementException();
+	            }
+		
 		}
 	}
 	
 	public static void main(String[] args)
 	{
 		MyArrayList myArrays = new MyArrayList();
-	
-		for(int i = 0; i < 19; i++)
-			myArrays.add(i, 55);
-		
 		myArrays.add(3);
 		myArrays.add(0, 11);
 		myArrays.add(1, 2);
 		myArrays.add(3, 5);
 		myArrays.add(2, 1);
 		myArrays.add(7);
+		Print(myArrays);
+		
+		for(int i = 0; i < 19; i++)
+			myArrays.add(i, 55);
+		
 		System.out.println("获取指定位置元素： " + myArrays.get(2));
 		System.out.println("删除指定位置元素： " + myArrays.remove(1));
 		System.out.println("当前元素个数：" + myArrays.size());

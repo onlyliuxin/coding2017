@@ -88,9 +88,9 @@ public class ListTest {
 	}
 	
 	@Test
-	//protected static List aList;
 	 
-	public void testIterator() {
+	public void testIterator() 
+	{
 		Iterator it = aList.iterator();
 		assertEquals(false, it.hasNext());
 		
@@ -111,6 +111,10 @@ public class ListTest {
 		assertEquals(1, it.next());
 		assertEquals(3, it.next());
 		assertEquals(false, it.hasNext());	
+		
+		expectedEx.expect(Exception.class);
+		it.next();
+		
 	}
 	
 	

@@ -77,7 +77,7 @@ public class LinkedListTest extends ListTest{
 		assertEquals(5, aLinkedList.size());
 		assertEquals(5, aLinkedList.get(0));
 		assertEquals(1, aLinkedList.get(2));
-		assertEquals(4, aLinkedList.get(3));
+		assertEquals(0, aLinkedList.get(3));
 		
 		aLinkedList.remove(3);  // [5, 4, 1, 3]
 		assertEquals(3, aLinkedList.get(aLinkedList.size()-1));

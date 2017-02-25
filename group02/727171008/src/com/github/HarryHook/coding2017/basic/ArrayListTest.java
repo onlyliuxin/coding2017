@@ -7,7 +7,8 @@ import com.github.HarryHook.coding2017.basic.MyArrayList;
 public class ArrayListTest extends ListTest {
 	
 	@Before
-	public void setUpArrayList() {
+	public void setUpArrayList() 
+	{
 		aList = new MyArrayList();
 	}
 	
