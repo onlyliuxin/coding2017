@@ -1,7 +1,6 @@
 package cn.wsc.util;
 
 import java.util.ConcurrentModificationException;
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
@@ -63,6 +62,7 @@ public class LinkedList<E> implements List<E> {
 			return get(lastRet = cursor++);
 		}
 
+		@Override
 		public void remove() {
 			if (lastRet < 0)
 				throw new IllegalStateException();
@@ -211,7 +211,7 @@ public class LinkedList<E> implements List<E> {
 	@Override
 	public E set(int index, E e) {
 		checkElementIndex(index);// 索引范围检查
-		//获取索引处节点，填入新值，返回原值
+		// 获取索引处节点，填入新值，返回原值
 		Node<E> x = node(index);
 		E oldVal = x.item;
 		x.item = e;

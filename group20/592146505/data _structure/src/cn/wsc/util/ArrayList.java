@@ -2,7 +2,6 @@ package cn.wsc.util;
 
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
@@ -45,11 +44,11 @@ public class ArrayList<E> implements List<E> {
 		return size == 0;
 	}
 
-//	@Override
-//	public boolean contains(Object o) {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
+	// @Override
+	// public boolean contains(Object o) {
+	// // TODO Auto-generated method stub
+	// return false;
+	// }
 
 	@Override
 	public Iterator<E> iterator() {
@@ -78,6 +77,7 @@ public class ArrayList<E> implements List<E> {
 			return (E) elementData[lastRet = cursor++];
 		}
 
+		@Override
 		public void remove() {
 			if (lastRet < 0)
 				throw new IllegalStateException();
