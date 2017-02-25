@@ -49,18 +49,21 @@ public class BinaryTreeNode {
 				if ((int)newNode.getData()< val) {
 					if(nowNode.left==null){
 						nowNode.setLeft(newNode);
+						break;
 					} else {
 						nowNode = nowNode.left;
 					}
 				} else if((int)newNode.getData()> val){
 					if (nowNode.right==null ) {
 					nowNode.setRight(newNode);
+						break;
 					} else{
 					nowNode = newNode.right;
+
 					}
 				}else {
-					System.out.println("已存在元素结点");
-					throw new IllegalArgumentException();
+
+					throw new IllegalArgumentException("已存在元素结点");
 				}
 			}
 		}
