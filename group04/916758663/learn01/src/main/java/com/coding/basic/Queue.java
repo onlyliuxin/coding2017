@@ -1,19 +1,22 @@
 package com.coding.basic;
 
 public class Queue {
+
+	private ArrayList elementData = new ArrayList();
 	
-	public void enQueue(Object o){		
+	public void enQueue(Object o){
+		elementData.add(o);
 	}
 	
 	public Object deQueue(){
-		return null;
+		return elementData.remove(0);
 	}
 	
 	public boolean isEmpty(){
-		return false;
+		return elementData.size() == 0;
 	}
 	
 	public int size(){
-		return -1;
+		return elementData.size();
 	}
 }
