@@ -14,12 +14,3 @@ hs_err_pid*
 #ide config
 .metadata
 .recommenders
-
-*.settings
-*.project
-*.classpath
-*/.settings
-*.iml
-/.idea
-/**/target/**/*
-
