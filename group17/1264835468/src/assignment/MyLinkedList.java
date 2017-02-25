@@ -1,6 +1,5 @@
 package assignment;
 
-//
 public class MyLinkedList<E> implements List<E>, Iterable<E> {
 	private Node<E> head;
 	private int size;

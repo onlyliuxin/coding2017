@@ -1,6 +1,5 @@
 package assignment;
 
-//
 import java.util.Arrays;
 
 public class MyArrayList<E> implements List<E>, Iterable<E> {

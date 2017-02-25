@@ -1,6 +1,5 @@
 package assignment;
 
-//
 public class MyStack<T> {
 	private MyArrayList<T> elementData = new MyArrayList<>();
 

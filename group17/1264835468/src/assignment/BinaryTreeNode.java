@@ -1,6 +1,5 @@
 package assignment;
 
-//
 public class BinaryTreeNode<T extends Comparable<? super T>> {
 	private T data;
 	private BinaryTreeNode<T> left;

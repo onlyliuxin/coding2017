@@ -1,5 +1,6 @@
 package assignment;
 
+//
 public interface List<E> {
 	public void add(E o);
 
