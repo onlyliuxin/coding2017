@@ -43,7 +43,7 @@ public class Stack {
 		return elementData.size();
 	}
 }
-class TestMyStack {  
+class TestStack {  
     public static void main(String[] args){  
     	Stack myStack=new Stack();  
         myStack.push("a");  
