@@ -17,3 +17,6 @@ hs_err_pid*
 #ide config
 .metadata
 .recommenders
+
+#macOS
+.DS_Store
