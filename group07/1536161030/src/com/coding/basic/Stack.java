@@ -1,38 +1,41 @@
 package com.coding.basic;
 
-import com.coding.basic.ArrayList;
+import java.util.EmptyStackException;
+
 
 public class Stack {
-	private ArrayList elementData;
+	private Object[] elementData;
 	private int size;
-	private int top = 0;
 
 	public Stack() {
 		this.size = 0;
-		this.elementData = new ArrayList(20);
+		this.elementData = new Object[10];
 	}
 
 	public void push(Object o) {
-		elementData.add(top, o);
+		if (o == null) 
+			throw new RuntimeException("元素不可为NULL");
 		size++;
+		elementData[size -1]= o ;
 	}
 
 	public Object pop() {
-		elementData.remove(top);
+		if (isEmpty()) 
+			throw new EmptyStackException();
+		Object old = elementData[size - 1];
+		elementData[size] = null;
 		size--;
-		return elementData.get(top);
+		return old;
 	}
 
 	public Object peek() {
-		int len = size();
-		if (len >= 0) {
-			return elementData.get(len - 1);
-		}
-		return null;
+		if (isEmpty()) 
+			throw new EmptyStackException();
+		return elementData[size -1];
 	}
 
 	public boolean isEmpty() {
-		return false;
+		return size < 1;
 	}
 
 	public int size() {

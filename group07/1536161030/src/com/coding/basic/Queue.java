@@ -12,7 +12,7 @@ public class Queue {
     private Object[] queue;
 
     public Queue() {
-        this.queue = new Object[100];
+        this.queue = new Object[10];
         this.size = 0 ;
         this.head = 0;
         this.tail = 0;
@@ -30,7 +30,7 @@ public class Queue {
 
     public Object deQueue() {
     	if(isEmpty())
-    		throw new RuntimeException("队列为空!");
+    		throw new IndexOutOfBoundsException("队列为空!");
     	Object old = queue[head];
     	queue[head] =null;
     	head = (head + 1)% queue.length;
@@ -38,7 +38,16 @@ public class Queue {
     	return old;
     	
     }
-
+    
+    public Object getHead(){
+		return head;
+    }
+    
+    public Object getTail(){
+ 		return tail;
+     }
+     
+    
     public boolean isEmpty() {
         return size == 0;
     }
