@@ -1,4 +1,4 @@
-## CPU，内存，硬盘，指令以及它们之间的关系(2017.2.19)
+## CPU，内存，硬盘，指令以及它们之间的关系(2017.2.25)
 
 原文：[CPU，内存，硬盘，指令以及它们之间的关系](http://ikookblog.com/2017/02/25/cpu-ram-hdd-instruct-detailed-annotation/)
 
