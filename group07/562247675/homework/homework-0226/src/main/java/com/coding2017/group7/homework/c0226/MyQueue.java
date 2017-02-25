@@ -1,16 +1,11 @@
 package com.coding2017.group7.homework.c0226;
 
-public class Stack {
-    private ArrayList elementData = new ArrayList();
+public class MyQueue {
 
-    public void push(Object o) {
+    public void enQueue(Object o) {
     }
 
-    public Object pop() {
-        return null;
-    }
-
-    public Object peek() {
+    public Object deQueue() {
         return null;
     }
 

@@ -1,10 +1,10 @@
 package com.coding2017.group7.homework.c0226;
 
-public class BinaryTreeNode {
+public class MyBinaryTreeNode {
 
     private Object data;
-    private BinaryTreeNode left;
-    private BinaryTreeNode right;
+    private MyBinaryTreeNode left;
+    private MyBinaryTreeNode right;
 
     public Object getData() {
         return data;
@@ -14,23 +14,23 @@ public class BinaryTreeNode {
         this.data = data;
     }
 
-    public BinaryTreeNode getLeft() {
+    public MyBinaryTreeNode getLeft() {
         return left;
     }
 
-    public void setLeft(BinaryTreeNode left) {
+    public void setLeft(MyBinaryTreeNode left) {
         this.left = left;
     }
 
-    public BinaryTreeNode getRight() {
+    public MyBinaryTreeNode getRight() {
         return right;
     }
 
-    public void setRight(BinaryTreeNode right) {
+    public void setRight(MyBinaryTreeNode right) {
         this.right = right;
     }
 
-    public BinaryTreeNode insert(Object o) {
+    public MyBinaryTreeNode insert(Object o) {
         return null;
     }
 
