@@ -8,6 +8,8 @@ public class ArrayList implements List {
 
     private Object[] elementData = new Object[100];
 
+    private Iterator iterator = new ArrayListIterator();
+
     private int length() {
         return elementData.length;
     }
@@ -79,7 +81,22 @@ public class ArrayList implements List {
     }
 
     public Iterator iterator() {
-        return null;
+        return iterator;
+    }
+
+    private class ArrayListIterator implements Iterator {
+
+        int next = 0;
+
+        @Override
+        public boolean hasNext() {
+           return next < size;
+        }
+
+        @Override
+        public Object next() {
+            return elementData[next++];
+        }
     }
 
 }
