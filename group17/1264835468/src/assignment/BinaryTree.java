@@ -77,6 +77,7 @@ public class BinaryTree<T extends Comparable<? super T>> implements Iterable<Bin
 			throw new QueueIsEmptyException();
 		}
 
+		// 把所有出队节点放进另一个队列中
 		public MyQueue<BinaryTreeNode<T>> getResult() {
 			prepare();
 			MyQueue<BinaryTreeNode<T>> result = new MyQueue<>();
@@ -86,20 +87,21 @@ public class BinaryTree<T extends Comparable<? super T>> implements Iterable<Bin
 			return result;
 		}
 
+		private void prepare() {
+			clearQueue();
+			enQueue(root);
+		}
+
 		public void clearQueue() {
 			while (!isEmpty()) {
 				deQueue();
 			}
 		}
 
-		private void prepare() {
-			clearQueue();
-			enQueue(root);
-		}
-
 		@Override
 		public String toString() {
 			StringBuilder stringBuilder = new StringBuilder();
+
 			Iterator<BinaryTreeNode<T>> iterator = iterator();
 			while (iterator.hasNext()) {
 				stringBuilder.append(iterator.next() + "\n");
@@ -114,16 +116,26 @@ public class BinaryTree<T extends Comparable<? super T>> implements Iterable<Bin
 	}
 
 	private class BFSIterator implements Iterator<BinaryTreeNode<T>> {
-		MyQueue<BinaryTreeNode<T>> BFSQueue = new BFSNodeQueue().getResult();
+		MyArrayList<BinaryTreeNode<T>> list;
+		Iterator<BinaryTreeNode<T>> iterator;
+
+		public BFSIterator() {
+			MyQueue<BinaryTreeNode<T>> BFSQueue = new BFSNodeQueue().getResult();
+			list = new MyArrayList<>();
+			while (!BFSQueue.isEmpty()) {
+				list.add(BFSQueue.deQueue());
+			}
+			iterator = list.iterator();
+		}
 
 		@Override
 		public boolean hasNext() {
-			return !BFSQueue.isEmpty();
+			return iterator.hasNext();
 		}
 
 		@Override
 		public BinaryTreeNode<T> next() {
-			return BFSQueue.deQueue();
+			return iterator.next();
 		}
 	}
 
