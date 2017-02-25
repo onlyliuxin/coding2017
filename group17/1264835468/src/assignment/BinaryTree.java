@@ -27,7 +27,7 @@ public class BinaryTree<T extends Comparable<? super T>> implements Iterable<Bin
 
 	private void insert(BinaryTreeNode<T> current, BinaryTreeNode<T> node) {
 
-		if (current.getData().compareTo(node.getData()) >= 0) {
+		if (current.getData().compareTo(node.getData()) > 0) {
 			if (current.getLeft() == null)
 				current.setLeft(node);
 			else

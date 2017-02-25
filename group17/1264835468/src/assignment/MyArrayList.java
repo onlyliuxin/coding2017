@@ -12,7 +12,9 @@ public class MyArrayList<E> implements List<E>, Iterable<E> {
 	}
 
 	public MyArrayList(int initSize) {
-		if (initSize < 0) throw new IllegalArgumentException(initSize + " < 0");
+		if (initSize < 0) {
+			throw new IllegalArgumentException(initSize + " < 0");
+		}
 		if (initSize == 0) {
 			elementData = new Object[DEFAULT_SIZE];
 		}
@@ -28,6 +30,9 @@ public class MyArrayList<E> implements List<E>, Iterable<E> {
 	}
 
 	public void add(int index, E o) {
+		if (index < 0 || index > size) {
+			throw new IllegalArgumentException("index:" + index);
+		}
 		growIfNeed();
 		System.arraycopy(elementData, index, elementData, index + 1, size - index);
 		elementData[index] = o;
@@ -43,7 +48,6 @@ public class MyArrayList<E> implements List<E>, Iterable<E> {
 	public E remove(int index) {
 		rangeCheck(index);
 		E target = get(index);
-		// moveForwardFrom(index + 1);
 		System.arraycopy(elementData, index + 1, elementData, index, size - index - 1);
 		size--;
 		return target;
@@ -55,12 +59,13 @@ public class MyArrayList<E> implements List<E>, Iterable<E> {
 
 	private void rangeCheck(int index) {
 		if (index >= size) {
-			throw new NoElementException("index:" + index);
+			throw new NoSuchElementException("index:" + index);
 		}
 	}
 
 	private void growIfNeed() {
-		if (size == elementData.length) grow();
+		if (size == elementData.length)
+			grow();
 	}
 
 	private void grow() {
@@ -96,9 +101,9 @@ public class MyArrayList<E> implements List<E>, Iterable<E> {
 
 }
 
-class NoElementException extends RuntimeException {
+class NoSuchElementException extends RuntimeException {
 
-	public NoElementException(String string) {
+	public NoSuchElementException(String string) {
 		super(string);
 	}
 

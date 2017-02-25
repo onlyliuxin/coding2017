@@ -34,7 +34,9 @@ public class MyLinkedList<E> implements List<E>, Iterable<E> {
 	}
 
 	public void add(int index, E o) {
-		rangeCheck(index - 1);
+		if (index > size || index < 0) {
+			throw new IllegalArgumentException("index:" + index);
+		}
 		if (index == 0) {
 			addFirst(o);
 			return;
@@ -64,6 +66,7 @@ public class MyLinkedList<E> implements List<E>, Iterable<E> {
 	}
 
 	public E get(int index) {
+		rangeCheck(index);
 		return movePtrTo(index).data;
 	}
 
@@ -81,7 +84,7 @@ public class MyLinkedList<E> implements List<E>, Iterable<E> {
 
 	private void rangeCheck(int index) {
 		if (index >= size) {
-			throw new NoElementException("index:" + index);
+			throw new NoSuchElementException("index:" + index);
 		}
 	}
 
