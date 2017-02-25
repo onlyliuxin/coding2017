@@ -77,7 +77,7 @@ public class BinaryTree<T extends Comparable<? super T>> implements Iterable<Bin
 			throw new QueueIsEmptyException();
 		}
 
-		public MyQueue<BinaryTreeNode<T>> getBFSNodeQueue() {
+		public MyQueue<BinaryTreeNode<T>> getResult() {
 			prepare();
 			MyQueue<BinaryTreeNode<T>> result = new MyQueue<>();
 			while (!isEmpty()) {
@@ -114,7 +114,7 @@ public class BinaryTree<T extends Comparable<? super T>> implements Iterable<Bin
 	}
 
 	private class BFSIterator implements Iterator<BinaryTreeNode<T>> {
-		MyQueue<BinaryTreeNode<T>> BFSQueue = new BFSNodeQueue().getBFSNodeQueue();
+		MyQueue<BinaryTreeNode<T>> BFSQueue = new BFSNodeQueue().getResult();
 
 		@Override
 		public boolean hasNext() {
