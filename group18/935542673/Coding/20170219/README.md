@@ -76,8 +76,6 @@
      （2）next()：返回游标当前位置的元素并将游标移动到下一个位置；
      （3）remove()：删除游标左边的元素，在执行完 next 之后该操作只能执行一次。
    ```
-   ​
-
    #### [所有基本数据结构测试类](https://github.com/china-kook/coding2017/tree/master/group18/935542673/Coding/20170219/junit/com/ikook/basic_data_structure)
 
     说明：由于作业以实现基本的数据结构为主，则在实现单元测试时，只对正常情况进行了测试，一些异常情况并进行编写测试用例。
