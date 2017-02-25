@@ -63,7 +63,7 @@ public class ArrayList implements List {
         return false;
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         if(size == 0) {
             return true;
         }
