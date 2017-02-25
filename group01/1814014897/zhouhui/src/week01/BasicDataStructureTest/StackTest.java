@@ -30,9 +30,9 @@ public class StackTest {
 
 	@Test
 	public void testPop() {
-		stack.pop();
-		Assert.assertEquals(stack.peek(), 98);
-		for(int i=0;i<99;i++){
+		Assert.assertEquals(stack.pop(), 99);
+		Assert.assertEquals(stack.pop(), 98);
+		for(int i=0;i<98;i++){
 			stack.pop();
 		}
 		Assert.assertEquals(stack.size(), 0);
@@ -45,6 +45,7 @@ public class StackTest {
 			Assert.assertEquals(stack.size(), 100);
 		}
 		stack.pop();
+		Assert.assertEquals(stack.peek(), 98);
 		Assert.assertEquals(stack.peek(), 98);
 	}
 

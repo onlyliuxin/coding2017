@@ -44,10 +44,11 @@ public class ArrayList implements List {
 	
 	public Object remove(int index){
 		if(index < 0 || index >= size) throw new IndexOutOfBoundsException("Index:"+index+",Size:"+size);
+		Object data_index = elementData[index];
 		System.arraycopy(elementData, index + 1, elementData, index, size - index - 1);
 		elementData[size - 1] = null;
 		size--;
-		return elementData;
+		return data_index;
 	}
 	
 	public int size(){
