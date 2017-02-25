@@ -12,13 +12,13 @@ public class MyArrayList implements MyList {
     private Object[] elementData = new Object[100];
 
     @Override
-    public void add(Object o) {
+    public void add(Object obj) {
         this.checkCapacity(size+1);
-        elementData[size++] = o;
+        elementData[size++] = obj;
     }
 
     @Override
-    public void add(int index, Object o) {
+    public void add(int index, Object obj) {
         this.validIndex(index);
         this.checkCapacity(size+1);
         if(index < size){
@@ -26,7 +26,7 @@ public class MyArrayList implements MyList {
                 this.elementData[i] = this.elementData[i-1];
             }
         }else{
-            this.elementData[index] = o;
+            this.elementData[index] = obj;
         }
         this.size++;
     }
@@ -68,5 +68,12 @@ public class MyArrayList implements MyList {
         if(inputIndex > size || inputIndex < 0){
             throw new RuntimeException("Index: " + inputIndex + " out of bounds( " + size +" )");
         }
+    }
+
+    public boolean isEmpty() {
+        if (size() == 0){
+            return false;
+        }
+        return true;
     }
 }
