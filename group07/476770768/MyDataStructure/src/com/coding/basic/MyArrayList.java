@@ -89,7 +89,7 @@ public class MyArrayList implements MyList{
 	}
 	
 	public void checkBounds(int index){
-		if(index >= size || index < 0){
+		if(index > size || index < 0){
 			//System.out.println("From MyArrayList: Index out of bounds");
 			throw new IndexOutOfBoundsException(OutOfBoundsMsg(index));
 		}
