@@ -38,7 +38,7 @@ public class LinkedList implements List {
         newNode.data = o;
 
         if (head == null) {
-
+            head = newNode;
         }
 
         if (index < 1 || index > size + 1) {
