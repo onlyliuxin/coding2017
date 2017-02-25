@@ -76,13 +76,15 @@ public class ArrayList implements List {
     }
 
     public Iterator iterator() {
-        return null;
+        return new ListIterator();
     }
 
     private class ListIterator implements Iterator{
+        int cursor;
+
         @Override
         public boolean hasNext() {
-            return size != 0;
+            return cursor != size;
         }
 
         public void remove(){
@@ -91,12 +93,19 @@ public class ArrayList implements List {
 
         @Override
         public Object next() {
-            if(!hasNext()){
+            if(!hasNext()) {
                 throw new NoSuchElementException();
             }
 
-            //TODO
-            return null;
+            int i = cursor;
+            if (i >= size)
+                throw new NoSuchElementException();
+
+            Object[] elementData = ArrayList.this.elementData;
+
+            cursor = i + 1;
+
+            return elementData[i];
         }
     }
 }
