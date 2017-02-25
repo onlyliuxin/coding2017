@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *  栈测试
+ *  Stack Test
  */
 public class StackTest {
     @Test

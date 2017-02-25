@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
  * 队列,先进先出
  */
 public class Queue {
-	private LinkedList list = new LinkedList();  //自己选取数据结构
+	private LinkedList list = new LinkedList();  //链表数据结构
 
 	//入队
 	public void enQueue(Object o){
@@ -28,6 +28,7 @@ public class Queue {
 	public int size(){
 		return list.size();
 	}
+
 	//迭代器
 	public Iterator iterator(){
 		return list.iterator();

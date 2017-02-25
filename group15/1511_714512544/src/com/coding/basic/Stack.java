@@ -1,7 +1,7 @@
 package com.coding.basic;
 
 import java.util.NoSuchElementException;
-//后进先出
+//LIFO
 public class Stack {
 	private ArrayList elementData = new ArrayList();  //使用刚实现的ArrayList
 
@@ -12,13 +12,13 @@ public class Stack {
 
 	//出栈
 	public Object pop(){
-		if(elementData.size() == 0) throw new NoSuchElementException("堆栈下溢");
+		if(elementData.size() == 0) throw new NoSuchElementException("Stack Underflow");
 		return elementData.remove(elementData.size()-1);
 	}
 
 	//栈顶元素
 	public Object peek(){
-		if(elementData.size() == 0) throw new NoSuchElementException("堆栈下溢");
+		if(elementData.size() == 0) throw new NoSuchElementException("Stack Underflow");
 		return elementData.get(elementData.size()-1);
 	}
 
@@ -31,8 +31,5 @@ public class Stack {
 	public int size(){
 		return elementData.size();
 	}
-
-
-
 
 }

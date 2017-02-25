@@ -1,9 +1,9 @@
 package com.coding.basic;
 
-import edu.princeton.cs.algs4.Stack;
+import java.util.Stack;
 
 /**
- * 二叉树
+ 二叉树
  	5
    / \
   2   7
@@ -15,7 +15,7 @@ import edu.princeton.cs.algs4.Stack;
  3.后序遍历: 1 4 2 6 8 7 5
  */
 public class BinarySearchTree<T extends Comparable<? super T>> {
-    private BinarySearchTreeNode<T> root;  //根节点
+    private BinarySearchTreeNode<T> root;  //root node
     
     public BinarySearchTreeNode<T> getRoot() {
 		return root;
@@ -87,7 +87,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     }
     
     /**
-     * 前序遍历递归实现
+     * 前序遍历递归实现  根节点 左子树 右子树
      * @param n 根节点
      */
     public void preOrder(BinarySearchTreeNode<T> n){
@@ -101,7 +101,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     }
     
     /**
-     * 中序遍历递归实现
+     * 中序遍历递归实现   左子树 根节点 右子树
      * @param n 根节点
      */
     public void midOrder(BinarySearchTreeNode<T> n){
@@ -115,8 +115,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     }
     
     /**
-     * 后序遍历递归实现
-     * @param n
+     * 后序遍历递归实现  左子树 右子树 根节点
+     * @param n 根节点
      */
     public void postOrder(BinarySearchTreeNode<T> n){
     	if(n.getLeft() != null){
@@ -156,7 +156,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
                 }
                 current.setState(3);  //确认是否有右子树
             }else if(current.getState() == 3){
-                stack.pop();          //删除栈顶节点
+                stack.pop();          //删除栈顶节点(该节点已经执行完所有程序)
                 current.setState(0);
             }
         }
@@ -178,12 +178,12 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
             current = stack.peek(); //得到栈顶节点
             if(current.getState() == 0){
                 if(current.getLeft() != null){
-                    stack.push(current.getLeft());
+                    stack.push(current.getLeft()); //确认是否有左子树
                 }
                 current.setState(1);
             }else if(current.getState() == 1){
                 System.out.print(current.getData() + " ");  //打印数据
-                current.setState(2);  //确认是否有左子树
+                current.setState(2);
             }else if(current.getState() == 2){
                 if(current.getRight() != null){
                     stack.push(current.getRight());
@@ -221,7 +221,6 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
                 }
                 current.setState(2);  //确认是否有左子树
             }else if(current.getState() == 2){
-
                 System.out.print(current.getData() + " ");  //打印数据
                 current.setState(3);  //确认是否有右子树
             }else if(current.getState() == 3){
@@ -232,8 +231,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     }
 
     //按层遍历，每层从左到右输出
-    public void  printNodeAtLevel(){
+    /*public void  TraversalByLayer(){
 
-    }
+    }*/
     
 }
