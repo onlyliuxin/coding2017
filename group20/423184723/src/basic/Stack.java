@@ -4,19 +4,32 @@ public class Stack {
 	private ArrayList elementData = new ArrayList();
 	
 	public void push(Object o){		
+		elementData.add(o);
 	}
 	
 	public Object pop(){
-		return null;
+		int length = elementData.size();
+		if (length == 0) {
+			return null;
+		}
+		return elementData.remove(length - 1);
 	}
 	
 	public Object peek(){
-		return null;
+		int length = elementData.size();
+		if (length == 0) {
+			return null;
+		}
+		return elementData.get(length - 1);
 	}
 	public boolean isEmpty(){
-		return false;
+		if (elementData.size() != 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	public int size(){
-		return -1;
+		return elementData.size();
 	}
 }
