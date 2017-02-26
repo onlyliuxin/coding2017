@@ -14,3 +14,8 @@ hs_err_pid*
 #ide config
 .metadata
 .recommenders
+
+#add rules
+*.xml
+!pom.xml
+*.iml
