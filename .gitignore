@@ -13,9 +13,13 @@ hs_err_pid*
 #ide config
 .metadata
 .recommenders
+<<<<<<< HEAD
+.idea
+=======
 .idea/
 *.iml
 rebel.*
 .rebel.*
 
 target
+>>>>>>> refs/remotes/onlyliuxin/master
