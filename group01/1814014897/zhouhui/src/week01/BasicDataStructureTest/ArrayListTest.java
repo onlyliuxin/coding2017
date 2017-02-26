@@ -47,13 +47,10 @@ public class ArrayListTest {
 
 	@Test
 	public void testRemove() {
-		arrayList.remove(0);
-		Assert.assertEquals(arrayList.get(0), 1);
-		arrayList.remove(50);
-		Assert.assertEquals(arrayList.get(50), 52);
-		arrayList.remove(97);
+		Assert.assertEquals(arrayList.remove(0), 0);
+		Assert.assertEquals(arrayList.remove(0), 1);
+		Assert.assertEquals(arrayList.remove(97), 99);
 		Assert.assertEquals(arrayList.size(), 97);
-		Assert.assertEquals(arrayList.get(96), 98);
 	}
 
 	@Test
