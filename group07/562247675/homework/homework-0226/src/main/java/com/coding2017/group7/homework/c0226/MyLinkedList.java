@@ -1,6 +1,6 @@
 package com.coding2017.group7.homework.c0226;
 
-public class LinkedList implements List {
+public class MyLinkedList implements MyList {
 
     private Node head;
 
@@ -40,7 +40,7 @@ public class LinkedList implements List {
         return null;
     }
 
-    public Iterator iterator() {
+    public MyIterator iterator() {
         return null;
     }
 
