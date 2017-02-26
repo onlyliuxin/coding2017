@@ -1,14 +1,12 @@
 package basic;
 
 public class Queue {
-	// 头节点
 	private Node first;
-	// 尾节点
 	private Node last;
-	// 元素个数
 	private int size = 0;
 
-	// 入列
+	//鍏ュ垪
+	@SuppressWarnings("unused")
 	private void enQueue(Object o) {
 		final Node f = first;
 		final Node newNode = new Node(o, f, null);
@@ -20,7 +18,8 @@ public class Queue {
 public boolean isEmpty(){
 	return size>=0;
 }
-	// 出列
+	// 鍑哄垪
+	@SuppressWarnings("unused")
 	private Object deQueue() {
 		final Node l = last;
 		final Node p = l.prev;
@@ -30,9 +29,9 @@ public boolean isEmpty(){
 	}
 
 	private static class Node {
-		Object data; // 数据域
-		Node next;// 后继
-		Node prev;// 前驱
+		Object data; 
+		Node next;
+		Node prev;
 
 		public Node(Object o, Node n, Node p) {
 			this.data = o;
