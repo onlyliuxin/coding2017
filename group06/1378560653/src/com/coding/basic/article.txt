@@ -1,0 +1,1 @@
+计算机系统学习1:CPU，内存，硬盘及指令之间的关系：http://blog.csdn.net/raymond120/article/details/57415472
