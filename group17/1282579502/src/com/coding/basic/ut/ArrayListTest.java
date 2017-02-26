@@ -4,11 +4,11 @@ import static org.junit.Assert.*;
 
 import java.lang.reflect.Field;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.coding.basic.ArrayList;
+import com.coding.basic.Iterator;
 
 public class ArrayListTest {
 
@@ -49,10 +49,6 @@ public class ArrayListTest {
 		}
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	@Test
 	public void testAddObject() {
 		Object item = new String("s1");
@@ -75,12 +71,25 @@ public class ArrayListTest {
 
 	@Test
 	public void testGet() {
-		//fail("Not yet implemented");
+		target.add("0");
+		Object o = target.get(0);
+		assertEquals("0", o);
+		assertNotEquals("2", 0);
 	}
 
 	@Test
 	public void testRemove() {
-		//fail("Not yet implemented");
+		String[] items = new String[]{"0","1","2"};
+		for(int i = 0; i<items.length; i++){
+			target.add(items[i]);
+		}
+		Object o = target.remove(1);
+		assertEquals(o,"1");
+		o = target.remove(1);
+		assertEquals(o, "2");
+		o = target.remove(0);
+		assertEquals(o, "0");
+		assertEquals(0, target.size());
 	}
 
 	@Test
@@ -94,7 +103,19 @@ public class ArrayListTest {
 
 	@Test
 	public void testIterator() {
-		//fail("Not yet implemented");
+		ArrayList al = new ArrayList();
+		String[] items = new String[]{"0","1","2","3","4"};
+		for(int i = 0 ; i< items.length; i++){
+			al.add(items[i] );
+		}
+		int count = 0;
+		Iterator itr = al.iterator();
+		while(itr.hasNext()){
+			Object o = itr.next();
+			assertEquals(items[count], o);
+			count++;
+		}
+		
 	}
 
 }

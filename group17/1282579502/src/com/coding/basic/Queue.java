@@ -1,19 +1,30 @@
 package com.coding.basic;
 
 public class Queue {
+	private LinkedList ll = null;
 	
-	public void enQueue(Object o){		
+	public Queue(){
+		ll = new LinkedList();
 	}
 	
-	public Object deQueue(){
-		return null;
+	public void enQueue(Object o){	
+		ll.add(o);
+	}
+	
+	public Object deQueue() throws IndexOutOfBoundsException{
+		try{
+			return ll.remove(0);
+		}catch(IndexOutOfBoundsException ie){
+			throw new IndexOutOfBoundsException(ie.getMessage());
+		}
+		 
 	}
 	
 	public boolean isEmpty(){
-		return false;
+		return (ll.size() == 0) ? true : false;
 	}
 	
 	public int size(){
-		return -1;
+		return ll.size();
 	}
 }

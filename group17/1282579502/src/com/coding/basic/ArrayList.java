@@ -1,7 +1,5 @@
 package com.coding.basic;
 
-import java.util.Arrays;
-
 public class ArrayList implements List {
 	
 	private int size = 0;
@@ -44,8 +42,15 @@ public class ArrayList implements List {
 	public Object remove(int index) {
 		if(index <0 || index >= size()) throw new ArrayIndexOutOfBoundsException(index + ": Invalid Index.");
 		Object item = elementData[index];
-		if(index<size())
-			System.arraycopy(elementData, index, elementData, index-1, size-index);
+		if(size() == 1){
+			size--;
+		}else{
+			if(index<size()){
+				
+				System.arraycopy(elementData, index+1, elementData, index, size-index);
+				size--;
+			}
+		}
 		return item;
 	}
 	
@@ -62,24 +67,39 @@ public class ArrayList implements List {
 		System.arraycopy(elementData, 0, newArray, 0, size);
 		elementData = newArray;
 	}
+	
+	public void dump(){
+		for(int i = 0; i< size(); i++){
+			System.out.print(elementData[i] + " ");
+		}
+		System.out.println();
+	}
 
 	private class ArrayListIterImpl implements Iterator{
 
-		ArrayList al = null;
+		Object[] oArray = null;
+		int cursor = 0;
 		public ArrayListIterImpl(ArrayList al){
-			this.al = al;
+			if(al == null) throw new NullPointerException("Linkedlist Object is NULL");
+			oArray = new Object[al.size()];
+			for(int i = 0; i< al.size(); i++){
+				oArray[i] = al.get(i);
+			}
 		}
 		
 		@Override
 		public boolean hasNext() {
-			// TODO Auto-generated method stub
+			if(cursor < oArray.length){
+				return true;
+			}
 			return false;
 		}
 
 		@Override
 		public Object next() {
-			// TODO Auto-generated method stub
-			return null;
+			Object o = oArray[cursor];
+			cursor ++;
+			return o;
 		}
 		
 	}
