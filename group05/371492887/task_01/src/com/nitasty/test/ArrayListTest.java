@@ -17,7 +17,7 @@ public class ArrayListTest {
 	public void init(){
 		list=new ArrayList();
 		for (int i = 0; i < 100; i++) {
-			list.add(i);
+			list.add(i); 
 		}
 	}
 	
