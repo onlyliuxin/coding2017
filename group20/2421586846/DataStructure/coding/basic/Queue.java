@@ -4,19 +4,26 @@ public class Queue {
 	private LinkedList elementData = new LinkedList();
 	
 	public void enQueue(Object o){		
-		elementData.add
+		elementData.addLast(o);
 	}
 	
 	
 	public Object deQueue(){
-		return null;
+		Object tempObj =elementData.removeFirst();
+		return tempObj;
 	}
 	
 	public boolean isEmpty(){
-		return false;
+		if (elementData.size()==0){
+
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	public int size(){
-		return -1;
+		return elementData.size();
 	}
 }
