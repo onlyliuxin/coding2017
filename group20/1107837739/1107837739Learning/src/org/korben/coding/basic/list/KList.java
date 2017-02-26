@@ -1,4 +1,4 @@
-package org.korben.list;
+package org.korben.coding.basic.list;
 
 /**
  * Korben's List

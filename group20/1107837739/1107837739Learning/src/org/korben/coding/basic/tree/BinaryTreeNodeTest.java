@@ -1,4 +1,4 @@
-package org.korben.tree;
+package org.korben.coding.basic.tree;
 
 import org.junit.Assert;
 

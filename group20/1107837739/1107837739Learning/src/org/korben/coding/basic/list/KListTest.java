@@ -1,4 +1,4 @@
-package org.korben.list;
+package org.korben.coding.basic.list;
 
 import java.util.Objects;
 import org.junit.Assert;

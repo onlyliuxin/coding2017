@@ -1,4 +1,4 @@
-package org.korben.stack;
+package org.korben.coding.basic.stack;
 
 import java.util.EmptyStackException;
 import java.util.Objects;

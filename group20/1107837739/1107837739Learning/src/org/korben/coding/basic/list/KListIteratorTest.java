@@ -1,4 +1,4 @@
-package org.korben.list;
+package org.korben.coding.basic.list;
 
 import org.junit.Assert;
 import org.junit.Before;

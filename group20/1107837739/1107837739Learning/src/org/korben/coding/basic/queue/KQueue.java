@@ -1,4 +1,4 @@
-package org.korben.queue;
+package org.korben.coding.basic.queue;
 
 /**
  * Korben's Queue Interface
