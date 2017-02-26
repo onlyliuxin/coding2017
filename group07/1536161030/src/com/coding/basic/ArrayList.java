@@ -11,7 +11,7 @@ public class ArrayList implements List{
 	}
 
 	public ArrayList() {
-		this.elementData = new Object[100];
+		this.elementData = new Object[10];
 	}
 
 	public void add(Object o) {
@@ -25,7 +25,6 @@ public class ArrayList implements List{
 		System.arraycopy(elementData, index, elementData, index + 1, size - index);
 		elementData[index] = o;
 		size++;
-
 	}
 
 	public Object get(int index) {
@@ -71,7 +70,7 @@ public class ArrayList implements List{
 	//檢查下表越界
 	public void rangeCheckForAdd(int index) {
 		if (index < 0 || index > size) 
-			throw new RuntimeException("下标越界");
+			throw new IndexOutOfBoundsException("下标越界");
 	}
 	
 	//数组是否满
@@ -86,6 +85,11 @@ public class ArrayList implements List{
     	this.elementData = newElementData;
     	newElementData = null;
     }
+    
+    //
+	public boolean isEmpty() {
+		return size == 0;
+	}
 	
 
 }
