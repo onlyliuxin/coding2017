@@ -8,13 +8,25 @@ public class LinkedList  {
 	private Node last;
 	int size=0;
 	
+	//region 构造函数
 	public LinkedList(){
 		
+	}
+	//endregion
+	
+	//region add方法
+	public void addFirst(Object o){
+		linkFirst(o);
+	}
+	
+	public void addLast(Object o){
+		linkLast(o);
 	}
 	
 	public void add(Object o){
 		linkLast(o);
 	}
+	
 	public void add(int index , Object o){
 		checkPositionIndex(index);
 		
@@ -26,18 +38,15 @@ public class LinkedList  {
 			linkBefore(index, o);
 		}
 	}
-	
-	
-	private void linkBefore(int index,Object o){
-		Node pred=node(index-1);
-		Node newNode=new Node(o, node(index));
-		pred.next=newNode;
-		size++;
-	}
-	
+	//endregion
+
+	//region get 方法
 	public Object get(int index){
 		return node(index).item;
 	}
+	//endregion
+
+	//region remove 方法
 	public boolean remove(Object o){
 		Node temp=first;
 		if(o==null){
@@ -46,6 +55,7 @@ public class LinkedList  {
 					unlink(i);
 					return true;
 				}
+				temp=temp.next;
 			}
 		}else{
 			for(int i=0;i<size;i++){
@@ -53,30 +63,12 @@ public class LinkedList  {
 					unlink(i);
 					return true;
 				}
+				temp=temp.next;
 			}
 		}
 		return false;
 	}
 	
-	private void unlink(int index){
-		Node before =node(index-1);
-		Node target = before.next;
-		Node after = target.next;
-		before.next=after;
-		size--;
-	}
-	
-	
-	public int size(){
-		return this.size;
-	}
-	
-	public void addFirst(Object o){
-		linkFirst(o);
-	}
-	public void addLast(Object o){
-		linkLast(o);
-	}
 	public Object removeFirst(){
 		Node temp = first;
 		if(temp==null){
@@ -91,11 +83,50 @@ public class LinkedList  {
 		}
 		if(size==1){
 			first=last=null;
-			return temp;
+			size--;
+			return temp.item;
 		}
 		return unlinkLast(temp);
 	}
+	//endregion
+
+	//region size 方法
+	public int size(){
+		return this.size;
+	}
+	//endregion
+
+	//region toString方法
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		Node xNode = first;
+		for(int i=0;i<size;i++){
+			Object object = xNode.item;
+			sb.append(object+",");
+			xNode=xNode.next;
+		}
+		String temp = sb.toString();
+		temp = temp.substring(0, temp.length() - 1);
+		return "[" + temp + "]";
+	}
+	//endregion
 	
+	//region 私有成员
+	private void linkBefore(int index,Object o){
+		Node pred=node(index-1);
+		Node newNode=new Node(o, node(index));
+		pred.next=newNode;
+		size++;
+	}
+	
+	private void unlink(int index){
+		Node before =node(index-1);
+		Node target = before.next;
+		Node after = target.next;
+		before.next=after;
+		size--;
+	}
 	
 	private static  class Node{
 		Object item;
@@ -105,7 +136,6 @@ public class LinkedList  {
 			this.next=next;
 		}
 	}
-	
 	
 	private void linkLast(Object o){
 		Node temp=last;
@@ -152,6 +182,7 @@ public class LinkedList  {
 		size--;
 		return temp.item;
 	}
+	
 	private Node node(int index){
 		if(index<size){
 			Node xNode =first;
@@ -161,20 +192,6 @@ public class LinkedList  {
 			return xNode;
 		}
 		return null;
-	}
-	
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		Node xNode = first;
-		for(int i=0;i<size;i++){
-			Object object = xNode.item;
-			sb.append(object+",");
-			xNode=xNode.next;
-		}
-		String temp = sb.toString();
-		temp = temp.substring(0, temp.length() - 1);
-		return "[" + temp + "]";
 	}
 	
 	private void checkPositionIndex(int index){
@@ -190,5 +207,5 @@ public class LinkedList  {
 	private String outOfBoundsMsg(int index) {
         return "Index: "+index+", Size: "+size;
     }
-
+	//endregion
 }
