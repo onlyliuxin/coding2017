@@ -1,5 +1,5 @@
 package com.list;
-
+//队列
 public class Queue {
 
 	Object [] element;
