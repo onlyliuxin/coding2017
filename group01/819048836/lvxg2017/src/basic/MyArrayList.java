@@ -1,6 +1,6 @@
 package basic;
 /**
- * arraylist，Linkedlist,栈，队列，二叉树，迭代器实现，一篇文章关于计算机组成原理 描述CPU，内存， 硬盘，指令之间的关系
+ * 
  * 
  * @author lvxg
  *
@@ -15,12 +15,11 @@ public class MyArrayList {
 	}
 
 	public boolean add(Object o) {
-		// 如果数组没满
 		if (size < element.length) {
 			element[size] = o;
 			size++;
 		} else {
-			// 数组扩容
+			//鏁扮粍鎵╁
 			grow();
 			element[size] = o;
 			size++;
@@ -28,7 +27,7 @@ public class MyArrayList {
 		return true;
 	}
 
-	// 根据索引添加数据
+	//鏍规嵁绱㈠紩娣诲姞
 	public boolean add(int index, Object o) {
 		rangeCheckForAdd(index);
 		if (size < element.length + 1) {
@@ -36,6 +35,7 @@ public class MyArrayList {
 			System.arraycopy(element, 0, e, 0, index);
 			e[index] = o;
 			System.arraycopy(element, index, e, index + 1, element.length-index);
+			element = e;
 			size++;
 		}
 		return true;
@@ -69,10 +69,9 @@ public class MyArrayList {
 		}
 	}
 
-	// 数组扩容方法
+	//鏁扮粍鎵╁鏂规硶
 	private void grow() {
 		Object[] e = new Object[size * 2];
-		// 数组拷贝
 		System.arraycopy(element, 0, e, 0, element.length);
 		element = e;
 
@@ -80,12 +79,10 @@ public class MyArrayList {
 
 	public static void main(String[] args) {
 		MyArrayList m = new MyArrayList();
-		m.add("1");
 		for (int i = 0; i < 10; i++) {
 			m.add(i);
 		}
 		m.add(2, "123");
-		m.remove(1);
 	}
 
 }

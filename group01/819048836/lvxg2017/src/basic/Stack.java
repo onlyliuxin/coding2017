@@ -2,19 +2,16 @@ package basic;
 
 //栈
 public class Stack {
-	// 头节点
 	private Node first;
-	// 尾节点
 	private Node last;
-	// 元素个数
 	private int size = 0;
 
-	// 出栈
+	// 鍑烘爤
 	private void pop() {
        removeLast();
 	}
 
-	// 入栈
+	// 鍏ユ爤
 	private void push(Object o) {
 		addLast(o);
 	}
@@ -48,9 +45,9 @@ public class Stack {
 	}
 
 	private static class Node {
-		Object data; // 数据域
-		Node next;// 后继
-		Node prev;// 前驱
+		Object data;
+		Node next;
+		Node prev;
 
 		public Node(Object o, Node n, Node p) {
 			this.data = o;
