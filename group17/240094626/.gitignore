@@ -1,4 +1,5 @@
 *.class
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -13,13 +14,9 @@ hs_err_pid*
 #ide config
 .metadata
 .recommenders
-<<<<<<< HEAD
-.idea
-=======
-.idea/
-*.iml
-rebel.*
-.rebel.*
 
-target
->>>>>>> refs/remotes/onlyliuxin/master
+*.settings
+*.project
+*.classpath
+*/.settings
+/**/target/**/*
