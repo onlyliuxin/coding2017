@@ -1,7 +1,5 @@
 package com.coding.basic;
 
-import java.util.Arrays;
-
 public class ArrayList implements List {
 	
 	private int size = 0;
