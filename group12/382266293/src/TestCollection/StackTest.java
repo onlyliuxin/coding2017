@@ -104,13 +104,22 @@ public class StackTest extends TestCase {
 
 	@Test
 	public void testAdd() {
-		myStack.push(5);
-		myStack.push(10);
-		myStack.push(15);
-		println(myStack.get(0));
-		println(myStack.get(1));
-		println(myStack.get(2));
+
+		int size = getRandomNumber();
+		int[] expected = new int[size];
+		int actual;
+		for (int i = 0; i < size; i++) {
+			actual = getRandomNumber();
+			expected[i] = actual;
+			myStack.add(actual);
+		}
 		
+		int expectedInt;
+		for (int i = 0; i < size; i++) {
+			expectedInt = expected[size - i - 1];
+			actual = myStack.pop();
+			assertEquals(expectedInt, actual);
+		}
 	}
 
 	@Test
