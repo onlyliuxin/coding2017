@@ -1,24 +1,40 @@
 package com.coding2017.group7.homework.c0226;
 
+import java.util.EmptyStackException;
+
 public class MyStack {
     private MyArrayList elementData = new MyArrayList();
+    private final int first = 0;
 
     public void push(Object o) {
+
+        elementData.add(first, o);
     }
 
     public Object pop() {
-        return null;
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        return elementData.remove(first);
     }
 
     public Object peek() {
-        return null;
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        return elementData.get(first);
     }
 
     public boolean isEmpty() {
-        return false;
+        return elementData.size() <= 0;
     }
 
     public int size() {
-        return -1;
+        return elementData.size();
+    }
+
+    @Override
+    public String toString() {
+        return elementData.toString();
     }
 }
