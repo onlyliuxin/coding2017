@@ -25,7 +25,7 @@ public class BinaryTreeNode
 	//获取给节点的值
 	public Integer getData() 
 	{
-		return this.data;
+		return data;
 	}
 	//给一个节点赋值
 	public void setData(Integer data)
@@ -64,7 +64,7 @@ public class BinaryTreeNode
         // 上个节点
         BinaryTreeNode parent  = null;
         // 如果根节点为空
-        if  (this.data == null) 
+        if  (current.data == null) 
         {	
         	newNode.setData(obj);
         	newNode.setLeft(null);
