@@ -1,4 +1,4 @@
-package com.coding1094051862.basic;
+package com.coding.basic;
 
 public class LinkedList implements List {
 	
@@ -114,16 +114,23 @@ public class LinkedList implements List {
 	}
 	public Iterator iterator(){
 		return new Iterator() {
+			int cusor = 0;
+			Node current = head;
 			@Override
 			public Object next() {
-				// TODO Auto-generated method stub
-				return null;
+				if (!hasNext()) {
+					System.out.println("next : !hasNext");
+					return null;
+				}
+				Object o = current.data;
+				current = current.next;
+				cusor ++;
+				return o;
 			}
 			
 			@Override
 			public boolean hasNext() {
-				// TODO Auto-generated method stub
-				return false;
+				return cusor < size;
 			}
 		};
 	}

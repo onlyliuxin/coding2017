@@ -1,4 +1,4 @@
-package com.coding1094051862.basic;
+package com.coding.basic;
 
 public interface List {
 	public void add(Object o);
@@ -6,4 +6,5 @@ public interface List {
 	public Object get(int index);
 	public Object remove(int index);
 	public int size();
+	public Iterator iterator();
 }

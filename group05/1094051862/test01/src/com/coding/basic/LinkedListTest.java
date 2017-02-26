@@ -1,4 +1,4 @@
-package com.coding1094051862.basic;
+package com.coding.basic;
 
 import junit.framework.Assert;
 
@@ -27,6 +27,10 @@ public class LinkedListTest extends LinkedList {
 		Assert.assertEquals(3, list.get(5));
 		Assert.assertEquals(4, list.get(6));
 		Assert.assertEquals(800, list.get(8));
+		Iterator iterator = list.iterator();
+		while (iterator.hasNext()) {
+			System.out.println(iterator.next());
+		}
 	}
 
 }
