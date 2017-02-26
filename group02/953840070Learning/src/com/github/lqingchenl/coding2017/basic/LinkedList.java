@@ -1,7 +1,5 @@
 package com.github.lqingchenl.coding2017.basic;
 
-import org.junit.Test;
-
 public class LinkedList implements List {
 
     private int size = 0;
@@ -22,7 +20,11 @@ public class LinkedList implements List {
     }
 
     public void add(int index, Object o) {
-        Node oldNode = getNode(index);
+        if (index == 0) {
+            addFirst(o);
+            return;
+        }
+        Node oldNode = getNode(index - 1);
         Node newNode = new Node(o);
         newNode.next = oldNode.next;
         oldNode.next = newNode;
@@ -46,11 +48,11 @@ public class LinkedList implements List {
     }
 
     public Object remove(int index) {
-        if (index == 1){
-            removeFirst();
+        if (index == 1) {
+            return removeFirst();
         }
-        Node fatherNode = getNode(index -2);
-        Node oldNode = getNode(index -1);
+        Node fatherNode = getNode(index - 2);
+        Node oldNode = getNode(index - 1);
         fatherNode.next = oldNode.next;
         size--;
 
@@ -69,11 +71,12 @@ public class LinkedList implements List {
     }
 
     public void addLast(Object o) {
-        if (head == null){
+        if (head == null) {
             addFirst(o);
+            return;
         }
         Node newNode = new Node(o);
-        Node lastNode = getNode(size -1);
+        Node lastNode = getNode(size - 1);
         lastNode.next = newNode;
         size++;
     }
@@ -87,8 +90,8 @@ public class LinkedList implements List {
     }
 
     public Object removeLast() {
-        if (size == 1){
-            removeFirst();
+        if (size == 1) {
+            return removeFirst();
         }
         Object data = get(size - 1);
         Node oldNode = getNode(size - 2);
@@ -112,16 +115,4 @@ public class LinkedList implements List {
 
     }
 
-    @Test
-    public void testLinkedList() {
-        add(1);
-        add(2);
-        add(3);
-        add(4);
-        remove(3);
-        addFirst(6);
-        for (int i = 0; i < size; i++) {
-            System.out.println("=="+get(i) +getNode(i));
-        }
-    }
 }

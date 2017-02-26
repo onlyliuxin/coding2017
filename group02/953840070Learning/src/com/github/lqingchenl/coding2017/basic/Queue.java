@@ -1,7 +1,5 @@
 package com.github.lqingchenl.coding2017.basic;
 
-import org.junit.Test;
-
 public class Queue {
     private LinkedList queue = new LinkedList();
     private int size;
@@ -27,13 +25,4 @@ public class Queue {
         return size;
     }
 
-    @Test
-    public void testStack() {
-        enQueue(1);
-        enQueue(2);
-        enQueue(3);
-        enQueue(4);
-        System.out.println(deQueue()); //出队列第一个元素
-        System.out.println(size());
-    }
 }

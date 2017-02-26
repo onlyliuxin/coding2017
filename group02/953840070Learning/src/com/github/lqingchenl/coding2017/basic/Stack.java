@@ -1,7 +1,5 @@
 package com.github.lqingchenl.coding2017.basic;
 
-import org.junit.Test;
-
 public class Stack {
     private ArrayList elementData = new ArrayList();
     private int size = 0;
@@ -32,15 +30,4 @@ public class Stack {
         return size;
     }
 
-    @Test
-    public void testStack(){
-        push(1);
-        push(2);
-        push(3);
-        push(4);
-        System.out.println(pop());
-        System.out.println(peek());
-        System.out.println(isEmpty());
-        System.out.println(size());
-    }
 }
