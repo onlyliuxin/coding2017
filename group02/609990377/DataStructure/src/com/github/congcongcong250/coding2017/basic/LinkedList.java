@@ -8,8 +8,7 @@ public class LinkedList implements List {
 	private int size;
 	
 	public LinkedList(){
-		head.next = head;
-		head.previous = head;
+		head = new Node();
 		size = 0;
 	}
 	
@@ -19,9 +18,7 @@ public class LinkedList implements List {
 	
 	public void add(int index , Object o){
 		//Check bound
-		if(index >= size){
-			throw new IndexOutOfBoundsException("Index:"+index+" Size:"+size);
-		}
+		checkIndex(index);
 		
 		Node nx = this.find(index);
 		Node pr = nx.previous;
@@ -33,17 +30,14 @@ public class LinkedList implements List {
 	
 	public Object get(int index){
 		//Check bound
-		if(index >= size){
-			throw new IndexOutOfBoundsException("Index:"+index+" Size:"+size);
-		}
-		return this.find(index);
+		checkIndex(index);
+		
+		return this.find(index).data;
 	}
 	
 	public Object remove(int index){
 		//Check bound
-		if(index >= size){
-			throw new IndexOutOfBoundsException("Index:"+index+" Size:"+size);
-		}
+		checkIndex(index);
 		Node rem = this.find(index);
 		
 		Node pr = rem.previous;
@@ -88,6 +82,21 @@ public class LinkedList implements List {
 	public Iterator iterator(){
 		return new ListItr();
 	}
+	public void clear(){
+		for (Node x = head; x != null; ) {
+			Node next = x.next;
+			x.data = null;
+			x.next = null;
+            x.previous = null;
+		    x = next;
+		}
+	}
+	
+	private void checkIndex(int index){
+		if(index >= size || index < 0){
+			throw new IndexOutOfBoundsException("Index:"+index+" Size:"+size);
+		}
+	}
 	
 	private Node find(int index){
 		Node tra = head;
@@ -98,7 +107,7 @@ public class LinkedList implements List {
 				tra = tra.next;
 			}
 		}else{
-			for(int i = size; i >= index; i--){
+			for(int i = size; i > index; i--){
 				tra = tra.previous;
 			}
 		}
@@ -109,6 +118,12 @@ public class LinkedList implements List {
 		Object data;
 		Node next;
 		Node previous;
+		
+		public Node(){
+			data = null;
+			next = this;
+			previous = this;
+		}
 		
 		public Node(Object obj,Node pre, Node nx){
 			data = obj;
@@ -136,28 +151,32 @@ public class LinkedList implements List {
 
 		@Override
 		public Object next() {
+			checkBound();
 			Node re = cursor;
 			cursor = cursor.next;
 			nextIndex++;
-			return re;
+			return re.data;
 		}
 		
 		public Object previous() {
 			Node re = cursor.previous.previous;
 			cursor = cursor.previous;
 			nextIndex--;
-			return re;
+			return re.data;
 		}
 
 		@Override
 		public void remove() {
 			//Check bound
-			if(nextIndex > size){
-				throw new NoSuchElementException("Iterates to the end");
-			}
+			checkBound();
 			LinkedList.this.remove(--nextIndex);
 			
 		}
 		
+		private void checkBound(){
+			if(nextIndex >= size){
+				throw new NoSuchElementException("Iterates to the end");
+			}
+		}
 	}
 }

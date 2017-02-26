@@ -25,4 +25,8 @@ public class Stack {
 	public int size(){
 		return elementData.size();
 	}
+	
+	public void clear(){
+		elementData.clear();
+	}
 }
