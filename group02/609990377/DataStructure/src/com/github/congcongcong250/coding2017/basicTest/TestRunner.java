@@ -14,6 +14,14 @@ public class TestRunner {
 		LinkedListTest LLT = new LinkedListTest();
 		test(LLT);
 		
+		StackTest STT = new StackTest();
+		test(STT);
+		
+		QueueTest QT = new QueueTest();
+		test(QT);
+		
+		BinaryTreeNodeTest BTNT = new BinaryTreeNodeTest();
+		test(BTNT);
 	    
 	}
 	
@@ -23,7 +31,7 @@ public class TestRunner {
 	    for (Failure failure : result.getFailures()) {
 	    	System.out.println(failure.toString());
 	    }
-	    System.out.println(result.wasSuccessful());
+	    System.out.println(tc.getClass().toString()+ "\n>>> Test status: "+result.wasSuccessful());
 	    
 	    return result;
 	}
