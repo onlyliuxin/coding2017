@@ -4,6 +4,8 @@ public class LinkedList implements List {
 
     private Node head;
     private int size = 0;
+    private Iterator iterator = new LinkedListIterator();
+
 
     public void add(Object o) {
         Node newNode = new Node(o, null);
@@ -95,7 +97,7 @@ public class LinkedList implements List {
     }
 
     public Iterator iterator() {
-        return null;
+        return iterator;
     }
 
     private void checkIndex(int index) {
@@ -120,6 +122,26 @@ public class LinkedList implements List {
         public Node(Object data, Node next) {
             this.data = data;
             this.next = next;
+        }
+    }
+
+    private class LinkedListIterator implements Iterator{
+
+        private Node next;
+
+        @Override
+        public boolean hasNext() {
+            return next != null;
+        }
+
+        @Override
+        public Object next() {
+            if (next == null) {
+                throw new IndexOutOfBoundsException("there is no node in list");
+            }
+            Node ret = next;
+            next = next.next;
+            return ret.data;
         }
     }
 }
