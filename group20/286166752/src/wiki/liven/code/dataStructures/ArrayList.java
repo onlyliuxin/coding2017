@@ -1,5 +1,7 @@
 package wiki.liven.code.dataStructures;
 
+import java.util.Arrays;
+
 /**
  * Created by leven on 2017/2/21.
  */
@@ -31,15 +33,16 @@ public class ArrayList implements List{
             throw new IndexOutOfBoundsException("数组下标越界异常。");
         if (size==maxSize){
             Object[] targt = new Object[++maxSize];
-            System.arraycopy(elementData,0,targt,0,maxSize);
-            for (int j = targt.length;j>=index;j--){
-                targt[j-1] = targt[j-2];
+            System.arraycopy(elementData,0,targt,0,elementData.length);
+            for (int j = targt.length-2;j>=index;j--){
+                targt[j+1] = targt[j];
             }
             targt[index] = o;
             size++;
+            elementData = targt;
         }else if(size<maxSize){
-            for (int j = elementData.length;j>=index;j--){
-                elementData[j-1] = elementData[j-2];
+            for (int j = size-1;j>=index;j--){
+                elementData[j+1] = elementData[j];
             }
             elementData[index] = o;
             size++;
@@ -54,11 +57,12 @@ public class ArrayList implements List{
     public void add(Object o) {
         if (size==maxSize){
             Object[] targt = new Object[++maxSize];
-            System.arraycopy(elementData,0,targt,0,maxSize);
+            System.arraycopy(elementData,0,targt,0,elementData.length);
             targt[maxSize-1] = o;
             size++;
+            elementData = targt;
         }else if(size<maxSize){
-            elementData[size-1] = o;
+            elementData[size] = o;
             size++;
         }
     }
@@ -76,7 +80,7 @@ public class ArrayList implements List{
         if (index<0||index>size-1)
             throw new IndexOutOfBoundsException("数组下表越界异常");
         Object temp = elementData[index];
-        for (int i = index;i>size-1;i++){
+        for (int i = index;i<=size-1;i++){
             elementData[i] = elementData[i+1];
         }
         size--;
@@ -89,6 +93,10 @@ public class ArrayList implements List{
     }
 
 
-
-
+    @Override
+    public String toString() {
+        return "ArrayList{" +
+                "elementData=" + Arrays.toString(elementData) +
+                '}';
+    }
 }
