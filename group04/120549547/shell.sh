@@ -2,13 +2,17 @@
 
 git remote -v
 read anykey
-git fetch upstream  #抓取上游代码
-git merge upstream/master #代码合并
+echo "抓取上游代码"
+git fetch upstream  
+echo "代码合并"
+git merge upstream/master 
 read anykey
-
-git add -A .		#添加代码
+echo "添加代码"
+git add -A .		
 read anykey
 git commit -m "bobi"
+
+echo "推送到githup"
 read anykey
-git push origin master  #推送到githup
+git push origin master 
 read anykey
