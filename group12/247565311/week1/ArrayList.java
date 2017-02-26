@@ -36,7 +36,7 @@ public class ArrayList<E> implements List<E> {
 
 	@Override
 	public void add(int arg0, E arg1) {
-		if(arg1 == null || arg0>size+1 || 0>arg0) return ;
+		if( arg0>size || 0<arg0) return ;
 		size += 1;
 		int leng = data.length;
 		if(size>leng){
@@ -134,7 +134,7 @@ public class ArrayList<E> implements List<E> {
 
 	@Override
 	public boolean isEmpty() {
-		return this.size==0?true:false;
+		return this.size==0;
 	}
 	@Override
 	public int lastIndexOf(Object arg0) {

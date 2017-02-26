@@ -11,18 +11,18 @@ public class Deque<E> {
          data = new LinkedList<E>(arg0);
      }
      public boolean push(E arg0){
-         data.add(arg0);
+         data.add(data.size(),arg0);
          size += 1;
          return true;
      }
      public E pop(){
          size -= 1;
-         E res = data.get(size);
-         data.remove(size);
+         E res = data.get(0);
+         data.remove(0);
          return res;
      }
      public E peek(){
-         return data.get(size-1);
+         return data.get(0);
      }
      public int size(){
          return this.size;

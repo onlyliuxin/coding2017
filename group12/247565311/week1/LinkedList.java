@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class LinkedList<E> implements List<E> {
+public class LinkedList<E> implements List<E>,Cloneable {
 	private Node head = null;
 	private Node tail = null;
 	private int size = 0;
@@ -24,9 +24,24 @@ public class LinkedList<E> implements List<E> {
         tail.ahead = head;
         size = 0;
 	}
+	public Object clone(){
+		LinkedList<E> clone = null;
+		try {
+			clone = (LinkedList<E>)(super.clone());
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		clone.head = new Node(null);
+		clone.tail = new Node(null);
+		clone.size = 0;
+		for(Node x = head.next;x!=null;x = x.next){
+			clone.add(x.val);
+		}
+		return clone;
+	}
 	@Override
-	public boolean add(E arg0) {
-		Node n = new Node(arg0);
+	public boolean add(Object val) {
+		Node n = new Node(val);
 		n.next = tail;
 		n.ahead = tail.ahead;
 		tail.ahead.next = n;
@@ -37,7 +52,7 @@ public class LinkedList<E> implements List<E> {
 
 	@Override
 	public void add(int arg0, E arg1) {
-		if(arg0<0) arg0=0;
+		if(arg0<0 || arg0>size) arg0=0;
 		Node n=new Node(arg1),p=head;
 		for(int i=0;i<arg0;i++){
 			p = p.next;
@@ -102,21 +117,33 @@ public class LinkedList<E> implements List<E> {
 	public E get(int arg0) {
 		E res = null;
         if(arg0>-1 && arg0 < size){
-        	
+        	Node n = head;
+        	for(int i=0;i<arg0;i++){
+        		n = n.next;
+        	}
+        	res = (E) n.val;
         }
 		return res;
 	}
 
 	@Override
 	public int indexOf(Object arg0) {
-
-		return 0;
+        boolean flag = arg0 == null;
+        Node n=head;
+        for(int i=0;i<size;i++){
+            n = n.next;
+        	if(flag){
+        		if(n.val == null) return i;
+        	}else{
+        		if(arg0.equals(n.val)) return i;
+        	}
+        }
+		return -1;
 	}
 
 	@Override
 	public boolean isEmpty() {
-
-		return false;
+		return size==0;
 	}
 
 	@Override
@@ -127,8 +154,17 @@ public class LinkedList<E> implements List<E> {
 
 	@Override
 	public int lastIndexOf(Object arg0) {
-
-		return 0;
+		boolean flag = arg0==null;
+		Node n = tail;
+		for(int i=size-1;i>-1;i--){
+			n = n.ahead;
+			if(flag){
+				if(n.val == null) return i;
+			}else{
+				if(arg0.equals(n.val)) return i;
+			}
+		}
+		return -1;
 	}
 
 	@Override
@@ -145,38 +181,59 @@ public class LinkedList<E> implements List<E> {
 
 	@Override
 	public boolean remove(Object arg0) {
-
-		return false;
+        Node n = head;
+        int index = this.indexOf(arg0);
+        if(index == -1) return false;
+        for(int i=0;i<index;i++){
+        	n = n.next;
+        }
+        Node d = n.next;
+        n.next = d.next;
+        d.next.ahead = n;
+		return true;
 	}
 
 	@Override
 	public E remove(int arg0) {
-
-		return null;
+        Node n = head;
+        if(arg0 <0 || arg0>size-1) return null;
+        for(int i=0;i<arg0;i++){
+        	n = n.next;
+        }
+        Node d = n.next;
+        n.next = d.next;
+        d.next.ahead = n;
+		return (E)(d.val);
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> arg0) {
-
-		return false;
+		for(Object o:arg0){
+			if(!this.remove(o)) return false;
+		}
+		return true;
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> arg0) {
-
+		// ?
 		return false;
 	}
 
 	@Override
 	public E set(int arg0, E arg1) {
-
-		return null;
+        if(arg0<0 || arg0>size-1) return null;
+        Node n=head;
+        for(int i=0;i<arg0;i++){
+        	n = n.next;
+        }
+        n.next.val = arg1;
+		return (E)(n.next.val);
 	}
 
 	@Override
 	public int size() {
-
-		return 0;
+		return size;
 	}
 
 	@Override
@@ -187,8 +244,13 @@ public class LinkedList<E> implements List<E> {
 
 	@Override
 	public Object[] toArray() {
-
-		return null;
+		Object[]res = new Object[size];
+		Node n = head;
+		for(int i=0;i<size;i++){
+			n = n.next;
+			res[i] = n.val;		// if we change res[],will this list be changed?
+		}
+		return res;
 	}
 
 	@Override
