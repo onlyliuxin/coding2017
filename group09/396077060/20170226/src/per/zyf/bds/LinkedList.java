@@ -1,6 +1,6 @@
 /**   
 * @Title: LinkedList.java 
-* @Description: TODO(用一句话描述该文件做什么) 
+* @Description: 双向链表的实现
 * @author glorychou
 * @date 2017年2月24日 上午12:23:00 
 */
@@ -81,6 +81,7 @@ public class LinkedList<E> implements List<E> {
 		rangeCheck(index);
 		
 		Node<E> p = node(index);
+		E e = p.item;
 		
 		// 所需删除节点的前面有节点，则改变前一节点的下一跳
 		if(p.prev != null)
@@ -88,10 +89,15 @@ public class LinkedList<E> implements List<E> {
 		// 所需删除节点的后面有节点，则改变后一节点的上一跳
 		if(p.next != null)
 			p.next.prev = p.prev;
+
+		// 清空数据
+		p.prev = null;
+		p.item = null;
+		p.next = null;
 		
 		size--;
 		
-		return p.item;
+		return e;
 	}
 	
 	/** 
