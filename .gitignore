@@ -23,3 +23,12 @@ hs_err_pid*
 /.idea
 /**/target/**/*
 
+*target
+*.classpath
+*.project
+*.settings
+*iml
+.idea
+*gen-*
+rebel.xml
+
