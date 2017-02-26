@@ -85,6 +85,9 @@ public class LinkedList implements List {
 
 	@Override
 	public Object remove(int index) {
+		if(size == 0) {
+			throw new java.util.NoSuchElementException();  
+		}
 		if(index == 0) {
 			Node node = head;
 			Node temp = node.next;
