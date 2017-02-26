@@ -1,4 +1,4 @@
-package cn.wsc.util;
+package org.wsc.list;
 
 /**
  * List接口

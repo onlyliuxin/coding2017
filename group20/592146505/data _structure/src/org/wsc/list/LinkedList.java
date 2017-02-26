@@ -1,18 +1,19 @@
-package cn.wsc.util;
+package org.wsc.list;
 
 import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
 
 /**
  * LinkedList类
- *
+ * 实现List接口和Queue接口
+ * 基于链表的集合
  * @author Administrator
  * @date 2017年2月25日上午10:52:41
  * @version v1.0
  *
  * @param <E>
  */
-public class LinkedList<E> implements List<E> {
+public class LinkedList<E> implements List<E>,Queue<E> {
 
 	private int size;
 	Node<E> first; // 链表的头节点
@@ -224,6 +225,14 @@ public class LinkedList<E> implements List<E> {
 		return unlink(node(index));
 	}
 
+	public E removeFirst() {
+		//获取头节点
+        final Node<E> f = first;
+        if (f == null)
+            throw new NoSuchElementException();
+        return remove(0);
+    }
+	
 	/**
 	 * 删除节点
 	 * 
@@ -252,6 +261,16 @@ public class LinkedList<E> implements List<E> {
 		return element;
 	}
 
+	@Override
+	public void enQueue(E e) {
+		linkLast(e);
+	}
+
+	@Override
+	public E deQueue() {
+		return removeFirst();
+	}
+	
 	/**
 	 * 位置范围检查 >0 && <=size
 	 * 
@@ -281,4 +300,5 @@ public class LinkedList<E> implements List<E> {
 	private String outOfBoundsMsg(int index) {
 		return "Index: " + index + ", Size: " + this.size;
 	}
+
 }

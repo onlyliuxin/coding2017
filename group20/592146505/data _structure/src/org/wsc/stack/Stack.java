@@ -1,4 +1,6 @@
-package cn.wsc.utils;
+package org.wsc.stack;
+
+import org.wsc.list.ArrayList;
 
 public class Stack {
 	private ArrayList elementData = new ArrayList();
