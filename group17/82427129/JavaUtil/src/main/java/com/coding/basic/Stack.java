@@ -1,22 +1,32 @@
 package com.coding.basic;
 
+import java.util.EmptyStackException;
+
 public class Stack {
 	private ArrayList elementData = new ArrayList();
 	
-	public void push(Object o){		
+	public void push(Object o){
+		elementData.add(o);
 	}
 	
 	public Object pop(){
-		return null;
+		int length = size();
+		Object lastData = peek();
+		elementData.remove(length - 1);
+		
+		return lastData;
 	}
 	
 	public Object peek(){
-		return null;
+		if(size()<=0)
+			throw new EmptyStackException();
+		
+		return elementData.get(size()-1);
 	}
 	public boolean isEmpty(){
-		return false;
+		return size() == 0;
 	}
 	public int size(){
-		return -1;
+		return elementData.size();
 	}
 }
