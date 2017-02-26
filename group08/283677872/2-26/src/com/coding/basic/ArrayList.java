@@ -4,6 +4,7 @@ public class ArrayList implements List {
 	
 	private int size = 0;
 	
+	
 	private Object[] elementData = new Object[100];
 	
 	private int stepLength = 50;
