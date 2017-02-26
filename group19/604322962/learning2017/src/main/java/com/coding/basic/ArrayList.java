@@ -30,7 +30,11 @@ public class ArrayList implements List {
 	}
 	
 	public Object remove(int index){
-		return null;
+		checkIndex(index);
+		Object obj = elementData[index];
+		System.arraycopy(elementData, index+1, elementData, index,
+				size - index-1);
+		return obj;
 	}
 	
 	public int size(){
@@ -45,5 +49,5 @@ public class ArrayList implements List {
 		if (index>elementData.length)
 			throw new IndexOutOfBoundsException();
 	}
-	
+
 }
