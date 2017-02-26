@@ -50,7 +50,24 @@ public class ArrayList implements List {
 	}
 	
 	public Iterator iterator(){
-		return null;
+		return new ArrayListIterator();
+	}
+
+	private class ArrayListIterator implements Iterator {
+
+		private int currentIndex = 0;
+
+		@Override
+		public boolean hasNext() {
+			return currentIndex < size();
+		}
+
+		@Override
+		public Object next() {
+			Object o = get(currentIndex);
+			currentIndex ++ ;
+			return o;
+		}
 	}
 	
 }

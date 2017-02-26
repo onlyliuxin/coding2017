@@ -53,6 +53,15 @@ public class ArrayListTest {
 
   @Test
   public void iterator() throws Exception {
+    ArrayList l = new ArrayList();
+    l.add(1);
+    l.add(2);
+    l.add(3);
+    Iterator iterator = l.iterator();
+    while (iterator.hasNext()) {
+      Object next = iterator.next();
+      System.out.println(next);
+    }
 
   }
 
