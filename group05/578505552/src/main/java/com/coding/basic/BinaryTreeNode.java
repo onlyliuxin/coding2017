@@ -6,14 +6,14 @@ package com.coding.basic;
  */
 public class BinaryTreeNode {
 	
-	private Object data;
+	private Integer data;
 	private BinaryTreeNode left;
 	private BinaryTreeNode right;
 	
 	public Object getData() {
 		return data;
 	}
-	public void setData(Object data) {
+	public void setData(Integer data) {
 		this.data = data;
 	}
 	public BinaryTreeNode getLeft() {
@@ -29,8 +29,29 @@ public class BinaryTreeNode {
 		this.right = right;
 	}
 	
-	public BinaryTreeNode insert(Object o){
-		return  null;
-	}
-	
+	public BinaryTreeNode insert(Integer o){
+
+        BinaryTreeNode newNode = new BinaryTreeNode();
+        newNode.data = o;
+        newNode.left = null;
+        newNode.right = null;
+
+        BinaryTreeNode cursor = this;
+        BinaryTreeNode pre = cursor;
+        while (cursor != null){
+            pre = cursor;
+            if (o.compareTo(cursor.data) < 0){
+                cursor = cursor.left;
+            } else {
+                cursor = cursor.right;
+            }
+        }
+
+        if (o.compareTo(pre.data) < 0){
+            pre.left = newNode;
+        } else {
+            pre.right = newNode;
+        }
+        return this;
+    }
 }

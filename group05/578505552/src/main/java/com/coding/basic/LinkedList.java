@@ -1,5 +1,7 @@
 package com.coding.basic;
 
+import java.util.NoSuchElementException;
+
 /**
  * Created by songbao.yang on 2017/2/21.
  *
@@ -9,7 +11,7 @@ public class LinkedList implements List {
 	private Node head;
 	private int elementCount;
 
-    //head作为一个节点，其next的值指向List中的真正的第一个节点
+    //head作为一个节点，其next的值指向List中真正的第一个节点
 	public LinkedList() {
         Node head = new Node();
         head.next = null;
@@ -69,6 +71,7 @@ public class LinkedList implements List {
         }
         Node indexNode = cursor.next;
         cursor.next = indexNode.next;
+        elementCount--;
 		return indexNode;
 	}
 	
@@ -77,22 +80,75 @@ public class LinkedList implements List {
 	}
 	
 	public void addFirst(Object o){
-		
-	}
+        Node node = new Node();
+        node.data = o;
+        node.next = head.next;
+        head.next = node;
+        elementCount++;
+    }
+
 	public void addLast(Object o){
-		
-	}
+
+	    Node cursor = head;
+        while (cursor.next != null){
+            cursor = cursor.next;
+        }
+        Node newNode = new Node();
+        newNode.data = o;
+        newNode.next = null;
+        cursor.next = newNode;
+        elementCount++;
+    }
+
 	public Object removeFirst(){
-		return null;
+
+	    if (size() == 0){
+	        throw new RuntimeException("no element in list");
+        }
+        Node firstNode = head.next;
+        head.next = head.next.next;
+        elementCount--;
+        return firstNode;
 	}
+
 	public Object removeLast(){
-		return null;
-	}
+	    if (size() == 0){
+            throw new RuntimeException("no element in list");
+        }
+
+	    Node cursor = head;
+        for (int i = 0; i < size() - 1; i++) {
+            cursor = cursor.next;
+        }
+
+        Node lastNode = cursor.next;
+        cursor.next = null;
+        elementCount--;
+
+        return lastNode;
+    }
+
 	public Iterator iterator(){
-		return null;
+		return new Itr();
 	}
-	
-	
+
+	private class Itr implements Iterator {
+
+	    private Node itrCursor = head;
+
+        public boolean hasNext() {
+
+            return itrCursor.next != null;
+        }
+
+        public Object next() {
+            if (hasNext()){
+                return itrCursor.next;
+            }
+            throw new NoSuchElementException();
+        }
+    }
+
 	private static  class Node{
 		Object data;
 		Node next;

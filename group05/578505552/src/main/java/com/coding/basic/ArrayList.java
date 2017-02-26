@@ -97,7 +97,6 @@ public class ArrayList implements List {
             if (hasNext()){
                 return elementData[cursor++];
             }
-
             throw new NoSuchElementException();
         }
     }
