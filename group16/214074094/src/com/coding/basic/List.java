@@ -1,15 +1,15 @@
-package com.coding.basic;
+package coding.basic;
 
 public interface List {
 
-	void add(Object o);
+    void add(Object o);
 
-	void add(int index, Object o);
+    void add(int index, Object o);
 
-	Object get(int index);
+    Object get(int index);
 
-	Object remove(int index);
+    Object remove(int index);
 
-	int size();
+    int size();
 
 }

@@ -1,19 +1,36 @@
-package com.coding.basic;
+package coding.basic;
 
+/**
+ * @Author shane
+ * @Time 2017/2/26 17:19
+ * @Email stevenchenguang@gmail.com
+ * @Desc Own Queue
+ */
 public class Queue {
-	
-	public void enQueue(Object o){		
-	}
-	
-	public Object deQueue(){
-		return null;
-	}
-	
-	public boolean isEmpty(){
-		return false;
-	}
-	
-	public int size(){
-		return -1;
-	}
+
+    private LinkedList elementData = new LinkedList();
+
+    public void enQueue(Object o) {
+        elementData.add(o);
+    }
+
+    public Object deQueue() {
+        if (isEmpty()) {
+            throw new RuntimeException("Queue is empty");
+        }
+        return elementData.remove(0);
+    }
+
+    public boolean isEmpty() {
+        return elementData.isEmpty();
+    }
+
+    public int size() {
+        return elementData.size();
+    }
+
+    @Override
+    public String toString() {
+        return elementData.toString();
+    }
 }
