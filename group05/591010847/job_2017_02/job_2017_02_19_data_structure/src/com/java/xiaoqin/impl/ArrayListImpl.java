@@ -78,6 +78,11 @@ public class ArrayListImpl<T> implements IList<T> {
     }
 
     @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
     public IIterator<T> iterator() {
         return new ArrayIteratorImpl<>();
     }

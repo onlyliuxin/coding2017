@@ -39,6 +39,12 @@ public interface IList<T> {
     int size();
 
     /**
+     * 是否为empty
+     * @return
+     */
+    boolean isEmpty();
+
+    /**
      * 返回迭代器
      * @return
      */

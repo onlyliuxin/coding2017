@@ -2,11 +2,12 @@ package com.java.xiaoqin.impl;
 
 import com.java.xiaoqin.interfaces.IIterator;
 import com.java.xiaoqin.interfaces.IList;
+import com.java.xiaoqin.interfaces.IQueue;
 
 /**
  * Created by xiaoqin on 17-2-26.
  */
-public class LinkedListImpl<T> implements IList<T> {
+public class LinkedListImpl<T> implements IList<T>, IQueue<T> {
 
     private Node<T> head;
     private Node<T> last;
@@ -105,6 +106,42 @@ public class LinkedListImpl<T> implements IList<T> {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public void enQueue(T t) {
+        add(t);
+    }
+
+    @Override
+    public T deQueue() {
+        if (0 >= size) {
+            throw new NullPointerException("remove is null");
+        }
+        T t = null;
+        Node<T> node = findNodeByIndex(0);
+        if (null != node) {
+            t = node.data;
+            if (null != node.right) {
+                node.right.left = null;
+                Node<T> right = node.right;
+                head = right;
+                while (right != null) {
+                    right.index--;
+                    right = right.right;
+                }
+                size--;
+            } else {
+                head = last = null;
+                size = 0;
+            }
+        }
+        return t;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
     }
 
     @Override
