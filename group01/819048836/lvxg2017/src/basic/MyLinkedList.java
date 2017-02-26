@@ -1,20 +1,19 @@
 package basic;
 
-import java.util.LinkedList;
-import java.util.Queue;
+
 
 /**
- * Á´±í
+ * é“¾è¡¨
  * 
  * @author lvxg
  *
  */
 public class MyLinkedList {
-	// Í·½Úµã
+	// å¤´èŠ‚ç‚¹
 	private Node first;
-	// Î²½Úµã
+	// å°¾èŠ‚ç‚¹
 	private Node last;
-	// ÔªËØ¸öÊı
+	// é“¾è¡¨é•¿åº¦
 	private int size = 0;
 
 	public boolean add(Object o) {
@@ -22,12 +21,11 @@ public class MyLinkedList {
 		return true;
 	}
    /**
-    * ¸ù¾İË÷Òı²åÈë½Úµã
+    * æ ¹æ®ç´¢å¼•æ·»åŠ èŠ‚ç‚¹
     * @param index
     * @param o
     */
 	public void add(int index, Object o) {
-		// ÅĞ¶ÏindexÊÇ·ñÔ½½ç
 		checkPositionIndex(index);
 		if (index == size) {
 			linklast(o);
@@ -35,7 +33,6 @@ public class MyLinkedList {
 			final Node succ = node(index);
 			final Node pred = succ.prev;
 			Node newNode = new Node(o, pred, succ);
-			// Èç¹ûÇ°ÇıÎª¿ÕËµÃ÷ÊÇÍ·½Úµã
 			if (pred == null) {
 				first = newNode;
 			} else {
@@ -44,20 +41,49 @@ public class MyLinkedList {
 			size++;
 		}
 	}
-	//¸ù¾İË÷ÒıÉ¾³ı½Úµã
-	@SuppressWarnings("unused")
+	//æ ¹æ®ç´¢å¼•åˆ é™¤èŠ‚ç‚¹
 	private Object remove(int index){
 		Object x= unllink(node(index));
 		return x;
 	}
-	//É¾³ı½Úµã£¬ÎŞ²Î
-	@SuppressWarnings("unused")
 	private Object remove(){
 		Object x = unllink(node(size));
 		return x;
 	}
+	@SuppressWarnings("unused")
+	private Object get(int index)
+	{
+		Node f = first;
+		for (int i = 0; i < index; i++) {
+			f = f.next;
+		}
+		return f.data;
+	}
+	@SuppressWarnings("unused")
+	private int size(){
+		return size;
+	}
+	@SuppressWarnings("unused")
+	private void addFirst(Object o){
+		Node f= first;
+		Node newNode = new Node(o, f, null);
+		f.prev = newNode;
+		first = newNode;
+	}
+	@SuppressWarnings("unused")
+	private void addLast(Object o){
+		Node l  = last;
+		Node  newNode = new Node(o, null, l);
+		l.next = newNode;
+		last = newNode;
+	}
+	public Object removeFirst(){
+		return null;
+	}
+	public Object removeLast(){
+		return null;
+	}
   
-	// Ìí¼Ó½Úµãµ½Á´±íÄ©Î²
 	private void linklast(Object e) {
 		final Node l = last;
 		final Node newNode = new Node(e, null, l);
@@ -71,12 +97,10 @@ public class MyLinkedList {
 
 	}
 
-	// É¾³ı½Úµã·½·¨
 	private Object unllink(Node x) {
 		final Object element = x.data;
 		final Node next = x.next;
 		final Node prev = x.prev;
-		// Ç°ÇıÎª¿Õ£¬±íÊ¾É¾³ıµÄÊÇÍ·½Úµã
 		if (prev == null) {
 			first = next;
 		} else {
@@ -84,7 +108,6 @@ public class MyLinkedList {
 			x.next = null;
 			x.prev = null;
 		}
-		// ºó¼ÌÎª¿Õ£¬±íÊ¾É¾³ıµÄÊÇÎ²½Úµã
 		if (next == null) {
 			last = prev;
 			x.next = null;
@@ -94,9 +117,8 @@ public class MyLinkedList {
 		return element;
 	}
 
-	// ¸ù¾İË÷ÒıµÃµ½½Úµã
 	private Node node(int index) {
-		if (index < (size >> 1)) { // Èç¹û²åÈëÎ»ÖÃÔÚÇ°°ë¶Î£¿£¿£¿
+		if (index < (size >> 1)) { 
 			Node x = first;
 			for (int i = 0; i < index; i++) {
 				x = x.next;
@@ -112,9 +134,9 @@ public class MyLinkedList {
 	}
 
 	private static class Node {
-		Object data; // Êı¾İÓò
-		Node next;// ºó¼Ì
-		Node prev;// Ç°Çı
+		Object data; // èŠ‚ç‚¹å€¼
+		Node next;// åç»§èŠ‚ç‚¹
+		Node prev;// å‰é©±èŠ‚ç‚¹
 
 		public Node(Object o, Node n, Node p) {
 			this.data = o;

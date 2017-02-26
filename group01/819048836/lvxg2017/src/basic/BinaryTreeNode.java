@@ -1,10 +1,10 @@
 package basic;
 
-//¶ş²æÊ÷
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 public class BinaryTreeNode { 
-	private int data;// ½ÚµãÖµ
-    private BinaryTreeNode left; //×ó×Ó½Úµã
-    private BinaryTreeNode right;//ÓÒ×Ó½Úµã
+	private int data;//èŠ‚ç‚¹å€¼
+    private BinaryTreeNode left; //å·¦å­èŠ‚ç‚¹
+    private BinaryTreeNode right;//å³å­èŠ‚ç‚¹
     public  BinaryTreeNode(int data){
     	this.data =data;
     	this.left = null;
