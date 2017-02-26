@@ -1,7 +1,7 @@
 /*
  * Created by Harry 2017-2-23 10:50:39
  * 实现二叉树,并按二叉查找树插入节点
- * 能实现基本的功能，但测试时存在问题，传进去的数据为空 2017-2-2523:49:43
+ * 
  */
 package com.github.HarryHook.coding2017.basic;
 
