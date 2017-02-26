@@ -24,7 +24,7 @@ public class ArrayList<E> implements List<E> {
             throw new IndexOutOfBoundsException(Integer.toString(index));
         }
 		if (data.length == size) {
-            ensureCapacity(size * 2 + 1);
+            ensureCapacity(size + size >> 1 + 1);
         }
         for (int i = size++; i > index; --i) {
             data[i] = data[i - 1];
