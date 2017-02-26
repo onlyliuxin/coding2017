@@ -1,2 +1,1 @@
-第一周：
-《cpu的好伙伴》 http://blog.csdn.net/kellyfun/article/details/57504808
+first week： http://blog.csdn.net/kellyfun/article/details/57504808
