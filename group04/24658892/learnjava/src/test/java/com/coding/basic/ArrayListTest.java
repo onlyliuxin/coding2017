@@ -1,8 +1,7 @@
 package com.coding.basic;
 
+import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class ArrayListTest {
 
@@ -17,7 +16,7 @@ public class ArrayListTest {
             data.add(i);
         }
         for (int i = 0; i < size; i++) {
-            assertEquals(i, data.get(i));
+            Assert.assertEquals(i, data.get(i));
         }
         //size > 100
         data = new ArrayList();
@@ -26,7 +25,7 @@ public class ArrayListTest {
             data.add(i);
         }
         for (int i = 0; i < size; i++) {
-            assertEquals(i, data.get(i));
+            Assert.assertEquals(i, data.get(i));
         }
         //size = 100
         data = new ArrayList();
@@ -35,7 +34,7 @@ public class ArrayListTest {
             data.add(i);
         }
         for (int i = 0; i < size; i++) {
-            assertEquals(i, data.get(i));
+            Assert.assertEquals(i, data.get(i));
         }
     }
 
@@ -57,14 +56,14 @@ public class ArrayListTest {
         for (int i = 0; i < data.size(); i++) {
             if (i == index) {
                 b = true;
-                assertEquals(index + 10000, data.get(i));
+                Assert.assertEquals(index + 10000, data.get(i));
             }
             else {
                 if (b) {
-                    assertEquals(i - 1, data.get(i));
+                    Assert.assertEquals(i - 1, data.get(i));
                 }
                 else {
-                    assertEquals(i, data.get(i));
+                    Assert.assertEquals(i, data.get(i));
                 }
             }
         }
@@ -76,7 +75,7 @@ public class ArrayListTest {
         data.add(1);
         data.add(2);
         data.add(3);
-        assertEquals(2, data.get(1));
+        Assert.assertEquals(2, data.get(1));
     }
 
     @Test
@@ -86,9 +85,9 @@ public class ArrayListTest {
         data.add(2);
         data.add(3);
         data.remove(1);
-        assertEquals(2, data.size());
-        assertEquals(1, data.get(0));
-        assertEquals(3, data.get(1));
+        Assert.assertEquals(2, data.size());
+        Assert.assertEquals(1, data.get(0));
+        Assert.assertEquals(3, data.get(1));
     }
 
     @Test
@@ -97,7 +96,7 @@ public class ArrayListTest {
         data.add(1);
         data.add(1);
         data.add(1);
-        assertEquals(3, data.size());
+        Assert.assertEquals(3, data.size());
     }
 
     @Test
@@ -109,7 +108,7 @@ public class ArrayListTest {
         Iterator iterator = data.iterator();
         int i = 0;
         while (iterator.hasNext()) {
-            assertEquals(++i, iterator.next());
+            Assert.assertEquals(++i, iterator.next());
         }
     }
 }
