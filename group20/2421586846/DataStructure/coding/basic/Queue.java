@@ -4,7 +4,9 @@ public class Queue {
 	private LinkedList elementData = new LinkedList();
 	
 	public void enQueue(Object o){		
+		elementData.add
 	}
+	
 	
 	public Object deQueue(){
 		return null;
