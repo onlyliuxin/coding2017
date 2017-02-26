@@ -39,6 +39,9 @@ public class TestContainer {
 
         System.out.println(list1.get(0));
 
+        list1.add(9, "10");
+        System.out.println(list1);
+
         System.out.println("------------------------------------------------");
 
         // 4 basic operation for com.coding.basic.container.ArrayList--add remove change query

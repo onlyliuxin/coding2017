@@ -1,52 +1,68 @@
 package com.coding.basic.container;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
-public class ArrayList<T> implements java.util.List<T>{
+public class ArrayList implements List {
 
-    private Object[] elements;
+    private Object[] elementData;
     private int size;
     private int capacity;
     private static final int DEFAULT_CAPACITY = 8;
 
     public ArrayList() {
-        elements = new Object[8];
+        elementData = new Object[8];
         size = 0;
         capacity = DEFAULT_CAPACITY;
     }
 
-    public boolean add(T element) {
+    public boolean add(Object element) {
         if (size == capacity) {
             Object[] tempArray = new Object[capacity];
             for (int i = 0; i < size; i++) {
-                tempArray[i] = elements[i];
+                tempArray[i] = elementData[i];
             }
-            elements = new Object[capacity * 2];
+            elementData = new Object[capacity * 2];
             for (int i = 0; i < size; i++) {
-                elements[i] = tempArray[i];
+                elementData[i] = tempArray[i];
             }
-            elements[capacity] = element;
+            elementData[capacity] = element;
             capacity = capacity * 2;
         }
-        elements[size] = element;
-        size = size + 1;
+        elementData[size++] = element;
         return true;
     }
 
+    @Override
+    public void add(int index, Object element) {
+        checkIndex(index);
+        Object[] tempArray = new Object[capacity];
+        for (int i = 0; i < size; i++) {
+            tempArray[i] = elementData[i];
+        }
+        elementData = new Object[capacity * 2];
+        for (int i = 0; i < size; i++) {
+            if (i < index) {
+                elementData[i] = tempArray[i];
+            } else {
+                elementData[i + 1] = tempArray[i];
+            }
+        }
+        elementData[index] = element;
+        capacity = capacity * 2;
+        size++;
+    }
+
     @SuppressWarnings("unchecked")
-    public T remove(int index) {
+    public Object remove(int index) {
         checkIndex(index);
 
-        Object o = elements[index];
+        Object o = elementData[index];
         for (int i = index; i < size; i++) {
-            elements[i] = elements[i + 1];
+            elementData[i] = elementData[i + 1];
         }
-        elements[size] = null;
+        elementData[size] = null;
         size = size - 1;
-        return (T)o;
+        return o;
     }
 
     private void checkIndex(int index) {
@@ -55,18 +71,19 @@ public class ArrayList<T> implements java.util.List<T>{
         }
     }
 
-    public T set(int index, Object element) {
+    public Object set(int index, Object element) {
         checkIndex(index);
 
-        Object o = elements[index];
-        elements[index] = element;
-        return (T)o;
+        Object o = elementData[index];
+        elementData[index] = element;
+        return o;
     }
 
-    @SuppressWarnings("unchecked") public T get(int index) {
+    @SuppressWarnings("unchecked")
+    public Object get(int index) {
         checkIndex(index);
 
-        return (T) elements[index];
+        return (Object) elementData[index];
     }
 
     @Override
@@ -75,9 +92,9 @@ public class ArrayList<T> implements java.util.List<T>{
         sb.append("[");
         for (int i = 0; i < size; i++) {
             if (i != size - 1) {
-                sb.append(elements[i] + ", ");
+                sb.append(elementData[i] + ", ");
             } else {
-                sb.append(elements[i]);
+                sb.append(elementData[i]);
             }
         }
         sb.append("]");
@@ -94,120 +111,46 @@ public class ArrayList<T> implements java.util.List<T>{
     }
 
     @Override
-    public boolean contains(Object o) {
-        if (o == null) return false;
-        for (int i = 0; i < size; i++) {
-            if (elements[i].equals(o)) {
-                return true;
-            }
-        }
-        return false;
+    public Iterator iterator() {
+        return new IteratorArrayList();
     }
 
     @Override
-    public Iterator<T> iterator() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Object[] toArray() {
-        return elements;
-    }
-
-    @Override
-    public <T> T[] toArray(T[] a) {
-        return (T[])elements;
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        if (o == null) return false;
+    public boolean remove(Object element) {
+        if (element == null)
+            return false;
         int findIndex = -1;
         for (int i = 0; i < size; i++) {
-            if (elements[i].equals(o)) {
+            if (elementData[i].equals(element)) {
                 findIndex = i;
                 break;
             }
         }
 
         for (int i = findIndex; i < size - 1; i++) {
-            elements[i] = elements[i + 1];
+            elementData[i] = elementData[i + 1];
         }
-        elements[size - 1] = null;
+        elementData[size - 1] = null;
         size--;
         return false;
     }
 
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+    private class IteratorArrayList implements Iterator {
 
-    @Override
-    public boolean addAll(Collection<? extends T> c) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+        private int cursor;
 
-    @Override
-    public boolean addAll(int index, Collection<? extends T> c) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+        @Override
+        public boolean hasNext() {
+            return cursor < size;
+        }
 
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+        @Override
+        public Object next() {
+            if (cursor < size)
+                return elementData[cursor++];
+            else
+                throw new NoSuchElementException();
+        }
 
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public void clear() {
-        elements = new Object[8];
-        size = 0;
-        capacity = DEFAULT_CAPACITY;
-    }
-
-    @Override
-    public void add(int index, T element) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public int indexOf(Object o) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int lastIndexOf(Object o) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public ListIterator<T> listIterator() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public ListIterator<T> listIterator(int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public List<T> subList(int fromIndex, int toIndex) {
-        // TODO Auto-generated method stub
-        return null;
     }
 }
