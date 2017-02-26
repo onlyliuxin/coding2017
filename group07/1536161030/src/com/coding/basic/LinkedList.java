@@ -3,24 +3,44 @@ package com.coding.basic;
 public class LinkedList implements List {
 
     private Node head;
-    int size;
-
+    private int size;
+    
+    public LinkedList(){
+    	this.head = null;
+    	this.size = 0;
+    }
+    
     public void add(Object o) {
         Node newNode = new Node(o);
-        newNode.next = head.next;
-        head.next = newNode;
+        if(isEmpty()){
+        	head = newNode;
+        }
+        else{
+	        newNode.next = head;
+	        head = newNode;
+        }
         size++;
     }
 
     public void add(int index, Object o) {
+    	if (index < 0 || index > size) 
+			throw new IndexOutOfBoundsException("下标越界");
+    	
         Node indexNode = node(index);
+        
         Node newNode = new Node(o);
-        newNode.next = indexNode.next;
-        indexNode.next = newNode;
+        if(isEmpty()){
+        	head = newNode;
+        }else {
+            newNode.next = indexNode;
+            indexNode = newNode;
+        }
         size++;
     }
 
     public Object get(int index) {
+		if (index < 0 || index > size) 
+			throw new IndexOutOfBoundsException("下标越界");
         return node(index).data;
     }
 
@@ -103,7 +123,6 @@ public class LinkedList implements List {
             this.data = data;
             this.next = null;
         }
-
     }
 
     Node node(int index) {
@@ -112,4 +131,9 @@ public class LinkedList implements List {
             x = x.next;
         return x;
     }
+    
+    //
+	public boolean isEmpty() {
+		return head ==null;
+	}
 }
