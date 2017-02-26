@@ -36,6 +36,15 @@ public class CollectionTest {
 				System.out.println(stack1.peek());
 			}
 		}
+		
+		//≤‚ ‘Queue
+		Queue_self<Name> queue1=new Queue_self<Name>();
+		for(int i=0;i<6;i++){
+			queue1.enQueue(new Name("An"+i, "Queue"));
+			if(i>3){
+				System.out.println(queue1.deQueue());
+			}
+		}
 	}
 
 }
