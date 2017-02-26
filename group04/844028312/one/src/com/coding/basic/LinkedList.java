@@ -40,14 +40,14 @@ public class LinkedList implements List {
 	public void add(int index , Object o){
 		int size=size();
 		if(index<size&&index>0&&size>0){
-			Node node=(Node) get(index-1);
+			Node node=(Node) getNode(index-1);
 			Node newNode=new Node();
 			newNode.data=o;
-			newNode.next=(Node) get(index);
+			newNode.next=(Node) getNode(index);
 			node.next=newNode;
 		}
 		else if(index==size&&size>0){
-			Node node=(Node) get(size-1);
+			Node node=(Node) getNode(size-1);
 			Node newNode=new Node();
 			newNode.data=o;
 			newNode.next=null;
@@ -72,7 +72,7 @@ public class LinkedList implements List {
 	}
 	public Object get(int index){
 		if(index==0){
-			return head;
+			return head.data;
 		}
 		else{
 			int i=1;
@@ -87,17 +87,34 @@ public class LinkedList implements List {
 		}
 		return null;
 	}
+	public Object getNode(int index){
+		if(index==0){
+			return head;
+		}
+		else{
+			int i=1;
+			Node node=head.next;//1 2 3 4 5
+			while(node!=null){
+				if(i==index){
+					return node;
+				}
+				node=node.next;
+				i++;
+			}
+		}
+		return null;
+	}
 	public Object remove(int index){
 		if(index==0){
 			Node node=head.next;
 			Node temp=head;
 			head=node;
-			return temp;
+			return temp.data;
 		}
 		else{
-			Node temp=(Node) get(index);
-			Node node=(Node) get(index-1);
-			node.next=(Node) get(index+1);
+			Node temp=(Node) getNode(index);
+			Node node=(Node) getNode(index-1);
+			node.next=(Node) getNode(index+1);
 			return temp.data;
 		}
 		
@@ -130,19 +147,19 @@ public class LinkedList implements List {
 		add(size(),o);
 	}
 	public Object removeFirst(){
-		Node temp = null;
+		Object temp = null;
 		if(size()>0){
-			temp=(Node) remove(0);
+			temp=remove(0);
 		}
 		
-		return temp.data;
+		return temp;
 	}
 	public Object removeLast(){
-		Node temp = null;
+		Object temp = null;
 		if(size()>0){
-			temp=(Node) remove(size()-1);
+			temp=remove(size()-1);
 		}
-		return temp.data;
+		return temp;
 	}
 	public Iterator iterator(){
 		return new Ir();
