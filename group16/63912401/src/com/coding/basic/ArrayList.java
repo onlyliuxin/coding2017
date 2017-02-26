@@ -80,6 +80,13 @@ public class ArrayList implements List {
 	}
 	
 	/**
+	 * 获取末尾数据
+	 */
+	public Object getLast(){
+		return elementData[this.size-1];
+	}
+	
+	/**
 	 * 移除索引处数据
 	 */
 	@Override
@@ -93,6 +100,13 @@ public class ArrayList implements List {
 		}
 		elementData[--size] = null; //清除最后一个数据位
 		return removed;
+	}
+	
+	/**
+	 * 移除末尾数据
+	 */
+	public Object removeLast(){
+		return remove(this.size-1);
 	}
 	
 	/**

@@ -6,15 +6,15 @@ package com.coding.basic;
  * @author greenhills
  * 2017年2月25日 下午9:49:41
  */
-public class Stack {
-	private ArrayList elementData = new ArrayList();
+public class Stack2 {
+	private LinkedList elementData = new LinkedList();
 	
 	/**
 	 * 入栈
 	 * @param o
 	 */
 	public void push(Object o){	
-		elementData.add(o);
+		elementData.addFirst(o);
 	}
 	
 	/**
@@ -22,7 +22,7 @@ public class Stack {
 	 * @return
 	 */
 	public Object pop(){
-		return elementData.removeLast();
+		return elementData.removeFirst();
 	}
 	
 	/**
@@ -30,7 +30,7 @@ public class Stack {
 	 * @return
 	 */
 	public Object peek(){
-		return elementData.getLast();
+		return elementData.get(0);
 	}
 	
 	/**
