@@ -45,7 +45,7 @@ public class ArrayList implements List {
 			throw new ArrayIndexOutOfBoundsException();
 		}
 		Object removedItem = elementData[index];
-		System.arraycopy(elementData, index, elementData, index + 1, size - index - 1);
+		System.arraycopy(elementData, index + 1, elementData, index, size - index - 1);
 		size--;
 		return removedItem;
 	}
