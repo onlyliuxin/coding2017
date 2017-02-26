@@ -1,6 +1,5 @@
 package coding.basic;
 
-import com.coding.basic.LinkedList;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
@@ -17,7 +16,7 @@ public class LinkedListTest extends AbstractTest {
     private static LinkedList list;
 
     @Before
-    public void before(){
+    public void before() {
         list = new LinkedList();
         list.add("a");
         list.add("b");
@@ -38,7 +37,7 @@ public class LinkedListTest extends AbstractTest {
     }
 
     @Test
-    public void testAddIndex(){
+    public void testAddIndex() {
         list.add(0, "after a");
         Assert.assertEquals("after a", list.get(1));
 
@@ -50,7 +49,7 @@ public class LinkedListTest extends AbstractTest {
     }
 
     @Test
-    public void testRemove(){
+    public void testRemove() {
         list.remove(0);
         Assert.assertEquals("b", list.get(0));
 

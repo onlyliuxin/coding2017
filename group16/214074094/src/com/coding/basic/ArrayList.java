@@ -1,6 +1,8 @@
-package com.coding.basic;
+package coding.basic;
 
-import java.util.*;
+
+import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 /**
  * @Author shane
@@ -101,7 +103,7 @@ public class ArrayList implements List {
     }
 
     public Iterator iterator() {
-        return new Itr();
+        return new ArrayListItrator();
     }
 
     /**
@@ -137,20 +139,27 @@ public class ArrayList implements List {
         return Arrays.toString(elementData);
     }
 
-    private class Itr implements Iterator {
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    private class ArrayListItrator implements Iterator {
+
+        private int position = 0;
 
         @Override
         public boolean hasNext() {
-            if (elementData == EMPTY_ELEMENTDATA) {
-                return false;
-            }
-
-            return false;
+            return position != size;
         }
 
         @Override
         public Object next() {
-            return null;
+            int i = position;
+            if (i >= size) {
+                throw new NoSuchElementException();
+            }
+            position = i + 1;
+            return elementData[i];
         }
     }
 }

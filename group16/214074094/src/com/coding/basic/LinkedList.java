@@ -1,4 +1,4 @@
-package com.coding.basic;
+package coding.basic;
 
 /**
  * @Author shane
@@ -15,20 +15,20 @@ public class LinkedList implements List {
     private Node last;
 
     public void add(Object o) {
-        if(size == 0){
+        if (size == 0) {
             first = new Node(null, o, null);
             last = first;
             size++;
-        }else{
+        } else {
             addLast(o);
         }
     }
 
     public void add(int index, Object o) {
         _checkIndex(index);
-        if(index == size - 1){
+        if (index == size - 1) {
             addLast(o);
-        }else {
+        } else {
             Node prev = _node(index);
             Node next = _node(index + 1);
             Node newNode = new Node(prev, o, next);
@@ -45,9 +45,9 @@ public class LinkedList implements List {
 
     public Object remove(int index) {
         _checkIndex(index);
-        if(index == 0){
+        if (index == 0) {
             return removeFirst();
-        }else if(index == size - 1){
+        } else if (index == size - 1) {
             return removeLast();
         }
         Node curr = _node(index);
@@ -67,10 +67,10 @@ public class LinkedList implements List {
         Node oldFirst = first;
         Object data = first.data;
         final Node oldSecond = oldFirst.next;
-        if(null == oldSecond){
+        if (null == oldSecond) {
             first = null;
             last = null;
-        }else {
+        } else {
             oldSecond.prev = null;
             first = oldSecond;
             oldFirst = null;
@@ -83,10 +83,10 @@ public class LinkedList implements List {
         Node oldLast = last;
         Object data = last.data;
         final Node oldLastButOne = last.prev;
-        if(null == oldLastButOne){
+        if (null == oldLastButOne) {
             first = null;
             last = null;
-        }else{
+        } else {
             oldLastButOne.next = null;
             last = oldLastButOne;
             oldLast = null;
@@ -98,9 +98,9 @@ public class LinkedList implements List {
     public void addFirst(Object o) {
         final Node oldFirst = first;
         final Node param = new Node(null, o, null);
-        if(null == oldFirst){
+        if (null == oldFirst) {
             first = param;
-        }else {
+        } else {
             oldFirst.prev = param;
             param.next = oldFirst;
             first = param;
@@ -122,6 +122,10 @@ public class LinkedList implements List {
 
     public Iterator iterator() {
         return null;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
     }
 
     private static class Node {
@@ -147,13 +151,13 @@ public class LinkedList implements List {
      */
     private Object node(int index) {
         //如果下标在左一半, 从左往右取
-        if(index < size >> 1){
+        if (index < size >> 1) {
             Node tmp = first;
             for (int i = 0; i < index; i++) {
                 tmp = tmp.next;
             }
             return tmp.data;
-        }else{
+        } else {
             Node tmp = last;
             for (int i = size - 1; i > index; i--) {
                 tmp = tmp.prev;
@@ -173,13 +177,13 @@ public class LinkedList implements List {
      */
     private Node _node(int index) {
         //如果下标在左一半, 从左往右取
-        if(index < size >> 1){
+        if (index < size >> 1) {
             Node tmp = first;
             for (int i = 0; i < index; i++) {
                 tmp = tmp.next;
             }
             return tmp;
-        }else{
+        } else {
             Node tmp = last;
             for (int i = size - 1; i > index; i--) {
                 tmp = tmp.prev;
@@ -197,15 +201,15 @@ public class LinkedList implements List {
      * @Throw: IndexOutOfBoundsException
      * @Desc: 校验下标是否合法
      */
-    private void  _checkIndex(int index){
-        if(index < 0 || index >= size){
+    private void _checkIndex(int index) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index:" + index + ", Size:" + size);
         }
     }
 
     @Override
     public String toString() {
-        if(0 == size){
+        if (0 == size) {
             return "[]";
         }
         StringBuffer sb = new StringBuffer();

@@ -1,6 +1,5 @@
 package coding.basic;
 
-import com.coding.basic.ArrayList;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,6 +18,7 @@ public class ArrayListTest extends AbstractTest {
 
     @Before
     public void before() {
+
         list = new ArrayList();
         list.add("a");
         list.add("b");
@@ -28,12 +28,12 @@ public class ArrayListTest extends AbstractTest {
 
         printStar();
         System.out.println("Before Test data :" + list);
-        printStar();
+        printHyphen();
     }
 
     @After
     public void after() {
-        printStar();
+        printHyphen();
         System.out.println("After Test data : " + list);
         printStar();
     }
@@ -46,7 +46,21 @@ public class ArrayListTest extends AbstractTest {
     }
 
     @Test
-    public void testSize(){
+    public void test() {
+        java.util.ArrayList<String> list = new java.util.ArrayList<String>();
+        list.add("a");
+        list.add("b");
+        java.util.Iterator<String> it = list.iterator();
+        while (it.hasNext()) {
+
+        }
+        System.out.println(it.next());
+        System.out.println(it.next());
+        System.out.println(it.next());
+    }
+
+    @Test
+    public void testSize() {
         Assert.assertEquals(5, list.size());
     }
 
@@ -54,6 +68,14 @@ public class ArrayListTest extends AbstractTest {
     public void testRemove() {
         list.remove(5);
         Assert.assertEquals(list.get(3), "d");
+    }
+
+    @Test
+    public void testIterator() {
+        Iterator it = list.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
     }
 
 }
