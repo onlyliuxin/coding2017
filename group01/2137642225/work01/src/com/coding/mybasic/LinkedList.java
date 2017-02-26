@@ -55,7 +55,6 @@ public class LinkedList implements List {
 		else {
 			element = removeMiddle(index);
 		}
-		size--;
 		return element;
 	}
 	
@@ -95,6 +94,7 @@ public class LinkedList implements List {
 		node.data = o;
 		node.next = head.next;
 		head = node;
+		size++;
 	}
 	public void addLast(Object o){
 		Node node = new Node();
@@ -116,6 +116,7 @@ public class LinkedList implements List {
 		Object element = removeNode.data;
 		temp.next = removeNode.next;
 		removeNode = null;
+		size--;
 		return element;
 	}
 
@@ -190,6 +191,7 @@ public class LinkedList implements List {
 		Object element = lastNode.data;
 		lastNode = null;
 		last = node;
+		size--;
 		return element;
 	}
 	/**
@@ -201,6 +203,7 @@ public class LinkedList implements List {
 		Object element = head.data;
 		head = null;
 		head = node;
+		size--;
 		return element;
 	}
 	
