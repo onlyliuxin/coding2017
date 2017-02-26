@@ -1,9 +1,9 @@
 package basic;
 
 public class BinaryTree {
-	private BinaryTreeNode root;//¸ù½Úµã
+	private BinaryTreeNode root;//æ ¹èŠ‚ç‚¹
 	
-	//²åÈë²Ù×÷
+	//æ’å…¥æ“ä½œ
 	public void insert(int value){
 		BinaryTreeNode newNode = new BinaryTreeNode(value);
 		if(root==null){
@@ -16,7 +16,7 @@ public class BinaryTree {
 			 while(true)
 			 {   
 				 parentNode = currentNode;
-				 //ÍùÓÒ·Å
+				 //å¾€å³æ”¾
 				 if(newNode.getData()>currentNode.getData()){
 					 currentNode = currentNode.getRight();
 					 if(currentNode ==null){
