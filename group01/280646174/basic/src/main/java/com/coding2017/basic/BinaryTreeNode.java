@@ -2,19 +2,35 @@ package com.coding2017.basic;
 
 public class BinaryTreeNode {
 
-    private Object data;
+    private Integer data;
     private BinaryTreeNode left;
     private BinaryTreeNode right;
 
-	public BinaryTreeNode insert(Object o) {
-		return null;
+	public BinaryTreeNode insert(Integer o) {
+        if (o <= data) {
+            if (left == null) {
+                left = new BinaryTreeNode(o);
+                return left;
+            }
+            return left.insert(o);
+        } else {
+            if (right == null) {
+                right = new BinaryTreeNode(o);
+                return right;
+            }
+            return right.insert(o);
+        }
 	}
 
-    public Object getData() {
+    public BinaryTreeNode(Integer data) {
+	    this.data = data;
+    }
+
+    public Integer getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(Integer data) {
         this.data = data;
     }
 
@@ -34,4 +50,8 @@ public class BinaryTreeNode {
         this.right = right;
     }
 
+    @Override
+    public String toString() {
+        return data + " " + left + " " + right;
+    }
 }
