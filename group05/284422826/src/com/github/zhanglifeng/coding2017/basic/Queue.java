@@ -1,5 +1,7 @@
 package com.github.zhanglifeng.coding2017.basic;
 
+import java.util.EmptyStackException;
+
 public class Queue {
 	private LinkedList elementData = new LinkedList();
 	public void enQueue(Object o){
@@ -7,6 +9,9 @@ public class Queue {
 	}
 	
 	public Object deQueue(){
+		if (elementData.size() == 0) {
+			throw new EmptyStackException();
+		}
 		return elementData.removeFirst();
 	}
 	
