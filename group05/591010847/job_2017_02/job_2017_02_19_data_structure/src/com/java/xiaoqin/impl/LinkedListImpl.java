@@ -48,7 +48,7 @@ public class LinkedListImpl<T> implements IList<T>, IQueue<T> {
             node.left.right.data = t;
             node.left = node.left.right;
         }
-        while (node.right != null) {
+        while (node != null) {
             node.index++;
             node = node.right;
         }
@@ -149,11 +149,30 @@ public class LinkedListImpl<T> implements IList<T>, IQueue<T> {
         return new LinkedIteratorImpl<>();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sbToString = new StringBuilder();
+        Node<T> temp = head;
+        while (null != temp){
+            sbToString.append(temp.toString()).append("\n");
+            temp = temp.right;
+        }
+        return sbToString.toString();
+    }
+
     private static class Node<T> {
         private T data = null;
         private Node<T> left = null;
         private Node<T> right = null;
         private int index = 0;
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "data=" + data +
+                    ", index=" + index +
+                    '}';
+        }
     }
 
     private class LinkedIteratorImpl<T> implements IIterator<T> {

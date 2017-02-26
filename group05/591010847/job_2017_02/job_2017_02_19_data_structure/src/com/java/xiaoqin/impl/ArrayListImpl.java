@@ -87,6 +87,16 @@ public class ArrayListImpl<T> implements IList<T> {
         return new ArrayIteratorImpl<>();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sbToString = new StringBuilder();
+        for (T t :
+                data) {
+            sbToString.append(t).append("\t");
+        }
+        return sbToString.toString();
+    }
+
     private void group(int minSize) {
         if (minSize >= data.length) {
             T[] temp = (T[]) new Object[size];
