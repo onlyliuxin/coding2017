@@ -14,7 +14,3 @@ hs_err_pid*
 #ide config
 .metadata
 .recommenders
-
-#idea config
-.idea
-.idea/*
