@@ -1,22 +1,33 @@
 package basic;
 
+/**
+ * 栈实现
+ * @author Wayss
+ * 2017-02-25
+ */
+
 public class MyStack {
-    private MyArrayList elementData = new MyArrayList();
+    private MyArrayList arrList = new MyArrayList();
     
-    public void push(Object o){        
+    public void push(Object o){
+        arrList.add(o);
     }
     
     public Object pop(){
-        return null;
+        //elementData.size()-1是当前数组的最后一个元素的下标
+        return arrList.remove(arrList.size() - 1);
     }
     
     public Object peek(){
-        return null;
+        return arrList.get(arrList.size() - 1);
     }
     public boolean isEmpty(){
+        if(arrList.size() == 0){
+            return true;
+        }
         return false;
     }
     public int size(){
-        return -1;
+        return arrList.size();
     }
 }
