@@ -1,5 +1,7 @@
 package coding.basic;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * @Author shane
  * @Time 2017/2/25 13:06
@@ -16,4 +18,7 @@ public class AbstractTest {
         System.out.println("--------------------------------------------");
     }
 
+    protected void printJson(Object obj) {
+        System.out.println(JSON.toJSONString(obj));
+    }
 }
