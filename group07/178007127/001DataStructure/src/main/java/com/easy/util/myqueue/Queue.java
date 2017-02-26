@@ -10,7 +10,7 @@ public class Queue {
 	}
 	
 	public void enQueue(Object o){	
-		linkedList.add(o);
+		linkedList.addLast(o);
 	}
 	
 	public Object deQueue(){
@@ -23,5 +23,15 @@ public class Queue {
 	
 	public int size(){
 		return linkedList.size();
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb=new StringBuilder();
+		for(int i=0;i<linkedList.size();i++){
+			sb.append(linkedList.get(i)+",");
+		}
+		String msg=sb.toString();
+		return "["+msg.subSequence(0, msg.length()-1)+"]";
 	}
 }
