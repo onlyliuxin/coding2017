@@ -54,15 +54,15 @@ public class ArrayList implements List {
 		};
 		
 		int moveSize = size - index - 1;
+		
 		if (moveSize > 0) {
 			System.arraycopy(elementData, index + 1, elementData, index, size - index - 1);
 		}
 		elementData[--size] = null;
 
-		for(int i = index; i < elementData.length; i++) {
-			elementData[i] = elementData[i+1];
-		}
-		size--;
+		//for(int i = index; i < elementData.length; i++) {
+		//	elementData[i] = elementData[i+1];
+		//}
 		
 		return elementData;
 	}

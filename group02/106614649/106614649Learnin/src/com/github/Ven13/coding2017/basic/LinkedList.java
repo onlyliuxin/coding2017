@@ -86,8 +86,11 @@ public class LinkedList implements List {
 	@Override
 	public Object remove(int index) {
 		if(index == 0) {
-			head.next = head;
-			return head.data;
+			Node node = head;
+			Node temp = node.next;
+			head = temp;
+			size--;
+			return node.data;
 		} else {
 			if(index >= size) {
 				throw new java.util.NoSuchElementException();  
@@ -111,11 +114,30 @@ public class LinkedList implements List {
 	}	
 	
 	public Object removeFirst() {
-		return remove(0);
+		//通过头指针创建头节点
+		Node hNode = head;
+		if (hNode == null) {
+			throw new java.util.NoSuchElementException();  
+		}
+		Node nNode  = hNode.next;
+		Object element = hNode.data;
+		
+		//移除
+		hNode.data = null;
+		hNode.next = null;
+		head = nNode;
+		//判断是否为尾节点
+		if (nNode == null) {
+			tail = null;
+		}else {
+			nNode = null;
+		}
+		size --;
+		return element;
 	}
 	
 	public Object removeLast() {
-		return remove(size);
+		return remove(size - 1);
 	}
 	
 	public Iterator iterator() {
