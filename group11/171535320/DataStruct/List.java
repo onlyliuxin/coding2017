@@ -1,3 +1,5 @@
+package DataStruct;
+
 public interface List {
 	public void add(Object o);
 	public void add(int index, Object o);
