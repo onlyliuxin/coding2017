@@ -1,5 +1,7 @@
 package com.coding.basic;
 
+import java.util.NoSuchElementException;
+
 public class LinkedList implements List {
 	private int size = 0;
 	
@@ -7,24 +9,37 @@ public class LinkedList implements List {
 	
 	private Node last;
 	
-	public static int getFirst(LinkedList l){
-		return l.size;
-	}
-	
 	public void add(Object o){
 		add(size,o);
 	}
 	public void add(int index , Object o){
 		rangeCheck(index);
 		
-		final Node succ = indexOf(index);
-		Node newNode = new Node(succ.prev, o, succ);
-		succ.prev = newNode;
 		if(index == size){
-			last = newNode;
+			linkLast(o);
 		}else{
-			newNode.next = indexOf(index);
-			indexOf(index).prev = newNode;
+			linkBefore(o, indexOf(index));
+		}
+	}
+	private void linkBefore(Object o ,Node succ){
+		final Node prev = succ.prev;
+		final Node newNode = new Node(prev, o, succ);
+		succ.prev = newNode;
+		if(prev == null){
+			first = newNode;
+		}else{
+			prev.next = newNode;
+		}
+		size++;
+	}
+	private void linkLast(Object o){
+		final Node succ = last;
+		final Node newNode = new Node(succ, o, null);
+		last = newNode;
+		if(succ == null){
+			first = newNode;
+		}else{
+			succ.next = newNode;
 		}
 		size++;
 	}
@@ -32,8 +47,13 @@ public class LinkedList implements List {
 		if(index > size|| index < 0 )
 			throw new IndexOutOfBoundsException("Size"+size+":index"+index);
 	}
+	private void elementIndexCheck(int index){
+		if(index >=size||index < 0)
+			throw new IndexOutOfBoundsException("Size"+size+":index"+index);
+	}
 	/**
-	 * 循环获取index下标的
+	 * 获取“下标”为index的值,
+	 * index为size时返回null
 	 * @param index
 	 * @return
 	 */
@@ -54,37 +74,100 @@ public class LinkedList implements List {
 	}
 
 	public Object get(int index){
-		return null;
+		elementIndexCheck(index);
+		
+		return indexOf(index);
 	}
 	public Object remove(int index){
-		return null;
+		elementIndexCheck(index);
+		
+		if(index == 0){
+			return removeFirst();
+		}else if(index == size) {
+			return removeLast();
+		}else{
+			return unlinkNode(indexOf(index));
+		}
 	}
 	
+	private Object unlinkNode(Node node) {
+		final Node next = node.next;
+		final Node prev = node.prev;
+		final Object element = node.data;
+		if(next == null){
+			last = node;
+		}else{
+			next.prev = node;
+			node.next = next;
+		}
+		if(prev == null){
+			first = node;
+		}else{
+			prev.next = node;
+			node.prev = prev;
+		}
+		size--;
+		node.data = null;
+		
+		return element;
+	}
 	public int size(){
 		return size;
 	}
 	
 	public void addFirst(Object o){
-		
+		linkBefore(o, first);
 	}
 	
 	public void addLast(Object o){
-		
+		linkLast(o);
 	}
 	
 	public Object removeFirst(){
-		return null;
+		if(first == null)
+			throw new NoSuchElementException("first is null");
+		
+		Object oldData = first.data;
+		final Node next = first.next;
+		first.data = null;
+		first.next = null;//GC
+		first = next;
+		
+		if(next == null){
+			last = null;
+		}else{
+			next.prev = null;
+		}
+		size--;
+		
+		return oldData;
 	}
 	
 	public Object removeLast(){
-		return null;
+		if(last == null)
+			throw new NoSuchElementException("last is null");
+		
+		Object oldData = last.data;
+		final Node prev = last.prev;
+		last.prev = null;
+		last.data = null;//GC
+		last = prev;
+		
+		if(prev == null){
+			first = null;
+		}else{
+			prev.next = null;
+		}
+		size--;
+		
+		return oldData;
 	}
 	
 	public Iterator iterator(){
 		return null;
 	}
 	
-	private  class Node{
+	private static class Node{
 		Object data;
 		Node next;
 		Node prev;
