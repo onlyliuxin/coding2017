@@ -8,7 +8,7 @@ public class Queue {
 	
 	public Object deQueue(){
 		checkEmptyQueue();
-		return linkedList.remove(size() - 1);
+		return linkedList.remove(0);
 	}
 	
 	public boolean isEmpty(){
