@@ -8,10 +8,7 @@ public class MyArrayList implements MyList {
 
     private Object[] elementData = new Object[10];
 
-<<<<<<< HEAD
-=======
     @Override
->>>>>>> 6f77b0da09652d5cbdf03d5d53e197580ced1c5a
     public void add(Object o) {
         if (isFull()) {
             increase();
@@ -19,14 +16,9 @@ public class MyArrayList implements MyList {
         elementData[size++] = o;
     }
 
-<<<<<<< HEAD
-    public void add(int index, Object o) {
-        checkRange(index);
-=======
     @Override
     public void add(int index, Object o) {
         checkRangeAdd(index);
->>>>>>> 6f77b0da09652d5cbdf03d5d53e197580ced1c5a
         if (isFull()) {
             increase();
         }
@@ -35,22 +27,6 @@ public class MyArrayList implements MyList {
         size++;
     }
 
-<<<<<<< HEAD
-    public Object get(int index) {
-        checkRange(index);
-        return elementData[index];
-    }
-
-    public Object remove(int index) {
-        checkRange(index);
-        Object element = elementData[index];
-        System.arraycopy(elementData, index + 1, elementData, index, size - (index + 1));
-        elementData[size] = null;
-        size--;
-        return element;
-    }
-
-=======
     @Override
     public Object get(int index) {
         checkRangeGet(index);
@@ -67,7 +43,6 @@ public class MyArrayList implements MyList {
     }
 
     @Override
->>>>>>> 6f77b0da09652d5cbdf03d5d53e197580ced1c5a
     public int size() {
         return size;
     }
@@ -80,19 +55,13 @@ public class MyArrayList implements MyList {
         return size >= elementData.length;
     }
 
-<<<<<<< HEAD
-    private void checkRange(int index) {
-=======
     private void checkRangeGet(int index) {
->>>>>>> 6f77b0da09652d5cbdf03d5d53e197580ced1c5a
         boolean outOfRange = index < 0 || index >= size;
         if (outOfRange) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
     }
 
-<<<<<<< HEAD
-=======
     private void checkRangeAdd(int index) {
         boolean outOfRange = index < 0 || index > size;
         if (outOfRange) {
@@ -100,7 +69,6 @@ public class MyArrayList implements MyList {
         }
     }
 
->>>>>>> 6f77b0da09652d5cbdf03d5d53e197580ced1c5a
     private void increase() {
         Object[] target = new Object[elementData.length * 2];
         System.arraycopy(elementData, 0, target, 0, elementData.length);
@@ -123,10 +91,7 @@ public class MyArrayList implements MyList {
 
         @Override
         public Object next() {
-<<<<<<< HEAD
-=======
             checkRangeGet(index);
->>>>>>> 6f77b0da09652d5cbdf03d5d53e197580ced1c5a
             return elementData[index++];
         }
     }
