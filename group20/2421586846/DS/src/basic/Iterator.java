@@ -1,5 +1,4 @@
 package basic;
- 
 
 public interface Iterator {
 	public boolean hasNext();

@@ -1,5 +1,6 @@
 package basic;
 
+
 public class BinaryTreeNode {
 	
 	private Object data;
