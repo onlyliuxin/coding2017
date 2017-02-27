@@ -3,20 +3,28 @@ package com.coding.basic;
 public class Stack {
 	private ArrayList elementData = new ArrayList();
 	
-	public void push(Object o){		
+	public void push(Object o){
+		elementData.add(o);
 	}
 	
 	public Object pop(){
-		return null;
+		if (isEmpty()) {
+			throw new IllegalStateException("the stack is empty");
+		}
+		return elementData.remove(elementData.size() - 1);
 	}
 	
 	public Object peek(){
-		return null;
+		if (isEmpty()) {
+			throw new IllegalStateException("the stack is empty");
+		}
+		return elementData.get(elementData.size() - 1);
 	}
+
 	public boolean isEmpty(){
-		return false;
+		return size() == 0;
 	}
 	public int size(){
-		return -1;
+		return elementData.size();
 	}
 }

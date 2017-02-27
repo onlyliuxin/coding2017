@@ -1,19 +1,24 @@
 package com.coding.basic;
 
+import java.util.Arrays;
+
 public class Queue {
-	
-	public void enQueue(Object o){		
+
+	private LinkedList elementData = new LinkedList();
+
+	public void enQueue(Object o){
+		elementData.add(o);
 	}
 	
 	public Object deQueue(){
-		return null;
+		return elementData.remove(0);
 	}
 	
 	public boolean isEmpty(){
-		return false;
+		return size() == 0;
 	}
 	
 	public int size(){
-		return -1;
+		return elementData.size();
 	}
 }
