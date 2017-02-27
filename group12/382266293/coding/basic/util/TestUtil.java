@@ -16,6 +16,14 @@ public class TestUtil<E> extends TestCase {
 	private static final int RANDOM_SIZE = 500;
 	
 	
+	public static int[] getRandomIntArray(int number) {
+		int[] arr = new int[number];
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = getRandomNumber();
+		}
+		return arr;
+	}
+	
 	public static int getRandomNumber() {
 		return random.nextInt(RANDOM_SIZE);
 	}
