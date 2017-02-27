@@ -23,26 +23,26 @@ public class LinkListTest {
 
     @Test
     public void testAdd() {
-        Assert.assertArrayEquals(linkedList.toArray(), new Object[]{1, 2, 3});
+        Assert.assertArrayEquals(new Object[]{1, 2, 3}, linkedList.toArray());
     }
 
     @Test
     public void testAddIndex() {
         linkedList.add(1, 10);
         linkedList.add(0, 8);
-        Assert.assertArrayEquals(linkedList.toArray(), new Object[]{8, 1, 10, 2, 3});
+        Assert.assertArrayEquals(new Object[]{8, 1, 10, 2, 3}, linkedList.toArray());
     }
 
     @Test
     public void testAddFirst() {
         linkedList.addFirst(-1);
-        Assert.assertArrayEquals(linkedList.toArray(), new Object[]{-1, 1, 2, 3});
+        Assert.assertArrayEquals(new Object[]{-1, 1, 2, 3}, linkedList.toArray());
     }
 
     @Test
     public void testAddLast() {
         linkedList.addLast(99);
-        Assert.assertArrayEquals(linkedList.toArray(), new Object[]{1, 2, 3, 99});
+        Assert.assertArrayEquals(new Object[]{1, 2, 3, 99}, linkedList.toArray());
     }
 
     @Test
@@ -52,21 +52,21 @@ public class LinkListTest {
         linkedList.remove(2);
         linkedList.add(3, 3);
         linkedList.add(1, 2);
-        Assert.assertArrayEquals(linkedList.toArray(), new Object[]{8, 2, 10, 3, 3});
+        Assert.assertArrayEquals(new Object[]{8, 2, 10, 3, 3}, linkedList.toArray());
     }
 
     @Test
     public void testRemoveFirst() {
         linkedList.removeFirst();
         linkedList.removeFirst();
-        Assert.assertArrayEquals(linkedList.toArray(), new Object[]{3});
+        Assert.assertArrayEquals(new Object[]{3}, linkedList.toArray());
     }
 
     @Test
     public void testRemoveLast() {
         linkedList.removeLast();
         linkedList.removeLast();
-        Assert.assertArrayEquals(linkedList.toArray(), new Object[]{1});
+        Assert.assertArrayEquals(new Object[]{1}, linkedList.toArray());
     }
 
     @Test
@@ -76,6 +76,6 @@ public class LinkListTest {
             iterator.next();
             iterator.remove();
         }
-        Assert.assertArrayEquals(linkedList.toArray(), new Object[]{});
+        Assert.assertArrayEquals(new Object[]{}, linkedList.toArray());
     }
 }
