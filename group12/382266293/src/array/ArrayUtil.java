@@ -2,6 +2,10 @@ package array;
 
 import static util.Print.*;
 
+import java.util.Arrays;
+import java.util.BitSet;
+
+
 public class ArrayUtil {
 	
 	/**
@@ -13,25 +17,18 @@ public class ArrayUtil {
 	 */
 	public void reverseArray(int[] origin){
 		
-		int len = origin.length;
 		int temp;
-		for (int i = 0; i < len/2; i++) {
+		int index = origin.length - 1;
+		int numbersToReverse = origin.length/2;
+		for (int i = 0; i < numbersToReverse ; i++) {
 			temp = origin[i];
-			origin[i] = origin[len-1-i];
-			origin[len-1-i] = temp;
+			origin[i] = origin[index - i];
+			origin[index - i] = temp;
 		}
 		
 	}
 	
-	public static void main(String args[]) {
-		
-		ArrayUtil arrayUtil = new ArrayUtil();
-		int[] my = new int[] {1,2,3,4,5};
-		arrayUtil.reverseArray(my);
-		println(my);
-	}
 
-	
 	/**
 	 * 现在有如下的一个数组：   int oldArr[]={1,3,4,5,0,0,6,6,0,5,4,7,6,7,0,5}   
 	 * 要求将以上数组中值为0的项去掉，将不为0的值存入一个新的数组，生成的新数组为：   
@@ -39,10 +36,29 @@ public class ArrayUtil {
 	 * @param oldArray
 	 * @return
 	 */
-	
+
 	public int[] removeZero(int[] oldArray){
-		return null;
+		
+		BitSet check = new BitSet(oldArray.length);
+		boolean isZero;
+		for (int i = 0; i < oldArray.length; i++) {
+			isZero = (oldArray[i] == 0) ? true : false;
+			check.set(i, isZero);
+		}
+
+		int newSize = oldArray.length-check.cardinality();
+		int[] newArr = new int[newSize];
+		
+		int nextIndex = check.nextClearBit(0);
+		for(int i = 0 ; i < newSize ; i++) {
+			newArr[i] = oldArray[nextIndex];
+			nextIndex = check.nextClearBit(nextIndex+1);
+		}
+
+		return newArr;
 	}
+		
+
 	
 	/**
 	 * 给定两个已经排序好的整形数组， a1和a2 ,  创建一个新的数组a3, 使得a3 包含a1和a2 的所有元素， 并且仍然是有序的
@@ -53,8 +69,34 @@ public class ArrayUtil {
 	 */
 	
 	public int[] merge(int[] array1, int[] array2){
-		return  null;
+		
+		int len1 = array1.length;
+		int len2 = array2.length;
+		int len3 = array1[len1-1] < array2[len2-1] ? array2[len2-1] + 1: array1[len1-1] + 1; 
+		int[] newArr = new int[len3];
+		initialArray(newArr, -1);
+		for (int i = 0; i < len1; i++) {
+			newArr[array1[i]] = 0;
+		}
+		for (int i = 0; i < len2; i++) {
+			newArr[array2[i]] = 0;
+		}
+		int mergedLength = 0;
+		for (int i = 0; i < len3; i++) {
+			if (newArr[i] != -1)
+				newArr[mergedLength++] = i;
+		}
+		return Arrays.copyOf(newArr, mergedLength);
 	}
+	
+	public static void initialArray(int[] arr, int j) {
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = j;
+		}
+	}
+	
+	
+	
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
 	 * 注意，老数组的元素在新数组中需要保持
@@ -65,9 +107,19 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
-		return null;
+		
+		int[] newArr = new int[oldArray.length + size];
+		for (int i = 0; i < oldArray.length; i++) {
+			newArr[i] = oldArray[i];
+		}
+		
+		return newArr;
 	}
 	
+	
+	
+	
+
 	/**
 	 * 斐波那契数列为：1，1，2，3，5，8，13，21......  ，给定一个最大值， 返回小于该值的数列
 	 * 例如， max = 15 , 则返回的数组应该为 [1，1，2，3，5，8，13]
@@ -77,6 +129,15 @@ public class ArrayUtil {
 	 */
 	public int[] fibonacci(int max){
 		return null;
+	}
+	
+	
+	public static void main(String args[]) {
+
+		ArrayUtil aUtil = new ArrayUtil();
+
+		
+		
 	}
 	
 	/**
@@ -108,7 +169,13 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator){
-		return null;
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < array.length; i++) {
+			sb.append(array[i]);
+			if (i < array.length-1)
+				sb.append(seperator);
+		}
+		return sb.toString();
 	}
 	
 
