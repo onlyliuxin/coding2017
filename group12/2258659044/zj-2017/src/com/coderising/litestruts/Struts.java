@@ -1,6 +1,17 @@
 package com.coderising.litestruts;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class Struts {
 
@@ -29,4 +40,27 @@ public class Struts {
     	return null;
     }    
 
+    private void readStrutsXml(String filePath){
+    	
+    	 File xmlFile = new File("struts.xml");
+    	 try {
+    		 DocumentBuilder documentBuilder = DocumentBuilderFactory
+    				 .newInstance().newDocumentBuilder();
+    		 Document document  = documentBuilder.parse(xmlFile);
+    		 //获取根节点
+    		 Element element = document.getDocumentElement();
+    		 //http://www.jb51.net/article/44338.htm
+    		 NodeList  childNodes = element.getChildNodes();
+    		 
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 }
