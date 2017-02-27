@@ -52,7 +52,11 @@ public class ArrayList implements List {
 	public int size(){
 		return size;
 	}
-			
+	
+	public Object[] toArray(){
+		return elementData.clone();
+	}
+	
 	/**
 	 * 扩容，扩容因子为10
 	 */
