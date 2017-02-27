@@ -162,6 +162,32 @@ public class ArrayUtil {
 	}
 	
 	/**
+	 * 所谓"完数"，是指这个数恰好等于他的因子之和，例如6 = 1+2+3
+	 * 给定一个最大值max，返回一个数组，数组中是小于max的所有完数
+	 * @param max
+	 * @return
+	 */
+	public static int[] getPerfectNumbers(int max){
+		int sum = 1;
+		int [] result = new int[10]; 
+		int len = 0;
+		for(int i = 2;i < max; i++){
+			sum = 1;
+			if(len >= result.length)
+				result = grow(result, result.length);
+			for(int j = 2; j < i; j++){
+				if(i % j == 0)
+					sum += j;
+			}
+			if(sum == i)
+				result[len++] = sum;	
+		}
+		result = Arrays.copyOf(result, len);
+		return result;
+	}
+	
+	
+	/**
 	 * 用seperator 把数组array给连接起来
 	 * 例如array = [3,8,9] ,seperator = "-"
 	 * 则返回值为"3-8-9"

@@ -64,6 +64,15 @@ public class ArrayUtilTest {
 	}
 	
 	@Test
+	public void testPerfectNumbers(){
+//		Assert.assertArrayEquals(new int[]{6}, ArrayUtil.getPerfectNumbers(7));
+		array = ArrayUtil.getPerfectNumbers(100);
+		for(int i : array){
+			System.out.print(i + " ");
+		}
+	}
+	
+	@Test
 	public void testJoin(){
 		Assert.assertEquals("3-8-9", ArrayUtil.join(new int[]{3,8,9}, "-"));
 	}
