@@ -26,7 +26,16 @@ public class BinaryTreeNode {
 	}
 	
 	public BinaryTreeNode insert(Object o){
-		return  null;
+		BinaryTreeNode node = new BinaryTreeNode();
+		node.data = o;
+		if(data.hashCode() > o.hashCode()){
+			this.right = node;
+		}else{
+			this.left = node;
+		}
+		return  this;
 	}
+	
+	
 	
 }
