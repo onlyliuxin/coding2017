@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.class
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -19,3 +20,26 @@ rebel.*
 .rebel.*
 
 target
+=======
+*.class
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+#ide config
+.metadata
+.recommenders
+.idea/
+*.iml
+rebel.*
+.rebel.*
+
+target
+>>>>>>> 3dcacd1cbe431c0308d47b189e7de27e7761310c
