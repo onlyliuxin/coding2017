@@ -10,7 +10,15 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin){
-		
+		if (origin != null && origin.length > 1) {
+			int len = origin.length;
+			int temp;
+			for(int left = 0,right = len - 1; left < right; left++,right = len - left - 1){
+				temp = origin[left];
+				origin[left] = origin[right];
+				origin[right] = temp;
+			}
+		}
 	}
 	
 	/**
@@ -20,9 +28,23 @@ public class ArrayUtil {
 	 * @param oldArray
 	 * @return
 	 */
-	
 	public int[] removeZero(int[] oldArray){
-		return null;
+		int[] newArray = null;
+		if (oldArray != null && oldArray.length > 0) {
+			int[] indexArray = new int[oldArray.length];
+			int j = 0;
+			for (int i = 0; i < oldArray.length; i++) {
+				if(oldArray[i] != 0){
+					indexArray[j++] = i;
+				}
+			}
+			newArray = new int[j];
+			for (int i = 0; i < j; i++) {
+				newArray[i] = oldArray[indexArray[i]];
+			}
+			indexArray = null;
+		}
+		return newArray;
 	}
 	
 	/**
@@ -34,7 +56,42 @@ public class ArrayUtil {
 	 */
 	
 	public int[] merge(int[] array1, int[] array2){
-		return  null;
+		if(array1 == null || array1.length <= 0){
+			return array2;
+		}
+		if(array2 == null || array2.length <= 0){
+			return array1;
+		}
+		int[] tempArray = new int[array1.length + array2.length];
+		int i = 0,j = 0,k = 0;
+		for (; i < array1.length && j < array2.length; ) {
+			if (array1[i] > array2[j]) {
+				tempArray[k++] = array2[j++];
+			}
+			else if(array1[i] < array2[j]){
+				tempArray[k++] = array1[i++];
+			}
+			else {
+				tempArray[k++] = array1[i++];
+				j++;
+			}
+		}
+		// 以array1为结束点
+		if(array1[array1.length - 1] > array2[array2.length - 1]){
+			for (; i < array1.length;) {
+				tempArray[k++] = array1[i++];
+			}
+		} else { // 以array2为结束点
+			for (; j < array2.length;) {
+				tempArray[k++] = array1[j++];
+			}
+		}
+		int[] mergeArray = new int[k];
+		for (int l = 0; l < mergeArray.length; l++) {
+			mergeArray[l] = tempArray[l];
+		}
+		tempArray = null;
+		return mergeArray;
 	}
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
@@ -46,7 +103,17 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
-		return null;
+		if(size <= 0){
+			throw new RuntimeException("size大于0");
+		}
+		int[] newArray = null;
+		if(oldArray != null && oldArray.length > 0){
+			newArray = new int[oldArray.length + size];
+			for (int i = 0; i <  oldArray.length; i++) {
+				newArray[i] = oldArray[i];
+			}
+		}
+		return newArray;
 	}
 	
 	/**
@@ -57,7 +124,23 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max){
-		return null;
+		if(max <= 1){
+			return new int[0];
+		}
+		int[] tempArray = new int[max];
+		int i = 0;
+		tempArray[i++] = 1;
+		tempArray[i] = 1;
+		while(tempArray[i] < max){
+			i++;
+			tempArray[i] = tempArray[i - 1] + tempArray[i - 2];
+		}
+		int[] array = new int[i];
+		for (int j = 0; j < array.length; j++) {
+			array[j] = tempArray[j];
+		}
+		tempArray = null;
+		return array;
 	}
 	
 	/**
@@ -67,9 +150,33 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max){
-		return null;
+		if(max <= 2){
+			return new int[0];
+		}
+		int[] tempArray = new int[max];
+		int j = 0;
+		for (int i = 2; i < max; i++) {
+			if(isPrime(i)){
+				tempArray[j++] = i;
+			}
+		}
+		int[] array = new int[j];
+		for (int i = 0; i < j; i++) {
+			array[i] = tempArray[i];
+		}
+		tempArray = null;
+		return array;
 	}
 	
+	private boolean isPrime(int i) {
+		for (int j = 2; j < i; j++) {
+			if(i % j == 0){
+				return false;
+			}
+		}
+		return true;
+	}
+
 	/**
 	 * 所谓“完数”， 是指这个数恰好等于它的因子之和，例如6=1+2+3
 	 * 给定一个最大值max， 返回一个数组， 数组中是小于max 的所有完数
@@ -77,9 +184,37 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max){
-		return null;
+		if(max <= 2){
+			return new int[0];
+		}
+		int[] tempArray = new int[max];
+		int j = 0;
+		for (int i = 3; i < max; i++) {
+			if(isPerfectNumber(i)){
+				tempArray[j++] = i;
+			}
+		}
+		int[] array = new int[j];
+		for (int i = 0; i < j; i++) {
+			array[i] = tempArray[i];
+		}
+		tempArray = null;
+		return array;
 	}
 	
+	private boolean isPerfectNumber(int num) {
+		int sum = 1;
+		for(int i = 2; i < num; i++){
+			if(num % i == 0){
+				sum += i;
+			}
+		}
+		if(sum == num){
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * 用seperator 把数组 array给连接起来
 	 * 例如array= [3,8,9], seperator = "-"
@@ -89,7 +224,12 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator){
-		return null;
+		char[] chars = new char[array.length<<1];
+		for (int i = 0,j = 1; i < chars.length; i+=2,j+=2) {
+			chars[i] = (char) (array[i>>1] + 48);
+			chars[j] = seperator.charAt(0);
+		}
+		return new String(chars, 0, chars.length - 1);
 	}
 	
 
