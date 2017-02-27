@@ -1,6 +1,6 @@
 /**   
 * @Title: ArrayList.java 
-* @Description: TODO(用一句话描述该文件做什么) 
+* @Description: ArrayList的实现
 * @author glorychou
 * @date 2017年2月22日 下午10:41:58 
 */
@@ -33,8 +33,8 @@ public class ArrayList<E> implements List<E> {
 	 * 构造初始元素数组
 	 */
 	public ArrayList() {
-        this.elementData = CAPACITY_EMPTY_ELEMENTDATA;
-    }
+		this.elementData = CAPACITY_EMPTY_ELEMENTDATA;
+	}
 	
 	/***
 	 * 
@@ -158,7 +158,7 @@ public class ArrayList<E> implements List<E> {
 		int oldCapacity = elementData.length;
 		// 容量增大一半
 		int newCapacity = oldCapacity + (oldCapacity >> 1);
-        elementData = Arrays.copyOf(elementData, newCapacity);
+		elementData = Arrays.copyOf(elementData, newCapacity);
 	}
 	
 	/***
@@ -169,6 +169,6 @@ public class ArrayList<E> implements List<E> {
 	 */
 	private void rangeCheck(int index) {
 		if (index < 0 || index > size)
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-    }
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+	}
 }
