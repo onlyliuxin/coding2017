@@ -8,7 +8,7 @@ public class ArrayList implements List,Iterator{
 	
 	private Object[] elementData = new Object[2];
 	
-	//S
+	//SS
 	public void add(Object o){
 		size=size();
 		if (size == elementData.length)
