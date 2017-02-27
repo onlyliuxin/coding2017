@@ -6,7 +6,8 @@ public class LinkedList implements List {
 	private Node head;
 	
 	private int size;
-	public void addError(Object o){
+	//加到最后 
+	public void add(Object o){
 		Node newNode= new Node();
 		newNode.data = o;
 		newNode.next = null;
@@ -18,34 +19,19 @@ public class LinkedList implements List {
 		}
 		
 		Node currentNode = head;
-		/*
+	
 		while (currentNode.next != null ){
 			currentNode = currentNode.next ; 
 		} 
-		*/
+		/*
 		for (int i=0;i< size;i++){
 			currentNode = currentNode.next ; 
 		}
-
+	 */
 		currentNode.next =newNode;	
 		size++;
 	}
-	public void add(Object o){
-		if (size==0) {
-			head=new Node();
-			head.data=o;
-			size++;
-			return;
-		}
-		Node last=head;
-		for (int i = 0; i < size-1; i++) {
-			last=last.next;
-		}
-		Node added=new Node();
-		last.next=added;
-		added.data=o;
-size++;
-	}
+	
 	public void add(int index , Object o){
 		if (index >= size ||index < 0) {
 			return;
@@ -71,12 +57,13 @@ size++;
 				
 				PrevNode.next = newNode;
 				newNode.next = currentNode;
-			}		
+			}	
+			size++;
 	}
 	
 	public Object get(int index){
-		int oldSize = size();
-		if (index >= oldSize ||index < 0) {
+		
+		if (index >= size ||index < 0) {
 			return null;
 		}
 		Node currentNode = head;
@@ -87,7 +74,7 @@ size++;
 		
 	}
 	public Object remove(int index){
-		int size = size();
+ 
 		if (index >= size ||index < 0) {
 			return null;
 		}
@@ -95,6 +82,7 @@ size++;
 		Node currentNode = head;
 		if (index ==0 ){
 			head =head.next;
+			size--;
 			return currentNode.data;
 		}
 		Node PrevNode = null;
@@ -103,6 +91,7 @@ size++;
 			currentNode =currentNode.next;
 		}
 		PrevNode.next = currentNode.next;
+		size--;
 		return currentNode.data;
 	}
 	
@@ -120,6 +109,12 @@ size++;
 		size++;
 	}
 	public void addLast(Object o){
+		if (head == null){
+			head = new Node();
+			head.data= o;
+			size ++;
+			return;
+		}
 		Node currentNode = head;
 		while (currentNode.next != null){
 			currentNode=currentNode.next;
@@ -142,7 +137,7 @@ size++;
 		else {
 			Node firstNode = head;
 			head = firstNode.next;	
-			return firstNode;
+			return firstNode.data ;
 		} 
 	}
 	public Object removeLast(){

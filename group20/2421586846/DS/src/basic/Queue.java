@@ -9,8 +9,7 @@ public class Queue {
 	
 	
 	public Object deQueue(){
-		Object tempObj =elementData.removeFirst();
-		return tempObj;
+		return elementData.removeFirst(); 
 	}
 	
 	public boolean isEmpty(){

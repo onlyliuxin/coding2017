@@ -6,18 +6,66 @@ import java.util.Arrays;
 public class Test {
 
 	public static void main(String[] args) {
-		TestLinkedList();
-	
-	}
-	public static void TestLinkedList(){
 		LinkedList ll = new LinkedList();
+		ll.add(0);
 		ll.add(1);
 		ll.add(2);
 		ll.add(3);
+		ll.add(4);
+		
+		LinkedList aa=ll;
+		ll.add(0,10);
+		System.out.println(aa.get(0));
+	
+	}
+	public static void TestQueue(){
+		Queue qu= new Queue();
+		qu.enQueue(1);
+		qu.enQueue(2);
+		qu.enQueue(3);
+		qu.enQueue(4);
+		qu.enQueue(5);
+		qu.enQueue(6);
+		
+		qu.enQueue(7);
+		qu.enQueue(8);
+
+		System.out.println(qu.deQueue());
+		System.out.println(qu.deQueue());
+		System.out.println(qu.deQueue());
+	}
+	public static void TestStack(){
+		Stack s = new Stack();
+		s.push(1);
+		s.push(2);
+		s.push(3);
+		s.push(4);
+		System.out.println(s.pop());
+
+		System.out.println(s.pop());
+		System.out.println(s.pop());
+
+		System.out.println(s.pop());
+		System.out.println(s.pop());
+		
+	}
+	public static void TestLinkedList(){
+		LinkedList ll = new LinkedList();
+		ll.add(0);
+		ll.add(1);
+		ll.add(2);
+		ll.add(3);
+		ll.add(4);
+
+		//ll.add(0,5);
+		//ll.add(0,7);
+		ll.removeLast();
+		ll.removeLast();
+		ll.removeLast();
 		int size = ll.size();
 		for (int i=0;i< size;i++){
 
-			System.out.println(ll.get(0));
+			System.out.println(ll.get(i));
 		}
 	}
 	
