@@ -1,9 +1,9 @@
-package com.coding;
+﻿package com.coding;
 
 import com.coding.basic.*;
 public class Main {
 	public static void main(String[] args) {
-		ArrayList list = new ArrayList();
+		ArrayList list = new ArrayList();           
 		
 		list.add(0, "2xxx");
 		list.add(1, "we");
@@ -17,7 +17,7 @@ public class Main {
 		}
 		System.out.println(list.size());
 
-		LinkedList llist = new LinkedList();
+		LinkedList llist = new LinkedList();          
 		llist.add("hu");
 		llist.add("zhao");
 		llist.add(2,"xing");
@@ -31,12 +31,12 @@ public class Main {
 			System.out.print(llist.get(i));
 		System.out.println(llist.size());
 
-		Iterator literator = llist.iterator();
+		Iterator literator = llist.iterator();       
 		while(literator.hasNext()) {
 			System.out.println(literator.next());
 		}
 		
-		Stack stack = new Stack();
+		Stack stack = new Stack();                    
 		stack.push(1);
 		stack.push(2);
 		stack.push(3);
@@ -45,7 +45,7 @@ public class Main {
 		while(!stack.isEmpty())	
 		System.out.println(stack.pop());
 
-		Queue queue = new Queue();
+		Queue queue = new Queue();                     
 		queue.enQueue(1);
 		queue.enQueue(2);
 		queue.enQueue(3);
