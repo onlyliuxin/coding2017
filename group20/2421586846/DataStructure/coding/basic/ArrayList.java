@@ -6,34 +6,39 @@ public class ArrayList implements List {
 	
 	private int size = 0;
 	
-	private Object[] elementData = new Object[100];
+	private Object[] elementData = new Object[2];
+	
+	public void EnsureEnoughSize(){
+		if (size == elementData.length )
+		{
+			elementData = Arrays.copyOf(elementData, elementData.length +10);
+			
+		}
+	}
 	
 	public void add(Object o){
-		if (size< elementData.length)		{
+		EnsureEnoughSize();
+		 
+		//	elementData = Arrays.copyOf(elementData, elementData.length +1);
+			//Object[] NewelementData = new Object[size+1];
+			//System.arraycopy( elementData,0, NewelementData, 0, elementData.length );
+			
 		
-		}
-		else{
-			Arrays.copyOf(elementData, elementData.length +1);
-			
-		}
-		size++;
 		elementData[size]=o;
-			
+		size++;	
 	}
 	public void add(int index, Object o){
 		if (index >= size || index < 0){
 			return;	
 		}
+
+		EnsureEnoughSize();
 		
-		if (size >= elementData.length)		{
-			Arrays.copyOf(elementData, elementData.length +1);
-		} 
-		
-		size++;
-		for (int i =  elementData.length-1; i>index;i ++){
+		for (int i =  elementData.length-1; i>index;i --){
 			elementData[i]=elementData[i-1];
 		}
 		elementData[index]=o;
+		size++;
 	}
 	
 	public Object get(int index){
