@@ -8,9 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.dom4j.Attribute;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
@@ -19,12 +17,12 @@ import org.dom4j.io.SAXReader;
  * @author ren
  * 
  */
-public class Dom4jParseXmlUtil {
+public class Dom4jUtil {
 	
 	/**
-	 * 获取根节点
-	 * @param path
-	 * @return Element
+	 * 传入文件路径解析xml文件获取根节点
+	 * @param path xml文件的绝对路径
+	 * @return Element 根节点
 	 */
 	public static Element parseXml(String path){
 		InputStream is = null;
@@ -38,9 +36,12 @@ public class Dom4jParseXmlUtil {
             //获取根节点对象 
             Element rootElement = document.getRootElement();
             return rootElement;
-		} catch (FileNotFoundException | DocumentException e) {
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}finally{
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally{
 			if( is!=null ){
 				try {
 					is.close();
@@ -68,23 +69,33 @@ public class Dom4jParseXmlUtil {
 		return map;
 	}
 	
-	public static void getNode(Element element){
+	/**
+	 * 根据传入的Action名返回结果JSP
+	 * @param element 根节点
+	 * @param actionName 标签name属性的value
+	 * @return map 封装返回结果jsp的map对象
+	 */
+	public static Map<String, String> getJspMap(Element element,String actionName){
+		Map<String, String> map = new HashMap<String, String>();
 		List<Element> actions = element.elements();
 		for (Element action : actions) {
-			List<Element> results = action.elements();
-			for (Element result : results) {
-				String name = result.attributeValue("name");
-				String text = result.getText();
-				System.out.println(name+":"+text);
+			if(actionName.equals(action.attributeValue("name"))){
+				List<Element> results = action.elements();
+				for (Element result : results) {
+					String name = result.attributeValue("name");
+					String text = result.getText();
+					map.put(name, text);
+				}
 			}
         }
+		return map;
 	}
 	
 	public static void main(String[] args) {
-		String path = Dom4jParseXmlUtil.class.getResource("").getPath()+"struts.xml";
+		String path = Dom4jUtil.class.getResource("").getPath()+"struts.xml";
 		System.out.println(path);
 		Element element = parseXml(path);
 		Map<String, String> attribute = getAttribute(element);
-		getNode(element);
+		System.out.println(getJspMap(element,"login").get("success"));
 	}
 }

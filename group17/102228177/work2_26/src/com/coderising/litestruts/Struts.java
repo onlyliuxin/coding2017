@@ -33,8 +33,8 @@ public class Struts {
         
         */
     	String path = Struts.class.getResource("").getPath()+"struts.xml";
-		Element element = Dom4jParseXmlUtil.parseXml(path);
-		Map<String, String> attribute = Dom4jParseXmlUtil.getAttribute(element);
+		Element element = Dom4jUtil.parseXml(path);
+		Map<String, String> attribute = Dom4jUtil.getAttribute(element);
 		String className = attribute.get(actionName);
 		try {
 			Class clazz = Class.forName(className);
@@ -58,22 +58,22 @@ public class Struts {
 			}
 			View view = new View();
 			view.setParameters(map);
-			
+			Map<String, String> result = Dom4jUtil.getJspMap(element, actionName);
+			view.setJsp(result.get(str));
+			return view;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
     	return null;
     }    
     
    public static void main(String[] args) {
 	   String actionName = "login";
-       
 	   Map<String,String> params = new HashMap<String,String>();
        params.put("name","test");
        params.put("password","1234");
        runAction(actionName, params);
-}
+   }
 }

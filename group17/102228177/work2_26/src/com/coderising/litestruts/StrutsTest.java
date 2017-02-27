@@ -24,11 +24,11 @@ public class StrutsTest {
         
         View view  = Struts.runAction(actionName,params);        
         
-//        Assert.assertEquals("/jsp/homepage.jsp", view.getJsp());
-//        Assert.assertEquals("login successful", view.getParameters().get("message"));
+        Assert.assertEquals("/jsp/homepage.jsp", view.getJsp());
+        Assert.assertEquals("login successful", view.getParameters().get("message"));
 	}
 
-//	@Test
+	@Test
 	public void testLoginActionFailed() {
 		String actionName = "login";
 		Map<String,String> params = new HashMap<String,String>();
