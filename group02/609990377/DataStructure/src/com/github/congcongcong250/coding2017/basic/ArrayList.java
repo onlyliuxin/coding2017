@@ -22,46 +22,34 @@ public class ArrayList implements List {
 	}
 	
 	public void add(int index, Object o){
-		//Check Object class
-		if(size >= 1){
-			if(o.getClass() != elementData[0].getClass())
-				throw new InputMismatchException("Index:"+index+" Size:"+size);
-		}
-		
 		//index Check
-		if(index >= size || index < 0){
-			throw new IndexOutOfBoundsException("Index:"+index+" Size:"+size);
-		}
+		checkIndex(index);
 		
 		//check size limit
 		if(size + 1 > elementData.length){
-			Object oldData[] = elementData;
 			int newlength = elementData.length * 3 / 2 + 1;
 			elementData = Arrays.copyOf(elementData, newlength);
 		}
 		
-		for(int i = size-1; i >= index; i-- ){
+		for(int i = ++size; i >= index; i-- ){
 			elementData[i] = elementData[i-1];
 		}
 		
 		elementData[index] = o;
 		
+		
 	}
 	
 	public Object get(int index){
 		//index Check
-		if(index >= size || index < 0){
-			throw new IndexOutOfBoundsException("Index:"+index+" Size:"+size);
-		}
+		checkIndex(index);
 		
 		return elementData[index];
 	}
 	
 	public Object remove(int index){
 		//index Check
-		if(index >= size || index < 0){
-			throw new IndexOutOfBoundsException("Index:"+index+" Size:"+size);
-		}
+		checkIndex(index);
 		
 		Object old = elementData[index];
 		for(int i = index; i < size-1 ; i++ ){
@@ -78,6 +66,18 @@ public class ArrayList implements List {
 	public Iterator iterator(){
 		return new Itr();
 	}
+	
+	public void clear(){
+		elementData = new Object[10];
+		size = 0;
+	}
+	
+	private void checkIndex(int index){
+		if(index >= size || index < 0){
+			throw new IndexOutOfBoundsException("Index:"+index+" Size:"+size);
+		}
+	}
+	
 	
 	private class Itr implements Iterator{
 		//index for next element to visit
@@ -106,8 +106,8 @@ public class ArrayList implements List {
 			ArrayList.this.remove(--cursor);
 			
 		}
-		
-		
 	}
+	
+	
 	
 }
