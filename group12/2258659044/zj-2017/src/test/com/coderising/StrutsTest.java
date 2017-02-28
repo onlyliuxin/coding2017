@@ -8,11 +8,6 @@ import org.junit.Test;
 
 import com.coderising.litestruts.Struts;
 import com.coderising.litestruts.View;
-
-
-
-
-
 public class StrutsTest {
 
 	@Test
