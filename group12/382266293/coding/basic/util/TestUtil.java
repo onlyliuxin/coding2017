@@ -1,5 +1,6 @@
 package util;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import Collection.List;
@@ -16,8 +17,22 @@ public class TestUtil<E> extends TestCase {
 	private static final int RANDOM_SIZE = 500;
 	
 	
+
+	
+	public static int[] getRandomIntArray(int number) {
+		int[] arr = new int[number];
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = getRandomNumber() + 1;
+		}
+		return arr;
+	}
+	
 	public static int getRandomNumber() {
 		return random.nextInt(RANDOM_SIZE);
+	}
+	
+	public static int getRandomNumber(int bound) {
+		return random.nextInt(bound);
 	}
 	
 	public static void addIntWithNatureOrder(List<Integer> myList, int numbers) {
