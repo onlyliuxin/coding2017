@@ -301,4 +301,16 @@ public class LinkedList<E> implements List<E>,Queue<E> {
 		return "Index: " + index + ", Size: " + this.size;
 	}
 
+	@Override
+	public E[] toArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> T[] toArray(T[] a) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

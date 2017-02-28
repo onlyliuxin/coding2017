@@ -38,20 +38,21 @@ public interface List<E> {
 	 * @return
 	 */
 	Iterator<E> iterator();
-	//
-	// /**
-	// * 返回集合数组对象
-	// *
-	// * @return
-	// */
-	// Object[] toArray();
-	//
-	// /**
-	// * 将集合元素复制到新数组中
-	// * @param a
-	// * @return
-	// */
-	// <T> T[] toArray(T[] a);
+
+	/**
+	 * 返回集合数组对象
+	 *
+	 * @return
+	 */
+	Object[] toArray();
+
+	/**
+	 * 将集合元素复制到新数组中
+	 * 
+	 * @param a
+	 * @return
+	 */
+	<T> T[] toArray(T[] a);
 
 	/**
 	 * 在集合末尾追加元素

@@ -1,6 +1,5 @@
 package org.wsc.array;
 
-import java.util.Arrays;
 
 public class ArrayUtil {
 	/**
@@ -10,7 +9,7 @@ public class ArrayUtil {
 	 * @param origin
 	 * @return
 	 */
-	public void reverseArray(int[] origin){
+	public static void reverseArray(int[] origin){
 		//折半
 		for (int i = 0; i < (origin.length >> 1); i++) {
 			int num = origin[i];
@@ -26,7 +25,7 @@ public class ArrayUtil {
 	 * @param oldArray
 	 * @return
 	 */
-	public int[] removeZero(int[] oldArray){
+	public static int[] removeZero(int[] oldArray){
 		int count = 0;//计数器
 		/*
 		 * 利用冒泡，将0元素向后排
@@ -54,6 +53,30 @@ public class ArrayUtil {
 	}
 	
 	/**
+	 * 现在有如下的一个数组：   int oldArr[]={1,3,4,5,0,0,6,6,0,5,4,7,6,7,0,5}   
+	 * 要求将以上数组中值为0的项去掉，将不为0的值存入一个新的数组，生成的新数组为：   
+	 * {1,3,4,5,6,6,5,4,7,6,7,5}  
+	 * @param oldArray
+	 * @return
+	 */
+	public static int[] removeZero2(int[] oldArray){
+		int count = 0;//计数器
+		for (int i = 0; i < oldArray.length; i++) {
+			if(oldArray[i] == 0)
+				count++;//计数器+1
+		}
+		//创建新数组
+		int[] newArray = new int[oldArray.length-count];
+		for (int i = 0,j=0; i < oldArray.length; i++) {
+			if(oldArray[i] != 0){
+				newArray[j] = oldArray[i];
+				j++;
+			}
+		}
+		return newArray;
+	}
+	
+	/**
 	 * 给定两个已经排序好的整形数组， a1和a2 ,  创建一个新的数组a3, 使得a3 包含a1和a2 的所有元素， 并且仍然是有序的
 	 * 例如 a1 = [3, 5, 7,8]   a2 = [4, 5, 6,7]    则 a3 为[3,4,5,6,7,8]    , 注意： 已经消除了重复
 	 * @param array1
@@ -61,7 +84,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 	
-	public int[] merge(int[] array1, int[] array2){
+	public static int[] merge(int[] array1, int[] array2){
 		return  null;
 	}
 	/**
@@ -73,8 +96,12 @@ public class ArrayUtil {
 	 * @param size
 	 * @return
 	 */
-	public int[] grow(int [] oldArray,  int size){
-		return null;
+	public static int[] grow(int [] oldArray,  int size){
+		int[] newArray = new int[oldArray.length+size];
+		for (int i = 0; i < oldArray.length; i++) {
+			newArray[i] = oldArray[i];
+		}
+		return newArray;
 	}
 	
 	/**
@@ -84,7 +111,7 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] fibonacci(int max){
+	public static int[] fibonacci(int max){
 		return null;
 	}
 	
@@ -94,7 +121,7 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] getPrimes(int max){
+	public static int[] getPrimes(int max){
 		return null;
 	}
 	
@@ -104,7 +131,7 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] getPerfectNumbers(int max){
+	public static int[] getPerfectNumbers(int max){
 		return null;
 	}
 	
@@ -116,7 +143,12 @@ public class ArrayUtil {
 	 * @param s
 	 * @return
 	 */
-	public String join(int[] array, String seperator){
-		return null;
+	public static String join(int[] array, String seperator){
+		String str = "";
+		for (int i = 0; i < array.length; i++) {
+			str += i != array.length -1 ? 
+					array[i] + seperator : array[i];
+		}
+		return str;
 	}
 }
