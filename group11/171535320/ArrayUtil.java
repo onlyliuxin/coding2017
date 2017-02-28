@@ -54,7 +54,28 @@ public class ArrayUtil {
      */
 
     public int[] merge(int[] array1, int[] array2){
-        return  null;
+        int[] result = new int[array1.length + array2.length];
+        int len1 = 0;
+        int len2 = 0;
+        int i = 0;
+        while(len1 != array1.length || len2 != array2.length) {
+            if(len1 < array1.length && len2 < array2.length) {
+                if(array1[len1] < array2[len2]) {
+                    result[i++] = array1[len1++];
+                } else if(array1[len1] > array2[len2]) {
+                    result[i++] = array2[len2++];
+                } else {
+                    len1++;
+                    len2++;
+                }
+            } else if(len1 < array1.length){
+                result[i++] = array1[len1++];
+            } else {
+                result[i++] = array2[len2++];
+            }
+
+        }
+        return  result;
     }
     /**
      * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
