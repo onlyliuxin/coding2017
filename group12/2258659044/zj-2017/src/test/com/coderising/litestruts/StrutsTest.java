@@ -1,4 +1,4 @@
-package test.com.coderising;
+package test.com.coderising.litestruts;
 
 import java.util.HashMap;
 import java.util.Map;
