@@ -1,4 +1,4 @@
-package cn.mark;
+package cn.mark.work0219;
 /**
  * 自定义实现LinkedList数据结构
  * @author hilih

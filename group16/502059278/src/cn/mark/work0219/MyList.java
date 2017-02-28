@@ -1,4 +1,4 @@
-package cn.mark;
+package cn.mark.work0219;
 
 public interface MyList {
     /**
