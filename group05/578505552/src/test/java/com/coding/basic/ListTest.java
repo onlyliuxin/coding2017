@@ -9,16 +9,17 @@ import org.junit.Test;
  * Created by songbao.yang on 2017/2/21.
  *
  */
-public class ArrayListTest {
+public class ListTest {
 
-    private ArrayList list;
+    private List list;
 
     public static final int SIZE = 10000;
 
     @Before
     public void setUp() throws Exception {
 
-        list = new ArrayList();
+//        list = new ArrayList();
+        list = new LinkedList();
     }
 
     @After
@@ -71,10 +72,12 @@ public class ArrayListTest {
 
         add();
         for (int i = 0; i < SIZE; i++) {
-            System.out.println("remove: " + i);
-            list.remove(0);
+            int oldSize = list.size();
+            int randomIndex = (int)Math.floor(Math.random() * oldSize);
+            list.remove(randomIndex);
+            int newSize = list.size();
+            Assert.assertEquals(newSize, oldSize-1);
         }
-
     }
 
     @Test
