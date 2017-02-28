@@ -20,6 +20,12 @@ public class ArrayUtil {
 		}
 		System.out.println("置换前："+Arrays.toString(origin));
 		System.out.println("置换后："+Arrays.toString(target));
+		
+		
+		 Math.random();
+		 
+		
+		
 	}
 	
 	/**
@@ -65,6 +71,27 @@ public class ArrayUtil {
 	 */
 	
 	public int[] merge(int[] array1, int[] array2){
+		//1.去重
+		int[] array3 = Arrays.copyOf(array1, array1.length);
+		for( int i = 0; i < array1.length; i++ ){
+			for( int j = 0; j < array2.length ; j++ ){
+				if ( array1[i] == array2[j] ){
+					
+				}
+			}
+			
+			
+			
+			
+		}
+		
+		System.out.println(Arrays.toString(array1));
+		System.out.println(Arrays.toString(array2));
+		//2.合并
+		
+		//3.排序
+		
+		
 		return  null;
 	}
 	/**
@@ -77,7 +104,9 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
-		return null;
+		int[] newArray = Arrays.copyOf(oldArray, oldArray.length+size);
+		System.out.println("扩容后："+Arrays.toString(newArray));
+		return newArray;
 	}
 	
 	/**
@@ -120,11 +149,21 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator){
-		return null;
+		StringBuilder sb = new StringBuilder();
+		for( int i = 0; i < array.length; i++ ){
+			if ( i == 0 ){
+				sb.append(array[i]);
+			}else{
+				sb.append(seperator+array[i]);
+			}
+		}
+		return sb.toString();
 	}
 	
 
 	public static void main(String[] args) {
-		new ArrayUtil().removeZero(new int[]{0,1,2,0,3,0,4,7,0});
+		int[] a1 =new int[]{3,8},   a2 = new int[]{4, 5, 6,7};
+		System.out.println(new ArrayUtil().join(a1, "*"));
+		
 	}
 }
