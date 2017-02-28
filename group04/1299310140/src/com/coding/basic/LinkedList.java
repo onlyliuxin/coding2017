@@ -151,8 +151,36 @@ public class LinkedList implements List {
 	}
 	
 	public Iterator iterator(){
-		return null;
+		return new LinkedListIterator(this);
 	}
+	
+	private static class LinkedListIterator implements Iterator{
+//		private LinkedList list;
+		private Node pres;
+		
+		public LinkedListIterator(LinkedList list) {
+			super();
+//			this.list = list;
+			this.pres = list.head;
+		}
+
+		@Override
+		public boolean hasNext() {
+			if(this.pres != null){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		@Override
+		public Object next() {
+			Object o = this.pres.data;
+			pres = pres.next;
+			return o;
+		}
+		
+	} 
 	
 	private static class Node{
 		Object data;
