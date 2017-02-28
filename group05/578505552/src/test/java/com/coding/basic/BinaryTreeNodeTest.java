@@ -11,9 +11,15 @@ import static org.junit.Assert.*;
  *
  */
 public class BinaryTreeNodeTest {
+
+    private BinaryTreeNode node;
+
     @Before
     public void setUp() throws Exception {
-
+        node = new BinaryTreeNode();
+        node.setData(100);
+        node.setLeft(null);
+        node.setRight(null);
     }
 
     @After
@@ -24,6 +30,9 @@ public class BinaryTreeNodeTest {
     @Test
     public void insert() throws Exception {
 
+        for (int i = 0; i < 100; i++) {
+            int ele = (int)Math.floor(Math.random() * 200);
+            node.insert(ele);
+        }
     }
-
 }
