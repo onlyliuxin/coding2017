@@ -1,6 +1,6 @@
 /**   
 * @Title: Stack.java 
-* @Description: TODO(用一句话描述该文件做什么) 
+* @Description: 栈的实现 
 * @author glorychou
 * @date 2017年2月24日 下午3:05:29 
 */
