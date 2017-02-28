@@ -64,7 +64,35 @@ public class ArrayList implements List {
 	}
 	
 	public Iterator iterator(){
-		return null;
+		return new ArrayListIterator(this);
+	}
+	
+	public static class ArrayListIterator implements Iterator{
+		private ArrayList list;
+		private int pres;
+		
+		public ArrayListIterator(ArrayList list) {
+			super();
+			this.list = list;
+			this.pres = 0;
+		}
+
+		@Override
+		public boolean hasNext() {
+			if(this.pres < this.list.size()){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		@Override
+		public Object next() {
+			Object o = this.list.get(this.pres);
+			this.pres++;
+			return o;
+		}
+		
 	}
 	
 	/*
