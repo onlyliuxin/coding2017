@@ -1,0 +1,46 @@
+package com.coding.work;
+
+public class LinkedList{
+	private int size;
+	
+	private static class Node {
+		Object data;
+		Node next;	
+	}
+	private  Node head = new Node();
+	private Node lastNode;
+	
+	public LinkedList(){
+		head.next = null;
+		head.data = null;
+		lastNode = head;
+	}
+	
+	public void add(Object o) {
+		Node curnode = new Node();
+		curnode.data = o;
+		curnode.next = null;
+		if (head.next == null) {
+			head.next = curnode;
+			lastNode = curnode;
+			size++;
+		}else {
+			lastNode.next = curnode;
+			size++;
+		}
+	
+		
+	}
+	public void add(int index , Object o) {
+		if (index > size - 1) {
+			for(int i = size - 1; i <= index; i++){
+				Node curnode = new Node();
+				lastNode.next = curnode;
+				lastNode = curnode;
+			}
+			lastNode.data = o;
+		}
+			
+	}
+
+}
