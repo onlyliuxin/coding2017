@@ -54,7 +54,9 @@ public class ArrayList implements List {
 	}
 	
 	public Object[] toArray(){
-		return elementData.clone();
+		Object[] objArr = new Object[size];
+		System.arraycopy(elementData, 0, objArr, 0, size);
+		return objArr;
 	}
 	
 	/**
