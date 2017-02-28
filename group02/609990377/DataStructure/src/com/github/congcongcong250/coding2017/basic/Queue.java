@@ -27,4 +27,8 @@ public class Queue {
 	public int size(){
 		return elementData.size();
 	}
+	
+	public void clear(){
+		elementData.clear();
+	}
 }

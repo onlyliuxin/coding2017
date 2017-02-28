@@ -37,6 +37,12 @@ public class BinaryTreeNode <Object extends Comparable<Object>>{
 		this.right = right;
 	}
 	
+	public void destroy(){
+		this.data = null;
+		this.left = null;
+		this.right = null;
+	}
+	
 	public BinaryTreeNode insert(Object o){
 		//If is empty root
 		if(data == null){
