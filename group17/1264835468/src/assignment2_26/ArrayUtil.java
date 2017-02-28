@@ -3,6 +3,7 @@ package assignment2_26;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeSet;
 
 public class ArrayUtil {
 
@@ -56,34 +57,16 @@ public class ArrayUtil {
 	 */
 
 	public int[] merge(int[] array1, int[] array2) {
-		int[] result = new int[array1.length + array2.length];
-		int ptr1 = 0, ptr2 = 0, ptrResult = 0;
-		while (ptr1 < array1.length && ptr2 < array2.length) {
-			if (array1[ptr1] == array2[ptr2]) {
-				result[ptrResult++] = array1[ptr1];
-				ptr1++;
-				ptr2++;
-				continue;
-			}
-			if (array1[ptr1] < array2[ptr2]) {
-				result[ptrResult++] = array1[ptr1];
-				ptr1++;
-				continue;
-			}
-			else {
-				result[ptrResult++] = array2[ptr2];
-				ptr2++;
-			}
+		TreeSet<Integer> set = new TreeSet<>();
+		for (Integer integer : array1) {
+			set.add(integer);
 		}
-		if (ptr1 == array1.length) {
-			for (; ptrResult < result.length; ptrResult++) {
-				result[ptrResult] = array2[ptr2++];
-			}
+		for (Integer integer : array2) {
+			set.add(integer);
 		}
-		else {
-			for (; ptrResult < result.length; ptrResult++) {
-				result[ptrResult] = array1[ptr1++];
-			}
+		int[] result = new int[set.size()];
+		for (int i = 0; i < result.length; i++) {
+			result[i] = set.pollFirst();
 		}
 		return result;
 	}
