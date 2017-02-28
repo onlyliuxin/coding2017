@@ -43,9 +43,6 @@ public class ArrayUtilTest {
 		}
 		
 	}
-		
-
-		
 
 	@Test
 	public void testRemoveZero() {
@@ -119,17 +116,28 @@ public class ArrayUtilTest {
 
 	@Test
 	public void testFibonacci() {
-
+		int[] expected = new int[] {1, 1, 2, 3, 5, 8, 13};
+		int[] acutal = new int[expected.length];
+		actual = au.fibonacci(15);
+		assertArrayEquals(expected,actual);
 	}
 
 	@Test
 	public void testGetPrimes() {
-
+		
+		int[] expected = new int[] {2,3,5,7,11,13,17,19};
+		int[] acutal = new int[expected.length];
+		actual = au.getPrimes(23);
+		assertArrayEquals(expected,actual);
 	}
 
 	@Test
 	public void testGetPerfectNumbers() {
-
+		
+		int[] expected = new int[] {6, 28, 496, 8128};
+		int[] acutal = new int[expected.length];
+		actual = au.getPerfectNumbers(10000);
+		assertArrayEquals(expected,actual);
 	}
 
 	@Test

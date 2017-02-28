@@ -1,9 +1,11 @@
 package array;
 
 import static util.Print.*;
-
 import java.util.Arrays;
 import java.util.BitSet;
+import Collection.Iterator;
+import Collection.Concrete.ArrayList;
+
 
 
 public class ArrayUtil {
@@ -25,7 +27,6 @@ public class ArrayUtil {
 			origin[i] = origin[index - i];
 			origin[index - i] = temp;
 		}
-		
 	}
 	
 
@@ -59,7 +60,6 @@ public class ArrayUtil {
 	}
 		
 
-	
 	/**
 	 * 给定两个已经排序好的整形数组， a1和a2 ,  创建一个新的数组a3, 使得a3 包含a1和a2 的所有元素， 并且仍然是有序的
 	 * 例如 a1 = [3, 5, 7,8]   a2 = [4, 5, 6,7]    则 a3 为[3,4,5,6,7,8]    , 注意： 已经消除了重复
@@ -95,8 +95,6 @@ public class ArrayUtil {
 		}
 	}
 	
-	
-	
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
 	 * 注意，老数组的元素在新数组中需要保持
@@ -112,13 +110,9 @@ public class ArrayUtil {
 		for (int i = 0; i < oldArray.length; i++) {
 			newArr[i] = oldArray[i];
 		}
-		
 		return newArr;
 	}
-	
-	
-	
-	
+
 
 	/**
 	 * 斐波那契数列为：1，1，2，3，5，8，13，21......  ，给定一个最大值， 返回小于该值的数列
@@ -128,16 +122,17 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max){
-		return null;
-	}
-	
-	
-	public static void main(String args[]) {
-
-		ArrayUtil aUtil = new ArrayUtil();
-
-		
-		
+		if (max == 1)
+			return new int[0];
+		int[] result = new int[max];
+		result[0] = result[1] = 1;
+		int count = 0;
+		for (int i = 2, j = 0; j < max ; i++) {
+			result[i] = result[i-1] + result[i-2];
+			j = result[i];
+			count++;
+		}
+		return Arrays.copyOf(result, ++count);
 	}
 	
 	/**
@@ -147,9 +142,39 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max){
-		return null;
+		
+		String temp = "";
+		for(int i = 0; i < max; i++) {
+			if(isPrime(i)) {
+				temp += i + " ";
+			}
+		}
+		String[] tempArr = temp.split(" ");
+		int[] result = new int[tempArr.length];
+		for (int i = 0; i < result.length; i++) {
+			result[i] = Integer.parseInt(tempArr[i]);
+		}
+		
+		return result;
 	}
 	
+	public static boolean isPrime(int num) {
+		
+		if (num <= 1)
+			return false;
+		
+		if (num == 2)
+			return true;
+		
+		for(int i = 2; i <= Math.sqrt(num) + 1; i++) {
+			if (num % i == 0)
+				return false;
+		}
+		
+		return true;
+	}
+	
+
 	/**
 	 * 所谓“完数”， 是指这个数恰好等于它的因子之和，例如6=1+2+3
 	 * 给定一个最大值max， 返回一个数组， 数组中是小于max 的所有完数
@@ -157,8 +182,36 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max){
-		return null;
+		
+		int count = 0;
+		ArrayList<Integer> myList = new ArrayList<Integer>();
+		for(int i = 1; i < max; i++) {
+			if(isPerfectNum(i)) {
+				count++;
+				myList.add(i);
+			}
+		}
+		int[] result = new int[count]; 
+		Iterator<Integer> iterator = myList.iterator();
+		for (int i = 0; i < count; i++) {
+			result[i] = iterator.next();
+		}
+		return result;
 	}
+	
+	
+	public static boolean isPerfectNum(int num) {
+		
+		int sum = 0;
+		for (int i = 1; i <= num/2; i++) {
+			if (num % i == 0)
+				sum += i;
+		}
+		
+		return (num == sum) ? true : false;
+
+	}
+
 	
 	/**
 	 * 用seperator 把数组 array给连接起来
