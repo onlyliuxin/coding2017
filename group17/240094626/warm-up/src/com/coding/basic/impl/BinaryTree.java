@@ -7,12 +7,25 @@ package com.coding.basic.impl;
  *
  */
 public class BinaryTree {
+	/**根结点，初始化为空*/
 	private Node rootNode = null;
 	
+	
+	/**
+	 * 根据key值插入数据data为空的新节点
+	 * @param key
+	 * @return
+	 */
 	public Node insert(int key){
 		return insert(key,null);
 	}
 	
+	/**
+	 * 根据key值插入数据data为o的新节点
+	 * @param key
+	 * @param o
+	 * @return
+	 */
 	public Node insert(int key ,Object o){
 		Node newNode = new Node(key, o);
 		if(rootNode == null){
@@ -34,13 +47,25 @@ public class BinaryTree {
 		}else{
 			fatherNode.right = newNode;
 		}
+		size++;
 		return newNode;
 	}
 	
+	/**
+	 * 根据key值查找结点
+	 * @param key
+	 * @return
+	 */
 	public Node getNode(int key){
 		return get(rootNode, key);
 	}
 	
+	/**
+	 * 递归算法： 根据开始结点位置和key值查找节点
+	 * @param n
+	 * @param key
+	 * @return
+	 */
 	private Node get(Node n,int key){
 		if(n == null){
 			return null;
@@ -50,11 +75,13 @@ public class BinaryTree {
 		}else if(key > n.key){
 			return get(n.left, key);
 		}
-		return null;
+		return n;
 	}
 	
-	
-	
+
+
+
+
 
 	private static class Node{
 		
@@ -77,6 +104,7 @@ public class BinaryTree {
 		
 		
 	}
+	
 
 	
 }
