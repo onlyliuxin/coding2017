@@ -21,9 +21,8 @@ public class ArrayList implements List {
 		
 	}
 	public void add(int index, Object o){
-		if(index<=size){
-			
-			if(index<elementData.length-1){
+		if(index<elementData.length-1){
+			if(index<size-1){
 			//新增元素位置处于数组内部
 				Object tmp = elementData[index];
 				//新增元素位置后的所有元素后移一位
@@ -38,18 +37,21 @@ public class ArrayList implements List {
 				}
 				elementData = temps;
 				
-			}else if(index==elementData.length-1){
-			//新增元素位置处于数组右边界
-				Object[] temp = new Object[(size+1)+100];
-				System.arraycopy(elementData, 0, temp, 0, size);
-				elementData = temp;
-				elementData[index] = o;
+			}else if(index>=size-1){
+				elementData[size] = o;
 			}
+		}else{
+			//新增元素位置处于数组右边界
+			Object[] temp = new Object[(size+1)+100];
+			System.arraycopy(elementData, 0, temp, 0, size);
+			elementData = temp;
+			elementData[index] = o;
 		}
+		size++;
 	}
 	
 	public Object get(int index){
-		if(index<=size){
+		if(index<=elementData.length){
 			return elementData[index];
 		}else{
 			return null;
