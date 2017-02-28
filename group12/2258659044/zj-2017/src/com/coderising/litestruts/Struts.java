@@ -96,7 +96,6 @@ public class Struts {
 			Document document = documentBuilder.parse(xmlFile);
 			// 获取根节点
 			Element element = document.getDocumentElement();
-			// http://www.jb51.net/article/44338.htm
 			NodeList actionNodes = element.getChildNodes();
 			for (int i = 0; i < actionNodes.getLength(); i++) {
 				Node actionNode = actionNodes.item(i);
