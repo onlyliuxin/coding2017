@@ -87,7 +87,12 @@ public class ArrayUtil {
      * @return
      */
     public int[] grow(int [] oldArray,  int size){
-        return null;
+        int len = oldArray.length + size;
+        int[] result = new int[len];
+        for(int i = 0; i < oldArray.length; ++i) {
+            result[i] = oldArray[i];
+        }
+        return result;
     }
 
     /**
