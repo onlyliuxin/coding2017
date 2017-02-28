@@ -10,6 +10,7 @@ public class ArrayUtilTest {
 
 	@Before
 	public void setUp() throws Exception {
+		ArrayUtil u;
 	}
 
 	@After
@@ -18,7 +19,10 @@ public class ArrayUtilTest {
 
 	@Test
 	public void testReverseArray() {
-		fail("Not yet implemented");
+		ArrayUtil util = new ArrayUtil();
+		int[] a = {7,9,30,3,5};
+		util.reverseArray(a);
+		System.out.println();
 	}
 
 	@Test

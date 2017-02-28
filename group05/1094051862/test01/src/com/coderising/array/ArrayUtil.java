@@ -14,8 +14,8 @@ public class ArrayUtil {
 		int temp;
 		for (int i = 0; i < origin.length/2; i++) {
 			temp = origin[i];
-			origin[i] = origin[origin.length - i];
-			origin[origin.length - i] = temp;
+			origin[i] = origin[origin.length - 1 - i];
+			origin[origin.length - 1 - i] = temp;
 		}
 	}
 	
