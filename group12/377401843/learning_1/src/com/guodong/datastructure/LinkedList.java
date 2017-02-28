@@ -1,5 +1,7 @@
 package com.guodong.datastructure;
 
+import java.util.NoSuchElementException;
+
 public class LinkedList implements List {
 
 	private int size;
@@ -59,6 +61,10 @@ public class LinkedList implements List {
 		return getNodeByIndex(index).data;
 	}
 
+	public Object getLast() {
+		return last.data;
+	}
+
 	/**
 	 * 根据下标移除链表元素
 	 *
@@ -94,28 +100,80 @@ public class LinkedList implements List {
 		return data;
 	}
 
+	/**
+	 * 返回List长度
+	 */
 	public int size() {
 		return size;
 	}
 
-	
+	/**
+	 * 向列表头部添加元素
+	 * 
+	 * @param o
+	 */
 	public void addFirst(Object o) {
+		Node n = head;
+		Node newNode = new Node(o, n);
+
+		head = newNode;
+		if (n == null) {
+			last = newNode;
+		}
+		size++;
 	}
 
+	/**
+	 * 向列表尾部添加元素
+	 * 
+	 * @param o
+	 */
 	public void addLast(Object o) {
 		linkLast(o);
 	}
 
+	/**
+	 * 移除链表第一个元素
+	 * 
+	 * @return
+	 */
 	public Object removeFirst() {
-		return null;
+		Node n = head;
+		if (n == null) {
+			throw new NoSuchElementException();
+		}
+		Object data = n.data;
+		Node nextNode = n.next;
+
+		n.data = null;
+		n.next = null;
+
+		head = nextNode;
+		if (nextNode == null) {
+			last = null;
+		}
+
+		size--;
+		return data;
 	}
 
 	public Object removeLast() {
-		return null;
-	}
+		Node n = last;
+		if (n == null) {
+			throw new NoSuchElementException();
+		}
+		Object data = n.data;
+		Node prevNode = getNodeByIndex(size - 2);
+		n.data = null;
+		if (prevNode == null) {
+			head = null;
+		} else {
+			prevNode.next = null;
+		}
+		last = prevNode;
 
-	public Iterator iterator() {
-		return null;
+		size--;
+		return data;
 	}
 
 	/**
@@ -128,6 +186,9 @@ public class LinkedList implements List {
 	 * @return
 	 */
 	private Node getNodeByIndex(int index) {
+		if (index < 0) {
+			return null;
+		}
 		Node n = head;
 		for (int i = 0; i < index; i++) {
 			n = n.next;
@@ -193,6 +254,32 @@ public class LinkedList implements List {
 		Node(Object data, Node next) {
 			this.data = data;
 			this.next = next;
+		}
+	}
+
+	public Iterator iterator() {
+		return new LinkedListIterator();
+	}
+
+	private class LinkedListIterator implements Iterator {
+		private Node current;
+
+		private int index;
+
+		@Override
+		public boolean hasNext() {
+			return index < size;
+		}
+
+		@Override
+		public Object next() {
+			if (current == null) {
+				current = getNodeByIndex(index);
+			}
+			Object data = current.data;
+			current = current.next;
+			index++;
+			return data;
 		}
 	}
 }
