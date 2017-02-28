@@ -2,6 +2,8 @@ package com.coderising.array;
 
 import java.util.Arrays;
 
+import com.coding.basic.ArrayList;
+import com.coding.basic.List;
 import com.coding.basic.Stack;
 
 public class ArrayUtil {
@@ -76,30 +78,35 @@ public class ArrayUtil {
 		
 		int i1 = 0;//始终指向array1中剩余的最小元素
 		int i2 = 0;//始终指向array2中剩余的最小元素
-		Stack stack = new Stack();//“过去的”最小值放入栈中
+		ArrayList stack = new ArrayList();//“过去的”最小值放入栈中
 		
 		while (i1 < length1 || i2 < length2){//判定，只要还有一个数组中有未入栈元素
 			if(i1 == length1){//判定，array1元素都已经入栈
-				stack.push(array2[i2++]);
+				stack.add(array2[i2++]);
 				continue;
 			}
 			if(i2 == length2){//判定，array2元素都已经入栈
-				stack.push(array1[i1++]);
+				stack.add(array1[i1++]);
 				continue;
 			}
 			
 			int comRes = compare(array1[i1], array2[i2]);
 			if(comRes > 0){
-				stack.push(array1[i1++]);
+				stack.add(array1[i1++]);
 			}else if(comRes <0){
-				stack.push(array2[i2++]);
+				stack.add(array2[i2++]);
 			}else{
-				stack.push(array1[i1]);
+				stack.add(array1[i1]);
 				i1++;
 				i2++;
 			}
 		}
-		return (int[])stack.toArray();
+		
+		int[] result = new int[stack.size()];
+		for (int i = 0; i < stack.size(); i++) {
+			result[i] = (int) stack.get(i);
+		}
+		return result;
 	}
 	private int compare(int i, int j){
 		if(i < j){
@@ -120,7 +127,9 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
-		return null;
+		int[] newArray = new int[oldArray.length+size];
+		System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
+		return newArray;
 	}
 	
 	/**
@@ -131,7 +140,36 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max){
-		return null;
+		if(max <= 1)
+			return new int[0];
+		
+		ArrayList l = new ArrayList();
+		for (int i = 0; max>fibonacciNum(i); i++) {
+			l.add(fibonacciNum(i));
+		}
+		
+		int[] result = new int[l.size()];
+		for (int i = 0; i < l.size(); i++) {
+			result[i] = (int) l.get(i);
+		}
+		return result;
+	}
+	/**
+	 * 私有方法
+	 * 根据 斐波那契数列 
+	 * 通过下标获取数列元素
+	 * 
+	 * 例如 [1，1，2，3，5，8，13，...]  fibonacciNum(1) = 1,fibonacciNum(4) = 3
+	 * @param index 下标
+	 * @return 斐波那契数列元素
+	 */
+	private int fibonacciNum(int index){
+		if(index < 0 )
+			throw new IndexOutOfBoundsException("下标越界，index>=0");
+		
+		if(index == 0||index == 1)
+			return 1;
+		return fibonacciNum(index-1)+fibonacciNum(index-2);
 	}
 	
 	/**
@@ -141,7 +179,37 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max){
-		return null;
+		if(max<2)
+			return new int[0];
+		
+		ArrayList list = new ArrayList();
+		for (int i = 0; i < max; i++) {
+			if(isPrimeNum(i))
+				list.add(i);
+		}
+		
+		int[] result = new int[list.size()];
+		for (int i = 0; i < result.length; i++) {
+			result[i] = (int) list.get(i);
+		}
+		return result;
+	}
+	/**
+	 * 判断一个整数是否是质数
+	 * @param num
+	 * @return
+	 */
+	private boolean isPrimeNum(int num){
+		if(num < 2)//质数都是正数，并且大于等于2
+			return false;
+		
+		for (int i = 2; i <= Math.sqrt(num); i++) {
+			if(num % i ==0){
+				return false;
+			}
+		}
+		return true;
+		
 	}
 	
 	/**
@@ -151,7 +219,67 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max){
-		return null;
+		ArrayList list = new ArrayList();
+		for (int i = 0; i < max; i++) {
+			if(isPerfectNumber(i))
+				list.add(i);
+		}
+		
+		int[] result = new int[list.size()];
+		for (int i = 0; i < result.length; i++) {
+			result[i] = (int) list.get(i);
+		}
+		return result;
+	}
+	/**
+	 * 判断一个整数是否是完数
+	 *  
+	 * 因为所有的完数都是三角形数，所有我们通过遍历三角形数判断，如果是三角形数，再判断是否所有因子的积为这个整数
+	 * @param num
+	 * @return
+	 */
+	private boolean isPerfectNumber(int num){
+		if(num < 6)// the first perfect number is 6
+			return false;
+		
+		int index;
+		if((index = isTriangularNumber(num))==-1)
+			return false;
+		
+		int multiResult = 0;
+		for (int i = 1; i <= index; i++) {
+			multiResult *= i;
+		}
+		if(multiResult == num)
+			return true;
+		else
+			return false;
+	}
+	private int isTriangularNumber(int num){
+		int index = -1;
+		if(num < 1 )
+			return index;
+		
+		for (int i = 0; triangularNumber(i) <= num; i++) {
+			if(triangularNumber(i) == num){
+				index = i;
+				return index;
+			}
+		}
+		return index;
+	}
+	/**
+	 * 获取三角形数，从数列中获取。
+	 * [1,3,6,10,...] 下标从0开始，例如triangularNumber(0) = 1,triangularNumber(1) = 3,triangularNumber(2)=6
+	 * @param index
+	 * @return
+	 */
+	private int triangularNumber(int index){
+		if(index < 0)
+			throw new IndexOutOfBoundsException("下标越界，index>=0");
+		if(index == 0)
+			return 1;
+		return triangularNumber(index-1)+index+1;
 	}
 	
 	/**
@@ -163,7 +291,16 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator){
-		return null;
+		if(array == null)
+			return null;
+		if(array.length == 0)
+			return "";
+		
+		String result = String.valueOf(array[0]);
+		for (int i = 1; i < array.length; i++) {
+			result += seperator + array[i];
+		}
+		return result;
 	}
 	
 

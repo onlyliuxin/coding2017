@@ -51,7 +51,7 @@ public class ArrayList implements List {
 		rangeCheck(index);
 		Object oldValue = elementData[index];
 		int movedLength = size - index - 1;
-		if(movedLength > 0)//µ±ÒªÉ¾³ý×îºóÒ»¸öÔªËØÊ±£¬²»ÐèÒªÒÆ¶¯Êý×é£¬Ö»ÐèÒª°Ñ×îºóÒ»¸öÔªËØÖÃnull
+		if(movedLength > 0)//å½“è¦åˆ é™¤æœ€åŽä¸€ä¸ªå…ƒç´ æ—¶ï¼Œä¸éœ€è¦ç§»åŠ¨æ•°ç»„ï¼Œåªéœ€è¦æŠŠæœ€åŽä¸€ä¸ªå…ƒç´ ç½®null
 			System.arraycopy(elementData, index+1, elementData, index, size-index-1);
 		elementData[--size] = null;
 		return oldValue;
@@ -78,7 +78,7 @@ public class ArrayList implements List {
 	
 	private void ensureCapacity(int minCapacity){
 		if(elementData == EMPTY_ELEMENTDATA){
-			minCapacity = Math.max(minCapacity, INITIALCAPACITY);//Õë¶ÔaddallÊ×´ÎÔö¼ÓµÄÊýÁ¿¾Í±ÈINITIALCAPACITY¶à
+			minCapacity = Math.max(minCapacity, INITIALCAPACITY);//é’ˆå¯¹addallé¦–æ¬¡å¢žåŠ çš„æ•°é‡å°±æ¯”INITIALCAPACITYå¤š
 		}
 		if(minCapacity - elementData.length > 0){
 			grow(minCapacity);
