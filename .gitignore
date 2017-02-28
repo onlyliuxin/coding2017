@@ -6,10 +6,7 @@
 *.jar
 *.war
 *.ear
-
-*.iml
-*.idea
-
+target
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
@@ -17,25 +14,17 @@ hs_err_pid*
 #ide config
 .metadata
 .recommenders
-<<<<<<< HEAD
-<<<<<<< HEAD
-.idea
-=======
-=======
+.idea/
+
 
 
 #macOS
 .DS_Store
 
->>>>>>> refs/remotes/onlyliuxin/master
-.idea/
+
 *.iml
 rebel.*
 .rebel.*
 
 target
-<<<<<<< HEAD
->>>>>>> refs/remotes/onlyliuxin/master
-=======
 
->>>>>>> refs/remotes/onlyliuxin/master
