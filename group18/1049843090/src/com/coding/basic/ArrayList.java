@@ -70,6 +70,40 @@ public class ArrayList<E> implements List<E> {
 
 
     /**
+     * 是否包含指定元素
+     *
+     * @param o 指定元素
+     * @return
+     */
+    public boolean contains(Object o) {
+        return indexOf(o) >= 0;
+    }
+
+
+    /**
+     * 返回指定元素下标，-1表示不存在
+     *
+     * @param o
+     * @return
+     */
+    public int indexOf(Object o) {
+        if (o == null) {
+            for (int i = 0; i < size; i++) {
+                if (elementData[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (o.equals(elementData[i])) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
      * 删除指定位置的元素
      *
      * @param index
