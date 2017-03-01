@@ -1,7 +1,6 @@
 package com.coderising.litestruts;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -18,6 +17,17 @@ public class Struts {
 
 	private static SAXReader reader = new SAXReader();
 	private static Document document;
+	private static Element root;
+	private static List<Element> actionList;
+	static{
+		try {
+			document = reader.read(new File("src/main/resources/liteStruts.xml"));
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		root = document.getRootElement();
+		actionList = root.elements("action");
+	}
 	
 	/*
 	0. 读取配置文件struts.xml
@@ -47,7 +57,9 @@ public class Struts {
     	
     	String className = null;
 		try {
-			className = getClassName(actionName);
+			Map<String, String> actionInfo = getActionInfo(actionName);
+			
+			className = actionInfo.get("className");
 			Class<?> actionClass = Class.forName(className);
 			Object obj =actionClass.newInstance();
 			for(Map.Entry<String, String> entry : parameters.entrySet()){
@@ -56,7 +68,7 @@ public class Struts {
 			}
 			Method execute = actionClass.getDeclaredMethod("execute");
 			String msg = (String) execute.invoke(obj);
-			view.setJsp(getResultText(actionName, msg));
+			view.setJsp(actionInfo.get(msg));
 			
 			Method[] m = actionClass.getMethods();
 			Map<String,Object> map = new HashMap<String, Object>();
@@ -71,8 +83,6 @@ public class Struts {
 			view.setParameters(map);
 			
 			return view;
-		} catch (DocumentException e) {
-			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
@@ -89,58 +99,29 @@ public class Struts {
     	
     	return null;
     }
-    /**
-     * get the specific class' name by a <action name="actionName">
-     * @param actionName
-     * @return
-     * @throws DocumentException
-     */
-    private static String getClassName(String actionName) throws DocumentException{
-    	document = reader.read(new File("src/main/java/com/coderising/litestruts/struts.xml"));
+    private static Map<String,String> getActionInfo(String actionName){
     	
-		Element root = document.getRootElement();
-		
-		String className = null;
-		@SuppressWarnings("unchecked")
-		List<Element> list = root.elements("action");
-		for (Element element : list) {
-			Attribute attr = element.attribute("name");
-			if(actionName.equals(attr.getStringValue())){
-				Attribute attrClass = element.attribute("class");
-				className = attrClass.getStringValue();
-			}
-		}
-		return className;
-    }
-    /**
-     * get a result path by 
-     * <action name="actionName"><result name="resultName">/jsp/path.jsp</result><action>
-     * @param actionName
-     * @param resultName
-     * @return
-     * @throws DocumentException
-     */
-    private static String getResultText(String actionName, String resultName) throws DocumentException{
-    	document = reader.read(new File("src/main/java/com/coderising/litestruts/struts.xml"));
-    	Element root = document.getRootElement();
+    	HashMap<String, String> hashMap = new HashMap<String,String>();
     	
-		List<Element> actionList = root.elements("action");
 		for (Element action : actionList) {
-			Attribute actionAttr = action.attribute("name");
-			if(actionName.equals(actionAttr.getStringValue())){
+			Attribute attr = action.attribute("name");
+			if(actionName.equals(attr.getStringValue())){
+				Attribute attrClass = action.attribute("class");
+				String className = attrClass.getStringValue();
+				hashMap.put("className", className);
 				
-				List<Element> reList = action.elements("result");
-				for (Element result : reList) {
+				@SuppressWarnings("unchecked")
+				List<Element> resultList = action.elements("result");
+				for (Element result : resultList) {
 					Attribute attrResult = result.attribute("name");
-					if(resultName.equals(attrResult.getStringValue())){
-						return result.getText();
-					}
+					hashMap.put(attrResult.getStringValue(), result.getText());
 				}
+				break;
 			}
 		}
-    	return null;
-    			
+		return hashMap;
     }
+    
     /**
      * return a String upcased the first letter
      * @param param
@@ -164,11 +145,5 @@ public class Struts {
     	param = param.substring(3);
     	return param.substring(0, 1).toLowerCase()+param.substring(1);
     }
-    public static void main(String[] args) throws DocumentException {
-    	Map<String,String> map = new HashMap<String, String>();
-    	map.put("password", "123456");
-    	map.put("name", "test");
-		Struts.runAction("login", map);
-	}
 
 }
