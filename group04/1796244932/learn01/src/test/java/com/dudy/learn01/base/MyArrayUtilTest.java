@@ -19,6 +19,13 @@ public class MyArrayUtilTest {
         }
     }
 
+    public  void  print(Integer desArr[]){
+        for (int i = 0; i < desArr.length; i++) {
+            System.out.print(desArr[i] + ",");
+        }
+    }
+
+
     @Test
     public void testReverseArray() throws Exception {
 
@@ -52,25 +59,41 @@ public class MyArrayUtilTest {
     @Test
     public void testGrow() throws Exception {
 
+        int  a1[] =new int[] {3, 5, 7,8};
+        int[] grow = MyArrayUtil.grow(a1, 3);
+        print(grow);
+
+
     }
 
     @Test
     public void testFibonacci() throws Exception {
 
+        Integer[] integers = MyArrayUtil.fibonacci(15);
+        print(integers);
     }
 
     @Test
     public void testGetPrimes() throws Exception {
+
+        Integer[] primes = MyArrayUtil.getPrimes(100);
+        print(primes);
+
 
     }
 
     @Test
     public void testGetPerfectNumbers() throws Exception {
 
+        Integer[] numbers = MyArrayUtil.getPerfectNumbers(100);
+        print(numbers);
     }
 
     @Test
     public void testJoin() throws Exception {
+        int  a1[] =new int[] {3, 5, 7,8};
+        String join = MyArrayUtil.join(a1, "-");
+        System.out.println(join);
 
     }
 }

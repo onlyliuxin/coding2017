@@ -86,8 +86,12 @@ public class MyArrayUtil {
 	 * @param size
 	 * @return
 	 */
-	public int[] grow(int [] oldArray,  int size){
-		return null;
+	public static int[] grow(int [] oldArray,  int size){
+
+		int[] dest = new int[oldArray.length + size];
+
+		System.arraycopy(oldArray,0,dest,0,oldArray.length);
+		return dest;
 	}
 	
 	/**
@@ -97,8 +101,20 @@ public class MyArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] fibonacci(int max){
-		return null;
+	public static Integer[] fibonacci(int max){
+	    if(max == 1){
+	        return  new Integer[0];
+        }
+
+        List<Integer> restList = new ArrayList();
+	    restList.add(1);
+	    restList.add(1);
+
+        while ((restList.get(restList.size() -2 ) + restList.get(restList.size() -1) )< max){
+            restList.add(restList.get(restList.size() -2) + restList.get(restList.size() -1) );
+        }
+
+		return restList.toArray(new Integer[]{});
 	}
 	
 	/**
@@ -107,18 +123,54 @@ public class MyArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] getPrimes(int max){
-		return null;
+	public static Integer[] getPrimes(int max){
+
+	    List<Integer> list = new ArrayList<>();
+
+	    for (int i = 1; i< max;i++){
+	        if (isPrime(i)){
+	            list.add(i);
+            }
+        }
+		return list.toArray(new Integer[]{});
 	}
-	
-	/**
+
+    private static boolean isPrime(int num) {
+
+	    boolean flag = true;
+	    for (int i = 2; i< num ;i++){
+	        if(num % i == 0){
+	            flag = false;
+            }
+        }
+
+        return  flag;
+
+    }
+
+    /**
 	 * 所谓“完数”， 是指这个数恰好等于它的因子之和，例如6=1+2+3
 	 * 给定一个最大值max， 返回一个数组， 数组中是小于max 的所有完数
 	 * @param max
 	 * @return
 	 */
-	public int[] getPerfectNumbers(int max){
-		return null;
+	public static Integer[] getPerfectNumbers(int max){
+
+	    List<Integer> list = new ArrayList();
+	    for (int i = 1; i< max; i++){
+	        int tmp = 0;
+	        for (int j = 1; j < i/2 + 1 ;j++){
+	            if (i % j == 0)
+	                tmp += j;
+            }
+
+            if(tmp == i){
+                list.add(i);
+            }
+        }
+
+
+		return list.toArray(new Integer[]{});
 	}
 	
 	/**
@@ -129,12 +181,12 @@ public class MyArrayUtil {
 	 * @param seperator
 	 * @return
 	 */
-	public String join(int[] array, String seperator){
+	public static String join(int[] array, String seperator){
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i< array.length - 1 ; i++){
 			builder.append(array[i]).append(seperator);
 		}
-		builder.append(array[array.length]);
+		builder.append(array[array.length-1]);
 		return builder.toString();
 	}
 	
