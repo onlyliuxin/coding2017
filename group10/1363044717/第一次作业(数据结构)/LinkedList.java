@@ -66,14 +66,11 @@ public class LinkedList<E> implements List<E> {
             return e;
         }
         Node temp = head;
-        Node temp2 = null;
         for (int i = 0; i < index - 1; i++) {
             temp = temp.next;
         }
         E e = (E) temp.next.data;
-        temp2 = temp.next.next;
-        temp.next = null;
-        temp.next = temp2;
+        temp.next = temp.next.next;
         size--;
         return e;
     }
