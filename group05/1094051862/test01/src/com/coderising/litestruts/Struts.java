@@ -1,11 +1,25 @@
 package com.coderising.litestruts;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.dom4j.Attribute;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+import org.junit.Test;
+import org.xml.sax.SAXException;
 
 
 
 public class Struts {
-
+	@Test
     public static View runAction(String actionName, Map<String,String> parameters) {
 
         /*
@@ -27,7 +41,25 @@ public class Struts {
 		放到View对象的jsp字段中。
         
         */
-    	
+    	//DOM4J方式解析xml
+        SAXReader reader = new SAXReader();  
+        //读取文件 转换成Document  
+        try {
+			Document document = reader.read(new File("struts.xml"));
+			Element root = document.getRootElement();
+			//根节点的子节点
+			List<Element> nodes = root.attributes();
+			Element element;
+			for (int i = 0; i < nodes.size(); i++) {
+				if (nodes.get(i).attribute("name").toString().equals(actionName)){
+					Attribute c = nodes.get(i).attribute("class");
+					c.toString();
+				}
+			}
+			System.out.println();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}  
     	return null;
     }    
 
