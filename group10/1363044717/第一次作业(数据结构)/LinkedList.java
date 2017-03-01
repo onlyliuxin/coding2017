@@ -61,7 +61,7 @@ public class LinkedList<E> implements List<E> {
             E e = removeFirst();
             return e;
         }
-        if (index == size) {
+        if (index == size - 1) {
             E e = removeLast();
             return e;
         }
