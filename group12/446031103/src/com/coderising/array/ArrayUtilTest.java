@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import junit.framework.Assert;
 
+@SuppressWarnings({ "deprecation", "unused" })
 public class ArrayUtilTest {
 	ArrayUtil au = new ArrayUtil();
 	@Before
@@ -20,7 +21,6 @@ public class ArrayUtilTest {
 	public void tearDown() throws Exception {
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testReverseArray() {
 		int [] origin = {4,7, 9 , 30, 3};
@@ -32,7 +32,6 @@ public class ArrayUtilTest {
 		Assert.assertEquals(4, origin[4]);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testRemoveZero() {
 		int oldArr[]={1,3,4,5,0,0,6,6,0,5,4,7,6,7,0,5};		
@@ -42,32 +41,67 @@ public class ArrayUtilTest {
 
 	@Test
 	public void testMerge() {
-		fail("Not yet implemented");
+		int [] array1 = {3,5,7,8};
+		int [] array2 = {4,5,6,7};    
+		int [] array3 =	au.merge(array1, array2);
+		Assert.assertEquals(3, array3[0]);
+		Assert.assertEquals(4, array3[1]);
+		Assert.assertEquals(5, array3[2]);
+		Assert.assertEquals(6, array3[3]);
+		Assert.assertEquals(7, array3[4]);
+		Assert.assertEquals(8, array3[5]);
 	}
 
 	@Test
 	public void testGrow() {
-		fail("Not yet implemented");
+		int []oldArray = {2,3,6}; 
+		int [] result=au.grow(oldArray, 3);
+		Assert.assertEquals(2, result[0]);
+		Assert.assertEquals(3, result[1]);
+		Assert.assertEquals(6, result[2]);
+		Assert.assertEquals(0, result[3]);
+		Assert.assertEquals(0, result[4]);
+		Assert.assertEquals(0, result[5]);
 	}
 
 	@Test
 	public void testFibonacci() {
-		fail("Not yet implemented");
+		int [] result= au.fibonacci(22);
+		Assert.assertEquals(1, result[0]);
+		Assert.assertEquals(1, result[1]);
+		Assert.assertEquals(2, result[2]);
+		Assert.assertEquals(3, result[3]);
+		Assert.assertEquals(5, result[4]);
+		Assert.assertEquals(8, result[5]);
+		Assert.assertEquals(13, result[6]);
+		Assert.assertEquals(21, result[7]);
 	}
 
 	@Test
 	public void testGetPrimes() {
-		fail("Not yet implemented");
+		int [] result=au.getPrimes(23);
+		Assert.assertEquals(2, result[0]);
+		Assert.assertEquals(3, result[1]);
+		Assert.assertEquals(5, result[2]);
+		Assert.assertEquals(7, result[3]);
+		Assert.assertEquals(11, result[4]);
+		Assert.assertEquals(13, result[5]);
+		Assert.assertEquals(17, result[6]);
+		Assert.assertEquals(19, result[7]);
 	}
 
 	@Test
 	public void testGetPerfectNumbers() {
-		fail("Not yet implemented");
+		int [] result=au.getPerfectNumbers(100);
+		Assert.assertEquals(6, result[0]);
+		Assert.assertEquals(28, result[1]);
 	}
 
 	@Test
 	public void testJoin() {
-		fail("Not yet implemented");
+		int [] array = {3,8,9};
+		String result=au.join(array, "-");
+		Assert.assertEquals("3-8-9",result);
 	}
 
 }
