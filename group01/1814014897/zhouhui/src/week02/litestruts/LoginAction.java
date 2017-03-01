@@ -2,7 +2,7 @@ package week02.litestruts;
 
 /**
  * 这是一个用来展示登录的业务类， 其中的用户名和密码都是硬编码的。
- * @author liuxin
+ * @author Hui Zhou
  *
  */
 public class LoginAction{

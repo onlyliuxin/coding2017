@@ -1,14 +1,12 @@
 package week02.litestruts;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import org.junit.*;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-
-
-
+/**
+ * @author Hui Zhou
+ * @version 1.0 2017-02-28
+ */
 
 public class StrutsTest {
 
