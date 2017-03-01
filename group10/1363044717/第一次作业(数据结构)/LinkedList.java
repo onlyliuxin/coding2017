@@ -139,7 +139,7 @@ public class LinkedList<E> implements List<E> {
         public LinkedListIterator(LinkedList list){
             this.head=list.head;
             this.tail=list.tail;
-            this.endIndex = list.size();
+            this.endIndex = list.size() - 1;
             node=head;
         }
         @Override
