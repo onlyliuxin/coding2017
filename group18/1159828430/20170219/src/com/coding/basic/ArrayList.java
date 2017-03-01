@@ -1,3 +1,4 @@
+
 package com.coding.basic;
 
 import java.util.Arrays;
@@ -99,8 +100,9 @@ public class ArrayList implements List {
 		return size == 0;
 	}
 	
+	//迭代器
 	public Iterator iterator(){
-		return null;
+		return new ArrayListIterator(this);
 	}
 	
 	//动态增加ArrayList大小
@@ -128,6 +130,35 @@ public class ArrayList implements List {
 		}
 		elementData[--size] = null; 
 	}
+	
+	private class ArrayListIterator implements Iterator{
+		private ArrayList list = null;
+		private int cursor = 0;
+		private int lastRet = -1;
+		
+		public ArrayListIterator(ArrayList list){
+			this.list = list;
+		}
+		@Override
+		public boolean hasNext() {
+			return cursor != list.size;
+		}
+
+		@Override
+		public Object next() {
+			lastRet = cursor;  
+            Object o = list.get(lastRet);  
+            cursor ++;  
+            return o;  
+		}
+		@Override
+		public void remove() {
+			list.remove(lastRet);  
+			cursor = lastRet;  
+            lastRet = -1; 
+		}
+		
+	}
     
 }
 class testArrayList{
@@ -138,8 +169,16 @@ class testArrayList{
         }
         arrayList.add(5,15);
         arrayList.remove(11);
+        Iterator it = arrayList.iterator();  
+        while(it.hasNext()) {  
+            Integer o = (Integer)it.next();  
+            if(o == 8){  
+                it.remove();  
+            }  
+        }  
         for (int i = 0; i < arrayList.size(); i++) {
             System.out.println("value is "+arrayList.get(i));
         }
+        
     }
 }
