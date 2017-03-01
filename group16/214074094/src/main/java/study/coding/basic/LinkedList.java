@@ -50,6 +50,7 @@ public class LinkedList implements List {
         } else if (index == size - 1) {
             return removeLast();
         }
+        
         Node curr = _node(index);
         Object data = curr.data;
         final Node prev = curr.prev;

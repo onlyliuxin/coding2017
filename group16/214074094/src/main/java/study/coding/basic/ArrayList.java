@@ -73,7 +73,7 @@ public class ArrayList implements List {
 
     @Override
     public Object get(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index:" + index + ", Size:" + size);
         }
         return elementData[index];
@@ -82,7 +82,7 @@ public class ArrayList implements List {
     @Override
     public Object remove(int index) {
 
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index:" + index + ", Size:" + size);
         }
         Object oldValue = elementData[index];
