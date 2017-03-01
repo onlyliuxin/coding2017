@@ -1,5 +1,9 @@
 package com.coding2017.group7.homework.c0226;
 
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MyLinkedList implements MyList {
 
     private Node head = new Node();
@@ -96,6 +100,7 @@ public class MyLinkedList implements MyList {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size:" + size);
         }
     }
+
     private Node find(int index) {
         Node node = head;
         int pos = -1;
