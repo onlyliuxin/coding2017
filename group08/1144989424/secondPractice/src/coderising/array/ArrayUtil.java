@@ -2,6 +2,13 @@ package coderising.array;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Wayss
+ * 2017-03-01
+ *
+ */
+
 public class ArrayUtil {
     
     /**
@@ -89,7 +96,11 @@ public class ArrayUtil {
      * @return
      */
     public int[] grow(int [] oldArray,  int size){
-        return null;
+        int[] newArray = new int[oldArray.length + size];
+        for(int i = 0; i < oldArray.length; i++){
+            newArray[i] = oldArray[i];
+        }
+        return newArray;
     }
     
     /**
@@ -100,7 +111,26 @@ public class ArrayUtil {
      * @return
      */
     public int[] fibonacci(int max){
-        return null;
+        if(1 == max){
+            return new int[0];
+        }
+        if(max == 2){
+            return new int[]{1,1};
+        }
+        int [] result = new int[]{1,1,2};
+        //i表示数组中最后一个数字的下标
+        int i = 2;
+        //斐波那契数列的最后一个数
+        int lastNumber = 3;
+        while(lastNumber < max){
+            lastNumber = result[i] + result[i-1];
+            //添加前，判断数组是否需要扩大
+            if(result.length == i+1){
+                result = grow(result, 1);
+            }
+            result[i++] = lastNumber;
+        }
+        return result;
     }
     
     /**
@@ -110,7 +140,22 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPrimes(int max){
-        return null;
+        //index为result最后的下标
+        int index = 0;
+        int result[] = new int[0];
+        for(int i = 2; i < max; i++){
+            for(int j = 2; j < i; j++){
+                //判断内循环j是否是外循环i的质数
+                if(i % j == 0){
+                    break;
+                }
+                if(result.length == index+1){
+                    result = grow(result, 1);
+                }
+                result[index++] = i;
+            }
+        }
+        return result;
     }
     
     /**
@@ -120,7 +165,27 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPerfectNumbers(int max){
-        return null;
+        //index为result最后的下标
+        int index = 0;
+        int result[] = new int[0];
+        for(int i = 0; i < max; i++){
+            int sum = 0;
+            for(int j = 0; j < i; j++){
+                //j如果可以被i整除，代表j是i的因子
+                if(i % j == 0){
+                    sum += j;
+                }
+            }
+            //sum是因子之和，若等于i本身，就是“完数”
+            if(sum == i){
+                if(result.length == index+1){
+                    result = grow(result, 1);
+                }
+                result[index++] = i;
+            }
+        }
+        
+        return result;
     }
     
     /**
@@ -132,7 +197,15 @@ public class ArrayUtil {
      * @return
      */
     public String join(int[] array, String seperator){
-        return null;
+        String result = "";
+        for(int i = 0; i < array.length; i++){
+            if(i == array.length -1 ){
+                result += array[i];
+            }else{
+                result += array[i] + "-";
+            }
+        }
+        return result;
     }
     
 
