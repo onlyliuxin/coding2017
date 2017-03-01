@@ -33,6 +33,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] removeZero(int[] oldArray){
+		if (oldArray==null) return null;
 		List<Integer> list=new ArrayList<>();  
 		for (int e : oldArray) {
 			if (e != 0) {
@@ -51,6 +52,7 @@ public class ArrayUtil {
 	 */
 	
 	public int[] merge(int[] array1, int[] array2){
+		if (array1==null || array2==null) return null;
 		if (array1.length == 0) return Arrays.copyOf(array2, array2.length);
 		List<Integer> list = array2List(array1);
 		int currentIndex = 0;
@@ -76,10 +78,13 @@ public class ArrayUtil {
 	 * @param oldArray
 	 * @param size
 	 * @return
+	 * @throws Exception 
 	 */
-	public int[] grow(int [] oldArray,  int size){
-		int oldSize = oldArray.length<size ? oldArray.length:size;
-		int[] newArray = new int[size];
+	public int[] grow(int [] oldArray,  int size) throws Exception{
+		if (oldArray==null) return null;
+		if (size < 0) throw new Exception();
+		int oldSize = oldArray.length;
+		int[] newArray = new int[size+oldSize];
 		System.arraycopy(oldArray, 0, newArray, 0, oldSize);
 		return newArray;
 	}
@@ -207,7 +212,7 @@ public class ArrayUtil {
 		return list;
 	}
 	
-	public static void main(String []args) {
+	public static void main(String []args) throws Exception {
 		ArrayUtil arrayUtil = new ArrayUtil();
 		
 		// merge
