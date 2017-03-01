@@ -1,4 +1,4 @@
-package coding.basic;
+package study.coding.basic;
 
 
 import java.util.Arrays;
