@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import com.coding.basic.ArrayList;
 import com.coding.basic.List;
-import com.coding.basic.Stack;
 
 public class ArrayUtil {
 	
@@ -15,7 +14,7 @@ public class ArrayUtil {
 	 * @param origin
 	 * @return
 	 */
-	public int[] reverseArray(int[] origin){
+	public static int[] reverseArray(int[] origin){
 		int length = origin.length;
 		if(length <= 1)
 			return origin;
@@ -35,7 +34,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 	
-	public int[] removeZero(int[] oldArray){
+	public static int[] removeZero(int[] oldArray){
 		int length = oldArray.length;
 		if(length == 0)
 			return oldArray;
@@ -66,7 +65,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 	
-	public int[] merge(int[] array1, int[] array2){//时间复杂度O(n)
+	public static int[] merge(int[] array1, int[] array2){//时间复杂度O(n)
 		int length1 = array1.length;
 		int length2 = array2.length;
 		if(length1 == 0 ||(length1 == 0 && length2 ==0)){
@@ -92,9 +91,9 @@ public class ArrayUtil {
 			
 			int comRes = compare(array1[i1], array2[i2]);
 			if(comRes > 0){
-				stack.add(array1[i1++]);
-			}else if(comRes <0){
 				stack.add(array2[i2++]);
+			}else if(comRes <0){
+				stack.add(array1[i1++]);
 			}else{
 				stack.add(array1[i1]);
 				i1++;
@@ -108,7 +107,15 @@ public class ArrayUtil {
 		}
 		return result;
 	}
-	private int compare(int i, int j){
+	/**
+	 * when i < j returns -1;
+	 * when i = j returns 0;
+	 * when i > j returns 1;
+	 * @param i
+	 * @param j
+	 * @return
+	 */
+	private static int compare(int i, int j){
 		if(i < j){
 			return -1;
 		}else if(i == j){
@@ -126,7 +133,7 @@ public class ArrayUtil {
 	 * @param size
 	 * @return
 	 */
-	public int[] grow(int [] oldArray,  int size){
+	public static int[] grow(int [] oldArray,  int size){
 		int[] newArray = new int[oldArray.length+size];
 		System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
 		return newArray;
@@ -139,7 +146,7 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] fibonacci(int max){
+	public static int[] fibonacci(int max){
 		if(max <= 1)
 			return new int[0];
 		
@@ -163,7 +170,7 @@ public class ArrayUtil {
 	 * @param index 下标
 	 * @return 斐波那契数列元素
 	 */
-	private int fibonacciNum(int index){
+	private static int fibonacciNum(int index){
 		if(index < 0 )
 			throw new IndexOutOfBoundsException("下标越界，index>=0");
 		
@@ -178,7 +185,7 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] getPrimes(int max){
+	public static int[] getPrimes(int max){
 		if(max<2)
 			return new int[0];
 		
@@ -199,7 +206,7 @@ public class ArrayUtil {
 	 * @param num
 	 * @return
 	 */
-	private boolean isPrimeNum(int num){
+	private static boolean isPrimeNum(int num){
 		if(num < 2)//质数都是正数，并且大于等于2
 			return false;
 		
@@ -218,9 +225,9 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] getPerfectNumbers(int max){
+	public static int[] getPerfectNumbers(int max){
 		ArrayList list = new ArrayList();
-		for (int i = 0; i < max; i++) {
+		for (int i = 6; i < max; i++) {
 			if(isPerfectNumber(i))
 				list.add(i);
 		}
@@ -238,35 +245,64 @@ public class ArrayUtil {
 	 * @param num
 	 * @return
 	 */
-	private boolean isPerfectNumber(int num){
+	private static boolean isPerfectNumber(int num){
 		if(num < 6)// the first perfect number is 6
 			return false;
-		
-		int index;
-		if((index = isTriangularNumber(num))==-1)
+		if(!isEndWith6or8(num))//perfect number is only end with 6 or 8
 			return false;
 		
-		int multiResult = 0;
-		for (int i = 1; i <= index; i++) {
-			multiResult *= i;
+		/*if(!isTriangularNumber(num))
+			return false;*/
+		
+		List list = new ArrayList();
+		
+		double sqr = Math.sqrt(num);
+		list.add(1);
+		for (int i = 2; i <= sqr; i++) {
+			if(num % i == 0){
+				list.add(num/i);
+				list.add(i);
+			}
+			if(i == sqr){
+				list.add(i);
+				break;
+			}
 		}
-		if(multiResult == num)
+		int sum = 0;
+		for (int i = 0; i < list.size(); i++) {
+			Integer in = (Integer) list.get(i);
+			sum += in;
+		}
+		if(sum == num)
 			return true;
 		else
 			return false;
 	}
-	private int isTriangularNumber(int num){
-		int index = -1;
-		if(num < 1 )
-			return index;
+	
+	private static boolean isEndWith6or8(int num){
+		if(num == 6)
+			return true;
 		
-		for (int i = 0; triangularNumber(i) <= num; i++) {
-			if(triangularNumber(i) == num){
-				index = i;
-				return index;
-			}
+		Integer integer = new Integer(num);
+		String string = integer.toString();
+		String lastIndex = string.substring(string.length()-1);
+		if(lastIndex.equals("6") || lastIndex.equals("8"))
+			return true;
+		else
+			return false;
+	}
+	private static boolean isTriangularNumber(int num){
+		if(num < 1 )
+			return false;
+		
+		int i = 0;
+		while(triangularNumber(i)<=num){
+			if(triangularNumber(i)==num)
+				return true;
+			i++;
 		}
-		return index;
+		
+		return false;
 	}
 	/**
 	 * 获取三角形数，从数列中获取。
@@ -274,7 +310,7 @@ public class ArrayUtil {
 	 * @param index
 	 * @return
 	 */
-	private int triangularNumber(int index){
+	private static int triangularNumber(int index){
 		if(index < 0)
 			throw new IndexOutOfBoundsException("下标越界，index>=0");
 		if(index == 0)
@@ -290,7 +326,7 @@ public class ArrayUtil {
 	 * @param s
 	 * @return
 	 */
-	public String join(int[] array, String seperator){
+	public static String join(int[] array, String seperator){
 		if(array == null)
 			return null;
 		if(array.length == 0)
