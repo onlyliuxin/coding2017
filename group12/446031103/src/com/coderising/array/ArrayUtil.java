@@ -1,6 +1,8 @@
 package com.coderising.array;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ArrayUtil {
 	
@@ -12,6 +14,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin){
+		//循环结束位置
 		int end = origin.length-1;
 		int temp ;
 		for (int i = 0; i < end; i++,end--) {
@@ -29,14 +32,16 @@ public class ArrayUtil {
 	 * @return
 	 */
 	
-	public int[] removeZero(int[] oldArray){		
+	public int[] removeZero(int[] oldArray){
+		//0的个数
 		int zeroCnt = 0;
 		for (int i : oldArray) {
 			if(0==i){
 				zeroCnt++;
 			}
 			
-		}		
+		}
+		//存放位置记录
 		int size = 0;
 		int [] result = new int[oldArray.length-zeroCnt];
 		for (int i : oldArray) {
@@ -57,22 +62,31 @@ public class ArrayUtil {
 	 * @return
 	 */
 	
-	public int[] merge(int[] array1, int[] array2){		
-		int repetition = 0;
-		for (int i : array2) {
-			if(Arrays.asList(array1).contains(i))
-				repetition++;
+	public int[] merge(int[] array1, int[] array2){	
+		//合拼数组，缺排序，缺去重
+		int [] temp = new int[array1.length+array2.length];
+		System.arraycopy(array1, 0, temp, 0, array1.length);
+		System.arraycopy(array2, 0, temp, array1.length, array2.length);		
+		List<Integer>  resultList= new ArrayList<Integer>();
+		for (int i : temp) {
+			if(!resultList.contains(i))
+				resultList.add(i);
 		}
-		int [] result =Arrays.copyOf(array1, array1.length+array2.length-repetition);
-		int size = 0;
-		for (int i = 0; i < array2.length; i++) {
-			int temp=array2[i];
-			if(!Arrays.asList(array1).contains(temp)){
-				result[array1.length+size]=temp;
-				size++;
+		//已去重数组，缺排序
+		int [] result = new int[resultList.size()];
+		for (int i = 0; i < resultList.size(); i++) {
+			result[i] = resultList.get(i);
+		}
+		//冒泡排序
+		for (int i = 0; i < result.length-1; i++) {
+			for (int j = 0; j < result.length-i-1; j++) {
+				if(result[j]>result[j+1]){
+					int tempInt = result[j];
+					result[j] =result[j+1];
+					result[j+1] = tempInt;					
+				}
 			}
-				
-		}		
+		}
 		return  result;
 	}
 	/**
@@ -85,7 +99,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
-		return null;
+		return Arrays.copyOf(oldArray, oldArray.length+size);
 	}
 	
 	/**
@@ -96,7 +110,16 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max){
-		return null;
+		int first =0;
+		int second = 1;
+		List<Integer>  resultList= new ArrayList<Integer>();		
+		if(max!=second)
+		add(first,second,max,resultList);
+		int [] result = new int[resultList.size()];
+		for (int i = 0; i < resultList.size(); i++) {
+			result[i] = resultList.get(i);
+		}
+		return result;
 	}
 	
 	/**
@@ -106,7 +129,23 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max){
-		return null;
+		List<Integer>  resultList= new ArrayList<Integer>();
+		for (int i = 2; i < max; i++) {
+			boolean isAdd = true;
+			for (int j = 2; j < i; j++) {
+				if(0==i%j){
+					isAdd = false;
+					break;
+				}					
+			}
+			if(isAdd)
+				resultList.add(i);
+		}
+		int [] result = new int[resultList.size()];
+		for (int i = 0; i < resultList.size(); i++) {
+			result[i] = resultList.get(i);
+		}
+		return result;
 	}
 	
 	/**
@@ -116,7 +155,22 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max){
-		return null;
+		List<Integer>  resultList= new ArrayList<Integer>();
+		for (int i = 1; i < max; i++) {
+			int temp = 0;
+			for (int j = 1; j < i; j++) {
+				if(0==i%j){
+					temp+=j;
+				}
+			}
+			if(i==temp)
+				resultList.add(i);
+		}
+		int [] result = new int[resultList.size()];
+		for (int i = 0; i < resultList.size(); i++) {
+			result[i] = resultList.get(i);
+		}
+		return result;
 	}
 	
 	/**
@@ -128,8 +182,23 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator){
-		return null;
+		return Arrays.toString(array).replace("[", "").replace("]", "").replace(", ", seperator);
 	}
-	
+	/**
+	 * 
+	 * @param number1
+	 * @param number2
+	 * @param max
+	 * @param resultList
+	 * @return
+	 */
+	public List<Integer> add(int number1,int number2,int max,List<Integer>  resultList){
+		if(number2<max){
+			resultList.add(number2);
+			return add(number2,number1+number2,max,resultList);
+		}else{
+			return resultList;
+		}			
+	};
 
 }
