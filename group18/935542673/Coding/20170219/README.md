@@ -1,8 +1,10 @@
 ##  2017编程提高社群作业：实现基本的数据结构(2017.2.19)
 
+####    [所有基本数据结构实现类及接口](https://github.com/china-kook/coding2017/tree/master/group18/935542673/Coding/20170219/src/com/ikook/basic_data_structure)
+
 1. 实现了ArrayList、LinkedList、Queue(依靠LinkedList实现)、Stack(依靠ArrayList实现)
 
-   1.1  ArrayList实现了一下方法：
+   1.1  ArrayList实现了以下方法：
 
    ```
     （1）add(Object): 添加元素到集合；
@@ -16,7 +18,7 @@
     （9）iterator(): 返回一个迭代器的实现类。
    ```
 
-   1.2  LinkedList实现了一下方法：
+   1.2  LinkedList实现以下方法：
 
    ```
     （1）addFirst(Object): 在链表头部插入新的元素；
@@ -36,7 +38,7 @@
     （15）iterator(): 返回一个迭代器的实现类。         
    ```
 
-   1.3  Queue实现了一下方法：
+   1.3  Queue实现了以下方法：
 
    ```
     （1）enQueue(Object): 入队操作；
@@ -45,7 +47,7 @@
     （4）isEmpty(): 判断队列是否为空。
    ```
 
-   1.4  Stack实现了一下方法：
+   1.4  Stack实现了以下方法：
 
    ```
     （1）push(Object)：入栈操作；
@@ -58,7 +60,7 @@
 
 2. 实现了BinarySearchTree、Iterator接口
 
-   2.1  BinarySearchTree实现了一下方法：
+   2.1  BinarySearchTree实现了以下方法：
 
    ```
      （1）insert(int)：插入操作；
@@ -67,7 +69,7 @@
      （4）inorderTraverse(Node)：遍历操作，采用中序遍历。
    ```
 
-   2.2  Iterator定义了一下方法：
+   2.2  Iterator定义了以下方法：
 
    ```
      （1）hasNext()：判断是否有元素没有被遍历；
@@ -76,8 +78,6 @@
    ```
    ​
 
-3. 对应以上类做了单元测试
+   #### [所有基本数据结构测试类](https://github.com/china-kook/coding2017/tree/master/group18/935542673/Coding/20170219/junit/com/ikook/basic_data_structure)
 
     说明：由于作业以实现基本的数据结构为主，则在实现单元测试时，只对正常情况进行了测试，一些异常情况并进行编写测试用例。
-
-   点击查看: [unit test](https://github.com/china-kook/coding2017/tree/master/group18/935542673/Coding/junit/com/ikook/basic_data_structure)

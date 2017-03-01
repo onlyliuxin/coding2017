@@ -51,7 +51,9 @@ public class MyArrayList implements MyList{
 	 * @param obj
 	 */
 	public void add(int index, Object obj) {
-		rangeCheck(index);
+		if (index > size || index < 0)
+            throw new IndexOutOfBoundsException("索引越界异常");
+		
 		ensureCapacity();
 	
 		System.arraycopy(elementData, index, elementData, index + 1, size-index);
@@ -151,11 +153,7 @@ public class MyArrayList implements MyList{
 	 */
 	private void rangeCheck(int index) {
 		if(index < 0 || index >= size) {
-			try {
-				throw new Exception("索引异常");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			throw new IndexOutOfBoundsException("索引越界异常");
 		}
 	}
 	
