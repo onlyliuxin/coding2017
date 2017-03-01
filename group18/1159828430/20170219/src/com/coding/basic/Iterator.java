@@ -1,3 +1,4 @@
+
 package com.coding.basic;
 /**
  * @author Hipple
@@ -9,4 +10,3 @@ public interface Iterator {
 	public Object next();
 	public void remove();
 
-}
