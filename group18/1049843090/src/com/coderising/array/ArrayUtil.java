@@ -22,20 +22,20 @@ public class ArrayUtil {
             return;
         }
         //solution 1  move element
-        //for (int i = 0; i <= origin.length >> 2; i++) {
-        //    int temp = origin[i];
-        //    origin[i] = origin[origin.length - 1 - i];
-        //    origin[origin.length - 1 - i] = temp;
-        //}
+        for (int i = 0; i < origin.length >> 1; i++) {
+            int temp = origin[i];
+            origin[i] = origin[origin.length - 1 - i];
+            origin[origin.length - 1 - i] = temp;
+        }
 
         //solution 2 use Stack
-        Stack<Integer> stack = new Stack<>();
-        for (int i : origin) {
-            stack.push(i);
-        }
-        for (int i = 0; i < origin.length; i++) {
-            origin[i] = stack.pop();
-        }
+//        Stack<Integer> stack = new Stack<>();
+//        for (int i : origin) {
+//            stack.push(i);
+//        }
+//        for (int i = 0; i < origin.length; i++) {
+//            origin[i] = stack.pop();
+//        }
     }
 
     /**
