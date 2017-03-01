@@ -34,8 +34,9 @@ public class ArrayUtilTest {
 	
 		int[] a1 = {3, 5, 7,8};
 		int[] a2 = {4, 5, 6,7};
-		int[] assertArray = {3,4,5,6,7,8};
-		int[] a3 = au.merge(a1, a2);
+		int[] assertArray = {3,4,5,6,7,8};		
+		//int[] a3 = au.merge(a1, a2);
+		int[] a3 = au.merge2(a1, a2);
 		assertResult(assertArray,a3);
 	}
 

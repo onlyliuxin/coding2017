@@ -94,6 +94,35 @@ public class ArrayUtil {
 	}
 	
 	/**
+	 * 位图法合并
+	 * @param array1
+	 * @param array2
+	 * @return
+	 */
+	public int[] merge2(int[] array1, int[] array2){
+		
+		int bitSize = 0;
+		int a = array1[array1.length-1] ;
+		int b = array2[array2.length-1];
+		bitSize =(a>b)?a:b;		
+		boolean[] bitmap = new boolean[bitSize+1];
+		for (int i = 0; i < array1.length; i++) {
+			bitmap[array1[i]]=true;		
+		}
+		for (int i = 0; i < array2.length; i++) {
+			bitmap[array2[i]]=true;		
+		}
+
+		ArrayList ls = new ArrayList();
+		for (int i = 0; i < bitmap.length; i++) {
+			if(bitmap[i]==true){
+				ls.add(i);
+			}
+		}
+		return objList2int(ls);
+	}
+	
+	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
 	 * 注意，老数组的元素在新数组中需要保持
 	 * 例如 oldArray = [2,3,6] , size = 3,则返回的新数组为
