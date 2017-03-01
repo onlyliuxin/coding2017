@@ -1,5 +1,4 @@
 package util;
-import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
@@ -41,6 +40,30 @@ public class XMLreader {
          }
 		return clazz;
     }
+    
+
+    
+    public String parseResult(String attr, String result) {
+    	
+    	Document doc = null;
+		try {
+			doc = parse(address);
+		} catch (DocumentException e1) {
+			e1.printStackTrace();
+		}
+    	
+         Node root = doc.getRootElement();
+         List list = root.selectNodes("action[@name='" + attr + "']/result[@name='" + result + "']");
+       
+         String jsp = null;
+         for(Object o:list){
+             Element e = (Element) o;
+             jsp = e.getTextTrim();
+         }
+		return jsp;
+    }
+    
+    
 
     public static void main(String args[]) throws DocumentException {
     	XMLreader reader = new XMLreader();

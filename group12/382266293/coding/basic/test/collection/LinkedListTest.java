@@ -1,4 +1,4 @@
-package TestCollection;
+package test.collection;
 
 import static util.Print.*;
 import static util.TestUtil.*; 
@@ -8,9 +8,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import Collection.Iterator;
-import Collection.List;
-import Collection.Concrete.LinkedList;
+import collection.Iterator;
+import collection.List;
+import collection.concrete.LinkedList;
 import junit.framework.TestCase;
 
 
@@ -182,7 +182,9 @@ public class LinkedListTest extends TestCase {
 			assertEquals(i, myLL.size());
 			assertEquals(a,res);
 		}
+		
 	}
+	
 
 	@Test
 	public void testSize() {

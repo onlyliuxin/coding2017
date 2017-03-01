@@ -58,14 +58,14 @@ public class Struts {
     	actionObj = getObj(clazz);
  	
     	setParams(actionObj,parameters);
-    	invoke(actionObj,"execute");
-    
+    	String result = (String) invoke(actionObj,"execute");
+    	String viewPage = reader.parseResult(actionName,result);
 		Map<String,String> viewParams = getViewParams(actionObj);
+		viewParams.put("jsp", viewPage);
 		println(viewParams);
 		viewObj = getObj("litestruts.View");
-
-		setParams(viewObj,viewParams);		
-		
+		setParams(viewObj,viewParams);
+	
     	return (View) viewObj;
     }
     
@@ -138,18 +138,19 @@ public class Struts {
         }
     }
  
-    private static void invoke(Object obj, String execute) {
+    private static String invoke(Object obj, String execute) {
     	BeanInfo bi0 = getBeanInfo(obj);
         MethodDescriptor[] methods = bi0.getMethodDescriptors();
         for (int i = 0; i < methods.length; i++) {
             String methodName = methods[i].getName();
             if(methodName.equals(execute))
 				try {
-					println(methods[i].getMethod().invoke(actionObj));
+					return (String) methods[i].getMethod().invoke(actionObj);
 				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 					e.printStackTrace();
 				}
         }
+        return null;
 
 	}
 
@@ -160,7 +161,8 @@ public class Struts {
         params.put("password","1234");
  
     	View view = runAction("login",params);
-    	println(view.getParameters());
+    	println(view.getJsp());
+    	
 
     }
 

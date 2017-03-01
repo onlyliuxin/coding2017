@@ -1,8 +1,8 @@
-package Collection.Concrete;
+package collection.concrete;
 import java.util.NoSuchElementException;
 
-import Collection.AbstractList;
-import Collection.Iterator;
+import collection.AbstractList;
+import collection.Iterator;
 
 public class Queue<E> extends AbstractList<E> {
 	

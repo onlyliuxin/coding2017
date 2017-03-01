@@ -1,4 +1,4 @@
-package TestCollection;
+package test.collection;
 
 import static util.Print.*;
 import static util.TestUtil.*;
@@ -10,10 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
-import Collection.Iterator;
-import Collection.List;
-import Collection.Concrete.ArrayList;
+import collection.Iterator;
+import collection.List;
+import collection.concrete.ArrayList;
 import junit.framework.TestCase;
 
 public class ArrayListTest extends TestCase {

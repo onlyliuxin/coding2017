@@ -1,4 +1,4 @@
-package Collection;
+
 
 public interface Iterator<E> {
 

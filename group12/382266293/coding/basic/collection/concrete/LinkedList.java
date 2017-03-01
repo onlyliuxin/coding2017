@@ -1,8 +1,9 @@
-package Collection.Concrete;
+package collection.concrete;
 
 import java.util.NoSuchElementException;
-import Collection.AbstractList;
-import Collection.Iterator;
+
+import collection.AbstractList;
+import collection.Iterator;
 
 
 public class LinkedList<E> extends AbstractList<E> {
@@ -87,15 +88,21 @@ public class LinkedList<E> extends AbstractList<E> {
 		return remove(size-1);
 	}
 
+	@SuppressWarnings("unchecked")
 	public E remove(int index) {
 		checkIndex(index);
 		Node<E> pNode = getNode(index);
+
 		if (index == 0) {
 			head =  head.next;
 		} else if (index == size-1 ) {
 			getNode(index-1).next = null;
 		} else {
-			getNode(index-1).next = getNode(index+1);
+			Node node = head;
+			for ( int i = 0; i < index - 1 ; i++) {
+				node = node.next;
+			}
+			node.next = node.next.next;
 		}
 		size--;
 		return pNode.data;
