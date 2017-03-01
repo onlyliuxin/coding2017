@@ -91,21 +91,25 @@ public class LinkedList<E> extends AbstractList<E> {
 	@SuppressWarnings("unchecked")
 	public E remove(int index) {
 		checkIndex(index);
-		Node<E> pNode = getNode(index);
-
+		Node<E> pNode = null;
+		E data = null;
 		if (index == 0) {
+			data = (E) head.data;
 			head =  head.next;
-		} else if (index == size-1 ) {
-			getNode(index-1).next = null;
+		} else if (index == size-1) {
+			pNode = getNode(index - 1);
+			data = (E) pNode.next.data;
+			pNode.next = null;
 		} else {
-			Node node = head;
+			pNode = head;
 			for ( int i = 0; i < index - 1 ; i++) {
-				node = node.next;
+				pNode = pNode.next;
 			}
-			node.next = node.next.next;
+			data = (E) pNode.next.data;
+			pNode.next =pNode.next.next;
 		}
 		size--;
-		return pNode.data;
+		return data;
 	}
 
 	@Override
