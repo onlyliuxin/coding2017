@@ -19,7 +19,7 @@ public class ArrayList implements List {
 	}
 	public void add(int index, Object o){
 		
-		if(index>size){
+		if(index<0||index>size){
 			throw new IndexOutOfBoundsException("Index: "+index+",Size:"+size);
 		}
 		grow(); 
@@ -35,7 +35,7 @@ public class ArrayList implements List {
 	
 	public Object get(int index){
 		
-		if(index>size){
+		if(index<0||index>size){
 			throw new IndexOutOfBoundsException("Index: "+index+",Size:"+size);
 		}
 		return elementData[index];
