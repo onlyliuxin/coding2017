@@ -1,4 +1,4 @@
-package org.apn.coding2017.basic;
+package org.pan.coding2017.basic;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;

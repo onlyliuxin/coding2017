@@ -1,10 +1,8 @@
-package org.apn.coding2017.array;
+package org.pan.coding2017.array;
 
 import org.junit.Test;
 
 import java.util.Arrays;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by QiPan on 2017/2/27.

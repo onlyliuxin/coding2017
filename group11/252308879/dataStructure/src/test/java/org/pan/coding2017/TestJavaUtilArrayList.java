@@ -1,4 +1,4 @@
-package org.apn.coding2017;
+package org.pan.coding2017;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package org.apn.coding2017.array;
+package org.pan.coding2017.array;
 
 import java.util.Arrays;
 
@@ -156,7 +156,16 @@ public class ArrayUtil {
      * @return
      */
     public String join(int[] array, String seperator){
-        return null;
+        if (array == null){
+            return null;
+        }
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            if (i == array.length - 1){
+
+            }
+        }
+        return str.toString();
     }
 
 }

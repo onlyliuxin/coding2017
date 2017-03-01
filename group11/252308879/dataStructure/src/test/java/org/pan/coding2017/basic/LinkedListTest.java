@@ -1,9 +1,7 @@
-package org.apn.coding2017.basic;
+package org.pan.coding2017.basic;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Pan on 2017/2/26.
