@@ -17,6 +17,7 @@ public class LinkedList implements List {
     }
 
     private static class Node {
+
         Object data;
         Node next;
 
