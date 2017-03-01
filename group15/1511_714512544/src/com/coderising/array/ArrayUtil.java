@@ -1,5 +1,7 @@
 package com.coderising.array;
 
+import java.util.Arrays;
+
 public class ArrayUtil {
 
     /**
@@ -10,7 +12,13 @@ public class ArrayUtil {
      * @return
      */
     public void reverseArray(int[] origin){
-
+        int len = origin.length;
+        int temp = 0;
+        for (int i = 0; i < len/2; i++) {
+            temp = origin[i];
+            origin[i] = origin[len -1 -i];
+            origin[len -1 -i] = temp;
+        }
     }
 
     /**
@@ -22,7 +30,17 @@ public class ArrayUtil {
      */
 
     public int[] removeZero(int[] oldArray){
-        return null;
+        int[] temp = new int[oldArray.length];
+        int index = 0;
+        for (int i : oldArray) {
+            if(i != 0){
+                temp[index++] = i;
+            }
+        }
+        if(index == 0){
+            return new int[]{};
+        }
+        return Arrays.copyOf(temp, index);
     }
 
     /**
@@ -34,7 +52,25 @@ public class ArrayUtil {
      */
 
     public int[] merge(int[] array1, int[] array2){
-        return  null;
+        int[] array3 = new int[array1.length+array2.length];
+        for (int i = 0; i < array1.length; i++) {
+            array3[i] = array1[i];
+        }
+        int index = array1.length;
+        for (int i = 0; i < array2.length; i++) {
+            boolean flag = true; //a2元素不在a3中
+            for (int j = 0; j < index; j++) {
+                if(array3[j] == array2[i]){
+                    flag = false;
+                }
+            }
+            if(flag){ //a2元素不在a3中
+                array3[index++] = array2[i];
+            }
+        }
+        int[] temp = Arrays.copyOf(array3, index);
+        Arrays.sort(temp);
+        return temp;
     }
     /**
      * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
@@ -46,7 +82,7 @@ public class ArrayUtil {
      * @return
      */
     public int[] grow(int [] oldArray,  int size){
-        return null;
+        return Arrays.copyOf(oldArray, oldArray.length+size);
     }
 
     /**
@@ -57,7 +93,20 @@ public class ArrayUtil {
      * @return
      */
     public int[] fibonacci(int max){
-        return null;
+        if(max == 1) return new int[]{};  //max=1，返回空数组
+        int[] arr = new int[max+1];
+        arr[0] = 1;
+        arr[1] = 1;
+
+        int sum = 2;
+        for (int i = 2; i < arr.length; i++) {
+            arr[i] = arr[i-1] + arr[i-2];
+            if(arr[i] >= max){
+                break;
+            }
+            sum ++;
+        }
+        return Arrays.copyOf(arr, sum);
     }
 
     /**
@@ -67,7 +116,20 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPrimes(int max){
-        return null;
+        if(max<=2) return new int[]{};
+
+        int[] temp = new int[max];
+        int index = 0;
+        for (int i = 2; i < max; i++) {
+            boolean flag = true;
+            for (int j = 2; j <= Math.sqrt(i); j++) {
+                if(i % j == 0){
+                    flag = false;
+                }
+            }
+            if(flag){index++;}
+        }
+        return Arrays.copyOf(temp, index);
     }
 
     /**
@@ -77,7 +139,24 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPerfectNumbers(int max){
-        return null;
+        if(max <= 2) return new int[]{};
+
+        int[] temp = new int[max];
+        int index = 0;
+        for (int i = 2; i < max; i++) {
+            int sum = 0;
+            for (int j = 1; j <= Math.sqrt(i); j++) {
+                if(j == 1) {
+                    sum += 1;
+                }else{
+                    if(i % j == 0){
+                        sum += j + i/j;
+                    }
+                }
+            }
+            if(sum == i) temp[index++] = i;
+        }
+        return Arrays.copyOf(temp, index);
     }
 
     /**
@@ -85,11 +164,19 @@ public class ArrayUtil {
      * 例如array= [3,8,9], seperator = "-"
      * 则返回值为"3-8-9"
      * @param array
-     * @param s
+     * @param seperator
      * @return
      */
     public String join(int[] array, String seperator){
-        return null;
+        if(array.length == 0){
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i : array) {
+            sb.append(i).append(seperator);
+        }
+        String temp = sb.toString();
+        return temp.substring(0,temp.length()-1);
     }
 
 
