@@ -3,6 +3,7 @@ package com.coderising.array;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class ArrayUtil {
@@ -30,6 +31,8 @@ public class ArrayUtil {
 		int[] a1 = {3, 5, 7,8};
 		int[] a2 = {4, 5, 6,7};
 		System.out.println(Arrays.toString(util.merge(a1, a2)));
+		int[] oldArray = {2,3,6};
+		System.out.println(Arrays.toString(util.grow(oldArray,3)));
 	}
 	
 	/**
@@ -62,7 +65,7 @@ public class ArrayUtil {
 	
 	public int[] merge(int[] array1, int[] array2){
 		
-		  //Set是不允许重复的，所以将数组的值全部放在Set对象中  
+		//Set是不允许重复的，所以将数组的值全部放在Set对象中  
         Set set = new HashSet<Integer>();  
           
         for(int i = 0; i < array1.length ; i++){  
@@ -96,7 +99,10 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
-		return null;
+		int length = oldArray.length+size;
+		int[] newArray = new int[length];
+		System.arraycopy(oldArray, 0, newArray, 0,oldArray.length);
+		return newArray;
 	}
 	
 	/**
@@ -107,6 +113,18 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max){
+		int f1 = 1;
+		int f2 = 1;
+		int f = 0;
+		int count = 0;
+		while(f<max){
+			f = f1+f2;
+			f1 = f2;
+			f2 = f1;
+			count++;
+		}
+		int[] arr = new int[count];
+		
 		return null;
 	}
 	
