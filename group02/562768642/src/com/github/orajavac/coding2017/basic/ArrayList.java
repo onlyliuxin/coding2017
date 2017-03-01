@@ -39,7 +39,7 @@ public class ArrayList implements List,Iterator{
 	}
 	
 	public Object remove(int index){
-		if (index==elementData.length-1){	//ɾ�����һ������Ԫ�����ֵ
+		if (index==elementData.length-1){	//删除最后一个索引元素里的值
 			elementData[index]=null;
 		}else{
 			elementData[index]=null;
@@ -50,7 +50,7 @@ public class ArrayList implements List,Iterator{
 				}else if(i>index){
 					if(i+1!=len){
 						elementData[i]=elementData[i+1];
-					}else{	//���Ǽ����������� 0-3����ô���鳤����4��3+1==4��elementData[i+1]�ᱨ��
+					}else{	//我们假设数组索引 0-3，那么数组长度是4，3+1==4，elementData[i+1]会报错
 						elementData[i]=null;
 					}
 				}
