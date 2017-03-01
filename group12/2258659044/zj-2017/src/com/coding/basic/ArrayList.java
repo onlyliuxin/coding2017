@@ -1,4 +1,6 @@
-﻿import java.util.NoSuchElementException;
+﻿package com.coding.basic;
+
+import java.util.NoSuchElementException;
 
 public class ArrayList implements List {
 	
