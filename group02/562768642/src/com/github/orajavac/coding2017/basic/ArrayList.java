@@ -39,7 +39,7 @@ public class ArrayList implements List,Iterator{
 	}
 	
 	public Object remove(int index){
-		if (index==elementData.length-1){	//É¾³ý×îºóÒ»¸öË÷ÒýÔªËØÀïµÄÖµ
+		if (index==elementData.length-1){	//É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 			elementData[index]=null;
 		}else{
 			elementData[index]=null;
@@ -50,7 +50,7 @@ public class ArrayList implements List,Iterator{
 				}else if(i>index){
 					if(i+1!=len){
 						elementData[i]=elementData[i+1];
-					}else{	//ÎÒÃÇ¼ÙÉèÊý×éË÷Òý 0-3£¬ÄÇÃ´Êý×é³¤¶ÈÊÇ4£¬3+1==4£¬elementData[i+1]»á±¨´í
+					}else{	//ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0-3ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½é³¤ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½3+1==4ï¿½ï¿½elementData[i+1]ï¿½á±¨ï¿½ï¿½
 						elementData[i]=null;
 					}
 				}
