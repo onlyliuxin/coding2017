@@ -1,6 +1,4 @@
-package com.coding.basic;
-
-import java.util.NoSuchElementException;
+﻿import java.util.NoSuchElementException;
 
 public class ArrayList implements List {
 	
@@ -52,7 +50,13 @@ public class ArrayList implements List {
 	public int size(){
 		return size;
 	}
-			
+	
+	public Object[] toArray(){
+		Object[] objArr = new Object[size];
+		System.arraycopy(elementData, 0, objArr, 0, size);
+		return objArr;
+	}
+	
 	/**
 	 * 扩容，扩容因子为10
 	 */
