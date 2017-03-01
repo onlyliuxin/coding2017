@@ -1,5 +1,6 @@
 package com;
 
+import com.coderising.litestruts.*;
 import com.coderising.array.*;
 public class Main {
 	public static void main(String[] args) {
@@ -47,5 +48,6 @@ public class Main {
 		System.out.print("\njoin测试:");
 		int[] jArray = new int[]{2, 3, 8};
 		System.out.print(ArrayUtil.join(jArray, "-"));
+		Struts.test();
 	}
 }

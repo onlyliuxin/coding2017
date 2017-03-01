@@ -2,16 +2,16 @@ package com.coderising.litestruts;
 
 import java.util.Map;
 
-
-
 public class Struts {
 
     public static View runAction(String actionName, Map<String,String> parameters) {
 
         /*
          
-		0. 读取配置文件struts.xml
- 		
+		0. 读取配置文件struts.xml*/
+		String targetClassName = XmlUtil.parseXML("struts.xml", actionName);
+		
+ 		/*
  		1. 根据actionName找到相对应的class ， 例如LoginAction,   通过反射实例化（创建对象）
 		据parameters中的数据，调用对象的setter方法， 例如parameters中的数据是 
 		("name"="test" ,  "password"="1234") ,     	
@@ -30,5 +30,5 @@ public class Struts {
     	
     	return null;
     }    
-
+	
 }
