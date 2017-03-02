@@ -1,4 +1,4 @@
-package Week2.litestruts;
+package week2.litestruts;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package Week2.array;
+package week2.array;
 
 import java.util.Arrays;
 
@@ -12,6 +12,9 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin) {
+		if (origin == null) {
+			return;
+		}
 		int len = origin.length;
 		int forLen = len / 2;
 		int temp;
@@ -31,6 +34,9 @@ public class ArrayUtil {
 	 */
 
 	public int[] removeZero(int[] oldArray) {
+		if (oldArray == null) {
+			return null;
+		}
 		int[] newArray = new int[oldArray.length];
 		int index = 0;
 		for (int x : oldArray) {
@@ -52,6 +58,13 @@ public class ArrayUtil {
 	 */
 
 	public int[] merge(int[] array1, int[] array2) {
+		if (array1 == null && array2 == null) {
+			return null;
+		} else if (array1 == null) {
+			return array2;
+		} else if (array2 == null) {
+			return array1;
+		}
 		int[] newArray = new int[array1.length + array2.length];
 		int newIndex = 0;
 		int index1 = 0;
@@ -97,7 +110,13 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int[] oldArray, int size) {
-		return null;
+		if (oldArray == null) {
+			return null;
+		}
+		if (size < 0) {
+			size = 0;
+		}
+		return Arrays.copyOf(oldArray, oldArray.length + size);
 	}
 
 	/**
@@ -108,7 +127,20 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max) {
-		return null;
+		if (max <= 1) {
+			return null;
+		}
+		int now = 2;
+		int index = 1;
+		int[] fiboArray = new int[] { 1, 1 };
+		while (now < max) {
+			now = fiboArray[index] + fiboArray[index - 1];
+			if (index + 2 > fiboArray.length) {
+				fiboArray = Arrays.copyOf(fiboArray, fiboArray.length * 2);
+			}
+			fiboArray[++index] = now;
+		}
+		return Arrays.copyOf(fiboArray, index);
 	}
 
 	/**
@@ -116,9 +148,36 @@ public class ArrayUtil {
 	 * 
 	 * @param max
 	 * @return
+	 * @throws Exception
 	 */
-	public int[] getPrimes(int max) {
-		return null;
+	public int[] getPrimes(int max) throws Exception {
+		if (max < 2) {
+			return null;
+		}
+		int[] primes = new int[] { 2 };
+		int index = 0;
+		int newPrimes = 3;
+		while (newPrimes < max) {
+			if (index + 2 > primes.length) {
+				primes = Arrays.copyOf(primes, primes.length * 2);
+			}
+			primes[++index] = newPrimes;
+
+			boolean foundPrime = false;
+			while (!foundPrime) {
+				newPrimes += 2;
+				foundPrime = true;
+				int mid = newPrimes / 2 + 1;
+				for (int i = 3; i <= mid; i++) {
+					if (newPrimes % i == 0) {
+						foundPrime = false;
+						break;
+					}
+				}
+			}
+		}
+
+		return Arrays.copyOf(primes, ++index);
 	}
 
 	/**
@@ -128,7 +187,28 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max) {
-		return null;
+		int perfectNumber = 6;
+		if (max < perfectNumber) {
+			return null;
+		}
+		int[] perfectNumbers = new int[] { perfectNumber };
+
+		while (perfectNumber < max) {
+			perfectNumber++;
+			int sum = 0;
+			for (int i = 1; i < perfectNumber; i++) {
+				if (perfectNumber % i == 0) {
+					sum += i;
+				}
+			}
+			if (sum == perfectNumber) {
+				int[] newArr = new int[perfectNumbers.length + 1];
+				System.arraycopy(perfectNumbers, 0, newArr, 0, perfectNumbers.length);
+				perfectNumbers = newArr;
+				perfectNumbers[perfectNumbers.length - 1] = perfectNumber;
+			}
+		}
+		return perfectNumbers;
 	}
 
 	/**
@@ -139,7 +219,15 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator) {
-		return null;
+		if (array == null || array.length == 0) {
+			return null;
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append(array[0]);
+		for (int i = 1; i < array.length; i++) {
+			sb.append(seperator + array[i]);
+		}
+		return sb.toString();
 	}
 
 }

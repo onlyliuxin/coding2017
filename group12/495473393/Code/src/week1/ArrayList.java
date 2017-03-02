@@ -1,4 +1,4 @@
-package Week1;
+package week1;
 
 public class ArrayList implements List {
 

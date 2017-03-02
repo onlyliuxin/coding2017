@@ -1,4 +1,4 @@
-package Week1;
+package week1;
 
 public interface List {
 	public void add(Object o);
