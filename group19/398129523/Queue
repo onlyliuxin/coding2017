@@ -1,0 +1,38 @@
+package com.coding.work;
+
+import java.util.NoSuchElementException;
+
+
+
+public class Queue {
+	private Object[] elementdate;
+	private int size;
+	private int index;
+	
+	public void enQueue(Object o) {
+		if(o == null){
+			throw new IllegalArgumentException();
+		}
+		elementdate[index++] = o;
+		size = index + 1;
+	}
+	
+	public Object deQueue(){
+		if (size == 0) {
+			throw new NoSuchElementException();	
+		}else{
+			Object out = elementdate[0];
+			System.arraycopy(elementdate, 1, elementdate, 0, size - 1);
+			return out;
+		}
+	}
+	
+	public boolean isEmpty(){
+		
+		return size == 0;
+	}
+	
+	public int size() {
+		return size;
+	}
+}
