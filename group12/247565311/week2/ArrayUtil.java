@@ -10,9 +10,9 @@ public class ArrayUtil {
 	 * @param origin
 	 * @return
 	 */
-	public void reverseArray(int[] origin){
+	public void reverseArray(int[] origin){ // time :O(n)
 		int leno = origin.length,temp=0;  
-		for(int i=0;i<leno/2;i++){   // time :O(n)
+		for(int i=0;i<leno/2;i++){   
 			temp = origin[i];
 			origin[i] = origin[leno-1-i];
 			origin[leno-1-i] = temp;
@@ -26,22 +26,17 @@ public class ArrayUtil {
 	 * @param oldArray
 	 * @return
 	 */
-	
-	public int[] removeZero(int[] oldArray){
-		ArrayList<Integer> data = new ArrayList<Integer>();
-		int leno = oldArray.length;
+	public int[] removeZero(int[] oldArray){ // time :O(n)
+		int leno = oldArray.length,temp = 0;
+		int []old = new int[leno];
+		System.arraycopy(oldArray, 0, old, 0, leno);	// to not change the oldArray
 		for(int i=0;i<leno;i++){
-			if(oldArray[i] != 0) data.add(oldArray[i]);
+			if(old[i] == 0) temp += 1;
+			else old[i-temp] = old[i];
 		}
-		Object[] obj = data.toArray( );
-		
-		if(obj == null) return new int[0];
-		leno = obj.length;
-		int[]res = new int[leno];
-		for(int i=0;i<leno;i++){
-			res[i] = ((Integer)obj[i]).intValue();
-		}
-		return res;
+		int []newArray = new int[leno-temp];
+		System.arraycopy(old, 0, newArray, 0, leno-temp);
+		return newArray;
 	}
 	
 	/**
@@ -52,44 +47,38 @@ public class ArrayUtil {
 	 * @return
 	 */
 	
-	public int[] merge(int[] array1, int[] array2){
-		ArrayList<Integer> data = new ArrayList<Integer>();
-		int p1=0,p2=0,len1=array1.length,len2=array2.length;
-		int val1=0,val2=0;
-		if(len1 == 0) return array2;
-		if(len2 == 0) return array1;
-		while(p1<len1 || p2<len2){
+	public int[] merge(int[] array1, int[] array2){  // time :O(n)
+		int len1 = array1.length,len2 = array2.length;
+		int[]temparray = new int[len1+len2];
+		int p1=0,p2=0,temp=-1;
+		while(p1<len1 || p2 < len2){
+			temp += 1;
 			if(p1>=len1){
-				data.add(array2[p2]);
+				temparray[temp] = array2[p2];
 				p2 += 1;
 				continue;
 			}
 			if(p2>=len2){
-				data.add(array1[p1]);
+				temparray[temp] = array1[p1];
 				p1 += 1;
 				continue;
 			}
-			if(p1<len1) val1 = array1[p1];
-			if(p2<len2) val2 = array2[p2];
-			if(val1==val2){
-				data.add(val1);
-				p1 += 1;
+			if(array1[p1] > array2[p2]){
+				temparray[temp] = array2[p2];
 				p2 += 1;
-			}else if(val1>val2){
-				data.add(val2);
-				p2 += 1;
-			}else if(val1<val2){
-				data.add(val1);
+			}else{
+				temparray[temp] = array1[p1];
 				p1 += 1;
 			}
 		}
-		Object []obj = data.toArray();
-		int leno = obj.length;
-		int[]res=new int[leno];
-		for(int i=0;i<leno;i++){
-			res[i] = ((Integer)data.get(i)).intValue();
+		temp = 0;
+		for(int i=1;i<len1+len2;i++){
+			if(temparray[i] == temparray[i-1]) temp += 1;
+			temparray[i-temp] = temparray[i];
 		}
-		return  res;
+		int[]res = new int[len1+len2-temp];
+		System.arraycopy(temparray, 0, res, 0, len1+len2-temp);
+		return res;
 	}
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
@@ -149,10 +138,10 @@ public class ArrayUtil {
 		while(cur<max){
 			li.add(cur);
 			for(int i=cur;i*cur<max;i++){
-				data[i*cur-2] = 1;
+				data[i*cur-2] = 1;		// note not primes
 			}
 			cur += 1;
-			while(cur<max && data[cur-2] == 1)
+			while(cur<max && data[cur-2] == 1) // skip not primes
 				cur += 1;
 		}
 		int lenl = li.size();
@@ -173,8 +162,7 @@ public class ArrayUtil {
 		ArrayList<Integer> li = null,resli = new ArrayList<Integer>();
 		for(int i=6;i<max;i++){
 			li = getAllElem(i);
-			int lenl = li.size();
-			int temp = 0;
+			int lenl = li.size(),temp = 0;
 			for(int j =0;j<lenl;j++){
 				temp += li.get(j);
 			}
@@ -214,6 +202,4 @@ public class ArrayUtil {
 		res += array[lena-1];
 		return res;
 	}
-	
-
 }
