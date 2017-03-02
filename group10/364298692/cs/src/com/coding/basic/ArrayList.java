@@ -2,14 +2,22 @@ package com.coding.basic;
 
 import java.util.Arrays;
 
-public class ArrayList implements List{
+public class ArrayList<T> implements List<T>{
 	
 	private int size = 0;
 	
 	private Object[] elementData;
 	
+	private static final Object[] EMPTY_ELEMENTDATA = {};
+	
 	public ArrayList(int initialCapacity){
-		elementData = new Object[initialCapacity];
+		if(initialCapacity>0){
+			this.elementData = new Object[initialCapacity];
+		}else if(initialCapacity==0){
+			this.elementData = EMPTY_ELEMENTDATA;
+		}else{
+			throw new IllegalArgumentException("Illeagal Capacity: "+initialCapacity);
+		}		
 	}
 	
 	public ArrayList(){
@@ -28,38 +36,43 @@ public class ArrayList implements List{
 		}
 	}
 	
-	public void add(Object o){
+	public void add(T o){
 		ensureCapacity(size + 1);
 		elementData[size] = o;
 		size++;
 	}
+	
 	public void add(int index, Object o){
-		ensureCapacity(size + 1);
-		for(int i = size-1; i >= index; i--){
-			elementData[i+1] = elementData[i];
+		if(index<0 || index > size){
+			throw new IndexOutOfBoundsException();
 		}
+		ensureCapacity(size + 1);
+		
+		System.arraycopy(elementData, index, elementData, index+1, size - index);
+
 		elementData[index] = o;	
 		size++;
 	} 
 	
-	public Object get(int index){
-		if(index > size-1){
-			return null;
-		}else{
-			return elementData[index];
-		}
+	public T get(int index){
+		checkIndex(index);
+		return (T)elementData[index];
 	}
 	
-	public Object remove(int index){
-		if(index > size-1){
-			return null;
-		}else{
-			Object obj = elementData[index];
-			for(int i=index; i<size-1; i++){
-				elementData[index] = elementData[index+1];
-			}
-			size--;
-			return obj;
+	public T remove(int index){
+		checkIndex(index);
+		T obj = (T)elementData[index];
+		if(index != size-1){
+			System.arraycopy(elementData,index+1,elementData,index,size-1-index);
+		}
+		elementData[size-1] = null;
+		size--;
+		return obj;
+	}
+
+	private void checkIndex(int index) {
+		if(index < 0 || index >= size){
+			throw new IndexOutOfBoundsException();
 		}
 	}
 	
@@ -67,9 +80,18 @@ public class ArrayList implements List{
 		return size;
 	}
 	
-	public Iterator iterator(){
+	public ArrayIterator iterator(){
 		
-		return null;
+		return new ArrayIterator();
+	}
+	
+	private class ArrayIterator{
+		private int position;
+		private ArrayList list;
+		
+		ArrayIterator(){
+//			list = e
+		}
 	}
 	
 }
