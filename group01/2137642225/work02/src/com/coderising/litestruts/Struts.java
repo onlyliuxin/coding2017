@@ -248,7 +248,7 @@ public class Struts {
 	 * @param xmlFilePath
 	 * @return
 	 */
-	public static Map<String,Map<String, Object>> xmlParse(String xmlFilePath) {
+	private static Map<String,Map<String, Object>> xmlParse(String xmlFilePath) {
 		File file = new File(xmlFilePath);
 		SAXReader saxReader = new SAXReader();
 		
