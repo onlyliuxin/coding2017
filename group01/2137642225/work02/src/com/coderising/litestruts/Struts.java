@@ -1,9 +1,11 @@
 package com.coderising.litestruts;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -29,8 +31,15 @@ public class Struts {
     	}
     	
     	// 0. 读取配置文件struts.xml ok
-    	URL resource = Struts.class.getResource("");
-    	Map<String,Map<String, Object>> actionMap = xmlParse(resource.getPath() + File.separator + "struts.xml");
+    	URL resource = Struts.class.getResource("/com/coderising/litestruts");
+    	String path = "";
+    	try {
+    		path = URLDecoder.decode(resource.getPath(), "UTF-8");
+    	} catch (UnsupportedEncodingException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	Map<String,Map<String, Object>> actionMap = xmlParse(path + File.separator + "struts.xml");
     	
     	// 找到访问的action通过actionName
     	Map<String,Object> action = findAction(actionName,actionMap);
