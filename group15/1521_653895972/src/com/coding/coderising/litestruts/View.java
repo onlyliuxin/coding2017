@@ -4,6 +4,7 @@ import java.util.Map;
 
 public class View {
     private String jsp;
+
     private Map parameters;
 
     public String getJsp() {

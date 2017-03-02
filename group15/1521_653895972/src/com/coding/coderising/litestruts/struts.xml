@@ -4,6 +4,7 @@
         <result name="success">/jsp/homepage.jsp</result>
         <result name="fail">/jsp/showLogin.jsp</result>
     </action>
+
     <action name="logout" class="com.coderising.action.LogoutAction">
     	<result = "success">/jsp/welcome.jsp</result>
     	<result = "error">/jsp/error.jsp</result>

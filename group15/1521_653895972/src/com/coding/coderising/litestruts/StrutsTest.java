@@ -12,10 +12,6 @@ import java.util.Map;
 
 public class StrutsTest {
 
-    @Test
-    public void test(){
-        System.out.println();
-    }
 	@Test
 	public void testLoginActionSuccess() {
 		

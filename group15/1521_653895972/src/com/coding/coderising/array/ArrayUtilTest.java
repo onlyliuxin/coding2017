@@ -17,6 +17,7 @@ public class ArrayUtilTest {
         System.out.println("----------------------置换 end-----------------------------");
     }
 
+
     @Test
     public void testRemoveZero() throws Exception {
         int oldArr[] = {1, 3, 4, 5, 0, 0, 6, 6, 0, 5, 4, 7, 6, 7, 0, 5};
@@ -27,17 +28,17 @@ public class ArrayUtilTest {
 
     @Test
     public void testMerge() throws Exception {
-        int arr1[] = {3, 5, 7,8};
-        int arr2[] = {4, 5, 6,7};
-        int arr3[] = SimpleArrayUtil.merge(arr1,arr2);
+        int arr1[] = {3, 5, 7, 8};
+        int arr2[] = {4, 5, 6, 7};
+        int arr3[] = SimpleArrayUtil.merge(arr1, arr2);
         System.out.println(Arrays.toString(arr3));
         System.out.println("----------------------merge end-----------------------------");
     }
 
     @Test
     public void testGrow() throws Exception {
-        int arr1[] = {3, 5, 7,8};
-        int[] newArr = SimpleArrayUtil.grow(arr1,3);
+        int arr1[] = {3, 5, 7, 8};
+        int[] newArr = SimpleArrayUtil.grow(arr1, 3);
         System.out.println(Arrays.toString(newArr));
         System.out.println("----------------------扩展 end-----------------------------");
     }
@@ -65,8 +66,8 @@ public class ArrayUtilTest {
 
     @Test
     public void testJoin() throws Exception {
-        int arr1[] = {3, 5, 7,8};
-        System.out.println(SimpleArrayUtil.join(arr1,"-"));
+        int arr1[] = {3, 5, 7, 8};
+        System.out.println(SimpleArrayUtil.join(arr1, "-"));
         System.out.println("----------------------Join end-----------------------------");
     }
 }

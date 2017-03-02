@@ -8,6 +8,7 @@ package com.coding.coderising.litestruts;
 public class LoginAction {
     private String name;
     private String password;
+
     private String message;
 
     public String getName() {

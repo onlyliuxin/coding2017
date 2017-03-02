@@ -47,6 +47,7 @@ public class SimpleArrayUtil {
             }
         }
         int[] tem2 = new int[index];
+
         System.arraycopy(temp, 0, tem2, 0, Math.min(oldArray.length, index));
         return tem2;
     }
@@ -67,12 +68,12 @@ public class SimpleArrayUtil {
         if (array2.length == 0)
             return array1.clone();
         //判断排序方向
-        boolean sort = array1[0]<array1[array1.length-1];
+        boolean sort = array1[0] < array1[array1.length - 1];
         //去重
-        for (int i=0;i<array2.length;i++){
+        for (int i = 0; i < array2.length; i++) {
             boolean flag = true;
-            for (int j=0;j<array1.length;j++){
-                if (array2[i]==array1[j]) {
+            for (int j = 0; j < array1.length; j++) {
+                if (array2[i] == array1[j]) {
                     flag = false;
                     break;
                 }
@@ -84,27 +85,27 @@ public class SimpleArrayUtil {
             }
         }
         //排序
-        if (sort){//小到大
+        if (sort) {//小到大
             int tmp;
             //冒泡排序
-            for (int i=0;i<array1.length;i++) {
-                for (int j = i+1; j < array1.length; j++) {
-                    if (array1[i]>array1[j]){
+            for (int i = 0; i < array1.length; i++) {
+                for (int j = i + 1; j < array1.length; j++) {
+                    if (array1[i] > array1[j]) {
                         tmp = array1[i];
-                        array1[i]=array1[j];
-                        array1[j]=tmp;
+                        array1[i] = array1[j];
+                        array1[j] = tmp;
                     }
                 }
             }
-        }else {//大到小
+        } else {//大到小
             int tmp;
             //冒泡排序
-            for (int i=0;i<array1.length;i++) {
-                for (int j = i+1; j < array1.length; j++) {
-                    if (array1[i]<array1[j]){
+            for (int i = 0; i < array1.length; i++) {
+                for (int j = i + 1; j < array1.length; j++) {
+                    if (array1[i] < array1[j]) {
                         tmp = array1[i];
-                        array1[i]=array1[j];
-                        array1[j]=tmp;
+                        array1[i] = array1[j];
+                        array1[j] = tmp;
                     }
                 }
             }
