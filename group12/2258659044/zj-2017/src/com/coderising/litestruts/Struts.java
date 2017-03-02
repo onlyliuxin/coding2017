@@ -32,7 +32,9 @@ public class Struts {
 	private final static String TYPE = "type";
 	private final static String EXECUTE = "execute";
 
+	//Struts.xml描述的所有action信息
 	private final static List<Action> actions;
+	//读取Struts.xml获取所有action相关信息
 	static{
 		String path = "src/com/coderising/litestruts/struts.xml";
 		actions = readStrutsXml(path);
@@ -43,16 +45,21 @@ public class Struts {
 
 		View view = new View();
 		Map<String,Object> viewMap = new HashMap<String,Object>();
-				
+		
+		//获取当前请求的action信息
 		Action actionBean= getCurrentAction(actionName);	
-
+		if(actionBean == null){
+			return view;
+		}
 		try {
-			String calssPath = actionBean.getClaz();
+			//创建实例获取属性
+			String calssPath = actionBean.getClazz();
 			Class<?> clazz = Class.forName(calssPath);
 			Object instance = clazz.newInstance();
 			Field[] fields = clazz.getDeclaredFields();
 			String fieldName;
 			String methodName;
+			//调用set方法为属性赋值
 			for (int i = 0; i < fields.length; i++) {
 				fieldName = fields[i].getName();
 				if(parameters.containsKey(fieldName)){
@@ -63,9 +70,10 @@ public class Struts {
 				}				
 			}
 
+			//调用默认execute方法
 			Method successMethos = clazz.getMethod(EXECUTE);			
 			Object result = successMethos.invoke(instance);
-			
+			// 调用get方法获取属性值
 			for (int i = 0; i < fields.length; i++) {
 				fieldName = fields[i].getName();
 				methodName = "get" + fieldName.substring(0, 1).toUpperCase()
@@ -75,16 +83,14 @@ public class Struts {
 				viewMap.put(fieldName, value);
 
 			}
+			//封装view对象所需数据
 			view.setParameters(viewMap);
-
 			List<Result> results = actionBean.getResults();
 			for (int i = 0; i < results.size(); i++) {
-				if(results.get(i).getName()){
-					
+				if(results.get(i).getName().equals(result)){
+					view.setJsp(results.get(i).getRedirectUrl());
 				}
 			}
-			String jsp = actionBean.get(result.toString());
-			view.setJsp(jsp);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,38 +129,33 @@ public class Struts {
 					action = new Action();
 					// 解析action标签
 					NamedNodeMap actionNodeMap = actionNode.getAttributes();
-					String actionName = actionNodeMap.getNamedItem(NAME)
-							.getNodeValue();
-					String claz = actionNodeMap.getNamedItem(CLASS)
-							.getNodeValue();
+					String actionName = getNodePropertyValue(actionNodeMap.getNamedItem(NAME));
+					String claz = getNodePropertyValue(actionNodeMap.getNamedItem(CLASS));
 					action.setName(actionName);
-					action.setClaz(claz);
+					action.setClazz(claz);
 					// 解析result标签
 					NodeList resultNodes = actionNode.getChildNodes();
-					for (int j = 0; j < resultNodes.getLength(); j++) {
-						results = new ArrayList<Result>();
+					results = new ArrayList<Result>();
+					for (int j = 0; j < resultNodes.getLength(); j++) {						
 						Node resultNode = resultNodes.item(j);
 						if (RESULT.equals(resultNode.getNodeName())) {
 							result = new Result();
-							NamedNodeMap resultNodeMap = resultNode
-									.getAttributes();
-							String resultName = resultNodeMap
-									.getNamedItem(NAME).getNodeValue();
-							String resultType = resultNodeMap
-									.getNamedItem(TYPE).getNodeValue();
+							NamedNodeMap resultNodeMap = resultNode.getAttributes();									
+							String resultName = getNodePropertyValue(resultNodeMap.getNamedItem(NAME));									
+							String resultType = getNodePropertyValue(resultNodeMap.getNamedItem(TYPE));									
 							String jspPath = resultNode.getTextContent();
 							result.setName(resultName);
 							result.setType(resultType);
-							result.setJspPath(jspPath);
+							result.setRedirectUrl(jspPath);
 							results.add(result);
 						}
+						
 					}
 					action.setResults(results);
+					actions.add(action);
 				}
 			}
-
-			actions.add(action);
-
+			
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
@@ -165,6 +166,11 @@ public class Struts {
 		return actions;
 	}	
 	
+	/**
+	 * 获取当前action信息
+	 * @param actionName
+	 * @return
+	 */
 	private static Action getCurrentAction(String actionName){
 		
 		for (int i = 0; i < actions.size(); i++) {
@@ -174,4 +180,18 @@ public class Struts {
 		}
 		return null;
 	}
+	
+	/**
+	 * 获取节点属性值
+	 * @param node
+	 * @return
+	 */
+	private static String getNodePropertyValue(Node node){
+		
+		if(node!=null){
+			return node.getNodeValue();
+		}
+		return null;
+	}
+	
 }
