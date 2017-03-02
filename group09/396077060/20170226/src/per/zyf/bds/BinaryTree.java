@@ -1,12 +1,10 @@
 /**   
 * @Title: BinaryTree.java 
-* @Description: TODO(用一句话描述该文件做什么) 
+* @Description: 二叉排序树的实现
 * @author glorychou
 * @date 2017年2月25日 下午10:22:03 
 */
 package per.zyf.bds;
-
-import java.util.Comparator;
 
 /**
  * @author glorychou
@@ -52,6 +50,7 @@ public class BinaryTree<E extends Comparable<E>> {
 		} else 
 			root = newNode;
 		
+		size++;
 		return true;
 	}
 	
@@ -64,6 +63,22 @@ public class BinaryTree<E extends Comparable<E>> {
 		inorderPrint(e.leftChild);
 		System.out.print(e.item.toString() + " ");
 		inorderPrint(e.rightChild);
+	}
+	
+	/** 
+	* @Description: 判断树是否为空 
+	* @return boolean    是否为空 
+	*/
+	public boolean isEmpty() {
+		return size > 0 ? false : true;
+	}
+	
+	/** 
+	* @Description: 获取树的节点数 
+	* @return int    树节点数
+	*/
+	public int size() {
+		return size;
 	}
 	
 	// 树节点
