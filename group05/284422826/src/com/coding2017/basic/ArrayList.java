@@ -1,6 +1,4 @@
-package com.github.zhanglifeng.coding2017.basic;
-
-import java.util.*;
+package com.coding2017.basic;
 
 /**
  * 功能：实现ArrayList.
