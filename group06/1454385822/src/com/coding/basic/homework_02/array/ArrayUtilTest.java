@@ -1,4 +1,4 @@
-package com.coding.basic;
+package com.coding.basic.homework_02.array;
 
 import org.junit.After;
 import org.junit.Assert;

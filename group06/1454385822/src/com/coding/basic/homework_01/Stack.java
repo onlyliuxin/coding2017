@@ -1,4 +1,4 @@
-package com.coding.basic;
+package com.coding.basic.homework_01;
 
 public class Stack {
 	private ArrayList elementData = new ArrayList();
