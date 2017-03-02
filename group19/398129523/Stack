@@ -1,0 +1,36 @@
+package com.coding.work;
+
+import java.util.NoSuchElementException;
+
+public class Stack {
+		private Object[] elementdata;
+		private int size;
+		private int index;
+		
+		public void push(Object o) {
+			if (o == null) {
+				throw new IllegalArgumentException();
+				
+			}
+			size = index + 1;
+			elementdata[index++] = o;
+		}
+		
+		public Object pop() {
+			if (size == 0) {
+				throw new NoSuchElementException();	
+			}
+			size --;
+			return elementdata[index--];
+		}
+		
+		@SuppressWarnings("unused")
+		private boolean isEmpty() {
+			return size == 0;
+		}
+		
+		private int size() {
+			return size;
+		}
+		
+}
