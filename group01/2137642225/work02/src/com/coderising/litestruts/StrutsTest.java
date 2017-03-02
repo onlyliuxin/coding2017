@@ -2,8 +2,6 @@ package com.coderising.litestruts;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -43,24 +41,4 @@ public class StrutsTest {
         Assert.assertEquals("login failed,please check your user/pwd", view.getParameters().get("message"));
 	}
 	
-	@Test
-	public void test(){
-		String actionName = "login";
-		Map<String,String> params = new HashMap<String,String>();
-        params.put("name","test");
-        params.put("password","123456"); //密码和预设的不一致
-        
-        View view  = Struts.runAction(actionName,params); 
-        System.out.println("jsp:" +  view.getJsp());
-        Map<String,Object> parameters = view.getParameters();
-        Set<Entry<String, Object>> entrySet = parameters.entrySet();
-        for (Entry<String, Object> entry : entrySet) {
-        	System.out.println(entry.getKey() + ":" + entry.getValue());
-	    }
-	}
-	
-	@Test
-	public void test2(){
-		//Struts.xmlParse(class.getClass().getResource(""));
-	}
 }
