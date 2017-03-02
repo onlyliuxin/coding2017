@@ -1,4 +1,4 @@
-package com.coding.basic;
+package net.coding.basic;
 
 public interface List {
 	public void add(Object o);
