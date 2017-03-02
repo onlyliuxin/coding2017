@@ -70,17 +70,22 @@ public class ArrayUtilTest {
 
     @Test
     public void getPrimes() throws Exception {
-
+        for (Integer i:arrayUtil.getPrimes(100)) {
+            System.out.println(i);
+        }
     }
 
     @Test
     public void getPerfectNumbers() throws Exception {
-
+        for (Integer i:arrayUtil.getPerfectNumbers(1000)) {
+            System.out.println(i);
+        }
     }
 
     @Test
     public void join() throws Exception {
-
+        int oldArr[]={1,3,4,5,0,0,6,6,0,5,4,7,6,7,0,5};
+        System.out.println(arrayUtil.join(oldArr,"````"));
     }
 
 }
