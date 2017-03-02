@@ -1,4 +1,4 @@
-package com.list20170226;
+package com.array;
 
 import java.util.ArrayList;
 import java.util.HashMap;
