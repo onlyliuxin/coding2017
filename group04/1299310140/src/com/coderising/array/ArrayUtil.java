@@ -1,9 +1,8 @@
 package com.coderising.array;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
-import com.coding.basic.ArrayList;
+import java.util.Date;
 
 public class ArrayUtil {
 	
@@ -34,7 +33,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public static int[] removeZero(int[] oldArray){
-		ArrayList list = new ArrayList();
+		ArrayList<Integer> list = new ArrayList<Integer>();
 		for(int i = 0;i < oldArray.length;i++){
 			if(oldArray[i] != 0){
 				list.add(oldArray[i]);
@@ -52,7 +51,7 @@ public class ArrayUtil {
 	 * @return
 	 */	
 	public static int[] merge(int[] array1, int[] array2){//参数数组均有序且无重复值
-		ArrayList list = new ArrayList();
+		ArrayList<Integer> list = new ArrayList<Integer>();
 		int i = 0;//array1
 		int j = 0;//array2
 		while(i < array1.length && j < array2.length){
@@ -72,11 +71,13 @@ public class ArrayUtil {
 	    //此时(i == array1.length && j == array2.length)or
 		   //(i == array1.length && j < array2.length)or
 		   //(i < array1.length && j == array2.length)
-		if(i < array1.length){
+		while(i < array1.length){
 			list.add(array1[i]);
+			i++;
 		}
-		if(j < array2.length){
+		while(j < array2.length){
 			list.add(array2[j]);
+			j++;
 		}
 		
 		int[] result = listToArray(list);
@@ -139,7 +140,7 @@ public class ArrayUtil {
 		if(max <= 2){
 			return new int[0];
 		}
-		ArrayList list = new ArrayList();
+		ArrayList<Integer> list = new ArrayList<Integer>();
 		for(int i = 2;i < max;i++){
 			if(isPrimes(i)){
 				list.add(i);
@@ -149,6 +150,9 @@ public class ArrayUtil {
 		return result;
 	}
 	
+	/*
+	 * 判断一个数是不是质数
+	 */
 	public static Boolean isPrimes(int data){
 		if(data < 2){
 			return false;
@@ -171,7 +175,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public static int[] getPerfectNumbers(int max){
-		ArrayList list = new ArrayList();
+		ArrayList<Integer> list = new ArrayList<Integer>();
 		for(int i = 6;i < max;i++){
 			if(isPerfectNumber(i)){
 				list.add(i);
@@ -181,7 +185,10 @@ public class ArrayUtil {
 		return result;
 	}
 	
-	public static int[] listToArray(ArrayList list){
+	/*
+	 * ArrayList<Integer>  --->  int[]
+	 */
+	public static int[] listToArray(ArrayList<Integer> list){
 		int[] result = new int[list.size()];
 		for(int j = 0;j < result.length;j++){
 			result[j] = (int) list.get(j);
@@ -189,6 +196,9 @@ public class ArrayUtil {
 		return result;
 	}
 	
+	/*
+	 * 判断一个数是不是完数
+	 */
 	public static Boolean isPerfectNumber(int data){
 		if(data < 6){
 			return false;
@@ -209,7 +219,7 @@ public class ArrayUtil {
 					return false;
 				}
 			}
-		}
+		}//for
 		if(sum == data){
 			return true;
 		}else{//sum < data
@@ -258,8 +268,9 @@ public class ArrayUtil {
 	}
 	
 	public static void main(String[] args){
-		int[] a1 = getPerfectNumbers(1000000);
-//		System.out.println(join(a1,"-+-"));
+		System.out.println(new Date());
+		int[] a1 = getPerfectNumbers(2000000);
 		System.out.println(arrayToString(a1));
+		System.out.println(new Date());
 	}
 }
