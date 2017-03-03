@@ -82,25 +82,25 @@ public class ArrayUtil {
             }
         }
         //数组去重
-        boolean[] b=new boolean[newArr.length];
+        boolean[] b = new boolean[newArr.length];
         int counts = newArr.length;
-        for (int i=0;i<newArr.length;i++){
-            for (int j=i+1;j<newArr.length;j++){
-                if (newArr[i]==newArr[j] && b[i] ==false){
-                    b[j]=true;
+        for (int i = 0; i < newArr.length; i++) {
+            for (int j = i + 1; j < newArr.length; j++) {
+                if (newArr[i] == newArr[j] && b[i] == false) {
+                    b[j] = true;
                     counts--;
                 }
             }
         }
         int[] result = new int[counts];
-        int j=0;
-        for (int i=0;i<newArr.length;i++){
-            if (b[i]==false){
+        int j = 0;
+        for (int i = 0; i < newArr.length; i++) {
+            if (b[i] == false) {
                 result[j] = newArr[i];
                 j++;
             }
         }
-        return  result ;
+        return result;
     }
 
     /**
@@ -114,7 +114,10 @@ public class ArrayUtil {
      * @return
      */
     public int[] grow(int[] oldArray, int size) {
-        return null;
+        int oldLength = oldArray.length;
+        int newLength = oldLength + size;
+        int[] result = Arrays.copyOf(oldArray, newLength);
+        return result;
     }
 
     /**
@@ -126,7 +129,28 @@ public class ArrayUtil {
      * @return
      */
     public int[] fibonacci(int max) {
-        return null;
+        int a = 1, b = 1, c = 2;
+        int[] arr = new int[max + 1];
+        int i = 2;
+        if (max == 1) {
+            return Arrays.copyOf(arr, 0);
+        } else if (max <= 0) {
+            throw new IllegalArgumentException("不能输入<=0的参数：" + max);
+        } else {
+            arr[0] = 1;
+            arr[1] = 1;
+            do {
+                c = a + b;
+                a = b;
+                b = c;
+                arr[i++] = c;
+            } while (c < max);
+        }
+
+        if (arr[i - 1] >= max) {
+            return Arrays.copyOf(arr, i - 1);
+        }
+        return Arrays.copyOf(arr, i);
     }
 
     /**
@@ -137,7 +161,36 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPrimes(int max) {
-        return null;
+
+        class IsPrime {
+            // 判断某整数是否为素数
+            public boolean isPrimes(int n) {
+                if (n < 2) {
+                    return false;
+                }
+                for (int i = 2; i * i <= n; i++) {
+                    if (n % i == 0) {
+                        return false;
+                    }
+                }
+                return true;
+
+            }
+        }
+        List list = new ArrayList();
+        IsPrime isPrime = new IsPrime();
+        for (int i = 2; i < max; i++) {
+            if (isPrime.isPrimes(i)) {
+                list.add(i);
+            }
+        }
+
+        int[] arr = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            arr[i] = (int) list.get(i);
+        }
+
+        return arr;
     }
 
     /**
@@ -148,7 +201,33 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPerfectNumbers(int max) {
-        return null;
+        //保存每组的分解因子
+        List list = new ArrayList();
+        List pm = new ArrayList();
+        int sum = 0;
+        //除数
+        for (int i = 2; i < max; i++) {
+            //被除数
+            sum=0;
+            for (int j = 1; j < i / 2 + 1; j++) {
+                if (i % j == 0) {
+                    list.add(j);
+                    sum += j;
+                }
+            }
+
+            if (sum == i) {
+                pm.add(i);
+            }
+
+            list.clear();
+        }
+
+        int[] pmaArr = new int[pm.size()];
+        for (int i = 0; i < pm.size(); i++) {
+            pmaArr[i] = (int) pm.get(i);
+        }
+        return pmaArr;
     }
 
     /**
@@ -160,8 +239,18 @@ public class ArrayUtil {
      * @param
      * @return
      */
+
     public String join(int[] array, String seperator) {
-        return null;
+
+        String s = new String();
+        for (int i = 0; i < array.length; i++) {
+            if (i < array.length - 1) {
+                s += array[i] + seperator;
+            } else {
+                s += array[i];
+            }
+        }
+        return s;
     }
 
 
