@@ -127,7 +127,7 @@ public class ArrayUtil {
                     flag = false;
                 }
             }
-            if(flag){index++;}
+            if(flag){temp[index++] = i;}
         }
         return Arrays.copyOf(temp, index);
     }
