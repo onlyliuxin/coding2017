@@ -51,14 +51,17 @@ public class Struts {
 
     private static void buildView(View view, StructAction action, Object instance, String result)
             throws IntrospectionException, ClassNotFoundException, IllegalAccessException, InvocationTargetException {
-        // 通过反射找到对象的所有getter方法 把值和属性形成一个HashMap
+        // 读取action属性
         BeanInfo beanInfo = Introspector.getBeanInfo(Class.forName(action.getClazzName()));
         PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
         Map<Object, Object> prop = Maps.newHashMap();
         for (PropertyDescriptor PropertyDescriptor : propertyDescriptors) {
             Method readMethod = PropertyDescriptor.getReadMethod();
-            Object invoke = readMethod.invoke(instance);
-            prop.put(PropertyDescriptor.getName(), invoke);
+            // 内省存在一个问题就是说属性的get方法本身不一定存在
+            if (readMethod != null) {
+                Object invoke = readMethod.invoke(instance);
+                prop.put(PropertyDescriptor.getName(), invoke);
+            }
         }
         // 根据struts.xml中的 <result> 配置,以及execute的返回值， 确定哪一个jsp， 放到View对象的jsp字段中。
         Map<String, String> actions = action.getActions();
@@ -68,15 +71,19 @@ public class Struts {
 
     @SuppressWarnings("unchecked")
     private static Object process(Class clazz, Object instance, Map<String, String> parameters, StructAction action)
-            throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchFieldException,
-            NoSuchMethodException, InvocationTargetException {
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException,
+            InvocationTargetException {
         // 根据actionName找到相对应的class ，属性填充我认为暴力反射会更好一点
         for (Map.Entry<String, String> entry : parameters.entrySet()) {
-            Field field = clazz.getDeclaredField(entry.getKey());
-            field.setAccessible(true);
-            field.set(instance, entry.getValue());
+            try {
+                Field field = clazz.getDeclaredField(entry.getKey());
+                field.setAccessible(true);
+                field.set(instance, entry.getValue());
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
         }
-        // 通过反射调用对象的exectue 方法
+        // 通过反射调用对象的execute方法
         Method execute = clazz.getDeclaredMethod("execute");
         execute.setAccessible(true);
         return execute.invoke(instance);
