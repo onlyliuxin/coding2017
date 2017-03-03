@@ -4,6 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author haipop Date: 17-3-2 Time: 下午3:13
+ */
 public class ArrayUtil {
 
     /**

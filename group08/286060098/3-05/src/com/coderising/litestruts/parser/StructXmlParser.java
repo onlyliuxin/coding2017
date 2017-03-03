@@ -27,9 +27,6 @@ public class StructXmlParser extends DefaultHandler {
     // 当前key；
     private String key;
 
-    /**
-     * 只调用一次 初始化list集合
-     */
     @Override
     public void startDocument() throws SAXException {
         data = Lists.newArrayList();
@@ -80,26 +77,6 @@ public class StructXmlParser extends DefaultHandler {
 
     public List<StructAction> getData() {
         return data;
-    }
-
-    public void setData(List<StructAction> data) {
-        this.data = data;
-    }
-
-    public String getTagName() {
-        return tagName;
-    }
-
-    public void setTagName(String tagName) {
-        this.tagName = tagName;
-    }
-
-    public StructAction getAction() {
-        return action;
-    }
-
-    public void setAction(StructAction action) {
-        this.action = action;
     }
 
 }
