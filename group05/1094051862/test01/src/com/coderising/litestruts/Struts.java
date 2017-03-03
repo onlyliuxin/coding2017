@@ -49,51 +49,44 @@ public class Struts {
 		
 		// DOM4J方式解析xml
 		// 读取文件 转换成Document
+		View view = new View();
+		if (actionName == null || actionName.isEmpty()) {
+			return view;
+		}
 		try {
-			Element actNode = getActionNode(actionName);
+			//获取action标签元素
+			Element actionEle = getActionElement(actionName);
 			
-			String qualiName = actNode.attributeValue("class");
-			Class<?> clazz = Class.forName(qualiName);
-			Object obj = getParameteredObject(parameters, clazz);
-			Method method = clazz.getMethod("execute");
-
+			String qualifiedName = actionEle.attributeValue("class");
+			Class<?> clazz = Class.forName(qualifiedName);
+			Object instanceOfAction = getParameteredInstance(parameters, clazz);
+			Method executeMethod = clazz.getMethod("execute");
+			
+			//调用execute方法，改变action实例，一定要在执行getResultMap方法之前执行
+			String executeResult = (String) executeMethod.invoke(instanceOfAction);
 			Method[] methods = clazz.getMethods();
-			String result = (String) method.invoke(obj);
-			Map resultMap = getResultMap(obj, methods);
-			View view = new View();
+			Map<?, ?> resultMap = getResultMap(instanceOfAction, methods);
 			view.setParameters(resultMap);
 			
-			
-			List<Element> resultEles = actNode.elements("result");
-			String jspPath = getJspPath(result, resultEles);
+			List<Element> resultEles = actionEle.elements("result");
+			String jspPath = getJspPath(executeResult, resultEles);
 			view.setJsp(jspPath);
-			System.out.println();
-			return view;
 		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (InstantiationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (NoSuchMethodException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SecurityException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IllegalArgumentException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (InvocationTargetException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (DocumentException e) {
 			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
 		}
-		return null;
+		return view;
 	}
 
 	private static String getJspPath(String result, List<Element> resultEles) {
@@ -107,45 +100,67 @@ public class Struts {
 		return null;
 	}
 
-	private static Map getResultMap(Object obj, Method[] methods)
+	private static Map<String, Object> getResultMap(Object obj, Method[] methodsOfObj)
 			throws IllegalAccessException, InvocationTargetException {
-		Map resultMap = new HashMap();
-		for (int i = 0; i < methods.length; i++) {
-			if (methods[i].getName().startsWith("get")) {
-				String str = methods[i].getName();
-				StringBuilder sbr = new StringBuilder(str);
-				sbr.setCharAt(3, Character.toLowerCase(sbr.charAt(3)));
-				str = sbr.toString();
-				Class<?> type = methods[i].getReturnType();
-				Object res = methods[i].invoke(obj);
-				resultMap.put(str.substring(3), res);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Method m;
+		for (int i = 0; i < methodsOfObj.length; i++) {
+			if (methodsOfObj[i].getName().startsWith("get")) {
+				m = methodsOfObj[i];
+				String methodName = getMethodNameInLowerCase(m);
+				Object result = m.invoke(obj);
+				resultMap.put(methodName.substring(3), result);
 			}
 		}
 		return resultMap;
 	}
 
-	private static Object getParameteredObject(Map<String, String> parameters,
-			Class<?> clazz) throws InstantiationException,
-			IllegalAccessException, NoSuchMethodException,
-			InvocationTargetException {
-		Object obj = clazz.newInstance();
-		Map methodsAndParams = new HashMap();
-		Set<String> keySet = parameters.keySet();
-		for (String k : keySet) {
-			StringBuilder sb = new StringBuilder(k);
-			sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
-			sb = sb.insert(0, "set");
-			String method = sb.toString();// 获得方法名
-			methodsAndParams.put(method, parameters.get(k));
-			Method setter = clazz.getMethod(method, parameters.get(k)
-					.getClass());
-			setter.invoke(obj, parameters.get(k));
+	private static String getMethodNameInLowerCase(Method m) {
+		String methodName = m.getName();
+		StringBuilder sbr = new StringBuilder(methodName);
+		sbr.setCharAt(3, Character.toLowerCase(sbr.charAt(3)));
+		methodName = sbr.toString();
+		return methodName;
+	}
+
+	private static Object getParameteredInstance(Map<String, String> parameters,
+			Class<?> clazz) {
+		Object obj = null;
+		try {
+			obj = clazz.newInstance();
+			Map methodsAndParams = new HashMap();
+			Set<String> keySet = parameters.keySet();
+			for (String k : keySet) {
+				String methodName = getMethodNameByProperty(k);
+				methodsAndParams.put(methodName, parameters.get(k));
+				Method setter = clazz.getMethod(methodName, parameters.get(k)
+						.getClass());
+				setter.invoke(obj, parameters.get(k));
+			}
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
 		}
 		return obj;
 	}
 
+	private static String getMethodNameByProperty(String k) {
+		StringBuilder sb = new StringBuilder(k);
+		sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+		sb = sb.insert(0, "set");
+		String method = sb.toString();// 获得方法名
+		return method;
+	}
+
 	@SuppressWarnings("unchecked")
-	private static Element getActionNode(String actionName) throws DocumentException {
+	private static Element getActionElement(String actionName) throws DocumentException {
 		SAXReader reader = new SAXReader();
 		Document document = reader.read(new File(
 				"src/com/coderising/litestruts/struts.xml"));
