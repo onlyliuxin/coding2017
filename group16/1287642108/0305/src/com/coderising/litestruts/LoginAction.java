@@ -14,8 +14,20 @@ public class LoginAction{
         return name;
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
+    
     public String getPassword() {
         return password;
+    }
+    
+    public void setPassword(String password){
+        this.password = password;
+    }
+    
+    public String getMessage(){
+        return this.message;
     }
 
     public String execute(){
@@ -25,15 +37,5 @@ public class LoginAction{
             }
             this.message = "login failed,please check your user/pwd";
             return "fail";
-    }
-
-    public void setName(String name){
-        this.name = name;
-    }
-    public void setPassword(String password){
-        this.password = password;
-    }
-    public String getMessage(){
-        return this.message;
     }
 }
