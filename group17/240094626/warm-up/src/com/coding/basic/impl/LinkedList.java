@@ -49,14 +49,14 @@ public class LinkedList implements List {
 		}
 		// 查找从header开始
 		Node n = header;
-		if(index < (size >> 1)){
+		if(index <= (size >> 1)){
 			// 往next方向找第index个节点
-			for(int i=0; i < index; i++){
+			for(int i=0; i <=index; i++){
 				n = n.next;
 			}
 		}else{
 			// 往pre方向找第size-index个节点
-			for(int i=size-index; i > 0; i--){
+			for(int i=size-index; i >0; i--){
 				n = n.pre;
 			}
 		}
@@ -76,7 +76,6 @@ public class LinkedList implements List {
 		Object result = n.data;
 		n.pre.next = n.next;
 		n.next.pre = n.pre;
-		n.next = n.pre = null;
 		n.data = null;
 		size--;
 		return result;
@@ -137,6 +136,21 @@ public class LinkedList implements List {
 		return new LinkedListIterator();
 	}
 	
+	
+	@Override
+	public String toString() {
+		Iterator it = iterator();
+		StringBuilder sb = new StringBuilder();
+		while(it.hasNext()){
+			if(sb.length() > 0){
+				sb.append(",");
+			}
+			sb.append(it.next());
+		}
+		return "LinkedList {nodes=[" + sb + "], size=" + size + "}";
+	}
+
+
 	private static class Node{
 		Object data;
 		Node pre;
@@ -154,6 +168,13 @@ public class LinkedList implements List {
 			this.pre = pre;
 			this.next = next;
 		}
+
+		@Override
+		public String toString() {
+			return "Node {data=" + data + "}";
+		}
+		
+		
 		
 	}
 	
