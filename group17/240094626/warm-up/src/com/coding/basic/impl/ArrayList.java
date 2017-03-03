@@ -1,7 +1,5 @@
 package com.coding.basic.impl;
 
-import java.util.Arrays;
-
 import com.coding.basic.Iterator;
 import com.coding.basic.List;
 
@@ -12,7 +10,6 @@ import com.coding.basic.List;
  * @创建日期:2017-2-20
  */
 public class ArrayList implements List  {
-	
 	
 	/**
 	 * @comment:元素数组
@@ -83,7 +80,7 @@ public class ArrayList implements List  {
 	@Override
 	public void add(int index, Object o) {
 		if( index > size || index < 0){
-			throw new IndexOutOfBoundsException("Index:"+index);
+			throw new IndexOutOfBoundsException("Index:"+index+",size:"+size);
 		}
 		grow(size+1);
 		System.arraycopy(data, index, data, index+1, size-index);
@@ -117,8 +114,14 @@ public class ArrayList implements List  {
 
 	@Override
 	public String toString() {
-		return "ArrayList [data=" + Arrays.toString(data) + ", size=" + size
-				+ "]";
+		StringBuilder sb = new StringBuilder();
+		for(int i =0; i<size ;i++){
+			if(i > 0){
+				sb.append(",");
+			}
+			sb.append(data[i]);
+		}
+		return String.format("ArrayList {data=[%s], size=%d}", sb.toString(),size);
 	}
 	
 	public Iterator iterator(){
