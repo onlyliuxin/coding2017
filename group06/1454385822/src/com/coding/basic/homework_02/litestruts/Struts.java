@@ -21,7 +21,7 @@ public class Struts {
 	private static String jspUrl = null;
 	private static String resultStatic = null;
 	
-    public static View runAction(String actionName, Map<String, String> params) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException{
+    public static View runAction(String actionName, Map<String, String> params) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, DocumentException{
 
         /*
          
@@ -44,42 +44,44 @@ public class Struts {
         */
     	
     	View view = new View();
-    	
-    	try {
-    		//step1:创建SAXReader对象
-    		SAXReader reader = new SAXReader();
-    		//step2:读取文件 转换成Document
-			Document document = reader.read("src/com/coding/basic/homework_02/litestruts/struts.xml");
-			Element root = document.getRootElement();
-			
-			Class clazz = getClazz(actionName, root);
-			
-			Object obj = clazz.newInstance();
-			
-			methodInvoke(clazz, obj, params);
-			String result = getExecuteInfo(clazz, obj);
-			setParams(clazz, obj, view);
-			getJsp(result, root, actionName);
-			view.setJsp(jspUrl);
-			
-		} catch (DocumentException e) {
-			e.printStackTrace();
-		}
+		Element root = getRoot();
+		Class clazz = getClazz(actionName, root);
+		Object obj = clazz.newInstance();
+		
+		methodInvoke(clazz, obj, params);
+		String result = getExecuteInfo(clazz, obj);
+		setParams(clazz, obj, view);
+		getJsp(result, root, actionName);
+		view.setJsp(jspUrl);
+
     	return view;
     }    
 
-
+    /**
+     * 读取xml文件获得根节点
+     * @return
+     * @throws DocumentException 
+     */
+    private static Element getRoot() throws DocumentException{
+    	//step1:创建SAXReader对象
+		SAXReader reader = new SAXReader();
+		//step2:读取文件 转换成Document
+		Document document = reader.read("src/com/coding/basic/homework_02/litestruts/struts.xml");
+		return document.getRootElement();
+    }
+    
+    
     /**
      * 根据给定的actionName找到对应的Class
      * @return
      * @throws ClassNotFoundException 
      */
-    private static Class getClazz(String actionName, Element node) throws ClassNotFoundException{
+    @SuppressWarnings("rawtypes")
+	private static Class getClazz(String actionName, Element node) throws ClassNotFoundException{
 
 		findClassNameByAttr(node, actionName);
-		if(resultStatic != null){
+		if(resultStatic != null)
 			return Class.forName(resultStatic);
-		}
 
     	throw new ClassNotFoundException();
     }
@@ -90,19 +92,18 @@ public class Struts {
      * @param node
      * @return
      */
-    private static void getJsp(String resultName, Element node, String actionName){
-    	boolean findResult = false;
-    	if(node.attributes() != null){
+    @SuppressWarnings("unchecked")
+	private static void getJsp(String resultName, Element node, String actionName){
+    	
+    	if(node.attributes() != null)
     		forEachAttr(node.attributes(), actionName, node, resultName);
-    	}
     	
     	List<Element> listElement = node.elements();
-    	for(Element e : listElement){
+    	for(Element e : listElement)
     		getJsp(resultName, e, actionName);
-    	}
-    	if(jspUrl != null){
+
+    	if(jspUrl != null)
     		return;
-    	}
     }
     
     /**
@@ -115,9 +116,8 @@ public class Struts {
     private static void forEachAttr(List<Attribute> list, String actionName, Element node, String resultName){
     	List<Attribute> attrs = node.attributes();
 		for(Attribute attr : attrs){
-			if(resultName.equals(attr.getValue()) && !"".equals(node.getTextTrim())){ 				
+			if(resultName.equals(attr.getValue()) && !"".equals(node.getTextTrim()))			
 				findJspByParentNode(actionName, node);
-			}
 		}
     }
      
@@ -130,9 +130,8 @@ public class Struts {
     	Element parent = node.getParent();
 		if(parent.attributes() != null){
 			for(Attribute pattr : (List<Attribute>)parent.attributes()){
-				if(actionName.equals(pattr.getValue())){
+				if(actionName.equals(pattr.getValue()))
 					jspUrl = node.getTextTrim();
-				}
 			}
 		}
     }
@@ -181,9 +180,8 @@ public class Struts {
 		//获取所有的getter方法
 		Method[] methods = clazz.getDeclaredMethods();
 		for(Method me : methods){
-			if("get".equals(me.getName().substring(0, 3))){
+			if("get".equals(me.getName().substring(0, 3)))
 				viewMap.put(method2Attr(me), (String) me.invoke(obj, null));
-			}
 		}
 		return viewMap;
     }
@@ -250,17 +248,15 @@ public class Struts {
     @SuppressWarnings("unchecked")
 	private static void findClassNameByAttr(Element node,String actionName) throws ClassNotFoundException{
     	
-    	if(!node.attributes().isEmpty()){
-    		
+    	if(!node.attributes().isEmpty())
     		For2attr(actionName, node);
-    	}
+
     	List<Element> listElement = node.elements();
-    	for(Element e : listElement){
+    	for(Element e : listElement)
     		findClassNameByAttr(e, actionName);
-    	}
-    	if(resultStatic != null){
+
+    	if(resultStatic != null)
     		return;
-    	}
     }
     
     /**
