@@ -1,0 +1,11 @@
+安装git gui软件，打开git bash操作
+1.克隆
+git clone git@github.com:leijing1992/coding2017.git
+2.添加修改的文件
+git add -A
+3.提交到暂存区
+git commit -m "提交***代码"
+4.更新master
+git pull origin master
+5.提交到master
+git push origin master
