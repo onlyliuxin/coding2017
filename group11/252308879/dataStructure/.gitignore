@@ -1,0 +1,10 @@
+dataStructure/.classpath
+dataStructure/.project
+dataStructure/.settings/
+
+.project
+.settings/
+target/
+# 忽略IntelliJ IDEA配置文件
+*.iml
+*.idea/
