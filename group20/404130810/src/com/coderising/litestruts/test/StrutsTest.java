@@ -10,9 +10,6 @@ import com.coderising.litestruts.Struts;
 import com.coderising.litestruts.view.View;
 
 
-
-
-
 public class StrutsTest {
 
 	@Test

@@ -33,21 +33,18 @@ public class Struts {
 		 * 
 		 */
 		View view = new View();
-		Node classNode = readActionInConfig(actionName);
-		List<String> rtnList = invokeMethod(classNode.getNodeValue(), params);
+		String className = readActionInConfig(actionName);
+		List<String> rtnList = invokeMethod(className, params);
 		String result = rtnList.get(0);
 		String msg = rtnList.get(1);
 		view.setParameters(buildViewParams(msg));
-		view.setJsp(buildViewJsp(result,classNode));
-		
-		System.out.println(rtnList);
-
+		view.setJsp(buildViewJsp(result,actionName));
 		return view;
 	}
 
 
 
-	private static Node readActionInConfig(String actionName) {
+	private static String readActionInConfig(String actionName) {
 		StrutsUtil util = new StrutsUtil();
 		return util.invokedAction(actionName);
 	}
@@ -84,16 +81,9 @@ public class Struts {
 		return viewParams;
 	}
 	
-
-	private static String buildViewJsp(String result, Node classNode) {
-		
-		
-		for (int i = 0; i < classNode.getChildNodes().getLength(); i++) {
-			if(result.equals(classNode.getChildNodes().item(i).getNodeName())){
-				return classNode.getChildNodes().item(i).getNodeValue();
-			}
-		}
-		throw new RuntimeException("result Jsp can't be found");
+	private static String buildViewJsp(String result, String actionName) {
+		StrutsUtil util = new StrutsUtil();
+		return util.invokeResult(actionName,result); 
 	}
 
 }
