@@ -1,6 +1,8 @@
 package coderising.litestruts;
 
 import java.io.File;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,13 +14,28 @@ import org.dom4j.io.SAXReader;
 
 public class Struts {
     
+    private static String filePath = "src/coderising/litestruts/struts.xml";
+    
     public static void main(String [] args) throws Exception{
-        Document document = readStrutsXml("src/coderising/litestruts/struts.xml");
-        Element rootElement = document.getRootElement();
-        List<Element> childElements = rootElement.elements();
-        for (Element child : childElements) {
-            System.out.println("login" + child.elementText("login"));
+        String className = getClassNameFromXml(filePath,"login");
+        Map<String,String> parameters = new HashMap<String,String>();
+        parameters.put("name","test");
+        parameters.put("password","1234");
+        
+        Class clz = Class.forName(className);
+        LoginAction loginAction = (LoginAction)clz.newInstance();
+        
+        loginAction.setName(parameters.get("name"));
+        loginAction.setPassword(parameters.get("password"));
+        
+        Method[] methods = clz.getMethods();
+        String value;
+        for(Method m : methods){
+            if(m.getName().equals("exectue")){
+                value = (String) m.invoke(clz);
+            }
         }
+        
     }
 
     public static View runAction(String actionName, Map<String,String> parameters) throws Exception {
@@ -26,18 +43,7 @@ public class Struts {
         /*
          
 		0. 读取配置文件struts.xml
- 		*/
-        Document document = readStrutsXml("src/coderising/litestruts/struts.xml");
-        //拿到根Element
-        Element rootElement = document.getRootElement();
-        //用根遍历节点得到Node
-        List<Element> childElements = rootElement.elements();
-        for (Element child : childElements) {
-            String name = child.getName();
-        }
-        //根据Node名字获得值
-        
-        /*
+		
  		1. 根据actionName找到相对应的class ， 例如LoginAction,   通过反射实例化（创建对象）
 		据parameters中的数据，调用对象的setter方法， 例如parameters中的数据是 
 		("name"="test" ,  "password"="1234") ,     	
@@ -53,15 +59,30 @@ public class Struts {
 		放到View对象的jsp字段中。
         
         */
-    	
+    	String [] result = readStrutsXml(filePath);
+    	Class login = Class.forName(result[1]);
+        
+        
     	return null;
     }
     
-    private static Document readStrutsXml(String filePath) throws Exception{
+    private static String getClassNameFromXml(String filePath,String actionName) throws Exception{
+        
+        //用dom4j读取xml
         SAXReader reader = new SAXReader();
         Document document = reader.read(new File(filePath));
         
-        return document;
+        Element rootElement = document.getRootElement();
+        List<Element> childElements = rootElement.elements();
+        for(Element child : childElements){
+            String nodeName = child.attributeValue("name");
+            if(actionName.equals(nodeName)){
+                String className = child.attributeValue("class");
+                return className;
+            }
+        }
+        
+        return null;
     }
 
 }
