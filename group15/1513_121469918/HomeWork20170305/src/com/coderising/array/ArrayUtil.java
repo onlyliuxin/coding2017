@@ -1,8 +1,8 @@
 package com.coderising.array;
 
+
 import java.util.Arrays;
 import java.util.TreeSet;
-
 import com.coding.basic.ArrayList;
 import com.coding.basic.Iterator;
 
@@ -63,7 +63,7 @@ public class ArrayUtil {
 	 */
 
 	public int[] merge(int[] array1, int[] array2) {
-		int[] result = array1;
+/*		int[] result = array1;
 		// 去除重复元素
 		for (int i = 0; i < array2.length; i++) {	
 			boolean sameVal = false;
@@ -88,6 +88,43 @@ public class ArrayUtil {
 				}
 			}
 		}		
+		return result;
+*/	
+		int len1=0,len2=0;//arr1长度len1
+		ArrayList list = new ArrayList();		
+		for (int k=0;k < array1.length+array2.length; k++) {
+			//如果两个数组都还有元素
+			if(len1<array1.length && len2<array2.length){
+				if(array1[len1]<array2[len2]){
+					list.add(array1[len1]); 
+					len1++;
+				}else if(array1[len1]>array2[len2]){
+					list.add(array2[len2]);
+					len2++;
+				}else{
+					list.add(array1[len1]); 
+					len1++;
+					len2++;
+				}
+			}else if(len1==array1.length && len2 < array2.length){
+				//如果数组1没有元素,并且2有元素
+				list.add(array2[len2]);
+				len2++;
+			}else if(len2==array2.length && len1 < array1.length){
+				//数组2没有元素，并且1有元素
+				list.add(array1[len1]); 
+				len1++;
+			}else{
+				break;
+			}
+		}
+		//list转数组
+		int[] result = new int[list.size()];
+		Iterator it = list.iterator();
+		int index = 0;
+		while(it.hasNext()){
+			result[index++] = ((Integer)it.next()).intValue();
+		}
 		return result;
 	}
 
