@@ -1,12 +1,12 @@
-package com.maple.test;
+package com.m0226.test;
 
-import com.maple.basic.ArrayList;
-import com.maple.basic.BinaryTree;
-import com.maple.basic.BinaryTreeNode;
-import com.maple.basic.Iterator;
-import com.maple.basic.LinkedList;
-import com.maple.basic.Queue;
-import com.maple.basic.Stack;
+import com.m0226.basic.ArrayList;
+import com.m0226.basic.BinaryTree;
+import com.m0226.basic.BinaryTreeNode;
+import com.m0226.basic.Iterator;
+import com.m0226.basic.LinkedList;
+import com.m0226.basic.Queue;
+import com.m0226.basic.Stack;
 
 /**
  * 测试自己写的数据结构

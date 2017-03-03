@@ -1,4 +1,4 @@
-package com.maple.basic;
+package com.m0226.basic;
 
 public class Stack {
 	private ArrayList elementData = new ArrayList();
