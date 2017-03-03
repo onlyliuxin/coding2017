@@ -66,7 +66,9 @@ public class Struts {
 					methodName = "set" + fieldName.substring(0, 1).toUpperCase()
 							+ fieldName.substring(1);
 					Method method = clazz.getMethod(methodName, fields[i].getType());
-					method.invoke(instance, parameters.get(fieldName));
+					if(method != null){
+						method.invoke(instance, parameters.get(fieldName));
+					}					
 				}				
 			}
 
@@ -79,9 +81,10 @@ public class Struts {
 				methodName = "get" + fieldName.substring(0, 1).toUpperCase()
 						+ fieldName.substring(1);
 				Method method = clazz.getMethod(methodName);
-				Object value = method.invoke(instance);
-				viewMap.put(fieldName, value);
-
+				if(method != null){
+					Object value = method.invoke(instance);
+					viewMap.put(fieldName, value);
+				}				
 			}
 			//封装view对象所需数据
 			view.setParameters(viewMap);
