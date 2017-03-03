@@ -236,10 +236,10 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         }
     }
 
-    //删除某个节点
+    //删除某个节点n
     public void delete(BinarySearchTreeNode<T> n){
-        BinarySearchTreeNode<T> p = n.getParent();  //删除节点的父节点
-        BinarySearchTreeNode<T> child;  //删除节点的子节点
+        BinarySearchTreeNode<T> p = n.getParent();  //节点的父节点
+        BinarySearchTreeNode<T> child;  //节点的子节点
 
         //该节点没有任何子节点。// 叶子结点，直接删除即可。要考虑待删除结点是root的情况。
         if(n.getLeft()==null && n.getRight()==null){
