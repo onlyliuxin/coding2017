@@ -1,0 +1,88 @@
+package com.coding.work;
+
+import java.util.Arrays;
+import java.util.Iterator;
+
+
+public class ArrayList<E> {
+	private Object[] elementData;
+	private int size;
+	
+	
+	public ArrayList(int init) {
+		// TODO Auto-generated constructor stub
+		if (init <= 0) {
+			throw new IllegalArgumentException();	
+		}
+		this.elementData = new Object[init];
+	}
+	
+	public ArrayList(){
+		this(10); //调用重载的构造函数
+	}
+	
+	public void changeCapacity(int curCapacity) {
+		int oldCapacity = elementData.length;
+		if(curCapacity > oldCapacity){
+			Object[] oldData = elementData;
+			int newCapacity = oldCapacity + oldCapacity >> 1; //右移一位除以2，相当于扩 扩大到1.5倍
+			if (newCapacity <curCapacity ) {
+				newCapacity = curCapacity;	
+			}
+			elementData = Arrays.copyOf(elementData, newCapacity);//Arrys.copyOf返回一个新的数组
+		}
+	}
+	
+	public boolean add(E e) {
+		changeCapacity(size + 1);
+		elementData[size++] = e;
+		return true;	
+	}
+	
+	public boolean add(int index, E e) {
+		if (index < 0) {
+			throw new IllegalArgumentException();
+		}
+		if (index >  elementData.length - 1) {
+			changeCapacity(index + 1);	
+		}
+		elementData[index] = e;
+		size++;
+		return true;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public E get(int index) {
+		if (index <= size - 1) {
+			return (E) elementData[index];
+			
+		}else {
+			return null;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public E remove(int index) {
+		if (index >= 0 && index <= size - 1) {
+			System.arraycopy(elementData, index + 1, elementData, index, size - index - 1);
+			size--;
+			return (E) elementData[index];
+		}
+		else {
+			return null;
+		}
+		}
+	
+	
+	
+	public int size() {
+		return size;//全局变量
+	}
+	
+	//不会实现
+	public Iterator iterator() {
+		return null;
+		
+	}
+	
+}
