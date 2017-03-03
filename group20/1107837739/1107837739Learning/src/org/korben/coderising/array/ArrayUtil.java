@@ -19,12 +19,10 @@ public class ArrayUtil {
         ensureNotNull(origin);
 
         int length = origin.length;
-        for (int i = 0; i < length; i++) {
-            if (i < length / 2) {
-                int tmp = origin[i];
-                origin[i] = origin[length - i - 1];
-                origin[length - i - 1] = tmp;
-            }
+        for (int i = 0; i < length / 2; i++) {
+            int tmp = origin[i];
+            origin[i] = origin[length - i - 1];
+            origin[length - i - 1] = tmp;
         }
     }
 
@@ -33,7 +31,6 @@ public class ArrayUtil {
      * 要求将以上数组中值为0的项去掉，将不为0的值存入一个新的数组，生成的新数组为：
      * {1,3,4,5,6,6,5,4,7,6,7,5}
      */
-
     public static int[] removeZero(int[] oldArray) {
         ensureNotNull(oldArray);
 
