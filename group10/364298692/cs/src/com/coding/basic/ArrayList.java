@@ -27,7 +27,6 @@ public class ArrayList<T> implements List<T>{
 	public void ensureCapacity(int minCapacity){
 		int oldCapacity = elementData.length;
 		if(minCapacity > oldCapacity){
-			Object[] oldData = elementData;
 			int newCapacity = (oldCapacity * 3) / 2 + 1;
 			if(minCapacity > newCapacity){
 				newCapacity = minCapacity;
@@ -54,11 +53,13 @@ public class ArrayList<T> implements List<T>{
 		size++;
 	} 
 	
+	@SuppressWarnings("unchecked")
 	public T get(int index){
 		checkIndex(index);
 		return (T)elementData[index];
 	}
 	
+	@SuppressWarnings("unchecked")
 	public T remove(int index){
 		checkIndex(index);
 		T obj = (T)elementData[index];
@@ -80,18 +81,25 @@ public class ArrayList<T> implements List<T>{
 		return size;
 	}
 	
-	public ArrayIterator iterator(){
-		
+	public ArrayIterator iterator(){		
 		return new ArrayIterator();
 	}
 	
-	private class ArrayIterator{
+	private class ArrayIterator implements Iterator<T>{
 		private int position;
-		private ArrayList list;
-		
-		ArrayIterator(){
-//			list = e
+
+		@Override
+		public boolean hasNext() {
+			return position < size;
 		}
+
+		@Override
+		public T next() {
+			if(hasNext()){
+				return get(position++);
+			}
+			return null;
+		}		
 	}
 	
 }

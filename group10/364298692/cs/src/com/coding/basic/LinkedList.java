@@ -1,16 +1,27 @@
 package com.coding.basic;
 
-public class LinkedList implements List {
-	
-	private Node head;
+public class LinkedList<T> implements List<T> {
+/*
+ * LinkedListçš„åº•å±‚æ˜¯ä¸€ä¸ªåŒçº¿é“¾è¡¨ã€‚
+ * 
+ */
+	private Node<T> head;
 	
 	private int size;
 	
-	public void add(Object o){
+	public LinkedList(){
+		head = new Node<T>();
+		head.previous = head.next = head;
+	}
+	
+	public void add(T o){
 		addLast(o);		
 	}
 	
 	public void add(int index , Object o){
+		if(index < 0 || index > size){
+			throw new IndexOutOfBoundsException("Index: "+index+", Size: "+size);
+		}
 		Node node = head;
 		for(int i = 0; i < index; i++){
 			node = node.next;
@@ -21,7 +32,7 @@ public class LinkedList implements List {
 		node.next = newNode;
 		size++;
 	}
-	public Object get(int index){
+	public T get(int index){
 		if(index > size-1){
 			return null;
 		}else{
@@ -29,24 +40,24 @@ public class LinkedList implements List {
 			for(int i = 0; i < index; i++){
 				node = node.next;
 			}
-			return node.data;
+			return (T)node.data;
 		}		
 	}
-	public Object remove(int index){
+	public T remove(int index){
 		if(index > size-1){
 			return null;
 		}else if(index == 0){
-			Object obj = head.data;
+			T obj = (T)head.data;
 			head = head.next;
 			size--;
 			return obj;
 		}else{
 			Node node = head;
-			//»ñµÃ±»É¾µô½ÚµãµÄÇ°Ò»¸ö½Úµã
+
 			for(int i = 0; i < index-1; i++){
 				node = node.next;
 			}
-			Object obj = node.next.data;
+			T obj = (T)node.next.data;
 			node.next = node.next.next;
 			size--;
 			return obj;
@@ -85,8 +96,21 @@ public class LinkedList implements List {
 	}
 	
 	
-	private static class Node{
-		Object data;
-		Node next;		
+	private static class Node<T>{
+		T data;
+		Node<T> previous;
+		Node<T> next;		
+		
+		Node(T t, Node previous, Node next){
+			this.data = t;
+			this.previous = previous;
+			this.next = next;
+		}
+		Node(T t){
+			this.data = t;
+		}
+		Node(){
+			
+		}
 	}
 }
