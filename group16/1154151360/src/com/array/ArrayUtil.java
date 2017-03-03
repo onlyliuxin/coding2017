@@ -1,4 +1,4 @@
-package com.list20170226;
+package com.array;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -261,16 +261,4 @@ public class ArrayUtil {
 		return array;
 	}
 //******************************************************************8
-public static void main(String[] args) {
-		
-		ArrayUtil util = new ArrayUtil();
-		int [] a1 = {3, 5, 7,8};
-		int [] a2 = {4, 5, 6,7};
-		int [] a3 = util.getPrimes(23);
-		
-		for(int c:a3){
-			System.out.print(c+" ");
-		}
-		
-	}
 }
