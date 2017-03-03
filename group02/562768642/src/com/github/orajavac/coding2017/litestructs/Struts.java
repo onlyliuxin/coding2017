@@ -45,15 +45,16 @@ public class Struts {
 	    	StrutsXml sx = xmlMap.get(actionName);
 	    	Class<?> clz = Class.forName(sx.getClassz());
 	    	Object o = clz.newInstance();
-	    	LoginAction login = (LoginAction)o;
-	    	for (Map.Entry<String,String> entry : parameters.entrySet()) {
-	    		if ("name".equals(entry.getKey()))
-	    			login.setName(entry.getValue());
-	    		if ("password".equals(entry.getKey()))
-	    			login.setPassword(entry.getValue());
-    		}
+	    	String key = null;
+	    	Method[] mets = clz.getDeclaredMethods();
+	    	for (Method m : mets){
+	    		if(m.getName().startsWith("set")){
+	    			key = m.getName().substring(3,m.getName().length()).toLowerCase();
+	    			m.invoke(o,parameters.get(key));
+	    		}
+	    	}
 	    	Method m1 = clz.getDeclaredMethod("execute");
-	    	String result = (String)m1.invoke(login);
+	    	String result = (String)m1.invoke(o);
 	    	Map<String,String> param = new HashMap<String,String>();
 	    	Field[] fields = clz.getDeclaredFields();
 	    	for(int i=0;i<fields.length;i++){
