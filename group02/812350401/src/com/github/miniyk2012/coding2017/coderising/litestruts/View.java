@@ -20,4 +20,8 @@ public class View {
 		this.parameters = parameters;
 		return this;
 	}
+	@Override
+	public String toString() {
+		return "View [jsp=" + jsp + ", parameters=" + parameters + "]";
+	}
 }

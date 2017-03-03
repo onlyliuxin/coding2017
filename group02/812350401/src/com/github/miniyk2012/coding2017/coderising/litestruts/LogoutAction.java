@@ -5,7 +5,7 @@ package com.github.miniyk2012.coding2017.coderising.litestruts;
  * @author liuxin
  *
  */
-public class LoginAction{
+public class LogoutAction{
     private String name ;
     private String password;
     private String message;
@@ -22,13 +22,18 @@ public class LoginAction{
     	this.message = message;
     }
 
-    public String execute(){
+    @Override
+	public String toString() {
+		return "LogoutAction [name=" + name + ", password=" + password + ", message=" + message + "]";
+	}
+
+	public String execute(){
             if("test".equals(name) && "1234".equals(password)){
-                this.message = "login successful";
+                this.message = "logout successful";
                 return "success";
             }
-            this.message = "login failed,please check your user/pwd";
-            return "fail";
+            this.message = "logout failed,please check your user/pwd";
+            return "error";
     }
 
     public void setName(String name){
@@ -40,9 +45,4 @@ public class LoginAction{
     public String getMessage(){
         return this.message;
     }
-
-	@Override
-	public String toString() {
-		return "LoginAction [name=" + name + ", password=" + password + ", message=" + message + "]";
-	}
 }
