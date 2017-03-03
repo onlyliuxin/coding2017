@@ -12,6 +12,7 @@
 
     <modules>
         <module>homework-0226</module>
+        <module>homework-0305</module>
     </modules>
 
     <packaging>pom</packaging>
