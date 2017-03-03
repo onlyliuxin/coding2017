@@ -19,7 +19,7 @@ public class ArrayUtil {
 	 * @param origin
 	 * @return
 	 */
-	public void reverseArray(int[] origin){
+	public int[] reverseArray(int[] origin){
 		
 		int [] temp = new int [origin.length];
 		
@@ -28,6 +28,8 @@ public class ArrayUtil {
 		}
 		
 		origin = temp;
+		
+		return origin;
 	}
 	
 	/**
