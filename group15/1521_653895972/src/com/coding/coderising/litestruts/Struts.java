@@ -1,14 +1,26 @@
 package com.coding.coderising.litestruts;
 
-import java.io.File;
-import java.util.Map;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Struts {
 
 
-    public static View runAction(String actionName, Map<String,String> parameters) {
+    public static View runAction(String actionName, Map<String, String> parameters) {
 
         /*
          
@@ -29,8 +41,105 @@ public class Struts {
 		放到View对象的jsp字段中。
         
         */
-        File file = new File(Struts.class.getResource("").getPath()+"/struts.xml");
-    	return null;
-    }    
 
+        //解析xml
+        Map xmlInfo = parsersXml(actionName);
+        //获取类名
+        String allName = (String) xmlInfo.get("className");
+        try {
+            //加载类
+            Class cls = Class.forName(allName);
+            //实例化
+            Object object = cls.newInstance();
+            for (String key : parameters.keySet()) {
+                //拼接set方法名
+                String setName = "set" + key.substring(0, 1).toUpperCase() + key.substring(1);
+                Method setMethod = cls.getDeclaredMethod(setName, String.class);
+                //放射执行set方法
+                setMethod.invoke(object, parameters.get(key));
+            }
+            //执行execute方法
+            Method exectue = cls.getDeclaredMethod("execute", null);
+            String reslut = (String) exectue.invoke(object, null);
+            //执行getMessage方法
+            Method getMessage = cls.getDeclaredMethod("getMessage", null);
+            String message = (String) getMessage.invoke(object, null);
+            //获取xml配置想返回结果
+            String jsp = (String) xmlInfo.get(reslut);
+            //组装view
+            Map map = new HashMap();
+            map.put("message", message);
+            View view = new View();
+            view.setJsp(jsp);
+            view.setParameters(map);
+            return view;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    private static Map parsersXml(String actionName) {
+        File file = new File(Struts.class.getResource("").getPath() + "/struts.xml");
+        //1.获取DOM解析器工厂
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        HashMap<String, String> map = new HashMap<>();
+        try {
+            //2.获取解析器
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            //3.加载xml文档
+            Document document = builder.parse(file);
+            //4.获取指定action的action集合
+            NodeList actionlist = document.getElementsByTagName("action");
+            //5.如果actionName重复 只去第一个
+            for (int j = 0; j < actionlist.getLength(); j++) {
+                Element actionElement = (Element) actionlist.item(j);
+                if (actionElement.getAttribute("name") != null && actionElement.getAttribute("name").equalsIgnoreCase(actionName)) {
+                    //6.获取 类全限定名
+                    String className = actionElement.getAttribute("class");
+                    map.put("className", className);
+                    //7.获取 action子节点
+                    NodeList childList = actionElement.getChildNodes();
+                    int lenght = childList.getLength();
+                    for (int i = 0; i < lenght; i++) {
+                        Node node = childList.item(i);
+                        //判断为element节点 排除空格 换行
+                        if (node.getNodeType() == Node.ELEMENT_NODE) {
+                            Element child = (Element) node;
+                            switch (child.getAttribute("name")) {
+                                case "success":
+                                    map.put("success", child.getTextContent());
+                                    break;
+                                case "fail":
+                                    map.put("fail", child.getTextContent());
+                                    break;
+                                case "error":
+                                    map.put("error", child.getTextContent());
+                                    break;
+                            }
+                        }
+                    }
+                    break;
+                }
+
+            }
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
 }
