@@ -89,6 +89,7 @@ public class Struts {
 			for (int i = 0; i < results.size(); i++) {
 				if(results.get(i).getName().equals(result)){
 					view.setJsp(results.get(i).getRedirectUrl());
+					break;
 				}
 			}
 			
