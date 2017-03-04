@@ -1,5 +1,6 @@
 package com.coding.basic;
 
+
 public class ArrayList implements List {
 	
 	private int size = 0;
@@ -94,6 +95,13 @@ public class ArrayList implements List {
 	        }
 
 	 }
+	public Object[] toArray() {
+		Object[] array= new Object[size];
+		for (int i = 0; i < elementData.length; i++) {
+			array[i]=elementData[i];
+		}
+		return array;
+	}
 	public void grow(Object[] elementData2){
 		int[] elementData=new int[elementData2.length+elementData2.length/2];
 		System.arraycopy(elementData2,0,elementData,0,elementData2.length); 
