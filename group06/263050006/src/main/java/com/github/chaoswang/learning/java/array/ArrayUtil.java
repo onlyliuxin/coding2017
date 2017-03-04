@@ -1,5 +1,13 @@
 package com.github.chaoswang.learning.java.array;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.TreeSet;
+
 
 public class ArrayUtil {
 	
@@ -10,8 +18,14 @@ public class ArrayUtil {
 	 * @param origin
 	 * @return
 	 */
-	public void reverseArray(int[] origin){
-		
+	public static int[] reverseArray(int[] origin){
+		int length = origin.length;
+		for(int i=0;i<length/2;i++){
+			int tmp = origin[i];
+			origin[i] = origin[length - 1 - i];
+			origin[length - 1 - i] = tmp;
+		}
+		return origin;
 	}
 	
 	/**
@@ -22,8 +36,14 @@ public class ArrayUtil {
 	 * @return
 	 */
 	
-	public int[] removeZero(int[] oldArray){
-		return null;
+	public static int[] removeZero(int[] oldArray){
+		List<Integer> list = new ArrayList<Integer>();
+		for(int value : oldArray){
+			if(value != 0){
+				list.add(value);
+			}
+		}
+		return returnByIntArray(list);
 	}
 	
 	/**
@@ -34,8 +54,29 @@ public class ArrayUtil {
 	 * @return
 	 */
 	
-	public int[] merge(int[] array1, int[] array2){
-		return  null;
+	public static int[] merge(int[] array1, int[] array2){
+		TreeSet<Integer> ts1 = new TreeSet<Integer>(Arrays.asList(convertToIntegerArray(array1)));
+		TreeSet<Integer> ts2 = new TreeSet<Integer>(Arrays.asList(convertToIntegerArray(array2)));
+		ts2.addAll(ts1);
+		return  returnByIntArray(ts2);
+	}
+	
+	private static Integer[] convertToIntegerArray(int[] array){
+		Integer[] returnArray = new Integer[array.length];
+		for(int i=0;i<array.length;i++){
+			returnArray[i] = array[i];
+		}
+		return returnArray;
+	}
+	
+	private static int[] returnByIntArray(Collection<Integer> collection){
+		int[] returnArray = new int[collection.size()];
+		int i = 0;
+		for(Iterator<Integer> it = collection.iterator(); it.hasNext();){
+			returnArray[i] = it.next();
+			i++;
+		}
+		return returnArray;
 	}
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
@@ -46,8 +87,10 @@ public class ArrayUtil {
 	 * @param size
 	 * @return
 	 */
-	public int[] grow(int [] oldArray,  int size){
-		return null;
+	public static int[] grow(int [] oldArray,  int size){
+		int[] returnArray = new int[oldArray.length + size];
+		System.arraycopy(oldArray, 0, returnArray, 0, oldArray.length);
+		return returnArray;
 	}
 	
 	/**
@@ -57,8 +100,24 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] fibonacci(int max){
-		return null;
+	public static int[] fibonacci(int max){
+		if(max <= 1){
+			return new int[0];
+		}
+		Integer[] init = {1,1};
+		LinkedList<Integer> result = new LinkedList<Integer>(Arrays.asList(init));
+		for(int tmp = -1; tmp <= max;){
+			tmp = generateFibonacci(result);
+		}
+		result.removeLast();
+		return returnByIntArray(result);
+	}
+	
+	private static int generateFibonacci(LinkedList<Integer> result){
+		int a = result.getLast();
+		int b = result.get(result.size()-2);
+		result.add(a + b);
+		return result.getLast();
 	}
 	
 	/**
@@ -67,18 +126,53 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] getPrimes(int max){
-		return null;
+	public static int[] getPrimes(int max){
+		List<Integer> list = new LinkedList<Integer>();
+		for(int i=2;i<max;i++){
+			if(isPrime(i)){
+				list.add(i);
+			}
+		}
+		return returnByIntArray(list);
 	}
 	
+	private static boolean isPrime(int number) {
+		for(int i=2;i<number;i++){
+			if(number%i == 0){
+				return false;
+			}
+		}
+		return true;
+	}
+
 	/**
 	 * 所谓“完数”， 是指这个数恰好等于它的因子之和，例如6=1+2+3
 	 * 给定一个最大值max， 返回一个数组， 数组中是小于max 的所有完数
 	 * @param max
 	 * @return
 	 */
-	public int[] getPerfectNumbers(int max){
-		return null;
+	public static int[] getPerfectNumbers(int max){
+		List<Integer> list = new LinkedList<Integer>();
+		for(int i=2;i<=max;i++){
+			if(isPerfectNumber(i)){
+				list.add(i);
+			}
+		}
+		return returnByIntArray(list);
+	}
+	
+	private static boolean isPerfectNumber(int number) {
+		int sum = 0;
+		for(int i=1;i<number;i++){
+			if(number%i == 0){
+				sum += i;
+			}
+		}
+		
+		if(sum == number){
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -89,8 +183,14 @@ public class ArrayUtil {
 	 * @param s
 	 * @return
 	 */
-	public String join(int[] array, String seperator){
-		return null;
+	public static String join(int[] array, String seperator){
+		StringBuffer sb = new StringBuffer();
+		for(int number : array){
+			sb.append(number);
+			sb.append(seperator);
+		}
+		String returnStr = sb.toString();
+		return returnStr.substring(0, returnStr.length() - seperator.length());
 	}
 	
 
