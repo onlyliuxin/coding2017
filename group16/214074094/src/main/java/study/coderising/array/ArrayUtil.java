@@ -159,7 +159,7 @@ public class ArrayUtil {
             if (isPrime(i) && isPrime((int) Math.pow(2, i) - 1)) {
                 System.out.println("count " + i + ":" + (int) (Math.pow(2, i) - 1) + " * " + (int) Math.pow(2, (i - 1)));
                 int perfectNum = (int) ((Math.pow(2, i) - 1) * Math.pow(2, (i - 1)));
-                if(perfectNum > max){
+                if (perfectNum > max) {
                     break;
                 }
                 if (perfectNum < max) {
@@ -167,7 +167,7 @@ public class ArrayUtil {
                 }
             }
         }
-        System.out.println("total count : "+count);
+        System.out.println("total count : " + count);
         return convertIntegerArray2Int(list);
     }
 
@@ -181,7 +181,7 @@ public class ArrayUtil {
      * @return
      */
     public static String join(int[] array, String seperator) {
-        if(null == array || array.length < 1){
+        if (null == array || array.length < 1) {
             return null;
         }
         StringBuffer sb = new StringBuffer();
