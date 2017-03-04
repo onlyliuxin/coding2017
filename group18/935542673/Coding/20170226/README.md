@@ -113,3 +113,14 @@
 - ### [简单的类似于struts的操作](https://github.com/china-kook/coding2017/tree/master/group18/935542673/Coding/20170226/src/com/ikook/litestruts)
 
   使用 dom4j 的 SAXReader 类读取 struts.xml 文件，并对读取的文件中元素进行逐一处理。关键代码太多，基本整个类都是，点击本二级标题进行查看。
+
+- ### 数据结构习题以及 Struts 测试
+
+  - ##### [数据结构习题 Test Coding](https://github.com/china-kook/coding2017/blob/master/group18/935542673/Coding/20170226/junit/com/ikook/array/ArrayUtilTest.java)
+
+  - ##### [Struts Test Coding](https://github.com/china-kook/coding2017/blob/master/group18/935542673/Coding/20170226/junit/com/ikook/litestruts/StrutsTest.java)
+
+
+
+
+
