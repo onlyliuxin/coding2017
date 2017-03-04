@@ -1,4 +1,4 @@
-package com.pxshuo.basic.impl;
+package com.pxshuo.se01.basic.impl;
 
 /**
  * 基本数据结构-队列

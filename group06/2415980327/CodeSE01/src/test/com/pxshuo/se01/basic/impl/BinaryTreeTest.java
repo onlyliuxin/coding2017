@@ -1,10 +1,10 @@
-package test.com.pxshuo.basic.impl;
+package test.com.pxshuo.se01.basic.impl;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.pxshuo.basic.TreeData;
-import com.pxshuo.basic.impl.BinaryTree;
+import com.pxshuo.se01.basic.TreeData;
+import com.pxshuo.se01.basic.impl.BinaryTree;
 
 public class BinaryTreeTest {
 	BinaryTree object = new BinaryTree();

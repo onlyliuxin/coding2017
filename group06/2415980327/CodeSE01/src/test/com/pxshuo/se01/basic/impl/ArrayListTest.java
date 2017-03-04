@@ -1,13 +1,12 @@
-package test.com.pxshuo.basic.impl;
+package test.com.pxshuo.se01.basic.impl;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.pxshuo.basic.impl.ArrayList;
-import com.pxshuo.basic.impl.LinkedList;
+import com.pxshuo.se01.basic.impl.ArrayList;
 
-public class LinkedListTest {
-	LinkedList object = new LinkedList();
+public class ArrayListTest {
+	ArrayList object = new ArrayList();
 	
 	@Test
 	public void addTest() {
@@ -18,7 +17,7 @@ public class LinkedListTest {
 	@Test
 	public void addIndexTest(){
 		object.add(3,"Hello");
-		Assert.assertEquals("Hello", object.get(0));
+		Assert.assertEquals("Hello", object.get(3) );
 	}
 	
 	@Test

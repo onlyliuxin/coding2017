@@ -1,4 +1,4 @@
-package com.pxshuo.basic;
+package com.pxshuo.se01.basic;
 
 public interface Iterator {
 	/**

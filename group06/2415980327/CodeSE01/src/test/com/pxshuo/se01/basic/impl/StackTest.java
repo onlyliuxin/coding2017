@@ -1,10 +1,10 @@
-package test.com.pxshuo.basic.impl;
+package test.com.pxshuo.se01.basic.impl;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.pxshuo.basic.impl.Queue;
-import com.pxshuo.basic.impl.Stack;
+import com.pxshuo.se01.basic.impl.Queue;
+import com.pxshuo.se01.basic.impl.Stack;
 
 public class StackTest {
 	public Stack object = new Stack();

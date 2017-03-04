@@ -1,4 +1,4 @@
-package com.pxshuo.basic.impl;
+package com.pxshuo.se01.basic.impl;
 
 public class BinaryTreeNode {
 	
