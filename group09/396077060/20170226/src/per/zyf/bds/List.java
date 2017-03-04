@@ -1,6 +1,6 @@
 /**   
 * @Title: List.java 
-* @Description: TODO(用一句话描述该文件做什么) 
+* @Description: List接口的实现 
 * @author glorychou
 * @date 2017年2月24日 下午3:02:34 
 */

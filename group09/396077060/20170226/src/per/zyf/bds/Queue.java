@@ -1,6 +1,6 @@
 /**   
 * @Title: Queue.java 
-* @Description: TODO(用一句话描述该文件做什么) 
+* @Description: 队列的实现 
 * @author glorychou
 * @date 2017年2月24日 下午3:10:08 
 */
