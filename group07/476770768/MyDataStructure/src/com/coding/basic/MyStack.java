@@ -31,7 +31,7 @@ public class MyStack {
 	}
 	
 	public boolean isEmpty(){
-		return top >= 0;
+		return top < 0;
 	}
 	
 	public int size(){
