@@ -21,18 +21,19 @@ package com.ikook.litestruts;
 import java.util.Map;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import java.io.File;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * @author ikook   QQ号码: 935542673
+ */
 public class Struts {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -87,21 +88,9 @@ public class Struts {
 				}
 			}
 
-		} catch (DocumentException var9) {
-			var9.printStackTrace();
-		} catch (NoSuchMethodException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		} 
 		
 		return null;
 	}
