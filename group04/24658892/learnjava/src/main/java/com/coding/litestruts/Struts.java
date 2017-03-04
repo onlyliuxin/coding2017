@@ -1,9 +1,17 @@
 package com.coding.litestruts;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Struts {
 
+    private static Struts instance = new Struts();
+
+    @SuppressWarnings("unchecked")
     public static View runAction(String actionName, Map<String, String> parameters) {
 
         /*
@@ -25,7 +33,98 @@ public class Struts {
 		放到View对象的jsp字段中。
         
         */
+        Map<String, Action> actions = instance.parseXml();
+        Action action = actions.get(actionName);
+        View view = new View();
+        view.setParameters(new HashMap<>());
+        if (action != null) {
+            try {
+                Class clazz = Class.forName(action.getClazz());
+                Object actionObj = clazz.newInstance();
+                for (String s : parameters.keySet()) {
+                    Method method = clazz.getDeclaredMethod("set" + captureName(s), String.class);
+                    method.invoke(actionObj, parameters.get(s));
+                }
+                Method method = clazz.getDeclaredMethod("execute");
+                Object o = method.invoke(actionObj);
+                if (o != null) {
+                    String flag = o.toString();
+                    for (Result res : action.getResultList()) {
+                        if (flag.equals(res.getName())) {
+                            view.setJsp(res.getPage());
+                        }
+                    }
+                }
+                Method[] methods = clazz.getDeclaredMethods();
+                for (Method m : methods) {
+                    if (m.getName().startsWith("get")) {
+                        view.getParameters().put(m.getName().substring(3).toLowerCase(), m.invoke(actionObj));
+                    }
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return view;
+    }
 
-        return null;
+    private Map<String, Action> parseXml() {
+        Map<String, Action> actionMap = new HashMap<>();
+        try {
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser pullParser = factory.newPullParser();
+            pullParser.setInput(getClass().getClassLoader().getResourceAsStream("struts.xml"), null);
+            int event = pullParser.getEventType();
+            String tag = null;
+            Action action = null;
+            Result result = null;
+            while (event != XmlPullParser.END_DOCUMENT) {
+                switch (event) {
+                    case XmlPullParser.TEXT:
+                        String s = pullParser.getText();
+                        if (result != null) {
+                            result.setPage(s);
+                        }
+                        break;
+                    case XmlPullParser.START_TAG:
+                        tag = pullParser.getName();
+                        if ("action".equals(tag)) {
+                            String name = pullParser.getAttributeValue(null, "name");
+                            String clazz = pullParser.getAttributeValue(null, "class");
+                            action = new Action(name, clazz);
+                            actionMap.put(name, action);
+                        }
+                        else if ("result".equals(tag)) {
+                            String name = pullParser.getAttributeValue(null, "name");
+                            result = new Result(name, "");
+                            if (action != null) {
+                                action.addResultList(result);
+                            }
+                        }
+                        break;
+                    case XmlPullParser.END_TAG:
+                        if ("action".equals(tag)) {
+                            action = null;
+                        }
+                        else if ("result".equals(tag)) {
+                            result = null;
+                        }
+                        tag = null;
+                        break;
+                }
+                event = pullParser.next();
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return actionMap;
+    }
+
+    private static String captureName(String name) {
+        char[] cs = name.toCharArray();
+        cs[0] -= 32;
+        return String.valueOf(cs);
     }
 }
