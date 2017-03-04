@@ -31,7 +31,7 @@ public class StrutsTest {
 		String actionName = "login";
 		Map<String,String> params = new HashMap<String,String>();
         params.put("name","test");
-        params.put("password","123456"); //瀵嗙爜鍜岄璁剧殑涓嶄竴鑷�
+        params.put("password","123456"); //密码和预设的不一致
         
         View view  = Struts.runAction(actionName,params);        
         

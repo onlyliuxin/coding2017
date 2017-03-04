@@ -104,6 +104,7 @@ public class LinkedList implements List {
 	 * 删除指定位置节点，并返回节点值
 	 */
 	public Object remove(int index) {
+		
 		rangCheck(index);
 		
 		Node r = getPreNode(index);
@@ -135,6 +136,7 @@ public class LinkedList implements List {
 	
 	// 获取指定位置的前驱结点并返回
 	private Node getPreNode(int index) {
+		
 		rangCheck(index);
 		
 		if (index == 0) {

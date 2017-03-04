@@ -1,7 +1,19 @@
 package com.coderising.litestruts;
 
-import java.util.Map;
+import org.dom4j.Attribute;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
+import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Objects;
 
 
 public class Struts {
@@ -10,8 +22,8 @@ public class Struts {
 
         /*
          
-		0. 读取配置文件struts.xml
- 		
+        0. 读取配置文件struts.xml
+
  		1. 根据actionName找到相对应的class ， 例如LoginAction,   通过反射实例化（创建对象）
 		据parameters中的数据，调用对象的setter方法， 例如parameters中的数据是 
 		("name"="test" ,  "password"="1234") ,     	
@@ -27,8 +39,98 @@ public class Struts {
 		放到View对象的jsp字段中。
         
         */
-    	
-    	return null;
-    }    
+
+        SAXReader reader = new SAXReader();
+        Object obj = null;
+        View view = new View();
+
+        try {
+            // 加载配置文件
+            File file = new File("src/com/coderising/litestruts/struts.xml");
+            Document doucment = reader.read(file);
+            Element struts = doucment.getRootElement();
+            Iterator strutsIterator = struts.elementIterator();
+            Element action = null;
+
+            while (strutsIterator.hasNext()) {
+                action = (Element) strutsIterator.next();
+                Attribute actionAttribute = action.attribute("name");
+
+                // 通过反射获取实例化对象
+                if (actionAttribute.getValue().equals(actionName)) {
+                    obj = Class.forName(action.attribute("class").getValue()).newInstance();
+                    break;
+                }
+            }
+
+            Iterator<Map.Entry<String, String>> iterator = parameters.entrySet().iterator();
+
+            while (iterator.hasNext()) {
+
+                Map.Entry<String, String> entry = iterator.next();
+
+                // 调用相应属性的setter方法
+                Method method = obj.getClass().getMethod("set" + toUpperFisrtLetter(entry.getKey()), String.class);
+                method.invoke(obj, entry.getKey());
+            }
+
+            Method exectueMethod= obj.getClass().getMethod("execute");
+            String exectueValue = (String) exectueMethod.invoke(obj);
+
+            // 获取类中的所有属性
+            Field[] fields = obj.getClass().getFields();
+            HashMap<String, String> hashMap = new HashMap<>();
+
+            for(int i = 0; i < fields.length; i++){
+
+                String fieldName = fields[i].getName();
+
+                // 获取对应的getter方法
+                Method getterMethod = obj.getClass().getMethod("get" + toUpperFisrtLetter(fieldName));
+                String fieldValue = (String) getterMethod.invoke(obj);
+
+                hashMap.put(fieldName, fieldValue);
+            }
+
+            view.setParameters(hashMap);
+
+            Iterator actionIterator = action.elementIterator();
+
+            while (actionIterator.hasNext()) {
+                Element result = (Element) actionIterator.next();
+                Attribute resuAttribute = result.attribute("name");
+
+                if (resuAttribute.getValue().equals(exectueValue)) {
+                    view.setJsp(result.getStringValue());
+                    break;
+                }
+            }
+
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        return view;
+    }
+
+    // 将字符串首字母大写
+    private static String toUpperFisrtLetter(String str) {
+        String string = str.toLowerCase();
+        char[] cs = string.toCharArray();
+        // 首字母大写
+        cs[0] -= 32;
+
+        return String.valueOf(cs);
+    }
 
 }
