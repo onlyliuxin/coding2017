@@ -7,6 +7,8 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,28 +19,76 @@ public class Struts {
     public static View runAction(String actionName, Map<String,String> parameters) {
 
         //读取xml
-            DocumentBuilderFactory documentBuilderFactory =  DocumentBuilderFactory.newInstance();
+        DocumentBuilderFactory documentBuilderFactory =  DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder db = documentBuilderFactory.newDocumentBuilder();
-            Document doc = db.parse("src\\main\\resources\\struts.xml");
-            NodeList nodeList = doc.getElementsByTagName("action");
+            URL xmlPath = Struts.class.getClassLoader().getResource("struts.xml");
 
-            Map<String,Object> actionMap = new HashMap<String,Object>();
-            for(int i=0;i<nodeList.getLength();i++)
+
+//            Document doc = db.parse("src/main/struts.xml");
+            Document doc = db.parse(xmlPath.toString());
+            NodeList actionNodeList = doc.getElementsByTagName("action");
+
+            Map<String,String> resultMap = new HashMap<String, String>();
+
+
+            Map<String,Class<?>> actionMap = new HashMap<String,Class<?>>();
+            for(int i=0;i<actionNodeList.getLength();i++)
             {
-                Node node = nodeList.item(i);
-                Element action = (Element)node;
+                Node actionNode = actionNodeList.item(i);
+                Element action = (Element)actionNode;
                 String xmlActionName = action.getAttribute("name");
                 String xmlActionClassName = action.getAttribute("class");
-                if(actionName.equals(xmlActionName)){
+                Class<?> actionClass = Class.forName(xmlActionClassName);
+                actionMap.put(xmlActionName,actionClass);
+
+                NodeList resultNodeList  = action.getElementsByTagName("result");
+                for(int j =0 ;j<resultNodeList.getLength(); j++)
+                {
+                    Element resultNode = (Element)resultNodeList.item(j);
+                        System.out.println(resultNode.getAttribute("name")+ ":" + resultNode.getTextContent());
+                        if(xmlActionName.equals(actionName))
+                        {
+                            resultMap.put(resultNode.getAttribute("name"),resultNode.getTextContent());
+
+                        }
 
                 }
-                Class<?> actionClass = Class.forName(xmlActionClassName);
-                actionMap.put(xmlActionName,actionClass.newInstance());
+
+
+
+
             }
 
 
-            actionMap.get(actionName);
+            Object classInstance = actionMap.get(actionName).newInstance();
+            Method[] methods = actionMap.get(actionName).getDeclaredMethods();
+            Map <String,Method> methodMap = new HashMap<String, Method>();
+            for(int i = 0;i<methods.length;i++){
+                methodMap.put(methods[i].getName(),methods[i]);
+            }
+            for(String key:parameters.keySet())
+            {
+                char [] arrtCharArry = key.toCharArray();
+                arrtCharArry[0]-=32;
+                String  attrName = String.valueOf(arrtCharArry);
+                String setMethodName = "set"+attrName;
+                String getMethodName = "get"+attrName;
+                methodMap.get(setMethodName).invoke(classInstance,parameters.get(key));
+                Object getAtriBuObj = methodMap.get(getMethodName).invoke(classInstance);
+                System.out.println(getAtriBuObj.toString());
+            }
+
+            String resultType = (String)methodMap.get("execute").invoke(classInstance);
+            Object message = methodMap.get("getMessage").invoke(classInstance);
+
+            View view = new View();
+            view.setJsp(resultMap.get(resultType));
+            Map<String,String> messageMap = new HashMap<String, String>();
+            messageMap.put("message",message.toString());
+            view.setParameters(messageMap);
+            return  view;
+
 
 
 
@@ -50,33 +100,20 @@ public class Struts {
 
 
 
-        /*
-         
-		0. 读取配置文件struts.xml
- 		
- 		1. 根据actionName找到相对应的class ， 例如LoginAction,   通过反射实例化（创建对象）
-		据parameters中的数据，调用对象的setter方法， 例如parameters中的数据是 
-		("name"="test" ,  "password"="1234") ,     	
-		那就应该调用 setName和setPassword方法
-		
-		2. 通过反射调用对象的exectue 方法， 并获得返回值，例如"success"
-		
-		3. 通过反射找到对象的所有getter方法（例如 getMessage）,  
-		通过反射来调用， 把值和属性形成一个HashMap , 例如 {"message":  "登录成功"} ,  
-		放到View对象的parameters
-		
-		4. 根据struts.xml中的 <result> 配置,以及execute的返回值，  确定哪一个jsp，  
-		放到View对象的jsp字段中。
-        
-        */
-    	
-    	return null;
+
+        return null;
     }
 
     public static void main(String[] args) {
 
-        System.out.println(System.getProperty("user.dir") );
-        runAction(null,null);
+        Map<String,String> parametersMap = new HashMap<String, String>();
+        parametersMap.put("name","test");
+        parametersMap.put("password","1234");
+
+
+        View view= runAction("login",parametersMap);
+        System.out.println(view.getJsp());
+
     }
 
 }
