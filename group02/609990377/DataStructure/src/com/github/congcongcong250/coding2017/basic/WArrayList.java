@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
-public class ArrayList implements List {
+public class WArrayList implements WList {
 	
 	private int size = 0;
 	
@@ -63,7 +63,7 @@ public class ArrayList implements List {
 		return size;
 	}
 	
-	public Iterator iterator(){
+	public WIterator wIterator(){
 		return new Itr();
 	}
 	
@@ -79,7 +79,7 @@ public class ArrayList implements List {
 	}
 	
 	
-	private class Itr implements Iterator{
+	private class Itr implements WIterator{
 		//index for next element to visit
 		private int cursor = 0;
 		
@@ -103,7 +103,7 @@ public class ArrayList implements List {
 				throw new NoSuchElementException();
 			}
 			
-			ArrayList.this.remove(--cursor);
+			WArrayList.this.remove(--cursor);
 			
 		}
 	}

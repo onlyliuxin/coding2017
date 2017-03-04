@@ -1,5 +1,8 @@
 package com.github.congcongcong250.coding2017.basic;
 
+import java.util.Arrays;
+import java.util.ArrayList;
+
 public class ArrayUtil {
 	
 	/**
@@ -11,6 +14,16 @@ public class ArrayUtil {
 	 */
 	public void reverseArray(int[] origin){
 		
+		int[] reverse = new int[origin.length];
+		int j, last = origin.length - 1;
+		
+		for(int i = last ; i != 0; i--){
+			j = last - i;
+			reverse[i] = origin[j];
+		}
+		
+		//Arrays.copyof(reverse,0,origin,0,last+1);
+		origin = reverse.clone();
 	}
 	
 	/**
@@ -22,7 +35,29 @@ public class ArrayUtil {
 	 */
 	
 	public int[] removeZero(int[] oldArray){
-		return null;
+		/* 
+		 * Method 1, traverse oldArray and count non-zero value, 
+		 * create new int[count], 
+		 * traverse again oldArray and insert to new one
+		*/
+		
+		/*
+		 * Method 2, traverse olArray and insert non-zero value to an List<int>,
+		 * then List.toArray().
+		*/
+		
+		// Method 3
+		int[] tmp = new int[oldArray.length];
+		int count = 0;
+		
+		for(int v : oldArray){
+			if(v != 0){
+				tmp[count] = v;
+				count++;
+			}
+		}
+		
+		return Arrays.copyOf(tmp, count);
 	}
 	
 	/**
@@ -34,7 +69,27 @@ public class ArrayUtil {
 	 */
 	
 	public int[] merge(int[] array1, int[] array2){
-		return  null;
+		int l1 = array1.length, l2 = array2.length;
+		int[] whole = new int[ l1 + l2 ];
+		int j = 0;
+		
+		// Traverse array1
+		for(int i = 0; i < l1 ; i++){
+			
+			while(j < l2 && array1[i] >= array2[j]){
+				whole[i+j] = array2[j];
+				j++;
+			}	
+			whole[i+j] = array1[i];
+		}
+		
+		// Deal with left over in array2
+		while( j < l2 ){
+			whole[l1 + j - 1] = array2[j];
+			j++;
+		}
+		
+		return whole;
 	}
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
@@ -46,7 +101,18 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
-		return null;
+		checkGrowSize(size);
+		int newlength = oldArray.length + size;
+		int[] res = new int[newlength];
+		res = Arrays.copyOf(oldArray, newlength);
+		
+		return res;
+	}
+
+	private void checkGrowSize(int size) {
+		if(size < 0){
+			throw new IndexOutOfBoundsException("Negative size is not allowed in grow()");
+		}
 	}
 	
 	/**
@@ -57,7 +123,24 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max){
-		return null;
+		if( max <= 1 ){
+			return new int[0];
+		}
+		
+		// Fib(47) == 2971215073 > INT_MAX;
+		int[] tmp = new int[46];
+		tmp[0] = 1;
+		tmp[1] = 1;
+		
+		int next = 1 + 1;
+		int i = 1;
+		while( next < max ){
+			i++;
+			tmp[i] = next;
+			next = tmp[i] + tmp[i-1];
+		}
+	
+		return Arrays.copyOf(tmp, i+1);
 	}
 	
 	/**
@@ -67,8 +150,36 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max){
-		return null;
+		if( max <= 2){
+			return new int[0];
+		}
+		
+		ArrayList<Integer> primeList = new ArrayList<Integer>();
+		primeList.add(2);
+		
+		for(int i = 3; i < max; i += 2){
+			// For every number smaller than max
+			int ceiling = (int) Math.floor(Math.sqrt(i));
+			for(Integer v: primeList){
+				// Divided by every prime number smaller than sqrt(i)
+				if(i%v == 0){
+					//When reminder equals 0,  i is not a prime
+					break;
+				}
+				if(v > ceiling){
+					// When every prime number <= sqrt(i), add i to primelist
+					primeList.add(i);
+					break;
+				}
+			}
+		}
+		
+		//Transfer primelist to int array
+		int[] res = arrayFromList(primeList);
+		
+		return res;
 	}
+	
 	
 	/**
 	 * 所谓“完数”， 是指这个数恰好等于它的因子之和，例如6=1+2+3
@@ -77,7 +188,46 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max){
-		return null;
+		if( max <= 2){
+			return new int[0];
+		}
+		
+		ArrayList<Integer> perfectList = new ArrayList<Integer>();
+		
+		for(int i = 2 ; i < max ; i++){
+			int sum = 1;
+			int ceiling = (int)Math.floor(Math.sqrt(i));
+			if(i%ceiling == 0){
+				sum += ceiling;
+			}
+			// For each number smaller than max
+			for(int j = 2; j <= ceiling; j++){
+				if(i%j == 0 ){
+					sum += j;
+					sum += i/j;
+				}
+				if(sum > i){
+					break;
+				}
+			}
+			if(sum == i){
+				perfectList.add(i);
+			}
+		}
+		
+		//Transfer primelist to int array
+		int[] res = arrayFromList(perfectList); 
+			
+		return res;
+	}
+
+	private int[] arrayFromList(ArrayList<Integer> list) {
+		int[] r = new int[list.size()];
+		int j = 0;
+		for(Integer v: list){
+			r[j++] = v;
+		}
+		return r;
 	}
 	
 	/**
@@ -89,7 +239,12 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator){
-		return null;
+		String res = "";
+		res += array[0];
+		for(int i = 1; i < array.length;i++){
+			res += seperator + array[i];
+		}
+		return res;
 	}
 	
 

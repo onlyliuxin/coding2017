@@ -2,12 +2,12 @@ package com.github.congcongcong250.coding2017.basic;
 
 import java.util.NoSuchElementException;
 
-public class LinkedList implements List {
+public class WLinkedList implements WList {
 	
 	private Node head;
 	private int size;
 	
-	public LinkedList(){
+	public WLinkedList(){
 		head = new Node();
 		size = 0;
 	}
@@ -79,7 +79,7 @@ public class LinkedList implements List {
 	public Object removeLast(){
 		return remove(size-1);
 	}
-	public Iterator iterator(){
+	public WIterator wIterator(){
 		return new ListItr();
 	}
 	public void clear(){
@@ -134,7 +134,7 @@ public class LinkedList implements List {
 		
 	}
 	
-	private class ListItr implements Iterator{
+	private class ListItr implements WIterator{
 		//Point to next node
 		Node cursor;
 		int nextIndex;
@@ -169,7 +169,7 @@ public class LinkedList implements List {
 		public void remove() {
 			//Check bound
 			checkBound();
-			LinkedList.this.remove(--nextIndex);
+			WLinkedList.this.remove(--nextIndex);
 			
 		}
 		

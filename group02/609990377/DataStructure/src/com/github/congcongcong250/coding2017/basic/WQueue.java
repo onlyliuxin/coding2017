@@ -1,10 +1,10 @@
 package com.github.congcongcong250.coding2017.basic;
 
-public class Queue {
-	private LinkedList elementData;
+public class WQueue {
+	private WLinkedList elementData;
 	
-	public Queue(){
-		elementData = new LinkedList();
+	public WQueue(){
+		elementData = new WLinkedList();
 	}
 	
 	public void enQueue(Object o){		

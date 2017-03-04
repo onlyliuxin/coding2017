@@ -1,10 +1,10 @@
 package com.github.congcongcong250.coding2017.basic;
 
-public class Stack {
-	private LinkedList elementData = new LinkedList();
+public class WStack {
+	private WLinkedList elementData = new WLinkedList();
 	
-	public Stack(){
-		elementData = new LinkedList();
+	public WStack(){
+		elementData = new WLinkedList();
 	}
 	
 	public void push(Object o){	

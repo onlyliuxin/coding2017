@@ -8,11 +8,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.congcongcong250.coding2017.basic.Queue;
+import com.github.congcongcong250.coding2017.basic.WQueue;
 
-public class QueueTest implements testCase {
+public class WQueueTest implements testCase {
 
-	Queue testqueue = new Queue();
+	WQueue testqueue = new WQueue();
 	
 	@Override
 	@Before

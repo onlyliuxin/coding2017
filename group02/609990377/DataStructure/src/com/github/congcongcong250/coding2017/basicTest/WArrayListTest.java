@@ -8,12 +8,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.congcongcong250.coding2017.basic.ArrayList;
-import com.github.congcongcong250.coding2017.basic.Iterator;
+import com.github.congcongcong250.coding2017.basic.WArrayList;
+import com.github.congcongcong250.coding2017.basic.WIterator;
 
-public class ArrayListTest implements testCase {
+public class WArrayListTest implements testCase {
 	
-	ArrayList testlist = new ArrayList();
+	WArrayList testlist = new WArrayList();
 	
 	@Override
 	@Before
@@ -66,7 +66,7 @@ public class ArrayListTest implements testCase {
 	@Test(expected=IndexOutOfBoundsException.class)
 	public void testgetneg(){
 
-	    ArrayList emptyList = new ArrayList();
+	    WArrayList emptyList = new WArrayList();
 	    Object o = emptyList.get(-1);
 	}
 	
@@ -84,7 +84,7 @@ public class ArrayListTest implements testCase {
 	@Override
 	@Test
 	public void testFunctional() {
-		Iterator itr = testlist.iterator();
+		WIterator itr = testlist.wIterator();
 		assertTrue(itr.hasNext());
 		for(int i = 0; i < 20; i++){
 			assertEquals(i, itr.next());

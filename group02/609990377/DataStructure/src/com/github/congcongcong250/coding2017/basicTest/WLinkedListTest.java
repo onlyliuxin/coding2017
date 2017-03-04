@@ -8,13 +8,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.congcongcong250.coding2017.basic.ArrayList;
-import com.github.congcongcong250.coding2017.basic.LinkedList;
-import com.github.congcongcong250.coding2017.basic.Iterator;
+import com.github.congcongcong250.coding2017.basic.WArrayList;
+import com.github.congcongcong250.coding2017.basic.WLinkedList;
+import com.github.congcongcong250.coding2017.basic.WIterator;
 
-public class LinkedListTest implements testCase {
+public class WLinkedListTest implements testCase {
 	
-	LinkedList testlist = new LinkedList();
+	WLinkedList testlist = new WLinkedList();
 
 	@Override
 	@Before
@@ -91,7 +91,7 @@ public class LinkedListTest implements testCase {
 	@Test(expected=IndexOutOfBoundsException.class)
 	public void testgetneg(){
 
-	    LinkedList emptyList = new LinkedList();
+	    WLinkedList emptyList = new WLinkedList();
 	    Object o = emptyList.get(-2);
 	}
 	
@@ -110,7 +110,7 @@ public class LinkedListTest implements testCase {
 	@Override
 	@Test
 	public void testFunctional() {
-		Iterator itr = testlist.iterator();
+		WIterator itr = testlist.wIterator();
 		
 		assertTrue(itr.hasNext());
 		for(int i = 0; i < 12; i++){
