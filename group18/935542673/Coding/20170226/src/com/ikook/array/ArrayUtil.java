@@ -1,5 +1,8 @@
 package com.ikook.array;
 
+/**
+ * @author ikook   QQ号码: 935542673
+ */
 public class ArrayUtil {
 
 	/**
