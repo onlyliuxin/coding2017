@@ -165,7 +165,7 @@ public class ArrayUtil {
 				if (j % j2 == 0) {
 					b = true;
 					break;
-				}
+				} 
 			}
 			if (b == false) {
 				i++;
@@ -218,12 +218,7 @@ public class ArrayUtil {
 	public static void main(String[] args) {
 		int[] a = { 1, 3, 5, 6 };
 		int[] b = { 2, 3, 4, 5, 7 };
-		// merge(a, b);
 		int[] ab = ArrayUtil.fibonacci(30);
-		/*
-		 * for (int i : ab) { System.out.println(i); }
-		 */
-		// ArrayUtil.getPrimes(23);
 		int array[] = { 1, 2, 3, 4 };
 		String s = ArrayUtil.join(array, new String());
 		System.out.println(s);
