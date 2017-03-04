@@ -12,7 +12,7 @@ public class ArrayUtil {
      * @param origin
      * @return
      */
-    public void reverseArray(int[] origin) {
+    public int[] reverseArray(int[] origin) {
         if (origin == null || 0 == origin.length) {
             throw new NullPointerException();
         }
@@ -23,6 +23,8 @@ public class ArrayUtil {
             origin[i] = origin[N - 1 - i];
             origin[N - 1 - i] = temp;
         }
+
+        return origin;
     }
 
     /**
