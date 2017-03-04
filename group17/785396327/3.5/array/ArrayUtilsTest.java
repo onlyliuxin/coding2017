@@ -78,4 +78,9 @@ public class ArrayUtilsTest {
         System.out.println(value);
     }
 
+    @Test
+    public void fibonacciTest() {
+        System.out.println(Arrays.toString(ArrayUtils.fibonacci(34)));
+    }
+
 }

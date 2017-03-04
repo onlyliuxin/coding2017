@@ -4,6 +4,7 @@ import list.ArrayList;
 import list.List;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
 
@@ -11,8 +12,6 @@ import java.util.NoSuchElementException;
  * Created by william on 2017/2/27.
  */
 public class ArrayUtils {
-    private int[] fibonacciArray;
-
 
     public static void reserveArray(int[] src) {
         int begin = 0;
@@ -54,7 +53,17 @@ public class ArrayUtils {
     }
 
     public static int[] fibonacci(int max) {
-        return null;
+        if (max <= 1)
+            return new int[0];
+        List<Integer> fList = new ArrayList<Integer>();
+        fList.add(1);
+        fList.add(1);
+        int last = fList.size() - 1;
+        while (fList.get(last) < max) {
+            fList.add(fList.get(last) + fList.get(last - 1));
+            last++;
+        }
+        return toIntArray(fList);
     }
 
     public static int[] getPrimes(int max) {

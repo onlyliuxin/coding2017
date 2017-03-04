@@ -14,20 +14,22 @@ public class Struts {
 
     public static View runAction(String actionName, Map<String, String> parameters) {
         Element root = StrutsUtils.getRoot("struts/struts.xml");
-        View view = null;
+        View view = new View();
         if (root != null) {
             Element selectedEle = (Element) root.selectSingleNode("//action[@name='" + actionName + "']");
             if (selectedEle != null) {
+
                 Class clazz = genClass(selectedEle.attributeValue("class"));
                 Object target = setValue(parameters, clazz);
+
                 String result;
                 try {
                     result = (String) clazz.getMethod("execute").invoke(target);
                 } catch (Exception e) {
                     throw new RuntimeException("invoke execute have some error", e);
                 }
+
                 Map<String, Object> response = getValue(clazz, target);
-                view = new View();
                 view.setParameters(response);
                 Element selectedResult = (Element) root.selectSingleNode("//action[@name='" + actionName + "']//result[@name='" + result + "']");
                 view.setJsp(selectedResult == null ? null : selectedResult.getText());
@@ -54,7 +56,7 @@ public class Struts {
                 for (Map.Entry<String, String> entry : parameters.entrySet()) {
                     String key = entry.getKey();
                     if (!StrutsUtils.isEmpty(key)) {
-                        String setterName = new StringBuilder("set").append(key.substring(0, 1).toUpperCase()).append(key.substring(1, key.length())).toString();
+                        String setterName = new StringBuilder("set").append(key.substring(0, 1).toUpperCase()).append(key.substring(1)).toString();
                         clazz.getMethod(setterName, String.class).invoke(target, entry.getValue());
                     }
                 }
@@ -73,7 +75,7 @@ public class Struts {
             if (fieldName.startsWith("get") && !fieldName.equals("getClass")) {
                 try {
                     Object value = method.invoke(target);
-                    resultsMap.put(new StringBuilder(fieldName.substring(3, 4)).append(fieldName.substring(4, fieldName.length())).toString(), value);
+                    resultsMap.put(new StringBuilder(fieldName.substring(3, 4)).append(fieldName.substring(4)).toString(), value);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
