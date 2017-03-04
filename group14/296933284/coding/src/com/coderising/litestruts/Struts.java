@@ -41,7 +41,6 @@ public class Struts {
         */
 
         SAXReader reader = new SAXReader();
-        Object obj = null;
         View view = new View();
 
         try {
@@ -51,6 +50,7 @@ public class Struts {
             Element struts = doucment.getRootElement();
             Iterator strutsIterator = struts.elementIterator();
             Element action = null;
+            Object obj = null;
 
             while (strutsIterator.hasNext()) {
                 action = (Element) strutsIterator.next();
@@ -70,15 +70,16 @@ public class Struts {
                 Map.Entry<String, String> entry = iterator.next();
 
                 // 调用相应属性的setter方法
-                Method method = obj.getClass().getMethod("set" + toUpperFisrtLetter(entry.getKey()), String.class);
-                method.invoke(obj, entry.getKey());
+                Method setterMethod = obj.getClass().getMethod("set" +
+                        toUpperFisrtLetter(entry.getKey()), String.class);
+                setterMethod.invoke(obj, entry.getValue());
             }
 
             Method exectueMethod= obj.getClass().getMethod("execute");
             String exectueValue = (String) exectueMethod.invoke(obj);
 
             // 获取类中的所有属性
-            Field[] fields = obj.getClass().getFields();
+            Field[] fields = obj.getClass().getDeclaredFields();
             HashMap<String, String> hashMap = new HashMap<>();
 
             for(int i = 0; i < fields.length; i++){
@@ -86,11 +87,13 @@ public class Struts {
                 String fieldName = fields[i].getName();
 
                 // 获取对应的getter方法
-                Method getterMethod = obj.getClass().getMethod("get" + toUpperFisrtLetter(fieldName));
+                Method getterMethod = obj.getClass().getMethod("get" +
+                        toUpperFisrtLetter(fieldName));
                 String fieldValue = (String) getterMethod.invoke(obj);
 
                 hashMap.put(fieldName, fieldValue);
             }
+
 
             view.setParameters(hashMap);
 
