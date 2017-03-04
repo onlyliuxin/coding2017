@@ -1,4 +1,4 @@
-package main.java;
+package com.coding.basic;
 
 /**
  * Created by yrs on 2017/2/25.

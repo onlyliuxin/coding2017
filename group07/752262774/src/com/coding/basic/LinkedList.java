@@ -1,4 +1,4 @@
-package main.java;
+package com.coding.basic;
 
 
 import java.util.NoSuchElementException;
