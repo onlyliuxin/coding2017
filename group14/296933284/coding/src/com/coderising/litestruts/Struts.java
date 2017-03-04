@@ -5,6 +5,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -13,7 +14,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Objects;
+
 
 
 public class Struts {
@@ -41,11 +42,11 @@ public class Struts {
         */
 
         SAXReader reader = new SAXReader();
+        File file = new File("src/com/coderising/litestruts/struts.xml");
         View view = new View();
 
         try {
             // 加载配置文件
-            File file = new File("src/com/coderising/litestruts/struts.xml");
             Document doucment = reader.read(file);
             Element struts = doucment.getRootElement();
             Iterator strutsIterator = struts.elementIterator();
@@ -63,11 +64,11 @@ public class Struts {
                 }
             }
 
-            Iterator<Map.Entry<String, String>> iterator = parameters.entrySet().iterator();
+            Iterator<Map.Entry<String, String>> parametersIterator = parameters.entrySet().iterator();
 
-            while (iterator.hasNext()) {
+            while (parametersIterator.hasNext()) {
 
-                Map.Entry<String, String> entry = iterator.next();
+                Map.Entry<String, String> entry = parametersIterator.next();
 
                 // 调用相应属性的setter方法
                 Method setterMethod = obj.getClass().getMethod("set" +
@@ -80,7 +81,7 @@ public class Struts {
 
             // 获取类中的所有属性
             Field[] fields = obj.getClass().getDeclaredFields();
-            HashMap<String, String> hashMap = new HashMap<>();
+            HashMap<String, String> fieldHashMap = new HashMap<>();
 
             for(int i = 0; i < fields.length; i++){
 
@@ -91,11 +92,11 @@ public class Struts {
                         toUpperFisrtLetter(fieldName));
                 String fieldValue = (String) getterMethod.invoke(obj);
 
-                hashMap.put(fieldName, fieldValue);
+                fieldHashMap.put(fieldName, fieldValue);
             }
 
 
-            view.setParameters(hashMap);
+            view.setParameters(fieldHashMap);
 
             Iterator actionIterator = action.elementIterator();
 
@@ -127,6 +128,7 @@ public class Struts {
     }
 
     // 将字符串首字母大写
+    @NotNull
     private static String toUpperFisrtLetter(String str) {
         String string = str.toLowerCase();
         char[] cs = string.toCharArray();
