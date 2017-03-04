@@ -8,6 +8,7 @@ public class MyArrayList implements MyList {
 
     private Object[] elementData = new Object[10];
 
+    @Override
     public void add(Object o) {
         if (isFull()) {
             increase();
@@ -15,8 +16,9 @@ public class MyArrayList implements MyList {
         elementData[size++] = o;
     }
 
+    @Override
     public void add(int index, Object o) {
-        checkRange(index);
+        checkRangeAdd(index);
         if (isFull()) {
             increase();
         }
@@ -25,20 +27,22 @@ public class MyArrayList implements MyList {
         size++;
     }
 
+    @Override
     public Object get(int index) {
-        checkRange(index);
+        checkRangeGet(index);
         return elementData[index];
     }
 
+    @Override
     public Object remove(int index) {
-        checkRange(index);
+        checkRangeGet(index);
         Object element = elementData[index];
         System.arraycopy(elementData, index + 1, elementData, index, size - (index + 1));
-        elementData[size] = null;
-        size--;
+        elementData[--size] = null;
         return element;
     }
 
+    @Override
     public int size() {
         return size;
     }
@@ -51,8 +55,15 @@ public class MyArrayList implements MyList {
         return size >= elementData.length;
     }
 
-    private void checkRange(int index) {
+    private void checkRangeGet(int index) {
         boolean outOfRange = index < 0 || index >= size;
+        if (outOfRange) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+    }
+
+    private void checkRangeAdd(int index) {
+        boolean outOfRange = index < 0 || index > size;
         if (outOfRange) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
@@ -80,6 +91,7 @@ public class MyArrayList implements MyList {
 
         @Override
         public Object next() {
+            checkRangeGet(index);
             return elementData[index++];
         }
     }
