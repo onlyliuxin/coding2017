@@ -1,6 +1,12 @@
 package study.coderising.array;
 
-import com.alibaba.fastjson.JSON;
+
+import study.coding.basic.ArrayList;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class ArrayUtil {
 
@@ -12,8 +18,8 @@ public class ArrayUtil {
      * @param origin
      * @return
      */
-    public void reverseArray(int[] origin) {
-        int tmp = 0;
+    public static void reverseArray(int[] origin) {
+        int tmp;
         int len = origin.length;
         int middle = len / 2;
         for (int i = 0; i < middle; i++) {
@@ -21,17 +27,6 @@ public class ArrayUtil {
             origin[i] = origin[len - i - 1];
             origin[len - i - 1] = tmp;
         }
-    }
-
-
-
-    public static void main(String[] args) {
-        ArrayUtil util = new ArrayUtil();
-
-        int[] a = {7, 9 , 30, 3};
-        System.out.println(JSON.toJSONString(a));
-        util.reverseArray(a);
-        System.out.println(JSON.toJSONString(a));
     }
 
     /**
@@ -43,21 +38,45 @@ public class ArrayUtil {
      * @return
      */
 
-    public int[] removeZero(int[] oldArray) {
-        return null;
+    public static int[] removeZero(int[] oldArray) {
+        int[] newArray = new int[oldArray.length];
+        int k = 0;
+        for (int i = 0; i < oldArray.length; i++) {
+            if (0 != oldArray[i]) {
+                newArray[k++] = oldArray[i];
+            }
+        }
+        return Arrays.copyOf(newArray, k);
     }
 
     /**
-     * 给定两个已经排序好的整形数组， a1和a2 ,  创建一个新的数组a3, 使得a3 包含a1和a2 的所有元素， 并且仍然是有序的
-     * 例如 a1 = [3, 5, 7,8]   a2 = [4, 5, 6,7]    则 a3 为[3,4,5,6,7,8]    , 注意： 已经消除了重复
+     * 给定两个已经排序好的整形数组，a1和a2，创建一个新的数组a3，使得a3包含a1和a2的所有元素，并且仍然是有序的
+     * 例如 a1 = {3, 5, 7, 8}，a2 = {4, 5, 6, 7}，则 a3 为[3,4,5,6,7,8]，注意：已经消除了重复
      *
-     * @param array1
-     * @param array2
+     * @param a1
+     * @param a2
      * @return
      */
 
-    public int[] merge(int[] array1, int[] array2) {
-        return null;
+    public static int[] merge(int[] a1, int[] a2) {
+        Set set = new HashSet();
+
+        for (int i = 0; i < a1.length + a2.length; i++) {
+            if (i < a1.length) {
+                set.add(a1[i]);
+            } else {
+                set.add(a2[i - a1.length]);
+            }
+        }
+
+        int[] a3 = new int[set.size()];
+
+        Iterator it = set.iterator();
+        int i = 0;
+        while (it.hasNext()) {
+            a3[i++] = (Integer) it.next();
+        }
+        return a3;
     }
 
     /**
@@ -70,8 +89,8 @@ public class ArrayUtil {
      * @param size
      * @return
      */
-    public int[] grow(int[] oldArray, int size) {
-        return null;
+    public static int[] grow(int[] oldArray, int size) {
+        return Arrays.copyOf(oldArray, oldArray.length + size);
     }
 
     /**
@@ -82,8 +101,22 @@ public class ArrayUtil {
      * @param max
      * @return
      */
-    public int[] fibonacci(int max) {
-        return null;
+    public static int[] fibonacci(int max) {
+        if (max == 1) {
+            return new int[0];
+        }
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        list.add(1);
+        list.add(1);
+        for (int i = 0; ; i++) {
+            int tmp = list.get(i) + list.get(i + 1);
+            if (tmp >= max) {
+                break;
+            }
+            list.add(i + 2, tmp);
+        }
+
+        return convertIntegerArray2Int(list);
     }
 
     /**
@@ -93,8 +126,17 @@ public class ArrayUtil {
      * @param max
      * @return
      */
-    public int[] getPrimes(int max) {
-        return null;
+    public static int[] getPrimes(int max) {
+        if (max < 2) {
+            return null;
+        }
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 2; i < max; i++) {
+            if (isPrime(i)) {
+                list.add(i);
+            }
+        }
+        return convertIntegerArray2Int(list);
     }
 
     /**
@@ -104,8 +146,29 @@ public class ArrayUtil {
      * @param max
      * @return
      */
-    public int[] getPerfectNumbers(int max) {
-        return null;
+    public static int[] getPerfectNumbers(int max) {
+        if (max < 2) {
+            return null;
+        }
+        ArrayList<Integer> list = new ArrayList<>();
+
+        int count = 0;
+        //如果p是质数，且2^p-1也是质数，那么（2^p-1）X2^（p-1）便是一个完全数
+        for (int i = 2; i <= max / 2; i++) {
+            count++;
+            if (isPrime(i) && isPrime((int) Math.pow(2, i) - 1)) {
+                System.out.println("count " + i + ":" + (int) (Math.pow(2, i) - 1) + " * " + (int) Math.pow(2, (i - 1)));
+                int perfectNum = (int) ((Math.pow(2, i) - 1) * Math.pow(2, (i - 1)));
+                if(perfectNum > max){
+                    break;
+                }
+                if (perfectNum < max) {
+                    list.add(perfectNum);
+                }
+            }
+        }
+        System.out.println("total count : "+count);
+        return convertIntegerArray2Int(list);
     }
 
     /**
@@ -117,8 +180,35 @@ public class ArrayUtil {
      * @param seperator
      * @return
      */
-    public String join(int[] array, String seperator) {
-        return null;
+    public static String join(int[] array, String seperator) {
+        if(null == array || array.length < 1){
+            return null;
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < array.length; i++) {
+            sb.append(array[i]).append(seperator);
+        }
+        return sb.substring(0, sb.length() - 1);
+    }
+
+    private static boolean isPrime(int n) {
+        if (n == 2) {
+            return true;
+        }
+        for (int j = 2; j <= Math.sqrt(n); j++) {
+            if (n % j == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static int[] convertIntegerArray2Int(ArrayList<Integer> list) {
+        int[] arr = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            arr[i] = list.get(i).intValue();
+        }
+        return arr;
     }
 
 

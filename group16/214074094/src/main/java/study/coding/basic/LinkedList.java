@@ -50,7 +50,7 @@ public class LinkedList implements List {
         } else if (index == size - 1) {
             return removeLast();
         }
-        
+
         Node curr = _node(index);
         Object data = curr.data;
         final Node prev = curr.prev;
@@ -119,6 +119,11 @@ public class LinkedList implements List {
 
     public int size() {
         return size;
+    }
+
+    @Override
+    public Object[] toArray() {
+        return new Object[0];
     }
 
     public Iterator iterator() {

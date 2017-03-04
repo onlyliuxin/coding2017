@@ -1,15 +1,16 @@
 package study.coding.basic;
 
-public interface List {
+public interface List<E> {
 
-    void add(Object o);
+    void add(E e);
 
-    void add(int index, Object o);
+    void add(int index, E e);
 
-    Object get(int index);
+    E get(int index);
 
-    Object remove(int index);
+    E remove(int index);
 
     int size();
 
+    E[] toArray();
 }
