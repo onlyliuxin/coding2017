@@ -84,8 +84,29 @@ public class ArrayList implements List {
 		return this.size;
 	}
 	
+	class ArrayIterator implements Iterator{
+		private ArrayList array;
+		private int position = 0;
+		public ArrayIterator(ArrayList list){
+			this.array = list;
+		}
+		@Override
+		public boolean hasNext() {
+			if(array.get(position)!=null){
+				this.position++;
+				return true;
+			}else
+				return false;
+		}
+		@Override
+		public Object next() {
+			return array.get(position-1);
+		}
+		
+	}
 	public Iterator iterator(){
-		return null;
+		ArrayIterator aIterator = new ArrayIterator(this);
+		return aIterator;
 	}
 	
 }
