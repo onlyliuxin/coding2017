@@ -9,7 +9,7 @@ public class ArrayUtil {
 	 * @param origin
 	 * @return
 	 */
-	public void reverseArray(int[] origin) {
+	public static void reverseArray(int[] origin) {
 		for (int i = 0; i < origin.length / 2; i++) {
 			int temp = origin[i];
 			origin[i] = origin[origin.length - i - 1];
@@ -25,7 +25,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 
-	public int[] removeZero(int[] oldArray) {
+	public static int[] removeZero(int[] oldArray) {
 		int size = 0;
 		for (int i = 0; i < oldArray.length; i++) {
 			if (oldArray[i] != 0) {
@@ -101,7 +101,7 @@ public class ArrayUtil {
 	 * 
 	 * @param args
 	 */
-	public int[] grow(int[] oldArray, int size) {
+	public static int[] grow(int[] oldArray, int size) {
 		int[] newArray = new int[oldArray.length + size];
 		System.arraycopy(oldArray, 0, newArray, 0, size);
 		return newArray;
@@ -211,12 +211,7 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] getPerfectNumbers(int max){
-		int i =2;
-		
-		
-		
-		
+	public static int[] getPerfectNumbers(int max){
 		return null;
 	}
 
