@@ -20,12 +20,10 @@ public class ArrayUtil {
      */
     public static void reverseArray(int[] origin) {
         int tmp;
-        int len = origin.length;
-        int middle = len / 2;
-        for (int i = 0; i < middle; i++) {
+        for (int i = 0; i < origin.length / 2; i++) {
             tmp = origin[i];
-            origin[i] = origin[len - i - 1];
-            origin[len - i - 1] = tmp;
+            origin[i] = origin[origin.length - i - 1];
+            origin[origin.length - i - 1] = tmp;
         }
     }
 

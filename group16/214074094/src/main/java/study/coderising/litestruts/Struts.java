@@ -29,7 +29,7 @@ public class Struts {
 
         //1. 根据actionName找到相对应的class
         Class clz = Class.forName(action.getClassPath());
-
+        //获取一个实例,方便接下来对同一个对象赋值
         Object obj = clz.newInstance();
 
         //1.1 据parameters中的数据，调用对象的setter方法
@@ -39,7 +39,7 @@ public class Struts {
             set.invoke(obj, entry.getValue());
         }
 
-        //2. 通过反射调用对象的exectue 方法， 并获得返回值，例如"success"
+        //2. 通过反射调用对象的exectue方法， 并获得返回值
         Method execute = clz.getDeclaredMethod(EXECUTE);
         String response = execute.invoke(obj).toString();
 
@@ -68,11 +68,21 @@ public class Struts {
         return view;
     }
 
-    private static String getFunctionName(String head, String key) {
+    /**
+     * @Author: shane
+     * @Time: 2017/3/4 23:53
+     * @Email: stevenchenguang@gmail.com
+     * @param: begin, key
+     * @Return: String
+     * @Throw:
+     * @Desc: 根据开始名称和key获取方法名
+     * e.g.: begin: get, key: name, return getName
+     */
+    private static String getFunctionName(String begin, String key) {
         if (key == null || "".equals(key)) {
             return null;
         }
-        StringBuffer sb = new StringBuffer(head);
+        StringBuffer sb = new StringBuffer(begin);
         if (key.length() < 2) {
             sb.append(key.toUpperCase());
         } else {
@@ -83,6 +93,15 @@ public class Struts {
         return sb.toString();
     }
 
+    /**
+     * @Author: shane
+     * @Time: 2017/3/4 23:55
+     * @Email: stevenchenguang@gmail.com
+     * @param: actionName, node
+     * @Return: Action
+     * @Throw:
+     * @Desc: 根据actionName和xml节点获取Action
+     */
     private static Action getAction(String actionName, Element node) {
         Action action = new Action();
 
@@ -94,7 +113,6 @@ public class Struts {
 
             //遍历属性节点
             for (Attribute attr : list) {
-
                 if ("name".equalsIgnoreCase(attr.getName())) {
                     if (!actionName.equalsIgnoreCase(attr.getValue())) {
                         continue;
