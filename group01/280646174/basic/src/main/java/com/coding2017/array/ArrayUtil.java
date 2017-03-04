@@ -9,7 +9,20 @@ public class ArrayUtil {
      * @return
      */
     public void reverseArray(int[] origin) {
+        if (nullOrEmpty(origin) || origin.length == 1) {
+            return;
+        }
 
+        int length = origin.length;
+        for (int i = 0; i < length / 2; i++) {
+            swap(origin, i, length - 1 - i);
+        }
+    }
+
+    private void swap(int[] array, int index1, int index2) {
+        int temp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = temp;
     }
 
     /**
@@ -19,9 +32,21 @@ public class ArrayUtil {
      * @param oldArray
      * @return
      */
-
     public int[] removeZero(int[] oldArray) {
-        return null;
+        if (nullOrEmpty(oldArray)) {
+            return new int[0];
+        }
+
+        int[] tempArray = new int[oldArray.length];
+        int newLength = 0;
+        for (int e : oldArray) {
+            if (e != 0) {
+                tempArray[newLength++] = e;
+            }
+        }
+        int[] newArray = new int[newLength];
+        System.arraycopy(tempArray, 0, newArray, 0, newLength);
+        return newArray;
     }
 
     /**
@@ -32,9 +57,48 @@ public class ArrayUtil {
      * @param array2
      * @return
      */
-
     public int[] merge(int[] array1, int[] array2) {
-        return null;
+        if (nullOrEmpty(array1)) {
+            return array2;
+        }
+        if (nullOrEmpty(array2)) {
+            return array1;
+        }
+
+        int index1 = 0;
+        int index2 = 0;
+        int length1 = array1.length;
+        int length2 = array2.length;
+        int[] tempArray = new int[length1 + length2];
+        int pos = 0;
+        while (index1 < length1 && index2 < length2) {
+            if (array1[index1] == array2[index2]) {
+                // 元素相同情况下, 忽略其中一个
+                index1++;
+            } else if (array1[index1] < array2[index2]) {
+                tempArray[pos++] = array1[index1++];
+            } else {
+                tempArray[pos++] = array2[index2++];
+            }
+        }
+
+        while (index1 < length1) {
+            tempArray[pos++] = array1[index1++];
+        }
+        while (index2 < length2) {
+            tempArray[pos++] = array2[index2++];
+        }
+
+        if (pos == tempArray.length) {
+            return tempArray;
+        }
+        int[] result = new int[pos];
+        System.arraycopy(tempArray, 0, result, 0, pos);
+        return result;
+    }
+
+    private boolean nullOrEmpty(int[] array) {
+        return array == null || array.length == 0;
     }
 
     /**
@@ -46,7 +110,12 @@ public class ArrayUtil {
      * @return
      */
     public int[] grow(int[] oldArray, int size) {
-        return null;
+        assert oldArray != null;
+        assert size >= 0;
+
+        int[] result = new int[oldArray.length + size];
+        System.arraycopy(oldArray, 0, result, 0, oldArray.length);
+        return result;
     }
 
     /**
@@ -56,7 +125,36 @@ public class ArrayUtil {
      * @return
      */
     public int[] fibonacci(int max) {
-        return null;
+        if (max <= 1) {
+            return new int[0];
+        }
+        int f1 = 1;
+        int f2 = 1;
+        // 超过max的那个pos, 也就是最终长度
+        int maxPos = 2;
+        while (true) {
+            int curData = f1 + f2;
+            if (curData > max) {
+                break;
+            }
+            f1 = f2;
+            f2 = curData;
+            maxPos++;
+        }
+
+        int[] result = new int[maxPos];
+        f1 = 1;
+        f2 = 1;
+        for (int i = 0; i < maxPos; i++) {
+            if (i == 0 || i == 1) {
+                result[i] = 1;
+            } else {
+                result[i] = f1 + f2;
+                f1 = f2;
+                f2 = result[i];
+            }
+        }
+        return result;
     }
 
     /**
@@ -66,7 +164,54 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPrimes(int max) {
-        return null;
+        if (max <= 2) {
+            return new int[0];
+        }
+
+        boolean[] data = new boolean[max];
+
+        // 1. 把2放置为true
+        data[2] = true;
+
+        // 2. 把奇数首先初始化为true
+        for (int i = 3; i < max; i += 2) {
+            data[i] = true;
+        }
+
+        // 3. 从3开始到max/2检查素数, 然后把这个数的倍数全都置为false
+        for (int i = 3; i < max / 2; i += 2) {
+            data[i] = isPrime(i);
+            for (int j = 3; i * j < max; j += 2) {
+                data[i * j] = false;
+            }
+        }
+
+        // 4. 查一共多少个
+        int primeCount = 0;
+        for (int i = 0; i < max; i++) {
+            if (data[i]) {
+                primeCount++;
+            }
+        }
+
+        // 5. 构造结果
+        int[] result = new int[primeCount];
+        int pos = 0;
+        for (int i = 0; i < max; i++) {
+            if (data[i]) {
+                result[pos++] = i;
+            }
+        }
+        return result;
+    }
+
+    private boolean isPrime(int n) {
+        for (int i = 2; i <= n / 2; i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -76,7 +221,38 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPerfectNumbers(int max) {
-        return null;
+        boolean[] data = new boolean[max];
+        int count = 0;
+        for (int i = 0; i < max; i++) {
+            if (isPerfectNumber(i)) {
+                data[i] = true;
+                count++;
+            }
+        }
+
+        int[] result = new int[count];
+        int pos = 0;
+        for (int i = 0; i < max; i++) {
+            if (data[i]) {
+                result[pos++] = i;
+            }
+        }
+        return result;
+    }
+
+    private boolean isPerfectNumber(int n) {
+        if (n <= 0) {
+            return false;
+        }
+
+        int temp = 0;
+        for (int i = 1; i <= n / 2; i++) {
+            if (n % i == 0) {
+                temp += i;
+            }
+        }
+
+        return temp == n;
     }
 
     /**
@@ -87,7 +263,13 @@ public class ArrayUtil {
      * @return
      */
     public String join(int[] array, String seperator) {
-        return null;
+        if (nullOrEmpty(array)) {
+            return "";
+        }
+        StringBuilder builder = new StringBuilder(String.valueOf(array[0]));
+        for (int i = 1; i < array.length; i++) {
+            builder.append(seperator).append(array[i]);
+        }
+        return builder.toString();
     }
-
 }
