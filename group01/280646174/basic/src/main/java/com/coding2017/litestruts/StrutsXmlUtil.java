@@ -30,6 +30,7 @@ public class StrutsXmlUtil {
         StrutsDefinition strutsDefinition = new StrutsDefinition();
         Iterator<Element> actionIterator = rootElement.elements("action").iterator();
         List<StrutsDefinition.ActionDefinition> actionDefinitions = new ArrayList<StrutsDefinition.ActionDefinition>();
+        strutsDefinition.setActionDefinitionList(actionDefinitions);
         while (actionIterator.hasNext()) {
             Element actionElement = actionIterator.next();
             StrutsDefinition.ActionDefinition actionDefinition = new StrutsDefinition.ActionDefinition();
