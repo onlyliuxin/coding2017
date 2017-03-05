@@ -9,4 +9,24 @@
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
+    <properties>
+        <commons-digester.version>2.1</commons-digester.version>
+        <fastjson.version>1.2.24</fastjson.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>${commons-digester.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+
+    </dependencies>
+
+
 </project>
