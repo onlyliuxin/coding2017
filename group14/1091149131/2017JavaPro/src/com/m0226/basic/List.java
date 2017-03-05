@@ -1,4 +1,4 @@
-package com.maple.basic;
+package com.m0226.basic;
 
 public interface List {
 	public void add(Object o);

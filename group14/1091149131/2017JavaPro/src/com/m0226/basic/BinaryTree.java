@@ -1,4 +1,4 @@
-package com.maple.basic;
+package com.m0226.basic;
 
 import org.omg.PortableInterceptor.ORBInitInfoPackage.DuplicateName;
 

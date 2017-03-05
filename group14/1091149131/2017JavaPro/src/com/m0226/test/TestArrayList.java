@@ -1,9 +1,9 @@
-package com.maple.test;
+package com.m0226.test;
 
 import org.junit.Test;
 
-import com.maple.basic.ArrayList;
-import com.maple.basic.Iterator;
+import com.m0226.basic.ArrayList;
+import com.m0226.basic.Iterator;
 
 public class TestArrayList{
 	
