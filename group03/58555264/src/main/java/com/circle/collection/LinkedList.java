@@ -4,6 +4,7 @@ package com.circle.collection;
  * Created by keweiyang on 2017/2/25.
  */
 public class LinkedList implements List{
+    java.util.LinkedList list;
 
     private Node first = null;
 

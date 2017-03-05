@@ -7,6 +7,7 @@ import java.util.Arrays;
  * 自定义ArrayList
  */
 public class ArrayList implements List {
+    java.util.ArrayList list;
     private Object[] elementData = null;
     private int currentIndex = -1;
 
@@ -74,6 +75,12 @@ public class ArrayList implements List {
 
     }
 
+    public Object[] toArray() {
+        Object[] array = new Object[currentIndex];
+        System.arraycopy(elementData, 0, array, 0, currentIndex);
+        return array;
+    }
+
     private void rangeCheck(int index) {
         if (index < 0 || index > elementData.length - 1) {
             throw new ArrayIndexOutOfBoundsException("输入索引位置越界");
@@ -108,6 +115,16 @@ public class ArrayList implements List {
         elementData[currentIndex] = null;
         currentIndex--;
         return temp;
+    }
+
+    /**
+     * 防止内存泄露
+     */
+    public void clear() {
+        for(int i=0;i<=currentIndex;i++) {
+            elementData[i] = null;
+        }
+        currentIndex = -1;
     }
 
     /**
