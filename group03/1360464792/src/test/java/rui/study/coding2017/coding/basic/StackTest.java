@@ -1,8 +1,6 @@
-package rui.study.coding2017;
+package rui.study.coding2017.coding.basic;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * 测试栈
