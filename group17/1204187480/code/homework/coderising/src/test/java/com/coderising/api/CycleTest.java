@@ -5,7 +5,7 @@ import org.junit.Test;
 /**
  * Created by luoziyihao on 3/5/17.
  */
-public class TestCycle {
+public class CycleTest {
 
     /**
      * checkIndex will be excuted in each cycle
