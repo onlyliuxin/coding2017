@@ -1,4 +1,4 @@
-package Collection.Onehomework;
+package com.first;
 
 public interface List {
 	public void add(Object o);

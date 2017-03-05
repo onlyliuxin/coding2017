@@ -1,4 +1,4 @@
-package Collection.Onehomework;
+package com.first;
 
 public class Stack {
 	private ArrayList elementData = new ArrayList();

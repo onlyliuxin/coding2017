@@ -1,4 +1,4 @@
-package Collection.Onehomework;
+package com.first;
 
 public interface Iterator {
 	public boolean hasNext();
