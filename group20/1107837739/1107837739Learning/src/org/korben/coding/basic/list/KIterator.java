@@ -1,4 +1,4 @@
-package org.korben.list;
+package org.korben.coding.basic.list;
 
 /**
  * Created by Korben on 24/02/2017.
