@@ -16,13 +16,12 @@ public class Struts {
 
 	private static Object actionObj = null;
 	private static String address = "src/litestruts/struts.xml";
+	private static ActionXMLreader reader = new ActionXMLreader();
 	
     @SuppressWarnings("unchecked")
 	public static View runAction(String actionName, Map<String,String> parameters){
-	
-    	ActionXMLreader reader = new ActionXMLreader();
+
     	Node root = reader.getRootNode(address);
-    	
     	String clazz = reader.parseClass(root, actionName);
     	actionObj = getObj(clazz);
     	BeanInfo bi = getBeanInfo(actionObj);
@@ -30,10 +29,8 @@ public class Struts {
     	
     	setParameters(actionObj, pd, parameters);
     	String executeResult = (String) getResult(actionObj, bi, "execute");
-    	String jsp = reader.parseResult(root, actionName, executeResult);
-    	
-    	Map<String,String> readParamters = new HashMap<String,String>();
-    	readParamters = getReadParameters(actionObj, pd);
+    	String jsp = reader.parseResult(root, actionName, executeResult);   	
+    	Map<String,String> readParamters = getReadParameters(actionObj, pd);
     	
 		View view = new View();
 		view.setJsp(jsp);
