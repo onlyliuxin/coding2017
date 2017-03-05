@@ -150,15 +150,44 @@ public class ArrayUtil {
 
         ArrayList arrayList = new ArrayList();
 
-        for (int i = 6; i < max; i++) {
+        for (int i = 6; i < max; i += 2) {
+
+            if (i == 6) {
+                arrayList.add(i);
+                continue;
+            }
+
             int factorSum = 0;
 
-            for (int j = 1; j < i; j++)
-                if (i % j == 0)
-                    factorSum += j;
+            if (i % 3 == 1 && i % 9 == 1) {
 
-            if (factorSum == i)
+                boolean flag = false;
+
+                if (i % 10 == 6 ) {
+                    flag = true;
+                }
+
+                if (i % 10 == 8) {
+                    if (i % 100 == 28) {
+                        flag = true;
+                    }
+                }
+
+                if (flag) {
+
+                    for (int j = 1; j <= (i / 2); j++) {
+
+                        if (i % j == 0) {
+                            factorSum += j;
+                        }
+                    }
+                }
+
+            }
+
+            if (factorSum == i) {
                 arrayList.add(i);
+            }
 
         }
 

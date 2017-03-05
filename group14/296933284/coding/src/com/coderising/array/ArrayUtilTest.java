@@ -5,7 +5,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 
 /**
  * Created by damocles on 2017/3/1.
@@ -76,16 +75,16 @@ public class ArrayUtilTest {
 
     @Test
     public void getPrimes() throws Exception {
-        newArray = new int[]{2, 3, 5, 7, 11, 13, 17,19};
+        newArray = new int[]{2, 3, 5, 7, 11, 13, 17, 19};
 
         Assert.assertArrayEquals(newArray, arrayUtil.getPrimes(23));
     }
 
     @Test
     public void getPerfectNumbers() throws Exception {
-        newArray = new int[]{6, 28, 496};
-
-        Assert.assertArrayEquals(newArray, arrayUtil.getPerfectNumbers(500));
+        newArray = new int[]{6, 28, 496, 8128};
+        System.out.println(33550336 % 27);
+        Assert.assertArrayEquals(newArray, arrayUtil.getPerfectNumbers(10000));
     }
 
     @Test
