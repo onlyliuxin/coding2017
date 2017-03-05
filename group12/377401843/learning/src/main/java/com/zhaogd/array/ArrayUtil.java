@@ -1,8 +1,7 @@
 package com.zhaogd.array;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.HashSet;
 
 public class ArrayUtil {
 
@@ -13,13 +12,12 @@ public class ArrayUtil {
 	 * @param origin
 	 * @return
 	 */
-	public static void reverseArray(int[] origin) {
+	public void reverseArray(int[] origin) {
 		for (int i = 0; i < origin.length / 2; i++) {
 			int tmp = origin[i];
 			origin[i] = origin[origin.length - 1 - i];
 			origin[origin.length - 1 - i] = tmp;
 		}
-		System.out.println(Arrays.toString(origin));
 	}
 
 	/**
@@ -29,14 +27,16 @@ public class ArrayUtil {
 	 * @param oldArray
 	 * @return
 	 */
-	public Integer[] removeZero(int[] oldArray) {
-		ArrayList<Integer> arrayList = new ArrayList<Integer>();
+	public int[] removeZero(int[] oldArray) {
+		int[] newArr = new int[oldArray.length];
+		int z = 0;
 		for (int i : oldArray) {
 			if (i != 0) {
-				arrayList.add(i);
+				newArr[z] = i;
+				z++;
 			}
 		}
-		return arrayList.toArray(new Integer[arrayList.size()]);
+		return Arrays.copyOf(newArr, z);
 	}
 
 	/**
@@ -48,12 +48,21 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] merge(int[] array1, int[] array2) {
-		int[] array3 = new int[array1.length + array2.length];
-		
-		System.arraycopy(array1, 0, array3, 0, array1.length);
-		System.arraycopy(array2, 0, array3, array1.length, array2.length);
-		
+		HashSet<Integer> set = new HashSet<>();
+		for (Integer i : array1) {
+			set.add(i);
+		}
+		for (Integer i : array2) {
+			set.add(i);
+		}
+		int[] array3 = new int[set.size()];
+		int i = 0;
+		for (int s : set) {
+			array3[i] = s;
+			i++;
+		}
 		Arrays.sort(array3);
+
 		return array3;
 	}
 
@@ -67,7 +76,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int[] oldArray, int size) {
-		return null;
+		return Arrays.copyOf(oldArray, oldArray.length + size);
 	}
 
 	/**
@@ -78,7 +87,23 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max) {
-		return null;
+		if (max == 1) {
+			return new int[] {};
+		}
+		int a = 1;
+		int b = 1;
+		int count = 2;
+		for (int i = 1; i < max; i = a + b) {
+			a = b;
+			b = i;
+			count++;
+		}
+		int[] array = new int[count-1];
+		array[0] = array[1] = 1;
+		for (int i = 2; i < array.length; i++) {
+			array[i] = array[i - 2] + array[i - 1];
+		}
+		return array;
 	}
 
 	/**
@@ -88,7 +113,22 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max) {
-		return null;
+		int[] array = new int[max];
+		int z = 0;
+ 		for (int i = 2; i < max; i++) {
+			boolean flag = true;
+			for (int j = 2; j <= Math.sqrt(i); j++) {
+				if (i % j == 0) { //如果取模为0，则为合数
+					flag = false;
+					break;
+				}
+			}
+			if (flag) {
+				array[z] = i;
+				z++;
+			}
+		}
+		return Arrays.copyOf(array, z);
 	}
 
 	/**
@@ -98,7 +138,22 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max) {
-		return null;
+		int[] array = new int[max];
+		int z = 0;
+		for (int i = 0; i < max; i++) {
+			int tmp = 0;
+			for (int j = 1; j < i / 2 + 1; j++) {
+				if (i % j == 0) {
+					tmp += j;
+				}
+			}
+			if (tmp == i) {
+				array[z] = tmp;
+				z++;
+			}
+		}
+
+		return Arrays.copyOf(array, z);
 	}
 
 	/**
@@ -109,6 +164,10 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator) {
-		return null;
+		String s = "";
+		for (int i = 0; i < array.length; i++) {
+			s += array[i] + seperator;
+		}
+		return s.substring(0, s.length() - 1);
 	}
 }
