@@ -33,17 +33,6 @@ public class LinkedListWithFloat<T> extends LinkedList<T>{
 		floatNode = first;
 		floatNum = 0;
 	}
-	public T floatNext(){
-		if(floatNode.right != null){return((floatNode = floatNode.right).value);}
-		return null;
-	}
-	public T floatPrior(){
-		if(floatNode.left != null){return((floatNode = floatNode.left).value);}
-		return null;
-	}
-	public T floatValue(){
-		return floatNode.value;
-	}
 	protected Node<T> _getNode(int arg_num){
 		int position = arg_num - floatNum;
 		if(position == 0){return floatNode;}
