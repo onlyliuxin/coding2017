@@ -68,8 +68,8 @@ public class ArrayUtilTest {
 
     @Test
     public void getPerfectNumbers() throws Exception {
-//        Assert.assertArrayEquals(new int[]{6,28}, ArrayUtil.getPerfectNumbers(100));
-        System.out.println(Arrays.toString(ArrayUtil.getPerfectNumbers(40000000)));
+        Assert.assertArrayEquals(new int[]{6,28}, ArrayUtil.getPerfectNumbers(100));
+//        System.out.println(Arrays.toString(ArrayUtil.getPerfectNumbers(40000000)));
     }
 
     @Test

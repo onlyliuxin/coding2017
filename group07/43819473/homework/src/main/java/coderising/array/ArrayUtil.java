@@ -180,7 +180,7 @@ public class ArrayUtil {
 
         //对小于max的值逐个循环判断
         for (int i = 2; i < max; i++) {
-            System.out.println("==="+i);
+//            System.out.println("==="+i);
             int[] factors = new int[max];//因子数组
             factors[0] = 1;
             int factorSize = 1;
