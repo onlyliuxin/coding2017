@@ -1,7 +1,6 @@
 package day20170226.homework.struts;
 
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,8 +31,8 @@ import common.BeanHelper;
 public class Struts {
 	
 	public static View runAction(String actionName, Map<String,String> parameters) {
+		
 		View view = new View();
-		Map<String, Object> viewP = new HashMap<String,Object>();
 		InputStream is = Struts.class.getResourceAsStream("/day20170226/homework/struts/struts.xml");
 		SAXReader reader = new SAXReader(); 
 		Document doc;
@@ -41,17 +40,23 @@ public class Struts {
 		try {
 			doc = reader.read(is);
 			Element root = doc.getRootElement(); 
+			//action node
 			Element actionNode = getNode("action", "name", actionName, root); 
 			if (actionNode == null) {
 				throw new RuntimeException("do not have this action: " + actionName);
 			}
+			//get Class
 			Class<?> c = Class.forName(actionNode.attributeValue("class"));
+			//invoke by map's value
 			Object ob = BeanHelper.invokeClassFromMap(c, parameters);
+			//resultNode's name
 			String resultName = String.valueOf(BeanHelper.excuteBeanMethod(ob, "execute", null));
+			
 			Element resultNode = getNode("result", "name", resultName, actionNode); 
+			
+			//package view
 			view.setJsp(resultNode.getTextTrim());
-			viewP = BeanHelper.getBeanFields(ob);
-			view.setParameters(viewP);
+			view.setParameters(BeanHelper.getBeanFields(ob));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (InstantiationException e) {
@@ -68,11 +73,11 @@ public class Struts {
     }    
 	
 	/**
-	 * 从父节点中找到eleName的节点并属性值 = value 的节点
-	 * @param eleName   节点名称
-	 * @param attrName  节点属性名称
-	 * @param value		属性值
-	 * @param parent	父节点
+	 * Find the 'eleName' node from the parent and attribute's value = value  
+	 * @param eleName   node's name
+	 * @param attrName  node's attribute name
+	 * @param value		attribute's value
+	 * @param parent	parent node
 	 * @return
 	 */
 	public static Element getNode(String eleName, String attrName, String value, Element parent){
