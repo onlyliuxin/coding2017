@@ -6,6 +6,9 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.github.eloiseSJTU.coding2017.litestruts.Struts;
+import com.github.eloiseSJTU.coding2017.litestruts.View;
+
 public class StrutsTest {
 
 	@Test

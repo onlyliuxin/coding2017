@@ -1,5 +1,6 @@
 package com.github.eloiseSJTU.coding2017.litestruts;
 
+import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -31,8 +32,8 @@ public class Struts {
 					// ("name"="test", "password"="1234")，那就应该调用
 					// setName和setPassword方法
 					for (Map.Entry<String, String> entry : parameters.entrySet()) {
-						String methodName = "set" + toUpperCaseFirstOne(entry.getKey());
-						Method method = clazz.getMethod(methodName, String.class);
+						PropertyDescriptor descriptor = new PropertyDescriptor(entry.getKey(), clazz);
+						Method method = descriptor.getWriteMethod();
 						method.invoke(object, entry.getValue());
 					}
 					// 2. 通过反射调用对象的execute方法，并获得返回值
@@ -44,8 +45,8 @@ public class Struts {
 					Map<String, Object> map = new HashMap<>();
 					Field[] fields = clazz.getDeclaredFields();
 					for (Field field : fields) {
-						String methodName = "get" + toUpperCaseFirstOne(field.getName());
-						Method method = clazz.getMethod(methodName);
+						PropertyDescriptor descriptor = new PropertyDescriptor(field.getName(), clazz);
+						Method method = descriptor.getReadMethod();
 						Object value = method.invoke(object);
 						map.put(field.getName(), value);
 					}
@@ -75,14 +76,6 @@ public class Struts {
 			path = path.substring(5);
 		}
 		return path;
-	}
-
-	private static String toUpperCaseFirstOne(String s) {
-		if (Character.isUpperCase(s.charAt(0))) {
-			return s;
-		} else {
-			return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
-		}
 	}
 
 }
