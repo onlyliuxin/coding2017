@@ -1,16 +1,11 @@
-package com.kevin.coding02.litestruts;
+package com.kevin.coding02.util;
 
 import com.kevin.coding02.model.ActionModel;
 import com.kevin.coding02.model.ResultModel;
 import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +29,6 @@ public class SaxUtil extends DefaultHandler {
     @Override
     public void startDocument() throws SAXException {
         actions = new ArrayList<ActionModel>();
-        results=new ArrayList<ResultModel>();
     }
 
     /**
@@ -50,6 +44,7 @@ public class SaxUtil extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         if ("action".equals(qName)) {
             action = new ActionModel();
+            results = new ArrayList<ResultModel>();
             //获取action节点的name属性
             action.setActionName(String.valueOf(attributes.getValue(0)));
             //获取action节点的class属性

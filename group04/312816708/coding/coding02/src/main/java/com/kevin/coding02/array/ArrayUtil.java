@@ -1,5 +1,7 @@
 package com.kevin.coding02.array;
 
+import java.util.*;
+
 public class ArrayUtil {
 
     /**
@@ -11,8 +13,13 @@ public class ArrayUtil {
      * @return
      */
     public void reverseArray(int[] origin) {
-
+        for (int start = 0, end = origin.length - 1; start < end; start++, end--) {
+            int temp = origin[end];
+            origin[end] = origin[start];
+            origin[start] = temp;
+        }
     }
+
 
     /**
      * 现在有如下的一个数组：   int oldArr[]={1,3,4,5,0,0,6,6,0,5,4,7,6,7,0,5}
@@ -24,7 +31,19 @@ public class ArrayUtil {
      */
 
     public int[] removeZero(int[] oldArray) {
-        return null;
+        List list = new ArrayList();
+        for (int i = 0; i < oldArray.length; i++) {
+            int temp = oldArray[i];
+            if (temp != 0) {
+                list.add(temp);
+            }
+        }
+        int[] newArray = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            newArray[i] = (Integer) list.get(i);
+        }
+
+        return newArray;
     }
 
     /**
@@ -35,9 +54,25 @@ public class ArrayUtil {
      * @param array2
      * @return
      */
-
     public int[] merge(int[] array1, int[] array2) {
-        return null;
+        Set set = new HashSet();
+        for (int i = 0; i < array1.length; i++) {
+            set.add(array1[i]);
+        }
+        for (int i = 0; i < array2.length; i++) {
+            set.add(array2[i]);
+        }
+
+        int[] newArray = new int[set.size()];
+        Iterator iterator = set.iterator();
+        int i = 0;
+        while (iterator.hasNext()) {
+            newArray[i++] = (Integer) iterator.next();
+        }
+
+        Arrays.sort(newArray);
+
+        return newArray;
     }
 
     /**
@@ -51,7 +86,9 @@ public class ArrayUtil {
      * @return
      */
     public int[] grow(int[] oldArray, int size) {
-        return null;
+        int[] newArray = new int[oldArray.length + size];
+        System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
+        return newArray;
     }
 
     /**
@@ -63,6 +100,7 @@ public class ArrayUtil {
      * @return
      */
     public int[] fibonacci(int max) {
+
         return null;
     }
 
@@ -74,6 +112,12 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPrimes(int max) {
+        /**
+         * 判断是否是素数
+         * 素数：又称质数。大于1的自然数中，除了1和它本身以外不再有其他因数的数称为质数。
+         * 因数：假如a*b=c（a、b、c都是整数)，那么我们称a和b就是c的因数。
+         * 唯有被除数，除数，商皆为整数，余数为零时，此关系才成立。 反过来说，我们称c为a、b的倍数。在研究因数和倍数时，不考虑0。
+         */
         return null;
     }
 
