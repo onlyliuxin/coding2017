@@ -1,5 +1,8 @@
 package com.coderising.array;
 
+import com.coding.basic.impl.ArrayList;
+import com.coding.basic.impl.LinkedList;
+
 public class ArrayUtil {
 	
 	/**
@@ -10,7 +13,14 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin){
-		
+		for(int i=0; i < origin.length; i++){
+			if(i >= origin.length-1-i){
+				break;
+			}
+			int tmp = origin[i];
+			origin[i] = origin[origin.length-i-1];
+			origin[origin.length-i-1] = tmp;
+		}
 	}
 	
 	/**
@@ -22,7 +32,32 @@ public class ArrayUtil {
 	 */
 	
 	public int[] removeZero(int[] oldArray){
-		return null;
+		int size = 0,	// 记录非0数量
+			tmp = 0;	// 需要比较的下一个位置
+		for(int i=0; i < oldArray.length;){
+			if(oldArray[i] == 0){
+				int j=tmp==0?(i+1):tmp;
+				for(;j < oldArray.length; j++){
+					if(oldArray[j] == 0){
+						continue;
+					}else{
+						oldArray[i] = oldArray[j];
+						oldArray[j] = 0;
+						size++;
+						tmp = j+1;
+						i=j;
+						break;
+					}
+				}
+			}else{
+				i++;
+				size++;
+				continue;
+			}
+		}
+		int a[] = new int[size];
+		System.arraycopy(oldArray, 0, a, 0, size);
+		return a;
 	}
 	
 	/**
@@ -33,8 +68,26 @@ public class ArrayUtil {
 	 * @return
 	 */
 	
-	public int[] merge(int[] array1, int[] array2){
-		return  null;
+	public static int[] merge(int[] array1, int[] array2){
+		int[] a3 = new int[array1.length+array2.length];
+		int i = array1.length-1,
+			j = array2.length-1,
+			k = a3.length-1;
+		while(i >= 0 && j >= 0){
+			if(array1[i] > array2[j]){
+				a3[k--] = array1[i--]; 
+			}else{
+				a3[k--] = array2[j--];
+			}
+		}
+		while(j >= 0){
+			a3[k--] = array2[j--];
+		}
+		while(i >= 0){
+			a3[k--] = array1[i--];
+		}
+			
+		return  a3;
 	}
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
@@ -46,7 +99,9 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
-		return null;
+		int a[] = new int[oldArray.length+size];
+		System.arraycopy(oldArray, 0, a, 0, oldArray.length);
+		return a;
 	}
 	
 	/**
@@ -56,8 +111,36 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] fibonacci(int max){
-		return null;
+	public static int[] fibonacci(int max){
+		if(max == 1){
+			int[] a = {0};
+			return a;
+		}
+		if(max == 2){
+			int[] a = {0,1};
+			return a;
+		}
+		if(max == 3){
+			int[] a = {0,1,1,2};
+            return a;
+        }
+        ArrayList list  = new ArrayList();
+        list.add(0);
+        list.add(1);
+        list.add(1);
+        list.add(2);
+        int size = 4;
+        for(int i = 3; i < max ; i++){
+           if(i == ((int)list.get(size-1)+(int)list.get(size-2))){
+        	   list.add(i);
+        	   size++;
+           }
+        }
+        int[] a = new int[size];
+        for(int i = 0; i < size; i++){
+        	a[i] = (int) list.get(i);
+        }
+		return a;
 	}
 	
 	/**
@@ -67,7 +150,35 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max){
-		return null;
+		if(max < 2){
+			int[] a ={};
+			return a;
+		}
+		if(max == 2){
+			int[] a ={2};
+			return a;
+		}
+		LinkedList list = new LinkedList();
+		list.add(2);
+		for(int n = 3; n < max; n=n+2){
+			int i=3;
+			boolean flag = true;
+			for(;i*i <= n;i=i+2){
+				// 先排除偶数
+				if(n%i == 0){
+					flag = false;
+					break;
+				}
+			}
+			if(flag){
+				list.add(n);
+			}
+		}
+		int[] a = new int[list.size()];
+		for(int i = 0; i < list.size(); i++){
+			a[i] = (int) list.get(i);
+		}
+		return a;
 	}
 	
 	/**
@@ -77,7 +188,29 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max){
-		return null;
+		if(max <= 6){
+			int a[] = {};
+			return a;
+		}
+		LinkedList list = new LinkedList();
+		int p = 6,sum;
+		for(; p < max; p++){
+			sum = 0;
+			for(int i=1; i < p % 2; i++){
+				if(p % i == 0){
+					sum += i;
+				}
+			}
+			if(sum == p){
+				list.add(p);
+			}
+		}
+		int a[] = new int[list.size()];
+		for(int i = 0; i < list.size(); i++){
+			a[i] = (int) list.get(i);
+		}
+		return a;
+		
 	}
 	
 	/**
@@ -89,8 +222,22 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator){
-		return null;
+		for(int i=0;i<array.length ; i++){
+			seperator += array[i];
+			if(i < array.length-1){
+				seperator +="-";
+			}
+		}
+		// StringBuider 实现
+		/*StringBuilder s = new StringBuilder();
+		for(int a: array){
+			if(s.length() > 0){
+				s.append("-");
+			}
+			s.append(a);
+		}
+		seperator = s.toString();*/
+		return seperator;
 	}
 	
-
 }
