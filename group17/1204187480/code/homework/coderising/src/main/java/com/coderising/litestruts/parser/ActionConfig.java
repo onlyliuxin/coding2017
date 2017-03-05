@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by luoziyihao on 3/5/17.
  */
-public class Action {
+public class ActionConfig {
     private String name;
     private String className;
     private Map<String, Result> results = new HashMap<>(10);

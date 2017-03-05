@@ -8,7 +8,7 @@ import org.junit.Test;
 public class StructsParserTest {
     @Test
     public void parser() throws Exception {
-        new StrutsParser().parser("struts.xml");
+        new DefaultStrutsParser().parser("struts.xml");
     }
 
 }
