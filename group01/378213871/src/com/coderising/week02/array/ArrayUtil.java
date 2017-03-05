@@ -31,6 +31,9 @@ public class ArrayUtil {
 	 */
 	
 	public int[] removeZero(int[] oldArray){
+		if (oldArray == null) {
+			throw new IllegalArgumentException();
+		}
 		//算出oldArr数组中0的个数
 		int zeronum = 0;
 		for (int i = 0; i < oldArray.length; i++) {
@@ -47,6 +50,7 @@ public class ArrayUtil {
 				j++;
 			}
 		}
+
 		return newArray;
 	}
 	
