@@ -1,7 +1,7 @@
 package com.list;
 
 
-
+//ArrayList
 public class ArrayList {
 
 	private int size;
