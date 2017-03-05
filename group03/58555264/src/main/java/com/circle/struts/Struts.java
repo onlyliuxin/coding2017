@@ -95,7 +95,6 @@ public class Struts {
         }
 
 
-
         Map<String, String> map = new HashMap<>();
         for (Map.Entry<String, String> entry : mapParameters.entrySet()) {
             String methodName = "set" + entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1);
@@ -133,24 +132,24 @@ public class Struts {
         }
 
         // 再调用execute方法
-        if (obj instanceof LoginAction) {
-            Method method = clazz.getDeclaredMethod("execute");
-            String ret = (String) method.invoke(obj, null);
+//        if (obj instanceof LoginAction) {
+        Method method = clazz.getDeclaredMethod("execute");
+        String ret = (String) method.invoke(obj, null);
 
-            Map<String, String> retMap = this.actionEntity.getResultMap();
-            for (Map.Entry<String, String> result : retMap.entrySet()) {
-                if (ret.equals(result.getKey())) {
-                    Map<String, String> map = new HashMap<>();
-                    System.out.println(result.getValue());
+        Map<String, String> retMap = this.actionEntity.getResultMap();
+        for (Map.Entry<String, String> result : retMap.entrySet()) {
+            if (ret.equals(result.getKey())) {
+                Map<String, String> map = new HashMap<>();
+                System.out.println(result.getValue());
 
-                    this.showView(methods, fields, obj, clazz, map);
-                    view = new View();
-                    view.setJsp(result.getValue());
-                    view.setParameters(map);
-                    System.out.println(view.toString());
-                    break;
-                }
+                this.showView(methods, fields, obj, clazz, map);
+                view = new View();
+                view.setJsp(result.getValue());
+                view.setParameters(map);
+                System.out.println(view.toString());
+                break;
             }
+//            }
 
         }
         return view;
