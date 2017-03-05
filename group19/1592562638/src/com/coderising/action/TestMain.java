@@ -40,9 +40,11 @@ public class TestMain {
 	private static String xmlSource=System.getProperty("user.dir")+"\\src\\com\\coderising\\action\\struts.xml";
 	private static Map<String, Object> container = new HashMap<String, Object>();//获取xml中name字符串跟class类
 	private static Map<String, String> containerStr = new HashMap<String, String>();//获取xml中name跟class字符串
-	private static Map<String, Object> containerBak = new HashMap<String, Object>();//获取getter方法属性
+	private static Map<String, String> containerBak = new HashMap<String, String>();//获取getter方法属性
 	
 	private static View view;
+	private static String resultStr;
+	private static LoginAction lAction;
 	
 	public static void main(String[] args) throws JDOMException, IOException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException, InvocationTargetException {
 		// TODO Auto-generated method stub
@@ -68,13 +70,18 @@ public class TestMain {
 			System.out.println("name: "+name+", class: "+clazz);
 		}
 		
+		/**************
+		 3.通过反射找到对象的所有getter方法（例如 getMessage）,  
+		通过反射来调用， 把值和属性形成一个HashMap , 例如 {"message":  "登录成功"} ,  
+		放到View对象的parameters
+		 */
 		if(container.containsKey("login")){
-			LoginAction lAction=(LoginAction)container.get("login");
+			lAction=(LoginAction)container.get("login");
 			lAction.setName("test");
 			lAction.setPassword("1234");
 			
-			String strTmp=lAction.execute();//执行execute方法
-			System.out.println("name="+lAction.getName()+" password="+lAction.getPassword()+"->登录结果："+strTmp);
+			resultStr=lAction.execute();//执行execute方法
+			System.out.println("name="+lAction.getName()+" password="+lAction.getPassword()+"->登录结果："+resultStr);
 			
 			Class clazz=Class.forName(containerStr.get("login"));
 			Method[] methods=clazz.getMethods();
@@ -88,17 +95,18 @@ public class TestMain {
 					String methodStr=methodName.substring(3);
 					System.out.println(methodStr);
 					
-					Field field=clazz.getDeclaredField(methodName);
-					if(null!=field){
-						Object obj=new Object();
-						method.invoke(obj);
-						field.setAccessible(true);
-						containerBak.put(methodStr, field.get(obj));
-					}
+					//System.out.println(method.invoke(lAction));
+					
+					containerBak.put(methodName, (String)method.invoke(lAction));
 				}
 			}
 			view.setParameters(containerBak);//保存到view中
 		}
+		
+		/**************
+		 4.根据struts.xml中的 <result> 配置,以及execute的返回值，  确定哪一个jsp，  
+		放到View对象的jsp字段中
+		 */
+		
 	}
-
 }
