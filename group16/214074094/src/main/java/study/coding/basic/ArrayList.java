@@ -1,4 +1,4 @@
-package coding.basic;
+package study.coding.basic;
 
 
 import java.util.Arrays;
@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  * @Email stevenchenguang@gmail.com
  * @Desc OwnArrayList
  */
-public class ArrayList implements List {
+public class ArrayList<E> implements List<E> {
 
     private int size = 0;
 
@@ -28,22 +28,22 @@ public class ArrayList implements List {
     }
 
     @Override
-    public void add(Object o) {
+    public void add(E e) {
         if (elementData == EMPTY_ELEMENTDATA) {
             elementData = Arrays.copyOf(elementData, DEFAULT_CAPACITY);
-            elementData[0] = o;
+            elementData[0] = e;
         } else if (size < elementData.length) {
-            elementData[size] = o;
+            elementData[size] = e;
         } else {
             _grow();
-            elementData[size] = o;
+            elementData[size] = e;
         }
         size++;
         _analyze();
     }
 
     @Override
-    public void add(int index, Object o) {
+    public void add(int index, E e) {
         if (index < 0) {
             throw new IndexOutOfBoundsException("Index:" + index + ", Size:" + size);
         }
@@ -52,40 +52,40 @@ public class ArrayList implements List {
                 throw new IndexOutOfBoundsException("Index:" + index + ", Size:" + size);
             } else {
                 elementData = new Object[DEFAULT_CAPACITY];
-                elementData[0] = o;
+                elementData[0] = e;
             }
         } else if (index > size) {
             throw new IndexOutOfBoundsException("Index:" + index + ", Size:" + size);
         } else if (index == size) {
             _grow();
-            elementData[size] = o;
+            elementData[size] = e;
             size++;
         } else {
             if (elementData.length == size) {
                 _grow();
             }
             System.arraycopy(elementData, index, elementData, index + 1, size - index);
-            elementData[index] = o;
+            elementData[index] = e;
             size++;
         }
         _analyze();
     }
 
     @Override
-    public Object get(int index) {
-        if (index < 0 || index > size) {
+    public E get(int index) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index:" + index + ", Size:" + size);
         }
-        return elementData[index];
+        return (E) elementData[index];
     }
 
     @Override
-    public Object remove(int index) {
+    public E remove(int index) {
 
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index:" + index + ", Size:" + size);
         }
-        Object oldValue = elementData[index];
+        E oldValue = (E) elementData[index];
         //需要复制的长度
         int needMoveLength = size - index - 1;
         //如果该长度小于0,　说明只有一个元素,　直接置空即可
@@ -100,6 +100,11 @@ public class ArrayList implements List {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public E[] toArray() {
+        return (E[]) elementData;
     }
 
     public Iterator iterator() {

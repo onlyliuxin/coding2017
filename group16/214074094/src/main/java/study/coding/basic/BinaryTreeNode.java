@@ -1,4 +1,4 @@
-package coding.basic;
+package study.coding.basic;
 
 /**
  * @Author shane
@@ -17,24 +17,24 @@ public class BinaryTreeNode {
     public BinaryTreeNode insert(Object o) {
         if (null == data) {
             data = o;
-        } else {
-            if (bigger(data, o)) {
-                if (null == left) {
-                    left = new BinaryTreeNode();
-                    left.data = o;
-                } else {
-                    left.insert(o);
-                }
-            } else if (smaller(data, o)) {
-                if (null == right) {
-                    right = new BinaryTreeNode();
-                    right.data = o;
-                } else {
-                    right.insert(o);
-                }
+            return this;
+        }
+        if (bigger(data, o)) {
+            if (null == left) {
+                left = new BinaryTreeNode();
+                left.data = o;
             } else {
-                throw new RuntimeException("The value has exists");
+                left.insert(o);
             }
+        } else if (smaller(data, o)) {
+            if (null == right) {
+                right = new BinaryTreeNode();
+                right.data = o;
+            } else {
+                right.insert(o);
+            }
+        } else {
+            throw new RuntimeException("The value has exists");
         }
         return this;
     }

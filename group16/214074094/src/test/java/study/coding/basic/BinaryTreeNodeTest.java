@@ -1,6 +1,7 @@
-package coding.basic;
+package study.coding.basic;
 
 import org.junit.Test;
+import study.AbstractTest;
 
 /**
  * @Author shane

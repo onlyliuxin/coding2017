@@ -1,4 +1,4 @@
-package coding.basic;
+package study;
 
 import com.alibaba.fastjson.JSON;
 

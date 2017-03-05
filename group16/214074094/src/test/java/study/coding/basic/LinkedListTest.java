@@ -1,9 +1,10 @@
-package coding.basic;
+package study.coding.basic;
 
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import study.AbstractTest;
 
 /**
  * @Author shane
