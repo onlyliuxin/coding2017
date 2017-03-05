@@ -1,6 +1,15 @@
 package com.coderising.week02.litestruts;
 
+import java.io.InputStream;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
+
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
 
 
@@ -27,7 +36,74 @@ public class Struts {
 		放到View对象的jsp字段中。
         
         */
-    	
+    	try {
+    		//将xml转换为输出流
+    		InputStream inputStream = Struts.class.getResourceAsStream("struts.xml");
+    		//创建SAXReader读取器，专门用于读取xml
+    		SAXReader saxReader = new SAXReader();
+    		//读取xml文件，获得Document对象
+    		Document document = saxReader.read(inputStream);
+    		//actionName对应的类名
+    		String className = "";
+    		//获取文档的根节点
+    		Element rootElement = document.getRootElement();
+    		Iterator iterator = rootElement.elementIterator("action");
+    		//actionName对应的action
+    		Element targetAction = null;
+    		//对action节点下的所有子节点进行遍历  
+    		while (iterator.hasNext()) {
+    			Element element = (Element) iterator.next();
+    			String name = element.attributeValue("name");
+    			if(name.equals(actionName)) {
+    				className = element.attributeValue("class");
+    				targetAction = element;
+    				break;
+    			}
+    		}
+    		
+    		Class<?> clazz = Class.forName(className);
+    		Object instance = clazz.newInstance();
+    		
+    		Set<String> keySet = parameters.keySet();
+    		for(String key : keySet) {
+    			// 将变量名称拼成set方法名
+    			String methodName = "set" + key.substring(0, 1).toUpperCase() + key.substring(1);
+    			Class<?> type = clazz.getDeclaredField(key).getType();
+    			Method method = clazz.getDeclaredMethod(methodName, type);
+    			//依次调用相应的set方法
+    			method.invoke(instance, parameters.get(key));
+    		}
+    		//通过反射调用对象的exectue方法,并获得返回值
+    		String result = (String)clazz.getDeclaredMethod("execute").invoke(instance);
+    		
+    		Method[] declaredMethods = clazz.getDeclaredMethods();
+    		HashMap<String, String> map = new HashMap<>();
+    		for (int i = 0; i < declaredMethods.length; i++) {
+    			if (declaredMethods[i].getName().startsWith("get")) {
+    				String fieldValue = (String) declaredMethods[i].invoke(instance);
+    				String fieldName = declaredMethods[i].getName().substring(3, 4).toLowerCase() 
+    								+ declaredMethods[i].getName().substring(4);
+    				map.put(fieldName, fieldValue);
+    			}
+    		}
+    		
+    		View view = new View();
+    		view.setParameters(map);
+    		
+    		Iterator elementIterator = targetAction.elementIterator("result");
+    		while(elementIterator.hasNext()) {
+    			Element element = (Element) elementIterator.next();
+    			if (result.equals(element.attributeValue("name"))) {
+    				view.setJsp(element.getText());
+    			}
+    		}
+    		
+    		return view;
+    		
+    		
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    	}
     	return null;
     }    
 
