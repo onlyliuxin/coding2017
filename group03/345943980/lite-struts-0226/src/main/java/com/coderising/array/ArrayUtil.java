@@ -1,5 +1,7 @@
 package com.coderising.array;
 
+import java.util.Arrays;
+
 public class ArrayUtil {
 	/**
 	 * 给定一个整形数组a , 对该数组的值进行置换 例如： a = [7, 9 , 30, 3] , 置换后为 [3, 30, 9,7] 如果 a = [7, 9, 30, 3, 4] , 置换后为 [4,3, 30 , 9,7]
@@ -8,7 +10,11 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin) {
-
+		int[] target = new int[origin.length];
+		for (int i = origin.length - 1, j = 0; i >= 0; i--, j++) {
+			target[j] = origin[i];
+		}
+		System.out.println(Arrays.toString(target));
 	}
 
 	/**
@@ -20,7 +26,27 @@ public class ArrayUtil {
 	 */
 
 	public int[] removeZero(int[] oldArray) {
-		return null;
+		int[] newArr = new int[5]; // 数组初始化，默认给10个位置
+		int size = 0;
+
+		for (int i = 0; i < oldArray.length; i++) {
+			if (size >= newArr.length) { // 大于初始长度，对新数组进行扩容
+				newArr = this.grow(newArr, 5);
+			}
+			if (oldArray[i] != 0) {
+				newArr[size] = oldArray[i];
+				size++;
+			}
+		}
+		// 对结果数组进行排0处理
+		int[] newArrary = new int[size];
+		for (int i = 0, j = 0; i < newArr.length; i++) {
+			if (newArr[i] != 0) {
+				newArrary[j] = newArr[i];
+				j++;
+			}
+		}
+		return newArrary;
 	}
 
 	/**
@@ -33,7 +59,73 @@ public class ArrayUtil {
 	 */
 
 	public int[] merge(int[] array1, int[] array2) {
-		return null;
+		int[] array3 = new int[array1.length + array2.length];
+		System.arraycopy(array1, 0, array3, 0, array1.length);
+		System.arraycopy(array2, 0, array3, array1.length, array2.length);
+		int temp = 0;
+		// 冒泡排序
+		for (int i = array3.length - 1; i >= 0; i--) {
+			for (int j = 0; j < i; j++) {
+				if (array3[j] > array3[j + 1]) {
+					temp = array3[j + 1];
+					array3[j + 1] = array3[j];
+					array3[j] = temp;
+				}
+			}
+		}
+		// Arrays.sort(array3);
+		// System.out.println(Arrays.toString(array3));
+		// 消除重复
+		for (int i = array3.length - 1; i >= 0; i--) {
+			for (int j = 0; j < i; j++) {
+				if (array3[j] == array3[j + 1]) {
+					array3[j + 1] = 0;
+				}
+			}
+		}
+		// 去掉0值
+		return removeZero(array3);
+	}
+
+	/**
+	 * 方法实现二
+	 * 
+	 * @param array1
+	 * @param array2
+	 * @return
+	 */
+
+	public int[] mergeMethod(int[] array1, int[] array2) {
+		int[] array3 = new int[array1.length + array2.length];
+		System.arraycopy(array1, 0, array3, 0, array1.length);
+		System.arraycopy(array2, 0, array3, array1.length, array2.length);
+		int counts = 0; // 找出重复元素个数
+		for (int i = 0; i < array3.length - 1; i++) {
+			for (int j = i + 1; j < array3.length; j++) {
+				if (array3[i] == array3[j]) {
+					counts++;
+					break;
+				}
+			}
+		}
+		// 消除重复
+		int[] newArr = new int[array3.length - counts];
+		int index = 0;
+		for (int i = 0; i < array3.length; i++) {
+			boolean flag = false;
+			for (int j = 0; j < newArr.length; j++) {
+				if (array3[i] == newArr[j]) {
+					flag = true;
+					break;
+				}
+			}
+			if (!flag) {
+				newArr[index++] = array3[i];
+			}
+		}
+		// 排序
+		Arrays.sort(newArr);
+		return newArr;
 	}
 
 	/**
@@ -45,7 +137,9 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int[] oldArray, int size) {
-		return null;
+		int[] newArray = new int[oldArray.length + size];
+		System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
+		return newArray;
 	}
 
 	/**
@@ -55,7 +149,33 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max) {
-		return null;
+		int a = 1, b = 1, c = 0, size = 2;
+		int[] array = new int[0];
+		if (max <= 1)
+			return array;
+		array = new int[] { a, b };
+		while (true) {
+			c = a + b;
+			a = b;
+			b = c;
+			if (c > max)
+				break;
+			// 对数组进行扩容
+			array = ensureCapacity(size + 1, array);
+			array[size] = c;
+			size++;
+		}
+		return removeZero(array);
+	}
+
+	private int[] ensureCapacity(int minCapacity, int[] array) {
+		if (minCapacity > array.length) {
+			int newCapacity = Math.max(minCapacity, array.length * 2);
+			int[] newDataArray = new int[newCapacity];
+			System.arraycopy(array, 0, newDataArray, 0, array.length);
+			return newDataArray;
+		}
+		return array;
 	}
 
 	/**
@@ -65,7 +185,24 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max) {
-		return null;
+		int size = 0;
+		int[] array = new int[0];
+		if (max < 2) {
+			return array;
+		}
+		for (int i = 2; i < max; i++) {
+			for (int j = 2; j <= i; j++) {
+				if (i % j == 0 && i != j) {
+					break;
+				}
+				if (i % j == 0 && i == j) {
+					array = this.ensureCapacity(size + 1, array);
+					array[size] = i;
+					size++;
+				}
+			}
+		}
+		return this.removeZero(array);
 	}
 
 	/**
@@ -75,7 +212,25 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max) {
-		return null;
+		int size = 0;
+		int[] array = new int[0];
+		if (max < 1) {
+			return array;
+		}
+		for (int i = 1; i <= max; i++) {
+			int sum = 0;
+			for (int j = 1; j < i / 2 + 1; j++) {
+				if (i % j == 0) {
+					sum += j;
+				}
+			}
+			if (i == sum) {
+				array = this.ensureCapacity(size + 1, array);
+				array[size] = i;
+				size++;
+			}
+		}
+		return this.removeZero(array);
 	}
 
 	/**
@@ -86,7 +241,18 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator) {
-		return null;
+		StringBuilder sb = new StringBuilder();
+		if (array == null || array.length == 0) {
+			return null;
+		}
+		for (int i = 0; i < array.length; i++) {
+			if (i == array.length - 1) {
+				sb.append(array[i]);
+			} else {
+				sb.append(array[i]).append(seperator);
+			}
+		}
+		return sb.toString();
 	}
 
 }
