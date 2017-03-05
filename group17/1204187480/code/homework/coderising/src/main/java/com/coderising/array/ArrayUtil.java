@@ -130,7 +130,9 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
-		return null;
+	    int[] newArray = new int[oldArray.length + size];
+	    System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
+		return newArray;
 	}
 	
 	/**
@@ -141,10 +143,26 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max){
-		return null;
+	    if (max <= 1) {
+	        return new int[]{};
+        }
+        int [] newArray = new int[max];
+	    newArray[0] = 1;
+	    return fibonacciN(1, 1, 1, max, newArray);
 	}
-	
-	/**
+
+    private int[] fibonacciN(int size, int current, int next, int max, int[] newArray) {
+        if (next >= max) {
+            int[] retArray = new int[size];
+            System.arraycopy(newArray, 0, retArray, 0, size);
+            return retArray;
+        } else {
+            newArray[++size - 1] = next;
+            return fibonacciN(size, next, current + next,  max, newArray);
+        }
+    }
+
+    /**
 	 * 返回小于给定最大值max的所有素数数组
 	 * 例如max = 23, 返回的数组为[2,3,5,7,11,13,17,19]
 	 * @param max

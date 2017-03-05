@@ -34,7 +34,7 @@ public class ArrayUtilTest {
 
     @Test
     public void fibonacci() throws Exception {
-
+        System.out.println(Arrays.toString(new ArrayUtil().fibonacci(10)));;
     }
 
     @Test
