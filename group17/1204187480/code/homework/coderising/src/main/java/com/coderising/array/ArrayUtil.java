@@ -43,20 +43,21 @@ public class ArrayUtil {
 	    int[] dest = new int[length];
 	    int j = 0;
 	    for(int i = 0; i < length; i++) {
-	        if (i != 0) {
-	            dest[j++] = oldArray[i];
+	        int v = oldArray[i];
+	        if (v != removeValue) {
+	            dest[j++] = v;
             }
         }
 
-        int retLenth = --j;
-        int[] retArray = new int[retLenth];
-	    System.arraycopy(dest, 0, retArray, 0, retLenth);
+        int[] retArray = new int[j];
+	    System.arraycopy(dest, 0, retArray, 0, j);
         return retArray;
     }
 
     /**
 	 * 给定两个已经排序好的整形数组， a1和a2 ,  创建一个新的数组a3, 使得a3 包含a1和a2 的所有元素， 并且仍然是有序的
 	 * 例如 a1 = [3, 5, 7,8]   a2 = [4, 5, 6,7]    则 a3 为[3,4,5,6,7,8]    , 注意： 已经消除了重复
+     * todo 数组 a1, b1 自身去重
 	 * @param array1
 	 * @param array2
 	 * @return
@@ -68,8 +69,6 @@ public class ArrayUtil {
 		int length = length1 + length2;
 	    int[] newArray = new int[length];
 
-        int l1 = array1[array1.length - 1];
-        int l2 = array2[array2.length - 1];
 	    return findAndSetLeastWithOutDuplicate(array1, array2, 0, 0, 0, 0, newArray);
 	}
 
@@ -165,24 +164,73 @@ public class ArrayUtil {
     /**
 	 * 返回小于给定最大值max的所有素数数组
 	 * 例如max = 23, 返回的数组为[2,3,5,7,11,13,17,19]
+     * todo 使用已有的质数序列 优化质数验证
 	 * @param max
 	 * @return
 	 */
 	public int[] getPrimes(int max){
-		return null;
+	    if (max <= 2) {
+	        return new int[]{};
+        }
+
+	    int[] newArray = new int[max];
+	    int j = 0;
+	    for (int i = 2; i < max; i++) {
+	        if (isPrime(i)) {
+	            newArray[j++] = i;
+            }
+        }
+        int[] retArray = new int[j];
+	    System.arraycopy(newArray, 0, retArray, 0, j);
+		return retArray;
 	}
-	
-	/**
+
+    private boolean isPrime(int number) {
+        int limit = Double.valueOf(Math.sqrt(number)).intValue();
+        for(int i = 2; i <= limit; i++) {
+            if (number % i == 0 ) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    /**
 	 * 所谓“完数”， 是指这个数恰好等于它的因子之和，例如6=1+2+3
 	 * 给定一个最大值max， 返回一个数组， 数组中是小于max 的所有完数
 	 * @param max
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max){
-		return null;
+	    int[] newArray = new int[48];   // 经过不少数学家研究，到2013年2月6日为止，一共找到了48个完全数。
+        int j = 0;
+        for (int i = 2; i < max; i++) {
+            if (isPerfectNumber(i)) {
+                if (j >= newArray.length) {
+                    newArray = this.grow(newArray, 1);
+                }
+                newArray[j++] = i;
+
+            }
+        }
+        int[] retArray = new int[j];
+        System.arraycopy(newArray, 0, retArray, 0, j);
+		return retArray;
 	}
-	
-	/**
+
+    private boolean isPerfectNumber(int number) {
+	    int sum = 0;
+	    for (int i = 1; i < number; i++) {
+	        if (number % i == 0) {
+	            sum += i;
+            }
+        }
+
+        return sum == number;
+    }
+
+    /**
 	 * 用seperator 把数组 array给连接起来
 	 * 例如array= [3,8,9], seperator = "-"
 	 * 则返回值为"3-8-9"
@@ -191,7 +239,13 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator){
-		return null;
+	    StringBuilder builder = new StringBuilder(20);
+	    int length = array.length;
+	    for (int i = 0; i< length; i++) {
+	        builder.append(array[i]).append(seperator);
+        }
+        builder.deleteCharAt(builder.length() - seperator.length());
+		return builder.toString();
 	}
 	
 
