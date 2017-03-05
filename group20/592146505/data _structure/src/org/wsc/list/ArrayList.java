@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
 
+import javafx.stage.StageStyle;
+
 /**
  * ArrayList类
  * 
@@ -93,17 +95,16 @@ public class ArrayList<E> implements List<E> {
 
 	}
 
-	// @Override
-	// public Object[] toArray() {
-	// // TODO Auto-generated method stub
-	// return null;
-	// }
-	//
-	// @Override
-	// public <T> T[] toArray(T[] a) {
-	// // TODO Auto-generated method stub
-	// return null;
-	// }
+	@SuppressWarnings("unchecked")
+	@Override
+	public E[] toArray() {
+		return (E[]) elementData;
+	}
+
+	@Override
+	public <T> T[] toArray(T[] a) {
+		return null;
+	}
 
 	@Override
 	public boolean add(E element) {
