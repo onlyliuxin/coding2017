@@ -8,11 +8,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.congcongcong250.coding2017.basic.BinaryTreeNode;
+import com.github.congcongcong250.coding2017.basic.WBinaryTreeNode;
 
-public class BinaryTreeNodeTest implements testCase {
+public class WBinaryTreeNodeTest implements testCase {
 
-	BinaryTreeNode node = new BinaryTreeNode();
+	WBinaryTreeNode node = new WBinaryTreeNode();
 	
 	@Override
 	@Before

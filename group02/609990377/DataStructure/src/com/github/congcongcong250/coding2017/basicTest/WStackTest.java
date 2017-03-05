@@ -6,11 +6,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.congcongcong250.coding2017.basic.Stack;
+import com.github.congcongcong250.coding2017.basic.WStack;
 
-public class StackTest implements testCase {
+public class WStackTest implements testCase {
 
-	Stack teststack = new Stack();
+	WStack teststack = new WStack();
 	
 	@Override
 	@Before
