@@ -7,6 +7,7 @@ import org.jsoup.nodes.Element;
 
 import java.beans.PropertyDescriptor;
 import java.io.File;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,21 +49,14 @@ public class Struts {
 
 //            通过反射找到对象的所有getter方法（例如 getMessage）,通过反射来调用， 把值和属性形成一个HashMap , 例如 {"message":  "登录成功"} ,
 //            放到View对象的parameters
-            /*Field[] fields = c.getDeclaredFields();
-            for (Field field : fields){
+            Map<String, String> map = new HashMap<>();
+            Field[] fields = c.getDeclaredFields();
+            for (Field field : fields) {
                 PropertyDescriptor pd = new PropertyDescriptor(field.getName(), c); // message没有set方法，报错
                 Method getMethod = pd.getReadMethod();
-                System.out.println(getMethod.getName());
+                String str = (String) getMethod.invoke(object);
+                map.put(field.getName(), str);
 
-            }*/
-            Method[] methods = c.getMethods();
-            Map<String, String> map = new HashMap<>();
-
-            for (Method m : methods) {
-                if (m.getName().startsWith("getMessage")) {
-                    String str = (String) m.invoke(object);
-                    map.put("message", str);
-                }
             }
 //          根据struts.xml中的 <result> 配置,以及execute的返回值，  确定哪一个jsp，放到View对象的jsp字段中。
             View view = new View();

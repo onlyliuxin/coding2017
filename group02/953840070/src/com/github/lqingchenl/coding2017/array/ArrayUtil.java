@@ -7,12 +7,6 @@ import java.util.Map;
 
 public class ArrayUtil {
 
-    @Test
-    public void test() {
-        System.out.println(getFibonacci(6));
-    }
-
-
     /**
      * 给定一个整形数组a , 对该数组的值进行置换
      * 例如： a = [7, 9 , 30, 3]  ,   置换后为 [3, 30, 9,7]

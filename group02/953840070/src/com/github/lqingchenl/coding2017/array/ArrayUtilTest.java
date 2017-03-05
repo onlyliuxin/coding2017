@@ -16,11 +16,6 @@ public class ArrayUtilTest {
         myArray = new ArrayUtil();
     }
 
-    @After
-    public void after() throws Exception {
-//        myArray = null;
-    }
-
     @Test
     public void testReverseArray() {
         int[] a = {1, 2, 1, 3, 5, 6};
