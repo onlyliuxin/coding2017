@@ -1,5 +1,6 @@
 package com.coderising.array;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -30,9 +31,10 @@ public class ArrayUtil {
 		
 		int[] a1 = {3, 5, 7,8};
 		int[] a2 = {4, 5, 6,7};
-		System.out.println(Arrays.toString(util.merge(a1, a2)));
-		int[] oldArray = {2,3,6};
-		System.out.println(Arrays.toString(util.grow(oldArray,3)));
+//		System.out.println(Arrays.toString(util.merge(a1, a2)));
+		System.out.println(Arrays.toString(util.fibonacci(15)));
+		
+		System.out.println(Arrays.toString(util.getPrimes(23)));
 	}
 	
 	/**
@@ -65,7 +67,7 @@ public class ArrayUtil {
 	
 	public int[] merge(int[] array1, int[] array2){
 		
-		//Set是不允许重复的，所以将数组的值全部放在Set对象中  
+		  //Set是不允许重复的，所以将数组的值全部放在Set对象中  
         Set set = new HashSet<Integer>();  
           
         for(int i = 0; i < array1.length ; i++){  
@@ -99,9 +101,8 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
-		int length = oldArray.length+size;
-		int[] newArray = new int[length];
-		System.arraycopy(oldArray, 0, newArray, 0,oldArray.length);
+		int[] newArray = new int[oldArray.length + size];
+		System.arraycopy(oldArray, 0, newArray, 0, newArray.length);
 		return newArray;
 	}
 	
@@ -113,19 +114,21 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max){
-		int f1 = 1;
-		int f2 = 1;
-		int f = 0;
-		int count = 0;
-		while(f<max){
+		List<Integer> list = new ArrayList<Integer>();
+		int f1 = 1, f2 = 1, f = 0;
+		list.add(f1);
+		list.add(f2);
+		while(f < max){
 			f = f1+f2;
 			f1 = f2;
-			f2 = f1;
-			count++;
+			f2 = f;
+			list.add(f);
 		}
-		int[] arr = new int[count];
-		
-		return null;
+		int[] arr = new int[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			arr[i] = list.get(i);
+		}
+		return arr;
 	}
 	
 	/**
@@ -135,7 +138,24 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max){
-		return null;
+		List<Integer> list = new ArrayList<Integer>();
+		for (int i = 2; i < max; i++) {
+			boolean flag = true;
+			for (int j = 2; j < i; j++) {
+				if ( i % j == 0) {
+					flag = false;
+					break;
+				}
+			}
+			if(flag){
+				list.add(i);
+			}
+		}
+		int[] arr = new int[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			arr[i] = list.get(i);
+		}
+		return arr;
 	}
 	
 	/**
@@ -145,7 +165,23 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max){
-		return null;
+		 List<Integer> list = new ArrayList<Integer>();
+		 for (int i = 1; i <= max; i++){
+	            int sum=0;
+	            for (int j = 1; j < i; j++){
+		            if(i%j==0){
+		                sum+=j;
+		            }   
+	            }
+	            if(i==sum){
+	            	list.add(sum);
+	            }
+	        }
+		int[] arr = new int[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			arr[i] = list.get(i);
+		}
+		return arr;
 	}
 	
 	/**
@@ -157,8 +193,10 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator){
-		return null;
+		String str = "";
+		for (int i = 0; i < array.length; i++) {
+			str += seperator+array[i];
+		}
+		return str.substring(1);
 	}
-	
-
 }
