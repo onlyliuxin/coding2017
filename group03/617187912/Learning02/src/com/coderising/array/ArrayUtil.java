@@ -1,11 +1,15 @@
 package com.coderising.array;
 
+import java.awt.Dialog.ModalExclusionType;
+import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.TreeSet;
 
 public class ArrayUtil {
@@ -18,10 +22,10 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public static int[] reverseArray(int[] origin) {
-		int length = origin.length ;
+		int length = origin.length;
 		int[] nArr = new int[length];
 		for (int i = 0; i < length; i++) {
-			nArr[i] = origin[length - i-1];
+			nArr[i] = origin[length - i - 1];
 		}
 		return nArr;
 	}
@@ -34,7 +38,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 
-	public int[] removeZero(int[] oldArray) {
+	public static int[] removeZero(int[] oldArray) {
 		int[] newArray = new int[oldArray.length];
 		int size = 0;
 		for (int i : oldArray) {
@@ -43,8 +47,7 @@ public class ArrayUtil {
 				size++;
 			}
 		}
-		System.arraycopy(newArray, 0, newArray, 0, size);
-		return newArray;
+		return Arrays.copyOf(newArray, size);
 	}
 
 	/**
@@ -56,15 +59,15 @@ public class ArrayUtil {
 	 * @return
 	 */
 
-	public int[] merge(int[] array1, int[] array2) {
+	public static int[] merge(int[] array1, int[] array2) {
 		Set<Integer> set = new TreeSet<Integer>();
-		for (int i = 0; i < array1.length - 1; i++) {
+		for (int i = 0; i < array1.length; i++) {
 			set.add(array1[i]);
 		}
-		for (int i = 0; i < array2.length - 1; i++) {
+		for (int i = 0; i < array2.length; i++) {
 			set.add(array2[i]);
 		}
-		int[] newArray = new int[set.size() - 1];
+		int[] newArray = new int[set.size()];
 		int j = 0;
 		for (Integer i : set) {
 			newArray[j++] = i;
@@ -81,8 +84,10 @@ public class ArrayUtil {
 	 * @param size
 	 * @return
 	 */
-	public int[] grow(int[] oldArray, int size) {
-		return null;
+	public static int[] grow(int[] oldArray, int size) {
+		int[] newArray = new int[oldArray.length + size];
+		System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
+		return newArray;
 	}
 
 	/**
@@ -92,8 +97,24 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] fibonacci(int max) {
-		return null;
+	public static int[] fibonacci(int max) {
+		if (max <= 1) {
+			return null;
+		}
+		int[] arrFib = new int[max / 2 + 2];
+		int current = 0;
+		int temp = 1;
+		int pre = 1;
+		int next = 2;
+		arrFib[current++] = 1;
+		arrFib[current++] = 1;
+		do {
+			arrFib[current++] = next;
+			temp = pre;
+			pre = next;
+			next = next + temp;
+		} while (next <= max);
+		return Arrays.copyOf(arrFib, current);
 	}
 
 	/**
@@ -102,8 +123,32 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] getPrimes(int max) {
-		return null;
+	public static int[] getPrimes(int max) {
+		if (max < 2) {
+			return null;
+		}
+		int[] arrPrimes = new int[max];
+		int current = 0;
+		arrPrimes[current++] = 2;
+		Boolean isPrime = true;
+		for (int i = 3; i < max; i++) {
+			isPrime = true;
+			for (Integer j : arrPrimes) {
+				if (j == 0) {
+					break;
+				}
+				if (i % j == 0) {
+					isPrime = false;
+					break;
+				}
+			}
+			if (isPrime == true) {
+				arrPrimes[current++] = i;
+			}
+		}
+		System.out.println(current);
+		return Arrays.copyOf(arrPrimes, current);
+
 	}
 
 	/**
@@ -112,8 +157,25 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] getPerfectNumbers(int max) {
-		return null;
+	public static int[] getPerfectNumbers(int max) {
+		if (max < 6) {
+			return null;
+		}
+		int[] arrPerNums = new int[max / 6 + 1];
+		int current = 0;
+		arrPerNums[current++] = 6;
+		for (int i = 7; i < max; i++) {
+			int sum = 1;
+			for (int j = 2; j < i / 2+1; j++) {
+				if (i % j == 0) {
+					sum += j;
+				}
+			}
+			if (sum == i) {
+				arrPerNums[current++] = i;
+			}
+		}
+		return Arrays.copyOf(arrPerNums, current);
 	}
 
 	/**
@@ -123,8 +185,13 @@ public class ArrayUtil {
 	 * @param s
 	 * @return
 	 */
-	public String join(int[] array, String seperator) {
-		return null;
+	public static String join(int[] array, String seperator) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < array.length; i++) {
+			sb.append("-");
+			sb.append(array[i]);
+		}
+		return sb.toString().substring(1);
 	}
 
 }
