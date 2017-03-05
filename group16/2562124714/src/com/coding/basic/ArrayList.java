@@ -1,5 +1,7 @@
 package com.coding.basic;
 
+import java.util.Objects;
+
 public class ArrayList implements List {
 	
 	private int size = 0;
@@ -95,6 +97,17 @@ public class ArrayList implements List {
 	
 	public Iterator iterator(){
 		return null;
+	}
+
+	public Object[] ToArray()
+	{
+		Object [] Array = new Object[this.size];
+		for (int i = 0 ; i < this.size; i ++)
+		{
+			Array[i] = this.elementData[i];
+		}
+
+		return Array;
 	}
 	
 }
