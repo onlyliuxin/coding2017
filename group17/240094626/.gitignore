@@ -1,3 +1,25 @@
+<<<<<<< HEAD:group17/.gitignore
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+#ide config
+.metadata
+.recommenders
+
+.classpath
+.project
+.
+=======
 *.class
 
 # Mobile Tools for Java (J2ME)
@@ -20,3 +42,4 @@ hs_err_pid*
 *.classpath
 */.settings
 /**/target/**/*
+>>>>>>> 306b41b325671fb7420952ad0788ea6be114d674:group17/240094626/.gitignore
