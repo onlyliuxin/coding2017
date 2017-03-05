@@ -13,7 +13,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class JaxpDomUtil {
-	public static final String XMLPATH = "src/person.xml";
+	public static final String XMLPATH = JaxpDomUtil.class.getClassLoader().getResource("struts.xml").getPath();
 
 	/**
 	 *  通过 解析器 获取到 Document

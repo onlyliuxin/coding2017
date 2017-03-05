@@ -1,5 +1,9 @@
 package org.pan.coding2017.parsingXML;
 
+import org.pan.coding2017.utils.JaxpDomUtil;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+
 import java.util.Map;
 
 
@@ -27,8 +31,10 @@ public class Struts {
 		放到View对象的jsp字段中。
         
         */
-    	
-    	return null;
+
+        Document document = JaxpDomUtil.getDocument();
+        NodeList action = document.getElementsByTagName("action");
+        return null;
     }    
 
 }

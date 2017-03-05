@@ -1,11 +1,6 @@
 package org.pan.coding2017.utils;
 
-
-
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.OutputFormat;
@@ -13,11 +8,8 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
 public class Dom4JUtil {
-
-	public static final String PATH = "src/p1.xml";
 	
-	
-	public static Document getDocuent(String xmlPath) {
+	public static Document getDocument(String xmlPath) {
 
 		try {
 			//创建解析器
@@ -26,7 +18,6 @@ public class Dom4JUtil {
 			Document document = saxReader.read(xmlPath);
 			return document;
 		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
