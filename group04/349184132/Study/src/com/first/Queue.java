@@ -1,4 +1,4 @@
-package Collection.Onehomework;
+package com.first;
 
 public class Queue {
 	private LinkedList elementData = new LinkedList();
