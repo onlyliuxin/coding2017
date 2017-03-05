@@ -22,10 +22,7 @@ public class ArrayUtil {
 		System.out.println("置换后："+Arrays.toString(target));
 		
 		
-		 Math.random();
-		 
-		
-		
+
 	}
 	
 	/**
