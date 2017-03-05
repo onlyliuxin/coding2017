@@ -1,7 +1,6 @@
 package com.coding.basic;
 
 
-@SuppressWarnings("rawtypes")
 public class ArrayList implements List{
 	
 		private int size = 0;
@@ -21,7 +20,7 @@ public class ArrayList implements List{
 		}
 		public void add(int index, Object o){
 			if(index>size||index<0) 
-				throw new IndexOutOfBoundsException("ÇëÈ·±£ÄãµÄindexÖµ²»´óÓÚ"+size+"ÇÒ²»Ð¡ÓÚ0");
+				throw new IndexOutOfBoundsException("ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½indexÖµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+size+"ï¿½Ò²ï¿½Ð¡ï¿½ï¿½0");
 			kuorong(++size);
 			System.arraycopy(elementData, index, elementData, index+1, size-index);
 			elementData[index] = o;
@@ -34,7 +33,7 @@ public class ArrayList implements List{
 		
 		public Object remove(int index){
 			if(index>size||index<0) 
-				throw new IndexOutOfBoundsException("ÇëÈ·±£ÄãµÄindexÖµ²»´óÓÚ"+size+"ÇÒ²»Ð¡ÓÚ0");
+				throw new IndexOutOfBoundsException("ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½indexÖµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+size+"ï¿½Ò²ï¿½Ð¡ï¿½ï¿½0");
 			
 			System.arraycopy(elementData, index+1, elementData, index, size-index);
 			size--;
