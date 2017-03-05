@@ -67,6 +67,10 @@ public class ArrayUtil {
 					next = array1[i];
 					i++;
 					j++;
+				} else if (array1[i] < array2[j]){
+					next = array1[i++];
+				} else {
+					next = array2[j++];
 				}
 			} else if (i < length1){
 				next = array1[i++];
@@ -74,7 +78,9 @@ public class ArrayUtil {
 				next = array2[j++];
 			}
 
-			if (next > res[k]){
+			if (k == 0){
+				res[k++] = next;
+			} else if (next > res[k-1]){
 				res[k++]  = next;
 			}
 		}
@@ -93,7 +99,9 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
-
+		if (size < 0){
+			throw new IllegalArgumentException("illegal size");
+		}
 		int newLength = oldArray.length + size;
 		int[] newArray = new int[newLength];
 		System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
@@ -140,10 +148,12 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max){
-
+		if (max < 0){
+			return new int[0];
+		}
 		int[] res = new int[max];
 		int k = 0;
-		for (int i = 0; i < max; i++) {
+		for (int i = 2; i < max; i++) {
 			if (isPrime(i)){
 				res[k++] = i;
 			}
@@ -175,6 +185,9 @@ public class ArrayUtil {
 	 */
 	public int[] getPerfectNumbers(int max){
 
+		if (max < 0){
+			return new int[0];
+		}
 		int[] res = new int[max];
 		int k = 0;
 		for (int i = 0; i < max; i++) {
@@ -193,7 +206,9 @@ public class ArrayUtil {
 	}
 
 	private int getFactorSum(int num){
-
+		if (num == 0 || num == 1){
+			return -1;
+		}
 		int sum = 0;
 		for (int i = 1; i <= num / 2; i++) {
 			if (num % i == 0){
@@ -211,6 +226,10 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String separator){
+
+		if (array.length <= 0){
+			return "";
+		}
 
 		StringBuffer stringBuffer = new StringBuffer();
 		for (int i = 0; i < array.length - 1; i++) {
