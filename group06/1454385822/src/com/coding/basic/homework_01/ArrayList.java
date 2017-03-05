@@ -1,4 +1,4 @@
-package com.coding.basic;
+package com.coding.basic.homework_01;
 
 import java.util.Arrays;
 
