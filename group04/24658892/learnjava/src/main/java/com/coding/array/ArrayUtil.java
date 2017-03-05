@@ -8,7 +8,13 @@ public class ArrayUtil {
      * 如果     a = [7, 9, 30, 3, 4] , 置换后为 [4,3, 30 , 9,7]
      */
     public void reverseArray(int[] origin) {
-
+        int[] reverse = new int[origin.length];
+        int k = 0;
+        for (int i = origin.length - 1; i >= 0; i--) {
+            reverse[k] = origin[i];
+            k++;
+        }
+        System.arraycopy(reverse, 0, origin, 0, reverse.length);
     }
 
     /**
@@ -18,7 +24,17 @@ public class ArrayUtil {
      */
 
     public int[] removeZero(int[] oldArray) {
-        return null;
+        int[] tmp = new int[oldArray.length];
+        int k = 0;
+        for (int i : oldArray) {
+            if (i != 0) {
+                tmp[k] = i;
+                k++;
+            }
+        }
+        int[] newArray = new int[k];
+        System.arraycopy(tmp, 0, newArray, 0, k);
+        return newArray;
     }
 
     /**
