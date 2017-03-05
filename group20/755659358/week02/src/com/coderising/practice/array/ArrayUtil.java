@@ -160,7 +160,7 @@ public class ArrayUtil {
 	public int[] getPerfectNumbers(int max) {
 		ArrayList<Integer> list=new ArrayList<>();
 		for (int i = 2; i < max; i++) {
-			int [] splits=primeSplit(i);
+			int [] splits=numSplit(i);
 			if (sumArray(splits)==i) {
 				list.add(i);
 			}
@@ -177,23 +177,20 @@ public class ArrayUtil {
 		return sum;
 	}
 	
-	public int[] primeSplit(int x){
+	public int[] numSplit(int x){
 		if (x<=1) {
 			return new int[]{};
 		}
 		if (x==2) {
 			return new int[]{1,2};
 		}
-		int k=2;
+		int k=1;
 		ArrayList<Integer> list=new ArrayList<>();
-		list.add(1);
-		while (k<=x) {
+		while (k<=x&&(x/k>=2)) {
 			if (x%k==0) {
 				list.add(k);
-				x=x/k;
-			}else {
-				k++;
 			}
+			k++;
 		}
 		
 		

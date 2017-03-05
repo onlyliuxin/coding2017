@@ -61,7 +61,7 @@ public class ArrayUtisTest {
 	@Test
 	public void testGetPerfectNum(){
 		
-		assertArrayEquals(new int[]{6}, util.getPerfectNumbers(13));
+		assertArrayEquals(new int[]{6,28,496}, util.getPerfectNumbers(1000));
 	}
 	
 	@Test
