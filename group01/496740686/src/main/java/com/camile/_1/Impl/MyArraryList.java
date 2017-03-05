@@ -1,8 +1,8 @@
-package Impl;
+package com.camile._1.Impl;
 
-import Interface.ArrayList;
-import Interface.Iterator;
-import ex.MyArrest;
+import com.camile._1.Interface.ArrayList;
+import com.camile._1.Interface.Iterator;
+import com.camile._1.ex.MyArrest;
 
 /**
  * Created by Administrator on 2017/2/25.
@@ -89,7 +89,7 @@ public class MyArraryList extends ArrayList {
             this.index = arraryList.size - 1;
         }
 
-        @Override
+
         public boolean hasNext() {
             if (index > arraryList.size) {
                 return true;
@@ -98,7 +98,7 @@ public class MyArraryList extends ArrayList {
             }
         }
 
-        @Override
+
         public Object next() {
             Object obj = arraryList.get(index);
             index++;

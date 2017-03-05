@@ -1,6 +1,6 @@
-package Impl;
+package com.camile._1.Impl;
 
-import Interface.Queue;
+import com.camile._1.Interface.Queue;
 
 /**
  * Created by Administrator on 2017/2/26.

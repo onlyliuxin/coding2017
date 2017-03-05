@@ -1,4 +1,4 @@
-package Interface;
+package com.camile._1.Interface;
 
 public class Queue {
 	

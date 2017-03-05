@@ -1,4 +1,4 @@
-package ex;
+package com.camile._1.ex;
 
 /**
  * Created by Administrator on 2017/2/26.
