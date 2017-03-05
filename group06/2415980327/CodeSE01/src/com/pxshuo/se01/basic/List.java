@@ -1,4 +1,4 @@
-package com.pxshuo.basic;
+package com.pxshuo.se01.basic;
 /**
  * 数组的接口
  * @author Pxshuo

@@ -1,9 +1,9 @@
-package com.pxshuo.basic.impl;
+package com.pxshuo.se01.basic.impl;
 
 import java.time.Period;
 
-import com.pxshuo.basic.Iterator;
-import com.pxshuo.basic.List;
+import com.pxshuo.se01.basic.Iterator;
+import com.pxshuo.se01.basic.List;
 
 public class LinkedList implements List {
 	

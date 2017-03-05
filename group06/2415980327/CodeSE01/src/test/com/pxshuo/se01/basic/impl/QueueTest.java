@@ -1,9 +1,9 @@
-package test.com.pxshuo.basic.impl;
+package test.com.pxshuo.se01.basic.impl;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.pxshuo.basic.impl.Queue;
+import com.pxshuo.se01.basic.impl.Queue;
 
 public class QueueTest {
 	public Queue object = new Queue();
