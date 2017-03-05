@@ -15,11 +15,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class XmlPhraser {
+public class XmlParser {
 	private File file;
 	List<Element> actionElements;
 
-	public XmlPhraser(File file) {
+	public XmlParser(File file) {
 		this.file = file;
 		actionElements = new ArrayList<>();
 		getActionsFromFile();
