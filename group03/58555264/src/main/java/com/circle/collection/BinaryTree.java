@@ -20,7 +20,7 @@ public class BinaryTree {
         if (currentNode == null) {
             throw new RuntimeException("这棵二叉树为空二叉树");
         } else {
-            while (currentNode.getData() != key) {
+            while (currentNode.getId()!= key) {
                 if (currentNode.getId() > key) {
                     currentNode = currentNode.getLeftChild();
                 } else {
