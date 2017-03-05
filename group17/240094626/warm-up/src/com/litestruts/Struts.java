@@ -116,9 +116,22 @@ public class Struts {
     }  
     
     
+    /**
+     * dom4j读xml
+     * @return
+     * @throws StrutsXMLLoaderException
+     */
     private Map<String,Action> getActionByDom4J() throws StrutsXMLLoaderException{
     	return getActionByDom4J(STRUTS_CONFIG_DIR,STRUTS_CONFIG_XML,ENCODE);
     }
+    /**
+     * dom4j读xml
+     * @param dir
+     * @param fileName
+     * @param encode
+     * @return
+     * @throws StrutsXMLLoaderException
+     */
     private Map<String,Action> getActionByDom4J(String dir,String fileName,String encode) throws StrutsXMLLoaderException {
     	File f = new File(dir);
     	if(!f.exists()){
@@ -167,6 +180,9 @@ public class Struts {
     
     
     
+    /**
+     * Action类
+     */
     private static class Action{
     	String name;
     	String clazz;
