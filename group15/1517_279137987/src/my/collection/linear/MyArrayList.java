@@ -70,4 +70,35 @@ public class MyArrayList implements MyList{
 		System.arraycopy(elementData, 0, largerElement, 0, elementData.length);
 		elementData = largerElement;
 	}*/
+	
+	public MyIterator myIterator(){
+		return new MyArrayListIterator(this);
+	}
+	
+	private class MyArrayListIterator implements MyIterator{
+		@SuppressWarnings("unused")
+		MyArrayList list = null;
+		int pos = 0;
+		
+		private MyArrayListIterator(MyArrayList list){
+			this.list = list;
+		}
+		
+		public boolean hasNext() {
+			if(++pos > size){
+				return false;
+			}else{
+				return true;
+			}
+		}
+
+		public Object next() {
+			return get(pos);
+		}
+		
+		public Object remove(){		//?
+			 return MyArrayList.this.remove(this.pos);
+		}
+		
+	}
 }
