@@ -9,7 +9,7 @@ public class ArrayUtil {
 
     public static void main(String[] args) {
         int[] origin = new int[]{1, 2, 3, 4};
-        System.out.println(Arrays.toString(reverseArray_3(origin)));
+        System.out.println(Arrays.toString(getPrimes(23)));
     }
 
 	/**
@@ -137,18 +137,62 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] fibonacci(int max){
-		return null;
+	public static int[] fibonacci(int max){
+		
+		List<Integer> list = new ArrayList<>();
+		int current = 0;
+		for (int i = 0; i < max; i++) {
+			if (i <= 1) {
+				current = 1;
+			} else {
+				current = list.get(i - 1) + list.get(i - 2);
+			}
+			if (current >= max) break;
+			list.add(current);
+		}
+		
+		int[] result = new int[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			result[i] = list.get(i);
+		}
+		return result;
 	}
 
 	/**
 	 * 返回小于给定最大值max的所有素数数组
 	 * 例如max = 23, 返回的数组为[2,3,5,7,11,13,17,19]
+	 * 
+	 * 写了一篇文章：http://bosschow.github.io/2017/03/05/get-prime-number-1/
 	 * @param max
 	 * @return
 	 */
-	public int[] getPrimes(int max){
-		return null;
+	public static int[] getPrimes(int max){
+		List<Integer> list = new ArrayList<>();
+		
+		for (int i = 2; i < max; i++) {
+			boolean isPrime = true;
+			for (Integer primeNum : list) {
+				if (primeNum <= Math.sqrt(i)) {
+					if (i % primeNum == 0) {
+						isPrime = false;
+						break;
+					}
+				} else {
+					break;
+				}	
+			}
+			
+			if (isPrime) {
+				list.add(i);
+			}
+		}
+		
+		int[] result = new int[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			result[i] = list.get(i);
+		}
+		
+		return result;
 	}
 
 	/**

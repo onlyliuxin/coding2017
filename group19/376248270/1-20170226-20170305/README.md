@@ -5,4 +5,4 @@
 - [x] 实现ArrayUtil
 
 #### 2. 文章
-- [] 写一篇文章，自主定题目
+- [x] [写一篇文章，自主定题目](http://bosschow.github.io/2017/03/05/get-prime-number-1/)
