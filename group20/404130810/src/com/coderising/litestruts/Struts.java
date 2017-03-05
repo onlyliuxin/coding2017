@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.w3c.dom.Node;
-
 import com.coderising.litestruts.utils.StrutsUtil;
 import com.coderising.litestruts.view.View;
 
