@@ -255,8 +255,13 @@ public class LinkedList<E> implements List<E>,Cloneable {
 
 	@Override
 	public <T> T[] toArray(T[] arg0) {
-
-		return null;
+		T[]res = (T[]) new Object[size];
+		Node n = head;
+		for(int i=0;i<size;i++){
+			n = n.next;
+			res[i] = (T)n.val;		// if we change res[],will this list be changed?
+		}
+		return res;
 	}
 	private static class Node{
 		Object val = null;
