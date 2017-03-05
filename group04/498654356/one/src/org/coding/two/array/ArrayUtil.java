@@ -1,5 +1,10 @@
 package org.coding.two.array;
 
+/**
+ * 数组定长：考虑长度问题；排序之后的数组操作起来更方便；
+ * @author Administrator
+ *
+ */
 public class ArrayUtil {
 	
 	/**
@@ -10,6 +15,18 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin){
+		if(origin == null || origin.length < 2) {
+			return;
+		}
+		int headIndex = 0;
+		int lastIndex = origin.length - 1;
+		while (headIndex < lastIndex) {
+			int temp = origin[headIndex];
+			origin[headIndex] = origin[lastIndex];
+			origin[lastIndex] = temp;
+			headIndex++;
+			lastIndex--;
+		}
 		
 	}
 	
@@ -20,9 +37,50 @@ public class ArrayUtil {
 	 * @param oldArray
 	 * @return
 	 */
-	
 	public int[] removeZero(int[] oldArray){
-		return null;
+		if(oldArray == null || oldArray.length == 0) {
+			return new int[]{};
+		}
+//		int[] newArray = removeZero1(oldArray);
+		int[] newArray = removeZero2(oldArray);
+		return newArray;
+	}
+
+	private int[] removeZero2(int[] oldArray) {
+		int[] indexArray = new int [oldArray.length];
+		int index = 0;
+		for(int i = 0, size = oldArray.length; i < size ; i++) {
+			if(oldArray[i] != 0) {
+				indexArray[index] = oldArray[i];
+				index++;
+			}
+		}
+		if(index == 0) {
+			return new int[]{};
+		}
+		int[] newArray = new int[index];
+		System.arraycopy(indexArray, 0, newArray, 0, index);
+		return newArray;
+	}
+	
+	private int[] removeZero1(int[] oldArray) {
+		int length = 0;
+		for(int i = 0, size = oldArray.length; i < size ; i++) {
+			if(oldArray[i] != 0) {
+				length++;
+			}
+		}
+		if(length == 0) {
+			return new int[]{};
+		}
+		int[] newArray = new int[length];
+		for(int i = 0, size = oldArray.length, index = 0; i < size ; i++) {
+			if(oldArray[i] != 0) {
+				newArray[index] = oldArray[i];
+				index++;
+			}
+		}
+		return newArray;
 	}
 	
 	/**
@@ -34,7 +92,61 @@ public class ArrayUtil {
 	 */
 	
 	public int[] merge(int[] array1, int[] array2){
-		return  null;
+		boolean flag1 = (array1 == null || array1.length == 0);
+		boolean flag2 = (array2 == null || array2.length == 0);
+		if(flag1 && ! flag2) {	//array1 为空
+			return array2;
+		}
+		if(flag2 && !flag1) {	//array2 为空
+			return array1;
+		}
+		if(flag1 && flag2){		//array1 和 array2 为空
+			return new int[0];
+		}
+		// array1 和 array2 都不为空
+		int length1 = array1.length;
+		int length2 = array2.length;
+		int index1 = 0;
+		int index2 = 0;
+		int newLength = length1 + length2;
+		int[] newArray = new int[newLength];
+		int newIndex = 0;
+		while (index1 < length1 && index2 < length2) {
+			int val1 = array1[index1];
+			int val2 = array2[index2];
+			if(val1 < val2) {	//小于
+				newArray[newIndex] = val1;
+				newIndex++;
+				index1++;
+			} else if(val1 == val2) {	//等于
+				newArray[newIndex] = val1;
+				newIndex++;
+				index1++;
+				index2++;
+			} else {	//大于
+				newArray[newIndex] = val2;
+				newIndex++;
+				index2++;
+			}
+		}
+		//剩余的
+		while(index1 < length1) {
+			newArray[newIndex] = array1[index1];
+			newIndex++;
+			index1++;
+		}
+		while(index2 < length2) {
+			newArray[newIndex] = array2[index1];
+			newIndex++;
+			index2++;
+		}
+		//
+		if(newIndex == newLength) {
+			return newArray;
+		}
+		int[] resutlArray = new int[newIndex];
+		System.arraycopy(newArray, 0, resutlArray, 0, newIndex);
+		return  resutlArray;
 	}
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
@@ -46,7 +158,18 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
-		return null;
+		boolean flag = (oldArray == null || oldArray.length == 0);
+		boolean flag2 = (size == 0);
+		if(flag) {
+			return new int[0];
+		}
+		if(flag2 && !flag) {
+			return oldArray;
+		}
+		int length = oldArray.length;
+		int[] newArray = new int[length + size];
+		System.arraycopy(oldArray, 0, newArray, 0, length);
+		return newArray;
 	}
 	
 	/**
@@ -57,7 +180,44 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max){
-		return null;
+		if(max < 2) {
+			return new int[0];
+		}
+//		return fibonacci1(max);
+		return fibonacci2(new int[]{1, 1}, max);
+	}
+
+	/**
+	 * 递归
+	 * @param array
+	 * @param max
+	 * @return
+	 */
+	private int[] fibonacci2(int[] array, int max) {
+		int length = array.length;
+		if((array[length - 1] + array[length -2]) >= max) {
+			return array;
+		}
+		array = grow(array, 1);
+		length = array.length;
+		array[ length - 1] = array[length -2] + array[length -3];
+		return fibonacci2(array, max);
+	}
+	
+	/**
+	 * 循环
+	 * @param max
+	 * @return
+	 */
+	private int[] fibonacci1(int max) {
+		int[] array = new int[]{1, 1};
+		int length = array.length;
+		while((array[length - 1] + array[length -2]) < max) {
+			array = grow(array, 1);
+			length = array.length;
+			array[ length - 1] = array[length -2] + array[length -3];
+		}
+		return array;
 	}
 	
 	/**
@@ -67,9 +227,32 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max){
-		return null;
+		if(max < 3) {
+			return new int[0];
+		}
+		int[] array = new int[]{2};
+		int length = array.length;
+		int val = array[length - 1] + 1;
+		while(val < max) {
+			if(isPrime(val)){
+				array = grow(array, 1);
+				length++;
+				array[length - 1] = val;
+			}
+			val++;
+		}
+		return array;
 	}
 	
+	private boolean isPrime(int val) {
+		for(int i = 2; i < val; i++) {
+			if(val % i == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	/**
 	 * 所谓“完数”， 是指这个数恰好等于它的因子之和，例如6=1+2+3
 	 * 给定一个最大值max， 返回一个数组， 数组中是小于max 的所有完数
@@ -89,7 +272,20 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator){
-		return null;
+		if(array == null) {
+			return null;
+		}
+		if(array.length == 0) {
+			return "";
+		}
+		if(seperator == null) {
+			seperator = "";
+		}
+		StringBuilder sb = new StringBuilder();
+		for (int i : array) {
+			sb.append(i).append(seperator);
+		}
+		return sb.substring(0, sb.length() - seperator.length());
 	}
 	
 
