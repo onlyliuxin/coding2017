@@ -6,9 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * All method are static.
+ *  All method are static.
  * 
- * @author by William on 2017-03-05 11:21:51
+ *  Auth by RedKnife on on 2017-03-05 11:21:51
  */
 public class ArrayUtil {
 	public static void main(String[] args) {

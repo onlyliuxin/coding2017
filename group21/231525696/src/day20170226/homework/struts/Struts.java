@@ -27,6 +27,8 @@ import common.BeanHelper;
  *
  *	4. 根据struts.xml中的 <result> 配置,以及execute的返回值，  确定哪一个jsp，  
  *     放到View对象的jsp字段中。
+ *     
+ *    @author RedKnife on 2017-03-05 15:22:23 
 */
 public class Struts {
 	

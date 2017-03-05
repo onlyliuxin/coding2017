@@ -7,6 +7,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * @author RedKnife on on 2017-03-05 13:11:23
+ */
 public class ArrayUtilTest {
 	
 	private int[] origin;

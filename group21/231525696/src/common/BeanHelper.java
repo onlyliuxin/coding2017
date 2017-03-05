@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 反射工具类
- * @author William on 2017-03-05 18:00:43
+ * invokeUtil
+ * @author William on 2017-03-05 15:00:43
  */
 public class BeanHelper {
 	
