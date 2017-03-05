@@ -1,7 +1,7 @@
-package Impl;
+package com.camile._1.Impl;
 
-import Interface.ArrayList;
-import Interface.Stack;
+import com.camile._1.Interface.ArrayList;
+import com.camile._1.Interface.Stack;
 
 
 /**
