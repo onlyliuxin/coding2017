@@ -37,7 +37,8 @@ public class ArrayUtilTest {
 		int[] a1 = {3,5,7,8};
 		int[] a2 = {4, 5, 6,7};
 		int[] newArr = ArrayUtil.merge(a1, a2);
-		Arrays.stream(newArr).forEach(i -> System.out.println(i));
+		int[] resultArr = {3,4,5,6,7,8};
+		assertArrayEquals(resultArr, newArr);
 	}
 
 	@Test

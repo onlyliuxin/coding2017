@@ -65,49 +65,33 @@ public class ArrayUtil {
 	 */
 	
 	public static int[] merge(int[] array1, int[] array2){
-		int[] newArray= new int[array1.length + array2.length];  
-	    System.arraycopy(array1, 0, newArray, 0, array1.length);  
-	    System.arraycopy(array2, 0, newArray, array1.length, array2.length);
-	    
-	    //Arrays.sort(newArray);//快速排序
-	    
-	    //冒泡排序
-	    /*for(int i=0;i<newArray.length-1;i++){
-		    for(int j= i + 1; j < newArray.length; j++){
-		        if (newArray[i] > newArray[j]){
-		          int temp = newArray[i];
-		          newArray[i] = newArray[j];
-		          newArray[j] = temp;
-		        }
-		    }
-	    }*/
-	    
-	    //选择排序
-		/*for (int i = 0; i < newArray.length - 1; i++) {
-			int min = i;
-			for (int j = i + 1; j < newArray.length; j++) {
-				if (newArray[min] > newArray[j]) {
-					min = j;
-				}
+		int lena = array1.length;
+		int lenb = array2.length;
+		int[] newArray = new int[lena + lenb];
+		int i = 0, j = 0, k = 0;// 分别代表数组a ,b , c 的索引
+		
+		while (i < array1.length && j < array2.length)
+			if (array1[i] <= array2[j]) {
+				if (k == 0 || newArray[k - 1] != array1[i]) // 去重复
+					newArray[k++] = array1[i];
+				i++;
+			} else {
+				if (k == 0 || newArray[k - 1] != array2[j]) // 去重复
+					newArray[k++] = array2[j];
+				j++;
 			}
-			if (min != i) {
-				int temp = newArray[i];
-				newArray[i] = newArray[min];
-				newArray[min] = temp;
-			}
-		}*/
-	    
-	    //插入排序
-		for (int i = 1; i < newArray.length; i++) {
-			for (int j = i; j > 0; j--) {
-				if (newArray[j] < newArray[j - 1]) {
-					int temp = newArray[j - 1];
-					newArray[j - 1] = newArray[j];
-					newArray[j] = temp;
-				} else
-					break;
-			}
+
+		while (i < array1.length) {
+			if (k == 0 || newArray[k - 1] != array1[i]) // 去重复
+				newArray[k++] = array1[i];
+			i++;
 		}
+		while (j < array2.length) {
+			if (k == 0 || newArray[k - 1] != array2[j]) // 去重复
+				newArray[k++] = array2[j];
+			j++;
+		}
+		newArray = removeZero(newArray);
 		return  newArray;
 	}
 	/**
