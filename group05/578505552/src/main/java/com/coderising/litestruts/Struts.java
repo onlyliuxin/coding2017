@@ -5,6 +5,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -27,12 +29,11 @@ public class Struts {
             Class<?> clazz = Class.forName(action.getClassName());
             Object instance = clazz.newInstance();
             for (String key : parameters.keySet()){
-                String methodName = "set" + key.substring(0,1).toUpperCase() + key.substring(1).toLowerCase();
-                Method setMethod = null;
                 try {
-                    setMethod = clazz.getMethod(methodName, String.class);
+                    PropertyDescriptor propertyDescriptor = new PropertyDescriptor(key, clazz);
+                    Method setMethod = propertyDescriptor.getWriteMethod();
                     setMethod.invoke(instance, parameters.get(key));
-                } catch (NoSuchMethodException e) {
+                } catch (IntrospectionException e) {
                     e.printStackTrace();
                 }
             }
@@ -54,13 +55,12 @@ public class Struts {
             Field[] declaredFields = clazz.getDeclaredFields();
             for (Field field : declaredFields){
                 String name = field.getName();
-                String methodName = "get" + name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
-                Method method = null;
                 try {
-                    method = clazz.getMethod(methodName);
-                    Object res = method.invoke(instance);
+                    PropertyDescriptor propertyDescriptor = new PropertyDescriptor(name, clazz);
+                    Method getMethod = propertyDescriptor.getReadMethod();
+                    Object res = getMethod.invoke(instance);
                     hashMap.put(name, res);
-                } catch (NoSuchMethodException e) {
+                } catch (IntrospectionException e) {
                     e.printStackTrace();
                 }
             }
