@@ -1,7 +1,10 @@
 package com.github.Ven13.coding2017.litestruts;
 
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Enumeration;
@@ -48,48 +51,35 @@ public class Struts {
     	String className = (String)map.get(actionName);
     	
     	String resultName = "";
-    	String resulUrl = "";
         System.out.println(className);
         
         try {
 			Class c = Class.forName(className);
 			Object obj = c.newInstance();
 			Method method = null;
-			for (Map.Entry<String, String> entry: parameters.entrySet()) {
-	            String key = entry.getKey();
-	            String value = entry.getValue();
-	            if("name".equals(key)) {
-	            	method = c.getMethod("setName", String.class);
-	            	method.invoke(obj, value);
-	            }
-	            if("password".equals(key)) {
-	            	method = c.getMethod("setPassword", String.class);
-	            	method.invoke(obj, value);
-	            }
-	            if("password".equals(key)) {
-	            	method = c.getMethod("setPassword", String.class);
-	            	method.invoke(obj, value);
-	            }
-
-	        }
-
-			method = c.getDeclaredMethod("execute");
-	        Object objString = method.invoke(obj);
-			System.out.println(objString); 
 			
-			method = c.getDeclaredMethod("getMessage");
-	        Object objMString = method.invoke(obj);
-			System.out.println(objMString); 
-			
-			if(objString != null) {
-				resultName = (String)map.get(actionName + '|' + objString);
-				view.setJsp(resultName);
-				parameters.put("message", (String)objMString);
-				
-				view.setParameters(parameters);
+			for (Map.Entry<String, String> entry : parameters.entrySet()) {
+				String key = entry.getKey();
+				String value = entry.getValue();
+				PropertyDescriptor pd = new PropertyDescriptor(key, c);
+				Method setMethod = pd.getWriteMethod();
+				setMethod.invoke(obj, value);
 			}
 			
-			
+			Method exec = c.getDeclaredMethod("execute");
+			Object res = exec.invoke(obj);
+			if(res != null) {
+				resultName = (String)map.get(actionName + '|' + res);
+				view.setJsp(resultName);
+			}
+			Field[] fields = c.getDeclaredFields();
+			for(Field f : fields){
+				PropertyDescriptor descriptor = new PropertyDescriptor(f.getName(), c);
+				Method getMethod = descriptor.getReadMethod();
+				Object value = getMethod.invoke(obj);
+				parameters.put(f.getName(), (String)value);
+			}		
+			view.setParameters(parameters);
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -104,6 +94,9 @@ public class Struts {
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (IntrospectionException e) {
+			System.out.println(e.toString());
 			e.printStackTrace();
 		}
     	
@@ -141,26 +134,28 @@ public class Struts {
         	
 	        Element e_pe = (Element) i_pe.next();
 	        //获取当前元素的名字
-	        String person = e_pe.getName();
+	        String act = e_pe.getName();
 	        //获取当前元素的name和class属性的值并分别赋给attName,attClass变量
-	        System.out.println(person);
+	        System.out.println(act);
 	        String attName = e_pe.attributeValue("name");
 	        String attClass = e_pe.attributeValue("class");
-	        map.put(attName, attClass);
-	        
-	        //Element e_res = e_pe.element("result");
-	        //System.out.println(e_res.getName());
-	        for (Iterator i_res = e_pe.elementIterator(); i_res.hasNext();) {
-	        	
-		        Element e_re = (Element) i_res.next();
-		        //获取当前元素的名字
-		        String person_n = e_re.getName();
-		        //获取当前元素的name和class属性的值并分别赋给attName,attClass变量
-		        System.out.println(person_n);
-		        String resName = e_re.attributeValue("name");
-		        String resClass = e_re.getStringValue();
-		        map.put(attName + '|' + resName, resClass);
+	        if (attName.equals(actionName)) {
+		        map.put(attName, attClass);
 		        
+		        //Element e_res = e_pe.element("result");
+		        //System.out.println(e_res.getName());
+		        for (Iterator i_res = e_pe.elementIterator(); i_res.hasNext();) {
+		        	
+			        Element e_re = (Element) i_res.next();
+			        //获取当前元素的名字
+			        String person_n = e_re.getName();
+			        //获取当前元素的name和class属性的值并分别赋给attName,attClass变量
+			        System.out.println(person_n);
+			        String resName = e_re.attributeValue("name");
+			        String resClass = e_re.getStringValue();
+			        map.put(attName + '|' + resName, resClass);
+			        
+		        }
 	        }
         }
         

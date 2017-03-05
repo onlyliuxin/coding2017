@@ -33,6 +33,9 @@ public class LoginAction{
     public void setPassword(String password){
         this.password = password;
     }
+    public void setMessage(String message) {
+    	this.message = message;
+    }
     public String getMessage(){
         return this.message;
     }
