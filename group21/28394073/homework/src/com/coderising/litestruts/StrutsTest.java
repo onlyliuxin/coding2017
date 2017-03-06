@@ -3,6 +3,7 @@ package com.coderising.litestruts;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.dom4j.DocumentException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,7 +14,7 @@ import org.junit.Test;
 public class StrutsTest {
 
 	@Test
-	public void testLoginActionSuccess() {
+	public void testLoginActionSuccess() throws ReflectiveOperationException, InstantiationException, DocumentException, ReflectiveOperationException {
 		
 		String actionName = "login";
         
@@ -25,11 +26,11 @@ public class StrutsTest {
         View view  = Struts.runAction(actionName,params);        
         
         Assert.assertEquals("/jsp/homepage.jsp", view.getJsp());
-        Assert.assertEquals("login successful", view.getParameters().get("message"));
+       Assert.assertEquals("login successful", view.getParameters().get("message"));
 	}
 
 	@Test
-	public void testLoginActionFailed() {
+	public void testLoginActionFailed() throws ReflectiveOperationException, InstantiationException, DocumentException, ReflectiveOperationException {
 		String actionName = "login";
 		Map<String,String> params = new HashMap<String,String>();
         params.put("name","test");
@@ -37,7 +38,7 @@ public class StrutsTest {
         
         View view  = Struts.runAction(actionName,params);        
         
-        Assert.assertEquals("/jsp/showLogin.jsp", view.getJsp());
-        Assert.assertEquals("login failed,please check your user/pwd", view.getParameters().get("message"));
+       Assert.assertEquals("/jsp/showLogin.jsp", view.getJsp());
+       Assert.assertEquals("login failed,please check your user/pwd", view.getParameters().get("message"));
 	}
 }
