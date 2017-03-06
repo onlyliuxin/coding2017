@@ -7,6 +7,7 @@ import com.thoughtworks.xstream.XStream;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -36,8 +37,9 @@ public class Struts {
         */
         try {
             // 目标文件
-            File file = new File("/home/pikachu/Documents/2017编程提高/coding2017/group13/2931408816/lesson2/src/main/java/cn/net/pikachu/litestruts/struts.xml");
+//            File file = new File("/home/pikachu/Documents/2017编程提高/coding2017/group13/2931408816/lesson2/src/main/java/cn/net/pikachu/litestruts/struts.xml");
 
+            File file = new File("D:\\src\\java\\coding2017\\group13\\2931408816\\lesson2\\src\\main\\java\\cn\\net\\pikachu\\litestruts\\struts.xml");
             XStream xStream = new XStream();
             // 扫描注解
             xStream.processAnnotations(new Class[]{
@@ -90,9 +92,26 @@ public class Struts {
             // 获取最后的结果
             View view = new View();
             view.setJsp(results[0]);
+            /**
+             * 没有正确理解老师的意思
+             */
+            /*
             String message = (String) clazz.getMethod("getMessage").invoke(o);
             parameters.put("message",message);
             view.setParameters(parameters);
+            */
+            Map<String,Object> map = new HashMap<String,Object>();
+            Method[] methods = clazz.getMethods();
+            for (Method m : methods) {
+                String methodName = m.getName();
+                if (methodName.startsWith("get")){
+                    String attr = methodName.substring(3);
+                    attr=attr.substring(0,1).toLowerCase()+attr.substring(1);
+                    Object value = m.invoke(o);
+                    map.put(attr,value);
+                }
+            }
+            view.setParameters(map);
             return view;
         }catch (Exception e){
             e.printStackTrace();
