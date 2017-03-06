@@ -1,4 +1,4 @@
-package org.wsc.list;
+package org.wsc.coding.basic.list;
 
 public interface Iterator<E> {
 	/**

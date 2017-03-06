@@ -1,6 +1,6 @@
-package org.wsc.stack;
+package org.wsc.coding.basic.stack;
 
-import org.wsc.list.ArrayList;
+import org.wsc.coding.basic.list.ArrayList;
 
 public class Stack {
 	private ArrayList elementData = new ArrayList();

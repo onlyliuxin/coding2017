@@ -1,4 +1,4 @@
-package org.wsc.litestruts.util;
+package org.wsc.coderising.litestruts.util;
 
 import java.io.File;
 import java.io.IOException;

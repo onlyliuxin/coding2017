@@ -1,4 +1,4 @@
-package org.wsc.list;
+package org.wsc.coding.basic.list;
 
 import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;

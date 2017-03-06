@@ -1,4 +1,4 @@
-package org.wsc.litestruts;
+package org.wsc.coderising.litestruts;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -14,7 +14,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.wsc.litestruts.util.DocumentUtil;
+import org.wsc.coderising.litestruts.util.DocumentUtil;
 import org.xml.sax.SAXException;
 
 public class Struts {
@@ -24,7 +24,7 @@ public class Struts {
 		/* 0. 读取配置文件struts.xml */
 		DOCUMENT_UTIL = DocumentUtil.newInstance();
 		try {
-			document = DOCUMENT_UTIL.getDocument("src/struts.xml");
+			document = DOCUMENT_UTIL.getDocument("src/org/wsc/litestruts/struts.xml");
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			e.printStackTrace();
 		}

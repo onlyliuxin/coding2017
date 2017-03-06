@@ -1,7 +1,7 @@
-package org.wsc.tree_node;
+package org.wsc.coding.basic.tree_node;
 
-import org.wsc.exception.NullElementException;
-import org.wsc.exception.RepeatingElementException;
+import org.wsc.coding.basic.exception.NullElementException;
+import org.wsc.coding.basic.exception.RepeatingElementException;
 
 /**
  * BinaryTreeNode 二叉树结构

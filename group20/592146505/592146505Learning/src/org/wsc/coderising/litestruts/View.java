@@ -1,4 +1,4 @@
-package org.wsc.litestruts;
+package org.wsc.coderising.litestruts;
 
 import java.util.Map;
 
