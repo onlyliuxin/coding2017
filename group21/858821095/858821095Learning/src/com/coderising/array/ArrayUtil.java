@@ -51,6 +51,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 	
+	
 	public int[] merge(int[] array1, int[] array2){
 		int arr1len = array1.length;
 		int arr2len = array2.length;

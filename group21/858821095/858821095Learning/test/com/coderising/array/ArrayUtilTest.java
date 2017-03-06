@@ -40,6 +40,7 @@ public class ArrayUtilTest {
 		Assert.assertEquals(newarray, result);
 	}
 
+	
 	@Test
 	public void testMerge() {
 		int[] array1 = {3, 5, 7, 8, 9, 10, 12};
