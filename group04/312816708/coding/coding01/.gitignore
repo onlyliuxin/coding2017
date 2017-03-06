@@ -1,0 +1,7 @@
+# IntelliJ IDEA
+
+target/
+*.iml
+*.ipr
+*.iws
+.idea/
