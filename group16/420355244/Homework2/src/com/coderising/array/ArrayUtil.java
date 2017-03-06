@@ -1,6 +1,4 @@
-package cn.mark.work0226;
-
-import java.util.Arrays;
+package com.coderising.array;
 
 public class ArrayUtil {
 	
@@ -11,18 +9,12 @@ public class ArrayUtil {
 	 * @param origin
 	 * @return
 	 */
-	public void reverseArray(int[] origin){
-		int[] target = new int[origin.length];//声明置换后数组
-		int temp = target.length - 1;//记录置换后下标位置
-		for( int i = 0; i < origin.length; i++ ){
-			target[temp] = origin[i];
-			temp--;
+	public static void reverseArray(int[] origin){
+		for(int i = 0;i < origin.length/2; i++){
+			int x = origin[i];
+			origin[i] = origin[origin.length - i -1];
+			origin[origin.length - i -1] = x;
 		}
-		System.out.println("置换前："+Arrays.toString(origin));
-		System.out.println("置换后："+Arrays.toString(target));
-		
-		
-
 	}
 	
 	/**
@@ -33,30 +25,17 @@ public class ArrayUtil {
 	 * @return
 	 */
 	
-	public int[] removeZero(int[] oldArray){
-		int[] target = new int[1];
-		boolean flag = true;
-		for( int i = 0; i < oldArray.length; i++ ){
-			if ( oldArray[i] == 0 ){ // 跳过值为0的元素
-				continue;
+	public static  int[] removeZero(int[] oldArray){
+		for(int i = 0;i < oldArray.length ;i++){
+			if(oldArray[i] == 0){
+				int[] a = {};
+				System.arraycopy(oldArray, 0, a, 0, i);
+				System.arraycopy(oldArray, 0, a, i, oldArray.length);
+				oldArray = a;
+				removeZero(oldArray);
 			}
-			
-			if ( flag ){
-				//首位赋值无需扩容
-				target[target.length-1] = oldArray[i];
-				flag = false;
-			}else{
-				//确定值不是0才能进入扩容步骤
-				target = Arrays.copyOf(target, target.length+1);
-				target[target.length-1] = oldArray[i];	
-			}
-			
-		
-			
 		}
-		System.out.println("去0前："+Arrays.toString(oldArray));
-		System.out.println("去0后："+Arrays.toString(target));
-		return target;
+		return oldArray;
 	}
 	
 	/**
@@ -67,28 +46,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 	
-	public int[] merge(int[] array1, int[] array2){
-		//1.去重
-		int[] array3 = Arrays.copyOf(array1, array1.length);
-		for( int i = 0; i < array1.length; i++ ){
-			for( int j = 0; j < array2.length ; j++ ){
-				if ( array1[i] == array2[j] ){
-					
-				}
-			}
-			
-			
-			
-			
-		}
-		
-		System.out.println(Arrays.toString(array1));
-		System.out.println(Arrays.toString(array2));
-		//2.合并
-		
-		//3.排序
-		
-		
+	public static  int[] merge(int[] array1, int[] array2){
 		return  null;
 	}
 	/**
@@ -100,10 +58,8 @@ public class ArrayUtil {
 	 * @param size
 	 * @return
 	 */
-	public int[] grow(int [] oldArray,  int size){
-		int[] newArray = Arrays.copyOf(oldArray, oldArray.length+size);
-		System.out.println("扩容后："+Arrays.toString(newArray));
-		return newArray;
+	public static  int[] grow(int [] oldArray,  int size){
+		return null;
 	}
 	
 	/**
@@ -113,7 +69,7 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] fibonacci(int max){
+	public static  int[] fibonacci(int max){
 		return null;
 	}
 	
@@ -123,7 +79,7 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] getPrimes(int max){
+	public  static int[] getPrimes(int max){
 		return null;
 	}
 	
@@ -133,7 +89,7 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] getPerfectNumbers(int max){
+	public static  int[] getPerfectNumbers(int max){
 		return null;
 	}
 	
@@ -145,22 +101,20 @@ public class ArrayUtil {
 	 * @param s
 	 * @return
 	 */
-	public String join(int[] array, String seperator){
-		StringBuilder sb = new StringBuilder();
-		for( int i = 0; i < array.length; i++ ){
-			if ( i == 0 ){
-				sb.append(array[i]);
-			}else{
-				sb.append(seperator+array[i]);
-			}
-		}
-		return sb.toString();
+	public static  String join(int[] array, String seperator){
+		return null;
 	}
 	
-
 	public static void main(String[] args) {
-		int[] a1 =new int[]{3,8},   a2 = new int[]{4, 5, 6,7};
-		System.out.println(new ArrayUtil().join(a1, "*"));
-		
+		/*int[] a = {7, 9 , 30, 3};
+		reverseArray(a);
+		for (int i : a) {
+			System.out.print(i+",");
+		}*/
+		int oldArr[]={1,3,4,5,0,0,6,6,0,5,4,7,6,7,0,5} ;
+		removeZero(oldArr);
+		for (int i : oldArr) {
+			System.out.print(i+",");
+		}
 	}
 }
