@@ -1,4 +1,4 @@
-package Collection.Concrete;
+package collection.concrete;
 
 public class BinaryTreeNode<E extends Comparable<E>> {
 	

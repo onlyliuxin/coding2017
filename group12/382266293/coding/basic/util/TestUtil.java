@@ -3,10 +3,10 @@ package util;
 import java.util.Arrays;
 import java.util.Random;
 
-import Collection.List;
-import Collection.Concrete.ArrayList;
-import Collection.Concrete.LinkedList;
-import Collection.Concrete.Queue;
+import collection.List;
+import collection.concrete.ArrayList;
+import collection.concrete.LinkedList;
+import collection.concrete.Queue;
 import junit.framework.TestCase;
 
 

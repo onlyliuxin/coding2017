@@ -1,4 +1,4 @@
-package TestCollection;
+package test.collection;
 
 import static util.Print.*;
 
@@ -8,7 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import Collection.Concrete.Stack;
+import collection.concrete.Stack;
 import junit.framework.TestCase;
 
 public class StackTest extends TestCase {

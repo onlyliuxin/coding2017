@@ -1,4 +1,4 @@
-package Collection;
+package collection;
 
 public interface List<E> {
 	

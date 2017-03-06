@@ -1,11 +1,14 @@
-package TestCollection;
+package test.collection;
 
 import static util.Print.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import collection.concrete.Queue;
+
 import static util.TestUtil.*;
-import Collection.Concrete.Queue;
+
 import junit.framework.TestCase;
 
 public class QueueTest extends TestCase {

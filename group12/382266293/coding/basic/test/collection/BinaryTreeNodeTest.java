@@ -1,4 +1,4 @@
-package TestCollection;
+package test.collection;
 
 import static util.Print.*;
 import java.util.Random;
@@ -9,7 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import Collection.Concrete.BinaryTreeNode;
+import collection.concrete.BinaryTreeNode;
 import junit.framework.TestCase;
 
 public class BinaryTreeNodeTest extends TestCase {

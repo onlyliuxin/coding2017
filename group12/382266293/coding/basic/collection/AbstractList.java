@@ -1,4 +1,4 @@
-package Collection;
+package collection;
 
 public abstract class AbstractList<E> implements List<E> {
 
