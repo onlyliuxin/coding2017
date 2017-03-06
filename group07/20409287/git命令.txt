@@ -1,11 +1,11 @@
-°²×°git guiÈí¼ş£¬´ò¿ªgit bash²Ù×÷
-1.¿ËÂ¡
+å®‰è£…git guiè½¯ä»¶ï¼Œæ‰“å¼€git bashæ“ä½œ
+1.å…‹éš†
 git clone git@github.com:leijing1992/coding2017.git
-2.Ìí¼ÓĞŞ¸ÄµÄÎÄ¼ş
+2.æ·»åŠ ä¿®æ”¹çš„æ–‡ä»¶
 git add -A
-3.Ìá½»µ½Ôİ´æÇø
-git commit -m "Ìá½»***´úÂë"
-4.¸üĞÂmaster
+3.æäº¤åˆ°æš‚å­˜åŒº
+git commit -m "æäº¤***ä»£ç "
+4.æ›´æ–°master
 git pull origin master
-5.Ìá½»µ½master
+5.æäº¤åˆ°master
 git push origin master

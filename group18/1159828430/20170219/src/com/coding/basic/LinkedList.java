@@ -1,5 +1,6 @@
 package com.coding.basic;
 
+import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
 
 /**
@@ -88,7 +89,7 @@ public class LinkedList implements List {
     }
     
     public Iterator iterator(){
-        return null;
+        return new LinkedListIterator();
     }
     
     //头部增加节点
@@ -225,6 +226,41 @@ public class LinkedList implements List {
         return index >= 0 && index <= size;
     }
     
+    //迭代器
+    private class LinkedListIterator implements Iterator{
+    	private Node lastReturned = null;
+        private Node next;
+        private int nextIndex;
+
+        public boolean hasNext() {
+            return nextIndex < size;
+        }
+
+        public Object next() {
+            if (!hasNext())
+                throw new NoSuchElementException();
+
+            lastReturned = next;
+            next = next.next;
+            nextIndex++;
+            return lastReturned.data;
+        }
+        
+        public void remove() {
+            if (lastReturned == null)
+                throw new IllegalStateException();
+
+            Node lastNext = lastReturned.next;
+            unlink(lastReturned);
+            if (next == lastReturned)
+                next = lastNext;
+            else
+                nextIndex--;
+            lastReturned = null;
+        }
+    }
+    
+    //节点对象
     private static class Node{
         Object data;
         Node next;
