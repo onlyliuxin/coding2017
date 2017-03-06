@@ -1,4 +1,4 @@
-package com.coderising.litestruts;
+﻿package com.coderising.litestruts;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,4 +40,8 @@ public class StrutsTest {
         Assert.assertEquals("/jsp/showLogin.jsp", view.getJsp());
         Assert.assertEquals("login failed,please check your user/pwd", view.getParameters().get("message"));
 	}
+<<<<<<< HEAD:group04/1906242834/src/com/coderising/litestruts/StrutsTest.java
 }
+=======
+
+>>>>>>> upstream/master:liuxin/src/com/coderising/litestruts/StrutsTest.java

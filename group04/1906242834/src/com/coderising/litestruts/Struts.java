@@ -1,4 +1,4 @@
-package com.coderising.litestruts;
+﻿package com.coderising.litestruts;
 
 import java.util.Map;
 
@@ -31,4 +31,8 @@ public class Struts {
     	return null;
     }    
 
+<<<<<<< HEAD:group04/1906242834/src/com/coderising/litestruts/Struts.java
+
+=======
 }
+>>>>>>> upstream/master:liuxin/src/com/coderising/litestruts/Struts.java
