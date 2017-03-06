@@ -180,6 +180,74 @@ public class LinkedListTest {
 		Assert.assertEquals(exceptArr.length,actual.length);
 	}
 	
+	@Test
+	public void testSubtract(){
+		
+		ls.add(2);
+		ls.add(5);
+		ls.add(7);
+		ls.add(8);
+		ls.add(10);
+		
+		LinkedList list = new LinkedList();
+		list.add(2);
+		list.add(5);
+		
+		int[] exceptArr = {7,8,10};
+		ls.subtract(list);
+		exceptResult(ls,exceptArr);
+		
+	}
+	
+	@Test
+	public void testRemoveDuplicateValues(){
+		
+		ls.add(2);
+		ls.add(5);
+		ls.add(5);
+		ls.add(5);
+		ls.add(8);
+		ls.add(8);
+		ls.removeDuplicateValues();
+		int[] exceptArr = {2,5,8};
+		exceptResult(ls,exceptArr);
+	}
+	
+	@Test
+	public void testRemoveRange(){
+		
+		ls.add(2);
+		ls.add(5);
+		ls.add(7);
+		ls.add(8);
+		ls.add(10);
+		
+		ls.removeRange(0, 7);
+		int[] exceptArr = {7,8,10};
+		exceptResult(ls,exceptArr);
+	}
+	
+	@Test
+	public void testIntersection(){
+		
+		ls.add(-2);
+		ls.add(-1);
+		ls.add(0);
+		ls.add(3);
+		ls.add(5);
+		
+		LinkedList list = new LinkedList();
+		list.add(-1);
+		list.add(0);
+		list.add(5);
+		list.add(9);
+		
+		LinkedList newList = ls.intersection(list);
+		
+		int[] exceptArr = {-1,0,5};
+		exceptResult(newList,exceptArr);
+	}
+	
     private void exceptResult(LinkedList ls,int[] exceptArr){
 		
 		Assert.assertEquals(ls.size(), exceptArr.length);

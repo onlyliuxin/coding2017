@@ -211,9 +211,12 @@ public class LinkedList implements List {
 	 */
 	
 	public  void subtract(LinkedList list){
-		
-		for (int i = 0; i < list.size(); i++) {
-			//LinkedList.this.remove(index);
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < list.size(); j++) {
+				if(get(i).equals(list.get(j))){
+					remove(i);
+				}
+			}
 		}
 	}
 	
@@ -223,6 +226,12 @@ public class LinkedList implements List {
 	 */
 	public  void removeDuplicateValues(){
 		
+		for (int i = 0; i < size-1; i++) {
+			if(get(i).equals(get(i+1))){
+				remove(i);
+				i --;
+			}
+		}
 	}
 	
 	/**
@@ -233,6 +242,13 @@ public class LinkedList implements List {
 	 */
 	public  void removeRange(int min, int max){
 		
+		for (int i = 0; i < size; i++) {
+			if((int)get(i)>min&&(int)get(i)<max){
+				remove(i);
+				i--;
+			}
+		}
+		
 	}
 	
 	/**
@@ -241,6 +257,15 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	public  LinkedList intersection( LinkedList list){
-		return null;
+		
+		LinkedList newList = new LinkedList();
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < list.size(); j++) {
+				if(get(i).equals(list.get(j))){
+					newList.add(get(i));
+				}
+			}
+		}
+		return newList;
 	}
 }
