@@ -1,4 +1,4 @@
-package com.github.zhanglifeng.coding2017.basic;
+package com.coding2017.basic;
 
 public class BinaryTreeNode {
 	private Object data;

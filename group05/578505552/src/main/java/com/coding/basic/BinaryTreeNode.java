@@ -30,6 +30,9 @@ public class BinaryTreeNode {
 	}
 	
 	public BinaryTreeNode insert(Integer o){
+		if (o == null){
+		    throw new IllegalArgumentException("can not insert null");
+        }
 
         BinaryTreeNode newNode = new BinaryTreeNode();
         newNode.data = o;

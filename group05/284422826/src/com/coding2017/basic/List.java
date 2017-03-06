@@ -1,4 +1,4 @@
-package com.github.zhanglifeng.coding2017.basic;
+package com.coding2017.basic;
 
 public interface List {
 	public void add(Object o);
