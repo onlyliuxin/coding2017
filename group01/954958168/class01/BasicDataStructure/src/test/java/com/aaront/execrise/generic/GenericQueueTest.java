@@ -21,13 +21,13 @@ public class GenericQueueTest {
 
     @Test
     public void testEnqueue() {
-        Assert.assertArrayEquals(queue.toArray(), new String[]{"1", "2", "3"});
+        Assert.assertArrayEquals(new String[]{"1", "2", "3" }, queue.toArray());
     }
 
     @Test
     public void testDequeue() {
         queue.deQueue();
         queue.deQueue();
-        Assert.assertArrayEquals(queue.toArray(), new String[]{"3"});
+        Assert.assertArrayEquals(new String[]{"3" }, queue.toArray());
     }
 }
