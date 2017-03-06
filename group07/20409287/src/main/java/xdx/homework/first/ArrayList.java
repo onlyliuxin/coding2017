@@ -32,9 +32,9 @@ public class ArrayList<E> implements List<E> {
 
         if (++position > size - 1) {
             grow();
-        } else {
-            elements[position] = e;
         }
+        elements[position] = e;
+
         return true;
     }
 
@@ -169,8 +169,10 @@ public class ArrayList<E> implements List<E> {
      * 数组增长
      */
     private void grow() {
-        Object[] newElements = new Object[size << 2];
-        System.arraycopy(elements, 0, elements, 0, this.size);
+
+        Object[] newElements = new Object[size << 1];
+        System.arraycopy(elements, 0, newElements, 0, this.size);
+        size = size << 1;
         elements = null;
         elements = newElements;
     }
