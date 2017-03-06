@@ -1,3 +1,5 @@
+package DataStruct;
+
 public class BinaryTreeNode {
 
 	private Node root = null;
