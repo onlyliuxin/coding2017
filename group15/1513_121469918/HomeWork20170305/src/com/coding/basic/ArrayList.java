@@ -1,5 +1,6 @@
 package com.coding.basic;
 
+import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
 
 public class ArrayList implements List {
@@ -75,44 +76,37 @@ public class ArrayList implements List {
 	}
 
 	public Iterator iterator() {
-		return new MyIterator(this);
+		return new MyIterator();
 	}
 
 	private class MyIterator implements Iterator {
-		private int poi = -1;
-		private ArrayList array = null;
+		private int cursor = 0;
+		
 
-		private MyIterator(ArrayList array) {
-			this.array = array;
-		}
+		private MyIterator() {}
 
 		@Override
 		public boolean hasNext() {
-			return (poi + 1) < array.size;
+			return cursor < size;
 		}
 
 		@Override
 		public Object next() {
-			// TODO Auto-generated method stub
-			poi++;
-			if (poi >= array.size) {
-				poi--;
+			// TODO Auto-generated method stub			
+			if (cursor >= size) {			
 				throw new IndexOutOfBoundsException();
 			}
-
-			return array.get(poi);
+			return get(cursor++);
 		}
 
 		@Override
 		public Object remove() {
 			// TODO Auto-generated method stub
-			if (poi < 0) {
+			if (cursor <= 0) {
 				throw new NoSuchElementException();
 			}
-			Object val = array.remove(poi);
-			poi--;
+			Object val = ArrayList.this.remove(--cursor);
 			return val;
 		}
-
 	}
 }
