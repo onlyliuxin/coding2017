@@ -1,7 +1,6 @@
 package com.coderising.array;
 
-import java.util.Arrays;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArrayUtil {
@@ -32,14 +31,14 @@ public class ArrayUtil {
 	public int[] removeZero(int[] oldArray) {
 		int zeroCount = 0;
 		for (int i = 0; i < oldArray.length; i++) {
-			if(oldArray[i] == 0){
-				zeroCount ++;
+			if (oldArray[i] == 0) {
+				zeroCount++;
 			}
 		}
 		int[] removedZeroArray = new int[oldArray.length - zeroCount];
-		
-		for (int i = 0,j = 0; i < oldArray.length; i++,j++) {
-			if(oldArray[i] == 0){
+
+		for (int i = 0, j = 0; i < oldArray.length; i++, j++) {
+			if (oldArray[i] == 0) {
 				j--;
 				continue;
 			}
@@ -58,6 +57,7 @@ public class ArrayUtil {
 	 */
 
 	public int[] merge(int[] array1, int[] array2) {
+		List<Integer> mergedArrayList = new ArrayList<>();
 		return null;
 	}
 
@@ -71,7 +71,9 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int[] oldArray, int size) {
-		return null;
+		int[] resultArray = new int[oldArray.length + size];
+		System.arraycopy(oldArray, 0, resultArray, 0, oldArray.length);
+		return resultArray;
 	}
 
 	/**
@@ -82,7 +84,16 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max) {
+		
 		return null;
+	}
+
+	private static int fibonacciNum(int n) {
+		if (n <= 2) {
+			return 1;
+		} else {
+			return fibonacciNum(n - 1) + fibonacciNum(n - 2);
+		}
 	}
 
 	/**
@@ -113,13 +124,32 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator) {
-		return null;
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < array.length; i++) {
+			sb.append(array[i]);
+			if (i != array.length - 1) {
+				sb.append(seperator);
+			}
+		}
+		return sb.toString();
 	}
 
 	public static void main(String[] args) {
-		int[] origin = { 0, 1, 2, 0, 12 };
-		new ArrayUtil().removeZero(origin);
-
+		/*
+		 * int[] origin = { 0, 1, 2, 0, 12 }; new
+		 * ArrayUtil().removeZero(origin);
+		 */
+		/*
+		 * int[] array1 = { 3, 5, 7, 8 }; int[] array2 = { 4, 5, 6, 7 }; new
+		 * ArrayUtil().merge(array1, array2);
+		 */
+		/*
+		 * int[] array = { 3, 8, 9, 10, 12 }; new ArrayUtil().grow(array, 9);
+		 */
+		/*
+		 * int[] array = { 3, 8, 9, 10, 12 }; String seperator = "-";
+		 * System.out.println(new ArrayUtil().join(array, seperator));
+		 */
 	}
 
 }
