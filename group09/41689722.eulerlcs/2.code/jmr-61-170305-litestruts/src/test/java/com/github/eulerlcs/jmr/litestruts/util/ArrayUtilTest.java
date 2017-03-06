@@ -8,6 +8,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.github.eulerlcs.jmr.litestruts.algorithm.ArrayUtil;
+
 public class ArrayUtilTest {
 
 	@Test
