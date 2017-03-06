@@ -8,7 +8,6 @@ public class Struts {
 
     public static View runAction(String actionName, Map<String,String> parameters) {
 
-    
         /*
          
 		0. 读取配置文件struts.xml
