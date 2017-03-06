@@ -1,6 +1,6 @@
-<<<<<<< HEAD:group04/1906242834/src/com/coderising/litestruts/struts.xml
-<?xml version="1.0" encoding="UTF-8"?>
-=======
+
+
+
 <?xml version="1.0" encoding="UTF-8"?>
 <struts>
     <action name="login" class="com.coderising.litestruts.LoginAction">
@@ -11,5 +11,4 @@
     	<result name="success">/jsp/welcome.jsp</result>
     	<result name="error">/jsp/error.jsp</result>
     </action>
->>>>>>> upstream/master:liuxin/src/com/coderising/litestruts/struts.xml
 </struts>
