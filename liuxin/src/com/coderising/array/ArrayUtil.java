@@ -1,5 +1,8 @@
 package com.coderising.array;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ArrayUtil {
 	
 	/**
@@ -10,7 +13,12 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin){
-		
+		int len = origin.length;
+		for (int i = 0; i < len/2; i++) {
+			int temp = origin[i];
+			origin[i] = origin[len-1-i];
+			origin[len-1-i] = temp;
+		}
 	}
 	
 	/**
@@ -22,7 +30,19 @@ public class ArrayUtil {
 	 */
 	
 	public int[] removeZero(int[] oldArray){
-		return null;
+		int slow = 0;
+		for (int i = 0; i < oldArray.length; i++) {
+			
+			if (oldArray[i] != 0) {
+				oldArray[slow++] = oldArray[i];
+			}
+		}
+		int[] newArray = new int[slow];
+		for (int i = 0; i < slow; i++) {
+			newArray[i] = oldArray[i];
+		}
+		
+		return newArray;
 	}
 	
 	/**
@@ -34,7 +54,32 @@ public class ArrayUtil {
 	 */
 	
 	public int[] merge(int[] array1, int[] array2){
-		return  null;
+		int[] result = new int[array1.length + array2.length];
+		int i1 = 0 , i2 = 0, i3 = 0;
+		while (i1 < array1.length && i2 < array2.length) {
+			if (array1[i1] == array2[i2]) {
+				result[i3++] = array1[i1++];
+				i2++;
+			} else if (array1[i1] < array2[i2]) {
+				result[i3++] = array1[i1++];
+			} else {
+				result[i3++] = array2[i2++];
+			}
+		}
+		
+		while (i1 < array1.length) {
+			result[i3++] = array1[i1++];
+		}
+		while (i2 < array2.length) {
+			result[i3++] = array2[i2++];
+		}
+		
+		int[] finalResult = new int[i3];
+		for (int i = 0; i < i3; i++) {
+			finalResult[i] = result[i];
+		}
+		
+		return finalResult;
 	}
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
@@ -46,7 +91,13 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
-		return null;
+		int[] result = new int[oldArray.length + size];
+		for (int i = 0; i < oldArray.length; i++) {
+			result[i] = oldArray[i];
+		}
+		
+		return result;
+	
 	}
 	
 	/**
@@ -57,7 +108,26 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max){
-		return null;
+		List<Integer> result = new ArrayList<>();
+		if (max <= 1) return new int[]{};
+		if (max < 2) return new int[]{1,1};
+		result.add(1);
+		//result.add(1);
+		int num = 1, index = 1;
+		
+		while (num < max) {
+			result.add(num);
+			num = result.get(index) + result.get(index - 1);
+			index++;
+			
+		}
+		
+		int[] resArray = new int[result.size()];
+		for (int i = 0; i < result.size(); i++) {
+			resArray[i] = result.get(i);
+		}
+		
+		return resArray;
 	}
 	
 	/**
@@ -67,7 +137,22 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max){
-		return null;
+		List<Integer> result = new ArrayList<>();
+		boolean[] notPrime = new boolean[max];
+		for (int i = 2; i < max; i++) {
+			if (!notPrime[i]) result.add(i);
+			for (int j = 2; i*j < max; j++) {
+				notPrime[i*j] = true;
+			}
+		}
+		
+		int[] resArray = new int[result.size()];
+		for (int i = 0; i < result.size();i++) {
+			resArray[i] = result.get(i);
+		}
+		
+		return resArray;
+	
 	}
 	
 	/**
@@ -77,7 +162,22 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max){
-		return null;
+		List<Integer> result = new ArrayList<>();
+		for (int i = 1; i < max; i++) {
+			int sum = 0;
+			for (int j = 1; j < i/2; j++) {
+				if (i % j == 0) {
+					sum += j;
+				}
+			}
+			if (sum == i) result.add(i);
+		}
+		
+		int[] resArray = new int[result.size()];
+		for (int i = 0; i < result.size(); i++) {
+			resArray[i] = result.get(i);
+		}
+		return resArray;
 	}
 	
 	/**
@@ -89,7 +189,24 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator){
-		return null;
+		if (array == null || array.length == 0) return null;
+		int len = array.length;
+		char[] result = new char[len + seperator.length()*(len - 1)];
+		int indexA = 0, indexR = 0;
+		while (indexA < array.length && indexR < result.length) {
+			result[indexR++] = (char)array[indexA++];
+			if (indexA < array.length - 1){
+				for (int i = 0; i < seperator.length(); i++) {
+					result[indexR++] = seperator.charAt(i);
+				}
+			}
+		}
+		
+		return String.valueOf(result);
+		
+		
+		
+	
 	}
 	
 
