@@ -1,3 +1,9 @@
+import sun.security.util.Length;
+
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+
 /**
  * Created by dengdechao on 2017/2/27.
  */
@@ -25,14 +31,6 @@ public class ArrayUtil {
         }
     }
 
-    public static void main(String[] args) {
-        int[] a = {1,2,3,4,5,6,7,8,9};
-        reverseArray(a);
-        for(int i : a) {
-            System.out.print(a);
-        }
-    }
-
     /**
      * 现在有如下的一个数组：   int oldArr[]={1,3,4,5,0,0,6,6,0,5,4,7,6,7,0,5}
      * 要求将以上数组中值为0的项去掉，将不为0的值存入一个新的数组，生成的新数组为：
@@ -41,8 +39,31 @@ public class ArrayUtil {
      * @return
      */
 
-    public int[] removeZero(int[] oldArray){
-        return null;
+    public static int[] removeZero(int[] oldArray){
+        if(oldArray == null) {
+            return null;
+        }
+        int i = 0;
+        int j = oldArray.length - 1;
+
+        while(i != j) {
+            if(oldArray[i] != 0) {
+                i++;
+                continue;
+            }
+            if(oldArray[j] == 0) {
+                j--;
+                continue;
+            }
+            int temp = oldArray[i];
+            oldArray[i] = oldArray[j];
+            oldArray[j] = temp;
+        }
+        int[] array = new int[i];
+        for(int n = 0; n < i; ++n) {
+            array[n] = oldArray[n];
+        }
+        return array;
     }
 
     /**
@@ -53,7 +74,7 @@ public class ArrayUtil {
      * @return
      */
 
-    public int[] merge(int[] array1, int[] array2){
+    public static int[] merge(int[] array1, int[] array2){
         int[] result = new int[array1.length + array2.length];
         int len1 = 0;
         int len2 = 0;
@@ -65,6 +86,7 @@ public class ArrayUtil {
                 } else if(array1[len1] > array2[len2]) {
                     result[i++] = array2[len2++];
                 } else {
+                    result[i++] = array1[len1];
                     len1++;
                     len2++;
                 }
@@ -75,7 +97,9 @@ public class ArrayUtil {
             }
 
         }
-        return  result;
+        int[] last = new int[i];
+        System.arraycopy(result,0,last,0,i);
+        return last;
     }
     /**
      * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
@@ -113,7 +137,27 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPrimes(int max){
-        return null;
+        List<Integer> list = new ArrayList();
+
+        for(int i = 2; i <= max; ++i) {
+            int temp = 2;
+            while(temp < i) {
+                if(i % temp == 0) {
+                    break;
+                }
+                ++temp;
+            }
+            if(i == temp) {
+                list.add(i);
+            }
+        }
+
+        int[] result = new int[list.size()];
+
+        for(int i = 0; i < list.size(); ++i) {
+            result[i] = list.get(i);
+        }
+        return result;
     }
 
     /**
@@ -123,7 +167,26 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPerfectNumbers(int max){
-        return null;
+        List<Integer> list = new ArrayList();
+
+        for(int j = 0; j < max; ++j) {
+            int temp = 0;
+            for(int i = 0; i < j / 2 + 1; ++i) {
+                if(j % i == 0) {
+                    temp += i;
+                }
+            }
+            if(temp == j) {
+                list.add(j);
+            }
+        }
+
+        int[] result = new int[list.size()];
+
+        for(int i = 0; i < list.size(); ++i) {
+            result[i] = list.get(i);
+        }
+        return result;
     }
 
     /**
@@ -135,6 +198,14 @@ public class ArrayUtil {
      * @return
      */
     public String join(int[] array, String seperator){
-        return null;
+        StringBuilder str = new StringBuilder();
+        for(int i = 0; i < array.length; ++i) {
+            str.append(array[i]);
+            if(i + 1 < array.length) {
+                str.append(seperator);
+            }
+        }
+        String s = str.toString();
+        return s;
     }
 }
