@@ -40,7 +40,6 @@ public class ArrayUtil {
 	 */
 
 	public int[] removeZero(int[] oldArray){
-		List<Integer> list = new ArrayList<Integer>(); 
 		int newSize = countNotZero(oldArray);//先计算非零元素个数
 		int[] newArray = new int[newSize];//创建新数组
 		int newIndex = 0;//新数组索引
