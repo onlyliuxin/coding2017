@@ -135,15 +135,8 @@ public class ArrayUtil {
 	 */
 	public int[] fibonacci(int max){
 		return null;
-	}
-	
-	/**
 	 * 返回小于给定最大值max的所有素数数组
-	 * 例如max = 23, 返回的数组为[2,3,5,7,11,13,17,19]
-	 * @param max
 	 * @return
-	 */
-	public int[] getPrimes(int max){
 		int count1 = 0 ;
 		int result1 ;
 		for(int i = 1 ; i <= max ;i++ ){
@@ -183,8 +176,8 @@ public class ArrayUtil {
 	}
 	
 	/**
-	 * 所谓“完数”， 是指这个数恰好等于它的因子之和，例如6=1+2+3
-	 * 给定一个最大值max， 返回一个数组， 数组中是小于max 的所有完数
+	 * 返回小于给定最大值max的所有素数数组
+	 * 例如max = 23, 返回的数组为[2,3,5,7,11,13,17,19]
 	 * @param max
 	 * @return
 	 */
@@ -223,12 +216,25 @@ public class ArrayUtil {
 		return false ;
 	}
 	
-	//判断一个数是不是完数;
-	/*	1;求约数;
-	 * 	2:求约数之和;
-	 * 	3:判断是否是完数;
-	 * 
-	 * */
+	/**
+	 * 所谓“完数”， 是指这个数恰好等于它的因子之和，例如6=1+2+3
+	 * 给定一个最大值max， 返回一个数组， 数组中是小于max 的所有完数
+	 * @param max
+	 * @return
+	 */
+	public static int[] getPerfectNumbers(int max){
+		ArrayList al = new ArrayList();
+		for(int i = 1 ; i <= max ; i++){
+			if(isPerfectNumber(i)){
+				al.add(i);
+			}
+		}
+		int[] array = arrayListToArray(al);
+		for(int i = 0 ; i < array.length ; i++){
+			System.out.println("array["+i+"]:"+array[i]+",");
+		}
+		return array ;
+	}
 	
 	public static int[] arrayListToArray(ArrayList al){
 		int size = al.size();
@@ -239,10 +245,8 @@ public class ArrayUtil {
 		return array ;
 	}
 	
-	
 	public static boolean isPerfectNumber(int a){
 		ArrayList al = new ArrayList();
-		int a1 = a/2 ;
 		for(int i = 1 ; i <= a/2  ; i++ ){
 			if(a%i == 0){
 				al.add(i);
@@ -283,5 +287,4 @@ public class ArrayUtil {
 		}
 		return s;
 	}
-	
 }
