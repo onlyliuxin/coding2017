@@ -58,58 +58,64 @@ public class ArrayUtil {
 	 */
 
 	public static int[] merge(int[] array1, int[] array2) {
-		int[] a3 = new int[array1.length + array2.length];
+		int[] mergedArr = new int[array1.length + array2.length];
 		int temp;
 		int i = 0, j = 0, index = 0, size = 0;
 		while (i < array1.length && j < array2.length) {
+			//两个数组都没遍历到最后一个元素
 			if (i != array1.length - 1 && j != array2.length - 1) {
 				if (array1[i] < array2[j]) {
 					temp = array1[i++];
 				} else if (array1[i] > array2[j]) {
 					temp = array2[j++];
 				} else {
+					//遇到相等元素，存放任意一个就实现去重了
 					temp = array1[i++];
 					j++;
 				}
-				a3[index++] = temp;
+				mergedArr[index++] = temp;
 				size++;
-
+			//array1遍历到最后一个元素
 			} else if (i == array1.length - 1 && j != array2.length - 1) {
 				if (array1[i] < array2[j]) {
 					temp = array1[i];
-					a3[index++] = temp;
+					mergedArr[index++] = temp;
 					size++;
-					System.arraycopy(array2, j, a3, index, array2.length - j);
+					//将array2的剩余元素复制到mergedArr中
+					System.arraycopy(array2, j, mergedArr, index, array2.length - j);
 					size += array2.length - j;
 					break;
 				} else if (array1[i] > array2[j]) {
 					temp = array2[j++];
 					size++;
 				} else {
-					System.arraycopy(array2, j, a3, index, array2.length - j);
+					System.arraycopy(array2, j, mergedArr, index, array2.length - j);
 					size += array2.length - j;
 					break;
 				}
+			//array2遍历到最后一个元素
 			} else if (i != array1.length - 1 && j == array2.length - 1) {
 				if (array1[i] > array2[j]) {
 					temp = array2[j];
-					a3[index++] = temp;
+					mergedArr[index++] = temp;
 					size++;
-					System.arraycopy(array1, i, a3, index, array1.length - i);
+					//将array1的剩余元素复制到mergedArr中
+					System.arraycopy(array1, i, mergedArr, index, array1.length - i);
 					size += array1.length - i;
 					break;
 				} else if (array1[i] < array2[j]) {
 					temp = array2[i++];
 					size++;
 				} else {
-					System.arraycopy(array1, i, a3, index, array1.length - i);
+					System.arraycopy(array1, i, mergedArr, index, array1.length - i);
 					size += array1.length - i;
 					break;
 				}
 			}
 		}
+		//构造新数组，去除mergedArr中尾部若干0元素
 		int[] result = new int[size];
-		System.arraycopy(a3, 0, result, 0, size);
+		System.arraycopy(mergedArr, 0, result, 0, size);
 		return result;
 	}
 
@@ -123,7 +129,9 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public static int[] grow(int[] oldArray, int size) {
-		return null;
+		int[] arr = new int[oldArray.length + size];
+		System.arraycopy(oldArray, 0, arr, 0, oldArray.length);
+		return arr;
 	}
 
 	/**
@@ -134,7 +142,19 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public static int[] fibonacci(int max) {
-		return null;
+		if (max < 2) return null;
+		int[] a = new int[max];
+		a[0] = 1;
+		a[1] = 1;
+		int size = 2;
+		for (int i = 2;; i++) {
+			a[i] = a[i-1] + a[i-2];
+			if (a[i] > max) break;
+			size ++;
+		}
+		int[] fibonacci = new int[size];
+		System.arraycopy(a, 0, fibonacci, 0, size);
+		return fibonacci;
 	}
 
 	/**
@@ -144,7 +164,27 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public static int[] getPrimes(int max) {
-		return null;
+		if (max < 2) {
+			return null;
+		}
+		int[] a = new int[max];
+		int size = 0;
+		for (int i = 2; i < max; i++) {
+			if (isPrime(i)) {
+				a[size++] = i;
+			}
+		}
+		int[] primes = new int[size];
+		System.arraycopy(a, 0, primes, 0, size);
+		return primes;
+	}
+	private static boolean isPrime(int i) {
+		for (int j = 2; j*j <= i; j++) {
+			if (i % j == 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -154,7 +194,26 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public static int[] getPerfectNumbers(int max) {
-		return null;
+		int[] a = new int[max];
+		int size = 0;
+		for (int i = 6; i < max; i++) {
+			if (isPerfectNumber(i)) {
+				a[size++] = i;
+			}
+		}
+		int[] perfectNumbers = new int[size];
+		System.arraycopy(a, 0, perfectNumbers, 0, size);
+		return perfectNumbers;
+	}
+	private static boolean isPerfectNumber(int i) {
+		int sum = 0;
+		for (int j = 1; j <= i >> 1; j++) {
+			if (i % j == 0) {
+				sum += j;
+			}
+		}
+		if (i == sum) return true;
+		else return false;
 	}
 
 	/**
@@ -165,7 +224,12 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public static String join(int[] array, String seperator) {
-		return null;
+		StringBuilder sb = new StringBuilder();
+		for (int i : array) {
+			sb.append(i);
+			sb.append(seperator);
+		}
+		return sb.substring(0, sb.lastIndexOf(seperator));
 	}
 
 }

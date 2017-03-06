@@ -7,6 +7,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import sun.misc.Perf.GetPerfAction;
+
 public class ArrayUtilTest {
 
 	@Before
@@ -47,27 +49,43 @@ public class ArrayUtilTest {
 
 	@Test
 	public void testGrow() {
-		fail("Not yet implemented");
+		int[] oldArray = {2,3,6};
+		int size = 3;
+		int[] growedArr = {2,3,6,0,0,0};
+		assertArrayEquals(growedArr, ArrayUtil.grow(oldArray, size));
 	}
 
 	@Test
 	public void testFibonacci() {
-		fail("Not yet implemented");
+		int[] fibonacci = ArrayUtil.fibonacci(15);
+		for (int i : fibonacci) {
+			System.out.println(i);
+		}
 	}
 
 	@Test
 	public void testGetPrimes() {
-		fail("Not yet implemented");
+		int[] primes = ArrayUtil.getPrimes(3);
+		for (int i : primes) {
+			System.out.println(i);
+		}
 	}
 
 	@Test
 	public void testGetPerfectNumbers() {
-		fail("Not yet implemented");
+		int[] perfectNumbers = ArrayUtil.getPerfectNumbers(10000);
+		int[] expecteds = {6,28,496,8128};
+		assertArrayEquals(expecteds, perfectNumbers);
+		for (int i : perfectNumbers) {
+			System.out.println(i);
+		}
 	}
 
 	@Test
 	public void testJoin() {
-		fail("Not yet implemented");
+		int[] arr = {3,4,5};
+		String join = ArrayUtil.join(arr, "-");
+		assertEquals("3-4-5", join);
 	}
 
 }
