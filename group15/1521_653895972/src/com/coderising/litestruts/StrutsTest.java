@@ -1,4 +1,4 @@
-package com.coding.coderising.litestruts;
+package com.coderising.litestruts;
 
 import org.junit.Assert;
 import org.junit.Test;

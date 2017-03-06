@@ -1,4 +1,4 @@
-package com.coding.coderising.array;
+package com.coderising.array;
 
 public class SimpleArrayUtil {
 

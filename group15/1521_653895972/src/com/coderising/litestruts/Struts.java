@@ -1,4 +1,4 @@
-package com.coding.coderising.litestruts;
+package com.coderising.litestruts;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
