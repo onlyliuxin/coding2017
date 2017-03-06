@@ -160,7 +160,6 @@ public class ArrayUtil {
 		for (int i = 0; i < result.length; i++) {
 			result[i] = perfectNumbers.get(i);
 		}
-		System.out.println(Arrays.toString(result));
 		return result;
 	}
 
