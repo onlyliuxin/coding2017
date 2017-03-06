@@ -1,10 +1,8 @@
-package Week1;
+package week1;
 
-public class ArrayList implements List {
+public class LinkedList implements List {
 
-	private int size = 0;
-
-	private Object[] elementData = new Object[100];
+	private Node head;
 
 	@Override
 	public void add(Object o) {
@@ -29,6 +27,11 @@ public class ArrayList implements List {
 	@Override
 	public int size() {
 		return 0;
+	}
+
+	private static class Node {
+		Object data;
+		Node next;
 	}
 
 }
