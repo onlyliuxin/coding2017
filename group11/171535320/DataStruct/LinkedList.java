@@ -1,4 +1,6 @@
-import java.util.Objects;
+package DataStruct;
+
+import DataStruct.List;
 
 public class LinkedList implements List {
 	

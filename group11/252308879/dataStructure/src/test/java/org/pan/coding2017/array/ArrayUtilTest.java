@@ -39,7 +39,10 @@ public class ArrayUtilTest {
 
     @Test
     public void merge() throws Exception {
-
+        int[] a1 = {3, 5, 7,8},  a2 = {4, 5, 6,7};
+        //则 a3 为[3,4,5,6,7,8]
+        int[] merge = ArrayUtil.merge(a1, a2);
+        System.out.println(Arrays.toString(merge));
     }
 
     @Test
@@ -54,22 +57,30 @@ public class ArrayUtilTest {
 
     @Test
     public void fibonacci() throws Exception {
-
+    //max = 15 , 则返回的数组应该为 [1，1，2，3，5，8，13]
+        int[] fibonacci = ArrayUtil.fibonacci(988);
+        System.out.println(Arrays.toString(fibonacci));
     }
 
     @Test
     public void getPrimes() throws Exception {
-
+        //例如max = 23, 返回的数组为[2,3,5,7,11,13,17,19]
+        int[] primes = ArrayUtil.getPrimes(23);
+        System.out.println(Arrays.toString(primes));
     }
 
     @Test
     public void getPerfectNumbers() throws Exception {
-
+        int[] primes = ArrayUtil.getPerfectNumbers(10000);
+        System.out.println(Arrays.toString(primes));
     }
 
     @Test
     public void join() throws Exception {
-
+        int [] array= {3,8,9};
+        String seperator = "-";
+        String result = ArrayUtil.join(array, seperator);
+        System.out.println(result);
     }
 
 
