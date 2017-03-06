@@ -18,7 +18,7 @@ public class BinaryTreeNodeTest {
 		//	  1   5
 		//  2 	3
 	*/
-	@Before
+	@Before 
 	public void setUpBinaryTreeNode() {
 		binaryTreeNode = new BinaryTreeNode<Integer>(4);
 		binaryTreeNode.insert(1);
