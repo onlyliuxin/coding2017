@@ -66,9 +66,6 @@ public class ArrayUtilTest {
 		int max = 8129;
 		int[] perfectNumbers = ArrayUtil.getPerfectNumbers(max);
 		int[] expected = {6,28,496,8128};
-		for (int i = 0; i < perfectNumbers.length; i++) {
-			System.out.println(perfectNumbers[i]);
-		}
 		Assert.assertArrayEquals(expected, perfectNumbers);
 	}
 

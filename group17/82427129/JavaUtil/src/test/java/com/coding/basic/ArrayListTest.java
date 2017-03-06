@@ -1,27 +1,64 @@
 package com.coding.basic;
 
-import java.lang.reflect.Field;
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 public class ArrayListTest {
-	private Object[] elementData;
-	private static Object[] EMPTY_ELEMENTDATA = {};
-	private static Object[] DEMPTY_ELEMENTDATA = {};
-	
-	public void sss(){
-		System.out.println(EMPTY_ELEMENTDATA.equals(elementData));
+
+	@Before
+	public void setUp() throws Exception {
 	}
-	public static void main(String[] args) {
-		ArrayList l = new ArrayList(0);
-		ArrayList l2 = new ArrayList(0);
-		Class a = ArrayList.class;
-		try {
-			Field f =l.getClass().getDeclaredField("elementData");
-			Field f2 =l2.getClass().getDeclaredField("elementData");
-			System.out.println(f==f2);
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		}
+
+	@After
+	public void tearDown() throws Exception {
 	}
+
+	@Test
+	public void testArrayList() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testArrayListInt() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAddObject() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAddIntObject() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSet() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGet() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testRemove() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSize() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIterator() {
+		fail("Not yet implemented");
+	}
+
 }

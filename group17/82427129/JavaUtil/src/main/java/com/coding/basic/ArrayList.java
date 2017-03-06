@@ -2,7 +2,7 @@ package com.coding.basic;
 
 import java.util.Arrays;
 
-public class ArrayList implements List {
+public class ArrayList<E> implements List<E> {
 	
 	private int size = 0;
 	
@@ -35,34 +35,48 @@ public class ArrayList implements List {
 	}
 	
 	public Object set(int index, Object o){
-		rangeCheck(index);
+		elementIndexCheck(index);
 		
 		Object oldValue = elementData[index];
 		elementData[index] = o;
 		return oldValue;
 	}
 	
-	public Object get(int index){
-		rangeCheck(index);
-		return elementData[index];
+	public E get(int index){
+		elementIndexCheck(index);
+		return elementData(index);
 	}
 	
-	public Object remove(int index){
-		rangeCheck(index);
-		Object oldValue = elementData[index];
+	@SuppressWarnings("unchecked")
+	E elementData(int index){
+		return (E) elementData[index];
+	}
+	
+	public E remove(int index){
+		elementIndexCheck(index);
+		E oldValue = elementData(index);
 		int movedLength = size - index - 1;
 		if(movedLength > 0)//当要删除最后一个元素时，不需要移动数组，只需要把最后一个元素置null
 			System.arraycopy(elementData, index+1, elementData, index, size-index-1);
 		elementData[--size] = null;
 		return oldValue;
 	}
-	
+	/**
+	 * range check,
+	 * permit the range [0,size]
+	 * @param index
+	 */
 	private void rangeCheckForAdd(int index){
 		if( index > size || index<0 ){
 			throw new IndexOutOfBoundsException(outofIndex(index));
 		}
 	}
-	private void rangeCheck(int index){
+	/**
+	 * element's index check,
+	 * permit the index [0,size)
+	 * @param index
+	 */
+	private void elementIndexCheck(int index){
 		if( index >= size || index < 0){
 			throw new IndexOutOfBoundsException(outofIndex(index));
 		}
