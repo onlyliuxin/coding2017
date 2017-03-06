@@ -28,6 +28,9 @@ public class LinkedListTest extends TestCase {
 	public void tearDown() throws Exception {
 		myLL = null;
 	}
+	
+	
+	
 
 	@Test
 	public void testLinkedList() {
@@ -38,6 +41,26 @@ public class LinkedListTest extends TestCase {
 		
 	}
 
+	
+	@Test
+	public void testReverse() {
+		addString(myLL,5);
+		myLL.reverse();
+		println(myLL);
+		
+	}
+	
+	
+	@Test
+	public void testRemoveFirstHalf() {
+		addString(myLL,5);
+		myLL.removeFirstHalf();
+		assertEquals(3,myLL.size());
+		assertEquals("2",myLL.get(0));
+		assertEquals("3",myLL.get(1));
+		assertEquals("4",myLL.get(2));
+	}
+	
 	@Test
 	public void testAddE() {
 		myLL.add("s");
@@ -50,7 +73,6 @@ public class LinkedListTest extends TestCase {
 		String a;
 		
 		addString(myLL,30);
-		println(myLL.get(0));
 
 //		for (int i = 0 ; i < 29; i++) {
 //			a = "" + i;
