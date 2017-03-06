@@ -30,7 +30,7 @@ public class ArrayList<E> implements List<E> {
 			}
 			data = newdata;
 		}
-		data[leng] = arg0;
+		data[size-1] = arg0;
 		return true;
 	}
 
@@ -233,17 +233,17 @@ public class ArrayList<E> implements List<E> {
 		if(this.size == 0) return null;
 		Object[] res = new Object[this.size];
 		for(int i=0;i<this.size;i++){
-			res[i] = this.data[i].getClass();
+			res[i] = this.data[i];
 		}
-		return null;
+		return res;
 	}
 
 	@Override
 	public <T> T[] toArray(T[] arg0) {
 		T[] res = (T[])(new Object[this.size]);
 		for(int i=0;i<this.size;i++){
-			
+			res[i] = (T)data[i];
 		}
-		return null;
+		return res;
 	}
 }

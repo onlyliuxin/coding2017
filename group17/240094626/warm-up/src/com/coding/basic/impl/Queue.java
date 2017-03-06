@@ -38,6 +38,12 @@ public class Queue {
 		return elementData.size();
 	}
 	
+	
+	@Override
+	public String toString() {
+		return "Queue {elementData=" + elementData + "}";
+	}
+
 	public Iterator iterator(){
 		return new QueueIterator();
 	}
