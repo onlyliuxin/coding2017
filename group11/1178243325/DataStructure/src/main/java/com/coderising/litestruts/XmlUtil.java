@@ -30,4 +30,30 @@ public class XmlUtil {
 		return null;
 	}
 
+	public static String getJspUrl(String filePath, String actionName, String resultName) {
+		try {
+		File file = new File(filePath);
+		SAXReader reader = new SAXReader();
+		Document doc = reader.read(file);
+		Element root = doc.getRootElement();
+		for (Iterator iter = root.elementIterator("action"); iter.hasNext();) {
+			Element element = (Element)iter.next();
+			Attribute nameAttr = element.attribute("name");
+			if (nameAttr.getValue().equals(actionName)) {
+				for (Iterator ite = element.elementIterator("result"); ite.hasNext();) {
+					Element ele = (Element)ite.next();
+					Attribute resultAttr = ele.attribute("name");
+					if (resultAttr.getValue().equals(resultName)) {
+						return ele.getText();
+					}
+				}
+			}
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
 }
