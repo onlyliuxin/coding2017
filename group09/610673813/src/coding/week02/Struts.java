@@ -57,17 +57,14 @@ public class Struts {
 		try {
 			actionClass = Class.forName(classNameString);
 		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		Object newObject = null;
 		try {
 			newObject = actionClass.newInstance();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return newObject;
@@ -88,7 +85,7 @@ public class Struts {
 			excuteString = (String) excuteMethod.invoke(object);
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 	}
 
@@ -103,9 +100,7 @@ public class Struts {
 				try {
 					String value = (String) getterMethods[i].invoke(object);
 					hashMap.put(getterName.substring(3).toLowerCase(), value);
-					//System.out.println("----" + getterName.substring(2));
 				} catch (Exception e) {
-					// TODO: handle exception
 				}
 
 			}

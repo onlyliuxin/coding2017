@@ -20,14 +20,12 @@ public class ReadXml {
 			document = new SAXReader().read((filename));
 			hashMap = new HashMap<String, String>();
 		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	public String parseXml(String actionName) {
 
-		// List<?> actions = document.selectNodes("//struts/action");
 		String className = null;
 		Element root = document.getRootElement();
 		List<?> actions = root.elements("action");
