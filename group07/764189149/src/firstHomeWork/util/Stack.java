@@ -1,23 +1,22 @@
 package firstHomeWork.util;
 
-import java.util.Queue;
-
-public class Stack {
-	private ArrayList elementData = new ArrayList();
-	public void push(Object o){		
+public class Stack<E> {
+	private ArrayList<E> elementData = new ArrayList<E>();
+	public void push(E e){
+		elementData.add(e);
 	}
 	
 	public Object pop(){
-		return null;
+		return elementData.remove(elementData.size() - 1);
 	}
 	
 	public Object peek(){
-		return null;
+		return elementData.get(elementData.size() - 1);
 	}
 	public boolean isEmpty(){
-		return false;
+		return elementData.isEmpty();
 	}
 	public int size(){
-		return -1;
+		return elementData.size();
 	}
 }
