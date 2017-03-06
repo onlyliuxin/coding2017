@@ -1,8 +1,7 @@
-package com.leaning.code;
+package com.coding.basic;
 
 public interface Iterator {
-
 	public boolean hasNext();
-	
-	public Object Next();
+	public Object next();
+
 }
