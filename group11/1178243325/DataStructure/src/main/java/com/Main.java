@@ -1,5 +1,6 @@
 package com;
 
+import java.util.*;
 import com.coderising.litestruts.*;
 import com.coderising.array.*;
 public class Main {
@@ -48,6 +49,8 @@ public class Main {
 		System.out.print("\njoin测试:");
 		int[] jArray = new int[]{2, 3, 8};
 		System.out.print(ArrayUtil.join(jArray, "-"));
-		Struts.test();
+		Map<String, String> map = new HashMap<>();
+		Struts.runAction("login", map);
+
 	}
 }
