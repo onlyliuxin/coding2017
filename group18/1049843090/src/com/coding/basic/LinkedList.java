@@ -90,11 +90,11 @@ public class LinkedList<E> implements List<E> {
         } else if (index == (size - 1)) {
             return removeLast();
         } else {
-            //TODO index使用太多 遍历元素次数太多
-            Node<E> delNode = index(index);
+            Node<E> prev_index = index(index + 1);
+            Node<E> delNode = prev_index.next;
+            Node<E> next_index = delNode.next;
             E e = delNode.data;
-            Node<E> prev = index(index - 1);
-            prev.next = index(index + 1);
+            prev_index.next = next_index;
             delNode = null;
             size--;
             return e;
@@ -249,7 +249,16 @@ public class LinkedList<E> implements List<E> {
      * 例如链表为 3->7->10 , 逆置后变为  10->7->3
      */
     public void reverse() {
-
+        Queue<E> queue = new Queue<E>();
+        Iterator iterator = iterator();
+        while (iterator.hasNext()) {
+            E e = (E) iterator.next();
+            queue.enQueue(e);
+            iterator.remove();
+        }
+        for (int i = 0; i < queue.size(); i++) {
+            addFirst(queue.deQueue());
+        }
     }
 
     /**
@@ -293,8 +302,20 @@ public class LinkedList<E> implements List<E> {
      *
      * @param list
      */
-    public static int[] getElements(LinkedList list) {
-        return null;
+    public int[] getElements(LinkedList list) {
+        Queue<Integer> queue = new Queue<>();
+        for (int i = 0; i < list.size(); i++) {
+            queue.enQueue((Integer) list.get(i));
+        }
+        int[] result = new int[queue.size()];
+        int index = 0;
+        for (int i = 0; i < size; i++) {
+            if (i == queue.peek().intValue()) {
+                result[index++] = (Integer) get(i);
+                queue.deQueue();
+            }
+        }
+        return result;
     }
 
     /**
@@ -305,6 +326,18 @@ public class LinkedList<E> implements List<E> {
      */
 
     public void subtract(LinkedList list) {
+        Queue<E> queue = new Queue<>();
+        for (int i = 0; i < list.size(); i++) {
+            queue.enQueue((E) list.get(i));
+        }
+        Iterator iterator = iterator();
+        while (iterator.hasNext()) {
+            E e = (E) iterator.next();
+            if (e.equals(queue.peek())) {
+                queue.deQueue();
+                iterator.remove();
+            }
+        }
 
     }
 
@@ -313,6 +346,16 @@ public class LinkedList<E> implements List<E> {
      * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
      */
     public void removeDuplicateValues() {
+        Iterator iterator = iterator();
+        E cursor = null;
+        while (iterator.hasNext()) {
+            E current = (E) iterator.next();
+            if (cursor != null && current.equals(cursor)) {
+                iterator.remove();
+            } else {
+                cursor = current;
+            }
+        }
 
     }
 
@@ -324,7 +367,27 @@ public class LinkedList<E> implements List<E> {
      * @param max
      */
     public void removeRange(int min, int max) {
-
+        Node<E> cursor = head;
+        Node<E> start = null;
+        Node<E> end = null;
+        int num = 0;
+        for (int i = 1; i < size; i++) {
+            int data = (Integer) cursor.data;
+            if (min > data) {
+                start = cursor;
+            }
+            if (max < data) {
+                end = cursor;
+            }
+            if (data > min && data < max) {
+                num++;
+            }
+            cursor = cursor.next;
+        }
+        if (start != null && end != null) {
+            start.next = end;
+            size -= num;
+        }
     }
 
     /**
@@ -334,7 +397,17 @@ public class LinkedList<E> implements List<E> {
      * @param list
      */
     public LinkedList intersection(LinkedList list) {
-        return null;
+        LinkedList<E> result = new LinkedList<E>();
+        Queue<E> queue = new Queue<E>();
+        for (int i = 0; i < list.size(); i++) {
+            queue.enQueue((E) list.get(i));
+        }
+        for (int i = 0; i < size; i++) {
+            if (get(i).equals(queue.peek())) {
+                result.add(queue.deQueue());
+            }
+        }
+        return result;
     }
 
 
