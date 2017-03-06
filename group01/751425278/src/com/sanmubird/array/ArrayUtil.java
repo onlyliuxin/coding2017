@@ -134,9 +134,6 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max){
-		return null;
-	 * 返回小于给定最大值max的所有素数数组
-	 * @return
 		int count1 = 0 ;
 		int result1 ;
 		for(int i = 1 ; i <= max ;i++ ){
@@ -181,7 +178,7 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public static int[] getPerfectNumbers(int max){
+	public int[] getPrimes(int max){
 		int count1 = 0 ;
 		for(int i = 1 ; i < max ; i++ ){
 			if( isPrime(i )){
