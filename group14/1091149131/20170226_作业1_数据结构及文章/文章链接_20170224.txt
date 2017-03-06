@@ -1,0 +1,5 @@
+描述CPU，内存， 硬盘，指令之间的关系。
+
+文章链接：http://www.cnblogs.com/qingmaple/p/6437070.html
+
+QQ：1091149131  深圳-叶子
