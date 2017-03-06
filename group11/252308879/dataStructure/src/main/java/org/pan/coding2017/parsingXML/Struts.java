@@ -2,15 +2,19 @@ package org.pan.coding2017.parsingXML;
 
 import org.pan.coding2017.utils.JaxpDomUtil;
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
-
 
 
 public class Struts {
 
-    public static View runAction(String actionName, Map<String,String> parameters) {
+    public static View runAction(String actionName, Map<String, String> parameters) {
 
         /*
          
@@ -31,10 +35,76 @@ public class Struts {
 		放到View对象的jsp字段中。
         
         */
+        try {
+            Document document = JaxpDomUtil.getDocument();
+            NodeList actionNodeList = document.getElementsByTagName("action");
+            for (int i = 0; i < actionNodeList.getLength(); i++) {
+                NamedNodeMap attributes = actionNodeList.item(i).getAttributes();
+                String methodName = attributes.getNamedItem("name").getTextContent();
+                if (!actionName.equals(methodName)) {
+                    continue;
+                }
+                // 获取全类名对象，反射创建对象
+                String className = attributes.getNamedItem("class").getTextContent();
+                Class<?> actionClass = Class.forName(className);
 
-        Document document = JaxpDomUtil.getDocument();
-        NodeList action = document.getElementsByTagName("action");
+                // 获取反射的方法名称, 因为是public修饰所以用的是getMethod，获取私有方法需要用 getDeclaredMethod
+                Method setName = actionClass.getMethod("setName", String.class);
+                Method setPassword = actionClass.getMethod("setPassword", String.class);
+                // 创建对象
+                Object actionObject = actionClass.newInstance();
+
+                // 调用反射的setter方法,给参数赋值
+                setName.invoke(actionObject, parameters.get("name"));
+                setPassword.invoke(actionObject, parameters.get("password"));
+
+                // 获取execute方法
+                Method execute = actionClass.getMethod("execute");
+                // 返回结果
+                String result = (String) execute.invoke(actionObject);
+
+                // 获取getMessage方法
+                Method getMessage = actionClass.getMethod("getMessage");
+                String message = (String) getMessage.invoke(actionObject);
+                // 创建一个Map 用来放置在 View中
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("message", message);
+
+                // 获取返回的JSP路径，这个需要比较result节点的name属性
+                //获取action的子节点
+                NodeList resultNodes = actionNodeList.item(i).getChildNodes();
+                String viewUrl = "";
+                for (int n = 0; n < resultNodes.getLength(); n++) {
+                    Node item = resultNodes.item(n);
+                    NamedNodeMap resultAttributes = item.getAttributes();
+                    if (resultAttributes == null) {
+                        continue;
+                    }
+                    String name = resultAttributes.getNamedItem("name").getTextContent();
+                    if (result.equals(name)) {
+                        viewUrl = item.getTextContent();
+                        break;
+                    }
+                }
+                View view = new View();
+                view.setJsp(viewUrl);
+                view.setParameters(params);
+                return view;
+            }
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
         return null;
-    }    
+
+    }
 
 }
