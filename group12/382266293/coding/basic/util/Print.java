@@ -12,7 +12,7 @@ public class Print {
 		System.out.println(o);
 	}
 	
-	public static void printArr(int[] arr) {	
+	public static void printArr(Object[] arr) {	
 		println(Arrays.toString(arr));
 	}
 	
