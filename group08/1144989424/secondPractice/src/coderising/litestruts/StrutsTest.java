@@ -34,7 +34,6 @@ public class StrutsTest {
 		Map<String,String> params = new HashMap<String,String>();
         params.put("name","test");
         params.put("password","123456"); //密码和预设的不一致
-        
         View view  = Struts.runAction(actionName,params);        
         
         Assert.assertEquals("/jsp/showLogin.jsp", view.getJsp());
