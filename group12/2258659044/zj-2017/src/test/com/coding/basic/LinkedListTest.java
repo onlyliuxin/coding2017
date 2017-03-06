@@ -106,4 +106,85 @@ public class LinkedListTest {
 		//打开下面操作抛出异常
 		//it.next();
 	}
+	
+	@Test
+	public void testReverse(){
+		
+		ls.add(3);
+		ls.add(7);
+		ls.add(10);
+		ls.add(8);
+		ls.reverse();
+		int[] expected = {8,10,7,3};
+		for (int i = 0; i < ls.size(); i++) {
+			Assert.assertEquals(expected[i], ls.get(i));			
+		}
+	}
+	
+	public void testRemoveFirstHalf(){
+		
+		ls.add(2);
+		ls.add(5);
+		ls.add(7);
+		ls.add(8);
+		ls.add(10);
+		int[] expected = {7,8,10};
+		ls.removeFirstHalf();
+		for (int i = 0; i < ls.size(); i++) {
+			Assert.assertEquals(ls.get(i), expected[i]);
+		}
+		
+	}
+	
+	@Test
+	public void testRemove(){
+		ls.add(2);
+		ls.add(5);
+		ls.add(7);
+		ls.add(8);
+		ls.add(10);
+		
+		ls.remove(0, 1);
+		int[] expected = {5,7,8,10};
+		exceptResult(ls,expected);
+		
+		ls.remove(3,1);
+		int[] expected1 = {5,7,8};		
+		exceptResult(ls,expected1);
+		
+		ls.add(9);
+		ls.remove(2,8);
+		int[] expected2 = {5,7};
+		exceptResult(ls,expected2);
+		
+		ls.remove(0,9);
+		int[] expected3 = {};
+		exceptResult(ls,expected3);
+		
+	}
+	
+	@Test
+	public void testGetElements(){
+		ls.add(11);ls.add(101);
+		ls.add(201);ls.add(301);
+		ls.add(401);ls.add(501);
+		ls.add(601);ls.add(701);
+		LinkedList list = new LinkedList();
+		list.add(1);list.add(3);
+		list.add(4);list.add(6);
+		int[] exceptArr = {101,301,401,601};
+		int[] actual= ls.getElements(list);
+		for (int i = 0; i < actual.length; i++) {
+			Assert.assertEquals(exceptArr[i],actual[i]);
+		}
+		Assert.assertEquals(exceptArr.length,actual.length);
+	}
+	
+    private void exceptResult(LinkedList ls,int[] exceptArr){
+		
+		Assert.assertEquals(ls.size(), exceptArr.length);
+		for (int i = 0; i < exceptArr.length; i++) {
+			Assert.assertEquals(exceptArr[i],ls.get(i));
+		}
+	}
 }
