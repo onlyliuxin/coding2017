@@ -10,71 +10,62 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MyArrayListTest {
 
-    private MyArrayList mylist = new MyArrayList();
-    private final int mysize = 15;
+    private MyArrayList myList = new MyArrayList();
+    private Object[] elements = new Object[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+    private final int mySize = elements.length;
 
     @Before
     public void setUp() throws Exception {
-        for (int i = 0; i < mysize; i++) {
-            mylist.add(i);
+        for (int i = 0; i < mySize; i++) {
+            myList.add(i, i + 1);
         }
     }
 
     @After
     public void tearDown() throws Exception {
-        for (int i = mylist.size(); i > 0; i--) {
-            mylist.remove(i - 1);
+        for (int i = myList.size(); i > 0; i--) {
+            myList.remove(i - 1);
         }
-        mylist = null;
+        myList = null;
     }
 
     @Test
     public void addLast() throws Exception {
         int element = -1;
-        mylist.add(element);
-        Assert.assertEquals(mylist.size(), mysize + 1);
-        Assert.assertTrue(mylist.get(mylist.size() - 1).equals(element));
+        myList.add(element);
+        Assert.assertEquals(myList.size(), mySize + 1);
+        Assert.assertTrue(myList.get(myList.size() - 1).equals(element));
     }
 
     @Test
     public void addIndex() throws Exception {
-        int index = mysize / 2;
+        int index = mySize / 2;
         int element = -1;
-        mylist.add(index, element);
-        Assert.assertTrue(mylist.get(index).equals(element));
-        Assert.assertEquals(mylist.size(), mysize + 1);
-    }
-
-    @Test
-    public void get() throws Exception {
-        Assert.assertTrue(mylist.get(0).equals(0));
+        myList.add(index, element);
+        Assert.assertTrue(myList.get(index).equals(element));
+        Assert.assertEquals(myList.size(), mySize + 1);
     }
 
     @Test
     public void remove() throws Exception {
-        int index = mysize / 2;
-        Object before = mylist.get(index + 1);
-        Object element = mylist.remove(index);
-        Object after = mylist.get(index);
+        int index = mySize / 2;
+        Object before = myList.get(index + 1);
+        Object element = myList.remove(index);
+        Object after = myList.get(index);
         Assert.assertTrue(before.equals(after));
-        Assert.assertEquals(mylist.size(), mysize - 1);
+        Assert.assertEquals(myList.size(), mySize - 1);
 
-    }
-
-    @Test
-    public void size() throws Exception {
-        Assert.assertEquals(mylist.size(), mysize);
     }
 
     @Test
     public void iterator() throws Exception {
-        MyIterator iterator = mylist.iterator();
+        MyIterator iterator = myList.iterator();
         int count = 0;
         while (iterator.hasNext()) {
             iterator.next();
             count++;
         }
-        Assert.assertEquals(mylist.size(), count);
+        Assert.assertEquals(mySize, count);
     }
 
 }
