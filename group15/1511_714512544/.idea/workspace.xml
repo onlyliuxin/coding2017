@@ -795,8 +795,12 @@
       <workItem from="1488534235965" duration="1768000" />
       <workItem from="1488539022614" duration="6551000" />
       <workItem from="1488603570274" duration="615000" />
+<<<<<<< HEAD
       <workItem from="1488775548645" duration="242000" />
       <workItem from="1488775795680" duration="63000" />
+=======
+      <workItem from="1488775897013" duration="73000" />
+>>>>>>> refs/remotes/origin/master
     </task>
     <task id="LOCAL-00001" summary="xuweijay">
       <created>1487829266287</created>
@@ -953,7 +957,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="63817000" />
+=======
+    <option name="totallyTimeSpent" value="63585000" />
+>>>>>>> refs/remotes/origin/master
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -982,7 +990,11 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21030043" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+=======
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20761803" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+>>>>>>> refs/remotes/origin/master
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22961374" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
