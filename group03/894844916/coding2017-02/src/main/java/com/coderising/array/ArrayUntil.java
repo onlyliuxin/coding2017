@@ -17,15 +17,15 @@ public class ArrayUntil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin) {
-		int size=origin.length;
-		if (size==0||size==1) {
+		int size = origin.length;
+		if (size == 0 || size == 1) {
 			return;
 		}
-		int temp=0;
-		for (int i = 0; i < size/2; i++) {
-			temp=origin[i];
-			origin[i]=origin[size-1-i];
-			origin[size-1-i]=temp;
+		int temp = 0;
+		for (int i = 0; i < size / 2; i++) {
+			temp = origin[i];
+			origin[i] = origin[size - 1 - i];
+			origin[size - 1 - i] = temp;
 		}
 	}
 
@@ -38,32 +38,31 @@ public class ArrayUntil {
 	 */
 
 	public int[] removeZero(int[] oldArray) {
-		int size=oldArray.length;
-		if (size==0) {
+		int size = oldArray.length;
+		if (size == 0) {
 			return new int[0];
 		}
 		for (int i = 0; i < oldArray.length; i++) {
-			if (oldArray[i]==0) {
+			if (oldArray[i] == 0) {
 				size--;
 			}
 		}
-		if (size==0) {
+		if (size == 0) {
 			return new int[0];
 		}
-		int[] noZero=new int[size];
-		for (int i = 0,j=0; i < oldArray.length; i++) {
-			if (oldArray[i]!=0) {
-				noZero[j]=oldArray[i];
+		int[] noZero = new int[size];
+		for (int i = 0, j = 0; i < oldArray.length; i++) {
+			if (oldArray[i] != 0) {
+				noZero[j] = oldArray[i];
 				j++;
 			}
-			i++;
 		}
 		return noZero;
 	}
 
 	/**
 	 * 给定两个已经排序好的整形数组， a1和a2 , 创建一个新的数组a3, 使得a3 包含a1和a2 的所有元素， 并且仍然是有序的 例如 a1 =
-	 * [3, 5, 7,8] a2 = [4, 5, 6,7] 则 a3 为[3,4,5,6,7,8] , 注意： 已经消除了重复
+	 * [3,5,7,8] a2 = [4,5,6,7] 则 a3 为[3,4,5,6,7,8] , 注意： 已经消除了重复
 	 * 
 	 * @param array1
 	 * @param array2
@@ -71,36 +70,41 @@ public class ArrayUntil {
 	 */
 
 	public int[] merge(int[] array1, int[] array2) {
-		if (array1.length==0) {
+		if (array1.length == 0) {
 			return array2;
-		}if (array2.length==0) {
+		}
+		if (array2.length == 0) {
 			return array1;
 		}
-		int size=array1.length+array2.length;
-		int[] merged=new int[size];
-		int k=0;
-		for (int i = 0; i < array1.length; i++) {
-			for (int j = 0; j < array2.length; j++) {
-				if (array1[i]<array2[j]) {
-					merged[k]=array1[i];
-					k++;
-					i++;
-				}
-				else if (array1[i]>array2[j]) {
-					merged[k]=array2[j];
-					k++;
-					j++;
-				}
-				else {
-					merged[k]=array1[i];
-					k++;
-					i++;
-					j++;
-				}
+		int size = array1.length + array2.length;
+		int[] merged = new int[size];
+		int i=0,j=0,k=0;
+		while (i<array1.length&&j<array2.length) {
+			if (array1[i]<array2[j]) {
+				merged[k]=array1[i];
+				i++;
 			}
+			else if (array1[i]>array2[j]) {
+				merged[k]=array2[j];
+				j++;
+			}
+			else {
+				merged[k]=array1[i];
+				i++;
+				j++;
+			}
+			k++;
 		}
-		size=k-1;
-		int[] newArray=new int[size];
+		if (i==array1.length-1) {
+			System.arraycopy(array2, j, merged, k, array2.length-j);
+			k=k+array2.length-j;
+		}
+		if (i==array2.length-1) {
+			System.arraycopy(array1, i, merged, k, array1.length-i);
+			k=k+array1.length-i;
+		}
+		size = k;
+		int[] newArray = new int[size];
 		System.arraycopy(merged, 0, newArray, 0, size);
 		return newArray;
 	}
@@ -115,36 +119,37 @@ public class ArrayUntil {
 	 * @return
 	 */
 	public int[] grow(int[] oldArray, int size) {
-		int[] newArray=new int[oldArray.length+size];
+		int[] newArray = new int[oldArray.length + size];
 		System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
 		return newArray;
 	}
 
 	/**
 	 * 斐波那契数列为：1，1，2，3，5，8，13，21...... ，给定一个最大值， 返回小于该值的数列 例如， max = 15 ,
-	 * 则返回的数组应该为 [1，1，2，3，5，8，13] max = 1, 则返回空数组 []
+	 * 则返回的数组应该为 [1,1,2,3,5,8,13] max = 1, 则返回空数组 []
 	 * 
 	 * @param max
 	 * @return
 	 */
 	public int[] fibonacci(int max) {
-		if (max==1) {
+		if (max == 1) {
 			return new int[0];
 		}
-		int[] fib={1,1};
-		int size=2;
-		int capacity=2;
-		int i=1;
-		while (fib[i]<max) {
-			if (size==capacity) {
-				fib=grow(fib, capacity);
-				capacity=fib.length;
+		int[] fib = { 1, 1 };
+		int size = 2;
+		int capacity = 2;
+		int i = 1;
+		while (fib[i] < max) {
+			if (size == capacity) {
+				fib = grow(fib, capacity);
+				capacity = fib.length;
 			}
-			fib[i+1]=fib[i-1]+fib[i];
+			fib[i + 1] = fib[i - 1] + fib[i];
+			i++;
 			size++;
 		}
-		int[] newFib=new int[size];
-		System.arraycopy(fib, 0, newFib, 0, size);
+		int[] newFib = new int[size-1];
+		System.arraycopy(fib, 0, newFib, 0, size-1);
 		return newFib;
 	}
 
@@ -155,35 +160,36 @@ public class ArrayUntil {
 	 * @return
 	 */
 	public int[] getPrimes(int max) {
-		if (max<2) {
-			return null;
+		if (max < 2) {
+			return new int[0];
 		}
-		int[] primes=new int[]{2};
-		if (max<3) {
+		int[] primes = new int[] { 2 };
+		if (max ==3) {
 			return primes;
 		}
-		int i=0;
-		int size=1;
-		int capacity=1;
-		int number=3;
-		boolean prime=true;
-		while (primes[size-1]<max) {
-			for (int j = 2; j < number; j++) {
-				if (number%j==0) {
-					prime=false;
+		int size = 1;
+		int capacity = 1;
+		int number = 3;
+		boolean prime = true;
+		while (primes[size - 1] < max) {
+			for (int i = 2; i < number; i++) {
+				if (number % i == 0) {
+					prime = false;
 					break;
 				}
 			}
-			if (prime==true) {
-				if (size==capacity) {
-					primes=grow(primes, capacity);
-					capacity=primes.length;
+			if (prime == true) {
+				if (size == capacity) {
+					primes = grow(primes, capacity);
+					capacity = primes.length;
 				}
-				primes[i+1]=number;
-				size++;	
+				primes[size] = number;
+				size++;
 			}
+			number++;
+			prime = true;
 		}
-		int[] newPrimes=new int[size-1];
+		int[] newPrimes = new int[size - 1];
 		System.arraycopy(primes, 0, newPrimes, 0, size-1);
 		return newPrimes;
 	}
@@ -195,36 +201,37 @@ public class ArrayUntil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max) {
-		int number=2;
-		int size=0;
-		int capacity=10;
-		int[] perfectNumbers=new int[capacity];
-		while (number<max) {
-			int capa=10;
-			int i=0;
-			int[] factor=new int[capa];
-			int sum=0;
-			for (int j = 1; j <= number/2; j++) {
-				if (number%j==0) {
-					if (i==capa) {
-						factor=grow(factor, capa);
-						capa=factor.length;
+		int number = 2;
+		int size = 0;
+		int capacity = 10;
+		int[] perfectNumbers = new int[capacity];
+		while (number < max) {
+			int capa = 10;
+			int i = 0;
+			int[] factor = new int[capa];
+			int sum = 0;
+			for (int j = 1; j <= number / 2; j++) {
+				if (number % j == 0) {
+					if (i == capa) {
+						factor = grow(factor, capa);
+						capa = factor.length;
 					}
-					factor[i]=j;
-					sum+=j;
+					factor[i] = j;
+					sum += j;
 					i++;
 				}
 			}
-			if (sum==number&&number!=max) {
-				if (size==capacity) {
-					perfectNumbers=grow(perfectNumbers, capacity);
-					capacity=perfectNumbers.length;
+			if (sum == number && number != max) {
+				if (size == capacity) {
+					perfectNumbers = grow(perfectNumbers, capacity);
+					capacity = perfectNumbers.length;
 				}
-				perfectNumbers[size]=number;
+				perfectNumbers[size] = number;
 				size++;
 			}
+			number++;
 		}
-		int[] newPerfactNumber=new int[size];
+		int[] newPerfactNumber = new int[size];
 		System.arraycopy(perfectNumbers, 0, newPerfactNumber, 0, size);
 		return newPerfactNumber;
 	}
@@ -237,12 +244,12 @@ public class ArrayUntil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator) {
-		StringBuffer stringBuffer=new StringBuffer();
+		StringBuffer stringBuffer = new StringBuffer();
 		for (int i = 0; i < array.length; i++) {
 			stringBuffer.append(array[i]);
-			if (i!=array.length-1) {
+			if (i != array.length - 1) {
 				stringBuffer.append(seperator);
-			}	
+			}
 		}
 		return stringBuffer.toString();
 	}
