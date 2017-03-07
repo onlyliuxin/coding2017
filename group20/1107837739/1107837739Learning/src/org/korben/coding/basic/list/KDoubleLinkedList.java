@@ -7,7 +7,7 @@ import java.util.Objects;
  *
  * Created by Korben on 18/02/2017.
  */
-public class KLinkedList<T> implements KList<T> {
+public class KDoubleLinkedList<T> implements KList<T> {
 
     private int size;
 
@@ -15,7 +15,7 @@ public class KLinkedList<T> implements KList<T> {
 
     private Node<T> last;
 
-    public KLinkedList() {
+    public KDoubleLinkedList() {
         this.head = new Node<>(null);
     }
 
@@ -43,17 +43,19 @@ public class KLinkedList<T> implements KList<T> {
 
     @Override
     public Object[] toArray() {
-        throw new IllegalStateException("方法未实现");
+        return new Object[0];
     }
 
     @Override
     public boolean add(T o) {
         if (this.last == null) {
             this.last = new Node<>(o);
+            this.last.pre = this.head;
             this.head.next = this.last;
         } else {
             Node<T> oldLast = this.last;
             this.last = new Node<>(o);
+            this.last.pre = oldLast;
             oldLast.next = this.last;
         }
         this.size++;
@@ -63,12 +65,13 @@ public class KLinkedList<T> implements KList<T> {
     @Override
     public boolean remove(T o) {
         Node node = this.head;
-        Node preNode;
         while (node.next != null) {
-            preNode = node;
             node = node.next;
             if (Objects.equals(node.data, o)) {
-                preNode.next = node.next;
+                node.pre.next = node.next;
+                if (node.next != null) {
+                    node.next.pre = node.pre;
+                }
                 this.size--;
                 return true;
             }
@@ -98,39 +101,33 @@ public class KLinkedList<T> implements KList<T> {
 
     @Override
     public void add(int index, T element) {
-        if (index < 0 || index >= this.size) {
+        if (index <= 0 || index >= this.size) {
             throw new IndexOutOfBoundsException();
         }
-
         Node<T> node = this.head;
-        Node<T> preNode = node;
         for (int i = 0; i <= index; i++) {
-            preNode = node;
             node = node.next;
         }
-
+        Node<T> pre = node.pre;
         Node<T> newNode = new Node<>(element);
+        pre.next = newNode;
+        newNode.pre = pre;
         newNode.next = node;
-        preNode.next = newNode;
+        node.pre = newNode;
 
         this.size++;
     }
 
     @Override
     public T remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
+        Node<T> node = getNode(index);
+        Node<T> pre = node.pre;
+        Node<T> next = node.next;
+        pre.next = next;
+        if (next != null) {
+            next.pre = pre;
         }
 
-        Node<T> node = this.head;
-        Node<T> preNode = this.head;
-
-        for (int i = 0; i <= index; i++) {
-            preNode = node;
-            node = node.next;
-        }
-
-        preNode.next = node.next;
         this.size--;
         return node.data;
     }
@@ -166,65 +163,9 @@ public class KLinkedList<T> implements KList<T> {
         return node;
     }
 
-    /**
-     * 把该链表逆置
-     * 例如链表为 3->7->10 , 逆置后变为  10->7->3
-     */
-    public void reverse() {
-
-    }
-
-    /**
-     * 删除一个单链表的前半部分
-     * 例如：list = 2->5->7->8 , 删除以后的值为 7->8
-     * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
-     */
-    public void removeFirstHalf() {
-
-    }
-
-    /**
-     * 从第i个元素开始， 删除length 个元素 ， 注意i从0开始
-     */
-    public void remove(int i, int length) {
-
-    }
-
-    /**
-     * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
-     * 从当前链表中中删除在list中出现的元素
-     */
-
-    public void subtract(KLinkedList list) {
-
-    }
-
-    /**
-     * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。
-     * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
-     */
-    public void removeDuplicateValues() {
-
-    }
-
-    /**
-     * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
-     * 试写一高效的算法，删除表中所有值大于min且小于max的元素（若表中存在这样的元素）
-     */
-    public void removeRange(int min, int max) {
-
-    }
-
-    /**
-     * 假设当前链表和参数list指定的链表均以元素依值递增有序排列（同一表中的元素值各不相同）
-     * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
-     */
-    public KLinkedList intersection(KLinkedList list) {
-        return null;
-    }
-
     private static class Node<T> {
         T data;
+        Node<T> pre;
         Node<T> next;
 
         Node(T data) {
