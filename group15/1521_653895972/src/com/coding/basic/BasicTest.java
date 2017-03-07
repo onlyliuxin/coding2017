@@ -11,11 +11,11 @@ public class BasicTest {
     @Test
     public void test() {
         //测试
-        testArrayList();
+//        testArrayList();
         testLinkedList();
-        testBinaryTreeNode();
-        testStack();
-        testQueue();
+//        testBinaryTreeNode();
+//        testStack();
+//        testQueue();
     }
 
 
