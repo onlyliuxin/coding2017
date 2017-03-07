@@ -235,22 +235,119 @@ public class LinkedListTest extends ListTest{
 	}
 	
 	@Test
-	public void testSubtract() {
-		fail("Not yet implemented");
+	public  void TestSubtract()
+	{
+		//传进的list为null,什么都不干
+		LinkedList list = null;
+		for (int i=0; i<6; i++) 
+		{
+			aLinkedList.add(i);  //[0,1,2,3,4,5]
+		}
+		aLinkedList.subtract(list);
+		assertEquals(6, aLinkedList.size());
+		
+		//传进的list为空
+		list = new LinkedList();
+		aLinkedList.subtract(list);
+		assertEquals(6, aLinkedList.size());
+		
+		aLinkedList.add(1, 1);	//[0,1,1,2,3,4,5]
+		aLinkedList.add(4, 3);  //[0,1, 1, 2, 3, 3, 4, 5]
+		
+		
+		// list添加元素[0，1, 3, 7]
+		list.add(0);
+		list.add(1);
+		list.add(3);
+		list.add(7);
+		
+		aLinkedList.subtract(list); //[ 2, 4, 5]
+		
+		assertEquals(2, aLinkedList.get(0));
+		assertEquals(4, aLinkedList.get(1));
+		assertEquals(5, aLinkedList.get(2));
+		assertEquals(3, aLinkedList.size());
 	}
-
 	@Test
-	public void testRemoveDuplicateValues() {
-		fail("Not yet implemented");
+	public  void testRemoveDuplicateValues()
+	{
+		aLinkedList.add(3);
+		aLinkedList.add(3);
+		aLinkedList.add(4);
+		aLinkedList.add(4);
+		aLinkedList.add(5);
+		aLinkedList.add(6);
+		aLinkedList.add(6);	//[3, 3, 4, 4, 5, 6, 6]
+		
+		aLinkedList.removeDuplicateValues();	//[3, 4, 5, 6]
+		
+		assertEquals(3, aLinkedList.get(0));
+		assertEquals(4, aLinkedList.get(1));
+		assertEquals(5, aLinkedList.get(2));
+		assertEquals(6, aLinkedList.get(3));
+		assertEquals(4, aLinkedList.size());
+		
 	}
-
 	@Test
-	public void testRemoveRange() {
-		fail("Not yet implemented");
+	public void testRemoveRange()
+	{
+		for (int i=0; i<6; i++) 
+		{
+			aLinkedList.add(i);  // [0, 1, 2, 3, 4, 5] //考虑重复元素
+		}
+		aLinkedList.addFirst(0); // [0, 0, 1, 2, 3, 4, 5] 
+		aLinkedList.add(3, 2);	 // [0, 0, 1, 2, 2, 3, 4, 5] 
+		
+		aLinkedList.removeRange(1, 4);  // 大于1小于4  [0, 0, 1, 4, 5]
+		
+		assertEquals(0, aLinkedList.get(0));
+		assertEquals(0, aLinkedList.get(1));
+		assertEquals(1, aLinkedList.get(2));
+		assertEquals(4, aLinkedList.get(3));
+		assertEquals(5, aLinkedList.get(4));
+		assertEquals(5, aLinkedList.size());
+		
+		//若出现 min >= max的情况，什么都不做
+		aLinkedList.removeRange(4, 1);
+		assertEquals(0, aLinkedList.get(0));
+		assertEquals(0, aLinkedList.get(1));
+		assertEquals(1, aLinkedList.get(2));
+		assertEquals(4, aLinkedList.get(3));
+		assertEquals(5, aLinkedList.get(4));
+		assertEquals(5, aLinkedList.size());
+		
+		//将整个链表中的元素删除
+		expectedEx.expect(Exception.class);
+		aLinkedList.remove(-1, 9);
+
 	}
-
 	@Test
-	public void testIntersection() {
-		fail("Not yet implemented");
+	public void testIntersection()
+	{
+		for (int i=0; i<6; i++) 
+		{
+			aLinkedList.add(i);  // [0， 1, 2, 3, 4, 5] 
+		}
+		//list为null
+		LinkedList list = null;
+		LinkedList newList1 = aLinkedList.intersection(list);
+		assertNull(newList1);
+		
+		//list为空链表
+		list = new LinkedList();
+		LinkedList newList2 = aLinkedList.intersection(list);
+		assertEquals(0, newList2.size());
+		
+		list.add(2); 
+		list.add(3);
+		list.add(4);
+		list.add(6);
+		list.add(7);	 // [2, 3, 4, 6, 7]
+		LinkedList newList3 = aLinkedList.intersection(list);
+		
+		assertEquals(2, newList3.get(0));
+		assertEquals(3, newList3.get(1));
+		assertEquals(4, newList3.get(2));
+		assertEquals(3, newList3.size());
 	}
 }

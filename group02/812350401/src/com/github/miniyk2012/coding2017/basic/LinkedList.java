@@ -174,7 +174,7 @@ public class LinkedList implements List {
 	 * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
 	 * @param list
 	 */
-	public  LinkedList intersection( LinkedList list){
+	public  LinkedList intersection(LinkedList list){
 		return null;
 	}
 }
