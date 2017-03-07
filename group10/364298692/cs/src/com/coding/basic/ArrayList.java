@@ -35,13 +35,14 @@ public class ArrayList<T> implements List<T>{
 		}
 	}
 	
-	public void add(T o){
+	public boolean add(T o){
 		ensureCapacity(size + 1);
 		elementData[size] = o;
 		size++;
+		return true;
 	}
 	
-	public void add(int index, Object o){
+	public boolean add(int index, Object o){
 		if(index<0 || index > size){
 			throw new IndexOutOfBoundsException();
 		}
@@ -51,6 +52,7 @@ public class ArrayList<T> implements List<T>{
 
 		elementData[index] = o;	
 		size++;
+		return true;
 	} 
 	
 	@SuppressWarnings("unchecked")
