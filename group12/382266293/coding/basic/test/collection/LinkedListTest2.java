@@ -81,6 +81,60 @@ public class LinkedListTest2 extends TestCase {
 
 	}
 	
+	@Test
+	public void testSubstract() {
+		LinkedList<Integer> myLL = new LinkedList<Integer>();
+		addIntWithNatureOrder(myLL,10);
+		myLL.add(10);
+		myLL.add(10);
+		myLL.add(12);
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		list.add(0);
+		list.add(0);
+		addIntWithNatureOrder(list,10);
+		list.add(10);
+		list.add(12);
+		list.add(22);
+		myLL.subtract(list);
+		assertEquals(0,myLL.size());
+	}
+	
+	@Test
+	public void testIntersection() {
+
+		addIntWithNatureOrder(myLL,10);
+		myLL.add(10);
+		myLL.add(12);
+		myLL.add(13);
+		myLL.add(24);
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		list.add(0);
+		list.add(5);
+		list.add(10);
+		LinkedList<Integer> result = myLL.intersection(list);
+		assertEquals(0,(int)result.get(0));
+		assertEquals(5,(int)result.get(1));
+		assertEquals(10,(int)result.get(2));
+
+	}
+	
+	
+	@Test
+	public void testRemoveDuplicateValues() {
+
+		myLL.add(0);
+		myLL.add(0);
+		myLL.add(1);
+		myLL.add(1);
+		myLL.add(10);
+		myLL.removeDuplicateValues();
+		assertEquals(3,myLL.size());
+		assertEquals(0,(int)myLL.get(0));
+		assertEquals(1,(int)myLL.get(1));
+		assertEquals(10,(int)myLL.get(2));
+	}
+
+	
 	
 	
 }

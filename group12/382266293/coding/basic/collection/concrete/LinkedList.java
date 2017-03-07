@@ -2,6 +2,8 @@ package collection.concrete;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
+import java.util.Objects;
+
 import static util.TestUtil.*;
 import static util.Print.*;
 import collection.AbstractList;
@@ -144,33 +146,37 @@ public class LinkedList<E> extends AbstractList<E> {
 	 */
 	
 	public  void subtract(LinkedList<E> list){
-		Node<E> start = head;
-//		Node<E> curr;
-//		Node<E> next;
-//		Node<E> x;
+		Node<E> n1 = list.getNode(0);
+		Node<E> n2 = head;
 		int count = list.size();
-		while (count != 0) {
-
+		int index = 0;
+		int iR = 0;
+		while (count != 0 && n1 != null && n2 != null) {
 			
+			while(count > 1 && Objects.equals(n1.data, n1.next.data)) {
+				n1 = n1.next;
+				count--;
+			}
+			
+			while(Objects.equals(n1.data, n2.data) == false) {
+				index++;
+				if (index > size() - 1)
+					return;
+				n2 = n2.next;
+			}
+			iR = index;
+			
+			while (n2 != null && Objects.equals(n1.data, n2.data)) {
+				remove(iR);
+				count--;
+				n2 = n2.next;
+			}
+			index = iR;
+			n1 = n1.next;
 		}
-		
-		
-		
-	}
-	
-	
-	
-
-	public static void main(String args[]) {
-		LinkedList<Integer> myLL = new LinkedList<Integer>();
-		addIntWithNatureOrder(myLL,10);
-		println(myLL);
-		LinkedList<Integer> list = new LinkedList<Integer>();
-		list.add(1);
-		list.add(2);
-		list.add(5);
 
 	}
+
 
 	
 	/**
@@ -178,9 +184,59 @@ public class LinkedList<E> extends AbstractList<E> {
 	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
 	public  void removeDuplicateValues(){
+		Node<E> n1 = head;
+		//Node<E> next;
+		int count = size();
+		int index = 0;
+		int iR = 0;
+		while (count > 1 && n1 != null) {
+			while(count > 1 && Objects.equals(n1.data, n1.next.data) == false) {
+				n1 = n1.next;
+				index++;
+				count--;
+			}
+			iR = index;
+			//next = n1.next.next;
 		
+			while(count > 1 && Objects.equals(n1.data, n1.next.data)) {
+				remove(iR);
+				//n1 = n1.next;
+				//n1.next = next;
+				n1 = n1.next;
+				count--;
+			}
+			index = iR;
+		}
 	}
 	
+	
+	
+	public  void removeDuplicateValues2(){
+		Node<E> n1 = head;
+		int count = size();
+		int index = 0;
+		int iR = 0;
+		while (count > 1 && n1 != null) {
+			while(count > 1 && Objects.equals(n1.data, n1.next.data) == false) {
+				n1 = n1.next;
+				index++;
+				count--;
+			}
+			iR = index;
+	
+			while(count > 1 && Objects.equals(n1.data, n1.next.data)) {
+				Node<E> next = n1.next.next;
+				n1.next.data = null;
+				n1.next = null;
+				n1 = n1.next;
+				n1.next = next;
+				count--;
+			}
+			index = iR;
+			
+		}
+	}
+		
 	/**
 	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
 	 * 试写一高效的算法，删除表中所有值大于min且小于max的元素（若表中存在这样的元素）
@@ -191,19 +247,65 @@ public class LinkedList<E> extends AbstractList<E> {
 		
 	}
 	
-	/**
-	 * 假设当前链表和参数list指定的链表均以元素依值递增有序排列（同一表中的元素值各不相同）
-	 * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
-	 * @param list
-	 */
-	public  LinkedList intersection( LinkedList list){
-		return null;
+	public static void main(String args[]) {
+		LinkedList<Integer> myLL = new LinkedList<Integer>();
+		myLL.add(0);
+		addIntWithNatureOrder(myLL,10);
+		myLL.add(10);
+		myLL.add(12);
+		myLL.add(13);
+		myLL.add(24);
+		println(myLL);
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		list.add(0);
+		list.add(5);
+		list.add(10);
+
+		LinkedList<Integer> result = myLL.intersection(list);
+		println(result);
+
 	}
 	
 	
 	
 	
 	
+	/**
+	 * 假设当前链表和参数list指定的链表均以元素依值递增有序排列（同一表中的元素值各不相同）
+	 * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
+	 * @param list
+	 */
+
+	public  LinkedList<E> intersection(LinkedList<E> list){
+		Node<E> n1 = list.getNode(0);
+		Node<E> n2 = head;
+		LinkedList<E> result = new LinkedList<E>(); 
+		int count = list.size();
+		int index = 0;
+		int iR = 0;
+		while (count != 0 && n1 != null && n2 != null) {
+
+			while(Objects.equals(n1.data, n2.data) == false) {
+				index++;
+				if (index > size() - 1)
+					return result;
+				n2 = n2.next;
+			}
+			iR = index;
+			
+			if (n2 != null && Objects.equals(n1.data, n2.data)) {
+				result.add(n1.data);
+				count--;
+				n2 = n2.next;
+			}
+			index = iR;
+			n1 = n1.next;
+		}
+		
+		return result;
+
+	}
+		
 	
 	@Override
 	public void add(E e) {
