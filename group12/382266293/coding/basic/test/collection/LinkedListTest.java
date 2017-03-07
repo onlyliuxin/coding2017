@@ -46,8 +46,6 @@ public class LinkedListTest extends TestCase {
 	public void testReverse() {
 		addString(myLL,5);
 		myLL.reverse();
-		println(myLL);
-		
 	}
 	
 	

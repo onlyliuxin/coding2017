@@ -1,5 +1,6 @@
 package collection.concrete;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import static util.TestUtil.*;
 import static util.Print.*;
@@ -41,16 +42,7 @@ public class LinkedList<E> extends AbstractList<E> {
         head = pre;
 
     }
-	
-	
-	public static void main(String args[]) {
-		LinkedList<Integer> myLL = new LinkedList<Integer>();
-		addIntWithNatureOrder(myLL,5);
-		myLL.reverse();
-		println(myLL);
-		
-	}
-	
+
 	/**
 	 * 删除一个单链表的前半部分
 	 * 例如：list = 2->5->7->8 , 删除以后的值为 7->8
@@ -58,8 +50,8 @@ public class LinkedList<E> extends AbstractList<E> {
 
 	 */
 	public  void removeFirstHalf(){
-		int deleteIndex = size/2;
-		clearAndSetNewHead(deleteIndex);
+		int deleteLength = size/2;
+		remove(0,deleteLength);
 	}
 	
 	private void clearAndSetNewHead(int deleteIndex) {
@@ -74,7 +66,19 @@ public class LinkedList<E> extends AbstractList<E> {
 	        	head = next;
 		}
 	}
-
+	
+	private void clearAndSetNewHead(Node node,int deleteLength) {
+		Node<E> x = node;
+		for (int i = 0; i < deleteLength; i++) {
+            Node<E> next = x.next;
+            x.data = null;
+            x.next = null;
+            x = next;
+	        size--;
+	        if (i == deleteLength-1)
+	        	node = next;
+		}
+	}
 
 	/**
 	 * 从第i个元素开始， 删除length 个元素 ， 注意i从0开始
@@ -82,11 +86,24 @@ public class LinkedList<E> extends AbstractList<E> {
 	 * @param length
 	 */
 	public void remove(int i, int length){
-		checkIndex(i);
-		checkIndex(length-i);
+		if (i == 0) {
+			clearAndSetNewHead(length);
+			return;
+		}
+		Node<E> pre = getNode(i-1);
+		Node<E> x = pre.next;
+		checkIndex(length + i);
+		for (int j = 0; j < length; j++) {
+            Node<E> next = x.next;
+            x.data = null;
+            x.next = null;
+            x = next;
+	        size--;
+	        if (i == length-1)
+	        	pre.next = next;
+		}
 	}
-	
-	
+
 	/**
 	 * 假定当前链表和list均包含已升序排列的整数
 	 * 从当前链表中取出那些list所指定的元素
@@ -95,9 +112,29 @@ public class LinkedList<E> extends AbstractList<E> {
 	 * 返回的结果应该是[101,301,401,601]  
 	 * @param list
 	 */
-	public static int[] getElements(LinkedList list){
-		return null;
+	public int[] getElements(LinkedList<Integer> list){
+		Iterator it2 = list.iterator();
+		int size = list.size();		
+		int[] result = new int[size];
+		int curr = (int) it2.next();
+		Node<E> start = getNode(curr);
+		result[0] = (int) start.data;
+		int next, batch;
+		int res = -1;
+		for (int i = 1; i < size; i++) {
+			next = (int) it2.next();
+			batch = next - curr;
+			Node<E> p = start;
+			for(int j = 0; j < batch; j++){
+				 p = p.next;
+			}
+			result[i] = (int) p.data;
+			start = p;
+			curr = next;
+		}
+		return result;
 	}
+
 	
 	/**
 	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
@@ -106,9 +143,35 @@ public class LinkedList<E> extends AbstractList<E> {
 	 * @param list
 	 */
 	
-	public  void subtract(LinkedList list){
+	public  void subtract(LinkedList<E> list){
+		Node<E> start = head;
+//		Node<E> curr;
+//		Node<E> next;
+//		Node<E> x;
+		int count = list.size();
+		while (count != 0) {
+
+			
+		}
+		
+		
 		
 	}
+	
+	
+	
+
+	public static void main(String args[]) {
+		LinkedList<Integer> myLL = new LinkedList<Integer>();
+		addIntWithNatureOrder(myLL,10);
+		println(myLL);
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		list.add(1);
+		list.add(2);
+		list.add(5);
+
+	}
+
 	
 	/**
 	 * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。
