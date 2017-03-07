@@ -3,9 +3,6 @@ package download;
 import download.api.*;
 
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Date;
 
 
@@ -13,6 +10,8 @@ public class FileDownloader {
 	String url;
 	DownloadListener listener;
 	ConnectionManager manager;
+
+	private final int[] completedThreadCount = new int[1];
 
 	public FileDownloader(String url) {
 		this.url = url;
@@ -32,65 +31,29 @@ public class FileDownloader {
 		// 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
-		if (!Config.targetDirectory.exists()) {
-			Config.targetDirectory.mkdir();
-		}
-		if (!Config.tempDirectory.exists()) {
-			Config.tempDirectory.mkdir();
-		}
+		new Thread(() -> {
+			initDirectories();
 
-		int threadCount = 4;
-		File[] tempFiles = new File[threadCount];
-		Connection[] connections = new Connection[threadCount];
-		boolean[] threadComplete = new boolean[threadCount];
-		for (int i = 0; i < threadCount; ++i) {
-			File targetFile = new File(Config.tempDirectory,
-					new Date().getTime() + "_" + i);
-			tempFiles[i] = targetFile;
+			int threadCount = 4;
+			File[] tempFiles = new File[threadCount];
+			Connection[] connections = new Connection[threadCount];
+			createMultiThread(threadCount, tempFiles, connections);
 
-			Connection conn = null;
-			try {
-				conn = manager.open(this.url);
-			} catch (ConnectionException e) {
-				e.printStackTrace();
-			}
+			waitForComplete(threadCount);
+			mergeTempFiles(tempFiles);
 
-			if (conn != null) {
-				connections[i] = conn;
-				int length = conn.getContentLength();
-				int startPos = (int) (1.0 * length / threadCount * i);
-				int endPos = i == threadCount - 1 ? length : (int) (1.0 * length / threadCount * (i + 1));
-				System.out.println(i + " start: " + startPos + "  end: " + endPos);
-				final int index = i;
-				new DownloadThread(conn, startPos, endPos, targetFile,
-						() -> threadComplete[index] = true, () -> {
-					try {
-						downloadError(connections);
-					} catch (DownloadException e) {
-						e.printStackTrace();
-					}
-				}).start();
-			}
-		}
-
-		// 等待下载完成
-		while (true) {
-			boolean complete = true;
-			for (boolean b : threadComplete) {
-				complete = complete && b;
-			}
-			if (complete) {
-				break;
-			} else {
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+			for (Connection c : connections) {
+				if (c != null) {
+					c.close();
 				}
 			}
-		}
+			if (listener != null) {
+				listener.notifyFinished();
+			}
+		}).start();
+	}
 
-		// 合并临时文件
+	private void mergeTempFiles(File[] tempFiles) {
 		String[] split = url.replaceAll("/+", "/").split("/");
 		File saveFile = new File(Config.targetDirectory, split[split.length - 1]);
 		FileOutputStream fos = null;
@@ -98,7 +61,7 @@ public class FileDownloader {
 			fos = new FileOutputStream(saveFile);
 			for (File tempFile : tempFiles) {
 				write(tempFile, fos);
-				tempFile.delete();
+				tempFile.delete(); // 只删除临时文件，不删除临时目录
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -110,20 +73,71 @@ public class FileDownloader {
 					e.printStackTrace();
 				}
 			}
-			for (Connection c : connections) {
-				if (c != null) {
-					c.close();
-				}
-			}
-		}
-
-		if (listener != null) {
-			listener.notifyFinished();
 		}
 	}
 
+	private void waitForComplete(int threadCount) {
+		while (completedThreadCount[0] < threadCount) {
+			synchronized (completedThreadCount) {
+				if (completedThreadCount[0] < threadCount) {
+					try {
+						completedThreadCount.wait();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
 
-	private void downloadError(Connection[] connections) throws DownloadException {
+	private void createMultiThread(int threadCount, File[] tempFiles, Connection[] connections) {
+		for (int i = 0; i < threadCount; ++i) {
+			File targetFile = new File(Config.tempDirectory,
+					new Date().getTime() + "_" + i);
+			tempFiles[i] = targetFile;
+
+			Connection connection = connect();
+			if (connection != null) {
+				connections[i] = connection;
+				int length = connection.getContentLength();
+				int startPos = (int) (1.0 * length / threadCount * i);
+				int endPos = i == threadCount - 1 ? length : (int) (1.0 * length / threadCount * (i + 1));
+				new DownloadThread(connection, startPos, endPos, targetFile, () -> {
+					synchronized (completedThreadCount) {
+						completedThreadCount[0]++;
+						completedThreadCount.notifyAll();
+					}
+				}, () -> {
+					try {
+						downloadFailed(connections);
+					} catch (DownloadException e) {
+						e.printStackTrace();
+					}
+				}).start();
+			}
+		}
+	}
+
+	private Connection connect() {
+		Connection conn = null;
+		try {
+            conn = manager.open(this.url);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
+		return conn;
+	}
+
+	private void initDirectories() {
+		if (!Config.targetDirectory.exists()) {
+			Config.targetDirectory.mkdir();
+		}
+		if (!Config.tempDirectory.exists()) {
+			Config.tempDirectory.mkdir();
+		}
+	}
+
+	private void downloadFailed(Connection[] connections) throws DownloadException {
 		for (Connection c : connections) {
 			c.close();
 		}
@@ -164,17 +178,5 @@ public class FileDownloader {
 	
 	public DownloadListener getListener(){
 		return this.listener;
-	}
-
-	public static void main(String[] args) {
-		try {
-			URL url = new URL("file:///E:/Video/download/88993.mp4");
-			System.out.println(url.getProtocol() + " " + url.getHost() + " " + url.getPort()
-					+ " " + url.getPath() + " " + url.getFile());
-			URLConnection c = url.openConnection();
-			System.out.println(c.getContentLength());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 }

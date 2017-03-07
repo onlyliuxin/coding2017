@@ -1,6 +1,7 @@
 package download;
 
 import download.api.Connection;
+import download.api.DownloadException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,55 +13,42 @@ public class DownloadThread extends Thread {
 	int startPos;
 	int endPos;
 
-	File targetFile;
+	File tempFile;
 	OnCompleteListener onComplete;
 	OnFailListener onFail;
 
-	public DownloadThread(Connection conn, int startPos, int endPos, File targetFile,
+
+	public DownloadThread(Connection conn, int startPos, int endPos, File tempFile,
 						  OnCompleteListener onComplete, OnFailListener onFail) {
 		this.conn = conn;		
 		this.startPos = startPos;
 		this.endPos = endPos;
-		this.targetFile = targetFile;
+		this.tempFile = tempFile;
 		this.onComplete = onComplete;
 		this.onFail = onFail;
 	}
 
 	@Override
 	public void run() {
-		boolean success = false;
 		int maxFailCount = 5;
 		int failCount = 0;
+		boolean success = false;
 		while (!success) {
-			FileOutputStream fos = null;
 			try {
-				fos = new FileOutputStream(targetFile);
-				tryDownload(fos);
-				success = true;
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
+				success = tryDownload();
+			} catch (DownloadException e) {
 				if (failCount < maxFailCount) {
 					failCount++;
-					try {
-						recreateFile(fos, targetFile);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+					retry();
 				} else {
 					break;
 				}
-			} finally {
-				if (fos != null) {
-					try {
-						fos.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
 			}
 		}
+		callback(success);
+	}
 
+	private void callback(boolean success) {
 		if (onComplete != null) {
 			if (success) {
 				onComplete.onComplete();
@@ -70,15 +58,42 @@ public class DownloadThread extends Thread {
 		}
 	}
 
-	private void recreateFile(FileOutputStream old, File file) throws IOException {
-		if (old != null) {
-			old.close();
-		}
+	private boolean tryDownload() throws DownloadException {
+		FileOutputStream fos = null;
+		try {
+            fos = new FileOutputStream(tempFile);
+            download(fos);
+            return true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+			throw new DownloadException();
+		} finally {
+            if (fos != null) {
+                try {
+					fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return false;
+	}
+
+	private void retry() {
+		try {
+            recreateFile(tempFile);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+	}
+
+	private void recreateFile(File file) throws IOException {
 		file.delete();
 		file.createNewFile();
 	}
 
-	private void tryDownload(FileOutputStream fos) throws IOException {
+	private void download(FileOutputStream fos) throws IOException {
 		int bufSize = 1024;
 		int from = startPos;
 		while (from < endPos) {
@@ -93,6 +108,7 @@ public class DownloadThread extends Thread {
 	public interface OnCompleteListener {
 		void onComplete();
 	}
+
 	public interface OnFailListener {
 		void onFail();
 	}

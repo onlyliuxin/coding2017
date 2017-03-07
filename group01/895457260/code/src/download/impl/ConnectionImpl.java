@@ -12,10 +12,14 @@ public class ConnectionImpl implements Connection {
 	private InputStream inputStream;
 
 	ConnectionImpl(String url) throws ConnectionException {
+		init(url);
+	}
+
+	private void init(String url) {
 		try {
 			connection = new URL(url).openConnection();
 			inputStream = connection.getInputStream();
-			inputStream.mark(connection.getContentLength());
+			inputStream.mark(connection.getContentLength()); // 标记在开头
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -23,8 +27,8 @@ public class ConnectionImpl implements Connection {
 
 	@Override
 	public byte[] read(int startPos, int endPos) throws IOException {
-		inputStream.reset();
-		inputStream.skip(startPos);
+		inputStream.reset(); // reset回到标记处
+		skipBytes(startPos);
 		byte[] bytes = new byte[endPos - startPos];
 		int n = inputStream.read(bytes);
 		return n == -1 ? new byte[0] : bytes;
@@ -43,6 +47,13 @@ public class ConnectionImpl implements Connection {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+
+	// InputStream.skip(long)实际跳过的字节数经常小于参数值，但不会大于参数值
+	private void skipBytes(long n) throws IOException {
+		while (n > 0) {
+			n -= inputStream.skip(n);
 		}
 	}
 }

@@ -2,12 +2,18 @@ package download;
 
 import download.FileDownloader;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import download.api.ConnectionManager;
 import download.api.DownloadListener;
 import download.impl.ConnectionManagerImpl;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class FileDownloaderTest {
 	boolean downloadFinished = false;
@@ -23,7 +29,8 @@ public class FileDownloaderTest {
 	public void testDownload() {
 		
 //		String url = "http://localhost:8080/test.jpg";
-		String url = "file:///E:/Video/download/88993.mp4";
+//		String url = "file:///E:/Video/download/88993.mp4";
+		String url = "file:///E:/Pictures/Clannad/Clannad高清图片/38.jpg";
 
 		FileDownloader downloader = new FileDownloader(url);
 
@@ -57,5 +64,4 @@ public class FileDownloaderTest {
 		
 
 	}
-
 }
