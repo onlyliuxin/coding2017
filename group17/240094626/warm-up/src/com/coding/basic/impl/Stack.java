@@ -50,9 +50,17 @@ public class Stack {
 		return elementData.size();
 	}
 	
+	
+	
+	@Override
+	public String toString() {
+		return "Stack {elementData=" + elementData + "}";
+	}
+
 	public Iterator iterator(){
 		return new StackIterator();
 	}
+	
 	private class StackIterator implements Iterator{
 		int index;
 
@@ -70,7 +78,7 @@ public class Stack {
 
 		@Override
 		public Object next() {
-			return elementData.get(index);
+			return elementData.get(index++);
 		}
 		
 		
