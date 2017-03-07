@@ -1,5 +1,10 @@
 package com.coderising.download;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
@@ -13,6 +18,8 @@ public class FileDownloader {
 	
 	ConnectionManager cm;
 	
+	/*线程名称前缀*/
+	private final String threadName = "thread";
 
 	public FileDownloader(String _url) {
 		this.url = _url;
@@ -33,14 +40,35 @@ public class FileDownloader {
 		// 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
+		
+		
 		Connection conn = null;
 		try {
 			
-			conn = cm.open(this.url);
-			
-			int length = conn.getContentLength();	
-			
-			new DownloadThread(conn,0,length-1).start();
+			conn = cm.open(this.url);			
+			int threadCount = 3;
+			int length = conn.getContentLength();
+			//存放下载线程名称
+			List<String> names = new ArrayList<String>();
+			int blockSize = length / threadCount;			
+			for (int thread = 1; thread <= threadCount; thread++) {
+				
+                int startIndex = (thread - 1) * blockSize;  
+                int endIndex = thread * blockSize - 1;  
+                if (thread == threadCount) {//最后一个线程下载的长度要稍微长一点  
+                    endIndex = length;  
+                }  
+                System.out.println("线程："+thread+"下载:---"+startIndex+"--->"+endIndex);  
+                Thread thr= new DownloadThread(conn,startIndex,endIndex);
+                //线程名称组成：thread+编号
+                thr.setName(threadName+thread);
+                thr.start();
+                names.add(threadName+thread);
+            }
+			//判断所有线程是否下载完成
+			if(DownloadThreadsIsComplete(names)){
+				listener.notifyFinished();
+			}
 			
 		} catch (ConnectionException e) {			
 			e.printStackTrace();
@@ -53,6 +81,21 @@ public class FileDownloader {
 		
 		
 		
+	}
+	
+	/**
+	 * 判断所有下载线程是否执行完
+	 * @return
+	 */
+	private boolean DownloadThreadsIsComplete(List<String> threadNames){
+		
+		Map<Thread, StackTraceElement[]> threadMaps=Thread.getAllStackTraces();
+		Iterator<Thread> it = threadMaps.keySet().iterator();
+		while(it.hasNext()){
+			Thread thread = it.next();
+		    return !threadNames.contains(thread.getName());
+		}
+		return true;
 	}
 	
 	public void setListener(DownloadListener listener) {

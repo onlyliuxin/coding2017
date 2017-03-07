@@ -1,6 +1,7 @@
 package com.coderising.download.impl;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 
 import com.coderising.download.api.Connection;
@@ -11,8 +12,12 @@ public class ConnectionImpl implements Connection{
 	
 	@Override
 	public byte[] read(int startPos, int endPos) throws IOException {
-				
-		return null;
+		//请求服务器下载部分文件 指定文件的位置  
+		urlCon.setRequestProperty("Range", "bytes="+startPos+"-"+endPos); 
+		InputStream is = urlCon.getInputStream();
+        byte[] buffer = new byte[endPos-startPos];
+        is.read(buffer);
+		return buffer;
 	}
 
 	@Override
@@ -21,8 +26,8 @@ public class ConnectionImpl implements Connection{
 	}
 
 	@Override
-	public void close() {
-				
+	public void close() {		
+		urlCon.disconnect();
 	}
 	
 	public void setUrlCon(HttpURLConnection urlCon) {

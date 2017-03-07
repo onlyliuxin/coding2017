@@ -20,6 +20,8 @@ public class ConnectionManagerImpl implements ConnectionManager {
 		try {
 			remotUrl = new URL(url);    
 			urlCon = (HttpURLConnection)remotUrl.openConnection();
+			urlCon.setRequestMethod("GET");
+			urlCon.connect();
 			conn.setUrlCon(urlCon);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
