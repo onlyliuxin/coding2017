@@ -125,7 +125,7 @@ public class LinkedList implements List {
 		}
 		return node;
 	}
-	
+		
 	private static  class Node{
 		Object data;
 		Node next;
@@ -137,18 +137,16 @@ public class LinkedList implements List {
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
 	public  void reverse(){	
-		//缓存原链表数据
+		
 		Stack stack = new Stack();
-		Node node = head;
-		for (int i = 0; i < size; i++) {
+		Node node;
+		//缓存原链表数据
+		for (node = head; node!=null;node = node.next) {
 			stack.push(node.data);
-			node = node.next;			
-		}		
+		}
 		//重新赋值
-		node = head;
-		for (int i = 0; i < size; i++) {
+		for (node = head; node!=null;node = node.next) {
 			node.data = stack.pop();
-			node = node.next;			
 		}
 	}
 	
@@ -182,6 +180,7 @@ public class LinkedList implements List {
 			if(length<(size-i)){
 				getPointNode(i-1).next = getPointNode(i+length);
 				size = size-length;
+				size = size-length;
 			}else{
 				getPointNode(i-1).next = null;
 				size = i;
@@ -199,7 +198,7 @@ public class LinkedList implements List {
 	public int[] getElements(LinkedList list){
 		int[] array = new int[list.size()];
 		for (int i = 0; i < array.length; i++) {
-			array[i] = (int)getPointNode((int)list.get(i)).data;
+			array[i] = (int) get((int)list.get(i));
 		}
 		return array;
 	}
@@ -210,11 +209,12 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	
-	public  void subtract(LinkedList list){
+	public  void subtract(LinkedList list){		
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < list.size(); j++) {
 				if(get(i).equals(list.get(j))){
 					remove(i);
+					i--;
 				}
 			}
 		}
