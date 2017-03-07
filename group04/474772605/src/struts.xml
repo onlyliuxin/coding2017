@@ -6,6 +6,6 @@
     </action>
     <action name="logout" class="com.coderising.action.LogoutAction">
     	<result name= "success">/jsp/welcome.jsp</result>
-    	<result name= "error">/jsp/error.jsp</result>
+    	<result name= "fail">/jsp/error.jsp</result>
     </action>
 </struts>

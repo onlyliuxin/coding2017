@@ -21,126 +21,81 @@ public class Struts {
 	
 	
 	public static void main(String[] args) throws DocumentException {
-String actionName = "com.coderising.action.LoginAction";
+         String actionName = "login";
         
 		Map<String,String> params = new HashMap<String,String>();
         params.put("name","test");
-        params.put("password","1234");
-        
-        
-        View view  = Struts.runAction(actionName,params);        
+        params.put("password","1234");      
+        View view  = Struts.runAction(actionName,params);  
+        System.out.println(view.getJsp());
+        System.out.println(view.getParameters());
 	}
 	
  
-
-/*  //遍历当前节点下的所有节点  
-  public static void listNodes(Element node){  
-      System.out.println("当前节点的名称：" + node.getName());  
-      //首先获取当前节点的所有属性节点  
-      List<Attribute> list = node.attributes();  
-      //遍历属性节点  
-      for(Attribute attribute : list){  
-          System.out.println("属性"+attribute.getName() +":" + attribute.getValue());  
-      }  
-      //如果当前节点内容不为空，则输出  
-      if(!(node.getTextTrim().equals(""))){  
-           System.out.println( node.getName() + "：" + node.getText());    
-      }  
-      //同时迭代当前节点下面的所有子节点  
-      //使用递归  
-      Iterator<Element> iterator = node.elementIterator();  
-      while(iterator.hasNext()){  
-          Element e = iterator.next();  
-          listNodes(e);  
-      }  
-  } */ 
-
     public static View runAction(String actionName, Map<String,String> parameters)  {
-    	
-    	 SAXReader reader = new SAXReader();  
+    	 View view = new View();
+    	    SAXReader reader = new SAXReader();  
 	      //读取文件 转换成Document  
-	      org.dom4j.Document document;
-		try {
-			document = reader.read(new File("src/struts.xml"));
-			Element root = document.getRootElement();  		    
-		      List<Element> childList2 = root.elements("action");
-		      Iterator<Element> it = childList2.iterator();
-		     /* while (it.hasNext()){
-		      Element element = it.next();
-		      System.out.println("节点的名称" + element.getName() + "节点的值" + element.getText()); 
-
-		         }*/
-		      for (int i = 0; i < childList2.size(); i++) {
-		 	     List<Attribute> list = childList2.get(i).attributes();  
-		 	     Iterator<Attribute> it1 = list.iterator();
-		 	     while(it1.hasNext()){
-		 	    	 
-		 	    	Attribute attribute1 = it1.next();
-		 	    	System.out.println(attribute1.getName());
-		 	    	System.out.println(attribute1.getValue());
-		 	    	System.out.println("==============");
-		 	    
-		 	     } 
-		 	     
-		 	    	 for(Attribute attribute : list){ 	
-		 	    		
-		 	    		 if(actionName.equals(attribute.getValue())){
-		 	    			 
-		 	    			 String clazz = null;
-		 	    		
-		 	    			 clazz = attribute.getValue();
-		 	    			try {
-								Object o = Class.forName(clazz).newInstance();
-								try {
-									Method m = o.getClass().getMethod("setName", String.class);
-									Method m1 = o.getClass().getMethod("setPassword", String.class);
-									Method m3 = o.getClass().getMethod("execute");
-									try {
-										m.invoke(o, parameters.get("name"));
-										m1.invoke(o, parameters.get("password"));
-										String result = (String) m3.invoke(o);
-										System.out.println(result);
-									} catch (IllegalArgumentException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									} catch (InvocationTargetException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-								} catch (SecurityException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								} catch (NoSuchMethodException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
+	        org.dom4j.Document document;
+		   try {
+				document = reader.read(new File("src/struts.xml"));
+				Element root = document.getRootElement();  
+				@SuppressWarnings("unchecked")
+				List<Element> elements = root.elements();
+				for (Element element : elements) {
+		            Attribute actionAttribute = element.attribute("name");
+		            Attribute classAttribute = element.attribute("class");      
+		            if(actionName.equals(actionAttribute.getValue())){	            	
+		            	 String clazz = null;	 	    		
+	 	    			 clazz = classAttribute.getValue();
+	 	    			 Object o = Class.forName(clazz).newInstance();
+	 	    			for (Map.Entry<String,String> entry : parameters.entrySet()) {  
+	 	    				String name = entry.getKey();
+	 	    				String value =entry.getValue();
+	 	    				String methodname = "set"+name.substring(0,1).toUpperCase()+name.substring(1);
+	 	    				Method m = o.getClass().getMethod(methodname, String.class);
+	 	    				m.invoke(o, value);
+	 	    			  
+	 	    			} 
+						Method m3 = o.getClass().getMethod("execute");					
+						String result = (String) m3.invoke(o);	
+						String jspPath = null;
+						List<Element> element1s = element.elements("result");
+						if(result.equals("success")){		            	
+			            	for (int i = 0; i < element1s.size(); i++) {
+			            		Attribute attribute2 = element1s.get(i).attribute("name");
+			            		if (attribute2.getValue().equals("success")) {
+									jspPath = element1s.get(i).getStringValue();
+								}	            		
+							}	            	
+						}else if(result.equals("fail")){
+							for (int i = 0; i < element1s.size(); i++) {
+			            		Attribute attribute2 = element1s.get(i).attribute("name");
+			            		if (attribute2.getValue().equals("fail")) {
+									jspPath = element1s.get(i).getStringValue();
 								}
-								
-								
-							} catch (InstantiationException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (IllegalAccessException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (ClassNotFoundException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}  //根据class生成实例
-		 	    		 }
-		 	    	
-		 	    		 
-		 	    	 }  	  
-		 		     
-		 		}
-		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  
-	      //获取根节点元素对象  
-	      
-	   
-    	
-
+						}
+		        }
+						HashMap<String, Object>viewparamterHashMap = new HashMap<String, Object>();
+						Method[]methods = o.getClass().getMethods();
+					    String  methodname;
+						for (int j = 0; j < o.getClass().getMethods().length; j++) {
+							methodname = methods[j].getName();								
+							if(methodname.startsWith("get")&&!methodname.equals("getClass")){
+								String methodname1 = methods[j].getName();
+								methodname1 = methodname.substring(3,4).toUpperCase()+methodname1.substring(4);
+								viewparamterHashMap.put(methodname1, methods[j].invoke(o));								
+							}
+						}						
+						  view.setJsp(jspPath);		
+						  view.setParameters(viewparamterHashMap);
+						  return view;						
+				}	   
+	    }
+		} catch (Exception e) {
+			// TODO: handle exception
+		}		
+		   return null;
         /*
          
 		0. 读取配置文件struts.xml
@@ -161,7 +116,7 @@ String actionName = "com.coderising.action.LoginAction";
         
         */
     	
-    	return null;
-    }    
+    	
+    }			   
 
 }
