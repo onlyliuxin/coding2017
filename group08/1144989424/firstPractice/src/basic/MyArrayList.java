@@ -1,5 +1,11 @@
 package basic;
 
+/**
+ * 我的ArrayList实现
+ * @author Wayss
+ * 2017-02-22
+ */
+
 public class MyArrayList implements MyList {
     
     private int size = 0;
@@ -26,7 +32,7 @@ public class MyArrayList implements MyList {
      */
     public void add(int index, Object o){
         int length = elementData.length;
-        //0.先对index的值进行判断，不能小于0，且不能大于size
+        //0.先对index的值进行判断，小于0，或者，大于size，越界
         if(index < 0 || index > size){
             throw new IndexOutOfBoundsException("插入的下标越界了:"+"插入的下标为："+index+"集合大小为："+size);
         }
@@ -43,19 +49,64 @@ public class MyArrayList implements MyList {
     }
     
     public Object get(int index){
-        return null;
+        int length = elementData.length;
+        //0.先对index的值进行判断，小于0，或者，大于等于size，便越界
+        if(index < 0 || index >= size){
+            throw new IndexOutOfBoundsException("插入的下标越界了:"+"插入的下标为："+index+"集合大小为："+size);
+        }
+        //2.拿出index位置的值，
+        Object o = elementData[index];
+        
+        return o;
     }
     
     public Object remove(int index){
+        //remove 前两步的逻辑和get方法相同
+        int length = elementData.length;
+        //0.先对index的值进行判断，小于0，或者，大于等于size，便越界
+        if(index < 0 || index >= size){
+            throw new IndexOutOfBoundsException("插入的下标越界了:"+"插入的下标为："+index+"集合大小为："+size);
+        }
+        //2.拿出index位置的值，
+        Object o = elementData[index];
+        
+        //3.删除index位置的值，之后的值，向前移动。
+        for(int i = index; i < size-1; i++){
+            elementData[i] = elementData[i+1];
+        }
+        size--;
         return null;
     }
     
     public int size(){
-        return -1;
+        return size;
     }
     
     public MyIterator iterator(){
-        return null;
+        return new MyArrayListIterator(this);
+    }
+    
+    private class MyArrayListIterator implements MyIterator{
+        private MyArrayList list = null;
+        private int index = 0;
+        
+        private MyArrayListIterator(MyArrayList list){
+            this.list = list;
+        }
+        
+        @Override
+        public boolean hasNext(){
+            if(index < size){
+                return true;
+            }
+            return false;
+        }
+        
+        @Override
+        public Object next(){
+            return list.get(index++);
+        }
+        
     }
     
     private void expandArray(){
