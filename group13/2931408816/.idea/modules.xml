@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2931408816.iml" filepath="$PROJECT_DIR$/.idea/modules/2931408816.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2931408816_main.iml" filepath="$PROJECT_DIR$/.idea/modules/2931408816_main.iml" group="2931408816" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2931408816_test.iml" filepath="$PROJECT_DIR$/.idea/modules/2931408816_test.iml" group="2931408816" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson1/lesson1.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson1/lesson1.iml" group="lesson1" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson1/lesson1_main.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson1/lesson1_main.iml" group="lesson1" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson1/lesson1_test.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson1/lesson1_test.iml" group="lesson1" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson2/lesson2.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson2/lesson2.iml" group="lesson2" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson2/lesson2_main.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson2/lesson2_main.iml" group="lesson2" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson2/lesson2_test.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson2/lesson2_test.iml" group="lesson2" />
+    </modules>
+  </component>
+</project>

@@ -38,9 +38,13 @@ public class MyLinkedList implements MyList {
 	 */
 	public void addFirst(Object o) {
 		Node tmp = new Node(o);
-		tmp.next = head;
-		head.prov = tmp;
-		head = tmp;
+		if(head == null){
+			head = tmp;
+		}else{
+			tmp.next = head;
+			head.prov = tmp;
+			head = tmp;
+		}
 	}
 
 	/**
@@ -97,7 +101,10 @@ public class MyLinkedList implements MyList {
 	public Node removeFirst() {
 		Node tmp = head;
 		head = head.next;
-		head.prov = null;
+		if(head != null){
+			head.prov = null;
+		}
+		
 		return tmp;
 	}
 
@@ -199,22 +206,22 @@ public class MyLinkedList implements MyList {
 	private class LinkedListIterator implements MyIterator{
 		
 		private MyLinkedList eleIterator;
-		private Node pos;
+		private int pos;
 		
 		private LinkedListIterator(MyLinkedList mll){
 			this.eleIterator = mll;
-			this.pos = eleIterator.get(0);
+			this.pos = 0;
 		}
 		
 		@Override
 		public boolean hasNext() {
-			return pos != null;
+			return pos <= size;
 		}
 
 		@Override
 		public Object next() {
-			Node res = pos;
-			pos = pos.next;
+			Node res = eleIterator.get(pos);
+			pos++;
 			return res;
 		}
 		
