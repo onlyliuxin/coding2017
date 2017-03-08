@@ -13,18 +13,14 @@ public class ConnectionManagerImpl implements ConnectionManager {
 	@Override
 	public Connection open(String url) throws ConnectionException {
 	    URL uu = null;
-	    Connection conn = null;
+	    ConnectionImpl conn = null;
 	    try {
             uu = new URL(url);
-            uu.getFile();
             URLConnection urlConn = uu.openConnection();
-            int length = urlConn.getContentLength();
-            System.out.println(length);
+            conn.setUrlConn(urlConn);
         } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 	    
