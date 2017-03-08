@@ -1,7 +1,8 @@
 package com.coderising.litestruts;
 
 import java.util.Map;
-
+import java.util.HashMap;
+import java.lang.reflect.Method;
 public class Struts {
 
     public static View runAction(String actionName, Map<String,String> parameters) {
@@ -9,8 +10,6 @@ public class Struts {
         /*
          
 		0. 读取配置文件struts.xml*/
-		String targetClassName = XmlUtil.parseXML("struts.xml", actionName);
-		
  		/*
  		1. 根据actionName找到相对应的class ， 例如LoginAction,   通过反射实例化（创建对象）
 		据parameters中的数据，调用对象的setter方法， 例如parameters中的数据是 
@@ -27,6 +26,35 @@ public class Struts {
 		放到View对象的jsp字段中。
         
         */
+		try {
+			String targetClassName = XmlUtil.parseXML("struts.xml", actionName);
+			Class<?> targetClass = Class.forName(targetClassName);
+			
+			Method setName = targetClass.getMethod("setName", String.class);
+			Method setPassword = targetClass.getMethod("setPassword", String.class);
+			Object object = targetClass.newInstance();
+
+			setName.invoke(object, parameters.get("name"));
+			setPassword.invoke(object, parameters.get("password"));
+
+			Method execute = targetClass.getMethod("execute");
+			String result = (String)execute.invoke(object);
+
+			Method getMessage = targetClass.getMethod("getMessage");
+			String message = (String)getMessage.invoke(object);
+
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("message", message);
+			String jspUrl = XmlUtil.getJspUrl("struts.xml", actionName, result);
+			View view = new View();
+			view.setJsp(jspUrl);
+			view.setParameters(params);
+			return view;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		   
     	
     	return null;
     }    
