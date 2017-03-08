@@ -26,13 +26,10 @@ public class ArrayUtil {
 	 */
 	
 	public static  int[] removeZero(int[] oldArray){
+		int[] notZero = new int[oldArray.length];
 		for(int i = 0;i < oldArray.length ;i++){
-			if(oldArray[i] == 0){
-				int[] a = {};
-				System.arraycopy(oldArray, 0, a, 0, i);
-				System.arraycopy(oldArray, 0, a, i, oldArray.length);
-				oldArray = a;
-				removeZero(oldArray);
+			if(oldArray[i] != 0){
+				
 			}
 		}
 		return oldArray;
@@ -47,6 +44,37 @@ public class ArrayUtil {
 	 */
 	
 	public static  int[] merge(int[] array1, int[] array2){
+		//先对数组进行去重,记录重复的索引，后将两个数组合并，再进行排序
+		int[] repeatedNum = new int[array1.length + array2.length];
+		int repeatedCount = 0;
+		for(int i = 0;i < array1.length; i++){
+			for(int j = 0;j < array2.length; j++){
+				if(array1[i] == array2[j]){
+					repeatedNum[repeatedCount] = array1[i];
+					repeatedCount++;
+				}
+			}
+		}
+		int [] combineArr = new int[array1.length + array2.length - repeatedCount];
+		for(int i = 0;i < array1.length; i++){
+			combineArr[i] = array1[i];
+		}
+		for(int i = 0;i < array2.length; i++){
+			for(int j = 0;j < repeatedNum.length; j++){
+				if(array2[i] != repeatedNum[j]){
+					combineArr[array1.length + i] = array2[i];
+				}
+			}
+		}
+		//冒泡排序
+		for(int i = 0;i < combineArr.length;i++){
+			for(int j = i + 1;j < combineArr.length;j++){
+				int x = combineArr[i];
+				if(x > combineArr[j]){
+					
+				}
+			}
+		}
 		return  null;
 	}
 	/**
