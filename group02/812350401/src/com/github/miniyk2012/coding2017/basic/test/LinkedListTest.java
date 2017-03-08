@@ -162,9 +162,10 @@ public class LinkedListTest extends ListTest{
 	 * 从第i个元素开始， 删除length 个元素 ， 注意i从0开始
 	 * @param i
 	 * @param length
+	 * @throws Exception 
 	 */
 	@Test
-	public void testRemoveIntInt() {
+	public void testRemoveIntInt() throws Exception {
 		
 		for (int i=0; i<4; i++) {
 			aLinkedList.add(i);  // [0,1,2,3]
@@ -197,16 +198,16 @@ public class LinkedListTest extends ListTest{
 	 * listB = 1->3->4->6
 	 * 返回的结果应该是[101,301,401,601]  
 	 * @param list
+	 * @throws Exception 
 	 */
 	@Test
-	public void testGetElements() {
-		for (int i=0; i<4; i=i*i) {
-			aLinkedList.add(i);  // [0,1,4,9]
+	public void testGetElements() throws Exception {
+		for (int i=0; i<4; i=i+1) {
+			aLinkedList.add(i*i);  // [0,1,4,9]
 		}
-		
 		LinkedList bLinkedList = new LinkedList();
 		int[] z1 = aLinkedList.getElements(bLinkedList); // []
-		assertEquals(new int[0], z1);
+		assertArrayEquals(new int[0], z1);
 		
 		bLinkedList.add(1);
 		bLinkedList.add(3);  // [1, 3]
@@ -235,7 +236,7 @@ public class LinkedListTest extends ListTest{
 	}
 	
 	@Test
-	public  void TestSubtract()
+	public void TestSubtract()
 	{
 		//传进的list为null,什么都不干
 		LinkedList list = null;
@@ -255,11 +256,11 @@ public class LinkedListTest extends ListTest{
 		aLinkedList.add(4, 3);  //[0,1, 1, 2, 3, 3, 4, 5]
 		
 		
-		// list添加元素[0，1, 3, 7]
+		// list添加元素[0，1, 6, 3]
 		list.add(0);
 		list.add(1);
+		list.add(6);
 		list.add(3);
-		list.add(7);
 		
 		aLinkedList.subtract(list); //[ 2, 4, 5]
 		
@@ -267,9 +268,32 @@ public class LinkedListTest extends ListTest{
 		assertEquals(4, aLinkedList.get(1));
 		assertEquals(5, aLinkedList.get(2));
 		assertEquals(3, aLinkedList.size());
+		
+		list = new LinkedList();
+		list.add(7);  
+		list.add(4);
+		list.add(2);
+		list.add(2);  // [7,4,2,2]
+		
+		aLinkedList.subtract(list);  // [5]
+		
+		assertEquals(5, aLinkedList.get(0));
+		assertEquals(1, aLinkedList.size());
+		
+		list = new LinkedList();
+		list.add(5);
+		list.add(5);
+		list.add(5);  // [5,5,5]
+	
+		aLinkedList.subtract(list);  // []
+		assertEquals(0, aLinkedList.size());
+		
+		aLinkedList.subtract(list);
+		assertEquals(0, aLinkedList.size());
 	}
+	
 	@Test
-	public  void testRemoveDuplicateValues()
+	public void testRemoveDuplicateValues()
 	{
 		aLinkedList.add(3);
 		aLinkedList.add(3);
@@ -278,35 +302,58 @@ public class LinkedListTest extends ListTest{
 		aLinkedList.add(5);
 		aLinkedList.add(6);
 		aLinkedList.add(6);	//[3, 3, 4, 4, 5, 6, 6]
+		assertEquals(7, aLinkedList.size());
 		
 		aLinkedList.removeDuplicateValues();	//[3, 4, 5, 6]
-		
+
 		assertEquals(3, aLinkedList.get(0));
 		assertEquals(4, aLinkedList.get(1));
 		assertEquals(5, aLinkedList.get(2));
 		assertEquals(6, aLinkedList.get(3));
 		assertEquals(4, aLinkedList.size());
-		
+
+		aLinkedList = new LinkedList();
+		aLinkedList.removeDuplicateValues();
+		assertEquals(0, aLinkedList.size());
+
+		aLinkedList = new LinkedList();
+		aLinkedList.add(0);
+		aLinkedList.removeDuplicateValues();
+		assertEquals(1, aLinkedList.size());
+		assertEquals(0, aLinkedList.get(0));
+
+		for (int i=1; i<4; i++) {
+			aLinkedList.add(i);   // [0,1,2,3]
+		}
+		aLinkedList.removeDuplicateValues();
+		assertEquals(4, aLinkedList.size());
+		assertEquals(0, aLinkedList.get(0));
+		assertEquals(1, aLinkedList.get(1));
+		assertEquals(2, aLinkedList.get(2));
+		assertEquals(3, aLinkedList.get(3));
+
+
 	}
+	
 	@Test
-	public void testRemoveRange()
+	public void testRemoveRange() throws Exception
 	{
-		for (int i=0; i<6; i++) 
+		for (int i=0; i<6; i++)
 		{
 			aLinkedList.add(i);  // [0, 1, 2, 3, 4, 5] //考虑重复元素
 		}
-		aLinkedList.addFirst(0); // [0, 0, 1, 2, 3, 4, 5] 
-		aLinkedList.add(3, 2);	 // [0, 0, 1, 2, 2, 3, 4, 5] 
-		
+		aLinkedList.addFirst(0); // [0, 0, 1, 2, 3, 4, 5]
+		aLinkedList.add(3, 2);	 // [0, 0, 1, 2, 2, 3, 4, 5]
+
 		aLinkedList.removeRange(1, 4);  // 大于1小于4  [0, 0, 1, 4, 5]
-		
+
 		assertEquals(0, aLinkedList.get(0));
 		assertEquals(0, aLinkedList.get(1));
 		assertEquals(1, aLinkedList.get(2));
 		assertEquals(4, aLinkedList.get(3));
 		assertEquals(5, aLinkedList.get(4));
 		assertEquals(5, aLinkedList.size());
-		
+
 		//若出现 min >= max的情况，什么都不做
 		aLinkedList.removeRange(4, 1);
 		assertEquals(0, aLinkedList.get(0));
@@ -315,39 +362,43 @@ public class LinkedListTest extends ListTest{
 		assertEquals(4, aLinkedList.get(3));
 		assertEquals(5, aLinkedList.get(4));
 		assertEquals(5, aLinkedList.size());
-		
-		//将整个链表中的元素删除
-		expectedEx.expect(Exception.class);
-		aLinkedList.remove(-1, 9);
+
+        // 将整个链表中的元素删除
+        aLinkedList.removeRange(-1, 9);
+        assertEquals(0, aLinkedList.size());
 
 	}
-	@Test
-	public void testIntersection()
-	{
-		for (int i=0; i<6; i++) 
-		{
-			aLinkedList.add(i);  // [0， 1, 2, 3, 4, 5] 
-		}
-		//list为null
-		LinkedList list = null;
-		LinkedList newList1 = aLinkedList.intersection(list);
-		assertNull(newList1);
-		
-		//list为空链表
-		list = new LinkedList();
-		LinkedList newList2 = aLinkedList.intersection(list);
-		assertEquals(0, newList2.size());
-		
-		list.add(2); 
-		list.add(3);
-		list.add(4);
-		list.add(6);
-		list.add(7);	 // [2, 3, 4, 6, 7]
-		LinkedList newList3 = aLinkedList.intersection(list);
-		
-		assertEquals(2, newList3.get(0));
-		assertEquals(3, newList3.get(1));
-		assertEquals(4, newList3.get(2));
-		assertEquals(3, newList3.size());
-	}
+
+    @Test
+    public void testIntersection() {
+        for (int i = 0; i < 6; i++) {
+            aLinkedList.add(i);
+        }
+        aLinkedList.add(6);
+        aLinkedList.add(7); // [0， 1, 2, 3, 4, 5, 6, 7]
+        // list为null
+        LinkedList list = null;
+        LinkedList newList1 = aLinkedList.intersection(list);
+        assertNull(newList1);
+
+        // list为空链表
+        list = new LinkedList();
+        LinkedList newList2 = aLinkedList.intersection(list);
+        assertEquals(0, newList2.size());
+
+        list.add(0);
+        list.add(3);
+        list.add(4);
+        list.add(7);
+        list.add(8); // [0, 3, 4, 7, 8]
+        LinkedList newList3 = aLinkedList.intersection(list);
+
+        assertEquals(4, newList3.size());
+        assertEquals(0, newList3.get(0));
+        assertEquals(3, newList3.get(1));
+        assertEquals(4, newList3.get(2));
+        assertEquals(7, newList3.get(3));
+    }
+
 }
+
