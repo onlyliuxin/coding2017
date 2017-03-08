@@ -23,12 +23,12 @@ public class ConnectionManagerImpl implements ConnectionManager {
 		this.url = url;
 		checkConnectionSize();
 		URL address = null;
-		HttpURLConnection conn = null;
+		Connection conn = null;
 		try {
 			address = new URL(url);
-			conn = (HttpURLConnection) address.openConnection();
+			conn = new ConnectionImpl(this,url);
 			connections++;
-			return (Connection) conn;
+			return conn;
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
@@ -42,7 +42,6 @@ public class ConnectionManagerImpl implements ConnectionManager {
 			} catch (NoFreeSourceException e) {
 				e.printStackTrace();
 			}
-		
 	}
 
 }

@@ -19,5 +19,9 @@ public interface Connection {
 	/**
 	 * 关闭连接
 	 */
+
 	public void close();
+	public String getFileName();
+	public void setFinished();
+	public boolean isFinished();
 }

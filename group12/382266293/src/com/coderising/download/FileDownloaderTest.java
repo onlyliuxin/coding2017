@@ -18,12 +18,16 @@ public class FileDownloaderTest {
 	public void tearDown() throws Exception {
 	}
 
+	public static String url1 = "http://sw.bos.baidu.com/sw-search-sp/software/89179b0b248b1/QQ_8.9.20026.0_setup.exe";	
+	public static String url2 = "http://image.beekka.com/blog/201304/bg2013042401.jpg";
+	public static String url3 = "http://dlsw.baidu.com/sw-search-sp/soft/de/26290/WPIconMaker_1.0.1398047889.exe";
+	
 	@Test
 	public void testDownload() {
 		
 		String url = "http://localhost:8080/test.jpg";
-		
-		FileDownloader downloader = new FileDownloader(url);
+
+		FileDownloader downloader = new FileDownloader(url2);
 
 	
 		ConnectionManager cm = new ConnectionManagerImpl();
