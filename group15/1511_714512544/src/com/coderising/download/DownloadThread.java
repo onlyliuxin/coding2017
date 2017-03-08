@@ -15,6 +15,6 @@ public class DownloadThread extends Thread{
 		this.endPos = endPos;
 	}
 	public void run(){	
-		
+		//实现
 	}
 }

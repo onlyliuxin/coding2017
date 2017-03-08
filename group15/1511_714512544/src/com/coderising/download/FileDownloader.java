@@ -5,14 +5,16 @@ import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
 
-
+/**
+ * 文件下载器
+ */
 public class FileDownloader {
 	
-	String url;
+	String url;  //下载路径
 	
-	DownloadListener listener;
+	DownloadListener listener; //下载监听器
 	
-	ConnectionManager cm;
+	ConnectionManager cm; //连接管理
 	
 
 	public FileDownloader(String _url) {

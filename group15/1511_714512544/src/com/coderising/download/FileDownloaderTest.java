@@ -9,7 +9,7 @@ import com.coderising.download.api.DownloadListener;
 import com.coderising.download.impl.ConnectionManagerImpl;
 
 public class FileDownloaderTest {
-	boolean downloadFinished = false;
+	boolean downloadFinished = false; //是否下载完
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -27,9 +27,9 @@ public class FileDownloaderTest {
 
 	
 		ConnectionManager cm = new ConnectionManagerImpl();
-		downloader.setConnectionManager(cm);
+		downloader.setConnectionManager(cm);  //设置连接管理器
 		
-		downloader.setListener(new DownloadListener() {
+		downloader.setListener(new DownloadListener() {  //设置监听器
 			@Override
 			public void notifyFinished() {
 				downloadFinished = true;
@@ -38,7 +38,7 @@ public class FileDownloaderTest {
 		});
 
 		
-		downloader.execute();
+		downloader.execute(); //执行下载
 		
 		// 等待多线程下载程序执行完毕
 		while (!downloadFinished) {
