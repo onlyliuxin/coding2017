@@ -189,9 +189,10 @@ public class LinkedList implements List {
 	public void remove(int i, int length){
 		Node preI = findNode(i - 1);
 		Node removeTo = findNode(i + length - 1);
-		head.next = removeTo.next;
+		Node removeFrom = preI.next;
+		preI.next = removeTo.next;
 		removeTo.next = null;
-		size -= clearLink(preI);
+		size -= clearLink(removeFrom);
 	}
 	/**
 	 * 假定当前链表和list均包含已升序排列的整数
@@ -205,20 +206,25 @@ public class LinkedList implements List {
 		Object[] result = new Object[list.size()];
 		int count = 0;
 
-
 		Node nodeI = head.next;
 		Node nodeJ = list.head.next;
-		for (int i = 0; i < size() && count < result.length; ++i) {
-			if (i == (int) nodeJ.data) {
-				result[count] = nodeI;
+		for (int i = 0; nodeI != null && nodeJ != null; ++i) {
+			int compare = i - (int) nodeJ.data;
+			if (compare == 0) {
+				result[count] = nodeI.data;
 				count++;
 				nodeI = nodeI.next;
 				nodeJ = nodeJ.next;
-			} else {
+			} else if (compare < 0) {
 				nodeI = nodeI.next;
+			} else {
+				nodeJ = nodeJ.next;
+				i--;
 			}
 		}
-		return result;
+		Object[] trueResult = new Object[count];
+		System.arraycopy(result, 0, trueResult, 0, count);
+		return trueResult;
 	}
 
 	/**
@@ -295,12 +301,13 @@ public class LinkedList implements List {
 			} else if (compare > 0) {
 				node = node.next;
 			} else {
-				temp[count++] = (int) node.data;
+				temp[count] = (int) node.data;
+				count++;
 				inThis = inThis.next;
 				node = node.next;
 			}
 		}
-		for (int i = count; i >= 0; --i) {
+		for (int i = count - 1; i >= 0; --i) {
 			result.addFirst(temp[i]);
 		}
 		return result;

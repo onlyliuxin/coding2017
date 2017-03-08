@@ -85,4 +85,125 @@ public class LinkedListTest extends ArrayListTest {
         Assert.assertArrayEquals(exceptions, new boolean[]{false, false, false, false, false, true, true});
         Assert.assertArrayEquals(toArray(list), new Object[0]);
     }
+
+    /**
+     *
+     * Method: reverse()
+     *
+     */
+    @Test
+    public void testReverse() throws Exception {
+//TODO: Test goes here...
+        LinkedList list = (LinkedList) getList();
+        list.reverse();
+        Assert.assertArrayEquals(toArray(list), new Object[] {5, 4, 3, 2, 1});
+    }
+
+    /**
+     *
+     * Method: removeFirstHalf()
+     *
+     */
+    @Test
+    public void testRemoveFirstHalf() throws Exception {
+//TODO: Test goes here...
+        LinkedList list = (LinkedList) getList();
+        list.removeFirstHalf();
+        Assert.assertArrayEquals(toArray(list), new Object[] {3, 4, 5});
+    }
+
+    /**
+     *
+     * Method: remove(int i, int length)
+     *
+     */
+    @Test
+    public void testRemoveForILength() throws Exception {
+//TODO: Test goes here...
+        LinkedList list = (LinkedList) getList();
+        list.remove(1, 3);
+        Assert.assertArrayEquals(toArray(list), new Object[] {1, 5});
+    }
+
+    /**
+     *
+     * Method: getElements(LinkedList list)
+     *
+     */
+    @Test
+    public void testGetElements() throws Exception {
+//TODO: Test goes here...
+        LinkedList list = (LinkedList) getList();
+        LinkedList indexList = new LinkedList();
+        for (int i = 0; i < 3; ++i) {
+            indexList.add(2 * i);
+        }
+        Object[] elements = list.getElements(indexList);
+        Assert.assertArrayEquals(elements, new Object[] {1, 3, 5});
+    }
+
+    /**
+     *
+     * Method: subtract(LinkedList list)
+     *
+     */
+    @Test
+    public void testSubtract() throws Exception {
+//TODO: Test goes here...
+        LinkedList list = (LinkedList) getList();
+        LinkedList removeList = new LinkedList();
+        for (int i = 0; i < 3; ++i) {
+            removeList.add(2 * i);
+        }
+        list.subtract(removeList);
+        Assert.assertArrayEquals(toArray(list), new Object[] {1, 3, 5});
+    }
+
+    /**
+     *
+     * Method: removeDuplicateValues()
+     *
+     */
+    @Test
+    public void testRemoveDuplicateValues() throws Exception {
+//TODO: Test goes here...
+        LinkedList list = (LinkedList) getList();
+        list.add(5);
+        list.add(6);
+        list.add(8);
+        list.add(8);
+        list.add(9);
+        list.removeDuplicateValues();
+        Assert.assertArrayEquals(toArray(list), new Object[] {1, 2, 3, 4, 5, 6, 8, 9});
+    }
+
+    /**
+     *
+     * Method: removeRange(int min, int max)
+     *
+     */
+    @Test
+    public void testRemoveRange() throws Exception {
+//TODO: Test goes here...
+        LinkedList list = (LinkedList) getList();
+        list.removeRange(2, 5);
+        Assert.assertArrayEquals(toArray(list), new Object[] {1, 2, 5});
+    }
+
+    /**
+     *
+     * Method: intersection(LinkedList list)
+     *
+     */
+    @Test
+    public void testIntersection() throws Exception {
+//TODO: Test goes here...
+        LinkedList list = (LinkedList) getList();
+        LinkedList list1 = new LinkedList();
+        for (int i = 0; i < 4; ++i) {
+            list1.add(2 * i);
+        }
+        LinkedList result = list.intersection(list1);
+        Assert.assertArrayEquals(toArray(result), new Object[] {2, 4});
+    }
 }
