@@ -10,7 +10,9 @@ import com.coderising.download.api.DownloadListener;
 import com.coderising.download.impl.ConnectionManagerImpl;
 
 public class FileDownloaderTest {
+	
 	boolean downloadFinished = false;
+	
 	@Before
 	public void setUp() throws Exception {
 	}

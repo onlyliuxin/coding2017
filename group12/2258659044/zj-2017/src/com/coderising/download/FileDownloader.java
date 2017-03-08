@@ -1,8 +1,5 @@
 package com.coderising.download;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
@@ -18,10 +15,8 @@ public class FileDownloader {
 	
 	ConnectionManager cm;
 	
-	/*线程名称前缀*/
-	private static final String THREADNAME = "thread";
-
-	private final int threadNum = 5;
+	/*线程数目*/
+	private final int threadNum = 10;
 	
 	public FileDownloader(String _url) {
 		this.url = _url;
@@ -50,7 +45,7 @@ public class FileDownloader {
 			conn = cm.open(this.url);			
 			int length = conn.getContentLength();
 			//存放下载线程名称
-			List<String> names = new ArrayList<String>();
+			DownloadThread[] threads = new DownloadThread[threadNum];
 			int blockSize = length / threadNum;			
 			for (int thread = 1; thread <= threadNum; thread++) {				
                 int startIndex = (thread - 1) * blockSize;  
@@ -58,15 +53,13 @@ public class FileDownloader {
                 if (thread == threadNum) {//最后一个线程下载的长度
                     endIndex = length;  
                 }   
-                Thread thr= new DownloadThread(downloadPath,cm.open(this.url),startIndex,endIndex);
-                //线程名称组成：thread+编号
-                thr.setName(THREADNAME+thread);
-                names.add(THREADNAME+thread);
+                DownloadThread thr= new DownloadThread(downloadPath,cm.open(this.url),startIndex,endIndex);
+                threads[thread-1] = thr;
                 thr.start();
             }
 			//判断所有线程是否下载完成
-			new NotifyCaller(listener,names).start();
-
+			new NotifyCaller(listener,threads).start();
+			
 		} catch (ConnectionException e) {			
 			e.printStackTrace();
 		}finally{

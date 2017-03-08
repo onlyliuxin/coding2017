@@ -1,8 +1,7 @@
 package com.coderising.download;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.coderising.download.api.DownloadListener;
 
@@ -11,22 +10,22 @@ public class NotifyCaller extends Thread{
 	/*监听器*/
 	private DownloadListener listener;
 	
-	/*线程名*/
-	private List<String> threadNames;
+	/*下载线程*/
+	private DownloadThread[] downloadThreads;
 	
-	public NotifyCaller(DownloadListener listener,List<String> threadNames){
+	
+	public NotifyCaller(DownloadListener listener,DownloadThread[] downloadThreads){
 		
 		this.listener = listener;
-		this.threadNames = threadNames;
+		this.downloadThreads = downloadThreads;
 	}
 	
 	@Override
 	public void run() {		
-		while(true){
-			if(DownloadThreadsIsComplete(threadNames)){
+		while(true){	
+			if(DownloadThreadsIsComplete(downloadThreads)){
 				listener.notifyFinished();
-				break;
-			}						
+			}										
 		}
 	}
 	
@@ -35,19 +34,18 @@ public class NotifyCaller extends Thread{
 	 * @param threadNames
 	 * @return
 	 */
-    private boolean DownloadThreadsIsComplete(List<String> threadNames){
+    private boolean DownloadThreadsIsComplete(DownloadThread[] downloadThreads){
 		
 		Map<Thread, StackTraceElement[]> threadMaps=Thread.getAllStackTraces();
-		Iterator<Thread> it = threadMaps.keySet().iterator();
-		while(it.hasNext()){
-			Thread thread = it.next();
-			if(threadNames.contains(thread.getName())){
+		Set<Thread> keySet = threadMaps.keySet();
+		for (int i = 0; i < downloadThreads.length; i++) {
+			if(keySet.contains(downloadThreads[i])){
 				return false;
 			}
 		}
 		return true;
 	}
-    
+        
 	public DownloadListener getListener() {
 		return listener;
 	}
@@ -55,11 +53,11 @@ public class NotifyCaller extends Thread{
 		this.listener = listener;
 	}
 
-	public List<String> getThreadNames() {
-		return threadNames;
+	public DownloadThread[] getDownloadThreads() {
+		return downloadThreads;
 	}
 
-	public void setThreadNames(List<String> threadNames) {
-		this.threadNames = threadNames;
-	}			
+	public void setDownloadThreads(DownloadThread[] downloadThreads) {
+		this.downloadThreads = downloadThreads;
+	}
 }

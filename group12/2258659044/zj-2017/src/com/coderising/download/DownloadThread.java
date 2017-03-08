@@ -26,15 +26,16 @@ public class DownloadThread extends Thread{
 	public void run(){	
 		
         try {
-			//请求服务器下载部分文件 指定文件的位置 读取指定位子的字节
+        	
+			//请求服务器下载部分文件 指定文件的位置 读取指定位置的字节
 			byte[] buffer = conn.read(startPos, endPos);
 			//随机访问文件流
 			RandomAccessFile raf = new RandomAccessFile(downloadPath+"/"+conn.getDownloadName(), "rw");  
 			//随机写文件的时候从哪个位置开始写  
 			raf.seek(startPos);//定位文件 
-			//写文件
+			//写文件			
 			raf.write(buffer);
-			raf.close();
+			raf.close();			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -43,4 +44,11 @@ public class DownloadThread extends Thread{
 			conn.close();
 		}
 	}
+	
+	public String getDownloadPath() {
+		return downloadPath;
+	}
+	public void setDownloadPath(String downloadPath) {
+		this.downloadPath = downloadPath;
+	}		
 }
