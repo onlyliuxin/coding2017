@@ -208,6 +208,8 @@ public class MyLinkedList implements List
 	 */
 	public  void removeFirstHalf()
 	{
+		if(size == 0)
+			return ;
 		Node p = head;
 		Node q = null;
 		int i = size / 2;
@@ -287,6 +289,8 @@ public class MyLinkedList implements List
 	 */
 	public int[] getElements(MyLinkedList list)
 	{
+		if(list == null)
+			return new int[0];
 		int i = 0 ;
 		int[] array = new int[list.size()];
 		while(i < list.size())
@@ -341,7 +345,8 @@ public class MyLinkedList implements List
 	 */
 	public  void removeDuplicateValues()
 	{
-
+		if(head == null)
+			return ;
 		Node p = head;
 		Node q = head; //前驱
 		while(p.next != null)
@@ -374,29 +379,28 @@ public class MyLinkedList implements List
 	public  void removeRange(int min, int max)
 	{
 	
-			Node p = head; //当前节点
-			Node q = head; //前驱节点
-			while(p.next != null && ((int)p.data <= min || (int)p.data >= max)) //未找到继续遍历
-			{
-				q = p;
-				p = p.next;
-			}
+		Node p = head; //当前节点
+		Node q = head; //前驱节点
+		while(p.next != null && ((int)p.data <= min || (int)p.data >= max)) //未找到继续遍历
+		{
+			q = p;
+			p = p.next;
+		}
+		while((int)p.data > min && (int)p.data < max)   //删除找到的节点
+		{	
+			p = p.next;
+			size--;
 			
-			while((int)p.data > min && (int)p.data < max)   //删除找到的节点
-			{	
-				p = p.next;
-				size--;
-			
-			}
-			if(size == 0)
-				return ;
-			
-			if(q == head) 	//头结点被删掉
-				head = p;
-			else			
-			{
-				q.next = p;
-			}
+			if(size == 0) //删完所有元素
+				break ;
+		}
+		if(q == head) 	//头结点被删掉
+			head = p;
+		else			
+		{
+			q.next = p;
+		}
+	
 	}
 	
 	/**
@@ -451,6 +455,7 @@ public class MyLinkedList implements List
 		myList.add(8);
 		myList.add(9);
 		Print(myList);
+		/*
 		MyLinkedList list = new MyLinkedList();
 		list.add(0);
 		list.add(3);
@@ -461,7 +466,11 @@ public class MyLinkedList implements List
 		//Print(list);
 		//myList.removeDuplicateValues();
 		//myList.subtract(list);
-		//myList.removeRange(1, 10);
+		*/
+		
+		myList.removeRange(-11, 10);
+		Print(myList);
+		/*
 		MyLinkedList list1 = myList.intersection(list);
 		System.out.println("打印交集：");
 		Print(list1);
@@ -474,18 +483,16 @@ public class MyLinkedList implements List
 		//myList.remove(1, 1);
 		//Print(myList);
 		
-		/*   getElements()
+		//  getElements()
 		MyLinkedList list = new MyLinkedList();
-		list.add(1);
-		list.add(3);
-		list.add(4);
-		list.add(0);
+	
 		int[] array = myList.getElements(list);
+		System.out.println("输出："+array[0]);
 		for(int i=0; i<array.length; i++)
 		{
-			System.out.println(array[i]);
+			System.out.println("输出："+array[i]);
 		}
-		*/
+		
 		//myList.removeFirstHalf();
 		//System.out.println("移除前一半元素");
 		//Print(myList);

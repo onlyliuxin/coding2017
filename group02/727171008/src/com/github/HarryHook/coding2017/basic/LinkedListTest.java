@@ -182,13 +182,13 @@ public class LinkedListTest extends ListTest{
 	 */
 	@Test
 	public void testGetElements() {
-		for (int i=0; i<4; i=i*i) {
-			aLinkedList.add(i);  // [0,1,4,9]
+		for (int i=0; i<4; i++) {
+			aLinkedList.add(i * i);  // [0,1,4,9]
 		}
 		
 		MyLinkedList bLinkedList = new MyLinkedList();
 		int[] z1 = aLinkedList.getElements(bLinkedList); // []
-		assertEquals(new int[0], z1);
+		assertArrayEquals( z1, new int[0]);
 		
 		bLinkedList.add(1);
 		bLinkedList.add(3);  // [1, 3]
@@ -252,6 +252,9 @@ public class LinkedListTest extends ListTest{
 	@Test
 	public  void testRemoveDuplicateValues()
 	{
+		aLinkedList.removeDuplicateValues();
+		assertEquals(0, aLinkedList.size());
+		
 		aLinkedList.add(3);
 		aLinkedList.add(3);
 		aLinkedList.add(4);
@@ -298,8 +301,8 @@ public class LinkedListTest extends ListTest{
 		assertEquals(5, aLinkedList.size());
 		
 		//将整个链表中的元素删除
-		expectedEx.expect(Exception.class);
-		aLinkedList.remove(-1, 9);
+		aLinkedList.removeRange(-1, 8);
+		assertEquals(0, aLinkedList.size());
 	}
 	@Test
 	public void testIntersection()
