@@ -89,6 +89,17 @@ public class MyLinkedList implements MyList {
 		return tmp.data;
 	}
 
+	/**
+	 * 链表逆序
+	 */
+	public  void reverse(){
+
+	}
+
+
+
+
+
 	public MyIterator iterator() {
 		return new MyLinkedListItr();
 	}
@@ -107,6 +118,7 @@ public class MyLinkedList implements MyList {
             return currentNode.data;
         }
     }
+
 
 	private static class Node {
 		Object data;
