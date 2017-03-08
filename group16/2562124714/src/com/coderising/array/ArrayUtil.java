@@ -1,7 +1,6 @@
 package com.coderising.array;
 
-import com.coding.basic.ArrayList;
-import com.coding.basic.List;
+import com.*;
 
 public class ArrayUtil {
 	
@@ -36,7 +35,8 @@ public class ArrayUtil {
 	 */
 	
 	public Integer[] removeZero(int[] oldArray){
-		ArrayList blist = new ArrayList();
+		com.coding.basic.ArrayList blist = new com.coding.basic.ArrayList();
+
 		//int j = 0;
 
 		for(int i = 0; i < oldArray.length; i++)
@@ -61,7 +61,7 @@ public class ArrayUtil {
 	 */
 	
 	public Integer[] merge(int[] array1, int[] array2){
-		ArrayList blist = new ArrayList();
+		com.coding.basic.ArrayList blist = new com.coding.basic.ArrayList();
 		int i = 0;
 
 		for (i = 0; i < array1.length; i++)
@@ -159,9 +159,37 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] fibonacci(int max){
+	public Integer[] fibonacci(int max){
+		com.coding.basic.ArrayList result = new com.coding.basic.ArrayList();
+		int i = 0;
+		int TempMax = 0;
 
-		return null;
+
+		while (true)
+		{
+			TempMax = CaculateFibonacci(i++);
+			if (TempMax <= max)
+			{
+				result.add(TempMax);
+				continue;
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		return (Integer[])result.ToArray();
+	}
+
+	public int CaculateFibonacci(int i)
+	{
+			if (1 == i)
+				return 1;
+			else if (2 == i)
+				return 1;
+			else
+				return CaculateFibonacci(i - 1) + CaculateFibonacci(i - 2);
 	}
 	
 	/**
@@ -170,20 +198,74 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public int[] getPrimes(int max){
-		return null;
+	public Integer[] getPrimes(int max){
+		com.coding.basic.ArrayList result = new com.coding.basic.ArrayList();
+
+
+
+		for(int i = 2; i < max; i ++)
+		{
+				if(CaculatePrimes(i))
+				{
+					result.add(i);
+				}
+		}
+
+		return (Integer[])result.ToArray();
 	}
-	
+
+	//计算素数函数  算法好像不高明啊！
+	public boolean CaculatePrimes(int Num)
+	{
+		for (int i = 2; i < Math.sqrt(Num); i++)
+		{
+			if (Num % i == 0)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
 	/**
 	 * 所谓“完数”， 是指这个数恰好等于它的因子之和，例如6=1+2+3
 	 * 给定一个最大值max， 返回一个数组， 数组中是小于max 的所有完数
 	 * @param max
 	 * @return
 	 */
-	public int[] getPerfectNumbers(int max){
-		return null;
+	public Integer[] getPerfectNumbers(int max){
+		com.coding.basic.ArrayList result = new com.coding.basic.ArrayList();
+
+		for (int i = 6; i < max; i++)
+		{
+			if (IsPerfectNumber(i))
+			{
+				result.add(i);
+			}
+		}
+		return (Integer[])result.ToArray();
 	}
-	
+
+	//计算所有的因子之和 算法并不高明啊！
+	public boolean IsPerfectNumber(int Num)
+	{
+		int temp = 0;
+		for (int i = 1; i < Num; i++)
+		{
+			if (Num % i == 0)
+			{
+				temp += i;
+			}
+		}
+		if (temp == Num)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	/**
 	 * 用seperator 把数组 array给连接起来
 	 * 例如array= [3,8,9], seperator = "-"
@@ -193,7 +275,17 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator){
-		return null;
+		String result = "";
+
+		for (int i = 0; i < array.length - 1; i++)
+		{
+			result += Integer.toString(array[i])+ seperator;
+		}
+
+		result += Integer.toString(array[array.length]);
+
+
+		return result;
 	}
 	
 

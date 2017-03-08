@@ -102,6 +102,11 @@ public class ArrayList implements List {
 	public Object[] ToArray()
 	{
 		Object [] Array = new Object[this.size];
+		if(this.size == 0)
+		{
+			return new Object[0];
+		}
+
 		for (int i = 0 ; i < this.size; i ++)
 		{
 			Array[i] = this.elementData[i];
