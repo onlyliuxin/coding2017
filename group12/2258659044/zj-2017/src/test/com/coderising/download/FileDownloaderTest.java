@@ -22,14 +22,15 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://localhost:8080/test.jpg";
+		//String url = "http://localhost:8080/test.jpg";
 		
+		String url = "http://sw.bos.baidu.com/sw-search-sp/software/89179b0b248b1/QQ_8.9.20026.0_setup.exe";
+		//String url = "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1233198091,3919880155&fm=116&gp=0.jpg";
 		FileDownloader downloader = new FileDownloader(url);
-
 	
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
-		
+		downloader.setDownloadPath("C:/Users/ZJ/Desktop");
 		downloader.setListener(new DownloadListener() {
 			@Override
 			public void notifyFinished() {
@@ -37,7 +38,6 @@ public class FileDownloaderTest {
 			}
 
 		});
-
 		
 		downloader.execute();
 		
@@ -52,9 +52,7 @@ public class FileDownloaderTest {
 			}
 		}
 		System.out.println("下载完成！");
-		
-		
-
+				
 	}
 
 }

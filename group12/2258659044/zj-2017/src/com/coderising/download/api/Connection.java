@@ -20,4 +20,10 @@ public interface Connection {
 	 * 关闭连接
 	 */
 	public void close();
+	
+	/**
+	 * 获取下载文件名称
+	 * @return
+	 */
+	public String getDownloadName();
 }

@@ -15,19 +15,38 @@ public class ConnectionManagerImpl implements ConnectionManager {
 	public Connection open(String url) throws ConnectionException {
 		
 		URL remotUrl = null;
-		HttpURLConnection urlCon = null;
+		HttpURLConnection httpCon = null;
 		ConnectionImpl conn = new ConnectionImpl();
 		try {
 			remotUrl = new URL(url);    
-			urlCon = (HttpURLConnection)remotUrl.openConnection();
-			urlCon.setRequestMethod("GET");
-			urlCon.connect();
-			conn.setUrlCon(urlCon);
+			httpCon = (HttpURLConnection)remotUrl.openConnection();
+			httpCon.setRequestMethod("GET");
+			httpCon.setConnectTimeout(6000);
+			httpCon.setDoInput(true);
+			//设置Connection属性
+			conn.setHttpConnection(httpCon);
+			conn.setFileName(getFileName(url));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}  
 		return conn;
+	}
+	
+	/**
+	 * 获取文件名称
+	 * @param url
+	 * @return
+	 */
+	private String getFileName(String url){
+		
+		String fileName = "";
+		if(url.contains("&")&&url.contains("=")){
+			fileName = url.substring(url.lastIndexOf("=")+1);
+		}else{
+			fileName = url.substring(url.lastIndexOf("/")+1);
+		}
+		return fileName;
 	}
 }

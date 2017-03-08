@@ -1,9 +1,7 @@
 package com.coderising.download;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
@@ -14,13 +12,17 @@ public class FileDownloader {
 	
 	String url;
 	
+	String downloadPath;
+	
 	DownloadListener listener;
 	
 	ConnectionManager cm;
 	
 	/*线程名称前缀*/
-	private final String threadName = "thread";
+	private static final String THREADNAME = "thread";
 
+	private final int threadNum = 5;
+	
 	public FileDownloader(String _url) {
 		this.url = _url;
 		
@@ -46,64 +48,38 @@ public class FileDownloader {
 		try {
 			
 			conn = cm.open(this.url);			
-			int threadCount = 3;
 			int length = conn.getContentLength();
 			//存放下载线程名称
 			List<String> names = new ArrayList<String>();
-			int blockSize = length / threadCount;			
-			for (int thread = 1; thread <= threadCount; thread++) {
-				
+			int blockSize = length / threadNum;			
+			for (int thread = 1; thread <= threadNum; thread++) {				
                 int startIndex = (thread - 1) * blockSize;  
-                int endIndex = thread * blockSize - 1;  
-                if (thread == threadCount) {//最后一个线程下载的长度要稍微长一点  
+                int endIndex = thread * blockSize-1;  
+                if (thread == threadNum) {//最后一个线程下载的长度
                     endIndex = length;  
-                }  
-                System.out.println("线程："+thread+"下载:---"+startIndex+"--->"+endIndex);  
-                Thread thr= new DownloadThread(conn,startIndex,endIndex);
+                }   
+                Thread thr= new DownloadThread(downloadPath,cm.open(this.url),startIndex,endIndex);
                 //线程名称组成：thread+编号
-                thr.setName(threadName+thread);
+                thr.setName(THREADNAME+thread);
+                names.add(THREADNAME+thread);
                 thr.start();
-                names.add(threadName+thread);
             }
 			//判断所有线程是否下载完成
-			if(DownloadThreadsIsComplete(names)){
-				listener.notifyFinished();
-			}
-			
+			new NotifyCaller(listener,names).start();
+
 		} catch (ConnectionException e) {			
 			e.printStackTrace();
 		}finally{
 			if(conn != null){
 				conn.close();
 			}
-		}
-		
-		
-		
-		
+		}								
 	}
-	
-	/**
-	 * 判断所有下载线程是否执行完
-	 * @return
-	 */
-	private boolean DownloadThreadsIsComplete(List<String> threadNames){
 		
-		Map<Thread, StackTraceElement[]> threadMaps=Thread.getAllStackTraces();
-		Iterator<Thread> it = threadMaps.keySet().iterator();
-		while(it.hasNext()){
-			Thread thread = it.next();
-		    return !threadNames.contains(thread.getName());
-		}
-		return true;
-	}
-	
 	public void setListener(DownloadListener listener) {
 		this.listener = listener;
 	}
-
-	
-	
+		
 	public void setConnectionManager(ConnectionManager ucm){
 		this.cm = ucm;
 	}
@@ -111,5 +87,9 @@ public class FileDownloader {
 	public DownloadListener getListener(){
 		return this.listener;
 	}
-	
+
+	public void setDownloadPath(String downloadPath) {
+		this.downloadPath = downloadPath;
+	}
+		
 }
