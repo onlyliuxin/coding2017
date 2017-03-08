@@ -36,9 +36,9 @@ public class ArrayList implements List {
             return null;
         else{
             for (int j = i; j < size; j++) {
-                elementData[j] = elementData[j++]
+                elementData[j] = elementData[++j]
             }
-            return elementData[index]
+            return elementData[index--]
         }
 	}
 	
