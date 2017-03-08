@@ -1,7 +1,6 @@
 package datastructure.basic;
 
 import datastructure.exception.EmptyListException;
-import javafx.util.Pair;
 
 import java.util.Objects;
 
@@ -186,7 +185,10 @@ public class LinkedList implements List {
 	 * @param i
 	 * @param length
 	 */
-	public void remove(int i, int length){
+	public void remove(int i, int length) {
+		if (length <= 0) {
+			return;
+		}
 		Node preI = findNode(i - 1);
 		Node removeTo = findNode(i + length - 1);
 		Node removeFrom = preI.next;

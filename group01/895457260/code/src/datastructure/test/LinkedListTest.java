@@ -206,4 +206,47 @@ public class LinkedListTest extends ArrayListTest {
         LinkedList result = list.intersection(list1);
         Assert.assertArrayEquals(toArray(result), new Object[] {2, 4});
     }
+
+    @Test
+    public void testMultiMethod() throws Exception {
+        LinkedList list = (LinkedList) getList();
+        LinkedList subtractList = new LinkedList();
+        for (int i = 0; i < 3; ++i) {
+            subtractList.add(2 * i);
+        }
+        LinkedList intersectionList = new LinkedList();
+        for (int i = 0; i < 4; ++i) {
+            intersectionList.add(2 * i);
+        }
+
+        list.reverse();
+        list.subtract(subtractList);
+        Assert.assertArrayEquals(toArray(list), new Object[] {5, 4, 3, 2, 1});
+        LinkedList intersection = list.intersection(intersectionList);
+        Assert.assertArrayEquals(toArray(intersection), new Object[] {});
+        list.reverse();
+        list.add(6);
+        list.add(6);
+        list.add(6);
+        list.add(7);
+        list.add(7);
+        list.add(8);
+        list.add(9);
+        list.add(9);
+        list.add(9);
+        list.add(10);
+        list.add(11);
+        list.removeDuplicateValues();
+        Assert.assertArrayEquals(toArray(list), new Object[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11});
+        list.remove(0, 0);
+        list.remove(0, 2);
+        Assert.assertArrayEquals(toArray(list), new Object[] {3, 4, 5, 6, 7, 8, 9, 10, 11});
+        list.removeRange(0, 3);
+        list.removeRange(11, 13);
+        list.removeRange(11, 8);
+        list.removeRange(8, 11);
+        Assert.assertArrayEquals(toArray(list), new Object[] {3, 4, 5, 6, 7, 8, 11});
+        list.removeFirstHalf();
+        Assert.assertArrayEquals(toArray(list), new Object[] {6, 7, 8, 11});
+    }
 }
