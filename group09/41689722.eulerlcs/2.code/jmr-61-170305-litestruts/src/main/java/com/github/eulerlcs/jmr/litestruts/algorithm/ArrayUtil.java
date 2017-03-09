@@ -1,7 +1,7 @@
 /**
  * 问题点： 没写注释，代码比较难读。尤其 merge方法。
  */
-package com.github.eulerlcs.jmr.litestruts.util;
+package com.github.eulerlcs.jmr.litestruts.algorithm;
 
 import java.util.Arrays;
 

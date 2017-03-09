@@ -12,5 +12,6 @@
 		<module>../jmr-11-challenge</module>
 		<module>../jmr-61-170226-collection</module>
 		<module>../jmr-61-170305-litestruts</module>
+		<module>../jmr-61-170312-multiThreadDownload</module>
 	</modules>
 </project>

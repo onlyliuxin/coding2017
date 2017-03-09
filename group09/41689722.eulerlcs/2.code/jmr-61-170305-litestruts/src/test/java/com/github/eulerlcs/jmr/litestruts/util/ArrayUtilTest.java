@@ -8,6 +8,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.github.eulerlcs.jmr.litestruts.algorithm.ArrayUtil;
+
 public class ArrayUtilTest {
 
 	@Test
@@ -246,7 +248,7 @@ public class ArrayUtilTest {
 	@Test
 	public void getPerfectNumbers_max() {
 		long max = Long.MAX_VALUE;
-		max = 100000;
+		max = 10000;
 		long[] expecteds = { 6, 28, 496, 8128, 33550336, 8589869056L, 137438691328L, 2305843008139952128L };
 
 		long[] newArr = ArrayUtil.getPerfectNumbers(max);
