@@ -8,8 +8,16 @@ public class ConnectionManagerImpl implements ConnectionManager {
 
 	@Override
 	public Connection open(String url) throws ConnectionException {
-		
-		return null;
+		Connection conn = null;
+		if (url.startsWith("http")){
+			conn = new ConnectionImpl(url);
+		}else if(url.startsWith("ftp")){
+			//TODO
+		}
+		if(conn == null){
+			throw new ConnectionException("Failed to get conneciton.");
+		}
+		return conn;
 	}
 
 }

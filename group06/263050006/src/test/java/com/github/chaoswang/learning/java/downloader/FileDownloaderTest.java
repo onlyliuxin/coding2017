@@ -21,7 +21,7 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://localhost:8080/test.jpg";
+		String url = "http://wiki.zte.com.cn/download/attachments/17782333/image2017-2-27%2017%3A17%3A20.png";
 		
 		FileDownloader downloader = new FileDownloader(url);
 

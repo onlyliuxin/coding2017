@@ -40,9 +40,10 @@ public class FileDownloader {
 			
 			int length = conn.getContentLength();	
 			
-			new DownloadThread(conn,0,length-1).start();
-			
-		} catch (ConnectionException e) {			
+			Thread dt = new DownloadThread(conn,0,length-1, listener);
+			dt.start();
+			dt.join();
+		} catch (Exception e) {			
 			e.printStackTrace();
 		}finally{
 			if(conn != null){
