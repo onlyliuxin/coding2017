@@ -83,6 +83,7 @@ public class ArrayUtilTest {
 		assertArrayEquals(new int[] { 6, 28, 496 }, ArrayUtil.getPerfectNumbers(1000));
 
 		assertArrayEquals(new int[] { 6, 28, 496, 8128 }, ArrayUtil.getPerfectNumbers(10000));
+
 	}
 
 	@Test
