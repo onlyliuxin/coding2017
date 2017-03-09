@@ -1,5 +1,7 @@
 package com.coderising.download;
 
+import java.util.concurrent.CyclicBarrier;
+
 import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
@@ -13,6 +15,8 @@ public class FileDownloader {
 	DownloadListener listener;
 	
 	ConnectionManager cm;
+	
+	int threadNum = 3;//默认值为3，在set方法中已设置不得小于3，如果小于三则设置为3
 	
 
 	public FileDownloader(String _url) {
@@ -40,19 +44,38 @@ public class FileDownloader {
 			conn = cm.open(this.url);
 			
 			int length = conn.getContentLength();	
+			if(length == 0 ){
+				listener.notifyFinished();
+				System.out.println("文件为空，下载终止");
+				return;
+			}
 			
-			new DownloadThread(conn,0,length-1).start();
+			int everylen = length/threadNum;
 			
+			CyclicBarrier cyclicBarrier = new CyclicBarrier(threadNum, new Runnable() {
+				@Override
+				public void run() {
+					listener.notifyFinished();
+				}
+			});
+			for (int i = 0; i < threadNum; i++) {
+				Connection connection = cm.open(this.url);
+				int startPos = i*everylen;
+				int endPos = i*everylen+everylen;
+				if(i == threadNum-1){
+					endPos = length;
+				}
+				DownloadThread downloadThread = new DownloadThread(connection,startPos,endPos);
+				downloadThread.setBarrier(cyclicBarrier);
+				downloadThread.start();
+			}
 		} catch (ConnectionException e) {			
 			e.printStackTrace();
-		}finally{
+		} finally{
 			if(conn != null){
 				conn.close();
 			}
 		}
-		
-		
-		
 		
 	}
 	
@@ -68,6 +91,17 @@ public class FileDownloader {
 	
 	public DownloadListener getListener(){
 		return this.listener;
+	}
+
+	public int getThreadNum() {
+		return threadNum;
+	}
+
+	public void setThreadNum(int threadNum) {
+		if(threadNum<3){
+			threadNum = 3;
+		}
+		this.threadNum = threadNum;
 	}
 	
 }

@@ -2,7 +2,7 @@ package com.coding.basic;
 
 import java.util.NoSuchElementException;
 
-public class LinkedList<E> implements List<E> {
+public class DoubleNodeLinkedList<E> implements List<E> {
 	private int size = 0;
 	
 	private Node<E> first;
