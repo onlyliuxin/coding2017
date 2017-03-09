@@ -54,9 +54,11 @@ public class ArrayListTest {
 	}
 
 	@Test
-	@Ignore("not implemented yet")
 	public void testIterator() {
-		fail("Not yet implemented");
+		Iterator it = list.iterator();
+		if (it.hasNext()) {
+			Assert.assertEquals("first", it.next());
+		}
 	}
 
 }

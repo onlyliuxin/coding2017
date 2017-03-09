@@ -6,4 +6,5 @@ public interface List<T> {
 	public T get(int index);
 	public T remove(int index);
 	public int size();
+	public Iterator<T> iterator();
 }

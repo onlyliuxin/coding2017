@@ -9,11 +9,11 @@ public class ArrayList<T> implements List<T> {
 
 	private final static int INCREASE_CAPACITY = 1;
 
-	private int size = 0;        //列表当前使用长度
+	private int size = 0;        //鍒楄〃浣跨敤闀垮害
 	
-	private int modCount = 0;    //记录列表修改次数
+	private int modCount = 0;    //鍒楄〃缁撴瀯淇敼娆℃暟
 
-	private int mCurrentCapacity = INIT_CAPACITY;     //列表当前容量
+	private int mCurrentCapacity = INIT_CAPACITY;     //鍒楄〃瀹归噺
 
 	private Object[] elementData = new Object[INIT_CAPACITY];
 	
@@ -76,7 +76,8 @@ public class ArrayList<T> implements List<T> {
 	public int size(){
 		return size;
 	}
-
+    
+	@Override
 	public Iterator<T> iterator(){
 		return new Iter();
 	}
