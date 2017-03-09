@@ -21,7 +21,7 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://localhost:8080/test.jpg";
+		String url = "http://gss0.baidu.com/7Po3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/5ab5c9ea15ce36d33274da5e3cf33a87e950b168.jpg";
 		
 		FileDownloader downloader = new FileDownloader(url);
 
@@ -41,7 +41,7 @@ public class FileDownloaderTest {
 		downloader.execute();
 		
 		// 等待多线程下载程序执行完毕
-		while (!downloadFinished) {
+		//while (!downloadFinished) {
 			try {
 				System.out.println("还没有下载完成，休眠五秒");
 				//休眠5秒
@@ -49,7 +49,7 @@ public class FileDownloaderTest {
 			} catch (InterruptedException e) {				
 				e.printStackTrace();
 			}
-		}
+		//}
 		System.out.println("下载完成！");
 		
 		

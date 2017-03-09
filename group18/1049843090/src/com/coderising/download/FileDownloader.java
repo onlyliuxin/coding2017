@@ -5,6 +5,11 @@ import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
 
 public class FileDownloader {
 	
@@ -39,13 +44,34 @@ public class FileDownloader {
 			
 			conn = cm.open(this.url);
 			
-			int length = conn.getContentLength();	
-			
-			new DownloadThread(conn,0,length-1).start();
-			
-		} catch (ConnectionException e) {			
+			int length = conn.getContentLength();
+			File file = new File("F:\\down.jpg");
+			RandomAccessFile randomAccessFile = new RandomAccessFile(file,"rw");
+			randomAccessFile.setLength(length);
+			randomAccessFile.close();
+			int threadCount = 1;
+			//计算每个线程下载的块的大小
+			System.out.println("总长度："+length);
+			int blockSize = length / threadCount;
+			for (int i = 0; i < threadCount; i++) {
+				//每个线程的起始下载点
+				int startPos = blockSize * i;
+				//每个线程的结束下载点
+				int endPos = blockSize * (i + 1);
+				//如果是最后一条线程，将其下载的终止点设为文件的终点
+				if(i == threadCount-1){
+					endPos = length;
+				}
+				System.out.println("线程" + i + "下载的部分为：" + blockSize*i +"---" +(endPos-1) );
+					new DownloadThread(cm.open(this.url),blockSize*i,(endPos-1)).start();
+			}
+		} catch (ConnectionException e) {
 			e.printStackTrace();
-		}finally{
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally{
 			if(conn != null){
 				conn.close();
 			}
