@@ -1,4 +1,4 @@
-package com.coderising.litestruts;
+package Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class StrutsTest {
         params.put("password","1234");
         
         
-        View view  = Struts.runAction(actionName,params);        
+        com.coderising.litestruts.View view  = com.coderising.litestruts.Struts.runAction(actionName,params);
         
         Assert.assertEquals("/jsp/homepage.jsp", view.getJsp());
         Assert.assertEquals("login successful", view.getParameters().get("message"));
@@ -35,7 +35,7 @@ public class StrutsTest {
         params.put("name","test");
         params.put("password","123456"); //密码和预设的不一致
         
-        View view  = Struts.runAction(actionName,params);        
+        com.coderising.litestruts.View view  = com.coderising.litestruts.Struts.runAction(actionName,params);
         
         Assert.assertEquals("/jsp/showLogin.jsp", view.getJsp());
         Assert.assertEquals("login failed,please check your user/pwd", view.getParameters().get("message"));

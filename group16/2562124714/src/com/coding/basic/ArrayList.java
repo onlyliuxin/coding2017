@@ -107,6 +107,7 @@ public class ArrayList implements List {
 			return new Object[0];
 		}
 
+		//使用System.arraycopy()来复制数组是更优的办法 zwj 20170309
 		for (int i = 0 ; i < this.size; i ++)
 		{
 			Array[i] = this.elementData[i];
