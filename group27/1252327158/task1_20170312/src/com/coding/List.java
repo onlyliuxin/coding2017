@@ -1,9 +1,9 @@
 package com.coding;
 
-public interface List {
-	public void add(Object o);
-	public void add(int index, Object o);
-	public Object get(int index);
-	public Object remove(int index);
+public interface List<T> {
+	public void add(T o);
+	public void add(int index, T o);
+	public T get(int index);
+	public T remove(int index);
 	public int size();
 }
