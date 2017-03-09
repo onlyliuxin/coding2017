@@ -18,15 +18,19 @@ public class ConnectionImpl implements Connection{
 	@Override
 	public byte[] read(int startPos, int endPos) throws IOException {
 
-		InputStream is = getDownloadStream(startPos,endPos);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
-        byte[] buffer = new byte[1024]; 
-        int length = -1; 
-        while ((length = is.read(buffer)) != -1) { 
-            baos.write(buffer, 0, length); 
-        } 
-        baos.flush();
-        byte[] data = baos.toByteArray(); 		
+		byte[] data = null;
+		InputStream is = getDownloadStream(startPos,endPos);		
+		if(is !=null){
+			ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
+	        byte[] buffer = new byte[1024]; 
+	        int length = -1; 
+	        while ((length = is.read(buffer)) != -1) { 
+	            baos.write(buffer, 0, length); 
+	        } 
+	        baos.flush();
+	        data = baos.toByteArray(); 		
+	        return data;
+		}
         return data;
 	}
 
@@ -34,8 +38,11 @@ public class ConnectionImpl implements Connection{
 	public InputStream getDownloadStream(int startPos, int endPos) throws IOException {
 		//请求服务器下载部分文件 指定文件的位置  
 		httpConnection.setRequestProperty("Range", "bytes="+startPos+"-"+endPos);
-		httpConnection.connect();
-		return httpConnection.getInputStream();
+		httpConnection.connect();		
+		if(httpConnection.getResponseCode()/100 == 2){
+			return httpConnection.getInputStream();
+		}
+		return null;
 	}	
 	@Override
 	public int getContentLength() {	

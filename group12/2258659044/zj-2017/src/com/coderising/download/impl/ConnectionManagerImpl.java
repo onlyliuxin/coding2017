@@ -22,7 +22,10 @@ public class ConnectionManagerImpl implements ConnectionManager {
 			httpCon = (HttpURLConnection)remotUrl.openConnection();
 			httpCon.setRequestMethod("GET");
 			httpCon.setConnectTimeout(6000);
+			httpCon.setReadTimeout(6000);			
 			httpCon.setDoInput(true);
+			httpCon.setRequestProperty("connection", "keep-alive");
+			httpCon.setRequestProperty("accept", "*/*");			
 			//设置Connection属性
 			conn.setHttpConnection(httpCon);
 			conn.setFileName(getFileName(url));

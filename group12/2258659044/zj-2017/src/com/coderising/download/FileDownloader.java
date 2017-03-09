@@ -16,7 +16,7 @@ public class FileDownloader {
 	ConnectionManager cm;
 	
 	/*线程数目*/
-	private final int threadNum = 8;
+	private final int threadNum = 5;
 	
 	public FileDownloader(String _url) {
 		this.url = _url;

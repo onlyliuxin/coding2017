@@ -13,6 +13,8 @@ public class FileDownloaderTest {
 	
 	int persent = 0;
 	
+	String downloadSpeed ="0";
+	
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -35,8 +37,9 @@ public class FileDownloaderTest {
 		downloader.setDownloadPath("C:/Users/ZJ/Desktop");
 		downloader.setListener(new DownloadListener() {
 			@Override
-			public void notifyFinished(int percent) {
+			public void notifyFinished(int percent,String speed) {
 				persent = percent;
+				downloadSpeed = speed;
 			}
 
 		});
@@ -49,7 +52,7 @@ public class FileDownloaderTest {
 			try {
 				if(temp!=persent){
 					temp = persent;
-					System.out.println("已下载"+persent+"%");
+					System.out.println("已下载"+persent+"%，下载速度为："+downloadSpeed+"。");
 				}
 				if(persent == 100){
 					break;

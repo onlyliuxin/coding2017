@@ -75,6 +75,9 @@ public class DownloadThread extends Thread {
 			tempFile = file;
 			//获取指定文件段的下载流
 			InputStream in = conn.getDownloadStream(startPos, endPos);
+			if(in == null){
+				return;
+			}
 			//随机访问文件流
 			RandomAccessFile raf = new RandomAccessFile(tempFile, "rwd"); 
 			//随机写文件的时候从哪个位置开始写  
