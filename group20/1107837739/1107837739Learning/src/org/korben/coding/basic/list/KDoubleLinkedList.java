@@ -148,7 +148,7 @@ public class KDoubleLinkedList<T> implements KList<T> {
 
     @Override
     public KIterator<T> iterator() {
-        throw new IllegalStateException("方法未实现");
+        throw new UnsupportedOperationException("方法未实现");
     }
 
     private Node<T> getNode(int index) {
