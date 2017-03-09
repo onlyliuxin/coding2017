@@ -1,24 +1,31 @@
 package com.coding.basic;
 
 public class Stack {
+	
 	private ArrayList elementData = new ArrayList();
 
 	public void push(Object o) {
+		elementData.add(o);
 	}
 
 	public Object pop() {
-		return null;
+		Object obj = elementData.get(0);
+		elementData.remove(0);
+		return obj;
 	}
 
 	public Object peek() {
-		return null;
+		return elementData.get(0);
 	}
 
 	public boolean isEmpty() {
-		return false;
+		if (elementData.size() != 0) {
+			return false;
+		}
+		return true;
 	}
 
 	public int size() {
-		return -1;
+		return elementData.size();
 	}
 }

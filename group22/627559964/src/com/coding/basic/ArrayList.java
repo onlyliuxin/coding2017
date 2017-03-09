@@ -10,10 +10,10 @@ import java.util.Arrays;
  */
 public class ArrayList implements List {
 
-	//list长度
+	// list长度
 	private int size = 0;
 
-	//list的元素集合
+	// list的元素集合
 	private Object[] elementData = new Object[10];
 
 	/**
@@ -34,6 +34,7 @@ public class ArrayList implements List {
 	 * 分割数组
 	 * 
 	 * @param arrays
+	 * @param from
 	 * @param index
 	 * @return Object[]
 	 */
@@ -46,7 +47,8 @@ public class ArrayList implements List {
 	}
 
 	/**
-	 * 动态增长list长度 策略为:newSize = oldSize * 1.5
+	 * 动态增长list长度
+	 * 策略为:newSize = oldSize * 1.5
 	 * 
 	 * @param oldSize
 	 */
@@ -79,7 +81,7 @@ public class ArrayList implements List {
 	/**
 	 * 新增元素
 	 * 
-	 * @param index,
+	 * @param index
 	 * @param Object
 	 */
 	public void add(int index, Object o) {
@@ -113,12 +115,12 @@ public class ArrayList implements List {
 		Object[] arrays1 = subArrays(elementData, 0, index);
 		Object[] arrays2 = subArrays(elementData, index + 1, elementData.length);
 		Object obj = elementData[index];
-		
-		size --;
+
+		size--;
 		elementData = concat(arrays1, arrays2);
 		return obj;
 	}
-	
+
 	/**
 	 * 返回list长度
 	 * 
@@ -129,16 +131,16 @@ public class ArrayList implements List {
 	}
 
 	/**
-	 * 重写迭代器 
+	 * 重写迭代器
 	 *
 	 * @return IteratorImpl
 	 */
 	public Iterator iterator() {
-		
+
 		class IteratorImpl implements Iterator {
 
 			private int point = 0;
-			
+
 			@Override
 			public boolean hasNext() {
 				if (elementData[point] != null) {
@@ -151,7 +153,7 @@ public class ArrayList implements List {
 			public Object next() {
 				return elementData[point++];
 			}
-			
+
 		}
 		return new IteratorImpl();
 	}
