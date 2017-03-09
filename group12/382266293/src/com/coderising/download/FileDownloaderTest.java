@@ -20,7 +20,7 @@ public class FileDownloaderTest {
 
 	public static String url1 = "http://sw.bos.baidu.com/sw-search-sp/software/89179b0b248b1/QQ_8.9.20026.0_setup.exe";	
 	public static String url2 = "http://image.beekka.com/blog/201304/bg2013042401.jpg";
-	public static String url3 = "http://dlsw.baidu.com/sw-search-sp/soft/de/26290/WPIconMaker_1.0.1398047889.exe";
+	public static String url3 = "http://sw.bos.baidu.com/sw-search-sp/software/6c7bb8b6674d0/fm728chb379_7.2.8.379_setup.exe";
 	
 	@Test
 	public void testDownload() {
@@ -49,7 +49,7 @@ public class FileDownloaderTest {
 			try {
 				System.out.println("还没有下载完成，休眠五秒");
 				//休眠5秒
-				Thread.sleep(5000);
+				Thread.sleep(15000);
 			} catch (InterruptedException e) {				
 				e.printStackTrace();
 			}

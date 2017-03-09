@@ -47,12 +47,14 @@ public class DownloadThread extends Thread{
 		} finally {
 			conn.close();
 			System.out.println(this.getName()+" finished");
-			notifyFinished();
+			
 			try {
 				if (raf != null)
 					raf.close();
 			} catch (IOException e) {
 				e.printStackTrace();
+			} finally {
+				notifyFinished();
 			}
 		}
 	}

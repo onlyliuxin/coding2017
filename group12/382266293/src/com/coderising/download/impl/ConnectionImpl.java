@@ -44,11 +44,10 @@ public class ConnectionImpl implements Connection{
 			in.skip(startPos);
 			byte[] buffer = new byte[endPos-startPos + 1];
 			int len = 0;
-			//byte[] b = new byte[1024];
-			while((len = in.read(buffer)) != -1) {
-				out.write(buffer);
+			byte[] b = new byte[1024];
+			while((len = in.read(b)) != -1) {
+				out.write(b, 0, len);
 			}
-			System.out.println(out.toByteArray().length);
 			return out.toByteArray();
 		} catch (IOException e) {
 			e.printStackTrace();

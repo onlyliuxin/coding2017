@@ -7,7 +7,7 @@ public interface ConnectionManager {
 	 * @return
 	 */
 	
-	final int MAX_CONNECTION_SIZE = 10;
+	final int MAX_CONNECTION_SIZE = 100;
 	
 	public Connection open(String url) throws ConnectionException;
 }
