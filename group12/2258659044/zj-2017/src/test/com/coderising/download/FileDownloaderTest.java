@@ -11,7 +11,7 @@ import com.coderising.download.impl.ConnectionManagerImpl;
 
 public class FileDownloaderTest {
 	
-	boolean downloadFinished = false;
+	int persent = 0;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -35,8 +35,8 @@ public class FileDownloaderTest {
 		downloader.setDownloadPath("C:/Users/ZJ/Desktop");
 		downloader.setListener(new DownloadListener() {
 			@Override
-			public void notifyFinished() {
-				downloadFinished = true;
+			public void notifyFinished(int percent) {
+				persent = percent;
 			}
 
 		});
@@ -44,9 +44,16 @@ public class FileDownloaderTest {
 		downloader.execute();
 		
 		// 等待多线程下载程序执行完毕
-		while (!downloadFinished) {
+		int temp = -1;
+		while (true) {
 			try {
-				System.out.println("还没有下载完成，休眠五秒");
+				if(temp!=persent){
+					temp = persent;
+					System.out.println("已下载"+persent+"%");
+				}
+				if(persent == 100){
+					break;
+				}
 				//休眠5秒
 				Thread.sleep(5000);
 			} catch (InterruptedException e) {				
@@ -56,5 +63,4 @@ public class FileDownloaderTest {
 		System.out.println("下载完成！");
 				
 	}
-
 }

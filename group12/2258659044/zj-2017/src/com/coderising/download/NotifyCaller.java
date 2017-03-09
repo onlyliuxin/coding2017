@@ -1,7 +1,6 @@
 package com.coderising.download;
 
-import java.util.Map;
-import java.util.Set;
+import java.io.File;
 
 import com.coderising.download.api.DownloadListener;
 
@@ -10,54 +9,60 @@ public class NotifyCaller extends Thread{
 	/*监听器*/
 	private DownloadListener listener;
 	
-	/*下载线程*/
-	private DownloadThread[] downloadThreads;
+	/*内存文件*/
+	DownloadThread[] downloadThreads;
 	
+	/*文件总长度*/
+	private int fileLength;
 	
-	public NotifyCaller(DownloadListener listener,DownloadThread[] downloadThreads){
+	private static final int HUNDRED = 100;
+	
+	public NotifyCaller(DownloadListener listener,DownloadThread[] downloadThreads,int fileLength){
 		
 		this.listener = listener;
 		this.downloadThreads = downloadThreads;
+		this.fileLength = fileLength;
 	}
 	
 	@Override
 	public void run() {		
-		while(true){	
-			if(DownloadThreadsIsComplete(downloadThreads)){
-				listener.notifyFinished();
-			}										
-		}
-	}
-	
-	/**
-	 * 根据名称判断这些线程是否执行完毕
-	 * @param threadNames
-	 * @return
-	 */
-    private boolean DownloadThreadsIsComplete(DownloadThread[] downloadThreads){
-		
-		Map<Thread, StackTraceElement[]> threadMaps=Thread.getAllStackTraces();
-		Set<Thread> keySet = threadMaps.keySet();
-		for (int i = 0; i < downloadThreads.length; i++) {
-			if(keySet.contains(downloadThreads[i])){
-				return false;
+		while(true){
+			if(HUNDRED == getPercentOfDownload()){
+				rename();
 			}
+			listener.notifyFinished(getPercentOfDownload());
 		}
-		return true;
 	}
-        
+	   
+    /**
+     * 获取下载百分比
+     * @return
+     */
+    private int getPercentOfDownload(){
+    	
+    	int sum = 0;
+    	for (int i = 0; i < downloadThreads.length; i++) {
+    		sum += downloadThreads[i].downloadSize;
+		}
+    	return (sum)/(fileLength/HUNDRED);
+    }
+    
+    /**
+     * 重命名
+     */
+    private void rename(){
+    	
+    	File tempFile = downloadThreads[0].tempFile;
+    	String name = tempFile.getName();
+    	name = name.substring(0,name.lastIndexOf("."))+downloadThreads[0].sufferName;
+    	File file = new File(tempFile.getPath()+"/"+name);
+    	tempFile.renameTo(file);
+    }
+    
 	public DownloadListener getListener() {
 		return listener;
 	}
 	public void setListener(DownloadListener listener) {
 		this.listener = listener;
-	}
-
-	public DownloadThread[] getDownloadThreads() {
-		return downloadThreads;
-	}
-
-	public void setDownloadThreads(DownloadThread[] downloadThreads) {
-		this.downloadThreads = downloadThreads;
 	}
 }

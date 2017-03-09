@@ -1,6 +1,7 @@
 package com.coderising.download.api;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public interface Connection {
 	/**
@@ -26,4 +27,10 @@ public interface Connection {
 	 * @return
 	 */
 	public String getDownloadName();
+	
+	/**
+	 * 获取下载流
+	 * @return
+	 */
+	public InputStream getDownloadStream(int startPos, int endPos)throws IOException;
 }
