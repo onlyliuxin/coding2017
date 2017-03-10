@@ -1,27 +1,102 @@
 package com.coding.basic;
 
+/**
+ * 自定义LinkList
+ * 
+ * @author xiongrui233
+ *
+ */
 public class LinkedList implements List {
+	
+	/**
+	 * 定义链表节点结构
+	 * @author xiongrui233
+	 *
+	 */
+	private static class Node {
+		Object data;
+		Node next;
+	}
+	//链表节点
+	private Node head = new Node();
 
-	private Node head;
-
+	/**
+	 * 添加元素
+	 * 
+	 * @param o
+	 */
 	public void add(Object o) {
-
+		Node node = head;
+		while (node.data != null) {
+			node = node.next;
+		}
+		node.data = o;
 	}
 
+	/**
+	 * 添加元素
+	 * 
+	 * @param index
+	 * @param o
+	 */
 	public void add(int index, Object o) {
-
+		Node node = head;
+		Node oldNode = head;
+		Node newNode = new Node();
+		for (int i = 0; i <= index; i++) {
+			if (i == index - 1) {
+				oldNode = node.next;
+			}
+			node = node.next;
+		}
+		newNode.data = o;
+		newNode.next = node;
+		oldNode.next = newNode;
 	}
 
+	/**
+	 * 获取元素
+	 * 
+	 * @param index
+	 */
 	public Object get(int index) {
-		return null;
+		Node node = head;
+		for (int i = 0; i <= index; i++) {
+			node = node.next;
+		}
+		return node.data;
 	}
 
+	/**
+	 * 删除元素
+	 * 
+	 * @param index
+	 */
 	public Object remove(int index) {
-		return null;
+		Node node = head;
+		Node oldNode = head;
+		Node newNode = new Node();
+		for (int i = 0; i <= index; i++) {
+			if (i == index - 1) {
+				oldNode = node.next;
+			}
+			node = node.next;
+		}
+		if (node.next != null) {
+			newNode = node.next;
+		} else {
+			newNode = node;
+		}
+		oldNode.next = newNode;
+		return node.data;
 	}
 
 	public int size() {
-		return -1;
+		int size = 0;
+		while (head.next != null) {
+			size ++;
+		}
+		return size;
 	}
 
 	public void addFirst(Object o) {
@@ -42,12 +117,6 @@ public class LinkedList implements List {
 
 	public Iterator iterator() {
 		return null;
-	}
-
-	private static class Node {
-		Object data;
-		Node next;
-
 	}
 
 	/**
