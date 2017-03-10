@@ -21,11 +21,10 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://localhost:8080/test.jpg";
+		String url = "https://www.baidu.com/img/bd_logo1.png";
 		
 		FileDownloader downloader = new FileDownloader(url);
 
-	
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);  //设置连接管理器
 		
@@ -50,7 +49,7 @@ public class FileDownloaderTest {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("下载完成！");
+		System.out.println("Down!!!");
 		
 		
 

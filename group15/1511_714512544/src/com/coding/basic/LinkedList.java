@@ -1,6 +1,7 @@
 package com.coding.basic;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class LinkedList implements List {
 	private Node head;  //首节点
@@ -50,6 +51,7 @@ public class LinkedList implements List {
 		}
 		return temp.data;
 	}
+
 
 	public Object remove(int index){  //删除指定索引处的节点
 		if(index > size -1 || index < 0) throw new RuntimeException("IndexOutOfBounds");
@@ -159,8 +161,17 @@ public class LinkedList implements List {
 	 * 把该链表逆置
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
-	public  void reverse(){
+	public void reverse(){
+		Node next = null;  //当前节点下面一个
+		Node pre = null;  //当前节点前面一个
 
+		while(head != null){
+			next = head.next;
+			head.next = pre;
+			pre = head;
+			head = next;
+		}
+		head = pre;
 	}
 
 	/**
@@ -170,7 +181,15 @@ public class LinkedList implements List {
 
 	 */
 	public  void removeFirstHalf(){
+		if(size() == 0 || size() == 1) return;
 
+		int half = size()/2; //一半数目
+		int sum = 0;  //已移除总个数
+		while(sum != half){
+			head = head.next;
+			sum ++;
+			size --;
+		}
 	}
 
 	/**
@@ -178,9 +197,37 @@ public class LinkedList implements List {
 	 * @param i
 	 * @param length
 	 */
-	public  void remove(int i, int length){
+	public void remove(int i, int length){
+		if(length < 0 ) throw new RuntimeException("长度非法");
+		if(i < 0 || i >= size() || (i+length >size())) throw new RuntimeException("索引越界");
 
+		if(i == 0){
+			int sum = 0;
+			while(sum != length){
+				head = head.next;
+				sum ++;
+				size --;
+			}
+			return;
+		}
+		Node pre = findNode(i-1);  //前一节点
+		Node next = findNode(i+length); //后一节点
+		pre.next = next;
+		size -= length;
 	}
+	//查找某个位置的Node
+	private Node findNode(int i){
+		if(i < 0 ||i > size()) throw new RuntimeException("索引越界");
+		if(i == size() ) return null;
+		int index = 0;
+		Node temp = head;
+		while(index != i){
+			temp = temp.next;
+			index ++;
+		}
+		return temp;
+	}
+
 	/**
 	 * 假定当前链表和list均包含已升序排列的整数
 	 * 从当前链表中取出那些list所指定的元素
@@ -189,8 +236,18 @@ public class LinkedList implements List {
 	 * 返回的结果应该是[101,301,401,601]
 	 * @param list
 	 */
-	public static int[] getElements(LinkedList list){
-		return null;
+	public int[] getElements(LinkedList list){
+		int sum = list.size();
+		int[] arr = new int[sum];
+		for (int i = 0; i < sum; i++) {
+			Integer index = (Integer) list.get(i);
+			Node temp = findNode(index);
+			if(temp == null){
+				throw new RuntimeException("索引越界");
+			}
+			arr[i] = (Integer) temp.data;
+		}
+		return arr;
 	}
 
 	/**
@@ -199,17 +256,48 @@ public class LinkedList implements List {
 
 	 * @param list
 	 */
-
 	public  void subtract(LinkedList list){
-
+		for (int i = 0; i < list.size; i++) {
+			int index = indexOf(list.get(i));
+			if(index < 0) continue; //没找到相关节点
+			if(index == 0){
+				head = head.next;
+				size --;
+			}else {
+				Node pre = findNode(index-1);
+				Node next = findNode(index+1);
+				pre.next = next;
+				size --;
+			}
+		}
 	}
+	//索引对象，返回索引值
+	private int indexOf(Object o){//返回索引
+		for (int i = 0; i < size(); i++) {
+			if(Objects.equals(o, get(i))){  //判断两个Object对象是否相等
+				return i;
+			}
+		}
+		return -1;
+	}
+
 
 	/**
 	 * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。
 	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
 	public  void removeDuplicateValues(){
+		if(size() == 0 || size() == 1) return;
+		Node current = head;
 
+		while(current.next != null){
+			if(Objects.equals(current.data, current.next.data)){
+				current.next = current.next.next;
+				size --;
+			}else {
+				current = current.next;
+			}
+		}
 	}
 
 	/**
@@ -219,7 +307,33 @@ public class LinkedList implements List {
 	 * @param max
 	 */
 	public  void removeRange(int min, int max){
+		if(size() == 0) return;
+		if(((Integer)get(0)) >= max ) return;
+		if( ((Integer)get(size()-1)) <= min ) return;
 
+		if(((Integer)get(0)) <= min && ((Integer)get(size()-1)) < max && ((Integer)get(size()-1)) > min){
+			for (int i = 1; i < size(); i++) {
+				if(((Integer)get(i)) >min) {findNode(i-1).next = null;size = i;return;}
+			}
+		}else if(((Integer)get(0)) > min && ((Integer)get(0)) < max && ((Integer)get(size()-1)) >= max){
+			for (int i = 0; i < size(); i++) {
+				if(((Integer)get(i)) >= max){head = findNode(i);size -= 4;return;}
+			}
+		}else if(((Integer)get(0)) <= min && ((Integer)get(size()-1)) >= max){
+			Node t1=null, t2 =null;
+			int index1=0, index2=0;
+			for (int i = 1; i < size(); i++) {
+				if(((Integer)get(i)) > min){index1 = i;t1 = findNode(i-1);break;}
+			}
+			for (int i = 1; i < size(); i++) {
+				if(((Integer)get(i)) >= max){index2 = i;t2 = findNode(i);break;}
+			}
+			t1.next = t2;
+			size -= (index2-index1);
+		}else {
+			head = null;
+			size = 0;
+		}
 	}
 
 	/**
@@ -228,7 +342,27 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	public  LinkedList intersection( LinkedList list){
-		return null;
+		int[] arr1 = new int[this.size()];
+		int[] arr2 = new int[list.size()];
+
+		for (int i = 0; i < this.size(); i++) {
+			Integer num = (Integer) this.get(i);
+			arr1[i] = num;
+		}
+		for (int i = 0; i < list.size(); i++) {
+			Integer num = (Integer) list.get(i);
+			arr2[i] = num;
+		}
+		LinkedList l = new LinkedList();
+		for (int i = 0; i < arr1.length; i++) {
+			for (int j = 0; j < arr2.length; j++) {
+				if(arr1[i] == arr2[j]){
+					l.add(arr1[i]);
+					break;
+				}
+			}
+		}
+		return l;
 	}
 
 

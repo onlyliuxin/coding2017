@@ -4,6 +4,7 @@ import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
+import com.coderising.download.impl.ConnectionManagerImpl;
 
 /**
  * 文件下载器
@@ -12,9 +13,9 @@ public class FileDownloader {
 	
 	String url;  //下载路径
 	
-	DownloadListener listener; //下载监听器
+	DownloadListener listener ; //下载监听器
 	
-	ConnectionManager cm; //连接管理
+	ConnectionManager cm ; //连接管理
 	
 
 	public FileDownloader(String _url) {
@@ -38,24 +39,27 @@ public class FileDownloader {
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
 		Connection conn = null;
 		try {
-			
 			conn = cm.open(this.url);
-			
-			int length = conn.getContentLength();	
-			
-			new DownloadThread(conn,0,length-1).start();
-			
-		} catch (ConnectionException e) {			
-			e.printStackTrace();
-		}finally{
-			if(conn != null){
-				conn.close();
+			int length = conn.getContentLength();
+			Thread[] t = new Thread[4];
+			for (int i = 1; i <= 3; i++) {
+				int startPos = (i-1)*length/3;
+				int endPos = length*i/3-1;
+				if(i == 3) {
+					endPos = length-1;
+				}
+				t[i] = new DownloadThread(conn, startPos, endPos);
 			}
+			t[1].start();
+			t[1].join();
+			t[2].start();
+			t[2].join();
+			t[3].start();
+			listener.notifyFinished();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		
-		
-		
+
 	}
 	
 	public void setListener(DownloadListener listener) {
