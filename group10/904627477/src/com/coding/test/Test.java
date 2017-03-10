@@ -10,7 +10,7 @@ public class Test {
 	
 	public static void main(String[] args) {
 		LinkedList link = new LinkedList();
-		link.add("aaa");
+		link.add(1);
 		link.add("bbb");
 		link.add("ccc");
 		link.reverse();
