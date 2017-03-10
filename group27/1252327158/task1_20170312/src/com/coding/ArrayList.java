@@ -77,7 +77,6 @@ public class ArrayList<T> implements List<T> {
 		return size;
 	}
     
-	@Override
 	public Iterator<T> iterator(){
 		return new Iter();
 	}
