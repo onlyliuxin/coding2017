@@ -1,5 +1,7 @@
 package com.coderising.download;
 
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +21,7 @@ public class FileDownloaderTest {
 	}
 
 	@Test
-	public void testDownload() {
+	public void testDownload() throws IOException {
 		
 		String url = "http://localhost:8080/test.jpg";
 		
@@ -40,17 +42,17 @@ public class FileDownloaderTest {
 		
 		downloader.execute();
 		
-		// µÈ´ı¶àÏß³ÌÏÂÔØ³ÌĞòÖ´ĞĞÍê±Ï
+		// ç­‰å¾…å¤šçº¿ç¨‹ä¸‹è½½ç¨‹åºæ‰§è¡Œå®Œæ¯•
 		while (!downloadFinished) {
 			try {
-				System.out.println("»¹Ã»ÓĞÏÂÔØÍê³É£¬ĞİÃßÎåÃë");
-				//ĞİÃß5Ãë
+				System.out.println("è¿˜æ²¡æœ‰ä¸‹è½½å®Œæˆï¼Œä¼‘çœ äº”ç§’");
+				//ä¼‘çœ 5ç§’
 				Thread.sleep(5000);
 			} catch (InterruptedException e) {				
 				e.printStackTrace();
 			}
 		}
-		System.out.println("ÏÂÔØÍê³É£¡");
+		System.out.println("ä¸‹è½½å®Œæˆï¼");
 		
 		
 

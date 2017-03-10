@@ -1,13 +1,17 @@
 package com.coderising.download;
 
+import java.io.IOException;
+
 import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
+import com.coderising.download.impl.ConnectionManagerImpl;
+import com.coderising.download.utils.FileDownloadUtil;
 
 public class FileDownloader {
 
-	String url;
+	String url = "http://localhost:8080/MyServer/test.exe";
 
 	DownloadListener listener;
 
@@ -15,10 +19,10 @@ public class FileDownloader {
 
 	public FileDownloader(String _url) {
 		this.url = _url;
-
+		cm = new ConnectionManagerImpl();
 	}
 
-	public void execute() {
+	public void execute() throws IOException {
 		// 在这里实现你的代码， 注意： 需要用多线程实现下载
 		// 这个类依赖于其他几个接口, 你需要写这几个接口的实现代码
 		// (1) ConnectionManager , 可以打开一个连接，通过Connection可以读取其中的一段（用startPos,
@@ -36,12 +40,16 @@ public class FileDownloader {
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
 		Connection conn = null;
 		try {
-
-			conn = cm.open(this.url);
-
+			conn = cm.open(url);
 			int length = conn.getContentLength();
-
-			new DownloadThread(conn, 0, length - 1).start();
+			int[] posArr = FileDownloadUtil.generateDownloadPosArr(length);
+			for (int i = 0; i < posArr.length; i++) {
+				if(i == posArr.length - 1){
+					new DownloadThread(cm.open(url), posArr[i], length).start();
+				}else{
+					new DownloadThread(cm.open(url), posArr[i], posArr[i + 1] - 1).start();
+				}
+			}
 
 		} catch (ConnectionException e) {
 			e.printStackTrace();
@@ -63,6 +71,10 @@ public class FileDownloader {
 
 	public DownloadListener getListener() {
 		return this.listener;
+	}
+
+	public static void main(String[] args) throws IOException {
+		new FileDownloader("http://localhost:8080/MyServer/Test.mp3").execute();
 	}
 
 }
