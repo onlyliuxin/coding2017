@@ -10,6 +10,7 @@ import com.coderising.download.impl.ConnectionManagerImpl;
 
 public class FileDownloaderTest {
 	boolean downloadFinished = false;
+	int notify = 0;
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -33,6 +34,7 @@ public class FileDownloaderTest {
 			@Override
 			public void notifyFinished() {
 				downloadFinished = true;
+				notify++;
 			}
 
 		});
@@ -41,15 +43,15 @@ public class FileDownloaderTest {
 		downloader.execute();
 		
 		// 等待多线程下载程序执行完毕
-		//while (!downloadFinished) {
+		while (notify<3) {
 			try {
-				System.out.println("还没有下载完成，休眠五秒");
+				System.out.println("下载中");
 				//休眠5秒
-				Thread.sleep(5000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {				
 				e.printStackTrace();
 			}
-		//}
+		}
 		System.out.println("下载完成！");
 		
 		
