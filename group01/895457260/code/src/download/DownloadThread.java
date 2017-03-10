@@ -13,17 +13,28 @@ public class DownloadThread extends Thread {
 	private int startPos;
 	private int endPos;
 
-	private File tempFile;
+	private File targetFile;
 	private OnCompleteListener onComplete;
 	private OnFailListener onFail;
 
-
-	DownloadThread(Connection conn, int startPos, int endPos, File tempFile,
+	/**
+	 *
+	 * @param conn url连接
+	 * @param startPos 此线程会从url所指向文件的startPos处开始下载
+	 * @param endPos 此线程会在url所指向文件的endPos处停止下载
+	 * @param targetFile 保存下载内容的文件
+	 * @param onComplete 下载成功后自动调用
+	 * @param onFail 下载失败后自动调用
+	 *
+	 * @see OnCompleteListener#onComplete()
+	 * @see OnFailListener#onFail()
+	 */
+	DownloadThread(Connection conn, int startPos, int endPos, File targetFile,
 						  OnCompleteListener onComplete, OnFailListener onFail) {
 		this.conn = conn;		
 		this.startPos = startPos;
 		this.endPos = endPos;
-		this.tempFile = tempFile;
+		this.targetFile = targetFile;
 		this.onComplete = onComplete;
 		this.onFail = onFail;
 	}
@@ -63,7 +74,7 @@ public class DownloadThread extends Thread {
 	private boolean tryDownload() throws DownloadException {
 		FileOutputStream fos = null;
 		try {
-            fos = new FileOutputStream(tempFile);
+            fos = new FileOutputStream(targetFile);
             download(fos);
             return true;
         } catch (FileNotFoundException e) {
@@ -85,7 +96,7 @@ public class DownloadThread extends Thread {
 
 	private void retry() {
 		try {
-            recreateFile(tempFile);
+            recreateFile(targetFile);
         } catch (IOException e1) {
             e1.printStackTrace();
         }
@@ -109,10 +120,16 @@ public class DownloadThread extends Thread {
 	}
 
 	public interface OnCompleteListener {
+		/**
+		 * 下载成功后自动调用此方法
+		 */
 		void onComplete();
 	}
 
 	public interface OnFailListener {
+		/**
+		 * 下载失败后自动调用此方法
+		 */
 		void onFail();
 	}
 }

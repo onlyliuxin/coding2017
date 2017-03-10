@@ -5,18 +5,32 @@ import download.api.*;
 import java.io.*;
 import java.util.Date;
 
-
+/**
+ * TODO:
+ */
 public class FileDownloader {
 	private String url;
 	private DownloadListener listener;
 	private ConnectionManager manager;
+	private boolean failed = false;
 
 	private final int[] completedThreadCount = new int[1];
 
+	/**
+	 * 下载目录见 <code>Config</code>
+	 * @see Config#targetDirectory
+	 * @see #setConnectionManager(ConnectionManager)
+	 * @see #setListener(DownloadListener)
+	 * @see #execute()
+	 */
 	public FileDownloader(String url) {
 		this.url = url;
 	}
-	
+
+	/**
+	 * 开始下载
+	 * 调用这个方法前，先调用{@link #setConnectionManager(ConnectionManager)}和{@link #setListener(DownloadListener)}
+	 */
 	public void execute() {
 		// 在这里实现你的代码， 注意： 需要用多线程实现下载
 		// 这个类依赖于其他几个接口, 你需要写这几个接口的实现代码
@@ -48,7 +62,7 @@ public class FileDownloader {
 					c.close();
 				}
 			}
-			if (listener != null) {
+			if (!failed && listener != null) {
 				listener.notifyFinished();
 			}
 		}).start();
@@ -148,6 +162,7 @@ public class FileDownloader {
 			c.close();
 		}
 		removeTempFiles(tempFiles);
+		failed = true;
 		throw new DownloadException();
 	}
 
@@ -175,10 +190,20 @@ public class FileDownloader {
 		}
 	}
 
+	/**
+	 *
+	 * @param listener 下载成功后会调用<code>listener.notifyFinished()</code>，失败则不会调用
+	 * @see DownloadListener#notifyFinished()
+	 */
 	public void setListener(DownloadListener listener) {
 		this.listener = listener;
 	}
 
+	/**
+	 *
+	 * @param manager 通过url，打开连接
+	 * @see ConnectionManager#open(String)
+	 */
 	public void setConnectionManager(ConnectionManager manager) {
 		this.manager = manager;
 	}
