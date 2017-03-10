@@ -6,8 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.coding.Iterator;
-import com.coding.LinkedList;
+import com.coding.basic.Iterator;
+import com.coding.basic.LinkedList;
 
 public class LinkedListTest {
 	
