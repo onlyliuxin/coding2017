@@ -1,9 +1,18 @@
 package com.coding.basic;
 
+/**
+ * 自定义二叉树
+ * 
+ * @author xiongrui233
+ *
+ */
 public class BinaryTreeNode {
 
+	//节点值
 	private Object data;
+	//左子树
 	private BinaryTreeNode left;
+	//右子树
 	private BinaryTreeNode right;
 
 	public Object getData() {
@@ -30,8 +39,27 @@ public class BinaryTreeNode {
 		this.right = right;
 	}
 
+	/**
+	 * 插入元素
+	 * @param o
+	 * @return BinaryTreeNode
+	 */
 	public BinaryTreeNode insert(Object o) {
-		return null;
+		BinaryTreeNode node = null;
+		if (this.data == null) {
+			this.data = o;
+			node =  this;
+		} else {
+			if (this.left.data == null) {
+				this.left.data = o;
+				node = this.left;
+			}
+			if (this.right.data == null) {
+				this.right.data = o;
+				node = this.right;
+			}
+		}
+		return node;
 	}
 
 }
