@@ -54,7 +54,6 @@ public class ArrayList implements List {
 		return elementData[index];
 	}
 	
-	
 	//返回要删除的数据
 	public Object remove(int index){
 		//要被删除的数据
