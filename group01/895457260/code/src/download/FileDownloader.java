@@ -7,9 +7,9 @@ import java.util.Date;
 
 
 public class FileDownloader {
-	String url;
-	DownloadListener listener;
-	ConnectionManager manager;
+	private String url;
+	private DownloadListener listener;
+	private ConnectionManager manager;
 
 	private final int[] completedThreadCount = new int[1];
 
@@ -41,6 +41,7 @@ public class FileDownloader {
 
 			waitForComplete(threadCount);
 			mergeTempFiles(tempFiles);
+			removeTempFiles(tempFiles);
 
 			for (Connection c : connections) {
 				if (c != null) {
@@ -53,6 +54,12 @@ public class FileDownloader {
 		}).start();
 	}
 
+	private void removeTempFiles(File[] tempFiles) {
+		for (File tempFile : tempFiles) {
+			tempFile.delete(); // 只删除临时文件，不删除临时目录
+		}
+	}
+
 	private void mergeTempFiles(File[] tempFiles) {
 		String[] split = url.replaceAll("/+", "/").split("/");
 		File saveFile = new File(Config.targetDirectory, split[split.length - 1]);
@@ -61,7 +68,6 @@ public class FileDownloader {
 			fos = new FileOutputStream(saveFile);
 			for (File tempFile : tempFiles) {
 				write(tempFile, fos);
-				tempFile.delete(); // 只删除临时文件，不删除临时目录
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -109,7 +115,7 @@ public class FileDownloader {
 					}
 				}, () -> {
 					try {
-						downloadFailed(connections);
+						downloadFailed(connections, tempFiles);
 					} catch (DownloadException e) {
 						e.printStackTrace();
 					}
@@ -137,10 +143,11 @@ public class FileDownloader {
 		}
 	}
 
-	private void downloadFailed(Connection[] connections) throws DownloadException {
+	private void downloadFailed(Connection[] connections, File[] tempFiles) throws DownloadException {
 		for (Connection c : connections) {
 			c.close();
 		}
+		removeTempFiles(tempFiles);
 		throw new DownloadException();
 	}
 
@@ -172,11 +179,7 @@ public class FileDownloader {
 		this.listener = listener;
 	}
 
-	public void setConnectionManager(ConnectionManager manager){
+	public void setConnectionManager(ConnectionManager manager) {
 		this.manager = manager;
-	}
-	
-	public DownloadListener getListener(){
-		return this.listener;
 	}
 }

@@ -9,16 +9,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class DownloadThread extends Thread {
-	Connection conn;
-	int startPos;
-	int endPos;
+	private Connection conn;
+	private int startPos;
+	private int endPos;
 
-	File tempFile;
-	OnCompleteListener onComplete;
-	OnFailListener onFail;
+	private File tempFile;
+	private OnCompleteListener onComplete;
+	private OnFailListener onFail;
 
 
-	public DownloadThread(Connection conn, int startPos, int endPos, File tempFile,
+	DownloadThread(Connection conn, int startPos, int endPos, File tempFile,
 						  OnCompleteListener onComplete, OnFailListener onFail) {
 		this.conn = conn;		
 		this.startPos = startPos;
@@ -49,10 +49,12 @@ public class DownloadThread extends Thread {
 	}
 
 	private void callback(boolean success) {
-		if (onComplete != null) {
-			if (success) {
+		if (success) {
+			if (onComplete != null) {
 				onComplete.onComplete();
-			} else {
+			}
+		} else {
+			if (onFail != null) {
 				onFail.onFail();
 			}
 		}
@@ -67,6 +69,7 @@ public class DownloadThread extends Thread {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+			e.printStackTrace();
 			throw new DownloadException();
 		} finally {
             if (fos != null) {

@@ -18,7 +18,7 @@ public class ConnectionImpl implements Connection {
 	private void init(String url) {
 		try {
 			connection = new URL(url).openConnection();
-			inputStream = connection.getInputStream();
+			inputStream = new BufferedInputStream(connection.getInputStream());
 			inputStream.mark(connection.getContentLength()); // 标记在开头
 		} catch (IOException e) {
 			e.printStackTrace();
