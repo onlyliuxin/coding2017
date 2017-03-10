@@ -1,10 +1,19 @@
 package com.coding.basic;
 
+/**
+ * 自定义队列
+ * 
+ * @author xiongrui233
+ *
+ */
 public class Queue {
+
+	private Object[] queue = new Object[10];
 	
-	private Object[] queue;
+	private int size = 0;
 
 	public void enQueue(Object o) {
+		
 	}
 
 	public Object deQueue() {
