@@ -9,21 +9,20 @@ import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
 
+
 public class FileDownloader {
 
 
 	
+	
 	private final static String EXT = "lyj";
-	private static final int MIN_CONNECTIONS = 3;
-	private static final int MAX_CONNECTIONS = 10;
 	private static DownloadThread[] threadPool;
 	private int finishedCount;
-	public String downloadLocation = "C:\\";
+	public String downloadLocation;
 	
 	String url;
 	ConnectionManager cm;
 	DownloadListener listener;
-	private static boolean finished;
 	private static String fileName;
 	private static String tempName;
 
@@ -49,112 +48,76 @@ public class FileDownloader {
 
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
 
-		int length = 0;
 		long start = getCurrentTime();
 		try {
 			Connection conn = cm.open(this.url);
-			length = conn.getContentLength();
-			if (length <= 0) {
-				try {
-					throw new ConnectionException("file does not exist");
-				} catch (ConnectionException e) {
-					e.printStackTrace();
-					return;
-				} finally {
-					conn.close();
-				}
-			}
+			int length = conn.getContentLength();
+			checkLength(length, conn);
 
 			System.out.println("file length:" + length);
+			setLocation("C:\\");
+			
+			String name = conn.getFileName();
+			setFileName(name);
+			setTempName(name);
+			
+			DownloadUtil.createTempFile(tempName,length);
 
-			fileName = conn.getFileName();
-			setTempName(downloadLocation + fileName);
-			createTempFile(tempName, length);
-
-			int connNumbers = calculateConnects(length);
+			int connNumbers = DownloadUtil.calculateConnects(length);
 			System.out.println(connNumbers + " Threads will be created.");
 
 			threadPool = new DownloadThread[connNumbers];
 			setAndStartThreadPool(conn, threadPool, length);
 
-			finished = checkFinish(threadPool.length);
+			checkFinish(threadPool.length);
+
 			listener.notifyFinished();
+			DownloadUtil.rename(tempName, fileName);
+			long end = getCurrentTime();
+			DownloadUtil.printDownloadReport(length, start, end);
 
 		} catch (ConnectionException e) {
 			e.printStackTrace();
 		} finally {
 			freeDownloadThread();
-			if (finished) {
-				changeName(tempName, fileName);
-				long end = getCurrentTime();
-				printDownloadReport(length, start, end);
-			}
 		}
 	}
 
-	private static void createTempFile(String dest, int len) {
-		File file = new File(dest);
-		if (file.exists()) {
-			System.out.println("tempfile already created");
-			return;
-		}
-		FileOutputStream temp = null;
-		try {
-			temp = new FileOutputStream(dest);
-			int length = len;
-			byte[] buffer = new byte[1024];
-			long times = length / 1024;
-			int left = (int) (length % 1024);
-			for (int i = 0; i < times; i++) {
-				temp.write(buffer);
-			}
-			temp.write(buffer, 0, left);
-			System.out.println("tempFile " + dest + " created");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
+	private void checkLength(int length, Connection conn) {
+		if (length <= 0) {
 			try {
-				temp.flush();
-				temp.close();
-			} catch (IOException e) {
+				throw new ConnectionException("file does not exist");
+			} catch (ConnectionException e) {
 				e.printStackTrace();
+			} finally {
+				conn.close();
 			}
 		}
 	}
 
-	private static void setTempName(String fileName) {
-		tempName = fileName.substring(0, fileName.lastIndexOf('.') + 1) + EXT;
+	private void setTempName(String name) {
+		String temp = name.substring(0,name.lastIndexOf(".")+1) + EXT;
+		this.tempName = downloadLocation + temp;
 	}
 
-	private int calculateConnects(int length) {
-		int conns = length / 1024 / 1024;
-		if (conns < MIN_CONNECTIONS) {
-			return MIN_CONNECTIONS;
-		} else if (conns > MAX_CONNECTIONS) {
-			return MAX_CONNECTIONS;
-		} else {
-			return conns;
-		}
+	private void setFileName(String name) {
+		this.fileName = downloadLocation + name;
 	}
 
-	private void changeName(String from, String to) {
-		rename(from, downloadLocation + to);
+	private void setLocation(String downloadLocation) {
+		this.downloadLocation =  downloadLocation;	
 	}
 
 	private boolean checkFinish(int links) {
 
 		while (finishedCount != links) {
 			try {
-
 				Thread.sleep(5000);
 				System.out.println("Unfinshed threads number: " + (links - finishedCount));
-
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-
 		return true;
 	}
 
@@ -179,22 +142,6 @@ public class FileDownloader {
 		return this.listener;
 	}
 
-	private void printDownloadReport(int length, long start, long end) {
-		int time = (int) ((end - start) / 1000);
-		float speed = length / 1024 / 1024 / time;
-		System.out.println("共耗时：" + time + "s，下载速度： " + speed + "Mb/s");
-	}
-
-	public boolean rename(String from, String to) {
-		System.out.println(from);
-		System.out.println(to);
-		File file = new File(from);
-		if (file.exists()) {
-			return file.renameTo(new File(to));
-		}
-		System.out.println("rename failed");
-		return false;
-	}
 
 	private void setAndStartThreadPool(Connection conn, DownloadThread[] threadPool, int length)
 			throws ConnectionException {
@@ -226,7 +173,7 @@ public class FileDownloader {
 		this.cm = ucm;
 	}
 
-	public void setFinished() {
+	public void setThreadFinished() {
 		finishedCount++;
 	}
 

@@ -18,16 +18,17 @@ public class FileDownloaderTest {
 	public void tearDown() throws Exception {
 	}
 
-	public static String url1 = "http://sw.bos.baidu.com/sw-search-sp/software/89179b0b248b1/QQ_8.9.20026.0_setup.exe";	
-	public static String url2 = "http://image.beekka.com/blog/201304/bg2013042401.jpg";
-	public static String url3 = "http://sw.bos.baidu.com/sw-search-sp/software/6c7bb8b6674d0/fm728chb379_7.2.8.379_setup.exe";
+	public static String qq = "http://sw.bos.baidu.com/sw-search-sp/software/89179b0b248b1/QQ_8.9.20026.0_setup.exe";	
+	public static String picture = "http://image.beekka.com/blog/201304/bg2013042401.jpg";
+	public static String foxmail = "http://sw.bos.baidu.com/sw-search-sp/software/6c7bb8b6674d0/fm728chb379_7.2.8.379_setup.exe";
+	public static String office2013 = "http://soft1.xitongzhijia.net:808/201407/Office2013_32_XiTongZhiJia.rar";
 	
 	@Test
 	public void testDownload() {
 		
 		String url = "http://localhost:8080/test.jpg";
 
-		FileDownloader downloader = new FileDownloader(url2);
+		FileDownloader downloader = new FileDownloader(office2013);
 
 	
 		ConnectionManager cm = new ConnectionManagerImpl();
