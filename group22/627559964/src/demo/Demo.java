@@ -1,5 +1,7 @@
 package demo;
 
+import java.util.PriorityQueue;
+
 import com.coding.basic.ArrayList;
 import com.coding.basic.Iterator;
 import com.coding.basic.List;
@@ -14,6 +16,7 @@ public class Demo {
 		list.add(3, new Integer(233));
 		list.add(3, new Double(233.33));
 		list.remove(6);
+		System.out.println("List:" + list);
 		Double kk = (Double) list.get(3);
 		Iterator it = list.iterator();
 		while (it.hasNext()) {

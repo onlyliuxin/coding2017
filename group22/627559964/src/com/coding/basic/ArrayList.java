@@ -160,15 +160,6 @@ public class ArrayList implements List {
 
 	@Override
 	public String toString() {
-		StringBuffer list = new StringBuffer();
-		list.append("[");
-		for (int i = 0; i < elementData.length; i++) {
-			list.append(elementData);
-			if (i != elementData.length - 1) {
-				list.append(",");
-			}
-		}
-		list.append("]");
-		return list.toString();
+		return Arrays.toString(Arrays.copyOf(elementData, size));
 	}
 }

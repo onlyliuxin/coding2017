@@ -1,6 +1,8 @@
 package com.coding.basic;
 
 public class Queue {
+	
+	private Object[] queue;
 
 	public void enQueue(Object o) {
 	}
