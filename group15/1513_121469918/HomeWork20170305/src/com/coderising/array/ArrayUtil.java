@@ -16,6 +16,9 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin) {
+		if(origin == null){
+			return ;
+		}
 		int len = origin.length;
 		for (int i = 0; i < len / 2; i++) {
 			int temp = origin[i];
@@ -180,10 +183,9 @@ public class ArrayUtil {
 	 */
 	public int[] getPrimes(int max) {
 
-		if (max <= 1) {
+		if (max < 3) {
 			return new int[0];
 		} else {
-			// 创建临时数组
 			int[] temp = new int[max];
 			int count = 0;
 			// 从零开始遍历到max，如果有是素数就加入临时数组。
@@ -266,6 +268,12 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator) {
+		if(array == null){
+			return null;
+		}
+		if(array.length ==0){
+			return "";
+		}
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < array.length; i++) {
 			if(i == array.length-1){
