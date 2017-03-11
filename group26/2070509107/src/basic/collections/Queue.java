@@ -1,20 +1,20 @@
 package collections;
 
 public class Queue {
-	
-	public void enQueue(Object o){		
-		
+
+	public void enQueue(Object o) {
+
 	}
-	
-	public Object deQueue(){
+
+	public Object deQueue() {
 		return null;
 	}
-	
-	public boolean isEmpty(){
+
+	public boolean isEmpty() {
 		return false;
 	}
-	
-	public int size(){
+
+	public int size() {
 		return -1;
 	}
 }
