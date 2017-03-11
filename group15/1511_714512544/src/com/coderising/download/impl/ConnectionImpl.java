@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
+import java.net.URL;
 
 import com.coderising.download.api.Connection;
 
 public class ConnectionImpl implements Connection{
 	private HttpURLConnection  connection;
-	private InputStream in;
 
 	public ConnectionImpl(HttpURLConnection connection) {
 		this.connection = connection;
@@ -23,10 +23,12 @@ public class ConnectionImpl implements Connection{
 	 */
 	@Override
 
-	public synchronized byte[] read(int startPos, int endPos) throws IOException {
-		connection.setRequestProperty("Range",  "bytes="+startPos+"-"+endPos);
-		in = connection.getInputStream();
-		RandomAccessFile raf = new RandomAccessFile("d:/1.png","rwd");
+	public synchronized byte[] read(String path, int startPos, int endPos) throws IOException {
+		URL url = new URL(path);
+		HttpURLConnection c = (HttpURLConnection) url.openConnection();
+		c.setRequestProperty("Range",  "bytes="+startPos+"-"+endPos);
+		InputStream in = connection.getInputStream();
+		RandomAccessFile raf = new RandomAccessFile("d:/t.jpg","rwd");
 		raf.seek(startPos);
 
 		int len = 0;
@@ -34,6 +36,8 @@ public class ConnectionImpl implements Connection{
 		while ((len = in.read(buffer)) != -1) {
 			raf.write(buffer, 0, len);
 		}
+		raf.close();
+		close();
 		return null;
 	}
 	/**
@@ -49,14 +53,20 @@ public class ConnectionImpl implements Connection{
 	 */
 	@Override
 	public void close() {
-		if(in != null){
-			try {
+		InputStream in = null;
+		try {
+			in = connection.getInputStream();
+			if(in != null){
 				in.close();
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		
+	}
+
+	@Override
+	public String getUrl(){
+		return connection.getURL().getPath();
 	}
 
 }

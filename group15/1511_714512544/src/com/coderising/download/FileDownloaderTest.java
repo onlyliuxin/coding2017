@@ -21,7 +21,7 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "https://www.baidu.com/img/bd_logo1.png";
+		String url = "http://img.lanrentuku.com/img/allimg/1612/14830855492219.jpg";
 		
 		FileDownloader downloader = new FileDownloader(url);
 

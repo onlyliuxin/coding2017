@@ -20,7 +20,14 @@ public class ConnectionManagerImpl implements ConnectionManager {
 		try {
 			URL u = new URL(url);
 			HttpURLConnection conn = (HttpURLConnection) u.openConnection();
-			return new ConnectionImpl(conn);
+			conn.setConnectTimeout(5000);
+			conn.setRequestMethod("GET");
+			int code = conn.getResponseCode();
+			if(code == 200){
+				return new ConnectionImpl(conn);
+			}else {
+				throw new RuntimeException("打开连接失败");
+			}
 		} catch (MalformedURLException e) {
 			throw new RuntimeException("url非法");
 		} catch (IOException e) {

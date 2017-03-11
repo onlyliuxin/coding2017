@@ -41,20 +41,18 @@ public class FileDownloader {
 		try {
 			conn = cm.open(this.url);
 			int length = conn.getContentLength();
-			Thread[] t = new Thread[4];
-			for (int i = 1; i <= 3; i++) {
-				int startPos = (i-1)*length/3;
-				int endPos = length*i/3-1;
-				if(i == 3) {
+			Thread[] t = new Thread[3];
+			for (int i = 0; i <= 2; i++) {
+				int startPos = i*length/3;
+				int endPos = length*(i+1)/3-1;
+				if(i == 2) {
 					endPos = length-1;
 				}
 				t[i] = new DownloadThread(conn, startPos, endPos);
 			}
+			t[0].start();
 			t[1].start();
-			t[1].join();
 			t[2].start();
-			t[2].join();
-			t[3].start();
 			listener.notifyFinished();
 		} catch (Exception e) {
 			e.printStackTrace();

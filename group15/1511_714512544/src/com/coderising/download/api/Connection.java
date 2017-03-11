@@ -9,7 +9,7 @@ public interface Connection {
 	 * @param endPos 结束位置
 	 * @return
 	 */
-	public byte[] read(int startPos, int endPos) throws IOException;
+	public byte[] read(String path, int startPos, int endPos) throws IOException;
 	/**
 	 * 得到数据内容的长度
 	 * @return
@@ -20,4 +20,6 @@ public interface Connection {
 	 * 关闭连接
 	 */
 	public void close();
+
+	public String getUrl();
 }
