@@ -1,6 +1,8 @@
 package com.github.AminLiu.dataStructure;
 
 import java.util.Arrays;
+import java.util.ConcurrentModificationException;
+import java.util.NoSuchElementException;
 
 public class ArrayList implements List {
 
@@ -15,37 +17,38 @@ public class ArrayList implements List {
 
 	public void add(int index, Object o) {
 		if (index > this.size || index < 0) {
-			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.size);
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: "
+					+ this.size);
 		}
 		this.checkSize(this.size + 1);
-		System.arraycopy(this.elementData, index, this.elementData, index + 1, this.size - index);
+		System.arraycopy(this.elementData, index, this.elementData, index + 1,
+				this.size - index);
 		this.elementData[index] = o;// 复制完将目标对象复制到index位置
 		++this.size;
 	}
 
 	public Object get(int index) {
 		if (index < 0 || index > this.size - 1) {
-			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.size);
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: "
+					+ this.size);
 		}
 		return this.elementData[index];
 	}
 
 	public Object remove(int index) {
 		if (index < 0 || index >= this.size - 1) {
-			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.size);
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: "
+					+ this.size);
 		}
 		Object o = this.elementData[index];
-		System.arraycopy(this.elementData, index + 1, this.elementData, index, this.size - index - 1);
+		System.arraycopy(this.elementData, index + 1, this.elementData, index,
+				this.size - index - 1);
 		this.elementData[--this.size] = null;
 		return o;
 	}
 
 	public int size() {
 		return this.size;
-	}
-
-	public Iterator iterator() {
-		return null;
 	}
 
 	// 检查数组大小，小了扩容
@@ -62,6 +65,31 @@ public class ArrayList implements List {
 	private void addCapacity(int arg0) {
 		int arg1 = arg0 + (arg0 >> 1);// 增加后数组大小=原数组+原数组/2
 		this.elementData = Arrays.copyOf(this.elementData, arg1);
+	}
+
+	public Iterator iterator() {
+		return new ite();
+	}
+
+	private class ite implements Iterator {
+		int arg0;
+
+		@Override
+		public boolean hasNext() {
+			return arg0 != size;
+		}
+
+		@Override
+		public Object next() {
+			int i = arg0;
+			if (i >= size)
+				throw new NoSuchElementException();
+			Object[] elementData = ArrayList.this.elementData;
+			if (i >= elementData.length)
+				throw new ConcurrentModificationException();
+			arg0 = i + 1;
+			return elementData[i];
+		}
 	}
 
 	public String toString() {
