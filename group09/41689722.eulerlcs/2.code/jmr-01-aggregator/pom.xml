@@ -10,8 +10,9 @@
 	<modules>
 		<module>../jmr-02-parent</module>
 		<module>../jmr-11-challenge</module>
-		<module>../jmr-61-170226-collection</module>
-		<module>../jmr-61-170305-litestruts</module>
-		<module>../jmr-61-170312-multiThreadDownload</module>
+		<module>../jmr-51-liuxin</module>
+		<module>../jmr-61-collection</module>
+		<module>../jmr-62-litestruts</module>
+		<module>../jmr-63-download</module>
 	</modules>
 </project>
