@@ -8,11 +8,10 @@ public class ArrayList implements List {
 	
 	private Object[] elementData;
     
-    //add()Ê±ÓÃÓÚÀ©Èİ
+    //add()æ—¶ç”¨äºåœ¨å¿…è¦æ—¶åˆ»æ‰©å……åº•å±‚æ•°ç»„å®¹é‡
     private void expand() {
-        if (size < capacity) return;//ÉĞÎ´ÂúÔ±£¬²»±ØÀ©Èİ
-        
-        if (capacity < DEFAULT_CAPACITY) capacity = DEFAULT_CAPACITY;//²»µÍÓÚ×îĞ¡ÈİÁ¿
+        if (size < capacity) return;//å°šæœªæ»¡å‘˜ï¼Œä¸å¿…æ‰©å®¹        
+        if (capacity < DEFAULT_CAPACITY) capacity = DEFAULT_CAPACITY;//ä¸ä½äºæœ€å°å®¹é‡
         
         Object[] oldElem = elementData;
         elementData = new Object[capacity <<= 1];
@@ -20,67 +19,65 @@ public class ArrayList implements List {
             elementData[i] = oldElem[i];
     }
     
-    //remove()Ê±ÓÃÓÚËõÈİ
+    //remove()æ—¶ç”¨äºåœ¨å¿…è¦æ—¶åˆ»ç¼©å°åº•å±‚æ•°ç»„å®¹é‡
     private void shrink() {
-        if (capacity < DEFAULT_CAPACITY << 1) return;//²»ÖÂÊÕËõÖÁDEFAULT_CAPACITYÒÔÏÂ
-        
-        if (capacity >> 2 < size) return; //ÒÔ25%Îª½ç
+        if (capacity < DEFAULT_CAPACITY << 1) return;//ä¸è‡´æ”¶ç¼©è‡³DEFAULT_CAPACITYä»¥ä¸‹
+        if (capacity >> 2 < size) return; //ä»¥25%ä¸ºç•Œ
         
         Object[] oldElem = elementData; elementData = new Object[capacity >>= 1];
         for (int i = 0; i < size; i++)
-            elementData[i] = oldElem[i];
-            
+            elementData[i] = oldElem[i];            
     }
     
     public ArrayList() {
         clear();
     }
     
-    public ArrayList(Object ...args) {
-        this();
-        for (Object o : args)
-            add(o);
-    }
     
     public void clear() {
         size = 0;
         elementData = new Object[capacity = DEFAULT_CAPACITY];
     }
 	
-    public int size() { return size; }
+    public int size() { 
+        return size; 
+    }
     
-    public int capacity() { return capacity; }//ÓÃÓÚ²âÊÔshrink()&expand()
+    public int capacity() { //ç”¨äºæµ‹è¯•shrink()&expand()
+        return capacity; 
+    }
     
-    public boolean isEmpty() { return size == 0; }
+    public boolean isEmpty() { 
+        return size == 0; 
+    }
     
 	public void add(Object o){
 		add(size(), o);
 	}
+    
 	public void add(int index, Object o){
-        if (index < 0 || size < index) throw new IndexOutOfBoundsException();
-		expand();
+        if (index < 0 || size < index) 
+            throw new IndexOutOfBoundsException();
         
+		expand();
         for (int i = size; i > index; i--)
             elementData[i] = elementData[i - 1];
         elementData[index] = o;
-        
         size++;
 	}
-    public void add(Object ...args) {
-        for (Object o : args) 
-            add(o);
-    }
-	
+    	
 	public Object get(int index){
-        if (index < 0 || size <= index) throw new IndexOutOfBoundsException();
-		return elementData[index];
+        if (index < 0 || size <= index) 
+            throw new IndexOutOfBoundsException();
+		
+        return elementData[index];
 	}
 	
 	public Object remove(int index){
-        if (index < 0 || size <= index) throw new IndexOutOfBoundsException();
+        if (index < 0 || size <= index) 
+            throw new IndexOutOfBoundsException();
         
         Object removed = elementData[index];
-        
         for (int i = index; i < size - 1; i++)
             elementData[i] = elementData[i + 1];
         size--;
@@ -88,10 +85,7 @@ public class ArrayList implements List {
 		return removed;
 	}
     
-    public void removeElems(int ...args) {
-        for (int i : args)
-            remove(i);
-    }
+    
 	
 	public Iterator iterator(){
 		return new ArrayListIterator();
@@ -99,15 +93,39 @@ public class ArrayList implements List {
 	
     private class ArrayListIterator implements Iterator {
         private int current;
-        public boolean hasNext() { return current != size; }
+        
+        public boolean hasNext() { 
+            return current != size; 
+        }
+        
         public Object next() {
-            if (!hasNext()) throw new java.util.NoSuchElementException();
+            if (!hasNext()) 
+                throw new java.util.NoSuchElementException();
             
             return elementData[current++];
         }
     }
+    
+    
+    //ä»¥ä¸‹æ–¹æ³•ä¾¿äºæµ‹è¯•
+    
+    public ArrayList(Object ...args) {
+        this();
+        for (Object o : args)
+            add(o);
+    }
+    
+    public void add(Object ...args) {
+        for (Object o : args) 
+            add(o);
+    }
+    
+    public void removeElems(int ...args) {
+        for (int i : args)
+            remove(i);
+    }
     public static void showElements(ArrayList list) {
-        System.out.print("µ±Ç°listÖĞÔªËØ£º");
+        System.out.print("å½“å‰listä¸­å…ƒç´ ï¼š");
         Iterator iter = list.iterator();
         while (iter.hasNext())
             System.out.print(iter.next() + " ");
@@ -115,12 +133,11 @@ public class ArrayList implements List {
     }
     
     public static void test(ArrayList list) {
-        System.out.println("--------»ù±¾·½·¨²âÊÔ---------");
-        System.out.println("µ±Ç°list.isEmpty(): " + list.isEmpty());
-        System.out.println("µ±Ç°list.size(): " + list.size());
-        System.out.println("µ±Ç°list.capacity(): " + list.capacity());
-        showElements(list);
-        
+        System.out.println("--------åŸºæœ¬æ–¹æ³•æµ‹è¯•---------");
+        System.out.println("å½“å‰list.isEmpty(): " + list.isEmpty());
+        System.out.println("å½“å‰list.size(): " + list.size());
+        System.out.println("å½“å‰list.capacity(): " + list.capacity());
+        showElements(list);        
     }
     
     public static void main(String[] args) {
