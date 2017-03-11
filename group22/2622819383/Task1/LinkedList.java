@@ -1,3 +1,4 @@
+//代码参考自《数据结构与算法分析》
 public class LinkedList implements List {
 	
     private Node header;
@@ -86,6 +87,7 @@ public class LinkedList implements List {
     }
 
     private static class Node {
+        //pred、succ代表属性；pred()、succ()代表Node节点
         private Object data;
         private Node pred;
         private Node succ;
@@ -111,14 +113,14 @@ public class LinkedList implements List {
         //插入前驱节点，返回插入的新节点
         public Node insertAsPred(Object data) {
             Node p = new Node(data, pred, this);
-            pred = pred.succ = p;
+            pred = pred().succ = p;
             return p;
         }
 
         //插入后继节点，返回插入的新节点
         public Node insertAsSucc(Object data) {
             Node p = new Node(data, this, succ);
-            succ = succ.pred = p;
+            succ = succ().pred = p;
             return p;
         }                           
     }

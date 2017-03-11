@@ -1,3 +1,4 @@
+//代码参考自《数据结构与算法分析》
 public class ArrayList implements List {
 	
     private int size;
