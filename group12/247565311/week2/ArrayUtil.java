@@ -195,6 +195,7 @@ public class ArrayUtil {
 		if(array == null) return "";
 		int lena = array.length;
 		String res = "";
+
 		for(int i=0;i<lena-1;i++){
 			res += array[i];
 			res += seperator;
