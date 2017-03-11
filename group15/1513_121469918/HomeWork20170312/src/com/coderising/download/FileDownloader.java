@@ -1,14 +1,8 @@
 package com.coderising.download;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import com.coderising.download.api.Connection;
-import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
 import com.coderising.download.impl.ConnectionManagerImpl;
@@ -24,41 +18,36 @@ public class FileDownloader {
 	}
 
 	public void execute() {
-		new Thread() {
-			public void run() {
-				RandomAccessFile raf = null;
-				try {
-					// 打开连接获取长度
-					ConnectionManagerImpl cm = new ConnectionManagerImpl();
-					Connection conn = cm.open(url);
-					int length = conn.getContentLength();
+		RandomAccessFile raf = null;
+		try {
+			// 打开连接获取长度
+			ConnectionManagerImpl cm = new ConnectionManagerImpl();
+			Connection conn = cm.open(url);
+			int length = conn.getContentLength();
 
-					// 创建本地接收文件
-					String localPath = url.substring(url.lastIndexOf('/') + 1);
-					raf = new RandomAccessFile(localPath, "rwd");
-					raf.setLength(length);
-					raf.close();
-					
-					int blockSize = length / threadList.length;// 每个线程下载的大小
-					for (int threadNum = 0; threadNum < threadList.length; threadNum++) {
-						// 定义每个线程开始位置
-						int threadStart = threadNum * blockSize;
-						// 定义每个线程结束位置
-						int threadEnd = (threadNum + 1) * blockSize - 1;
-						// 定义最后线程结束位置为总长度-1
-						if (threadNum == threadList.length - 1) {
-							threadEnd = length - 1;
-						}
-						String threadID = "Thread-" + (threadNum + 1);
-						threadList[threadNum] = new DownloadThread(url, localPath, threadStart, threadEnd,
-								listener);
-						threadList[threadNum].start();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
+			// 创建本地接收文件
+			String localPath = url.substring(url.lastIndexOf('/') + 1);
+			raf = new RandomAccessFile(localPath, "rwd");
+			raf.setLength(length);
+			raf.close();
+
+			int blockSize = length / threadList.length;// 每个线程下载的大小
+			for (int threadNum = 0; threadNum < threadList.length; threadNum++) {
+				// 定义每个线程开始位置
+				int threadStart = threadNum * blockSize;
+				// 定义每个线程结束位置
+				int threadEnd = (threadNum + 1) * blockSize - 1;
+				// 定义最后线程结束位置为总长度-1
+				if (threadNum == threadList.length - 1) {
+					threadEnd = length - 1;
 				}
+				String threadID = "Thread-" + (threadNum + 1);
+				threadList[threadNum] = new DownloadThread(url, localPath, threadStart, threadEnd, listener);
+				threadList[threadNum].start();
 			}
-		}.start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	// 在这里实现你的代码， 注意： 需要用多线程实现下载
 	// 这个类依赖于其他几个接口, 你需要写这几个接口的实现代码

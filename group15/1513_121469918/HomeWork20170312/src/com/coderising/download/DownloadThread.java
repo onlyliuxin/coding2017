@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 import com.coderising.download.api.Connection;
-import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.DownloadListener;
 import com.coderising.download.impl.ConnectionManagerImpl;
 
@@ -14,15 +13,16 @@ public class DownloadThread extends Thread {
 	String localPath;
 	int startPos;
 	int endPos;
-	DownloadListener listener;
 	private Object lock = new Object();
+	DownloadListener listener;
 	
-	public DownloadThread(String url,String localPath,int startPos, int endPos,DownloadListener listener) {		
+	public DownloadThread(String url,String localPath,int startPos, int endPos,
+			DownloadListener listener) {		
 		this.url =url;
 		this.startPos = startPos;
 		this.endPos = endPos;	
 		this.localPath = localPath;
-		this.listener = listener;
+		this.listener =listener;
 	}
 	public void run() {	
 		RandomAccessFile ras = null;

@@ -21,7 +21,7 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://dldir1.qq.com/qqfile/qq/QQ8.9/20026/QQ8.9.exe";
+		String url = "http://img.ivsky.com/img/tupian/pre/201612/12/qingrenjie_meigui_liwu-004.jpg";
 		
 		FileDownloader downloader = new FileDownloader(url);
 
