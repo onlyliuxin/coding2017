@@ -1,59 +1,118 @@
 public class LinkedList implements List {
 	
-	private Node head;
+	private Node header;
+    
+    private Node trailer;
+    
+    private int theSize;
+    
+    public LinkedList() {
+        header = new Node(null, null, null);
+        trailer = new Node(null, header, null);
+        header.succ = trailer;
+        theSize = 0;
+    }
 	
 	public void add(Object o){
-		
+		 add(size(), o);
 	}
 	public void add(int index , Object o){
-		
+		if (index < 0 || theSize < index) throw new IndexOutOfBoundsException();
+        Node p = header;
+        while (0 < index--) p = p.succ();
+        p.insertAsSucc(o);
+        theSize++;        
 	}
 	public Object get(int index){
-		return null;
+        if (index < 0 || theSize <= index) throw new IndexOutOfBoundsException();
+		Node p = header.succ();
+        while (0 < index--) p = p.succ();
+        
+        return p.data();
 	}
 	public Object remove(int index){
-		return null;
+		if (0 < index || theSize <= index) throw new IndexOutOfBoundsException();
+        Node p = header.succ();
+        while (0 < index--) p = p.succ();
+        Object removed = p.data();
+        p.pred().succ = p.succ();
+        p.succ().pred = p.pred();
+        theSize--;
+        return removed;
 	}
 	
 	public int size(){
-		return -1;
+		return theSize;
 	}
 	
 	public void addFirst(Object o){
-		
+		header.insertAsSucc(o);
 	}
 	public void addLast(Object o){
-		
+		trailer.insertAsPred(o);
 	}
 	public Object removeFirst(){
-		return null;
+		return remove(0);
 	}
 	public Object removeLast(){
-		return null;
+		return remove(theSize - 1);
 	}
 	public Iterator iterator(){
-		return null;
+		return new LinkedListIterator();
 	}
+	private class LinkedListIterator implements Iterator {
+        private Node current = header.succ();
+        public boolean hasNext() {
+            return current != trailer;
+        }
+        public Object next() {
+            if (!hasNext()) throw new java.util.NoSuchElementException();
+            Object item = current.data();
+            current = current.succ();
+            return item;
+        }
+    }
 	
-	
-	private static  class Node{
-		Object data;
-		Node next;
+	private static class Node{
+		private Object data;
+		private Node pred;
+        private Node succ;
+        public Node(Object d, Node p, Node s) {
+            data = d;
+            pred = p;
+            succ = s;
+        }
+        public Object data() { return data; }
+        public Node succ() { return succ; }
+        public Node pred() { return pred; }
+        //²åÈëÇ°Çı½Úµã£¬·µ»ØĞÂ½Úµã
+        public Node insertAsPred(Object data) {
+            Node p = new Node(data, pred, this);
+            pred = pred.succ = p;
+            return p;
+        }
+        public Node insertAsSucc(Object data) {
+            Node p = new Node(data, this, succ);
+            succ = succ.pred = p;
+            return p;
+        }
+        
+        
 		
 	}
 	
 	/**
-	 * æŠŠè¯¥é“¾è¡¨é€†ç½®
-	 * ä¾‹å¦‚é“¾è¡¨ä¸º 3->7->10 , é€†ç½®åå˜ä¸º  10->7->3
+	 * °Ñ¸ÃÁ´±íÄæÖÃ
+	 * ÀıÈçÁ´±íÎª 3->7->10 , ÄæÖÃºó±äÎª  10->7->3
 	 */
 	public  void reverse(){		
 		
 	}
 	
 	/**
-	 * åˆ é™¤ä¸€ä¸ªå•é“¾è¡¨çš„å‰åŠéƒ¨åˆ†
-	 * ä¾‹å¦‚ï¼šlist = 2->5->7->8 , åˆ é™¤ä»¥åçš„å€¼ä¸º 7->8
-	 * å¦‚æœlist = 2->5->7->8->10 ,åˆ é™¤ä»¥åçš„å€¼ä¸º7,8,10
+	 * É¾³ıÒ»¸öµ¥Á´±íµÄÇ°°ë²¿·Ö
+	 * ÀıÈç£ºlist = 2->5->7->8 , É¾³ıÒÔºóµÄÖµÎª 7->8
+	 * Èç¹ûlist = 2->5->7->8->10 ,É¾³ıÒÔºóµÄÖµÎª7,8,10
 
 	 */
 	public  void removeFirstHalf(){
@@ -61,7 +120,7 @@ public class LinkedList implements List {
 	}
 	
 	/**
-	 * ä»ç¬¬iä¸ªå…ƒç´ å¼€å§‹ï¼Œ åˆ é™¤length ä¸ªå…ƒç´  ï¼Œ æ³¨æ„iä»0å¼€å§‹
+	 * ´ÓµÚi¸öÔªËØ¿ªÊ¼£¬ É¾³ılength ¸öÔªËØ £¬ ×¢Òâi´Ó0¿ªÊ¼
 	 * @param i
 	 * @param length
 	 */
@@ -69,11 +128,11 @@ public class LinkedList implements List {
 		
 	}
 	/**
-	 * å‡å®šå½“å‰é“¾è¡¨å’Œlistå‡åŒ…å«å·²å‡åºæ’åˆ—çš„æ•´æ•°
-	 * ä»å½“å‰é“¾è¡¨ä¸­å–å‡ºé‚£äº›listæ‰€æŒ‡å®šçš„å…ƒç´ 
-	 * ä¾‹å¦‚å½“å‰é“¾è¡¨ = 11->101->201->301->401->501->601->701
+	 * ¼Ù¶¨µ±Ç°Á´±íºÍlist¾ù°üº¬ÒÑÉıĞòÅÅÁĞµÄÕûÊı
+	 * ´Óµ±Ç°Á´±íÖĞÈ¡³öÄÇĞ©listËùÖ¸¶¨µÄÔªËØ
+	 * ÀıÈçµ±Ç°Á´±í = 11->101->201->301->401->501->601->701
 	 * listB = 1->3->4->6
-	 * è¿”å›çš„ç»“æœåº”è¯¥æ˜¯[101,301,401,601]  
+	 * ·µ»ØµÄ½á¹ûÓ¦¸ÃÊÇ[101,301,401,601]  
 	 * @param list
 	 */
 	public static int[] getElements(LinkedList list){
@@ -81,8 +140,8 @@ public class LinkedList implements List {
 	}
 	
 	/**
-	 * å·²çŸ¥é“¾è¡¨ä¸­çš„å…ƒç´ ä»¥å€¼é€’å¢æœ‰åºæ’åˆ—ï¼Œå¹¶ä»¥å•é“¾è¡¨ä½œå­˜å‚¨ç»“æ„ã€‚
-	 * ä»å½“å‰é“¾è¡¨ä¸­ä¸­åˆ é™¤åœ¨listä¸­å‡ºç°çš„å…ƒç´  
+	 * ÒÑÖªÁ´±íÖĞµÄÔªËØÒÔÖµµİÔöÓĞĞòÅÅÁĞ£¬²¢ÒÔµ¥Á´±í×÷´æ´¢½á¹¹¡£
+	 * ´Óµ±Ç°Á´±íÖĞÖĞÉ¾³ıÔÚlistÖĞ³öÏÖµÄÔªËØ 
 
 	 * @param list
 	 */
@@ -92,16 +151,16 @@ public class LinkedList implements List {
 	}
 	
 	/**
-	 * å·²çŸ¥å½“å‰é“¾è¡¨ä¸­çš„å…ƒç´ ä»¥å€¼é€’å¢æœ‰åºæ’åˆ—ï¼Œå¹¶ä»¥å•é“¾è¡¨ä½œå­˜å‚¨ç»“æ„ã€‚
-	 * åˆ é™¤è¡¨ä¸­æ‰€æœ‰å€¼ç›¸åŒçš„å¤šä½™å…ƒç´ ï¼ˆä½¿å¾—æ“ä½œåçš„çº¿æ€§è¡¨ä¸­æ‰€æœ‰å…ƒç´ çš„å€¼å‡ä¸ç›¸åŒï¼‰
+	 * ÒÑÖªµ±Ç°Á´±íÖĞµÄÔªËØÒÔÖµµİÔöÓĞĞòÅÅÁĞ£¬²¢ÒÔµ¥Á´±í×÷´æ´¢½á¹¹¡£
+	 * É¾³ı±íÖĞËùÓĞÖµÏàÍ¬µÄ¶àÓàÔªËØ£¨Ê¹µÃ²Ù×÷ºóµÄÏßĞÔ±íÖĞËùÓĞÔªËØµÄÖµ¾ù²»ÏàÍ¬£©
 	 */
 	public  void removeDuplicateValues(){
 		
 	}
 	
 	/**
-	 * å·²çŸ¥é“¾è¡¨ä¸­çš„å…ƒç´ ä»¥å€¼é€’å¢æœ‰åºæ’åˆ—ï¼Œå¹¶ä»¥å•é“¾è¡¨ä½œå­˜å‚¨ç»“æ„ã€‚
-	 * è¯•å†™ä¸€é«˜æ•ˆçš„ç®—æ³•ï¼Œåˆ é™¤è¡¨ä¸­æ‰€æœ‰å€¼å¤§äºminä¸”å°äºmaxçš„å…ƒç´ ï¼ˆè‹¥è¡¨ä¸­å­˜åœ¨è¿™æ ·çš„å…ƒç´ ï¼‰
+	 * ÒÑÖªÁ´±íÖĞµÄÔªËØÒÔÖµµİÔöÓĞĞòÅÅÁĞ£¬²¢ÒÔµ¥Á´±í×÷´æ´¢½á¹¹¡£
+	 * ÊÔĞ´Ò»¸ßĞ§µÄËã·¨£¬É¾³ı±íÖĞËùÓĞÖµ´óÓÚminÇÒĞ¡ÓÚmaxµÄÔªËØ£¨Èô±íÖĞ´æÔÚÕâÑùµÄÔªËØ£©
 	 * @param min
 	 * @param max
 	 */
@@ -110,8 +169,8 @@ public class LinkedList implements List {
 	}
 	
 	/**
-	 * å‡è®¾å½“å‰é“¾è¡¨å’Œå‚æ•°listæŒ‡å®šçš„é“¾è¡¨å‡ä»¥å…ƒç´ ä¾å€¼é€’å¢æœ‰åºæ’åˆ—ï¼ˆåŒä¸€è¡¨ä¸­çš„å…ƒç´ å€¼å„ä¸ç›¸åŒï¼‰
-	 * ç°è¦æ±‚ç”Ÿæˆæ–°é“¾è¡¨Cï¼Œå…¶å…ƒç´ ä¸ºå½“å‰é“¾è¡¨å’Œlistä¸­å…ƒç´ çš„äº¤é›†ï¼Œä¸”è¡¨Cä¸­çš„å…ƒç´ æœ‰ä¾å€¼é€’å¢æœ‰åºæ’åˆ—
+	 * ¼ÙÉèµ±Ç°Á´±íºÍ²ÎÊılistÖ¸¶¨µÄÁ´±í¾ùÒÔÔªËØÒÀÖµµİÔöÓĞĞòÅÅÁĞ£¨Í¬Ò»±íÖĞµÄÔªËØÖµ¸÷²»ÏàÍ¬£©
+	 * ÏÖÒªÇóÉú³ÉĞÂÁ´±íC£¬ÆäÔªËØÎªµ±Ç°Á´±íºÍlistÖĞÔªËØµÄ½»¼¯£¬ÇÒ±íCÖĞµÄÔªËØÓĞÒÀÖµµİÔöÓĞĞòÅÅÁĞ
 	 * @param list
 	 */
 	public  LinkedList intersection( LinkedList list){
