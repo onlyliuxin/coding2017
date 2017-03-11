@@ -1,2 +1,4 @@
 /bin/
-.metadata
+.metadatas
+.classpath
+.project
