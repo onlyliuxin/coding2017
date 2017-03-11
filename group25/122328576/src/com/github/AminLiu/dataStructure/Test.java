@@ -4,6 +4,8 @@ public class Test {
 	public static void main(String[] args) {
 		testArrayList();
 		testLinkedList();
+		testQueue();
+		testStack();
 	}
 
 	public static void testArrayList() {
@@ -54,6 +56,25 @@ public class Test {
 		// System.out.println(sss.toString());
 		linkedList.removeFirst();
 		System.out.println(linkedList.toString());
+	}
 
+	public static void testQueue() {
+		Queue queue = new Queue();
+		queue.enQueue("sd");
+		queue.deQueue();
+		System.out.println(queue.size());
+		System.out.println(queue.toString());
+	}
+
+	public static void testStack() {
+		Stack stack = new Stack();
+		stack.push("123");
+		System.out.println(stack.peek());
+		System.out.println(stack.toString());
+		stack.push("123");
+		stack.push("34");
+		System.out.println(stack.size());
+		stack.pop();
+		System.out.println(stack.toString());
 	}
 }

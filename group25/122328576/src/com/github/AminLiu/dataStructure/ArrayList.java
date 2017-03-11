@@ -23,7 +23,7 @@ public class ArrayList implements List {
 		this.checkSize(this.size + 1);
 		System.arraycopy(this.elementData, index, this.elementData, index + 1,
 				this.size - index);
-		this.elementData[index] = o;// 复制完将目标对象复制到index位置
+		this.elementData[index] = o;// 澶嶅埗瀹屽皢鐩爣瀵硅薄澶嶅埗鍒癷ndex浣嶇疆
 		++this.size;
 	}
 
@@ -36,7 +36,7 @@ public class ArrayList implements List {
 	}
 
 	public Object remove(int index) {
-		if (index < 0 || index >= this.size - 1) {
+		if (index < 0 || index > this.size - 1) {
 			throw new IndexOutOfBoundsException("Index: " + index + ", Size: "
 					+ this.size);
 		}
@@ -51,9 +51,9 @@ public class ArrayList implements List {
 		return this.size;
 	}
 
-	// 检查数组大小，小了扩容
+	// 妫�鏌ユ暟缁勫ぇ灏忥紝灏忎簡鎵╁
 	private void checkSize(int arg0) {
-		if (arg0 > Integer.MAX_VALUE) {// 超过int最大值
+		if (arg0 > Integer.MAX_VALUE) {// 瓒呰繃int鏈�澶у��
 			throw new OutOfMemoryError();
 		}
 		if (this.elementData.length < arg0) {
@@ -61,9 +61,9 @@ public class ArrayList implements List {
 		}
 	}
 
-	// 扩容
+	// 鎵╁
 	private void addCapacity(int arg0) {
-		int arg1 = arg0 + (arg0 >> 1);// 增加后数组大小=原数组+原数组/2
+		int arg1 = arg0 + (arg0 >> 1);// 澧炲姞鍚庢暟缁勫ぇ灏�=鍘熸暟缁�+鍘熸暟缁�/2
 		this.elementData = Arrays.copyOf(this.elementData, arg1);
 	}
 
