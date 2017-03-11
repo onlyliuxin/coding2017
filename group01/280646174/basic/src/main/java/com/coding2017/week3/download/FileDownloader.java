@@ -7,11 +7,11 @@ import com.coding2017.week3.download.api.DownloadListener;
 
 public class FileDownloader {
 
-    String url;
+    private String url;
 
-    DownloadListener listener;
+    private DownloadListener listener;
 
-    ConnectionManager cm;
+    private ConnectionManager cm;
 
     public FileDownloader(String _url) {
         this.url = _url;

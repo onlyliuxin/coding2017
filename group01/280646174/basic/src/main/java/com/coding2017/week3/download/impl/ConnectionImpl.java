@@ -1,8 +1,8 @@
 package com.coding2017.week3.download.impl;
 
-import java.io.IOException;
+import com.coding2017.week3.download.api.Connection;
 
-import com.coderising.download.api.Connection;
+import java.io.IOException;
 
 public class ConnectionImpl implements Connection {
 

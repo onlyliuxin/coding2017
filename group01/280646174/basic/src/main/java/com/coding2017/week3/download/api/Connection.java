@@ -10,17 +10,17 @@ public interface Connection {
      * @param endPos 结束位置
      * @return
      */
-    public byte[] read(int startPos, int endPos) throws IOException;
+    byte[] read(int startPos, int endPos) throws IOException;
 
     /**
      * 得到数据内容的长度
      * 
      * @return
      */
-    public int getContentLength();
+    int getContentLength();
 
     /**
      * 关闭连接
      */
-    public void close();
+    void close();
 }
