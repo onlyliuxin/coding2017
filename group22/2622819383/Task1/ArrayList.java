@@ -1,12 +1,12 @@
 public class ArrayList implements List {
 	
-	private int size;
+    private int size;
     
     private int capacity;
     
     private static final int DEFAULT_CAPACITY = 10;
 	
-	private Object[] elementData;
+    private Object[] elementData;
     
     //add()时用于在必要时刻扩充底层数组容量
     private void expand() {
@@ -51,29 +51,29 @@ public class ArrayList implements List {
         return size == 0; 
     }
     
-	public void add(Object o){
-		add(size(), o);
-	}
-    
-	public void add(int index, Object o){
+    public void add(Object o){
+        add(size(), o);
+    }
+
+    public void add(int index, Object o){
         if (index < 0 || size < index) 
             throw new IndexOutOfBoundsException();
         
-		expand();
+        expand();
         for (int i = size; i > index; i--)
             elementData[i] = elementData[i - 1];
         elementData[index] = o;
         size++;
-	}
-    	
-	public Object get(int index){
+    }
+        
+    public Object get(int index){
         if (index < 0 || size <= index) 
             throw new IndexOutOfBoundsException();
-		
+        
         return elementData[index];
-	}
-	
-	public Object remove(int index){
+    }
+
+    public Object remove(int index){
         if (index < 0 || size <= index) 
             throw new IndexOutOfBoundsException();
         
@@ -82,15 +82,15 @@ public class ArrayList implements List {
             elementData[i] = elementData[i + 1];
         size--;
         shrink();
-		return removed;
-	}
-    
-    
-	
-	public Iterator iterator(){
-		return new ArrayListIterator();
-	}
-	
+        return removed;
+    }
+
+
+
+    public Iterator iterator(){
+        return new ArrayListIterator();
+    }
+
     private class ArrayListIterator implements Iterator {
         private int current;
         
@@ -105,21 +105,21 @@ public class ArrayList implements List {
             return elementData[current++];
         }
     }
-    
-    
+
+
     //以下方法便于测试
-    
+
     public ArrayList(Object ...args) {
         this();
         for (Object o : args)
             add(o);
     }
-    
+
     public void add(Object ...args) {
         for (Object o : args) 
             add(o);
     }
-    
+
     public void removeElems(int ...args) {
         for (int i : args)
             remove(i);
@@ -131,7 +131,7 @@ public class ArrayList implements List {
             System.out.print(iter.next() + " ");
         System.out.println();
     }
-    
+
     public static void test(ArrayList list) {
         System.out.println("--------基本方法测试---------");
         System.out.println("当前list.isEmpty(): " + list.isEmpty());
@@ -139,7 +139,7 @@ public class ArrayList implements List {
         System.out.println("当前list.capacity(): " + list.capacity());
         showElements(list);        
     }
-    
+
     public static void main(String[] args) {
         ArrayList list = new ArrayList(1, 2, 3, 4, 5);
         test(list);
