@@ -34,18 +34,35 @@ public class FileDownloader {
 		// 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
+
 		Connection conn = null;
 		try {
 			
 			conn = cm.open(this.url);
 			
-			int length = conn.getContentLength();	
-			
-			new DownloadThread(conn,0,length-1).start();
+			int length = conn.getContentLength();
+
+			int sublen = length/3;
+
+			for(int i=0; i<3; i++){
+				int starPos = sublen * i;
+				int endPos = sublen *(i + 1) -1;
+				new DownloadThread(conn,starPos, endPos).start();
+				DownloadThread myThread = new DownloadThread(conn,starPos,endPos);
+				myThread.start();
+				myThread.join();
+			}
+
+
+			this.listener.notifyFinished();
+
+			conn.close();
 			
 		} catch (ConnectionException e) {			
 			e.printStackTrace();
-		}finally{
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally{
 			if(conn != null){
 				conn.close();
 			}

@@ -21,7 +21,7 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1489273175249&di=d4db80cda704dc8ce1c78600edfd19cd&imgtype=0&src=http%3A%2F%2Fpic33.nipic.com%2F20130916%2F3420027_192919547000_2.jpg";
+		String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1489878835&di=fb2c1287991bfd38aef6812fbf802027&imgtype=jpg&er=1&src=http%3A%2F%2Fpic33.nipic.com%2F20130916%2F3420027_192919547000_2.jpg";
 		
 		FileDownloader downloader = new FileDownloader(url);
 
