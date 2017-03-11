@@ -1,6 +1,6 @@
 public class LinkedList implements List {
 	
-	private Node header;
+    private Node header;
     
     private Node trailer;
     
@@ -12,26 +12,30 @@ public class LinkedList implements List {
         header.succ = trailer;
         theSize = 0;
     }
-	
 	public void add(Object o){
 		 add(size(), o);
 	}
+    
 	public void add(int index , Object o){
 		if (index < 0 || theSize < index) throw new IndexOutOfBoundsException();
+        
         Node p = header;
         while (0 < index--) p = p.succ();
         p.insertAsSucc(o);
         theSize++;        
 	}
+    
 	public Object get(int index){
         if (index < 0 || theSize <= index) throw new IndexOutOfBoundsException();
+        
 		Node p = header.succ();
         while (0 < index--) p = p.succ();
-        
         return p.data();
 	}
+    
 	public Object remove(int index){
 		if (0 < index || theSize <= index) throw new IndexOutOfBoundsException();
+        
         Node p = header.succ();
         while (0 < index--) p = p.succ();
         Object removed = p.data();
@@ -48,23 +52,30 @@ public class LinkedList implements List {
 	public void addFirst(Object o){
 		header.insertAsSucc(o);
 	}
+    
 	public void addLast(Object o){
 		trailer.insertAsPred(o);
 	}
+    
 	public Object removeFirst(){
 		return remove(0);
 	}
+    
 	public Object removeLast(){
 		return remove(theSize - 1);
 	}
+    
 	public Iterator iterator(){
 		return new LinkedListIterator();
 	}
+    
 	private class LinkedListIterator implements Iterator {
         private Node current = header.succ();
+        
         public boolean hasNext() {
             return current != trailer;
         }
+        
         public Object next() {
             if (!hasNext()) throw new java.util.NoSuchElementException();
             Object item = current.data();
@@ -77,28 +88,38 @@ public class LinkedList implements List {
 		private Object data;
 		private Node pred;
         private Node succ;
+        
         public Node(Object d, Node p, Node s) {
             data = d;
             pred = p;
             succ = s;
         }
-        public Object data() { return data; }
-        public Node succ() { return succ; }
-        public Node pred() { return pred; }
-        //插入前驱节点，返回新节点
+        
+        public Object data() { 
+            return data; 
+        }
+        
+        public Node succ() { 
+            return succ; 
+        }
+        
+        public Node pred() { 
+            return pred; 
+        }
+        
+        //插入前驱节点，返回插入的新节点
         public Node insertAsPred(Object data) {
             Node p = new Node(data, pred, this);
             pred = pred.succ = p;
             return p;
         }
+        
+        //插入后继节点，返回插入的新节点
         public Node insertAsSucc(Object data) {
             Node p = new Node(data, this, succ);
             succ = succ.pred = p;
             return p;
-        }
-        
-        
-		
+        }                           
 	}
 	
 	/**
