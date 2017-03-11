@@ -1,6 +1,6 @@
-package shoppingcart;
+package com.github.eulerlcs.jmr.challenge.zzz.master170219;
 
-public class JavaTest170212 {
+public class Try170212 {
 
 	public static void main(String[] args) {
 		t28();
@@ -17,8 +17,8 @@ public class JavaTest170212 {
 	}
 
 	public static void t34() {
-		JavaTest170212 x = new JavaTest170212();
-		JavaTest170212.Hello obj = x.new Hello("");
+		Try170212 x = new Try170212();
+		Try170212.Hello obj = x.new Hello("");
 		obj.msg += ",World!";
 		System.out.println(obj.msg);
 	}

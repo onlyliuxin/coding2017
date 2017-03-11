@@ -1,4 +1,4 @@
-package shoppingcart;
+package com.github.eulerlcs.jmr.challenge.zzz.master170219;
 
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-public class sc {
+public class Try170205 {
 	public static void main(String[] args) throws Exception {
 		task94();
 		task93();
