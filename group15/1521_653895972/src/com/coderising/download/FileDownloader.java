@@ -1,9 +1,10 @@
 package com.coderising.download;
 
 import com.coderising.download.api.Connection;
-import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
+
+import java.io.RandomAccessFile;
 
 
 public class FileDownloader {
@@ -35,15 +36,25 @@ public class FileDownloader {
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
 		Connection conn = null;
+		Connection conn1 = null;
+		Connection conn2 = null;
+
 		try {
-			
 			conn = cm.open(this.url);
-			
-			int length = conn.getContentLength();	
-			
-			new DownloadThread(conn,0,length-1).start();
-			
-		} catch (ConnectionException e) {			
+			conn1 = cm.open(this.url);
+			conn2 = cm.open(this.url);
+
+			int length = conn.getContentLength();
+			RandomAccessFile raf = new RandomAccessFile("G:\\wanc\\图片\\ww.jpg","rw");
+			raf.setLength(length);
+			raf.close();
+			int f = length/3;
+			int end1=f*2;
+			new DownloadThread(conn,0,f).start();
+			new DownloadThread(conn1,f,end1).start();
+			new DownloadThread(conn2,end1,length).start();
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
 			if(conn != null){
