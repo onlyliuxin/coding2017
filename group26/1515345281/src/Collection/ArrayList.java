@@ -1,7 +1,6 @@
 package Collection;
 
 public class ArrayList implements List {
-
     private int size = 0;
 
     private Object[] elementData = new Object[100];
