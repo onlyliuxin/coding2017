@@ -8,23 +8,28 @@ package com.coding.basic;
  */
 public class Queue {
 
-	private Object[] queue = new Object[10];
+	private LinkedList elements = new LinkedList();;
 	
 	private int size = 0;
 
 	public void enQueue(Object o) {
-		
+		elements.add(o);
+		size ++;
 	}
 
 	public Object deQueue() {
-		return null;
+		size --;
+		return elements.removeLast();
 	}
 
 	public boolean isEmpty() {
+		if (size == 0) {
+			return true;
+		}
 		return false;
 	}
 
 	public int size() {
-		return -1;
+		return size;
 	}
 }
