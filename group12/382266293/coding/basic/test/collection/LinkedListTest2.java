@@ -3,122 +3,151 @@ package test.collection;
 import static util.Print.*;
 import static util.TestUtil.*;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.NoSuchElementException;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import collection.Iterator;
-import collection.List;
 import collection.concrete.LinkedList;
 import junit.framework.TestCase;
-
 
 public class LinkedListTest2 extends TestCase {
 
 	LinkedList<Integer> myLL;
-	
+
+	@Override
 	@Before
 	public void setUp() throws Exception {
 		myLL = new LinkedList<Integer>();
-		assertEquals(0,myLL.size());
+		assertEquals(0, myLL.size());
 	}
 
+	@Override
 	@After
 	public void tearDown() throws Exception {
 		myLL = null;
 	}
-	
 
-	
 	@Test
 	public void testReverse() {
-		addIntWithNatureOrder(myLL,5);
+		addIntWithNatureOrder(myLL, 5);
 		myLL.reverse();
 		for (int i = 0; i < 5; i++) {
 			int acutal = myLL.get(i);
-			assertEquals(4-i,acutal);
+			assertEquals(4 - i, acutal);
 		}
 	}
-	
-	
+
 	@Test
 	public void testRemoveFirstHalf() {
-		addIntWithNatureOrder(myLL,5);
+		myLL = new LinkedList<Integer>();
+		addIntWithNatureOrder(myLL, 5);
 		myLL.removeFirstHalf();
-		assertEquals(3,myLL.size());
-		assertEquals(2,(int)myLL.get(0));
-		assertEquals(3,(int)myLL.get(1));
-		assertEquals(4,(int)myLL.get(2));
+		assertEquals(3, myLL.size());
+		assertEquals(2, (int) myLL.get(0));
+		assertEquals(3, (int) myLL.get(1));
+		assertEquals(4, (int) myLL.get(2));
+
+		myLL = new LinkedList<Integer>();
+		myLL.removeFirstHalf();
+		println(myLL);
+		assertEquals(0, myLL.size());
+
 	}
-	
+
 	@Test
 	public void testRemove2() {
-		addIntWithNatureOrder(myLL,5);
-		myLL.remove(1,2);
-		assertEquals(3,myLL.size());
-		assertEquals(0,(int)myLL.get(0));
-		assertEquals(3,(int)myLL.get(1));
-		assertEquals(4,(int)myLL.get(2));
+		addIntWithNatureOrder(myLL, 5);
+		myLL.remove(1, 2);
+		assertEquals(3, myLL.size());
+		assertEquals(0, (int) myLL.get(0));
+		assertEquals(3, (int) myLL.get(1));
+		assertEquals(4, (int) myLL.get(2));
+
+		myLL = new LinkedList<Integer>();
+		try {
+			myLL.remove(1, 2);
+		} catch (IndexOutOfBoundsException e) {
+
+		}
+
+		println(myLL);
+		assertEquals(0, myLL.size());
+
 	}
-	
+
 	@Test
 	public void testGetElements() {
-		addIntWithNatureOrder(myLL,10);
+		addIntWithNatureOrder(myLL, 10);
 		LinkedList<Integer> list = new LinkedList<Integer>();
 		list.add(0);
 		list.add(2);
 		list.add(7);
-		int[] result =  myLL.getElements(list);	
+		int[] result = myLL.getElements(list);
 		for (int i = 0; i < result.length; i++) {
 			int expected = list.get(i);
 			int actual = result[i];
-			assertEquals(expected,actual);
+			assertEquals(expected, actual);
 		}
 
+		myLL = new LinkedList<Integer>();
+		result = myLL.getElements(list);
+		println(myLL);
+		assertEquals(0, myLL.size());
+
 	}
-	
+
 	@Test
 	public void testSubstract() {
 		LinkedList<Integer> myLL = new LinkedList<Integer>();
-		addIntWithNatureOrder(myLL,10);
+		addIntWithNatureOrder(myLL, 10);
 		myLL.add(10);
 		myLL.add(10);
 		myLL.add(12);
 		LinkedList<Integer> list = new LinkedList<Integer>();
 		list.add(0);
 		list.add(0);
-		addIntWithNatureOrder(list,10);
+		addIntWithNatureOrder(list, 10);
 		list.add(10);
 		list.add(12);
 		list.add(22);
 		myLL.subtract(list);
-		assertEquals(0,myLL.size());
+		assertEquals(0, myLL.size());
+
+		myLL = new LinkedList<Integer>();
+		list = new LinkedList<Integer>();
+		myLL.subtract(list);
+		assertEquals(0, myLL.size());
+
 	}
-	
+
 	@Test
 	public void testIntersection() {
 
-		addIntWithNatureOrder(myLL,10);
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		LinkedList<Integer> result = myLL.intersection(list);
+		assertEquals(0, result.size());
+
+		addIntWithNatureOrder(myLL, 10);
 		myLL.add(10);
 		myLL.add(12);
 		myLL.add(13);
 		myLL.add(24);
-		LinkedList<Integer> list = new LinkedList<Integer>();
+
 		list.add(0);
 		list.add(5);
 		list.add(10);
-		LinkedList<Integer> result = myLL.intersection(list);
-		assertEquals(0,(int)result.get(0));
-		assertEquals(5,(int)result.get(1));
-		assertEquals(10,(int)result.get(2));
+		result = myLL.intersection(list);
+		assertEquals(0, (int) result.get(0));
+		assertEquals(5, (int) result.get(1));
+		assertEquals(10, (int) result.get(2));
+
+		myLL = new LinkedList<Integer>();
+		result = new LinkedList<Integer>();
+		myLL.intersection(list);
+		assertEquals(0, result.size());
 
 	}
-	
-	
+
 	@Test
 	public void testRemoveDuplicateValues() {
 
@@ -128,13 +157,45 @@ public class LinkedListTest2 extends TestCase {
 		myLL.add(1);
 		myLL.add(10);
 		myLL.removeDuplicateValues();
-		assertEquals(3,myLL.size());
-		assertEquals(0,(int)myLL.get(0));
-		assertEquals(1,(int)myLL.get(1));
-		assertEquals(10,(int)myLL.get(2));
+		assertEquals(3, myLL.size());
+		assertEquals(0, (int) myLL.get(0));
+		assertEquals(1, (int) myLL.get(1));
+		assertEquals(10, (int) myLL.get(2));
+
+		myLL = new LinkedList<Integer>();
+		myLL.removeDuplicateValues();
+		assertEquals(0, myLL.size());
+
 	}
 
-	
-	
-	
+	@Test
+	public void testRemoveRange() {
+
+		myLL.add(0);
+		addIntWithNatureOrder(myLL, 10);
+		myLL.add(9);
+		myLL.add(10);
+		myLL.add(12);
+		myLL.add(13);
+		myLL.add(24);
+
+		myLL.removeRange(-5, 3);
+		assertEquals(3, (int) myLL.get(0));
+
+		myLL.removeRange(3, 4);
+		assertEquals(3, (int) myLL.get(0));
+
+		myLL.removeRange(3, 5);
+		assertEquals(3, (int) myLL.get(0));
+		assertEquals(5, (int) myLL.get(1));
+
+		myLL.removeRange(-3, 11);
+		assertEquals(12, (int) myLL.get(0));
+
+		myLL = new LinkedList<Integer>();
+		myLL.removeRange(-1, 10);
+		assertEquals(0, myLL.size());
+
+	}
+
 }

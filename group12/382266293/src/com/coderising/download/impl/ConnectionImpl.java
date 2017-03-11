@@ -1,16 +1,11 @@
 package com.coderising.download.impl;
 
-import static util.Print.println;
-
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.coderising.download.api.Connection;
-import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 
 import sun.net.www.protocol.http.HttpURLConnection;

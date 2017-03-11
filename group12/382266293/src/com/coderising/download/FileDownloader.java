@@ -1,25 +1,17 @@
 package com.coderising.download;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
 
-
 public class FileDownloader {
 
-
-	
-	
 	private final static String EXT = "lyj";
 	private static DownloadThread[] threadPool;
 	private int finishedCount;
 	public String downloadLocation;
-	
+
 	String url;
 	ConnectionManager cm;
 	DownloadListener listener;
@@ -56,12 +48,12 @@ public class FileDownloader {
 
 			System.out.println("file length:" + length);
 			setLocation("C:\\");
-			
+
 			String name = conn.getFileName();
 			setFileName(name);
 			setTempName(name);
-			
-			DownloadUtil.createTempFile(tempName,length);
+
+			DownloadUtil.createTempFile(tempName, length);
 
 			int connNumbers = DownloadUtil.calculateConnects(length);
 			System.out.println(connNumbers + " Threads will be created.");
@@ -96,16 +88,16 @@ public class FileDownloader {
 	}
 
 	private void setTempName(String name) {
-		String temp = name.substring(0,name.lastIndexOf(".")+1) + EXT;
-		this.tempName = downloadLocation + temp;
+		String temp = name.substring(0, name.lastIndexOf(".") + 1) + EXT;
+		FileDownloader.tempName = downloadLocation + temp;
 	}
 
 	private void setFileName(String name) {
-		this.fileName = downloadLocation + name;
+		FileDownloader.fileName = downloadLocation + name;
 	}
 
 	private void setLocation(String downloadLocation) {
-		this.downloadLocation =  downloadLocation;	
+		this.downloadLocation = downloadLocation;
 	}
 
 	private boolean checkFinish(int links) {
@@ -142,7 +134,6 @@ public class FileDownloader {
 		return this.listener;
 	}
 
-
 	private void setAndStartThreadPool(Connection conn, DownloadThread[] threadPool, int length)
 			throws ConnectionException {
 		int connectionNumbers = threadPool.length;
@@ -162,7 +153,7 @@ public class FileDownloader {
 			setAndStartThread(threadPool[i], tempName);
 		}
 	}
-	
+
 	private void setAndStartThread(DownloadThread downloadThread, String dest) {
 		downloadThread.setDest(dest);
 		downloadThread.setFileDownloader(this);

@@ -1,6 +1,5 @@
 package test.collection;
 
-import static util.Print.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,12 +13,14 @@ import junit.framework.TestCase;
 public class QueueTest extends TestCase {
 
 	private Queue<Integer> myQueue;
-	
+
+	@Override
 	@Before
 	public void setUp() throws Exception {
-		myQueue= new Queue<Integer>();
+		myQueue = new Queue<Integer>();
 	}
 
+	@Override
 	@After
 	public void tearDown() throws Exception {
 		myQueue = null;
@@ -36,20 +37,20 @@ public class QueueTest extends TestCase {
 	public void testEnQueue() {
 
 		enQueueIntWithNatureOrder(myQueue, getRandomNumber());
-		
+
 	}
 
 	@Test
 	public void testDeQueue() {
 		enQueueIntWithNatureOrder(myQueue, getRandomNumber());
 		int size = myQueue.size();
-		for (int i = 0; i < size ; i++) {
-			assertEquals(size-i, myQueue.size());
+		for (int i = 0; i < size; i++) {
+			assertEquals(size - i, myQueue.size());
 			int expect = i;
 			int actual = myQueue.deQueue();
 			assertEquals(expect, actual);
 		}
-		
+
 		assertEquals(null, myQueue.deQueue());
 		assertEquals(null, myQueue.element());
 		assertEquals(null, myQueue.get(0));
@@ -58,25 +59,25 @@ public class QueueTest extends TestCase {
 
 	@Test
 	public void testelement() {
-		
+
 		int expected = 0;
 		int element1 = 0;
 		int repeated = 0;
-		
+
 		for (int i = 0; i < 10; i++) {
 			myQueue.enQueue(i);
 			expected = i;
-			
+
 			element1 = myQueue.element();
 			assertEquals(expected, element1);
-			
+
 			for (int j = 0; j < i; j++) {
 				repeated = myQueue.element();
 				assertEquals(expected, repeated);
 			}
 			myQueue.deQueue();
 		}
-		
+
 	}
 
 	@Test
@@ -96,6 +97,5 @@ public class QueueTest extends TestCase {
 			assertEquals(expected, actual);
 		}
 	}
-
 
 }

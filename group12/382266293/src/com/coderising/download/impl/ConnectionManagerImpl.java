@@ -7,8 +7,6 @@ import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 
-import sun.net.www.protocol.http.HttpURLConnection;
-
 public class ConnectionManagerImpl implements ConnectionManager {
 
 	private int connections = 0;

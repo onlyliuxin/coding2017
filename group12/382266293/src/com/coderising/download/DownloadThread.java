@@ -22,6 +22,7 @@ public class DownloadThread extends Thread{
 		this.startPos = startPos;
 		this.endPos = endPos;
 	}
+	@Override
 	public void run(){
 		System.out.println(this.getName()+" is running");
 		RandomAccessFile raf = null;
