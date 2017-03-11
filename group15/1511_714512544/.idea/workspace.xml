@@ -2,21 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d338ed3a-e900-486a-89a5-3e8b0a3835ed" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/coderising/download/Demo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/1511_714512544/com/coderising/download/DownloadThread.class" afterPath="$PROJECT_DIR$/out/production/1511_714512544/com/coderising/download/DownloadThread.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/1511_714512544/com/coderising/download/FileDownloader.class" afterPath="$PROJECT_DIR$/out/production/1511_714512544/com/coderising/download/FileDownloader.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/1511_714512544/com/coderising/download/FileDownloaderTest.class" afterPath="$PROJECT_DIR$/out/production/1511_714512544/com/coderising/download/FileDownloaderTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/1511_714512544/com/coderising/download/api/Connection.class" afterPath="$PROJECT_DIR$/out/production/1511_714512544/com/coderising/download/api/Connection.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/1511_714512544/com/coderising/download/impl/ConnectionImpl.class" afterPath="$PROJECT_DIR$/out/production/1511_714512544/com/coderising/download/impl/ConnectionImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/1511_714512544/com/coderising/download/impl/ConnectionManagerImpl.class" afterPath="$PROJECT_DIR$/out/production/1511_714512544/com/coderising/download/impl/ConnectionManagerImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/coderising/download/DownloadThread.java" afterPath="$PROJECT_DIR$/src/com/coderising/download/DownloadThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/coderising/download/FileDownloader.java" afterPath="$PROJECT_DIR$/src/com/coderising/download/FileDownloader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/coderising/download/FileDownloaderTest.java" afterPath="$PROJECT_DIR$/src/com/coderising/download/FileDownloaderTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/coderising/download/api/Connection.java" afterPath="$PROJECT_DIR$/src/com/coderising/download/api/Connection.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/coderising/download/impl/ConnectionImpl.java" afterPath="$PROJECT_DIR$/src/com/coderising/download/impl/ConnectionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/coderising/download/impl/ConnectionManagerImpl.java" afterPath="$PROJECT_DIR$/src/com/coderising/download/impl/ConnectionManagerImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/文章地址.md" afterPath="$PROJECT_DIR$/文章地址.md" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,7 +29,31 @@
     <favorites_list name="1511_714512544" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="Struts.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/coderising/litestruts/Struts.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-945">
+              <caret line="14" column="81" lean-forward="false" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="81" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="文章地址.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/文章地址.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="84">
+                <caret line="4" column="47" lean-forward="false" selection-start-line="4" selection-start-column="47" selection-end-line="4" selection-end-column="47" />
+                <folding />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -73,6 +84,8 @@
         <option value="$PROJECT_DIR$/src/com/coderising/download/DownloadThread.java" />
         <option value="$PROJECT_DIR$/src/com/coderising/download/impl/ConnectionImpl.java" />
         <option value="$PROJECT_DIR$/src/com/coderising/download/Demo.java" />
+        <option value="$PROJECT_DIR$/src/com/coderising/array/ArrayUtil.java" />
+        <option value="$PROJECT_DIR$/文章地址.md" />
       </list>
     </option>
   </component>
@@ -169,6 +182,10 @@
               <option name="myItemId" value="coderising" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="litestruts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -189,10 +206,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="coderising" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="download" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -772,7 +785,7 @@
       <workItem from="1489066092125" duration="5000" />
       <workItem from="1489151157201" duration="7163000" />
       <workItem from="1489197882583" duration="3320000" />
-      <workItem from="1489201425876" duration="2221000" />
+      <workItem from="1489201425876" duration="5635000" />
     </task>
     <task id="LOCAL-00001" summary="xuweijay">
       <created>1488937445293</created>
@@ -788,7 +801,21 @@
       <option name="project" value="LOCAL" />
       <updated>1489156650791</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="xuweijay">
+      <created>1489206126088</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1489206126088</updated>
+    </task>
+    <task id="LOCAL-00004" summary="xuweijay">
+      <created>1489209258691</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1489209258691</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -824,7 +851,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41039000" />
+    <option name="totallyTimeSpent" value="44453000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -915,27 +942,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/coding/basic/LinkedList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="291" column="5" lean-forward="false" selection-start-line="291" selection-start-column="5" selection-end-line="291" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/coding/basic/LinkedList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/coding/basic/LinkedList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/coding/basic/LinkedList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1076,13 +1082,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/coding/basic/ArrayList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-461">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_111/src.zip!/java/util/LinkedList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
@@ -1108,6 +1107,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="283">
           <caret line="147" column="19" lean-forward="false" selection-start-line="147" selection-start-column="19" selection-end-line="147" selection-end-column="19" />
+          <folding>
+            <element signature="e#5748#5749#0" expanded="false" />
+            <element signature="e#5784#5785#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1256,14 +1259,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/coderising/litestruts/LoginAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/coderising/litestruts/View.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
@@ -1288,11 +1283,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/coding/basic/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-146">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/coderising/array/ArrayUtilTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="65" column="16" lean-forward="false" selection-start-line="65" selection-start-column="16" selection-end-line="65" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/coderising/array/ArrayUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="146" column="17" lean-forward="false" selection-start-line="146" selection-start-column="17" selection-end-line="146" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/coderising/litestruts/LoginAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/coderising/litestruts/Struts.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="69" column="30" lean-forward="false" selection-start-line="69" selection-start-column="30" selection-end-line="69" selection-end-column="30" />
+        <state relative-caret-position="-945">
+          <caret line="14" column="81" lean-forward="false" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="81" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/文章地址.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="84">
+            <caret line="4" column="47" lean-forward="false" selection-start-line="4" selection-start-column="47" selection-end-line="4" selection-end-column="47" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
