@@ -1,11 +1,9 @@
 package com.coderising.download.impl;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
 
 import com.coderising.download.api.Connection;
 
@@ -23,7 +21,6 @@ public class ConnectionImpl implements Connection {
 		// 设置发出请求，指定下载部分
 		urlConnect.setRequestProperty("Range", "bytes="+startPos+"-"+endPos);
 		int code = urlConnect.getResponseCode();
-		//请求返回206就下载指定部分文件
 		if(code == 206){
 			InputStream is = urlConnect.getInputStream();
 			byte[] bys = new byte[1024];
@@ -31,6 +28,7 @@ public class ConnectionImpl implements Connection {
 			while ((len = is.read(bys)) != -1) {
 				baos.write(bys, 0, len);
 			}
+			
 			result = baos.toByteArray();
 			is.close();			
 		}

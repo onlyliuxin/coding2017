@@ -11,17 +11,17 @@ import com.coderising.download.impl.ConnectionManagerImpl;
 public class DownloadThread extends Thread {
 	private static int finishCount =0;
 	String url;
-	String localFileName;
+	String localPath;
 	int startPos;
 	int endPos;
 	DownloadListener listener;
 	private Object lock = new Object();
 	
-	public DownloadThread(String url,String localFileName,int startPos, int endPos,DownloadListener listener) {		
+	public DownloadThread(String url,String localPath,int startPos, int endPos,DownloadListener listener) {		
 		this.url =url;
 		this.startPos = startPos;
 		this.endPos = endPos;	
-		this.localFileName = localFileName;
+		this.localPath = localPath;
 		this.listener = listener;
 	}
 	public void run() {	
@@ -31,7 +31,7 @@ public class DownloadThread extends Thread {
 			ConnectionManagerImpl cm = new ConnectionManagerImpl();
 			conn = cm.open(url);			
 			byte[] download = conn.read(startPos, endPos);					
-			ras = new RandomAccessFile(localFileName, "rwd");
+			ras = new RandomAccessFile(localPath, "rwd");
 			ras.seek(startPos);			
 			ras.write(download);						
 			synchronized(lock){

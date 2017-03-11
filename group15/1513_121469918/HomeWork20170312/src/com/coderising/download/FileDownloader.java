@@ -11,6 +11,7 @@ import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
+import com.coderising.download.impl.ConnectionManagerImpl;
 
 public class FileDownloader {
 	Thread[] threadList = new Thread[6];
@@ -28,30 +29,30 @@ public class FileDownloader {
 				RandomAccessFile raf = null;
 				try {
 					// 打开连接获取长度
-					URL tagetURL = new URL(url);
-					HttpURLConnection urlConnect = (HttpURLConnection) tagetURL.openConnection();
-					int length = urlConnect.getContentLength();
-					// 连接成功
-					if (urlConnect.getResponseCode() == 200) {
-						// 创建本地接收文件
-						String localFileName = url.substring(url.lastIndexOf('/') + 1);
-						raf = new RandomAccessFile(localFileName, "rwd");
-						raf.setLength(length);
-						raf.close();
-						int blockSize = length / threadList.length;// 每个线程下载的大小
-						for (int threadNum = 0; threadNum < threadList.length; threadNum++) {
-							// 定义每个线程开始位置
-							int threadStart = threadNum * blockSize;
-							// 定义每个线程结束位置
-							int threadEnd = (threadNum + 1) * blockSize - 1;
-							// 定义最后线程结束位置为总长度-1
-							if (threadNum == threadList.length - 1) {
-								threadEnd = length - 1;
-							}
-							String threadID = "Thread-" + (threadNum + 1);
-							threadList[threadNum] = new DownloadThread(url, localFileName, threadStart, threadEnd, listener);
-							threadList[threadNum].start();
+					ConnectionManagerImpl cm = new ConnectionManagerImpl();
+					Connection conn = cm.open(url);
+					int length = conn.getContentLength();
+
+					// 创建本地接收文件
+					String localPath = url.substring(url.lastIndexOf('/') + 1);
+					raf = new RandomAccessFile(localPath, "rwd");
+					raf.setLength(length);
+					raf.close();
+					
+					int blockSize = length / threadList.length;// 每个线程下载的大小
+					for (int threadNum = 0; threadNum < threadList.length; threadNum++) {
+						// 定义每个线程开始位置
+						int threadStart = threadNum * blockSize;
+						// 定义每个线程结束位置
+						int threadEnd = (threadNum + 1) * blockSize - 1;
+						// 定义最后线程结束位置为总长度-1
+						if (threadNum == threadList.length - 1) {
+							threadEnd = length - 1;
 						}
+						String threadID = "Thread-" + (threadNum + 1);
+						threadList[threadNum] = new DownloadThread(url, localPath, threadStart, threadEnd,
+								listener);
+						threadList[threadNum].start();
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
