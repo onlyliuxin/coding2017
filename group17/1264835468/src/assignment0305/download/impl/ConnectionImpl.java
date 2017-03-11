@@ -37,8 +37,8 @@ public class ConnectionImpl implements Connection {
 			alreadyReadBytes += byteRead;
 			System.out.println(Thread.currentThread().getName() + ":已完成"
 					+ num.format((double) alreadyReadBytes / (double) data.length));
-
 		}
+
 		if (alreadyReadBytes != data.length)
 			throw new IOException("Already read " + alreadyReadBytes + "bytes," + "expect " + data.length + "bytes.");
 		return data;

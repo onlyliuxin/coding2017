@@ -83,6 +83,7 @@ public class FileDownloader {
 			countDownLatch.await();
 
 			listener.notifyFinished();
+
 		} catch (ConnectionException | IOException | InterruptedException e) {
 			e.printStackTrace();
 		} finally {

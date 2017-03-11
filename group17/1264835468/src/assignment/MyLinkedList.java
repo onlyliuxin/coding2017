@@ -84,7 +84,7 @@ public class MyLinkedList<E> implements List<E>, Iterable<E> {
 
 	private void rangeCheck(int index) {
 		if (index >= size) {
-			throw new NoSuchElementException("index:" + index);
+			throw new NoSuchElementException("index:" + index + ",size:" + size);
 		}
 	}
 
@@ -135,7 +135,7 @@ public class MyLinkedList<E> implements List<E>, Iterable<E> {
 
 		@Override
 		public boolean hasNext() {
-			return currentNode.next != null;
+			return currentNode != null;
 		}
 
 		@Override
@@ -174,7 +174,8 @@ public class MyLinkedList<E> implements List<E>, Iterable<E> {
 	 * 
 	 */
 	public void removeFirstHalf() {
-		head = movePtrTo((size + 1) / 2);
+		remove(0, size / 2);
+
 	}
 
 	/**
@@ -185,6 +186,7 @@ public class MyLinkedList<E> implements List<E>, Iterable<E> {
 	 */
 	public void remove(int i, int length) {
 		rangeCheck(i + length - 1);
+		size -= length;
 		if (i == 0) {
 			head = movePtrTo(i + length - 1).next;
 			return;
@@ -192,6 +194,7 @@ public class MyLinkedList<E> implements List<E>, Iterable<E> {
 		Node<E> node = movePtrTo(i - 1);
 		Node<E> newNext = movePtrTo(i + length - 1).next;
 		node.next = newNext;
+
 	}
 
 	/**
@@ -202,8 +205,14 @@ public class MyLinkedList<E> implements List<E>, Iterable<E> {
 	 * @param list
 	 */
 	public int[] getElements(MyLinkedList<Integer> list) {
-
-		return null;
+		int[] result = new int[list.size()];
+		Iterator<Integer> iterator = list.iterator();
+		int index = 0;
+		while (iterator.hasNext()) {
+			System.out.println(index);
+			result[index++] = (Integer) (movePtrTo(iterator.next()).data);
+		}
+		return result;
 	}
 
 	/**
@@ -213,14 +222,48 @@ public class MyLinkedList<E> implements List<E>, Iterable<E> {
 	 */
 
 	public void subtract(MyLinkedList list) {
+		if (list == null || list.size() == 0) {
+			return;
+		}
+		Iterator<Integer> iterator = list.iterator();
+		while (iterator.hasNext()) {
+			subtract(iterator.next());
+		}
+	}
 
+	private void subtract(int value) {
+		int index = 0;
+		Node<E> temp = head;
+		while (temp != null) {
+			if ((Integer) temp.data != value) {
+
+				temp = temp.next;
+				index++;
+			}
+			else {
+
+				remove(index);
+				break;
+			}
+
+		}
 	}
 
 	/**
 	 * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
 	public void removeDuplicateValues() {
-
+		int index = 0;
+		Node<E> temp = head;
+		while (temp.next != null) {
+			if (temp.data.equals(temp.next.data)) {
+				remove(index + 1);
+			}
+			else {
+				index++;
+				temp = temp.next;
+			}
+		}
 	}
 
 	/**
@@ -230,7 +273,36 @@ public class MyLinkedList<E> implements List<E>, Iterable<E> {
 	 * @param max
 	 */
 	public void removeRange(int min, int max) {
+		if (min >= max)
+			throw new IllegalArgumentException("min<=max");
 
+		if (head == null || (Integer) head.data >= max)
+			return;
+		Node<Integer> minPtr = (Node<Integer>) head;
+		Node<Integer> maxPtr = (Node<Integer>) head;
+
+		if ((Integer) head.data > min) {
+			while (maxPtr.data < max) {
+				maxPtr = maxPtr.next;
+				head = (Node<E>) maxPtr;
+				size--;
+				if (size == 0) {
+					head = null;
+					return;
+				}
+			}
+		}
+		else {
+			while (minPtr.next != null && minPtr.next.data <= min) {
+				minPtr = maxPtr = minPtr.next;
+			}
+			maxPtr = maxPtr.next;
+			while (maxPtr != null && maxPtr.data < max) {
+				maxPtr = maxPtr.next;
+				size--;
+			}
+		}
+		minPtr.next = maxPtr;
 	}
 
 	/**
@@ -239,17 +311,42 @@ public class MyLinkedList<E> implements List<E>, Iterable<E> {
 	 * 
 	 * @param list
 	 */
-	public MyLinkedList intersection(MyLinkedList list) {
-		return null;
+	public MyLinkedList<Integer> intersection(MyLinkedList<Integer> list) {
+		MyLinkedList<Integer> resultList = new MyLinkedList<>();
+		Node<Integer> ptr1 = (Node<Integer>) head;
+		Node<Integer> ptr2 = list.head;
+		while (ptr1 != null && ptr2 != null) {
+			if (ptr1.data.equals(ptr2.data)) {
+				resultList.add(ptr1.data);
+				ptr1 = ptr1.next;
+				ptr2 = ptr2.next;
+				continue;
+			}
+			if (ptr1.data < ptr2.data) {
+				ptr1 = ptr1.next;
+			}
+			else {
+				ptr2 = ptr2.next;
+			}
+		}
+		return resultList;
 	}
 
 	public static void main(String[] args) {
 		MyLinkedList<Integer> linkedList = new MyLinkedList<>();
-		linkedList.add(1);
-		linkedList.add(2);
-		linkedList.add(3);
-		System.out.println(linkedList);
-		linkedList.remove(0, 3);
-		System.out.println(linkedList);
+		// 11->101->201->301->401->501->601->701 listB = 1->3->4->6
+		linkedList.add(10);
+		linkedList.add(11);
+		linkedList.add(201);
+		linkedList.add(301);
+		linkedList.add(401);
+		linkedList.add(501);
+
+		MyLinkedList<Integer> linkedList2 = new MyLinkedList<>();
+		linkedList2.add(501);
+
+		System.out.println(linkedList + "" + linkedList.size());
+		System.out.println(linkedList2 + "" + linkedList2.size());
+		System.out.println(linkedList.intersection(linkedList2));
 	}
 }
