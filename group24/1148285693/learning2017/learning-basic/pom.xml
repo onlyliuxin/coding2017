@@ -13,7 +13,6 @@
 
 
     <artifactId>learning-basic</artifactId>
-    <packaging>jar</packaging>
     <name>basic</name>
     <version>1.0</version>
 
