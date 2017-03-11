@@ -1,3 +1,4 @@
+package lessones01;
 public class LinkedListWithFloat<T> extends LinkedList<T>{
 	public static void main(String[] args){
 		LinkedListWithFloat<String> arr = new LinkedListWithFloat<String>();
