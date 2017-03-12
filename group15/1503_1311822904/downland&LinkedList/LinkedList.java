@@ -1,10 +1,29 @@
+package com.coding.basic;
+
 public class LinkedList implements List {
+
 	private int size = 0;
 	private Node head=new Node(null);
-	
+
+	public LinkedList(int[] ints) {
+		int length=ints.length;
+		if(length>0){
+			for(int i=0;i<length;i++){
+					this.add(ints[i]);
+			}
+		}
+
+	}
+
+	public LinkedList() {
+
+	}
+
+
 	public void add(Object o){
 		if(head.data==null){
 			head.data=o;
+			size++;
 			return;
 		}
 		Node n=head;
@@ -15,9 +34,12 @@ public class LinkedList implements List {
 		size++;
 	}
 	public void add(int index , Object o){
-		Node n=getNode(index);
+		Node n=getNode(index-1);
 		Node newN=new Node(o);
-		newN.next=n.next;
+		if(n.next!=null){
+			newN.next=n.next;
+		}
+
 		n.next=newN;
 		size++;
 	}
@@ -118,8 +140,7 @@ public class LinkedList implements List {
 		private Node n=head;
 		@Override
 		public boolean hasNext() {
-			if(n!=null&&n.next!=null){
-				n=n.next;
+			if(n!=null){
 				return true;
 			}
 			return false;
@@ -127,7 +148,9 @@ public class LinkedList implements List {
 
 		@Override
 		public Object next() {
-			return n.data;
+			Object o=n.data;
+			n=n.next;
+			return o;
 		}
 	}
 	
@@ -154,11 +177,16 @@ public class LinkedList implements List {
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
 	public  void reverse(){
-		PLinkedList<T> p= (PLinkedList<T>) this.clone();
-		this.clear();
-		for(int i=p.size()-1;i>-1;i--){
-			this.add(p.get(i));
+		if(this.head.next==null)
+			return;
+		int[] ints=new int[size];
+		Node n=head;
+		for(int i=size-1;i>-1;i--) {
+			ints[i] = (int) n.data;
+			n=n.next;
 		}
+		LinkedList temp=new LinkedList(ints);
+		head=temp.head;
 
 	}
 	
@@ -169,11 +197,9 @@ public class LinkedList implements List {
 
 	 */
 	public  void removeFirstHalf(){
-		PLinkedList<T> p= (PLinkedList<T>) this.clone();
-		this.clear();
-		for(int i=p.size()/2;i<p.size();i++){
-			this.add(p.get(i));
-		}
+		int middle=size/2;
+		head=getNode(middle);
+		size=size-middle;
 	}
 	
 	/**
@@ -182,13 +208,24 @@ public class LinkedList implements List {
 	 * @param length
 	 */
 	public  void remove(int i, int length) throws Exception {
-		int size=this.size();
+		size=size-length;
 		if(i+length>size) {
 			throw new Exception("不够长");
 		}
-		for(int j=1;j<=length;j++){
-			this.remove(i);
+		Node start;
+		if(i==0){
+			start=head;
+		}else {
+			start=getNode(i-1);
 		}
+
+		Node n=start;
+		while (length>-1){
+			n=n.next;
+			length--;
+		}
+		start.next=n;
+
 	}
 	/**
 	 * 假定当前链表和listB均包含已升序排列的整数
@@ -198,11 +235,30 @@ public class LinkedList implements List {
 	 * 返回的结果应该是[101,301,401,601]
 	 * @param list
 	 */
-	public  int[] getElements(LinkedList<Integer> list){
-		int[] result=new int[list.size()];
-		for(int i=0 ;i<list.size(); i++){
-			result[i]=(Integer) this.get(list.get(i));
+	public  int[] getElements(LinkedList list) throws CloneNotSupportedException {
+		int length=list.size();
+		if (length<1)
+			return null;
+		int[] result=new int[length];
+		LinkedList newList= this;
+
+		Node  indexNode= list.head;//第一个坐标节点
+		int index=(Integer) indexNode.data;
+		Node newFirstNode=newList.getNode(index);//第一个目标节点
+		result[0]= (int) newFirstNode.data;//数放到结果数组
+		if(length==1)
+			return result;
+
+		int i=1;
+		while (i<length){
+			newList.head=newFirstNode.next;//前面的去掉
+			indexNode=indexNode.next;//下一个坐标节点
+			newFirstNode=newList.getNode((Integer) indexNode.data-index-1);
+			index=(Integer) indexNode.data;
+			result[i++]= (int) newFirstNode.data;//数放到结果数组
 		}
+
+
 		return result;
 	}
 	
@@ -213,10 +269,31 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	
-	public  void subtract(LinkedList list){
-		for(Object o: list){
-			this.remove(o);
+	public  void subtract(LinkedList list) throws Exception {
+		Node delNode=list.head;
+		Node n=head;
+		Node prevNode=null;
+
+		while (delNode!=null&&n!=null){
+			if((int)n.data==(int)delNode.data){//删掉
+				if(prevNode==null){//是头
+					head=head.next;
+				}else {//不是头
+					prevNode.next=n.next;
+				}
+				prevNode=n;//this下一个
+				n=n.next;
+				delNode=delNode.next;//比较组下一个
+				size--;
+			}else if((int)n.data<(int)delNode.data){
+				prevNode=n;//this下一个
+				n=n.next;
+			}else {//比较组下一个
+				delNode=delNode.next;
+			}
+
 		}
+
 	}
 	
 	/**
@@ -224,14 +301,21 @@ public class LinkedList implements List {
 	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
 	public  void removeDuplicateValues(){
-		PLinkedList<T> p= (PLinkedList<T>) this.clone();
-		for(T t:this){
-			p.remove(t);
-			if(p.contains(t)){
-				this.remove(t);
+		Node n=head.next;
+		int data=(int)n.data;
+		Node prevNode=head;
+		Integer prevData=(int)head.data;
+		while (n!=null){
+			data=(int)n.data;
+			if(prevData==data){//相等 去掉
+				prevNode.next=n.next;
+					size--;
+			}else {
+				prevNode=n;
+				prevData=data;
 			}
+			n=n.next;
 		}
-
 	}
 	
 	/**
@@ -241,11 +325,37 @@ public class LinkedList implements List {
 	 * @param max
 	 */
 	public  void removeRange(int min, int max){
-		int middle=this.size();
-		int i=middle;
-		int j=middle+1;
+		Node startNode=null;
+		Node endNode=null;
+		Node n=head.next;
+		int data;
+		Node prevNode=head;
 
-
+		while (n!=null) {
+			data=(int)n.data;
+			if (data >= min) {//第一个进去范围的
+				startNode = prevNode;
+				break;
+			}
+			prevNode=n;
+			n = n.next;
+		}
+		int count=0;
+		while (n!=null) {
+			data=(int)n.data;
+			if (data >= max) {//第一个出范围的
+				endNode = n;
+				break;
+			}
+			count++;//没出范围就继续计数
+			n = n.next;//下一个
+		}
+		startNode.next=endNode;
+		size=size-count;
+		if ((int)head.data>=min){
+			size--;
+			head=head.next;
+		}
 	}
 	
 	/**
@@ -254,6 +364,22 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	public  LinkedList intersection( LinkedList list){
-		return null;
+		LinkedList list3=new LinkedList();
+		Node aNode=this.head;
+		Node bNode=list.head;
+		while (aNode!=null&&bNode!=null){
+			if((int)aNode.data>(int)bNode.data){
+				bNode=bNode.next;
+			}else if((int)bNode.data>(int)aNode.data){
+				aNode=aNode.next;
+			}else {
+				list3.add((int)bNode.data);
+				bNode=bNode.next;
+				aNode=aNode.next;
+			}
+		}
+
+
+		return list3;
 	}
 }
