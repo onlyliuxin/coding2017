@@ -1,0 +1,61 @@
+package secondHomework.ArrayUtil;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class myArrayUtilTest {
+	private myArrayUtil test;
+
+	@Before
+	public void setUp() throws Exception {
+		test = new myArrayUtil();
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void testReverseArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testRemoveZero() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testMerge() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGrow() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testFibonacci() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetPrimes() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetPerfectNumbers() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testJoin() {
+		fail("Not yet implemented");
+	}
+
+}
