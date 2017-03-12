@@ -27,5 +27,5 @@ public class ArrayListTest {
 			System.out.println(iterator.next());
 		}
 	}
-
+	
 }

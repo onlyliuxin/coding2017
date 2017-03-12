@@ -124,7 +124,7 @@ public class MyLinkedList implements List {
 			Node p = head;
 			for (int i = 0; i < size; i++) {
 				if (p.next.next == null) {
-					removeObject = p.next;
+					removeObject = p.next.data;
 					p.next = null;
 					break;
 				} else {
