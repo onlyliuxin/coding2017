@@ -3,13 +3,19 @@ package com.liam.learn.code2017;
 public class Queue {
 
 	private LinkedList linkedList;
-	
+
+	public Queue() {
+		this.linkedList = new LinkedList();
+	}
+
 	public void enQueue(Object o){
-		linkedList = new LinkedList();
 		linkedList.add(o);
 	}
 	
 	public Object deQueue(){
+		if (linkedList == null || isEmpty()){
+			return null;
+		}
 		return linkedList.removeFirst();
 	}
 	
@@ -18,6 +24,9 @@ public class Queue {
 	}
 	
 	public int size(){
+		if (linkedList == null || isEmpty()){
+			return 0;
+		}
 		return linkedList.size();
 	}
 }

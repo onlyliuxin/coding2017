@@ -106,6 +106,12 @@ public class LinkedList implements List {
 		if (head == null){
 			throw new RuntimeException("链表为空");
 		}
+		if (size ==1){
+			Object ret = head.getData();
+			head = null;
+			tail = null;
+			return ret;
+		}
 		Object headData = head.getData();
 		head = getNode(1);
 		size--;
