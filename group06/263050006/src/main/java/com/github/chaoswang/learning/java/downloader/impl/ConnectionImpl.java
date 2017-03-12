@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 
 import com.github.chaoswang.learning.java.downloader.api.Connection;
 
@@ -12,6 +13,7 @@ public class ConnectionImpl implements Connection{
 
 	private HttpURLConnection conn;
 	private InputStream is;
+	
 	public ConnectionImpl(String url){
 		initConn(url);
 	}
@@ -30,14 +32,23 @@ public class ConnectionImpl implements Connection{
 	
 	@Override
 	public byte[] read(int startPos, int endPos) throws IOException {
-		byte[] buffer = new byte[getContentLength()];    
-        int len = 0;    
+		byte[] buffer = new byte[1024 * 1024];    
+		is.skip(startPos);
+        //该线程需要下载的字节数
+		int currentSectionLength = endPos - startPos + 1;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();    
-        while((len = is.read(buffer)) != -1) {    
-            bos.write(buffer, 0, len);    
+		int len = 0;    
+		int hasRead = 0;
+        while((len < currentSectionLength) && ((hasRead = is.read(buffer)) != -1)) {    
+            bos.write(buffer, 0, hasRead);  
+            len += hasRead;
         }    
         bos.close();    
-        return bos.toByteArray();    
+        is.close();
+        //这里的bytes可能比currentSectionLength稍多，须截取
+        byte[] downloadedBytes = bos.toByteArray();
+        byte[] needToDownload = Arrays.copyOf(downloadedBytes, currentSectionLength);
+        return needToDownload;    
 	}
 
 	@Override

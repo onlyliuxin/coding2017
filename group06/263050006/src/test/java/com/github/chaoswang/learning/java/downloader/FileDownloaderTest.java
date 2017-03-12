@@ -21,9 +21,9 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://dev.zte.com.cn/upload/banners/1488981056630_.jpg";
+		String url = "http://desk.fd.zol-img.com.cn/t_s2560x1600c5/g5/M00/02/09/ChMkJ1bKzeqIXxeTACOMfnPW4wsAALJFgHb1LMAI4yW109.jpg";
 		
-		FileDownloader downloader = new FileDownloader(url);
+		FileDownloader downloader = new FileDownloader(url, 1);
 
 	
 		ConnectionManager cm = new ConnectionManagerImpl();

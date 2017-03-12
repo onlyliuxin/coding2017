@@ -20,6 +20,10 @@ public class ArrayUtil {
 	 */
 	public static int[] reverseArray(int[] origin){
 		int length = origin.length;
+		if(origin == null || length == 0){
+			return null;
+		}
+		
 		for(int i=0;i<length/2;i++){
 			int tmp = origin[i];
 			origin[i] = origin[length - 1 - i];

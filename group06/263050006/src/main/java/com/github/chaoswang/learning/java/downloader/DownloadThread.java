@@ -1,47 +1,49 @@
 package com.github.chaoswang.learning.java.downloader;
 
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 
 import com.github.chaoswang.learning.java.downloader.api.Connection;
 
 public class DownloadThread extends Thread{
 
-	Connection conn;
-	int startPos;
-	int endPos;
+	private Connection conn;
+	private int startPos;
+	private int endPos;
 
-	public DownloadThread( Connection conn, int startPos, int endPos){
-		this.conn = conn;		
-		this.startPos = startPos;
-		this.endPos = endPos;
+	public DownloadThread(Connection conn, int totalSection, int sectionIndex){
+		this.conn = conn;
+		int contentLength = conn.getContentLength();
+		initStartPosAndEndPos(contentLength, totalSection, sectionIndex);
+	}
+	
+	private void initStartPosAndEndPos(int contentLength, int totalSection, int sectionIndex){
+		int sectionLength = contentLength / totalSection;  
+		startPos = (sectionIndex - 1) * sectionLength;
+        if(sectionIndex == totalSection){
+        	endPos = contentLength - 1;
+        }else{
+        	endPos = sectionIndex * sectionLength - 1;
+        }
 	}
 	
 	public void run(){	
 		try {
-			writeByteArrayToFile(conn.read(startPos, endPos), "F:\\6977.png");
+			writeByteArrayToFile(conn.read(startPos, endPos), "F:\\tmp\\6977.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	private void writeByteArrayToFile(byte[] buf, String destFilePath){
-		BufferedOutputStream bos = null;
-		try{
-			bos = new BufferedOutputStream(new FileOutputStream(destFilePath));
-			bos.write(buf);
-			bos.flush();
-		} catch (IOException e){
+		try {
+			// 创建一个可读可写的随机访问文件
+			RandomAccessFile out = new RandomAccessFile(destFilePath, "rw");
+			out.seek(startPos);// 从指定位置开始写
+			out.write(buf);
+	        out.close();// 从里到外关闭文件
+		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (bos != null){
-					bos.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 }

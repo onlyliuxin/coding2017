@@ -1,22 +1,22 @@
 package com.github.chaoswang.learning.java.downloader;
 
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
 import com.github.chaoswang.learning.java.downloader.api.Connection;
 import com.github.chaoswang.learning.java.downloader.api.ConnectionException;
 import com.github.chaoswang.learning.java.downloader.api.ConnectionManager;
 import com.github.chaoswang.learning.java.downloader.api.DownloadListener;
 
 public class FileDownloader {
-	
 	String url;
-	
 	DownloadListener listener;
-	
 	ConnectionManager cm;
+	int threadNum = 10;
 	
-
-	public FileDownloader(String _url) {
+	public FileDownloader(String _url, int threadNum) {
 		this.url = _url;
-		
+		this.threadNum = threadNum;
 	}
 	
 	public void execute(){
@@ -33,34 +33,52 @@ public class FileDownloader {
 		// 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
-		Connection conn = null;
-		try {
-			
-			conn = cm.open(this.url);
-			
-			int length = conn.getContentLength();	
-			
-			Thread dt = new DownloadThread(conn, 0, length-1);
-			dt.start();
-			dt.join();
-		} catch (Exception e) {			
-			e.printStackTrace();
-		}finally{
-			if(conn != null){
-				conn.close();
+		// 参考：http://blog.csdn.net/yan8024/article/details/46474239
+		
+		long startTime = System.currentTimeMillis();
+		//判断所有线程是否运行完毕
+		ArrayList<Thread> list = new ArrayList<Thread>();
+		
+		try{
+			for(int i=1; i<=threadNum; i++){
+				Connection conn = cm.open(url);
+				Thread dt = new DownloadThread(conn, threadNum, i);
+				dt.start();
+				list.add(dt);
 			}
+		}catch(ConnectionException e){
+			e.printStackTrace();
+			return;
 		}
 		
-		listener.notifyFinished();
-		
-		
+		while(true){
+			try {
+				TimeUnit.SECONDS.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				break;
+			}
+			if(!isAllFinished(list)){
+				continue;
+			}
+			System.out.println("finished, cost time:" + (System.currentTimeMillis() - startTime));
+			listener.notifyFinished();
+			break;
+		}
+	}
+	
+	private boolean isAllFinished(ArrayList<Thread> list){
+		for(Thread t : list){
+			if(t.getState() != Thread.State.TERMINATED){
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public void setListener(DownloadListener listener) {
 		this.listener = listener;
 	}
-
-	
 	
 	public void setConnectionManager(ConnectionManager ucm){
 		this.cm = ucm;
@@ -69,5 +87,4 @@ public class FileDownloader {
 	public DownloadListener getListener(){
 		return this.listener;
 	}
-	
 }
