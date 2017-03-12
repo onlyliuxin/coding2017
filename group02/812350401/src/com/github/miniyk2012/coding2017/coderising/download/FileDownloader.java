@@ -47,8 +47,8 @@ public class FileDownloader {
 
         try (RandomAccessFile raf = new RandomAccessFile(new File(fileName), "rwd")) {
             conn = cm.open(this.url);
-            raf.setLength(length);
             length = conn.getContentLength();
+            raf.setLength(length);
             threadPoolDownload();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
