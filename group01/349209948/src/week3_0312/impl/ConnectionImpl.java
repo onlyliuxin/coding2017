@@ -2,9 +2,10 @@ package week3_0312.impl;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.omg.CORBA.portable.InputStream;
+import java.io.InputStream;
 
 import week3_0312.api.Connection;
 
@@ -12,6 +13,14 @@ public class ConnectionImpl implements Connection{
 	
 	private URL url = null;
 	private HttpURLConnection conn = null;
+	
+	public ConnectionImpl(String url){
+		try{
+			this.url = new URL(url);
+		} catch(MalformedURLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public byte[] read(int startPos, int endPos) throws IOException {

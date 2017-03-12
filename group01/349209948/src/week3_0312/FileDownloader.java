@@ -52,6 +52,7 @@ public class FileDownloader {
 				downloadThread1.join();
 				downloadThread2.join();
 				downloadThread3.join();
+				listener.notifyFinished();
 			} catch(InterruptedException e) {
 				e.printStackTrace();
 			}
