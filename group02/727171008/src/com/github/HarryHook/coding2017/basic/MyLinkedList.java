@@ -23,10 +23,15 @@ public class MyLinkedList implements List
 	{
 		
 		if (index > size || index < 0)
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);	
+		{
+		    throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);	
+		}
+		    
 		//存在插入头结点的情况
 		if(index == 0)
-			addFirst(o);
+		{
+		    addFirst(o);
+		}	
 		else
 		{		//即 index != 0 的情况
 				// p保存待插入节点的前一节点，x指向要插入的节点
@@ -51,7 +56,9 @@ public class MyLinkedList implements List
 	public Object get(int index)
 	{	
 		if(index >= size)
+		{
 			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+		}
 		Node x = head; 
 		int i = 0;
 		while(i < index && x != null)
@@ -66,7 +73,9 @@ public class MyLinkedList implements List
 	public Object remove(int index)
 	{
 		if (index > size || index < 0)
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+		{
+		    throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+		}
 		//先判断是否是头节点
 		if( index == 0)
 		{			
@@ -109,8 +118,8 @@ public class MyLinkedList implements List
 			 head.data = o;
 		 }
 		else
-	    {
-	    	Node x = head; 
+		{
+	    		Node x = head; 
 			while(x.next != null)		
 			{
 				x = x.next;
@@ -119,7 +128,7 @@ public class MyLinkedList implements List
 			x.next = n;
 			n.next = null;
 			n.data = o;
-	    }
+		}
 		size++;
 	}
 	//移除第一个节点
@@ -134,7 +143,6 @@ public class MyLinkedList implements List
 	}
 	
 	//移除最后一个节点
-	//removeLast()方法存在bug
 	public Object removeLast()
 	{
 		Node x = head; 
@@ -157,7 +165,8 @@ public class MyLinkedList implements List
 			return Data;	
 		}
 	}
-	public int size(){
+	public int size()
+	{
 		return size;
 	}
 	public Iterator iterator()
@@ -185,7 +194,9 @@ public class MyLinkedList implements List
 	public void reverse()
 	{		
 		if(head == null)
+		{
 			return ;
+		}
 		Node p1, p2, p3;
 		p1 = head;
 		p2 = p1.next;
@@ -209,7 +220,9 @@ public class MyLinkedList implements List
 	public  void removeFirstHalf()
 	{
 		if(size == 0)
-			return ;
+		{
+		    	return ;
+		}
 		Node p = head;
 		Node q = null;
 		int i = size / 2;
@@ -290,7 +303,9 @@ public class MyLinkedList implements List
 	public int[] getElements(MyLinkedList list)
 	{
 		if(list == null)
+		{
 			return new int[0];
+		}
 		int i = 0 ;
 		int[] array = new int[list.size()];
 		while(i < list.size())
@@ -308,11 +323,13 @@ public class MyLinkedList implements List
 	 * @param list
 	 */
 	
-	public  void subtract(MyLinkedList list)
+	public void subtract(MyLinkedList list)
 	{
 		int i = 0;
 		if(list == null)
+		{
 			return ;
+		}
 		while(i < list.size())
 		{
 			for(int index = 0; index < this.size(); index++)
@@ -335,6 +352,7 @@ public class MyLinkedList implements List
 					size--;
 				}
 			}
+			
 			i++;
 		}
 	}
@@ -346,7 +364,9 @@ public class MyLinkedList implements List
 	public  void removeDuplicateValues()
 	{
 		if(head == null)
+		{
 			return ;
+		}
 		Node p = head;
 		Node q = head; //前驱
 		while(p.next != null)
@@ -395,7 +415,9 @@ public class MyLinkedList implements List
 				break ;
 		}
 		if(q == head) 	//头结点被删掉
-			head = p;
+		{
+		    	head = p;
+		}	
 		else			
 		{
 			q.next = p;
@@ -411,14 +433,15 @@ public class MyLinkedList implements List
 	public  MyLinkedList intersection(MyLinkedList list)
 	{
 		if(list == null || this == null)
+		{
 			return null;
+		}
 		Node p1 = list.head;
 		Node p2 = this.head;
 		MyLinkedList newList = new MyLinkedList();
 		
 		while(p1 != null && p2 != null)
 		{
-			
 			while(((int) p1.data < (int) p2.data) && p1.next != null)
 			{
 				p1 = p1.next;
@@ -435,7 +458,9 @@ public class MyLinkedList implements List
 			}
 			
 			if(p1 == null && p2 == null)  //若最后两个元素相等
+			{
 				break;
+			}
 		}
 		return newList;
 	}
