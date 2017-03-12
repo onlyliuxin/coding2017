@@ -25,7 +25,7 @@ public class DownloadThread extends Thread {
 
     public void run() {
         Thread current = Thread.currentThread();
-        System.out.println(current.getName());
+        System.out.println(current.getName()+"开始下载");
         try {
             RandomAccessFile randomAccessFile = new RandomAccessFile(file,"rw");
             byte[] bytes = conn.read(startPos,endPos);
@@ -36,6 +36,7 @@ public class DownloadThread extends Thread {
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }finally {
+            System.out.println(current.getName()+"下载完成");
             downloadListener.notifyFinished();
         }
     }

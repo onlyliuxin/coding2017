@@ -8,54 +8,56 @@ import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
 import com.coderising.download.impl.ConnectionManagerImpl;
 
+import java.util.concurrent.CountDownLatch;
+
 public class FileDownloaderTest {
-	boolean downloadFinished = false;
-	int notify = 0;
-	@Before
-	public void setUp() throws Exception {
-	}
+    boolean downloadFinished = false;
+    int notify = 0;
+    CountDownLatch countDownLatch = new CountDownLatch(3);
 
-	@After
-	public void tearDown() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void testDownload() {
-		
-		String url = "http://gss0.baidu.com/7Po3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/5ab5c9ea15ce36d33274da5e3cf33a87e950b168.jpg";
-		
-		FileDownloader downloader = new FileDownloader(url);
+    @After
+    public void tearDown() throws Exception {
+    }
 
-	
-		ConnectionManager cm = new ConnectionManagerImpl();
-		downloader.setConnectionManager(cm);
-		
-		downloader.setListener(new DownloadListener() {
-			@Override
-			public void notifyFinished() {
-				downloadFinished = true;
-				notify++;
-			}
+    @Test
+    public void testDownload() {
 
-		});
+        String url = "http://7xq43s.com1.z0.glb.clouddn.com/yunanding-6.jpg";
 
-		
-		downloader.execute();
-		
-		// 等待多线程下载程序执行完毕
-		while (notify<3) {
-			try {
-				System.out.println("下载中");
-				//休眠5秒
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {				
-				e.printStackTrace();
-			}
-		}
-		System.out.println("下载完成！");
-		
-		
+        FileDownloader downloader = new FileDownloader(url);
 
-	}
+
+        ConnectionManager cm = new ConnectionManagerImpl();
+        downloader.setConnectionManager(cm);
+
+        downloader.setListener(new DownloadListener() {
+            @Override
+            public void notifyFinished() {
+                countDownLatch.countDown();
+            }
+
+        });
+
+
+        downloader.execute();
+
+        // 等待多线程下载程序执行完毕
+        while (countDownLatch.getCount() > 0) {
+            try {
+                System.out.println("下载中...");
+                //休眠
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("下载完成！");
+
+
+    }
 
 }

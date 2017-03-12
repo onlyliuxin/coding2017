@@ -62,8 +62,7 @@ public class FileDownloader {
                 if (i == threadCount - 1) {
                     endPos = length;
                 }
-                System.out.println("线程" + i + "下载的部分为：" + blockSize * i + "---" + (endPos - 1));
-                new DownloadThread(file,cm.open(this.url), blockSize * i, (endPos - 1),listener).start();
+                new DownloadThread(file, cm.open(this.url), blockSize * i, (endPos - 1), listener).start();
             }
         } catch (ConnectionException e) {
             e.printStackTrace();
