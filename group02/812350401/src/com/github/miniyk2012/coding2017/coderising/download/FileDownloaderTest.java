@@ -10,6 +10,7 @@ import com.github.miniyk2012.coding2017.coderising.download.impl.ConnectionManag
 
 public class FileDownloaderTest {
 	boolean downloadFinished = false;
+	private double time = 0;
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -25,7 +26,6 @@ public class FileDownloaderTest {
 //		String url = "https://www.baidu.com/img/bd_logo.png";
 
 		FileDownloader downloader = new FileDownloader(url, "test.png");
-
 	
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
@@ -34,24 +34,22 @@ public class FileDownloaderTest {
 			public void notifyFinished() {
 				downloadFinished = true;
 			}
-
 		});
-
 		
 		downloader.execute();
 		
 		// 等待多线程下载程序执行完毕
 		while (!downloadFinished) {
 			try {
-				System.out.println("还没有下载完成，休眠五秒");
-				//休眠5秒
-				Thread.sleep(5000);
+				System.out.println("还没有下载完成，休眠0.01秒");
+				time += 0.01;
+				//休眠0.01秒
+				Thread.sleep(10);
 			} catch (InterruptedException e) {				
 				e.printStackTrace();
 			}
 		}
-		System.out.println("下载完成！");
+		System.out.println("下载完成！耗时"+time+"秒");
 
 	}
-
 }
