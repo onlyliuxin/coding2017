@@ -1,6 +1,8 @@
 package com.coderising.download;
 
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
 
 import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
@@ -43,22 +45,25 @@ public class FileDownloader {
 			conn = cm.open(url);
 			int length = conn.getContentLength();
 			int[] posArr = FileDownloadUtil.generateDownloadPosArr(length);
+			CountDownLatch latch = new CountDownLatch(3);
 			for (int i = 0; i < posArr.length; i++) {
-				if(i == posArr.length - 1){
-					new DownloadThread(cm.open(url), posArr[i], length).start();
-				}else{
-					new DownloadThread(cm.open(url), posArr[i], posArr[i + 1] - 1).start();
+				if (i == posArr.length - 1) {
+					new DownloadThread(cm.open(url), posArr[i], length, latch).start();
+				} else {
+					new DownloadThread(cm.open(url), posArr[i], posArr[i + 1] - 1, latch).start();
 				}
 			}
-
+			latch.await();
+			System.out.println("Download Finished");
 		} catch (ConnectionException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
 			if (conn != null) {
 				conn.close();
 			}
 		}
-
 	}
 
 	public void setListener(DownloadListener listener) {
