@@ -32,5 +32,48 @@ public class LinkedListTest extends LinkedList {
 			System.out.println(iterator.next());
 		}
 	}
-
+	@Test
+	public void testReverse() {
+		LinkedList list = new LinkedList();
+		list.add(1);
+		list.add(2);
+		list.add(3);
+		list.add(4);
+		list.add(5);
+		list.add(6);
+		list.add(7);
+		Iterator iterator = list.iterator();
+		while (iterator.hasNext()) {
+			System.out.print(iterator.next());
+		}
+		System.out.println();
+		list.reverse();
+		Iterator iterator2 = list.iterator();
+		while (iterator2.hasNext()) {
+			System.out.print(iterator2.next());
+		}
+		System.out.println();
+		list.removeFirstHalf();
+		Iterator iterator3 = list.iterator();
+		while (iterator3.hasNext()) {
+			System.out.print(iterator3.next());
+		}
+		System.out.println();
+		
+	}
+	@Test
+	public void testRemove() {
+		LinkedList list = new LinkedList();
+		int i = 0;
+		while( i < 20) {
+			list.add(i);
+			i ++;
+		}
+		list.remove(3, 10);
+		Iterator iterator = list.iterator();
+		while (iterator.hasNext()) {
+			System.out.print(iterator.next());
+		}
+	}
+	
 }
