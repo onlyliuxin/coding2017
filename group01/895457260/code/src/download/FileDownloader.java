@@ -17,10 +17,9 @@ public class FileDownloader {
 	private final int[] completedThreadCount = new int[1];
 
 	/**
-	 * 下载目录见 <code>Config</code>
+	 * 下载一个url指向的文件，下载目录见 <code>Config</code>
+	 *
 	 * @see Config#targetDirectory
-	 * @see #setConnectionManager(ConnectionManager)
-	 * @see #setListener(DownloadListener)
 	 * @see #execute()
 	 */
 	public FileDownloader(String url) {
@@ -201,7 +200,7 @@ public class FileDownloader {
 
 	/**
 	 *
-	 * @param manager 通过url，打开连接
+	 * @param manager 通过url打开连接
 	 * @see ConnectionManager#open(String)
 	 */
 	public void setConnectionManager(ConnectionManager manager) {

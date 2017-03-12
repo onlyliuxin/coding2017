@@ -12,17 +12,17 @@ public class ConnectionImpl implements Connection {
 	private InputStream inputStream;
 
 	ConnectionImpl(String url) throws ConnectionException {
-		init(url);
+		try {
+			init(url);
+		} catch (IOException e) {
+			throw new ConnectionException();
+		}
 	}
 
-	private void init(String url) {
-		try {
-			connection = new URL(url).openConnection();
-			inputStream = new BufferedInputStream(connection.getInputStream());
-			inputStream.mark(connection.getContentLength()); // 标记在开头
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	private void init(String url) throws IOException {
+		connection = new URL(url).openConnection();
+		inputStream = new BufferedInputStream(connection.getInputStream());
+		inputStream.mark(connection.getContentLength()); // 标记在开头
 	}
 
 	@Override
