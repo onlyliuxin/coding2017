@@ -290,6 +290,7 @@ public class LinkedList implements List {
 
         while (true) {
             if (subTail == null) {
+                subHead.next = null; // 清除尾部重复的元素
                 break;
             }
             if ((int) subTail.data == (int) subHead.data) {
