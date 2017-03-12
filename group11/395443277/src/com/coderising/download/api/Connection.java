@@ -2,7 +2,7 @@ package com.coderising.download.api;
 
 import java.io.IOException;
 
-public interface Connection {
+public interface Connection{
 	/**
 	 * 给定开始和结束位置， 读取数据， 返回值是字节数组
 	 * @param startPos 开始位置， 从0开始
