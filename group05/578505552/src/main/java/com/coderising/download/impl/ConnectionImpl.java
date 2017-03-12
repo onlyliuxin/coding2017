@@ -10,24 +10,21 @@ public class ConnectionImpl implements Connection{
 
 	private HttpURLConnection conn;
 
-	public ConnectionImpl() {
-	}
-
 	public ConnectionImpl(HttpURLConnection urlConnection) {
 		this.conn = urlConnection;
 	}
 
 	public byte[] read(int startPos, int endPos) throws IOException {
 		conn.setRequestProperty("Range", "bytes=" + startPos + "-" + endPos);
-		byte[] temp = null;
 		if (conn.getResponseCode() == 206){
 			InputStream inputStream = conn.getInputStream();
-			temp = new byte[endPos - startPos + 1];
+			byte[] temp = new byte[endPos - startPos + 1];
 			while ((inputStream.read(temp)) != -1){
 
 			}
+			return temp;
 		}
-		return temp;
+		return new byte[0];
 	}
 
 	public int getContentLength() {

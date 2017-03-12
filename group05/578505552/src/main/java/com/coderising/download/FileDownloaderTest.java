@@ -23,18 +23,15 @@ public class FileDownloaderTest {
 	public void testDownload() {
 		
 		String url = "https://ss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/image/h%3D360/sign=9bb90992550fd9f9bf17536f152cd42b/9a504fc2d5628535959cf4cf94ef76c6a6ef63db.jpg";
-		
+
 		FileDownloader downloader = new FileDownloader(url);
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
-		
 		downloader.setListener(new DownloadListener() {
 			public void notifyFinished() {
 				downloadFinished = true;
 			}
-
 		});
-
 		downloader.execute();
 		
 		// 等待多线程下载程序执行完毕

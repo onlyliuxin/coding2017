@@ -6,9 +6,6 @@ import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 
 public class FileDownloader {
 	
@@ -27,11 +24,8 @@ public class FileDownloader {
 			Connection conn = cm.open(this.url);
 			int length = conn.getContentLength();
 
-			File targetFile = new File("D:" + File.separator + "meinv.jpg");
-			RandomAccessFile randomAccessFile = new RandomAccessFile(targetFile, "rw");
-			randomAccessFile.setLength(length);
+			File targetFile = new File("D:" + File.separator + getFileName());
 			System.out.println("总长度：" + length);
-			randomAccessFile.close();
 
 			int temp = length / threadCount;
 			for (int i = 0; i < threadCount; i++) {
@@ -48,13 +42,13 @@ public class FileDownloader {
 			}
 		} catch (ConnectionException e) {
 			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		} finally{
 
 		}
+	}
+
+	public String getFileName(){
+		return "meinv.jpg";
 	}
 
 	public synchronized static boolean isDownLoadFinished(){
@@ -69,9 +63,4 @@ public class FileDownloader {
 	public void setConnectionManager(ConnectionManager ucm){
 		this.cm = ucm;
 	}
-	
-	public DownloadListener getListener(){
-		return this.listener;
-	}
-	
 }

@@ -32,12 +32,12 @@ public class DownloadThread extends Thread{
 			randomAccessFile.write(content, 0, endPos - startPos + 1);
 			randomAccessFile.close();
 
+			System.out.println("线程" + this.getName() + "完成" + startPos + "--" + endPos + "数据的下载");
+
 			if (FileDownloader.isDownLoadFinished()){
 				listener.notifyFinished();
 				System.out.println(">>>>>>>>>>>>>>线程" + this.getName() + "完成了最终的下载");
 			}
-
-			System.out.println("线程" + this.getName() + "完成" + startPos + "--" + endPos + "数据的下载");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
