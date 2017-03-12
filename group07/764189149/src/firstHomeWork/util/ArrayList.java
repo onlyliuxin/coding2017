@@ -108,11 +108,9 @@ public class ArrayList<E> implements List<E> {
 	}
 
 	@Override
-	public E set(int index, E e) {
+	public void set(int index, E e) {
 		rangeCheck(index);
-		E oldElement = (E) elements[index];
 		elements[index] = e;
-		return oldElement;
 	}
 
 	@Override
