@@ -1,7 +1,6 @@
 package com.leijing.coderising.array;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -25,9 +24,10 @@ public class ArrayUtil {
 			throw new Exception("array origin is empty");
 		}
 		int size = origin.length;
-		int[] copy = Arrays.copyOf(origin, size);
 		for (int i = 0; i < size; i++) {
-			origin[size - i - 1] = copy[i];
+			int tmp = origin[i];
+			origin[i] = origin[size - i - 1];
+			origin[size - i - 1] = tmp;
 		}
 	}
 

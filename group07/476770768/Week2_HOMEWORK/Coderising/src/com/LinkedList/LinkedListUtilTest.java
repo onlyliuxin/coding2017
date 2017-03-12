@@ -74,7 +74,7 @@ public class LinkedListUtilTest {
 		llu.add(601);
 		llu.add(701);
 		llu.add(801);
-		LinkedList<Integer> l = new LinkedList<Integer>();
+		LinkedListUtil<Integer> l = new LinkedListUtil<Integer>();
 		l.add(1);
 		l.add(3);
 		l.add(4);
