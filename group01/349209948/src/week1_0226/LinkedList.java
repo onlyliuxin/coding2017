@@ -253,6 +253,7 @@ public class LinkedList implements List {
 		Node subTail = head;
 		while(true) {
 			if (subTail == null) {
+				subHead.next = null;
 				break;
 			}
 			if ((int)subTail.data == (int)subHead.data) {
