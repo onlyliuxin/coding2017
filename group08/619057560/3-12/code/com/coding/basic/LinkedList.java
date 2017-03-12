@@ -200,7 +200,13 @@ public class LinkedList implements List {
 		
 		Node pNode1 = head, pNode2 = head.next, tmpNode;
 		
+		// 1. 断开head和后面节点的连接
 		head.next = null;
+		
+		// 2. 每一步的初始状况若为
+		// <--pNode1  pNode2-->pNode3...  其中pNode2不可为null, pNode3可为null
+		// 则需将其转为
+		// <--pNode1<--pNode2  pNode3...
 		while (pNode2 != null) {
 			tmpNode = pNode2.next;
 			pNode2.next = pNode1;
@@ -208,6 +214,7 @@ public class LinkedList implements List {
 			pNode2 = tmpNode;
 		}
 		
+		// 3. 将最后一个非空节点设为head
 		head = pNode1;
 	}
 	
@@ -232,6 +239,7 @@ public class LinkedList implements List {
 	public  void remove(int i, int length){
 		ensureBounds(i);
 		Node pNode1 = head, pNode2;
+		// 1. 找到第i个节点pNode2，若i不为0，找到第i-1个节点pNode1, 否则将head设为null提示其需要移动到新的节点
 		if (i == 0) {
 			pNode2 = head;
 			head = null;
@@ -241,10 +249,12 @@ public class LinkedList implements List {
 			}
 			pNode2 = pNode1.next;
 		}
+		// 2. pNode2从当前位置开始，跳跃length个元素
 		while (length-- > 0 && pNode2 != null) {
 			pNode2 = pNode2.next;
 		}
 		
+		// 3. 若需要移动head节点，则把当前pNode设为head；否则删掉pNode1和pNode2之间的所有节点
 		if (head == null) {
 			head = pNode2;
 		} else {
@@ -279,13 +289,13 @@ public class LinkedList implements List {
 
 	 * @param list
 	 */
-	
-	public  void subtract(LinkedList origList){
-		if (origList == null) {
+	// 将list递增排序，从当前链表中找到与list的交集并删除
+	public  void subtract(LinkedList list){
+		if (list == null) {
 			return;
 		}
 		
-		LinkedList list = binaryTreeSort(origList);
+		list = binaryTreeSort(list);
 		
 		Iterator listItr = list.iterator();
 		Iterator mainItr = iterator();
@@ -326,14 +336,17 @@ public class LinkedList implements List {
 	public  void removeRange(int min, int max){
 		Node pNode = head, pNodeMark = null;
 		
+		// 1. 从head开始遍历，找到第一个大于min的节点，记录之前的节点
 		while (pNode != null && (Integer)pNode.data <= min) {
 			pNodeMark = pNode;
 			pNode = pNode.next;
 		}
+		// 2. 继续遍历，找到第一个不小于max的节点
 		while (pNode != null && (Integer)pNode.data < max) {
 			pNode = pNode.next;
 		}
 		
+		// 3. 删除第2步遍历的所有节点
 		if (pNodeMark == null) {
 			head = pNode;
 		} else {
@@ -356,6 +369,7 @@ public class LinkedList implements List {
 		Iterator listItr = list.iterator();
 		Iterator mainItr = iterator();
 		
+		// 找到所有交集元素，并将其添加到新到链表
 		intersectionIteration(new intersectionIterationCallback(){
 
 			@Override
@@ -368,6 +382,7 @@ public class LinkedList implements List {
 		return newList;
 	}
 	
+	// 将用二叉树排序生成新的递增链表，生成的链表不会包含值相同的多余元素
 	public LinkedList binaryTreeSort(LinkedList list) {
 		if (list == null) {
 			return null;
@@ -385,6 +400,7 @@ public class LinkedList implements List {
 		return sortedList;
 	}
 	
+	// 用递归的方式将二叉树中的元素加入链表中，使链表为递增排列
 	private void addNodeToLinkedList(LinkedList list, BinaryTreeNode node) {
 		if (node == null || node.getData() == null) {
 			return;
@@ -394,10 +410,14 @@ public class LinkedList implements List {
 		addNodeToLinkedList(list, node.getLeft());
 	}
 	
+	// 寻找交集时的返回接口，其中包含了找到元素时的返回函数
 	private interface intersectionIterationCallback {
 		void onElementFound(Object element);
 	}
 
+	// 按递增顺序寻找当前链表中所有在list链表中出现的元素（数值相同即视作完全等同），找到即呼叫一次返回函数
+	// 需要提供实例化的返回接口，list链表的迭代器和当前列表的迭代器
+	// 要求：list链表和当前链表必须递增排列
 	private void intersectionIteration(intersectionIterationCallback callback, Iterator listItr, Iterator mainItr) {
 		if (!listItr.hasNext() || !mainItr.hasNext()) {
 			return;
@@ -419,8 +439,10 @@ public class LinkedList implements List {
 			} else {
 				callback.onElementFound(mainValue);
 				mainValue = (Integer)mainItr.next();
+				// substract方程中，当前链表的值可能会相同，所以此时不将list移向下一个节点
 			}
 		}
+		// while循环退出前最后得到的listValue或mainValue并未参与比较
 		if (listValue.intValue() == mainValue.intValue()) {
 			callback.onElementFound(mainValue);
 		}
