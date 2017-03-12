@@ -90,10 +90,11 @@ public class LinkedList<E> implements List<E> {
         } else if (index == (size - 1)) {
             return removeLast();
         } else {
-            Node<E> delNode = index(index);
+            Node<E> prev_index = index(index + 1);
+            Node<E> delNode = prev_index.next;
+            Node<E> next_index = delNode.next;
             E e = delNode.data;
-            Node<E> prev = index(index - 1);
-            prev.next = index(index + 1);
+            prev_index.next = next_index;
             delNode = null;
             size--;
             return e;
@@ -177,11 +178,17 @@ public class LinkedList<E> implements List<E> {
         if (head == null) {
             throw new NoSuchElementException();
         }
-        Node<E> end = index(size - 1);
-        E e = end.data;
-        end = null;
-        end = index(size - 2);
-        end.next = null;
+        E e = null;
+        if (size == 1) {
+            e = head.data;
+            head = null;
+        } else {
+            Node<E> lastButOne = index(size - 2);
+            Node<E> end = lastButOne.next;
+            e = end.data;
+            end = null;
+            lastButOne.next = null;
+        }
         size--;
         return e;
     }
@@ -203,11 +210,11 @@ public class LinkedList<E> implements List<E> {
         }
     }
 
-    public Iterator iterator(){
+    public Iterator iterator() {
         return new LinkedListIterator<>();
     }
 
-    private class LinkedListIterator<E> implements Iterator<E>{
+    private class LinkedListIterator<E> implements Iterator<E> {
 
         private int cursor;//游标
 
@@ -215,19 +222,19 @@ public class LinkedList<E> implements List<E> {
 
         @Override
         public boolean hasNext() {
-            return cursor!=size;
+            return cursor != size;
         }
 
         @Override
         public E next() {
             int i = cursor;
             cursor++;
-            return (E) LinkedList.this.get(lastRet=i);
+            return (E) LinkedList.this.get(lastRet = i);
         }
 
         @Override
         public void remove() {
-            if(lastRet<0){
+            if (lastRet < 0) {
                 throw new IllegalStateException();
             }
             cursor = lastRet;
@@ -235,4 +242,173 @@ public class LinkedList<E> implements List<E> {
             lastRet = -1;
         }
     }
+
+
+    /**
+     * 把该链表逆置
+     * 例如链表为 3->7->10 , 逆置后变为  10->7->3
+     */
+    public void reverse() {
+        Queue<E> queue = new Queue<E>();
+        Iterator iterator = iterator();
+        while (iterator.hasNext()) {
+            E e = (E) iterator.next();
+            queue.enQueue(e);
+            iterator.remove();
+        }
+        for (int i = 0; i < queue.size(); i++) {
+            addFirst(queue.deQueue());
+        }
+    }
+
+    /**
+     * 删除一个单链表的前半部分
+     * 例如：list = 2->5->7->8 , 删除以后的值为 7->8
+     * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
+     */
+    public void removeFirstHalf() {
+        int index = size >> 1;
+        if (index > 0) {
+            Node node = index(index);
+            head = node;
+        }
+    }
+
+    /**
+     * 从第i个元素开始， 删除length 个元素 ， 注意i从0开始
+     *
+     * @param i
+     * @param length
+     */
+    public void remove(int i, int length) {
+        if (i + length > size - 1) {
+            throw new IndexOutOfBoundsException();
+        }
+        Node<E> indexNode = index(i);
+        Node<E> nextNode = indexNode.next;
+        for (int j = i; j < length + i; j++) {
+            nextNode = nextNode.next;
+        }
+        indexNode.next = nextNode;
+
+    }
+
+    /**
+     * 假定当前链表和list均包含已升序排列的整数
+     * 从当前链表中取出那些list所指定的元素
+     * 例如当前链表 = 11->101->201->301->401->501->601->701
+     * listB = 1->3->4->6
+     * 返回的结果应该是[101,301,401,601]
+     *
+     * @param list
+     */
+    public int[] getElements(LinkedList list) {
+        Queue<Integer> queue = new Queue<>();
+        for (int i = 0; i < list.size(); i++) {
+            queue.enQueue((Integer) list.get(i));
+        }
+        int[] result = new int[queue.size()];
+        int index = 0;
+        for (int i = 0; i < size; i++) {
+            if (i == queue.peek().intValue()) {
+                result[index++] = (Integer) get(i);
+                queue.deQueue();
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
+     * 从当前链表中中删除在list中出现的元素
+     *
+     * @param list
+     */
+
+    public void subtract(LinkedList list) {
+        Queue<E> queue = new Queue<>();
+        for (int i = 0; i < list.size(); i++) {
+            queue.enQueue((E) list.get(i));
+        }
+        Iterator iterator = iterator();
+        while (iterator.hasNext()) {
+            E e = (E) iterator.next();
+            if (e.equals(queue.peek())) {
+                queue.deQueue();
+                iterator.remove();
+            }
+        }
+
+    }
+
+    /**
+     * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。
+     * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
+     */
+    public void removeDuplicateValues() {
+        Iterator iterator = iterator();
+        E cursor = null;
+        while (iterator.hasNext()) {
+            E current = (E) iterator.next();
+            if (cursor != null && current.equals(cursor)) {
+                iterator.remove();
+            } else {
+                cursor = current;
+            }
+        }
+
+    }
+
+    /**
+     * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
+     * 试写一高效的算法，删除表中所有值大于min且小于max的元素（若表中存在这样的元素）
+     *
+     * @param min
+     * @param max
+     */
+    public void removeRange(int min, int max) {
+        Node<E> cursor = head;
+        Node<E> start = null;
+        Node<E> end = null;
+        int num = 0;
+        for (int i = 1; i < size; i++) {
+            int data = (Integer) cursor.data;
+            if (min > data) {
+                start = cursor;
+            }
+            if (max < data) {
+                end = cursor;
+            }
+            if (data > min && data < max) {
+                num++;
+            }
+            cursor = cursor.next;
+        }
+        if (start != null && end != null) {
+            start.next = end;
+            size -= num;
+        }
+    }
+
+    /**
+     * 假设当前链表和参数list指定的链表均以元素依值递增有序排列（同一表中的元素值各不相同）
+     * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
+     *
+     * @param list
+     */
+    public LinkedList intersection(LinkedList list) {
+        LinkedList<E> result = new LinkedList<E>();
+        Queue<E> queue = new Queue<E>();
+        for (int i = 0; i < list.size(); i++) {
+            queue.enQueue((E) list.get(i));
+        }
+        for (int i = 0; i < size; i++) {
+            if (get(i).equals(queue.peek())) {
+                result.add(queue.deQueue());
+            }
+        }
+        return result;
+    }
+
+
 }
