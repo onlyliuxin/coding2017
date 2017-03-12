@@ -1,5 +1,10 @@
 package com.coding2017.week3.download;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import com.coding2017.week3.download.api.Connection;
 import com.coding2017.week3.download.api.ConnectionException;
 import com.coding2017.week3.download.api.ConnectionManager;
@@ -9,13 +14,18 @@ public class FileDownloader {
 
     private String url;
 
+    private String outFilePath;
+
     private DownloadListener listener;
 
     private ConnectionManager cm;
 
-    public FileDownloader(String _url) {
-        this.url = _url;
+    private int threadCount;
 
+    public FileDownloader(String _url, String outFilePath, int threadCount) {
+        this.url = _url;
+        this.outFilePath = outFilePath;
+        this.threadCount = threadCount;
     }
 
     public void execute() {
@@ -31,24 +41,40 @@ public class FileDownloader {
         // 3. 把byte数组写入到文件中
         // 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
 
-        // 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
-        Connection conn = null;
         try {
+            int contentLength = getUrlContentLength(url);
+            FileOutputStream fileOutputStream = new FileOutputStream(outFilePath);
+            fileOutputStream.write(new byte[contentLength]);
+            fileOutputStream.flush();
+            fileOutputStream.close();
 
+            for (int i = 0; i < threadCount; i++) {
+                downloadPart(i, contentLength);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void downloadPart(int part, int length) {
+        Connection conn;
+        try {
             conn = cm.open(this.url);
-
-            int length = conn.getContentLength();
-
-            new DownloadThread(conn, 0, length - 1).start();
-
+            int startPos = part * length / threadCount;
+            int endPos = Math.min(length - 1, (part + 1) * length / threadCount);
+            System.out.println("文件总长度: " + length);
+            new DownloadThread(conn, startPos, endPos, outFilePath, listener).start();
         } catch (ConnectionException e) {
             e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                conn.close();
-            }
         }
+    }
 
+    private int getUrlContentLength(String url) throws IOException {
+        URL connUrl = new URL(url);
+        HttpURLConnection urlConnection = (HttpURLConnection) connUrl.openConnection();
+        int length = urlConnection.getContentLength();
+        urlConnection.disconnect();
+        return length;
     }
 
     public void setListener(DownloadListener listener) {
