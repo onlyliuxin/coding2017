@@ -4,15 +4,8 @@
 	<classpathentry kind="src" path="coding/basic"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/jdom-2.0.6/jdom-2.0.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/jdom-2.0.6/jdom-2.0.6-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/jdom-2.0.6/jdom-2.0.6-contrib.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/jdom-2.0.6/jdom-2.0.6-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/jdom-2.0.6/jdom-2.0.6-junit.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/jdom-2.0.6/lib/jaxen-1.1.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/jdom-2.0.6/lib/xercesImpl.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/jdom-2.0.6/lib/xml-apis.jar"/>
 	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/jaxen-1.1-beta-6.jar"/>
+	<classpathentry kind="lib" path="lib/jdom-2.0.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

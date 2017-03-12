@@ -69,7 +69,7 @@ public class Configuration {
 		Configuration cfg = new Configuration();
 		cfg.parseAction("struts");
 		Map info = cfg.getActionInfo();
-		Map result = cfg.getResultInfo();
+		Map result = cfg.getResultInfo().get("login");
 		println(info);
 		println(result);
 	}

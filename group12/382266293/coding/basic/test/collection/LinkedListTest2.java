@@ -49,7 +49,6 @@ public class LinkedListTest2 extends TestCase {
 
 		myLL = new LinkedList<Integer>();
 		myLL.removeFirstHalf();
-		println(myLL);
 		assertEquals(0, myLL.size());
 
 	}
@@ -70,7 +69,6 @@ public class LinkedListTest2 extends TestCase {
 
 		}
 
-		println(myLL);
 		assertEquals(0, myLL.size());
 
 	}
@@ -91,7 +89,6 @@ public class LinkedListTest2 extends TestCase {
 
 		myLL = new LinkedList<Integer>();
 		result = myLL.getElements(list);
-		println(myLL);
 		assertEquals(0, myLL.size());
 
 	}
@@ -119,6 +116,48 @@ public class LinkedListTest2 extends TestCase {
 		assertEquals(0, myLL.size());
 
 	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Test
+	public void testSubstract2() {
+		LinkedList<Integer> myLL = new LinkedList<Integer>();
+		addIntWithNatureOrder(myLL, 10);
+		myLL.add(10);
+		myLL.add(10);
+		myLL.add(12);
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		list.add(0);
+		list.add(0);
+		addIntWithNatureOrder(list, 10);
+		list.add(10);
+		list.add(12);
+		list.add(22);
+
+		myLL.subtract2(list);
+		assertEquals(0, myLL.size());
+
+		myLL = new LinkedList<Integer>();
+		LinkedList list1 = new LinkedList();
+		myLL.subtract2(list);
+		assertEquals(0, myLL.size());
+		
+		addIntWithNatureOrder(myLL, 10);
+		myLL.add(-3);
+		println(myLL);
+		list1.add(10);
+		list1.add(3);
+		list1.add("dd");
+		list1.add(null);
+		list1.add(-3);
+		list1.add(9);
+		list1.add(0);
+		myLL.subtract2(list1);
+
+		assertEquals("[1, 2, 4, 5, 6, 7, 8]",myLL.toString());
+
+	}
+	
+	
 
 	@Test
 	public void testIntersection() {
@@ -197,5 +236,8 @@ public class LinkedListTest2 extends TestCase {
 		assertEquals(0, myLL.size());
 
 	}
+	
+	
+	
 
 }

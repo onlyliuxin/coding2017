@@ -1,5 +1,6 @@
 package collection.concrete;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -145,8 +146,49 @@ public class LinkedList<E> extends AbstractList<E> {
 	 * 
 	 * @param list
 	 */
+	
+	public void subtract2(LinkedList<E> list) {
+		LinkedList<E> result = new LinkedList<>();
+		
+		if (list.size == 0 || this.size == 0) {
+			return;
+		}
+		
+		Node<E> n1 = this.head;
+		Node<E> n2 = list.head;
+		Node<E> curr_list = list.head;
+		for (int i = 0; i < this.size; i++, n1 = n1.next) {
+			boolean equals = false;
+			curr_list = list.head;
+			while(curr_list != null && !equals) {
+				if (Objects.equals(n1.data, curr_list.data)) {
+					equals = true;
+				}
+				curr_list = curr_list.next;
+			}
+			
+			if (!equals) {
+				result.add(n1.data);
+			}
+			
+		}
+
+		clearAndSetNewHead(this.size);
+		Node<E> p2 = result.head;
+		while(p2.next != null) {
+			add(p2.data);
+			p2 = p2.next;
+		}
+		add(p2.data);
+		this.size = result.size;
+
+	}
+
+	
+	
 
 	public void subtract(LinkedList<E> list) {
+
 		Node<E> n1 = list.getNode(0);
 		Node<E> n2 = head;
 		int count = list.size();
@@ -247,14 +289,6 @@ public class LinkedList<E> extends AbstractList<E> {
 	}
 
 	public static void main(String args[]) {
-		LinkedList<Integer> myLL = new LinkedList<Integer>();
-		myLL.add(0);
-		addIntWithNatureOrder(myLL, 10);
-		myLL.add(10);
-		myLL.add(89);
-		println(myLL);
-		myLL.removeRange(2, 10);
-		println(myLL);
 
 	}
 
