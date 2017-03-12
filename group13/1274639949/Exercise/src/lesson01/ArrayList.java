@@ -1,7 +1,6 @@
 package lesson01;
 
 import java.util.Arrays;
-import java.util.NoSuchElementException;
 
 public class ArrayList<E> implements List<E> {
 
@@ -50,149 +49,64 @@ public class ArrayList<E> implements List<E> {
 	@Override
 	
 	public void clear() {
-		elementData = new Object[elementData.length];
+		elementData = new Object[DEFAULT_CAPACITY];
 		size = 0;
 	}
 
 	@Override
 	public boolean contains(Object o) {
-		if(o == null){
-			for(int i = 0; i < size; i++){
-				if(elementData[i] == null){
-					return true;
-				}
-			}
-		}else{
-			for(int i = 0; i < size; i++){
-				if(o.equals(elementData[i])){
-					return true;
-				}
-			}
+		for(int i = 0; i < size; i++){
+			
 		}
 		return false;
 	}
 
 	@Override
 	public int indexOf(Object o) {
-		if(o == null){
-			for(int i = 0; i < size; i++){
-				if(elementData[i] == null){
-					return i;
-				}
-			}
-		}else{
-			for(int i = 0; i < size; i++){
-				if(o.equals(elementData[i])){
-					return i;
-				}
-			}
-		}
-		return -1;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public E get(int index) {
-		checkIndex(index);
-		return (E) elementData[index];
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	private void checkIndex(int index) {
-		if(index < 0 || index >= size){
-			throw new IndexOutOfBoundsException("Illegal index:" + index);
-		}
-	}
-
-	@SuppressWarnings("unchecked")
 	@Override
 	public E remove(int index) {
-		checkIndex(index);
-		
-		E e = (E) elementData[index];
-		//此处应注意要判断index是否为elementData最后一个元素的下标，因为在下面的arrayCopy方法中要访问index+1的位置，此时有可能发生数组越界。
-		if(index == size -1){
-			size --;
-		}else{
-			System.arraycopy(elementData, index + 1, elementData, index, size - index - 1);
-		}
-		return e;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public boolean remove(Object o) {
-		int index = indexOf(o);
-		if(index >= 0){
-			remove(index);
-			return true;
-		}else{
-			return false;
-		}
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public E set(int index, E element) {
-		checkIndex(index);
-		E e = (E)elementData[index];
-		elementData[index] = element;
-		return e;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public int size() {
-		return size;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
 	public Object[] toArray() {
-		return Arrays.copyOf(elementData, size);
-	}
-	
-	/**
-	 * 将ArrayList中全部元素存入一个运行时确定类型的数组中
-	 * @param t
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public <T> T[] toArray(T[] t){
-		if(t.length < size){
-			t = (T[]) Arrays.copyOf(elementData, size, t.getClass());
-		}else{
-			System.arraycopy(elementData, 0, t, 0, size);
-		}
-		return t;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public Iterator<E> iterator() {
-		return new Iter();
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	private final class Iter implements Iterator<E>{
-		
-		int pos = 0;
-		int lastRet = -1;
 
-		@Override
-		public boolean hasNext() {
-			return pos < size;
-		}
-
-		@Override
-		public E next() {
-			if(!hasNext()){
-				throw new NoSuchElementException();
-			}
-			lastRet = pos++;
-			return get(lastRet);
-		}
-
-		@Override
-		public void remove() {
-			if(lastRet < 0){
-				throw new IllegalStateException();
-			}
-			ArrayList.this.remove(lastRet);
-		}
-	}
 }
