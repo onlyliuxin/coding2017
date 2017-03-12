@@ -33,7 +33,9 @@ public class ConnectionImpl implements Connection{
 		byte[] buffer = new byte[bytesLen];
 
 		if (currPos < startPos) {
-			iStream.skip(startPos - currPos);
+			for (int remaining = startPos - currPos; remaining > 0;) {
+				remaining -= iStream.skip(remaining);
+			}
 		} else if (currPos > startPos) {
 			// should not read previous bytes of input stream. 
 			// return null to end this thread.

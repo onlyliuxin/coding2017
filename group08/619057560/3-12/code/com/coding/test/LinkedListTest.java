@@ -95,7 +95,8 @@ public class LinkedListTest {
 	public void testSubtract() {
 		initLinkedList(mainList, new int[] {1,2,3,4,5,6,7,8,9,10});
 		LinkedList list = new LinkedList();
-		initLinkedList(list, new int[] {1,2,3,4,5,9,10});
+		//initLinkedList(list, new int[] {1,2,3,4,5,9,10});
+		initLinkedList(list, new int[] {10,9,2,9,3,5,4,9,1});
 		mainList.subtract(list);
 		Assert.assertArrayEquals(new int[] {6,7,8}, getIntegerArray(mainList));
 		//printMainList();
