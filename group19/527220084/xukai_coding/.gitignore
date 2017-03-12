@@ -1,8 +1,0 @@
-*target
-*.classpath
-*.project
-*.settings
-*iml
-.idea
-*gen-*
-rebel.xml
