@@ -1,13 +1,10 @@
-package test.com.github.miniyk2012.coding2017.coderising.download.impl; 
+package com.github.miniyk2012.coding2017.coderising.download.test;
 
 import com.github.miniyk2012.coding2017.coderising.download.api.Connection;
-import com.github.miniyk2012.coding2017.coderising.download.impl.ConnectionImpl;
 import com.github.miniyk2012.coding2017.coderising.download.impl.ConnectionManagerImpl;
-import org.junit.Test;
-import org.junit.Before; 
 import org.junit.After;
-
-import java.net.URL;
+import org.junit.Before;
+import org.junit.Test;
 
 /** 
 * ConnectionImpl Tester. 
