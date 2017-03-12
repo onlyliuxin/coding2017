@@ -1,7 +1,7 @@
 package com.coding.basic;
 
 public class Queue {
-	LinkedList linst = new LinkedList();
+	LinkedListbak linst = new LinkedListbak();
 	public void enQueue(Object o){
 		linst.addLast(o);
 	}
