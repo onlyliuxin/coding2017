@@ -1,7 +1,9 @@
 import api.Connection;
-import api.ConnectionException;
 import api.ConnectionManager;
 import api.DownloadListener;
+
+import java.io.FileOutputStream;
+import java.util.concurrent.CountDownLatch;
 
 
 public class FileDownloader {
@@ -17,7 +19,7 @@ public class FileDownloader {
 		this.url = _url;
 		
 	}
-	int thread=3;
+	int threadNum=3;
 	public void execute(){//TODO 主体
 		// 在这里实现你的代码， 注意： 需要用多线程实现下载
 		// 这个类依赖于其他几个接口, 你需要写这几个接口的实现代码
@@ -38,22 +40,33 @@ public class FileDownloader {
 		Connection connection = null;
 		try {
 			connection = connectionManager.open(this.url);
-			int length = connection.getContentLength();
-			
+			int totalLength = connection.getContentLength();
 
-			new DownloadThread(connection,0,length-1).start();
-			if(DownloadThread.partMap.entrySet().size()>2){
-				getDownloadListener().notifyFinished();
-			}
+			//计算出每一块的大小
+			int perLength =totalLength /threadNum +1;
 
-			
-		} catch (ConnectionException e) {
-			e.printStackTrace();
-		}finally{
-			if(connection != null){
-				connection.close();
+			CountDownLatch threadSignal = new CountDownLatch(threadNum);//初始化countDown
+			for (int i = 0; i < threadNum; i++) {//开threadNum个线程
+				int length = perLength;
+				//如果是最后一块, 则使用总数来减去前面块的总和
+				if (i == (threadNum - 1)) {
+					length = totalLength- i * perLength;
+				}
+				connection = connectionManager.open(this.url);
+				new DownloadThread(connection,i * perLength,i* perLength+length-1,threadSignal).start();
+
 			}
+			FileOutputStream fos = new FileOutputStream("D:\\new.jpg");
+
+			threadSignal.await();//等待所有子线程执行完
+			for(Integer i:DownloadThread.partMap.keySet()){
+				fos.write(DownloadThread.partMap.get(i));
+			}
+			fos.close();
 			getDownloadListener().notifyFinished();
+		} catch (Exception e) {
+			e.printStackTrace();
+
 		}
 		
 		

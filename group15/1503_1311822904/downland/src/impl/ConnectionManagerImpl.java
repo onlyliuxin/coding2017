@@ -11,16 +11,17 @@ public class ConnectionManagerImpl implements ConnectionManager {
 	private URL url;
 	@Override
 	public Connection open(String urlStr) throws ConnectionException {
+		Connection connection;
 		try {
 			url= new URL(urlStr);
 			HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
-			Connection connection=new ConnectionImpl(urlConnection);
+			 connection=new ConnectionImpl(urlConnection);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ConnectionException();
 		}
 
-		return null;
+		return connection;
 	}
 
 }

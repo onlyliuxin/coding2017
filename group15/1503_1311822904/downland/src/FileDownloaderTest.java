@@ -17,7 +17,7 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://localhost:8080/test.jpg";
+		String url = "http://h.hiphotos.baidu.com/baike/s%3D220/sign=d37711ea2b2eb938e86d7df0e56385fe/32fa828ba61ea8d37a8f660f930a304e251f580f.jpg";
 		
 		FileDownloader fileDownloader = new FileDownloader(url);
 
