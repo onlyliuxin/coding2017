@@ -13,7 +13,7 @@ public class LinkedList implements List {
 
     //head作为一个节点，其next的值指向List中真正的第一个节点
 	public LinkedList() {
-        Node head = new Node();
+        head = new Node();
         head.next = null;
         head.data = null;
         elementCount = 0;
@@ -60,7 +60,7 @@ public class LinkedList implements List {
         for (int i = 0; i < index; i++) {
             cursor = cursor.next;
         }
-        return cursor.next;
+        return cursor.next.data;
     }
 
 	public Object remove(int index){
