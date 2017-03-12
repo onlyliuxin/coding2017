@@ -275,10 +275,12 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	
-	public  void subtract(LinkedList list){
-		if (list == null) {
+	public  void subtract(LinkedList origList){
+		if (origList == null) {
 			return;
 		}
+		
+		LinkedList list = binaryTreeSort(origList);
 		
 		Iterator listItr = list.iterator();
 		Iterator mainItr = iterator();
@@ -359,6 +361,32 @@ public class LinkedList implements List {
 		}, listItr, mainItr);
 		
 		return newList;
+	}
+	
+	private LinkedList binaryTreeSort(LinkedList list) {
+		if (list == null) {
+			return null;
+		}
+		
+		Iterator listItr = list.iterator();
+		BinaryTreeNode root = new BinaryTreeNode();
+		while (listItr.hasNext()) {
+			root.insert(listItr.next());
+		}
+		
+		LinkedList sortedList = new LinkedList();
+		addNodeToLinkedList(sortedList, root);
+		
+		return sortedList;
+	}
+	
+	private void addNodeToLinkedList(LinkedList list, BinaryTreeNode node) {
+		if (node == null || node.getData() == null) {
+			return;
+		}
+		addNodeToLinkedList(list, node.getLeft());
+		list.add(node.getData());
+		addNodeToLinkedList(list, node.getRight());
 	}
 	
 	private interface intersectionIterationCallback {
