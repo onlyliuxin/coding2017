@@ -1,6 +1,6 @@
 package lessones02;
 import others.PrimeGetter;
-import lessones01.LinkedListWithFloat;
+import others.LinkedListWithFloat;
 public class ArrayUtil{
 	public static void reverseArray(int[] arg_arr){
 		for(int i = arg_arr.length/2;i>0;i--){

@@ -1,5 +1,4 @@
 package others;
-import lessones01.LinkedListWithFloat;
 public class PrimeGetter{
 	private static LinkedListWithFloat<Integer> primes = new LinkedListWithFloat<Integer>();
 	public static int get(int arg_num){

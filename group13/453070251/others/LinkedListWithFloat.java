@@ -1,5 +1,7 @@
-package lessones01;
-public class LinkedListWithFloat<T> extends LinkedList<T>{
+package others;
+import lessones01.Node;
+import lessones03.LinkedListNoPrior;
+public class LinkedListWithFloat<T> extends LinkedListNoPrior<T>{
 	public static void main(String[] args){
 		LinkedListWithFloat<String> arr = new LinkedListWithFloat<String>();
 		arr.add("0");
@@ -69,6 +71,11 @@ public class LinkedListWithFloat<T> extends LinkedList<T>{
 			floatNum = size()-1;
 		}
 		return temp;
+	}
+	protected void _removeFirstHalf(){
+		super._removeFirstHalf();
+		floatNode = first;
+		floatNum = 0;
 	}
 	private Node<T> findFloatLeft(int arg_num){
 		for(;floatNum>arg_num;){
