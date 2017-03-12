@@ -1,0 +1,64 @@
+package secondHomework.ArrayUtil;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class myArrayUtilTest {
+	private myArrayUtil test;
+
+	@Before
+	public void setUp() throws Exception {
+		test = new myArrayUtil();
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void testReverseArray() {
+		int[] a={7, 9, 30 , 3, 4};
+		int[] b={4, 3, 30 , 9, 7};
+		test.reverseArray(a);
+		assertEquals(a,b);
+	}
+
+	@Test
+	public void testRemoveZero() {
+		 
+	}
+
+	@Test
+	public void testMerge() {
+		 
+	}
+
+	@Test
+	public void testGrow() {
+		 
+	}
+
+	@Test
+	public void testFibonacci() {
+		 
+	}
+
+	@Test
+	public void testGetPrimes() {
+		 
+	}
+
+	@Test
+	public void testGetPerfectNumbers() {
+	 
+	}
+
+	@Test
+	public void testJoin() {
+		 
+	}
+
+}
