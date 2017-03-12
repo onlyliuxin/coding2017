@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
 
-import javafx.stage.StageStyle;
-
 /**
  * ArrayList类
  * 

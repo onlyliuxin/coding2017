@@ -21,7 +21,7 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		// 资源位置
-		String url = "http://localhost:8080/test.jpg";
+		String url = "http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg";
 		// 创建资源下载器实例
 		FileDownloader downloader = new FileDownloader(url);
 		// 创建连接管理实例
@@ -47,7 +47,7 @@ public class FileDownloaderTest {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("下载完成！");
+		System.out.println("下载完成！请刷新项目根目录");
 	}
 
 }

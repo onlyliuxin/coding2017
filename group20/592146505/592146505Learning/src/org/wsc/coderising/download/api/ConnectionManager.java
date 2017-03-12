@@ -2,7 +2,7 @@ package org.wsc.coderising.download.api;
 
 /**
  *
- * 管理连接接口
+ * 连接池接口
  * 
  * @author Administrator
  * @date 2017年3月6日下午7:02:30
@@ -15,6 +15,15 @@ public interface ConnectionManager {
 	 * 
 	 * @param url
 	 * @return
+	 * @throws ConnectionException
 	 */
-	public Connection open(String url) throws ConnectionException;
+	Connection open(String url) throws ConnectionException;
+
+	/**
+	 * 获取长度
+	 * @param urlStr
+	 * @return
+	 * @throws ConnectionException
+	 */
+	int getContentLength(String urlStr) throws ConnectionException;
 }
