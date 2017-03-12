@@ -26,7 +26,7 @@ public class FileDownloaderTest {
 		FileDownloader downloader = new FileDownloader(url);
 
 	
-		ConnectionManager cm = new ConnectionManagerImpl();
+		ConnectionManagerImpl cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
 		
 		downloader.setListener(new DownloadListener() {

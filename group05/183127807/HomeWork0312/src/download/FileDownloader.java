@@ -2,8 +2,10 @@ package download;
 
 import download.api.Connection;
 import download.api.ConnectionException;
-import download.api.ConnectionManager;
 import download.api.DownloadListener;
+import download.impl.ConnectionManagerImpl;
+
+import java.io.RandomAccessFile;
 
 
 public class FileDownloader {
@@ -12,7 +14,7 @@ public class FileDownloader {
 	
 	DownloadListener listener;
 	
-	ConnectionManager cm;
+	ConnectionManagerImpl cm;
 	
 
 	public FileDownloader(String _url) {
@@ -35,12 +37,34 @@ public class FileDownloader {
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
 		Connection conn = null;
+		RandomAccessFile raf = null;
 		try {
 			int threadCount=3;
-			conn = cm.open(this.url);
-			
-			int length = conn.getContentLength();	
-			
+			int length = cm.getContentLength(url);
+
+			for (int i=0;i<threadCount;i++) {
+				int tLength = length / threadCount;
+				int startPos = tLength*i;
+				int endPos;
+				if (i != tLength - 1) {
+					endPos = tLength * (i - 1) + 1;
+				} else {
+					endPos = length - 1;
+				}
+
+				new DownloadThread(threadCount - 1, url, startPos, endPos, null, new DownloadListener() {
+					@Override
+					public void notifyFinished() {
+						if (FileDownloader.this.listener != null) {
+							FileDownloader.this.listener.notifyFinished();
+						}
+					}
+				}).start();
+
+			}
+
+
+
 			//new DownloadThread(conn,0,length-1).start();
 			
 		} catch (ConnectionException e) {			
@@ -62,7 +86,7 @@ public class FileDownloader {
 
 	
 	
-	public void setConnectionManager(ConnectionManager ucm){
+	public void setConnectionManager(ConnectionManagerImpl ucm){
 		this.cm = ucm;
 	}
 	

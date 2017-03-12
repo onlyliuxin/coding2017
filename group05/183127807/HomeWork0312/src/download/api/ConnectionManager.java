@@ -6,6 +6,7 @@ public interface ConnectionManager {
 	 * @param url
 	 * @return
 	 */
-	public Connection open(String url) throws ConnectionException;
+	public Connection open(String url,int startPos,int endPos) throws ConnectionException;
+
 
 }
