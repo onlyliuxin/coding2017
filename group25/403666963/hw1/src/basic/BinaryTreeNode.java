@@ -5,7 +5,13 @@ public class BinaryTreeNode {
 	private Object data;
 	private BinaryTreeNode left;
 	private BinaryTreeNode right;
-	
+
+	public BinaryTreeNode(Object data) {
+		this.data = data;
+		this.left = null;
+		this.right = null;
+	}
+
 	public Object getData() {
 		return data;
 	}
@@ -26,7 +32,23 @@ public class BinaryTreeNode {
 	}
 	
 	public BinaryTreeNode insert(Object o){
-		return  null;
+		if ((Integer)o < (Integer)this.data) {
+			if (this.left == null){
+				BinaryTreeNode node = new BinaryTreeNode(o);
+				this.setLeft(node);
+				return node;
+			} else {
+				return this.left.insert(o);
+			}
+		} else {
+			if(this.right == null){
+				BinaryTreeNode node = new BinaryTreeNode(o);
+				this.setRight(node);
+				return node;
+			}else{
+				return this.right.insert(o);
+			}
+		}
 	}
 	
 }
