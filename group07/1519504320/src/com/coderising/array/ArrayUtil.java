@@ -1,4 +1,4 @@
-package coderising.array;
+package com.coderising.array;
 
 import java.util.Arrays;
 
