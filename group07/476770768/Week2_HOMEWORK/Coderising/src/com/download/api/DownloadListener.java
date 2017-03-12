@@ -1,0 +1,5 @@
+package com.download.api;
+
+public interface DownloadListener {
+	public void notifyFinished();
+}
