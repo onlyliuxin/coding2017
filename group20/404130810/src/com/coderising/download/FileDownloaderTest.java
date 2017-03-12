@@ -23,7 +23,7 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() throws IOException {
 		
-		String url = "http://localhost:8080/test.jpg";
+		String url = "http://localhost:8080/MyServer/Test.mp3";
 		
 		FileDownloader downloader = new FileDownloader(url);
 
@@ -38,7 +38,6 @@ public class FileDownloaderTest {
 			}
 
 		});
-
 		
 		downloader.execute();
 		
