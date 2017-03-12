@@ -60,7 +60,7 @@ public class ArrayListTest {
 		System.out.println(list);
 		System.out.println(list.size());
 		System.out.println(list.get(0));
-		System.out.println(list.get(4));
+		System.out.println(list.get(7));
 	}
 	
 	

@@ -4,8 +4,7 @@ import java.util.EmptyStackException;
 
 public class Stack {
 	
-	private ArrayList elementData = new ArrayList();
-	
+	private ArrayList elementData = new ArrayList();	
 
 	public void push(Object o) {
 		elementData.add(o);

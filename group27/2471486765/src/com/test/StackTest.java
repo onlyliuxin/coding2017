@@ -20,7 +20,6 @@ public class StackTest {
 		for(int i=0;i<10;i++) {
 			stack.pop();
 		}
-	
 		//程序有点问题，栈为空时输出了个“]”
 		System.out.println(stack);
 		

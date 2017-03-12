@@ -6,8 +6,7 @@ public class Queue {
 
 	private LinkedList linked = new LinkedList();
 	
-	public void enQueue(Object o) {
-		
+	public void enQueue(Object o) {		
 		linked.add(o);
 	}
 	

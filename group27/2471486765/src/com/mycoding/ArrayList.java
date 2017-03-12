@@ -101,7 +101,7 @@ public class ArrayList implements List {
 		StringBuffer str = new StringBuffer();
 		str.append("[");		
 		for (int i = 0; i < size(); i++) {
-			str.append(elementData[i]+" ");
+			str.append(elementData[i]+",");
 		}
 		str.deleteCharAt(str.length()-1);	
 		str.append("]");
