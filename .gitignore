@@ -19,3 +19,6 @@ rebel.*
 .rebel.*
 
 target
+*.classpath
+group22/1193590951/githubitem/.project
+*.prefs

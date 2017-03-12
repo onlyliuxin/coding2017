@@ -51,12 +51,16 @@ public class ArrayList implements List {
 	public Iterator iterator() {
 		return new Iterator() {
 
-			int index;
+			int index=-1;
 
 			public boolean hasNext() {
 				index++;
-				Object ob = elementData[index];
-				return ob != null;
+				if(index<size){
+					
+					Object ob = elementData[index];
+					return true;
+				}
+				return false;
 			}
 
 			public Object next() {
@@ -67,7 +71,7 @@ public class ArrayList implements List {
 	}
 
 	private Object[] copyAddArray(Object elementData[]) {
-		Object ob[] = new Object[(elementData.length * 3) / 4];
+		Object ob[] = new Object[elementData.length+(elementData.length * 3) / 4];
 		System.arraycopy(((Object) (elementData)), 0, ((Object) (ob)), 0,
 				elementData.length);
 		return ob;
@@ -91,14 +95,16 @@ public class ArrayList implements List {
 	}
 
 	private void delUpdateArray(Object elementData[], int index) {
-		Object temp = null;
-		for (int i = 0; i < size; i++)
-			if (i > index && i < size - 1)
-				elementData[i - 1] = elementData[i];
-			else if (i == size - 1)
-				elementData[i] = null;
+		for (int i = 0; i < size; i++){
+			
+			if (i > index && i < size ){
+				elementData[i - 1] = elementData[i];				
+				if (i == size - 1){
+					elementData[i] = null;
+				}
+			}
 
+		}
 	}
-
 
 }

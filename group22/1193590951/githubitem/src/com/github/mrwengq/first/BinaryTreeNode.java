@@ -73,5 +73,26 @@ public class BinaryTreeNode {
 		}
 		return null;
 	}
+	//新加入的方法用于获取节点，帮助测试insert
+	public BinaryTreeNode findNode(Object o){
+		
+			
+			if((int)this.data == (int)o){
+				return this;
+				
+			}else if((int)this.data > (int)o){
+				if(this.left!=null){
+					return this.left.findNode(o);					
+				}
+				return null;
+			}else if((int)this.data <(int)o){
+				if(this.right!=null){			
+					return this.right.findNode(o);
+				}
+				return null;
+			}
+			return null;
+		
+	}
 
 }

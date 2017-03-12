@@ -20,7 +20,7 @@ public class LinkedList implements List {
 			head = new Node(o);
 		} else {
 			Node node = new Node(o);
-			Node lastNode = findNode(size);
+			Node lastNode = findNode(size-1);
 			lastNode.next = node;
 		}
 		size++;
@@ -28,8 +28,8 @@ public class LinkedList implements List {
 
 	private Node findNode(int index) {
 		Node no = head;
-		for (; index - 1 > 0; index--)
-			no = no.next;
+			for (; index > 0; index--)
+				no = no.next;			
 
 		return no;
 	}
@@ -71,16 +71,15 @@ public class LinkedList implements List {
 		}
 		Node nextNode = null;
 		Node lastNode = null;
-		if (index + 1 < size - 1)
+		if (index + 1 <= size - 1)     //判断是否有下一个值
 			nextNode = findNode(index + 1);
-		if (index - 1 > 0)
+		if (index - 1 > 0)			  //判断是否有上一个值
 			lastNode = findNode(index - 1);
 		if (lastNode == null) {
 			head = nextNode;
 			size--;
 			return indexNode.data;
-		}
-		if (nextNode == null) {
+		}else if (nextNode == null) {
 			lastNode.next = null;
 			size--;
 			return indexNode.data;
@@ -116,7 +115,7 @@ public class LinkedList implements List {
 			size++;
 			return;
 		} else {
-			Node lastNode = findNode(size);
+			Node lastNode = findNode(size-1);
 			lastNode.next = node;
 			size++;
 			return;
@@ -139,9 +138,11 @@ public class LinkedList implements List {
 		if (size == 0) {
 			return null;
 		} else {
-			Node node = findNode(size);
-			Node lastNode = findNode(size - 1);
-			lastNode.next = null;
+			Node node = findNode(size-1);
+			if(size-2>=0){
+				Node lastNode = findNode(size - 2);
+				lastNode.next = null;				
+			}
 			size--;
 			return node.data;
 		}
@@ -154,7 +155,12 @@ public class LinkedList implements List {
 
 			public boolean hasNext() {
 				index++;
-				return findNode(index) != null;
+				if(index<size){
+					
+					Object ob = findNode(index);
+					return true;
+				}
+				return false;
 			}
 
 			public Object next() {

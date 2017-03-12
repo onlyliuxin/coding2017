@@ -4,6 +4,7 @@ public class Stack {
 
 	
 	private ArrayList elementData;
+	private int index = 0;
 	public Stack() {
 		elementData = new ArrayList();
 	}
@@ -24,10 +25,16 @@ public class Stack {
 	}
 
 	public Object peek() {
-		if (elementData.size() == 0)
+		if (elementData.size() == 0){	
 			return null;
-		else
-			return elementData.get(elementData.size() - 1);
+		}else{
+			index ++;
+			Object ob = index>elementData.size()? null:elementData.get(elementData.size() - index);
+			if(ob==null){
+				index = 0;
+			}
+			return ob;
+		}
 	}
 
 	public boolean isEmpty() {
