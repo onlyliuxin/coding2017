@@ -110,6 +110,10 @@ public class LinkedListV01<T> {
         return node;
     }
 
+    public T get(int index) {
+        return getNode(index).element;
+    }
+
     public int indexOf(T element){
         Node<T> node = head;
         int index = 0;
