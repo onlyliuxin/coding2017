@@ -70,21 +70,21 @@ public class ArrayList implements List {
 		};
 	}
 
-	private Object[] copyAddArray(Object elementData[]) {
+	private Object[] copyAddArray(Object elementData[]) { //对数组扩容 增加量为原长度3/4
 		Object ob[] = new Object[elementData.length+(elementData.length * 3) / 4];
 		System.arraycopy(((Object) (elementData)), 0, ((Object) (ob)), 0,
 				elementData.length);
 		return ob;
 	}
 
-	private Object[] addUpdateArray(Object elementData[], int index) {
-		Object temp = null;
+	private Object[] addUpdateArray(Object elementData[], int index) {//添加时修改数组索引
+		Object temp = null;   //中间变量
 		for (int i = 0; i < size; i++)
-			if (i > index) {
+			if (i > index) {//判断受影响索引
 				temp = elementData[index];
 				elementData[index] = elementData[i];
 				elementData[i] = temp;
-				if (i == size - 1) {
+				if (i == size - 1) {  //判断为最后一位
 					if (size > elementData.length)
 						elementData = copyAddArray(elementData);
 					elementData[size] = elementData[index];
@@ -94,10 +94,10 @@ public class ArrayList implements List {
 		return elementData;
 	}
 
-	private void delUpdateArray(Object elementData[], int index) {
+	private void delUpdateArray(Object elementData[], int index) {//删除时修改索引
 		for (int i = 0; i < size; i++){
 			
-			if (i > index && i < size ){
+			if (i > index && i < size ){//判断受影响索引
 				elementData[i - 1] = elementData[i];				
 				if (i == size - 1){
 					elementData[i] = null;
