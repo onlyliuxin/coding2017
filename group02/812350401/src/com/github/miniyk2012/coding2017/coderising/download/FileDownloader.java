@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -19,7 +20,7 @@ public class FileDownloader {
 	private String fileName;
 	private DownloadListener listener;
 	private ConnectionManager cm;
-	private int threadNum = 30;
+	private int threadNum = 5;
 	private int length = 0;
 	private Connection conn;
 	
@@ -42,14 +43,13 @@ public class FileDownloader {
 		// 然后调用read方法， read方法中有读取文件的开始位置和结束位置的参数， 返回值是byte[]数组
 		// 3. 把byte数组写入到文件中
 		// 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
-		
-		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
 
         try (RandomAccessFile raf = new RandomAccessFile(new File(fileName), "rwd")) {
             conn = cm.open(this.url);
             length = conn.getContentLength();
             raf.setLength(length);
             threadPoolDownload();
+//            oneThreadDownload();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -61,14 +61,15 @@ public class FileDownloader {
     }
 
 	public void oneThreadDownload() {
-        Connection conn = null;
+        final CyclicBarrier barrier = new CyclicBarrier(1 ,new Runnable() {
+            @Override
+            public void run() {
+                getListener().notifyFinished();
+            }
+        });
         try {
-            Thread thread = new DownloadThread("oneThread", conn,0,length, fileName);
+            Thread thread = new DownloadThread("oneThread", conn,0,length, fileName, barrier);
             thread.start();
-            thread.join();
-            listener.notifyFinished();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } finally {
             if (conn != null) {
                 conn.close();
@@ -77,7 +78,13 @@ public class FileDownloader {
     }
 
     public void threadPoolDownload() throws ConnectionException {
-        ExecutorService threadPool = Executors.newFixedThreadPool(3);
+        final CyclicBarrier barrier = new CyclicBarrier(threadNum ,new Runnable() {
+            @Override
+            public void run() {
+                getListener().notifyFinished();  // 栅栏
+            }
+        });
+        ExecutorService threadPool = Executors.newCachedThreadPool();
         int len = conn.getContentLength();
         for(int i = 0; i< threadNum; i++)
         {
@@ -88,21 +95,9 @@ public class FileDownloader {
             {
                 end =len;
             }
-            Thread thread = new DownloadThread("thread"+i, conn, start, end, fileName);
+            Thread thread = new DownloadThread("thread"+i, conn, start, end, fileName, barrier);
             threadPool.execute(thread);
         }
-        threadPool.shutdown();
-        while(true){
-            if(threadPool.isTerminated()){
-                break;
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        listener.notifyFinished();
         if (conn != null) {
             conn.close();
         }
@@ -111,7 +106,6 @@ public class FileDownloader {
 	public void setListener(DownloadListener listener) {
 		this.listener = listener;
 	}
-
 	
 	public void setConnectionManager(ConnectionManager ucm){
 		this.cm = ucm;
