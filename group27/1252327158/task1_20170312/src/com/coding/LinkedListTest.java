@@ -86,7 +86,10 @@ public class LinkedListTest {
 
 	@Test
 	public void testIterator() {
-		fail("Not yet implemented");
+		Iterator<String> iter = list.iterator();
+		if (iter.hasNext()) {
+			Assert.assertEquals("second", iter.next());
+		}
 	}
 
 }

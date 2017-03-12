@@ -1,10 +1,15 @@
 package com.coding;
 
+import java.util.ConcurrentModificationException;
+import java.util.NoSuchElementException;
+
 public class LinkedList<T> implements List<T> {
 
 	private int size;
 
 	private Node<T> head;
+	
+	private int modCount;
 
 	public LinkedList(){
 		size = 0;
@@ -34,6 +39,7 @@ public class LinkedList<T> implements List<T> {
 			temp.next = item;
 		}
 		size++;
+		modCount++;
 	}
 
 	@Override
@@ -65,6 +71,7 @@ public class LinkedList<T> implements List<T> {
 			temp.next = temp.next.next;
 		}
 		size--;
+		modCount++;
 		return result.data;
 	}
 
@@ -82,6 +89,7 @@ public class LinkedList<T> implements List<T> {
         	head = item;
         }
         size++;
+        modCount++;
 	}
 	
 	public void addLast(T o){
@@ -96,21 +104,23 @@ public class LinkedList<T> implements List<T> {
 			tag.next = item;
 		}
 		size++;
+		modCount++;
 	}
 	
 	public T removeFirst(){
 		if (size == 0) {
-			throw new IndexOutOfBoundsException(); ///////////////////////////////////
+			throw new IndexOutOfBoundsException(); 
 		}
 		Node<T> result = head;
 		head = head.next;
 		size--;
+		modCount++;
 		return result.data;
 	}
 	
 	public T removeLast(){
 		if (size == 0) {
-			throw new IndexOutOfBoundsException(); ///////////////////////////////////
+			throw new IndexOutOfBoundsException(); 
 		}
 		Node<T> result = head;
 		if (size == 1) {
@@ -124,11 +134,39 @@ public class LinkedList<T> implements List<T> {
 			temp.next = null;
 		}
 		size--;
+		modCount++;
 		return result.data;
 	}
 
 	public Iterator<T> iterator(){
-		return null;
+		return new Iter();
+	}
+	
+	private class Iter implements Iterator<T> {
+		int cursor;        
+        int expectedModCount = modCount;
+        
+        @Override
+        public boolean hasNext() {
+        	return cursor != size;
+        }
+        
+        @Override
+    	public T next() {
+        	checkForComodification();
+        	if (cursor >= size) {
+        		throw new NoSuchElementException();
+        	}
+        	T item = get(cursor);
+        	cursor++;
+        	return item;
+        }
+        
+        final void checkForComodification() 
+        {
+             if (modCount != expectedModCount)
+                throw new ConcurrentModificationException();
+        }
 	}
 
 	private static  class Node<T>{

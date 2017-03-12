@@ -83,7 +83,6 @@ public class ArrayList<T> implements List<T> {
 	
 	private class Iter implements Iterator<T> {
 		int cursor;        
-        int lastRet = -1;  
         int expectedModCount = modCount;
         
         @Override
@@ -99,7 +98,6 @@ public class ArrayList<T> implements List<T> {
         	}
         	Object item = elementData[cursor];
         	cursor++;
-        	lastRet++;
         	return (T)item;
         }
         
