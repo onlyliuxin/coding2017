@@ -25,7 +25,9 @@ public class LinkedList implements List {
 	}
 	
 	public void add(int index , Object o){
-		ensureBounds(index);
+		if (index < 0 || index > size()) {
+			throw new IndexOutOfBoundsException();
+		}
 		
 		Node pNewNode = new Node();
 		pNewNode.data = o;
@@ -90,7 +92,10 @@ public class LinkedList implements List {
 	}
 	
 	public void addFirst(Object o){
-		add(0, o);
+		Node pNewNode = new Node();
+		pNewNode.data = o;
+		pNewNode.next = head;
+		head = pNewNode;
 	}
 	
 	public void addLast(Object o){
@@ -363,7 +368,7 @@ public class LinkedList implements List {
 		return newList;
 	}
 	
-	private LinkedList binaryTreeSort(LinkedList list) {
+	public LinkedList binaryTreeSort(LinkedList list) {
 		if (list == null) {
 			return null;
 		}
@@ -384,9 +389,9 @@ public class LinkedList implements List {
 		if (node == null || node.getData() == null) {
 			return;
 		}
-		addNodeToLinkedList(list, node.getLeft());
-		list.add(node.getData());
 		addNodeToLinkedList(list, node.getRight());
+		list.addFirst(node.getData());
+		addNodeToLinkedList(list, node.getLeft());
 	}
 	
 	private interface intersectionIterationCallback {
