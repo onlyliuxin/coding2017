@@ -92,6 +92,16 @@ public class LinkedListTest {
 	}
 	
 	@Test
+	public void testBinarySort() {
+		initLinkedList(mainList, new int[] {10,9,2,9,3,5,4,9,1});
+		mainList = mainList.binaryTreeSort(mainList);
+		Assert.assertArrayEquals(new int[] {1,2,3,4,5,9,10}, getIntegerArray(mainList));
+		initLinkedList(mainList, new int[] {});
+		mainList = mainList.binaryTreeSort(mainList);
+		Assert.assertArrayEquals(new int[] {}, getIntegerArray(mainList));
+	}
+	
+	@Test
 	public void testSubtract() {
 		initLinkedList(mainList, new int[] {1,2,3,4,5,6,7,8,9,10});
 		LinkedList list = new LinkedList();
