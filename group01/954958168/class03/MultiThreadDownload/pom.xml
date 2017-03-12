@@ -5,30 +5,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.aaront.exercise</groupId>
-    <artifactId>lite-struts</artifactId>
+    <artifactId>multithread-download</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
-        <dependency>
-            <groupId>commons-digester</groupId>
-            <artifactId>commons-digester</artifactId>
-            <version>2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.5</version>
-        </dependency>
     </dependencies>
 
     <profiles>
         <profile>
-            <id>liteStruts</id>
+            <id>multiThreadDownload</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -39,4 +28,5 @@
             </properties>
         </profile>
     </profiles>
+
 </project>
