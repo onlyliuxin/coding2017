@@ -21,7 +21,7 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://localhost:8080/test.jpg";
+		String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1489232358866&di=40841ce1f3a689ef40585947e5b2ba33&imgtype=0&src=http%3A%2F%2Fmvimg2.meitudata.com%2F57e90e7733ca63586.jpg";
 		
 		FileDownloader downloader = new FileDownloader(url);
 
@@ -45,7 +45,7 @@ public class FileDownloaderTest {
 			try {
 				System.out.println("还没有下载完成，休眠五秒");
 				//休眠5秒
-				Thread.sleep(5000);
+				Thread.sleep(3000);
 			} catch (InterruptedException e) {				
 				e.printStackTrace();
 			}
