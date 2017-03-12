@@ -6,17 +6,16 @@ import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
 import com.coderising.download.impl.ConnectionManagerImpl;
 
+import java.io.RandomAccessFile;
+
 /**
  * 文件下载器
  */
 public class FileDownloader {
-	
 	String url;  //下载路径
-	
+	String savePath = "d:/1.png"; //保存路径
 	DownloadListener listener ; //下载监听器
-	
 	ConnectionManager cm ; //连接管理
-	
 
 	public FileDownloader(String _url) {
 		this.url = _url;
@@ -38,22 +37,27 @@ public class FileDownloader {
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
 		Connection conn = null;
+		RandomAccessFile raf = null;
 		try {
+			cm = new ConnectionManagerImpl();
 			conn = cm.open(this.url);
 			int length = conn.getContentLength();
-			Thread[] t = new Thread[3];
+
+			raf = new RandomAccessFile(savePath,"rwd");
+			if(raf.length() == 0){
+				raf.setLength(length);
+			}
+			raf.close();
+
 			for (int i = 0; i <= 2; i++) {
 				int startPos = i*length/3;
 				int endPos = length*(i+1)/3-1;
 				if(i == 2) {
 					endPos = length-1;
 				}
-				t[i] = new DownloadThread(conn, startPos, endPos);
+				new DownloadThread(url, savePath,listener ,startPos, endPos).start();
 			}
-			t[0].start();
-			t[1].start();
-			t[2].start();
-			listener.notifyFinished();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

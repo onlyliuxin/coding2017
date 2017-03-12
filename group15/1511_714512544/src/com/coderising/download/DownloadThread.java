@@ -1,37 +1,58 @@
 package com.coderising.download;
 
 import com.coderising.download.api.Connection;
+import com.coderising.download.api.DownloadListener;
+import com.coderising.download.impl.ConnectionImpl;
+import com.coderising.download.impl.ConnectionManagerImpl;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.URL;
 
 public class DownloadThread extends Thread{
-	Connection conn;
 	int startPos;
 	int endPos;
 	String url;
+	String savePath;
+	DownloadListener listener;
+	private static int count = 0;
+	private Object lock = new Object();  //对象锁
 
-	public DownloadThread( Connection conn, int startPos, int endPos){
-		try {
-			this.conn = conn;
-			this.startPos = startPos;
-			this.endPos = endPos;
-			url = conn.getUrl();
-			RandomAccessFile raf = new RandomAccessFile("d:/t.jpg", "rwd");
-			if(raf.length() == 0){
-                raf.setLength(conn.getContentLength());
-            }
-            raf.close();
-		} catch (IOException e) {
-			throw new ExceptionInInitializerError();
-		}
+	public DownloadThread(String url, String savePath, DownloadListener listener, int startPos, int endPos){
+		this.startPos = startPos;
+		this.endPos = endPos;
+		this.url = url;
+		this.savePath = savePath;
+		this.listener = listener;
 	}
-	public void run(){	
+	public void run(){
+		RandomAccessFile raf = null;
 		//实现
 		try {
-			conn.read(url,startPos,endPos);
-		} catch (IOException e) {
+			Connection conn = new ConnectionManagerImpl().open(url);
+			raf = new RandomAccessFile(savePath,"rwd");
+
+			byte[] data= conn.read(startPos,endPos);
+
+			raf.seek(startPos);
+			raf.write(data);
+			synchronized (lock){  //加对象锁
+				count ++;
+				if(count == 3){
+					listener.notifyFinished();
+				}
+			}
+
+		} catch (Exception e) {
 			throw new RuntimeException("读取错误");
+		}finally {
+			try {
+				if(raf != null){
+					raf.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

@@ -1,10 +1,9 @@
 package com.coderising.download.impl;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
-import java.net.URL;
 
 import com.coderising.download.api.Connection;
 
@@ -23,22 +22,24 @@ public class ConnectionImpl implements Connection{
 	 */
 	@Override
 
-	public synchronized byte[] read(String path, int startPos, int endPos) throws IOException {
-		URL url = new URL(path);
-		HttpURLConnection c = (HttpURLConnection) url.openConnection();
-		c.setRequestProperty("Range",  "bytes="+startPos+"-"+endPos);
-		InputStream in = connection.getInputStream();
-		RandomAccessFile raf = new RandomAccessFile("d:/t.jpg","rwd");
-		raf.seek(startPos);
+	public byte[] read(int startPos, int endPos) throws IOException {
+		byte[] buffer = new byte[endPos-startPos+1];
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
-		int len = 0;
-		byte[] buffer = new byte[1024];
-		while ((len = in.read(buffer)) != -1) {
-			raf.write(buffer, 0, len);
+		connection.setRequestProperty("Range",  "bytes="+startPos+"-"+endPos);
+		int res = connection.getResponseCode();
+		if(res == 206){ //下载部分内容请求成功
+			InputStream in = connection.getInputStream();
+
+			int len = 0;
+			byte[] b = new byte[1024];
+			while ((len = in.read(b)) != -1) {
+				bos.write(b, 0, len);
+			}
+			buffer = bos.toByteArray();
 		}
-		raf.close();
-		close();
-		return null;
+
+		return buffer;
 	}
 	/**
 	 * 得到数据内容的长度
@@ -53,7 +54,7 @@ public class ConnectionImpl implements Connection{
 	 */
 	@Override
 	public void close() {
-		InputStream in = null;
+		InputStream in;
 		try {
 			in = connection.getInputStream();
 			if(in != null){
@@ -62,11 +63,6 @@ public class ConnectionImpl implements Connection{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public String getUrl(){
-		return connection.getURL().getPath();
 	}
 
 }
