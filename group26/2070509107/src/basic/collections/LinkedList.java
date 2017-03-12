@@ -1,5 +1,6 @@
 package collections;
 
+
 /**
  * 
  * @author Mahone Wu
@@ -9,18 +10,40 @@ package collections;
  */
 public class LinkedList implements List {
 
+	//定义头节点
 	private Node head;
+	
+	//最后一个节点
+	private Node last;
+	
+	//链表大小
+	private int size;
 
+	/**
+	 * 添加元素
+	 */
 	public void add(Object o) {
-		while (head.next == null) {
-
-		}
+		addLast(o);
 	}
 
+	/**
+	 * 指定位置添加元素
+	 */
 	public void add(int index, Object o) {
-
+		if(!(index >= 0 && index <= size)){
+			//超出索引范围
+		}
+		Node currentNode =null;
+		
+		
 	}
+	
+	
+	
 
+	/**
+	 * 获取指定元素
+	 */
 	public Object get(int index) {
 		return null;
 	}
@@ -30,15 +53,35 @@ public class LinkedList implements List {
 	}
 
 	public int size() {
-		return -1;
+		return size;
 	}
 
 	public void addFirst(Object o) {
-
+		Node fistNode = head;
+		Node newNode = new Node(null, o, head);
+		head = newNode;
+		if(null == fistNode){
+			last = newNode;
+		}else{//将之前的头节点的前一个指向现在的头节点
+			fistNode.prev = newNode;
+		}
+		size++;
 	}
 
+	/**
+	 * 向尾添加元素
+	 * @param o
+	 */
 	public void addLast(Object o) {
-
+		Node lastNode = last;
+		Node newNode = new Node(lastNode, o, null);
+		last = newNode;//将新增的节点设置为最后一个节点
+		if(null == lastNode){//如果之前最后一个节点为空，则代表这是第一次增加节点,进行头节点设置
+			head = newNode;
+		}else{
+			lastNode.next = newNode;
+		}
+		size++;
 	}
 
 	public Object removeFirst() {
@@ -53,12 +96,30 @@ public class LinkedList implements List {
 		return null;
 	}
 
+	//参照LinkedList源码实现
 	private static class Node {
 		Object data;
+		Node prev;
 		Node next;
-
+		
+		Node(Node prev,Object object,Node next){
+			this.prev = prev;
+			this.data = object;
+			this.next = next;
+		}
 	}
 
+	/**
+	 * 查找指定位置的Node节点
+	 * @param index
+	 * @return
+	 */
+	Node findNode(int index){	
+		Node currentNode = head;	
+		
+		
+	}
+	
 	/**
 	 * 把该链表逆置 例如链表为 3->7->10 , 逆置后变为 10->7->3
 	 */

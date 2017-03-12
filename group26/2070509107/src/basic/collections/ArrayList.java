@@ -4,7 +4,8 @@ package collections;
  * 
  * @author Mahone Wu
  * @data:2017-03-10
- * @description:ArrayList的自我实现 @version：1.0.0
+ * @description:ArrayList的自我实现,暂时没有自动扩展 
+ * @version：1.0.0
  */
 
 public class ArrayList implements List {
