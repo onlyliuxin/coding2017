@@ -1,7 +1,11 @@
 package com.coderising.download;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.concurrent.CyclicBarrier;
 
 import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
@@ -39,33 +43,51 @@ public class FileDownloader {
 
 		Connection conn = null;
 		try {
+			final int NUM_THREADS = 2;
+
 			conn = cm.open(this.url);
 
 			int length = conn.getContentLength();
+			System.out.println("total file size is: " + length);
 
 			// Separate length to 3
-			int partLen = (int) Math.ceil(length / 3);
+			int partLen = (int) Math.ceil(length / NUM_THREADS);
 
 			// create a file
-			String filePath = "D://java_learning//test.jpg";
+			String filePath = "D://java_learning//test1.jpg";
+			byte[] totalBytes = new byte[length];
 
-			// create three threads
-//			DownloadThread t1 = new DownloadThread(cm.open(this.url), 0, partLen - 1, filePath);
-//			t1.start();
-//			t1.join();
-//			
-//			DownloadThread t2 = new DownloadThread(cm.open(this.url), partLen, partLen * 2 - 1, filePath);
-//			t2.start();
-//			t2.join();
-//			
-//			DownloadThread t3 =new DownloadThread(cm.open(this.url), partLen * 2, length - 1, filePath);
-//			t3.start();
-//			t3.join();
+			Runnable barrierAction = new Runnable() {
+				@Override
+				public void run() {
+					FileOutputStream fos;
+					try {
+						fos = new FileOutputStream(filePath);
+						fos.write(totalBytes);
+						fos.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 
-			new DownloadThread(cm.open(this.url), 0, length-1, filePath).start();
-			
-//			getListener().notifyFinished();
-			
+					getListener().notifyFinished();
+				}
+			};
+
+			CyclicBarrier barrier = new CyclicBarrier(3, barrierAction);
+
+			new DownloadThread(conn, 0, partLen - 1, filePath, barrier, totalBytes).start();
+			new DownloadThread(conn, partLen, partLen * 2 - 1, filePath, barrier, totalBytes).start();
+			new DownloadThread(conn, partLen * 2, length - 1, filePath, barrier, totalBytes).start();
+
+			// CyclicBarrier barrier = new CyclicBarrier(2, barrierAction);
+			// new DownloadThread(conn, 0, partLen - 1, filePath, barrier,
+			// totalBytes).start();
+			// new DownloadThread(conn, partLen, length - 1, filePath, barrier,
+			// totalBytes).start();
+
+			// new DownloadThread(cm.open(this.url), 0, length - 1, filePath,
+			// barrier).start();
+
 		} catch (ConnectionException e) {
 			e.printStackTrace();
 		} finally {
