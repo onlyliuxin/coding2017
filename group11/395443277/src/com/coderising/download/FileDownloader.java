@@ -54,20 +54,20 @@ public class FileDownloader {
 			int partLen = (int) Math.ceil(length / NUM_THREADS);
 
 			// create a file
-			String filePath = "D://java_learning//test1.jpg";
+			String filePath = "D://java_learning//test1.jpeg";
 			byte[] totalBytes = new byte[length];
 
 			Runnable barrierAction = new Runnable() {
 				@Override
 				public void run() {
-					FileOutputStream fos;
-					try {
-						fos = new FileOutputStream(filePath);
-						fos.write(totalBytes);
-						fos.close();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+//					FileOutputStream fos;
+//					try {
+//						fos = new FileOutputStream(filePath);
+//						fos.write(totalBytes);
+//						fos.close();
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
 
 					getListener().notifyFinished();
 				}
@@ -75,9 +75,9 @@ public class FileDownloader {
 
 			CyclicBarrier barrier = new CyclicBarrier(3, barrierAction);
 
-			new DownloadThread(conn, 0, partLen - 1, filePath, barrier, totalBytes).start();
-			new DownloadThread(conn, partLen, partLen * 2 - 1, filePath, barrier, totalBytes).start();
-			new DownloadThread(conn, partLen * 2, length - 1, filePath, barrier, totalBytes).start();
+			new DownloadThread(cm.open(this.url), 0, partLen - 1, filePath, barrier, totalBytes).start();
+			new DownloadThread(cm.open(this.url), partLen, partLen * 2 - 1, filePath, barrier, totalBytes).start();
+			new DownloadThread(cm.open(this.url), partLen * 2, length - 1, filePath, barrier, totalBytes).start();
 
 			// CyclicBarrier barrier = new CyclicBarrier(2, barrierAction);
 			// new DownloadThread(conn, 0, partLen - 1, filePath, barrier,

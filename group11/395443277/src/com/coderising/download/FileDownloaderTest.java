@@ -23,7 +23,7 @@ public class FileDownloaderTest {
 		
 //		String url = "https://s-media-cache-ak0.pinimg.com/564x/8e/bd/00/8ebd00b1f2ef862b6c80d57c2b45d129.jpg";
 		// http://wallpapercraze.com/images/wallpapers/dota2_nevermore_w1.jpeg
-		String url = "https://s-media-cache-ak0.pinimg.com/736x/7c/21/ac/7c21acd1cb970f372ef763c08522b860.jpg";
+		String url = "http://wallpapercraze.com/images/wallpapers/dota2_nevermore_w1.jpeg";
 		
 		FileDownloader downloader = new FileDownloader(url);
 

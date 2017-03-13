@@ -22,7 +22,7 @@ public class ConnectionImpl implements Connection {
 	@Override
 	public byte[] read(int startPos, int endPos) throws IOException {
 		byte[] bytes = new byte[endPos - startPos + 1];
-
+		urlcon.setRequestProperty("Range", "bytes=" + startPos + "-" + endPos);
 		InputStream is = new BufferedInputStream(urlcon.getInputStream());
 
 		// Read in the bytes

@@ -28,18 +28,18 @@ public class DownloadThread extends Thread {
 	public void run() {
 		try {
 			byte[] bytes = conn.read(startPos, endPos);
-			System.out.println(bytes.length);
-
-			int i = 0;
-			while (startPos <= endPos) {
-				totalBytes[startPos] = bytes[i];
-				i++;
-				startPos++;
-			}
-			// RandomAccessFile RAFile = new RandomAccessFile(filePath, "rw");
-			// RAFile.seek(startPos);
-			// RAFile.write(bytes, 0, bytes.length);
-			// RAFile.close();
+//			System.out.println(bytes.length);
+//
+//			int i = 0;
+//			while (startPos <= endPos) {
+//				totalBytes[startPos] = bytes[i];
+//				i++;
+//				startPos++;
+//			}
+			 RandomAccessFile RAFile = new RandomAccessFile(filePath, "rw");
+			 RAFile.seek(startPos);
+			 RAFile.write(bytes, 0, bytes.length);
+			 RAFile.close();
 
 			barrier.await();
 
