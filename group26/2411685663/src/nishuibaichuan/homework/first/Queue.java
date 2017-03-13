@@ -1,9 +1,8 @@
-package collections;
+package nishuibaichuan.homework.first;
 
 public class Queue {
 
 	public void enQueue(Object o) {
-
 	}
 
 	public Object deQueue() {

@@ -1,11 +1,5 @@
-package collections;
+package nishuibaichuan.homework.first;
 
-/**
- * 
- * @author Mahone Wu
- * @data:2017-03-10
- * @description:BinaryTreeNode的自我实现 @version：1.0.0
- */
 public class BinaryTreeNode {
 
 	private Object data;

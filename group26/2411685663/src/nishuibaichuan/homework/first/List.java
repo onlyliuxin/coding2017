@@ -1,4 +1,4 @@
-package collections;
+package nishuibaichuan.homework.first;
 
 public interface List {
 	public void add(Object o);
