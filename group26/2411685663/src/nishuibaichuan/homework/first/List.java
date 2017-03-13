@@ -1,4 +1,4 @@
-package JEE_2411685663;
+package nishuibaichuan.homework.first;
 
 public interface List {
 	public void add(Object o);
