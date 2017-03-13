@@ -1,5 +1,7 @@
 package com.ace.coding;
 
+import java.lang.reflect.Array;
+
 public class LinkedList implements List {
 	private Node head = null;
 	private int size = 0;
@@ -45,7 +47,10 @@ public class LinkedList implements List {
 	}
 	public Object remove(int index){
 		checkLinkedListIndex(index);
-		
+		if(index == 0){
+		    return removeFirst();
+        }
+
 		Node pNode = head;
 		for(int i = 0; i < index - 1; i++){
 			pNode = pNode.next;
@@ -126,21 +131,32 @@ public class LinkedList implements List {
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
 	public  void reverse(){
-		//check empty
-		Node headNode = head;
-		reverseNode(headNode, null);
-	}
+	    Node headNode = head;
+        Node newNode = null;
 
-	private Node reverseNode(Node head, Node newHead){
-		if(head == null){
-			return newHead;
+        reverseNode(headNode, newNode);
+    }
+
+	private void reverseNode(Node headNode, Node newHead){
+		if(headNode != null){
+			return ;
 		}
 
-		Node next = head.next;
-		head.next = newHead;
-		return reverseNode(next, head);
+		Node next = headNode.next;
+        headNode.next = newHead;
+
+        if(next == null){
+            return ;
+        }
+
+		reverseNode(next, headNode);
 	}
 
+	private void checkLinkedListSize(){
+        if(this.size() <= 0){
+            throw new IndexOutOfBoundsException();
+        }
+    }
 
 
 	/**
@@ -150,14 +166,15 @@ public class LinkedList implements List {
 	 */
 	public  void removeFirstHalf(){
 		//check empty
-		int count = 0;
+        checkLinkedListSize();
+		int count = 1;
 		Node pNode = head;
-		for (int i = 0; i < size() / 2; i++) {
+		for (int i = 0; i < size() / 2 - 1; i++) {
 			pNode = pNode.next;
 			count++;
 		}
 		head = pNode.next;
-		size = size - count;
+		size = size() - count;
 	}
 
 	/**
@@ -168,10 +185,18 @@ public class LinkedList implements List {
 	public  void remove(int i, int length){
 		//check empty
 		// check i and length are validate
+        checkLinkedListSize();
+        checkLinkedListIndex(i);
+        checkLinkedListIndex(i+length);
 
-		Node pNode = getNode(i);
-		Node tempNode = getNode(i+length);
-		pNode.next = tempNode;
+        if(i == 0){
+            Node pNode = getNode(length - 1);
+            head = pNode.next;
+        } else {
+            Node pNode = getNode(i - 1);
+            Node tempNode = getNode(i + length - 1);
+            pNode.next = tempNode.next;
+        }
 		size = size - length;
 	}
 	/**
@@ -206,13 +231,18 @@ public class LinkedList implements List {
 	 */
 
 	public  void subtract(LinkedList list){
+        ArrayList arrayList = new ArrayList();
         for(int i = 0; i < this.size(); i++){
             for(int j = 0; j < list.size(); j++){
                 if(this.get(i) == list.get(j)){
-                    this.remove(i);
-                    this.size--;
+                    arrayList.add(i);
+                    break;
                 }
             }
+        }
+
+        for(int k = 0; k < arrayList.size(); k++){
+            this.remove((int)arrayList.get(k) - k);
         }
 	}
 
@@ -221,11 +251,15 @@ public class LinkedList implements List {
 	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
 	public  void removeDuplicateValues(){
-        for(int i = 0; i < this.size()-1; i++){
+        ArrayList arrayList = new ArrayList();
+        for(int i = 0; i < this.size() - 1; i++){
             if(this.get(i) == this.get(i+1)){
-                this.remove(i+1);
-                size--;
+                arrayList.add(i);
             }
+        }
+
+        for(int k = 0; k < arrayList.size(); k++){
+            this.remove((int)arrayList.get(k) - k);
         }
 	}
 
@@ -236,8 +270,19 @@ public class LinkedList implements List {
 	 * @param max
 	 */
 	public  void removeRange(int min, int max){
+	    ArrayList newArrayList = new ArrayList();
+	    int count = 0;
+        for (int i = 0; i < this.size(); i++) {
+            if((int)this.get(i) > min && (int)this.get(i) <max) {
+                newArrayList.add(i);
+            }
+        }
 
+        for (int j = 0; j < newArrayList.size(); j++){
+            this.remove((int)newArrayList.get(j) - j);
+        }
 	}
+
 
 	/**
 	 * 假设当前链表和参数list指定的链表均以元素依值递增有序排列（同一表中的元素值各不相同）

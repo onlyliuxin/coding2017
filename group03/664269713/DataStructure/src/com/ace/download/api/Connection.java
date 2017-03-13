@@ -14,7 +14,7 @@ public interface Connection {
 	 * 得到数据内容的长度
 	 * @return
 	 */
-	public int getContentLength();
+	public int getContentLength() throws IOException;
 	
 	/**
 	 * 关闭连接
