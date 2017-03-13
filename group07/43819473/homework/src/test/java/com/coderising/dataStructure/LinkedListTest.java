@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 /**
  * Created by LvZhenxing on 2017/2/22.
  */
@@ -14,7 +16,7 @@ public class LinkedListTest {
 	@Before
 	public void setUp() throws Exception {
 		list = new LinkedList();
-		for (int i = 6; i > 0; i--) {
+		for (int i = 16; i > 10; i--) {
 			list.add(i);
 		}
 		System.out.println("=============================before==============================");
@@ -112,12 +114,12 @@ public class LinkedListTest {
 
 	@Test
 	public void testRemoveDuplicateValues() throws Exception{
-//		list.add(6);
-//		list.add(6);
-//		list.add(6);
-//		list.add(7);
-//		list.add(7);
-//		list.add(8);
+		list.add(6);
+		list.add(6);
+		list.add(6);
+		list.add(7);
+		list.add(7);
+		list.add(8);
 		for (int i = 0; i < list.size(); i++) {
 			try {
 				System.out.println("index=" + i + ",data=" + list.get(i) + ",next=" + list.get(i + 1));
@@ -133,12 +135,9 @@ public class LinkedListTest {
 
 	@Test
 	public void testRemoveRange() throws Exception{
-//		list.add(6);
-//		list.add(6);
-//		list.add(6);
-//		list.add(7);
-//		list.add(7);
-//		list.add(8);
+		list.add(11);
+		list.add(10);
+		list.add(9);
 		System.out.println("=============================ing==============================");
 		for (int i = 0; i < list.size(); i++) {
 			try {
@@ -149,8 +148,24 @@ public class LinkedListTest {
 
 			}
 		}
-		list.removeRange(2,4);
+		list.removeRange(10,12);
 
+	}
+
+	@Test
+	public void testGetElements() throws Exception{
+		LinkedList list2 = new LinkedList();
+		list2.add(2);
+		list2.add(3);
+		System.out.println("=============================ing==============================");
+		int[] result=list.getElements(list2);
+		System.out.println(Arrays.toString(result));
+
+	}
+
+	@Test
+	public void testReverse() throws Exception{
+		list.reverse();
 	}
 
 

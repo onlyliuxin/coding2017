@@ -114,7 +114,14 @@ public class LinkedList implements List {
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
 	public  void reverse(){
-
+		LinkedList list=new LinkedList();
+		for (int i = 0; i <=size-1 ; i++) {
+			Node node=getLastNode(i).next;
+			list.addFirst(node.data);
+//			node.data=null;
+//			node.next=null;
+		}
+		head=list.head;
 	}
 
 	/**
@@ -149,7 +156,17 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	public  int[] getElements(LinkedList list){
-		return null;
+		int[] result=new int[list.size()];
+		Iterator iterator = list.iterator();
+		for (int i = 0; i <= list.size()-1; i++) {
+			int BValue=Integer.parseInt(list.get(i).toString());
+			if(BValue>=this.size-1){
+				break;
+			}
+			result[i]=Integer.parseInt(get(BValue).toString());
+		}
+
+		return result;
 	}
 
 	/**
@@ -189,11 +206,17 @@ public class LinkedList implements List {
 
 		Node minLastNode=null;
 		Node maxLastNode=null;
-		Node nowNode=head;
+		Node nowNode=null;
 		int count=0;
-		for (int i = 1; i <= size-1; i++) {
-			nowNode=nowNode.next;
-			if(Integer.parseInt(nowNode.data.toString())>min && Integer.parseInt(nowNode.data.toString())<max){
+		for (int i = 0; i <= size-1; i++) {
+			if(i==0){
+				nowNode=head;
+			}else{
+				nowNode=nowNode.next;
+			}
+
+			int nextIntValue=Integer.parseInt(nowNode.next.data.toString());
+			if(nextIntValue>min && nextIntValue<max){
 				count++;
 				if(minLastNode==null){
 					minLastNode=nowNode;

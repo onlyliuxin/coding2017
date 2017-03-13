@@ -24,7 +24,7 @@ public class ArrayUtil {
 			throw new Exception("array origin is empty");
 		}
 		int size = origin.length;
-		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < size / 2; i++) {
 			int tmp = origin[i];
 			origin[i] = origin[size - i - 1];
 			origin[size - i - 1] = tmp;
