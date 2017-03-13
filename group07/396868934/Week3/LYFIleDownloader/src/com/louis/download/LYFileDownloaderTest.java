@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.louis.download.LYFileDownloader;
-import com.louis.download.api.LYConnectionManager;
 import com.louis.download.api.LYDownloadListener;
 import com.louis.download.impl.LYConnectionManagerImpl;
 
@@ -23,20 +22,12 @@ public class LYFileDownloaderTest {
 	public void testDownload() {
 		
 		String url = "http://avatar.csdn.net/9/B/0/1_xb12369.jpg";
-		
-		LYFileDownloader downloader = new LYFileDownloader(url);
-	
-		LYConnectionManager cm = new LYConnectionManagerImpl();
-		downloader.setConnectionManager(cm);
-		
-		downloader.setListener(new LYDownloadListener() {
+		new LYFileDownloader(url, new LYConnectionManagerImpl(),  new LYDownloadListener() {
 			@Override
 			public void notifyFinished() {
 				downloadFinished = true;
 			}
-		});
-		
-		downloader.execute();
+		}).execute();
 		
 		// 等待多线程下载程序执行完毕
 		while (!downloadFinished) {
