@@ -27,6 +27,7 @@ public class LinkedListTest {
 		LinkedList list1 = createLinkList(0, 5);
 		list1.removeFirstHalf();
 		LinkedList list2 = createLinkList(2, 5);
+
 		compareEquals(list1, list2);
 
 		LinkedList list3 = createLinkList(0, 6);
@@ -80,9 +81,9 @@ public class LinkedListTest {
 
 	@Test
 	public void testRemoveRange() {
-		LinkedList list1 = createLinkList(0, 10000);
-		list1.removeRange(0, 5000);
-		LinkedList list2 = createLinkList(5000, 10000);
+		LinkedList list1 = createLinkList(0, 10);
+		list1.removeRange(0, 5);
+		LinkedList list2 = createLinkList(5, 10);
 		compareEquals(list2, list1);
 
 		LinkedList list3 = createLinkList(0, 6);
@@ -94,6 +95,11 @@ public class LinkedListTest {
 		list5.removeRange(0, 7);
 		LinkedList list6 = new LinkedList();
 		compareEquals(list6, list5);
+		
+		LinkedList list7 = createLinkList(0, 100000);
+		list7.removeRange(0, 50000);
+		LinkedList list8 = createLinkList(50000, 100000);
+		//compareEquals(list8, list7);
 	}
 
 	@Test

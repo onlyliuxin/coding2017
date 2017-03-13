@@ -9,7 +9,8 @@ public class LinkedList implements List {
 
 	private Node head;
 	private int size;
-
+	private Node last;
+	
 	public void add(Object o) {
 		addLast(o);
 	}
@@ -18,8 +19,13 @@ public class LinkedList implements List {
 		checkIndexRange(index);
 		if (index == 0) {
 			head = new Node(o, head);
+			last = head;
 			size++;
-		} else {
+		}else if(index==size()){
+			last.next = new Node(o, null);
+			last = last.next;
+			size++;
+		}else {
 			Node nd = getNode(index - 1);
 			nd.next = new Node(o, nd.next);
 			size++;
@@ -31,11 +37,18 @@ public class LinkedList implements List {
 	}
 
 	private Node getNode(int index) {
+		if (isLastIndex(index)){
+			return last;
+		}
 		Node nd = head;
 		for (int i = 0; i < index; i++) {
 			nd = nd.next;
 		}
 		return nd;
+	}
+
+	private boolean isLastIndex(int index) {
+		return index==size()-1;
 	}
 
 	public Object remove(int index) {
@@ -48,7 +61,13 @@ public class LinkedList implements List {
 			head = head.next;
 			size--;
 			return o;
-		} else {
+		}else if(isLastIndex(index)){
+			Object o = last.data;
+			last=getNode(index-1);
+			last.next =null;
+			size--;
+			return o;
+		}else {
 			Node nd = getNode(index - 1);
 			Object o = nd.next.data;
 			nd.next = nd.next.next;
@@ -149,10 +168,10 @@ public class LinkedList implements List {
 	 * 
 	 */
 	public void removeFirstHalf() {
-		if (size < 2) {
+		if (size() < 2) {
 			return;
 		}
-		int i = (size) / 2;
+		int i = (size()) / 2;
 		head = getNode(i);
 		size = size - i;
 	}
@@ -169,7 +188,10 @@ public class LinkedList implements List {
 		}
 		if (i == 0) {
 			head = getNode(length);
-		} else {
+		}else if(i+length==size){
+			last= getNode(i-1);
+			last.next = null;
+		}else {
 			getNode(i - 1).next = getNode(i + length);
 		}
 		size -= length;
