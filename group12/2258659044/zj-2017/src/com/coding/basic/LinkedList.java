@@ -180,7 +180,6 @@ public class LinkedList implements List {
 			if(length<(size-i)){
 				getPointNode(i-1).next = getPointNode(i+length);
 				size = size-length;
-				size = size-length;
 			}else{
 				getPointNode(i-1).next = null;
 				size = i;
