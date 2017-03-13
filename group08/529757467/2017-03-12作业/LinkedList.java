@@ -2,6 +2,7 @@ package com.coding.basic;
 
 import java.util.NoSuchElementException;
 
+/LinkedList添加新的方法/
 public class LinkedList implements List {
 
 	private int size = 0;
