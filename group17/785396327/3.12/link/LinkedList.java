@@ -10,9 +10,10 @@ public class LinkedList<T> {
     private int size = 0;
 
     public void add(T o) {
-        if (head == null)
+        if (head == null) {
             head = new Node<T>(null, o);
-        else
+            size++;
+        } else
             addLast(o);
     }
 
@@ -40,8 +41,7 @@ public class LinkedList<T> {
     public void add(int index, T o) {
         Node<T> node = getNodeIndex(index - 1);
         Node<T> nextNode = node.next;
-        Node newNode = new Node(node, o);
-        newNode.next = nextNode;
+        node.next = new Node<T>(nextNode, o);
         size++;
     }
 
@@ -73,9 +73,7 @@ public class LinkedList<T> {
     }
 
     public void addLast(T o) {
-        Node<T> last = getNodeIndex(size - 1);
-        last.next = new Node(null, o);
-        size++;
+        add(size, o);
     }
 
     public T removeFirst() {
@@ -117,7 +115,7 @@ public class LinkedList<T> {
             sb.append(temp.data).append("-->");
             temp = temp.next;
         }
-        return sb.toString();
+        return sb.toString().substring(0, sb.lastIndexOf("-->"));
     }
 
     /**
@@ -125,7 +123,15 @@ public class LinkedList<T> {
      * 例如链表为 3->7->10 , 逆置后变为  10->7->3
      */
     public void reverse() {
-
+        Node cur = null;
+        Node prev = null;
+        while (head != null) {
+            cur = head;
+            head = head.next;
+            cur.next = prev;
+            prev = cur;
+        }
+        head = cur;
     }
 
     /**
@@ -134,7 +140,7 @@ public class LinkedList<T> {
      * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
      */
     public void removeFirstHalf() {
-
+        head = getNodeIndex(size / 2);
     }
 
     /**
@@ -144,7 +150,15 @@ public class LinkedList<T> {
      * @param length
      */
     public void remove(int i, int length) {
-
+        if (size <= (i + length) || i < 0)
+            throw new IndexOutOfBoundsException("size : " + size + ", i + length : " + (i + length));
+        Node<T> rightNode = getNodeIndex(i + length);
+        if (i == 0)
+            head = rightNode;
+        else {
+            Node<T> leftNode = getNodeIndex(i - 1);
+            leftNode.next = rightNode;
+        }
     }
 
     /**
@@ -156,8 +170,14 @@ public class LinkedList<T> {
      *
      * @param list
      */
-    public static int[] getElements(LinkedList list) {
-        return null;
+    public Object[] getElements(LinkedList<Integer> list) {
+        Object[] result =  new Object[list.size];
+        if (list != null) {
+            for (int i = 0; i < list.size; i++) {
+                result[i] = get(list.get(i));
+            }
+        }
+        return result;
     }
 
     /**
