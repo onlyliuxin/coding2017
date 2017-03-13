@@ -2,6 +2,7 @@ package Collection;
 
 import org.junit.Test;
 
+
 public class TestCollection {
 
 	@Test
