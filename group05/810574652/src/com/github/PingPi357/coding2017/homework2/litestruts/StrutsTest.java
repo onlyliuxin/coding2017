@@ -1,14 +1,10 @@
-package com.coderising.litestruts;
+package com.github.PingPi357.coding2017.homework2.litestruts;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-
-
-
 
 public class StrutsTest {
 
