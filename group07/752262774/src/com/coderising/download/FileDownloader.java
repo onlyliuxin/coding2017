@@ -5,6 +5,14 @@ import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
 
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.net.MalformedURLException;
+import java.util.concurrent.CountDownLatch;
+
 
 public class FileDownloader {
 	
@@ -13,6 +21,12 @@ public class FileDownloader {
 	DownloadListener listener;
 	
 	ConnectionManager cm;
+
+	CountDownLatch countDownLatch = new CountDownLatch(3);
+
+	private static final int THREADS = 3;
+
+	public static int FINISHS = 3;
 	
 
 	public FileDownloader(String _url) {
@@ -39,29 +53,55 @@ public class FileDownloader {
 			
 			conn = cm.open(this.url);
 			
-			int length = conn.getContentLength();	
+			int length = conn.getContentLength();
+			String filePath = getPath(url);
+			RandomAccessFile file = new RandomAccessFile(filePath, "rw");
+			file.setLength(length);
+
+			int partSize = (length % 3 == 0)? length / 3 : length / 3 +1;
+			for (int i=0; i< THREADS; i++) {
+				int startPos = i * partSize;
+				int endPos = (i+1) * partSize -1;
+				if (endPos > length-1) {
+					endPos = length-1;
+				}
+				new DownloadThread(cm.open(this.url), startPos, endPos, filePath, countDownLatch).start();
+			}
+
+			countDownLatch.await();
+
+			listener.notifyFinished();
 			
-			new DownloadThread(conn,0,length-1).start();
-			
-		} catch (ConnectionException e) {			
+		} catch (ConnectionException e) {
 			e.printStackTrace();
-		}finally{
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally{
 			if(conn != null){
 				conn.close();
 			}
 		}
-		
-		
-		
-		
+
 	}
-	
+
+	private String getPath(String url) {
+		File desktopDir = FileSystemView.getFileSystemView()
+				.getHomeDirectory();
+		String[] strs = url.split("/");
+
+		return desktopDir + "//" + strs[strs.length-1];
+	}
+
 	public void setListener(DownloadListener listener) {
 		this.listener = listener;
 	}
 
-	
-	
 	public void setConnectionManager(ConnectionManager ucm){
 		this.cm = ucm;
 	}

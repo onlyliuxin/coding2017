@@ -1,38 +1,57 @@
 package com.louisly.java;
+
 import com.louisly.java.LYIterator;
 
-public class LYArrayList {
-	private Object[] elementData = new Object[10];
-	private int currentCount = 0;
-	public void addObject(Object obj) {
-		if (currentCount >= elementData.length) {
-			grow();
-		}
-		elementData[currentCount] = obj;
-		currentCount++;
+public class LYArrayList<T> {
+	private Object[] dataArray = new Object[10];
+	private int size = 0;
+	
+	
+	public void addObject(T obj) {
+		ensureCapacity(size + 1);
+		dataArray[size] = obj;
+		size++;
 	}
 	
-	public boolean removeObject(Object obj) {
+	public void add(int index, T element) {
+		if (index < 0 || index > size) {
+			throw new IndexOutOfBoundsException();
+		}
+		ensureCapacity(size + 1);
+		System.arraycopy(dataArray, index, dataArray, index + 1, size - index);
+		dataArray[index] = element;
+		size++;
+	}
+	
+	public T set(int index, T element) {
+		if (index < 0 || index > size) {
+			throw new IndexOutOfBoundsException();
+		}
+		dataArray[index] = element;
+		return element;
+	}
+	
+	public boolean removeObject(T obj) {
 		boolean existObj = false;
 		int removeIndex = -1;
-		int index = currentCount;
+		int index = size;
 		for (int i = 0; i < index; i++) {
-			Object element = elementData[i];
+			Object element = dataArray[i];
 			boolean remove = false;
 			if (element != null && element.equals(obj)) {
-				elementData[i] = null;
+				dataArray[i] = null;
 				existObj = true;
 				remove = true;
 				// 以防存在一样的第二个元素
 				if (removeIndex == -1) {
 					removeIndex = i;
 				}
-				currentCount--;
+				size--;
 			}
 			// 将元素往前移动
 			if (!remove) {
-				elementData[removeIndex] = element;
-				elementData[i] = null;
+				dataArray[removeIndex] = element;
+				dataArray[i] = null;
 				removeIndex++;
 			}
 		}
@@ -40,55 +59,68 @@ public class LYArrayList {
 	}
 	
 	public boolean removeAtIndex(int index) {
-		if (index > currentCount) {
+		if (index > size) {
 			return false;
 		}
-		elementData[index] = null;
+		dataArray[index] = null;
 		
-		for (int i = index+1; i < currentCount; i++) {
-			elementData[i-1] = elementData[i];
-			elementData[i] = null;
+		for (int i = index+1; i < size; i++) {
+			dataArray[i-1] = dataArray[i];
+			dataArray[i] = null;
 		}
-		currentCount--;
+		size--;
 		return true;
 	}
 	
-	public void grow() {
-		Object[] target = new Object[elementData.length*2];
-		System.arraycopy(elementData, 0, target, 0, elementData.length);
-		elementData = target;
+	public void clear() {
+		for (int i = 0; i < size; i++) {
+			dataArray[i] = null;
+		}
+		size = 0;
 	}
 	
-	public Object get(int index) {
-		if (index > currentCount) {
-			return null;
+	public void ensureCapacity(int minCapacity) {
+		if (minCapacity < dataArray.length) {
+			int newCapacity = Math.max(minCapacity, dataArray.length * 2);
+			Object[] newDataArray = new Object[newCapacity];
+			System.arraycopy(dataArray, 0, newDataArray, 0, dataArray.length);
+			dataArray = newDataArray;
 		}
-		return elementData[index];
+	}
+	
+	@SuppressWarnings("unchecked")
+	public T get(int index) {
+		if (index < 0 || index >= size) {
+			throw new IndexOutOfBoundsException();
+		}
+		return (T) dataArray[index];
 	}
 	
 	public int size() {
-		return currentCount;
+		return size;
 	}
 	
 	public LYIterator iterator() {
-		return new LYArrayListIterator(this);
+		return new LYArrayListIterator();
 	}
+	
+	
 	private class LYArrayListIterator implements LYIterator {
-		LYArrayList arrayList = null;
-		int position = 0;
-		public LYArrayListIterator(LYArrayList arrayList) {
-			this.arrayList = arrayList;
-		}
+		private int position;
 		
 		@Override
 		public boolean hasNext() {
-			
-			return false;
+			return position < size();
 		}
+		
 		@Override
 		public Object next() {
-			return elementData[position];
+			if (hasNext()) {
+				return dataArray[position];
+			}
+			return null;
 		}
+		
 		public void remove() {
 			
 		}
