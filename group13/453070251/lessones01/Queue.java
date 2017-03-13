@@ -1,3 +1,4 @@
+package lessones01;
 public class Queue<T>{
 	Node<T> first;
 	Node<T> lastest;
