@@ -29,7 +29,6 @@ public class ConnectionImpl implements Connection{
 	        } 
 	        baos.flush();
 	        data = baos.toByteArray(); 		
-	        return data;
 		}
         return data;
 	}
