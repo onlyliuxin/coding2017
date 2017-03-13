@@ -1,4 +1,4 @@
-package util;
+package litestruts;
 
 import java.util.List;
 import org.dom4j.Document;

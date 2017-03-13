@@ -12,12 +12,11 @@ public class ArrayList<E> extends AbstractList<E> {
 	private int size;
 	private static final int INITIAL_SIZE = 16;
 
-
 	public ArrayList() {
 		elements = (E[]) new Object[INITIAL_SIZE];
 		size = 0;
 	}
-	
+
 	@Override
 	public void add(E e) {
 		checkCapacity();
@@ -27,21 +26,21 @@ public class ArrayList<E> extends AbstractList<E> {
 	private void checkCapacity() {
 		if (size >= MAX_SIZE)
 			throw new IndexOutOfBoundsException("Reached max size");
-		
+
 		if (elements.length - size < INITIAL_SIZE)
 			grow();
 	}
 
 	synchronized private void grow() {
-		
+
 		int newCapacity = size * 2;
 		newCapacity = (newCapacity < 0 || newCapacity - MAX_SIZE > 0) ? MAX_SIZE : newCapacity;
 		E[] target = (E[]) new Object[newCapacity];
 		System.arraycopy(elements, 0, target, 0, size);
 		elements = target;
-		
+
 	}
-	
+
 	public void add(int index, E e) {
 		checkCapacity();
 		if (index == size) {
@@ -50,46 +49,44 @@ public class ArrayList<E> extends AbstractList<E> {
 		}
 		checkIndex(index);
 		synchronized (this) {
-			System.arraycopy(elements, index, elements, index+1, size-index+1);
+			System.arraycopy(elements, index, elements, index + 1, size - index + 1);
 			elements[index] = e;
 			size++;
 		}
 	}
-	
+
 	@Override
 	public E get(int index) {
 		checkIndex(index);
-			return elements[index];
+		return elements[index];
 	}
 
-	
 	public E getLast() {
-		return get(size-1);
+		return get(size - 1);
 	}
-	
+
 	public void addLast(E e) {
-		add(e);	
+		add(e);
 	}
-	
+
 	public E removeLast() {
 		return elements[--size];
 	}
-	
+
 	public E remove(int index) {
 		checkIndex(index);
 		E result = elements[index];
 		synchronized (this) {
-			System.arraycopy(elements, index+1, elements, index, size-index-1);
+			System.arraycopy(elements, index + 1, elements, index, size - index - 1);
 			elements[--size] = null;
 		}
 		return result;
 	}
-	
+
 	@Override
 	public int size() {
 		return size;
 	}
-	
 
 	@Override
 	public int hashCode() {
@@ -116,15 +113,16 @@ public class ArrayList<E> extends AbstractList<E> {
 		return true;
 	}
 
-	public Iterator<E> iterator(){
+	@Override
+	public Iterator<E> iterator() {
 		return new ArrayListIterator<E>(this);
 	}
-	
+
 	private class ArrayListIterator<E> implements Iterator<E> {
 
 		private ArrayList<E> myArrayList;
 		private int pos;
-		
+
 		public ArrayListIterator(ArrayList<E> arrayList) {
 			myArrayList = arrayList;
 			pos = 0;
@@ -142,7 +140,5 @@ public class ArrayList<E> extends AbstractList<E> {
 			throw new NoSuchElementException();
 		}
 	}
-
-
 
 }

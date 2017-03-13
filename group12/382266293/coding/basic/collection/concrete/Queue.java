@@ -1,22 +1,21 @@
 package collection.concrete;
-import java.util.NoSuchElementException;
 
 import collection.AbstractList;
 import collection.Iterator;
 
 public class Queue<E> extends AbstractList<E> {
-	
+
 	private LinkedList<E> myList;
 
 	public Queue() {
 		this.myList = new LinkedList<E>();
 	}
-	
-	public void enQueue(E e){
+
+	public void enQueue(E e) {
 		myList.addLast(e);
 	}
-	
-	public E deQueue(){
+
+	public E deQueue() {
 		if (0 == size())
 			return null;
 		return myList.removeFirst();
@@ -26,26 +25,25 @@ public class Queue<E> extends AbstractList<E> {
 	public void add(E e) {
 		enQueue(e);
 	}
-	
+
 	@Override
 	public E get(int index) {
 		if (0 == size())
 			return null;
 		return myList.get(index);
 	}
-	
+
 	public E element() {
 		if (0 == size())
 			return null;
 		return myList.getFirst();
 	}
 
-
 	@Override
 	public int size() {
 		return myList.size();
 	}
-	
+
 	@Override
 	protected Iterator<E> iterator() {
 		return myList.iterator();
@@ -75,10 +73,5 @@ public class Queue<E> extends AbstractList<E> {
 			return false;
 		return true;
 	}
-
-
-
-
-	
 
 }
