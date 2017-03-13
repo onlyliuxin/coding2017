@@ -11,10 +11,8 @@ import assignment0305.download.api.Connection;
 public class ConnectionImpl implements Connection {
 	private HttpURLConnection connection;
 	private InputStream in;
-	private URL url;
 
 	public ConnectionImpl(URL url) throws IOException {
-		this.url = url;
 		connection = (HttpURLConnection) url.openConnection();
 	}
 
