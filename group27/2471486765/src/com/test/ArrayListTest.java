@@ -32,6 +32,7 @@ public class ArrayListTest {
 		}
 	}
 	
+	
 	@Test
 	public void Test2() {
 		List list = new ArrayList();

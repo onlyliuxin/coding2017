@@ -30,6 +30,7 @@ public class Queue {
 		return linked.size();
 	}
 	
+	@Override
 	public String toString() {
 		return linked.toString();
 	}

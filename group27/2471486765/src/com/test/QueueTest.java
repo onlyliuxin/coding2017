@@ -6,6 +6,7 @@ import com.mycoding.Queue;
 
 public class QueueTest {
 
+	
 	@Test
 	public void Test1() {
 		Queue que = new Queue();

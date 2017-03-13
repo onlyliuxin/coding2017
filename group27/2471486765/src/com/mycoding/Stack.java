@@ -40,10 +40,8 @@ public class Stack {
 	}
 	
 	@Override
-	public String toString() {
-		
-		return elementData.toString();
-	
+	public String toString() {	
+		return elementData.toString();	
 	}                                                       
 	
 }

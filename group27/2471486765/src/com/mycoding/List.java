@@ -8,5 +8,4 @@ public interface List {
 	public Object remove(int index);
 	public int size();
 	public Iterator iterator();
-	
 }

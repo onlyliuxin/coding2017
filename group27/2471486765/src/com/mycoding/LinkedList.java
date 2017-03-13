@@ -155,7 +155,7 @@ public class LinkedList implements List {
 		}	
 	}
 	
-	
+
 	@Override
 	public String toString() {
 		StringBuffer str = new StringBuffer();

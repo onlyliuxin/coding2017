@@ -7,6 +7,7 @@ public class ArrayList implements List {
 	private int size = 0;
 	private Object[] elementData = new Object[10];
 	
+	
 	//增加元素
 	public void add(Object o) {
 		if (size()>=elementData.length) {
@@ -94,7 +95,6 @@ public class ArrayList implements List {
 			return elementData[cursor++];
 		}	
 	}
-
 	
 	@Override
 	public String toString() {		
