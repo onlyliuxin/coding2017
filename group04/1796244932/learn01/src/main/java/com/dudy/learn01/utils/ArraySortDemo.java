@@ -28,9 +28,6 @@ public class ArraySortDemo {
      * 二分法查找 插入
      * 和 直接插入排序不同的是： 查找 要插入的位置的方式不同
      * 二分法前提是有序的**
-     *
-     *
-     *
      */
     public static void dichotomySort(int src[]){
 
