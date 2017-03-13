@@ -15,6 +15,7 @@ public class ArrayListTest {
 	@Before
 	public void setUp() throws Exception {
 		list = new ArrayList();
+		
 	}
 
 	@After
@@ -26,7 +27,7 @@ public class ArrayListTest {
 		list.add(a);
 		list.add(b);
 		list.add(c);
-		System.out.println(list.size());
+	/*	System.out.println(list.size());
 		for(int i=0;i<list.size();i++){
 			System.out.println(list.get(i));
 		}
@@ -34,8 +35,7 @@ public class ArrayListTest {
 		list.remove(3);
 		for(int i=0;i<list.size();i++){
 			System.out.println(list.get(i));
-		}
-		fail("Not yet implemented");
+		}*/
 	}
 
 	@Test
@@ -60,7 +60,11 @@ public class ArrayListTest {
 
 	@Test
 	public void testIterator() {
-		fail("Not yet implemented");
+		testAddObject();
+		Iterator i = list.iterator();
+		while(i.hasNext()){
+			System.out.println(i.next());
+		}
 	}
 
 }
