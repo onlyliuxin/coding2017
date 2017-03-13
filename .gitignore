@@ -19,3 +19,8 @@ rebel.*
 .rebel.*
 
 target
+
+bin/
+.setting/
+*.classpath
+*.project
