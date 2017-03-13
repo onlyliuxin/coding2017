@@ -30,7 +30,8 @@ public class FileDownloaderTest {
 		
 //		String url = "http://localhost:8080/test.jpg";
 //		String url = "file:///E:/Video/download/88993.mp4";
-		String url = "file:///E:/Pictures/Clannad/Clannad高清图片/38.jpg";
+//		String url = "file:///E:/Pictures/Clannad/Clannad高清图片/38.jpg";
+		String url = "http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg";
 
 		FileDownloader downloader = new FileDownloader(url);
 
