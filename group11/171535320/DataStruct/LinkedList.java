@@ -222,7 +222,7 @@ public class LinkedList implements List {
 			Node t = head;
 			int i = 0;
 			while(t != null) {
-				tempList.add(t.data);
+				tempList.add((Integer) t.data);
 				i++;
 			}
 			int k = 0;
@@ -236,12 +236,27 @@ public class LinkedList implements List {
 	/**
 	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
 	 * 从当前链表中中删除在list中出现的元素
-
 	 * @param list
 	 */
 
-	public  void subtract(LinkedList list){
+	public  void subtract(java.util.LinkedList<Integer> list){
+		Node temp = head;
+		Node temp2 = head;
+		int i = 0;
 
+		while(i < list.size() || temp != null) {
+			if(i == list.size() || temp == null) {
+				break;
+			}
+			if(list.get(i) > (Integer)temp.data) {
+				temp2 = temp;
+				temp = temp.next;
+			} else if(list.get(i) < (Integer)temp.data) {
+				i++;
+			} else {
+				temp2.next = temp.next;
+			}
+		}
 	}
 
 	/**
