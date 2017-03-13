@@ -1,14 +1,14 @@
-package com.coding.basic;
+package task1.basic;
 
 /**
  * Created by wanc on 2017/2/21.
  * 利用LinkedList 实现队列
  */
-public class Queue {
+public class WQueue {
     /**
      * 利用LinkedList 保存数据
      */
-    private LinkedList elementData = new LinkedList();
+    private WLinkedList elementData = new WLinkedList();
 
     /**
      * 入队

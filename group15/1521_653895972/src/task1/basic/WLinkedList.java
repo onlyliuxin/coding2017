@@ -1,12 +1,14 @@
-package com.coding.basic;
+package task1.basic;
 
+import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * Created by wanc on 2017/2/21.
  * 实现单向链表集合
  */
-public class LinkedList implements List {
+public class WLinkedList implements WList {
     /**
      * 首节点
      */
@@ -142,6 +144,14 @@ public class LinkedList implements List {
         size--;
         return x.data;
     }
+    public Object remove(Object element){
+        Node x=head;
+        for (int i=0;i<size;i++){
+            if (Objects.equals(x.data,element))
+            x=x.next;
+        }
+        return null;
+    }
 
     /**
      * 返回数量
@@ -208,7 +218,11 @@ public class LinkedList implements List {
      *
      * @return
      */
-    public Iterator iterator() {
+    public WIterator iterator() {
+        return new LinkedItr();
+    }
+
+    public ListWIterator listIterator() {
         return new LinkedItr();
     }
 
@@ -217,8 +231,9 @@ public class LinkedList implements List {
      *
      * @return
      */
-    private class LinkedItr implements Iterator {
-        int cursor;//游标
+    private class LinkedItr implements ListWIterator {
+        int cursor = 0;//游标
+        int delCursor = -1;
 
         @Override
         public boolean hasNext() {
@@ -228,11 +243,29 @@ public class LinkedList implements List {
         @Override
         public Object next() {
             int i = cursor;
-            if (i > size - 1) throw new NoSuchElementException();
+            if (i > (size - 1)) throw new NoSuchElementException();
             Node current = node(i);
             if (current == null) throw new IndexOutOfBoundsException();
+            delCursor = i;
             cursor = i + 1;
+//            System.out.println("i="+i+"-"+current.data);
             return current.data;
+        }
+
+        @Override
+        public void remove() {
+            if (delCursor < 0) {
+                throw new IllegalStateException();
+            }
+            try {
+                WLinkedList.this.remove(delCursor);
+                if (cursor > 0)
+                    cursor--;
+                delCursor = -1;
+            } catch (IndexOutOfBoundsException e) {
+                throw new ConcurrentModificationException();
+            }
+
         }
     }
 
@@ -268,4 +301,123 @@ public class LinkedList implements List {
 
         return result + "]";
     }
+
+
+    /**
+     * 把该链表逆置
+     * 例如链表为 3->7->10 , 逆置后变为  10->7->3
+     */
+    public void reverse() {
+        if (head == null) return;
+        Node[] nodes = new Node[size];
+        Node x = head;
+        for (int i = 0; i < size; i++) {
+            nodes[i] = x;
+            x = x.next;
+        }
+
+        head = nodes[nodes.length - 1];
+        Node tmp = head;
+        for (int j = nodes.length - 2; j >= 0; j--) {
+            Node c = nodes[j];
+            tmp.next = c;
+            tmp = c;
+        }
+    }
+
+    /**
+     * 删除一个单链表的前半部分
+     * 例如：list = 2->5->7->8 , 删除以后的值为 7->8
+     * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
+     */
+    public void removeFirstHalf() {
+        int len = size / 2;
+        remove(0, len);
+
+    }
+
+    /**
+     * 从第i个元素开始， 删除length 个元素 ， 注意i从0开始
+     *
+     * @param i
+     * @param length
+     */
+    public void remove(int i, int length) {
+        checkElementIndex(i);
+        checkElementIndex(i + length - 1);
+        if (0 == length) return;
+        int a = i - 1;
+        Node p = node(a);//前一个
+        Node f = p.next;//删除第一个
+        Node l = node(i + length - 1);//删除最后一个
+        Node h = l.next;//后一个
+        //去掉引用 等待GC回收
+        Node tmp = f;
+        while (tmp != l) {
+            Node n = tmp.next;
+            tmp.next = null;
+            tmp = n;
+        }
+        l.next = null;
+
+        if (0 == i)
+            head = h;
+        else
+            p.next = h;
+        size -= length;
+    }
+
+    /**
+     * 假定当前链表和list均包含已升序排列的整数
+     * 从当前链表中取出那些list所指定的元素
+     * 例如当前链表 = 11->101->201->301->401->501->601->701
+     * listB = 1->3->4->6
+     * 返回的结果应该是[101,301,401,601]
+     *
+     * @param list
+     */
+    public int[] getElements(WLinkedList list) {
+        if (list == null) return null;
+        int[] arr = new int[list.size];
+        WIterator itr = list.iterator();
+        int i = 0;
+        while (itr.hasNext()) {
+            arr[i] = (int) node((int) itr.next()).data;
+            i++;
+        }
+        return arr;
+    }
+
+    interface ListWIterator extends WIterator {
+        void remove();
+    }
+
+    /**
+     * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
+     * 从当前链表中中删除在list中出现的元素
+     *
+     * @param list
+     */
+
+    public void subtract(WLinkedList list) {
+        if (list != null && list.size > 0) {
+            WIterator itr = list.iterator();
+            while (itr.hasNext()) {
+                ListWIterator sourItr = listIterator();
+                Object value = itr.next();
+                while (sourItr.hasNext()) {
+                    Object souValue = sourItr.next();
+//                    System.out.println(value+"-"+souValue);
+                    if (value.equals(souValue)) {
+//                        System.out.println(value+"-"+sourItr.next());
+                        sourItr.remove();
+//                        System.out.println("remove");
+                    }
+                }
+//                System.out.println("---------------------------------");
+            }
+        }
+    }
+
+
 }

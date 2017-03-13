@@ -1,13 +1,13 @@
-package com.coding.basic;
+package task1.basic;
 /**
  * Created by wanc on 2017/2/21.
  * 利用ArrayList 实现栈
  */
-public class Stack {
+public class WStack {
     /**
      * 利用ArrayList 保存数据
      */
-    private ArrayList elementData = new ArrayList();
+    private WArrayList elementData = new WArrayList();
 
     /**
      * 入栈

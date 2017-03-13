@@ -1,5 +1,7 @@
-package com.coding.coderising.litestruts;
+package task2.test;
 
+import task2.litestruts.Struts;
+import task2.litestruts.View;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -22,7 +24,7 @@ public class StrutsTest {
         params.put("password","1234");
         
         
-        View view  = Struts.runAction(actionName,params);        
+        View view  = Struts.runAction(actionName,params);
         
         Assert.assertEquals("/jsp/homepage.jsp", view.getJsp());
         Assert.assertEquals("login successful", view.getParameters().get("message"));

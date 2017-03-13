@@ -1,11 +1,11 @@
-package com.coding.basic;
+package task1.basic;
 
 /**
  * 实现二叉树
  * left总比父节点小
  * right总比父节点大
  */
-public class BinaryTreeNode {
+public class WBinaryTreeNode {
     private Node root;
     private int size = 0;
 

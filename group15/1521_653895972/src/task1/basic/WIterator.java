@@ -1,6 +1,6 @@
-package com.coding.basic;
+package task1.basic;
 
-public interface Iterator {
+public interface WIterator {
 	public boolean hasNext();
 	public Object next();
 

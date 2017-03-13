@@ -1,4 +1,4 @@
-package com.coding.coderising.array;
+package task2.array;
 
 import org.junit.Test;
 

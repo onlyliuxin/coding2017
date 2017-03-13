@@ -1,13 +1,14 @@
-package com.coding.basic;
+package task1.basic;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * Created by wanc on 2017/2/21.
  * 实现ArrayList
  */
-public class ArrayList implements List {
+public class WArrayList implements WList {
     /**
      * 实例化空数组 不用每次都new
      */
@@ -21,8 +22,13 @@ public class ArrayList implements List {
      */
     private Object[] elementData = new Object[100];
 
-    public ArrayList() {
+    public WArrayList() {
         this.elementData = Empty_elementData;
+    }
+
+    public WArrayList(Object[] c) {
+        size = c.length;
+        this.elementData = c;
     }
 
     /**
@@ -108,17 +114,26 @@ public class ArrayList implements List {
         return size;
     }
 
+    public boolean contaions(Object o) {
+        if (size==0)return false;
+        for (int i = 0; i < size; i++) {
+            if (Objects.equals(o, elementData[i]))
+                return true;
+        }
+        return false;
+    }
+
     /**
      * 获取迭代器
      *
      * @return
      */
-    public Iterator iterator() {
+    public WIterator iterator() {
         return new ArrayItr();
     }
 
     //迭代器实现类部类
-    private class ArrayItr implements Iterator {
+    private class ArrayItr implements WIterator {
         int cursor;//游标
 
         @Override
@@ -130,7 +145,7 @@ public class ArrayList implements List {
         public Object next() {
             int i = cursor;
             if (i > size) throw new NoSuchElementException();
-            Object[] newElementData = ArrayList.this.elementData;
+            Object[] newElementData = WArrayList.this.elementData;
             if (i > newElementData.length) throw new IndexOutOfBoundsException();
             cursor = i + 1;
             return newElementData[i];

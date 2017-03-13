@@ -1,7 +1,8 @@
-package com.coding.basic;
+package task1.test;
 
 import org.junit.Assert;
 import org.junit.Test;
+import task1.basic.*;
 
 /**
  * Created by wanc on 2017/2/21.
@@ -11,16 +12,16 @@ public class BasicTest {
     @Test
     public void test() {
         //测试
-        testArrayList();
+//        testArrayList();
         testLinkedList();
-        testBinaryTreeNode();
-        testStack();
-        testQueue();
+//        testBinaryTreeNode();
+//        testStack();
+//        testQueue();
     }
 
 
     public void testQueue(){
-        Queue queue = new Queue();
+        WQueue queue = new WQueue();
         queue.enQueue("S");
         queue.enQueue("Y");
         queue.enQueue(5);
@@ -32,7 +33,7 @@ public class BasicTest {
         System.out.println(queue);
     }
     public void testStack(){
-        Stack stack = new Stack();
+        WStack stack = new WStack();
         stack.push("S");
         stack.push("Y");
         stack.push(5);
@@ -46,7 +47,7 @@ public class BasicTest {
     public void testBinaryTreeNode(){
         System.out.println("-------------------BinaryTreeNode 测试开始-------------------");
         System.out.println("new 一个实例");
-        BinaryTreeNode root = new BinaryTreeNode();
+        WBinaryTreeNode root = new WBinaryTreeNode();
         root.insert(5);
         root.insert(6);
         root.insert(9);
@@ -61,7 +62,7 @@ public class BasicTest {
         System.out.println("-------------------LinkedList 测试开始-------------------");
 
         System.out.println("new 一个实例");
-        LinkedList list = new LinkedList();
+        WLinkedList list = new WLinkedList();
 
         System.out.println("添加元素----A");
         list.add("A");
@@ -125,7 +126,7 @@ public class BasicTest {
 
         System.out.println();
         System.out.println("迭代器输出：");
-        Iterator i = list.iterator();
+        WIterator i = list.iterator();
         while (i.hasNext()){
             System.out.print(i.next()+" ");
         }
@@ -139,7 +140,7 @@ public class BasicTest {
         System.out.println("-------------------ArrayList 测试开始-------------------");
 
         System.out.println("new 一个实例");
-        ArrayList list = new ArrayList();
+        WArrayList list = new WArrayList();
 
         System.out.println("添加元素 A");
         list.add("A");
@@ -174,7 +175,7 @@ public class BasicTest {
 
         System.out.println("输出："+list);
         System.out.println("数量："+list.size());
-        Iterator i = list.iterator();
+        WIterator i = list.iterator();
         System.out.print("迭代器输出：");
         while (i.hasNext()){
             System.out.print(i.next()+" ");
