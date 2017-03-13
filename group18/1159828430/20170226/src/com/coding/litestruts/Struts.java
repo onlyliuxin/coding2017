@@ -35,7 +35,7 @@ public class Struts {
 		    Method executeMethod = actionClass.getMethod("execute");
 			//Type returnType = m.getGenericReturnType();//获取返回值类型
 			String returnValue = (String)executeMethod.invoke(actionObj);//这里如何根据返回类型来动态接收方法的返回值？
-			
+			//selenium
 			//获取返回值放到view
 			Map<String,String> params = new HashMap<String,String>();
 			Field[] fields = actionClass.getDeclaredFields();
