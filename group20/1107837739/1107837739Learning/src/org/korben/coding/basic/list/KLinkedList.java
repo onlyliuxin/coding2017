@@ -150,7 +150,7 @@ public class KLinkedList<T> implements KList<T> {
 
     @Override
     public KIterator<T> iterator() {
-        return new Iterator(this);
+        return new Iterator();
     }
 
     private Node<T> getNode(int index) {
@@ -474,8 +474,8 @@ public class KLinkedList<T> implements KList<T> {
     private class Iterator implements KIterator<T> {
         private Node<T> node;
 
-        Iterator(KLinkedList<T> list) {
-            this.node = list.head;
+        Iterator() {
+            this.node = head;
         }
 
         @Override
