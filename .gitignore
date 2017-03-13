@@ -23,4 +23,7 @@ rebel.*
 .rebel.*
 
 target
+*.DS_Store
+liuxin/.DS_Store
+liuxin/src/.DS_Store
 
