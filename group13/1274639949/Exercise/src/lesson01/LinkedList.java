@@ -31,45 +31,35 @@ public class LinkedList<E> implements List<E> {
 			//链表中还没有元素
 			head.next = temp;
 			temp.pre = head;
-		}else{
-			//链表中已经有元素
+			last = temp;
+		}else if(index == size){
+			//链表中已经有元素，在最后一个元素后面添加元素
 			last.next = temp;
 			temp.pre = last;
+			last = temp;
+		}else{
+			Node<E> pos = head.next;
+			for(int i = 0; i < index; i++){
+				pos = pos.next;
+			}
+			temp.pre  = pos.pre;
+			temp.next = pos;
+			pos.pre.next = temp;
+			pos.pre = temp;
 		}
-		last = temp;
 		size++;
 		temp = null;
 	}
 
 	@Override
 	public void clear() {
-		while(size > 0){
-			temp = last.pre;
-			last.pre = null;
-			temp.next = null;
-			
-			if(temp == head){
-				last = null;
-			}else{
-				last = temp;
-			}
-			size--;
+		while(pollFirst() != null){
 		}
-		temp = null;
 	}
 
 	@Override
 	public boolean contains(Object o) {
-		temp = head.next;
-		if(o == null){
-			while(temp != null){
-				if(temp.data == null){
-					return true;
-				}
-				temp = temp.next;
-			}
-		}
-		return false;
+		return indexOf(o) >= 0;
 	}
 
 	@Override
@@ -124,7 +114,7 @@ public class LinkedList<E> implements List<E> {
 			head.next = null;
 			last.pre  = null;
 			last      = null;
-		}else if(index == 0){
+		}/*else if(index == 0){
 			//链表中有两个或更多的元素，但是移除下标为0的元素
 			temp = head.next;
 			obj  = temp.data;
@@ -134,9 +124,9 @@ public class LinkedList<E> implements List<E> {
 			temp.pre  = null;
 			temp.next = null;
 			temp      = null;
-		}else if(index == size - 1){
+		}*/else if(index == size - 1){
 			//链表中有两个或更多的元素，但是移除下标为size()-1的元素
-			obj = head.data;
+			obj = last.data;
 			
 			last = last.pre;
 			last.next.pre = null;
@@ -154,6 +144,7 @@ public class LinkedList<E> implements List<E> {
 			temp.next = null;
 			temp      = null;
 		}
+		size--;
 		return obj;
 	}
 
@@ -219,6 +210,7 @@ public class LinkedList<E> implements List<E> {
 			E element = get(pos);
 			lastRet = pos;
 			pos++;
+//			E element = get(lastRet = pos++);
 			return element;
 		}
 
@@ -238,5 +230,73 @@ public class LinkedList<E> implements List<E> {
 		Node<E> next;
 		Node<E> pre;
 	}
+	
+	public void addFirst(E e){
+		add(0, e);
+	}
+	
+	public void addLast(E e){
+		add(size, e);
+	}
+	
+	public E removeFirst(){
+		ensureElementExists();
+		return remove(0);
+		
+	}
+
+
+	private void ensureElementExists() {
+		if(size == 0){
+			throw new NoSuchElementException();
+		}
+	}
+	
+	public E removeLast(){
+		ensureElementExists();
+		return remove(size - 1); 
+		
+	}
+	
+	public E getFirst(){
+		ensureElementExists();
+		return get(0);
+	}
+	
+	public E getLast(){
+		ensureElementExists();
+		return get(size - 1);
+		
+	}
+	
+	public E pollFirst(){
+		if(size == 0){
+			return null;
+		}
+		return remove(0);
+	}
+	
+	public E pollLast(){
+		if(size == 0){
+			return null;
+		}
+		return remove(size - 1);
+	}
+	
+	public E peekFirst(){
+		if(size == 0){
+			return null;
+		}
+		return get(0);
+	}
+	
+	public E peekLast(){
+		if(size == 0){
+			return null;
+		}
+		return get(size - 1);
+	}
+	
+	
 
 }
