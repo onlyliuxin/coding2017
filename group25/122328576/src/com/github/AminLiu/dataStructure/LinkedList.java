@@ -48,8 +48,7 @@ public class LinkedList implements List {
 
 	public Object get(int index) {
 		if (this.size <= index || index < 0) {
-			throw new IndexOutOfBoundsException("Index: " + index + ", Size: "
-					+ this.size);
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.size);
 		}
 		Node arg0 = getIndexNode(this.head, index);
 		return arg0.next.data;
@@ -142,12 +141,10 @@ public class LinkedList implements List {
 		int arg0;
 		Node node = head;
 
-		@Override
 		public boolean hasNext() {
 			return arg0 != size;
 		}
 
-		@Override
 		public Object next() {
 			int i = arg0;
 			if (i >= size)
@@ -238,8 +235,7 @@ public class LinkedList implements List {
 
 	private void ckeckPosition(int index) {
 		if (index < 0 || this.size < index) {
-			throw new IndexOutOfBoundsException("Index: " + index + ", Size: "
-					+ this.size);
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.size);
 		}
 	}
 
