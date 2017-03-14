@@ -51,9 +51,11 @@ public class MyBinaryTree {
 		}
 		Integer value = node.getValue();
 		if(value.compareTo(key) > 0){
-			node.left =add(node.left,key);
+			node.setLeft(add(node.left,key));
+			
 		}else if(value.compareTo(key) < 0){
-			node.right=add(node.right,key);
+			node.setRight(add(node.right,key));
+			
 		}
 		return node;
 	}

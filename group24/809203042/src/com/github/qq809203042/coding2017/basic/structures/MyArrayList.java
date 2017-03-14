@@ -58,6 +58,8 @@ public class MyArrayList implements MyList {
 		}
 		Object removeElement = elementData[index];
 		moveForward(elementData,index+1,size-1,1);
+//		最后一位置为null；！！
+		elementData[size-1] = null;
 		size--;
 		return removeElement;
 	}

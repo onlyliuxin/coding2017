@@ -1,4 +1,8 @@
 package com.github.qq809203042.coding2017.basic.structurestest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
 import com.github.qq809203042.coding2017.basic.structures.MyArrayList;
 
  /*
@@ -8,6 +12,8 @@ import com.github.qq809203042.coding2017.basic.structures.MyArrayList;
 public class MyArrayListTest {
 
 	public static void main(String[] args) {
+		
+		
 		MyArrayList mList = new MyArrayList();
 		mList.add(new String("hahah"));
 		mList.add(new String("heihei"));
