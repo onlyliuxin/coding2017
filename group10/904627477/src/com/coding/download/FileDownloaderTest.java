@@ -22,7 +22,7 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://localhost:8080/test.jpg";
+		String url = "https://img6.bdstatic.com/img/image/smallpic/22.jpg";
 		
 		FileDownloader downloader = new FileDownloader(url);
 
@@ -37,7 +37,6 @@ public class FileDownloaderTest {
 			}
 
 		});
-
 		
 		downloader.execute();
 		

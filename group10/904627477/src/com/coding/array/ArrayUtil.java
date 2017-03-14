@@ -109,6 +109,20 @@ public class ArrayUtil {
 		return newArr;
 	}
 	
+	public static byte[] grow(byte[] oldArray,  int size){
+		if(oldArray==null){
+			return new byte[0];
+		}
+		if(size<0){
+			throw new IllegalArgumentException();
+		}
+		byte[] newArr = new byte[oldArray.length + size];
+		for (int i = 0; i < oldArray.length; i++) {
+			newArr[i] = oldArray[i];
+		}
+		return newArr;
+	}
+	
 	/**
 	 * 斐波那契数列为：1，1，2，3，5，8，13，21......  ，给定一个最大值， 返回小于该值的数列
 	 * 例如， max = 15 , 则返回的数组应该为 [1，1，2，3，5，8，13]

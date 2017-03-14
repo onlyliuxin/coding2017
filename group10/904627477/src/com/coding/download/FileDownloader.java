@@ -1,9 +1,18 @@
 package com.coding.download;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.coding.download.api.Connection;
 import com.coding.download.api.ConnectionException;
 import com.coding.download.api.ConnectionManager;
 import com.coding.download.api.DownloadListener;
+import com.coding.download.api.Resource;
+import com.coding.util.IOUtils;
 
 
 
@@ -15,6 +24,8 @@ public class FileDownloader {
 	DownloadListener listener;
 	
 	ConnectionManager cm;
+	
+	private static String localFile = "c:/test/test.jpg"; 
 	
 
 	public FileDownloader(String _url) {
@@ -36,14 +47,34 @@ public class FileDownloader {
 		// 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
-		Connection conn = null;
+		/**/
 		try {
-			
+			Connection conn = cm.open(url);
+			int length = conn.getContentLength();
+			File file = new File(localFile);
+			if(!file.exists()){
+				IOUtils.createFile(length, localFile);
+			}
+			Resource res = new Resource(url,file);
+			Thread c = new CreateThread(res,length);
+			Thread r = new RemoveThread(res,listener);
+			c.start();
+			r.start();
+		} catch (ConnectionException e) {
+			e.printStackTrace();
+		} 
+		/*Connection conn = null;
+		try {
 			conn = cm.open(this.url);
-			
 			int length = conn.getContentLength();	
+			File file = new File(localFile);
+			if(!file.exists()){
+				IOUtils.createFile(length, localFile);
+			}
 			
-			new DownloadThread(conn,0,length-1).start();
+			
+			
+			new DownloadThread(cm.open(this.url),0,length-1,file).start();
 			
 		} catch (ConnectionException e) {			
 			e.printStackTrace();
@@ -51,11 +82,7 @@ public class FileDownloader {
 			if(conn != null){
 				conn.close();
 			}
-		}
-		
-		
-		
-		
+		}*/
 	}
 	
 	public void setListener(DownloadListener listener) {
