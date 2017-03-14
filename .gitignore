@@ -23,3 +23,4 @@ target
 group22/1193590951/githubitem/.project
 *.prefs
 group22/1193590951/githubitem/bin/文章地址.txt
+!.gitignore
