@@ -33,7 +33,7 @@ public class Stack {
      * @return The object at the top of this stack.
      * @throws EmptyStackException if this stack is empty.
      */
-    public int pop() {
+    public Object pop() {
         if (empty()) {
             throw new EmptyStackException();
         }
@@ -47,7 +47,7 @@ public class Stack {
      * @return the object at the top of this stack.
      * @throws EmptyStackException if this stack is empty.
      */
-    public int peek() {
+    public Object peek() {
         if (empty()) {
             throw new EmptyStackException();
         }
