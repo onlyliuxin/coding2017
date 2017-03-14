@@ -23,16 +23,8 @@ public class FileDownloader {
 
 	private static final int THREAD_NUM = 3;
 
-	private static final String BASE_PATH = "F:/download/";
-
-
 	public FileDownloader(String _url) {
 		this.url = _url;
-		File baseFile = new File(BASE_PATH);
-		if(!baseFile.exists()){
-			baseFile.mkdirs();
-		}
-
 	}
 
 	public void execute(){
@@ -62,26 +54,11 @@ public class FileDownloader {
 			conn = cm.open(this.url);
 
 			int length = conn.getContentLength();
-			String filePath = BASE_PATH + "download."+getFileType(this.url);
+			String filePath =getFileName(this.url);
 			//System.out.println(filePath);
 			
 			File file = new File(filePath);
-			if(!file.exists()){
-				try {
-					file.createNewFile();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			try{
-				FileOutputStream fos = new FileOutputStream(file);
-				fos.write(new byte[length], 0, length);//占位
-				fos.close();
-			}
-			catch (IOException e) {
-				System.out.println(e.getMessage());
-			}
-
+			
 			int blockSize = (length % THREAD_NUM == 0 ) ? length / THREAD_NUM : (length / THREAD_NUM + 1);
 			for (int i = 0; i < THREAD_NUM; i++) {
 				int startPos = i * blockSize;
@@ -89,7 +66,7 @@ public class FileDownloader {
 				if(endPos >= length - 1){
 					endPos = length - 1;
 				}
-				new DownloadThread(barrier , conn, startPos, endPos , filePath).start();	
+				new DownloadThread(barrier , conn, startPos, endPos , file).start();	
 			}
 
 		} catch (ConnectionException e) {			
@@ -105,8 +82,8 @@ public class FileDownloader {
 
 	}
 
-	private String getFileType(String url) {
-		int index = url.lastIndexOf(".");
+	private String getFileName(String url) {
+		int index = url.lastIndexOf("/");
 		return url.substring(index + 1 , url.length());
 	}
 

@@ -61,7 +61,7 @@ public interface List<E> {
 	  * @author: leijing  
 	  * @date: 2017年2月21日 下午8:58:58
 	  */
-	 E set(int index , E e);
+	 void set(int index , E e);
 	 /**
 	  * @Description: 判断集合是否包含某个元素
 	  * @param o

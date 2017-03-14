@@ -25,9 +25,10 @@ public class ArrayUtil {
 			throw new Exception("array origin is empty");
 		}
 		int size = origin.length;
-		int[] copy = Arrays.copyOf(origin, size);
-		for (int i = 0; i < size; i++) {
-			origin[size - i - 1] = copy[i];
+		for (int i = 0; i < size / 2; i++) {
+			int tmp = origin[i];
+			origin[i] = origin[size - i - 1];
+			origin[size - i - 1] = tmp;
 		}
 	}
 

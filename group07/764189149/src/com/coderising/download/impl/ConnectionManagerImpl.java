@@ -16,8 +16,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
 		ConnectionImpl connection = null;
 		try {
 			urlObj = new URL(url);
-			connection = new ConnectionImpl();
-			connection.setConnection(urlObj.openConnection());
+			connection = new ConnectionImpl(urlObj);
 		} catch (MalformedURLException e) {
 			throw new ConnectionException("URL格式错误");
 		}catch (IOException e) {

@@ -20,8 +20,7 @@ public class FileDownloaderTest {
 
 	@Test
 	public void testDownload() {
-		
-		String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1488796402240&di=8ca9322617d5338cad61232a06f6ed7a&imgtype=0&src=http%3A%2F%2Fjiangsu.china.com.cn%2Fuploadfile%2F2017%2F0212%2F1486868426284307.jpg";
+		String url = "http://www.java2s.com/Code/JarDownload/apache-activemq/apache-activemq-4.1.1.jar.zip "; 
 		FileDownloader downloader = new FileDownloader(url);
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
