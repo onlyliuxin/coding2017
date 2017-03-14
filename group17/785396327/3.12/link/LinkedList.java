@@ -1,7 +1,9 @@
 package link;
 
-import java.util.Arrays;
-import java.util.Iterator;
+import list.ArrayList;
+import list.List;
+
+import java.util.*;
 
 /**
  * Created by gongxun on 2017/3/13.
@@ -229,7 +231,17 @@ public class LinkedList<T> {
      * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
      */
     public void removeDuplicateValues() {
-
+        Node<T> temp = head;
+        List<T> list = new ArrayList<T>();
+        int index = 0;
+        while (temp != null) {
+            if (list.contains(temp.data))
+                remove(index--);
+            else
+                list.add(temp.data);
+            temp = temp.next;
+            index++;
+        }
     }
 
     /**

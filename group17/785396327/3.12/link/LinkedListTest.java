@@ -104,4 +104,15 @@ public class LinkedListTest {
         System.out.println(linkedList);
     }
 
+    @Test
+    public void removeDuplicateValues() {
+        linkedList.add("3");
+        linkedList.add("7");
+        linkedList.add("0");
+        linkedList.add("1");
+        System.out.println(linkedList);
+        linkedList.removeDuplicateValues();
+        System.out.println(linkedList);
+    }
+
 }
