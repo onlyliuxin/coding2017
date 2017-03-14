@@ -1,4 +1,4 @@
-package dataStructure;
+package com.coderising.dataStructure;
 
 /**
  * Created by LvZhenxing on 2017/2/22.

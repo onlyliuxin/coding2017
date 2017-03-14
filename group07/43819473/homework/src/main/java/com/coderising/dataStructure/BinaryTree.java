@@ -1,4 +1,4 @@
-package dataStructure;
+package com.coderising.dataStructure;
 
 public class BinaryTree {
 

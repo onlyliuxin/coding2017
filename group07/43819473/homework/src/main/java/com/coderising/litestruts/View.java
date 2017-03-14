@@ -1,4 +1,4 @@
-package coderising.litestruts;
+package com.coderising.litestruts;
 
 import java.util.Map;
 
