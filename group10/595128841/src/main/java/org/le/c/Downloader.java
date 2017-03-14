@@ -89,12 +89,12 @@ public class Downloader {
 
 
 	public static void main(String[] args) throws Exception {
-		String url = "http://162.250.97.90/file/MP4/mp413/邓紫棋-夜空中最亮的星[68mtv.com].mp4";
+		String url = "http://7xq43s.com1.z0.glb.clouddn.com/yunanding-6.jpg";
 		String path = "C:/work/workspace/coding2017/coding2017/group10/595128841";
 		Downloader d = new Downloader(url,path);
 		long st = System.currentTimeMillis();
 		d.downFile();
-		System.out.println("耗时："+(System.currentTimeMillis() - st));
+		System.out.println("耗时："+(System.currentTimeMillis() - st)+" 毫秒");
 	}
 	
 	static class DownLoadThread extends Thread{
@@ -110,7 +110,7 @@ public class Downloader {
 		
 		@Override
 		public void run() {
-			System.out.println(Thread.currentThread().getName()+",offset:"+offset);
+			System.out.println(Thread.currentThread().getName()+"，length："+buff.length+"，offset："+offset);
 			downloader.writeToFile(buff,offset);
 		}
 		
