@@ -1,7 +1,6 @@
 package com.LinkedList;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 
 public class LinkedListUtil<T extends Comparable> {
 	private Node<T> head;
@@ -18,6 +17,10 @@ public class LinkedListUtil<T extends Comparable> {
 			current = tmp;
 		}
 		size++;
+	}
+	
+	public boolean isEmpty(){
+		return size == 0;
 	}
 	
 	public int[] toIntArray(){
@@ -177,13 +180,11 @@ public class LinkedListUtil<T extends Comparable> {
 	 * 返回的结果应该是[101,301,401,601]  
 	 * @param list
 	 */
-	public int[] getElements(LinkedList list){
-		Iterator<Integer> it = list.iterator();
+	public int[] getElements(LinkedListUtil<Integer> list){
 		int[] restArray = new int[list.size()];
-		int cnt = 0;
-		while(it.hasNext()){
-			int index = it.next();
-			restArray[cnt++] = (int)get(index).data;
+		for(int i=0; i<list.size(); i++){
+			int index = (int)list.get(i).data;
+			restArray[i] = (int)this.get(index).data;
 		}
 		return restArray;
 	}
@@ -195,8 +196,14 @@ public class LinkedListUtil<T extends Comparable> {
 	 * @param list
 	 */
 	
-	public  void subtract(LinkedList list){
-		
+	public void subtract(LinkedListUtil<T> list){
+		for(int i=0; i<size; i++){
+			for(int j=0; j<list.size(); j++){
+				if(this.get(i) == list.get(j)){
+					this.remove(i);
+				}
+			}
+		}
 	}
 	
 	/**
@@ -252,9 +259,34 @@ public class LinkedListUtil<T extends Comparable> {
 	 * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
 	 * @param list
 	 */
-	public  LinkedList intersection(LinkedList list){
-		if(head == null) return list;
+	public  LinkedListUtil<Integer> intersection(LinkedListUtil<T> list){
+		LinkedListUtil<Integer> res = new LinkedListUtil<Integer>();
+		Node<T> thisPoint = head;
+		Node<T> listPoint = list.get(0);
 		
-		return null;
+		while(listPoint != null && thisPoint != null){
+			if((int)listPoint.data > (int)thisPoint.data){
+				res.add((int)thisPoint.data);
+				thisPoint = thisPoint.next;
+			}else{
+				res.add((int)listPoint.data);
+				listPoint = listPoint.next;
+			}
+		}
+		
+		if(thisPoint == null){
+			while(listPoint != null){
+				res.add((int)listPoint.data);
+				listPoint = listPoint.next;
+			}
+		}
+		if(listPoint == null){
+			while(thisPoint != null){
+				res.add((int)thisPoint.data);
+				thisPoint = thisPoint.next;
+			}
+		}
+		
+		return res;
 	}
 }
