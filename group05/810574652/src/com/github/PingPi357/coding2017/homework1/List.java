@@ -1,4 +1,4 @@
-package com.github.PingPi357.coding2017.basic;
+package com.github.PingPi357.coding2017.homework1;
 
 public interface List {
 	public void add(Object o);
