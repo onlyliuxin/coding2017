@@ -1,5 +1,8 @@
 package com.coderising.array;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyArrayUtils {
 	/**
 	 * 给定一个整形数组a , 对该数组的值进行置换
@@ -39,7 +42,7 @@ public class MyArrayUtils {
 			}
 		}
 		if (notZeroLength == 0) {
-			return null;
+			return new int[0];
 		}
 		int[] newArray = new int[notZeroLength];
 		for (int i = 0,index = 0; i < oldArray.length; i++) {
@@ -108,8 +111,13 @@ public class MyArrayUtils {
 	 * @param size
 	 * @return
 	 */
-	public int[] grow(int [] oldArray,  int size){
-		return null;
+	public static int[] grow(int [] oldArray,  int size){
+		if (size <= 0 || oldArray == null) {
+			return oldArray;
+		}
+		int[] newArray = new int[oldArray.length + size];
+		System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
+		return newArray;
 	}
 	
 	/**
@@ -119,8 +127,29 @@ public class MyArrayUtils {
 	 * @param max
 	 * @return
 	 */
-	public int[] fibonacci(int max){
-		return null;
+	public static int[] fibonacci(int max){
+		if (max <= 1) {
+			return new int[0];
+		}
+		
+		List<Integer> list = new ArrayList<Integer>();
+		int temp = 0;
+		for (int i = 0; ; i++) {			
+			if ((temp = getfibonacci(i + 1)) < max) {
+				list.add(temp);
+			} else {
+				break;
+			}
+		}
+		
+		return List2Array(list);
+	}
+	
+	private static int getfibonacci(int i){
+		if (i <= 2) {
+			return 1;
+		}
+		return getfibonacci(i-2) + getfibonacci(i-1);
 	}
 	
 	/**
@@ -129,8 +158,33 @@ public class MyArrayUtils {
 	 * @param max
 	 * @return
 	 */
-	public int[] getPrimes(int max){
-		return null;
+	public static int[] getPrimes(int max){
+		if (max <= 2) {
+			return new int[0];
+		}
+		List<Integer> primeList = new ArrayList<Integer>();
+		primeList.add(2);
+		for (int i = 3; i < max; i += 2) {
+			int j;
+			for (j = 2; j <= Math.ceil(Math.sqrt(i)); j++) {
+				if (i % j == 0) {				
+					break;
+				}
+			}
+			if (j == Math.ceil(Math.sqrt(i)) + 1) {
+				primeList.add(i);
+			}
+		}
+		
+		return List2Array(primeList);
+	}
+	
+	private static int[] List2Array(List<Integer> list) {
+		int[] results = new int[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			results[i] = list.get(i);
+		}
+		return results;
 	}
 	
 	/**
@@ -139,8 +193,28 @@ public class MyArrayUtils {
 	 * @param max
 	 * @return
 	 */
-	public int[] getPerfectNumbers(int max){
-		return null;
+	public static int[] getPerfectNumbers(int max){
+		if (max < 2) {
+			return new int[0];
+		}
+		List<Integer> PerfectList = new ArrayList<Integer>();
+		for (int i = 1; i < max; i++) {
+			int factorSum = 0;
+			int j;
+			for ( j= 1; j < i; j++) {
+				if (i % j == 0) {
+					factorSum += j;
+				}
+				if (factorSum > i) {
+					break;
+				}
+			}
+			if (j == i && factorSum == i) {
+				PerfectList.add(i);
+			}
+		}
+		
+		return List2Array(PerfectList);
 	}
 	
 	/**
@@ -148,10 +222,19 @@ public class MyArrayUtils {
 	 * 例如array= [3,8,9], seperator = "-"
 	 * 则返回值为"3-8-9"
 	 * @param array
-	 * @param s
+	 * @param seperator
 	 * @return
 	 */
-	public String join(int[] array, String seperator){
-		return null;
+	public static String join(int[] array, String seperator){
+		if (array == null || array.length < 1) {
+			return "";
+		}
+
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(array[0]);
+		for (int i = 1; i < array.length; i++) {
+			stringBuilder.append(seperator).append(array[i]);
+		}
+		return stringBuilder.toString();
 	}
 }

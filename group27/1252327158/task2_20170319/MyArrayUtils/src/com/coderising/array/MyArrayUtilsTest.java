@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class MyArrayUtilsTest {
 	
-	int[] array = {7, 9, 30, 3, 4};
+	int[] myarray = {7, 9, 30, 3, 4};
 
 	@Before
 	public void setUp() throws Exception {
@@ -18,8 +18,8 @@ public class MyArrayUtilsTest {
 	@Test
 	public void testReverseArray() {
 		int[] reverse = {4, 3, 30 , 9, 7};
-		MyArrayUtils.reverseArray(array);
-		Assert.assertArrayEquals(reverse, array);
+		MyArrayUtils.reverseArray(myarray);
+		Assert.assertArrayEquals(reverse, myarray);
 	}
 
 	@Test
@@ -30,7 +30,7 @@ public class MyArrayUtilsTest {
 		Assert.assertArrayEquals(result, excludeZero);
 		
 		int[] allZero = {0, 0, 0, 0, 0};
-		Assert.assertArrayEquals(null, MyArrayUtils.removeZero(allZero));
+		Assert.assertArrayEquals(new int[0], MyArrayUtils.removeZero(allZero));
 	}
 
 	@Test
@@ -43,27 +43,31 @@ public class MyArrayUtilsTest {
 
 	@Test
 	public void testGrow() {
-		fail("Not yet implemented");
+		int[] newArray = {7, 9, 30, 3, 4, 0, 0, 0};
+		Assert.assertArrayEquals(newArray, MyArrayUtils.grow(myarray, 3));
 	}
 
 	@Test
 	public void testFibonacci() {
-		fail("Not yet implemented");
+		int[] results = {1, 1, 2, 3, 5, 8, 13};
+		Assert.assertArrayEquals(results, MyArrayUtils.fibonacci(15));
 	}
 
 	@Test
 	public void testGetPrimes() {
-		fail("Not yet implemented");
+		int[] results = {2,3,5,7,11,13,17,19};
+		Assert.assertArrayEquals(results, MyArrayUtils.getPrimes(23));
 	}
 
 	@Test
 	public void testGetPerfectNumbers() {
-		fail("Not yet implemented");
+		int[] results = {6, 28, 496};
+		Assert.assertArrayEquals(results, MyArrayUtils.getPerfectNumbers(500));
 	}
 
 	@Test
 	public void testJoin() {
-		fail("Not yet implemented");
+		Assert.assertEquals("7-9-30-3-4", MyArrayUtils.join(myarray, "-"));
 	}
 
 }
