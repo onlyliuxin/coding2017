@@ -1,4 +1,4 @@
-package me.lzb.homework0312.basic;
+package me.lzb.homework0312;
 
 /**
  * 简易ArrayList
@@ -12,13 +12,14 @@ public class ArrayList implements List {
 
 
     public void add(Object o) {
-        if (elementData.length < size + 1) {
-            Object[] target = new Object[size + 1];
-            System.arraycopy(elementData, 0, target, 0, elementData.length);
-            elementData = target;
-        }
-        elementData[size] = o;
-        size = size + 1;
+//        if (elementData.length < size + 1) {
+//            Object[] target = new Object[size + 1];
+//            System.arraycopy(elementData, 0, target, 0, elementData.length);
+//            elementData = target;
+//        }
+//        elementData[size] = o;
+//        size = size + 1;
+        add(size, o);
     }
 
 
@@ -29,7 +30,7 @@ public class ArrayList implements List {
 
         int leftSize = index;
         int rightSize = size - index;
-        Object[] target = new Object[elementData.length + 1];
+        Object[] target = new Object[size + 1];
         System.arraycopy(elementData, 0, target, 0, leftSize);
         target[index] = o;
         System.arraycopy(elementData, index, target, index + 1, rightSize);

@@ -1,4 +1,4 @@
-package me.lzb.homework0312.basic;
+package me.lzb.homework0312;
 
 /**
  * 先进先出

@@ -1,4 +1,4 @@
-package me.lzb.homework0313.litestruts;
+package me.lzb.homework0319;
 
 public class ArrayUtil {
 
@@ -208,19 +208,113 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPrimes(int max) {
-        return null;
+        if (max <= 2){
+            return new int[0];
+        }
+
+        if (max == 3){
+            return new int[]{2};
+        }
+
+
+        int[] primes = new int[max+1];
+        primes[0] = 2;
+        int count = 1;
+        for (int i = 3; i < max; i = i + 2) {
+
+            boolean isPrime = true;
+            for (int j = 3; j < i; j++) {
+                if(i % j == 0){
+                    isPrime = false;
+                    break;
+                }
+            }
+
+            if(isPrime){
+                primes[count] = i;
+                count = count + 1;
+            }
+        }
+
+        int[] result = new int[count];
+        System.arraycopy(primes, 0, result, 0, count);
+
+        return result;
+
     }
 
+    private boolean isPrime(int a){
+        if (a < 2) {
+            return false;
+        }
+
+        if (a == 2) {
+            return true;
+        }
+
+        if(a % 2 == 0){
+            return false;
+        }
+
+
+        for (int i = 3; i < a; i = i + 2) {
+            if(a % i == 0){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+
     /**
-     * 所谓“完数”， 是指这个数恰好等于它的因子之和，例如6=1+2+3
+     * 所谓“完数”， 是指这个数恰好等于它的真因子之和，例如6=1+2+3
      * 给定一个最大值max， 返回一个数组， 数组中是小于max 的所有完数
      *
      * @param max
      * @return
      */
     public int[] getPerfectNumbers(int max) {
-        return null;
+        if (max < 6){
+            return new int[0];
+        }
+
+
+        int[] pns = new int[max];
+
+        int count = 0;
+        for (int i = 6; i < max; i++) {
+            if (isPerfectNumber(i)){
+                pns[count] = i;
+                count = count + 1;
+            }
+        }
+
+
+
+        int[] result = new int[count];
+        System.arraycopy(pns, 0, result, 0, count);
+        return result;
     }
+
+
+    private boolean isPerfectNumber(int a){
+        if(a < 6){
+            return false;
+        }
+
+        int sum = 0;
+        for (int i = 1; i < a; i++) {
+            if(a % i == 0){
+                sum = sum + i;
+            }
+        }
+
+        return sum == a;
+    }
+
+
 
     /**
      * 用seperator 把数组 array给连接起来
@@ -230,9 +324,14 @@ public class ArrayUtil {
      * @param array
      * @return
      */
-    public String join(int[] array, String seperator) {
-        return null;
-    }
+    public static  String join(int[] array, String seperator) {
+        String result = "";
+        for (int i = 0; i < array.length; i++) {
+            result = result + array[i] + seperator ;
+        }
 
+        result = result.substring(0, result.length() - 1);
+        return result;
+    }
 
 }

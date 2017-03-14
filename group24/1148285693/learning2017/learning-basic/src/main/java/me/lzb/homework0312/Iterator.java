@@ -1,4 +1,4 @@
-package me.lzb.homework0312.basic;
+package me.lzb.homework0312;
 
 /**
  * Created by LZB on 2017/3/11.
