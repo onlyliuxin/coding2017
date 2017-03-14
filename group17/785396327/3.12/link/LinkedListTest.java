@@ -18,7 +18,7 @@ public class LinkedListTest {
         linkedList.add("1");
         linkedList.add("2");
         linkedList.add("3");
-        linkedList.add(1, "0");
+        System.out.println(linkedList);
     }
 
     @After
@@ -69,28 +69,24 @@ public class LinkedListTest {
 
     @Test
     public void reverse() {
-        System.out.println(linkedList);
         linkedList.reverse();
         System.out.println(linkedList);
     }
 
     @Test
     public void removeFirstHalf() {
-        System.out.println(linkedList);
         linkedList.removeFirstHalf();
         System.out.println(linkedList);
     }
 
     @Test
     public void removeByRange() {
-        System.out.println(linkedList);
         linkedList.remove(0, 2);
         System.out.println(linkedList);
     }
 
     @Test
     public void getElements() {
-        System.out.println(linkedList);
         LinkedList<Integer> indexList = new LinkedList();
         indexList.add(0);
         indexList.add(2);
@@ -98,4 +94,14 @@ public class LinkedListTest {
         Object[] elements = linkedList.getElements(indexList);
         System.out.println(Arrays.toString(elements));
     }
+
+    @Test
+    public void subtract() {
+        LinkedList<String> indexList = new LinkedList<String>();
+        indexList.add("2");
+        indexList.add("0");
+        linkedList.subtract(indexList);
+        System.out.println(linkedList);
+    }
+
 }

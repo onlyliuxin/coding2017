@@ -1,5 +1,6 @@
 package link;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -96,6 +97,29 @@ public class LinkedList<T> {
         return null;
     }
 
+    private int getIndex(Node<T> node) {
+        Node temp = head;
+        int index = 0;
+        while (temp != null) {
+            if (temp == node) {
+                return index;
+            }
+        }
+        return -1;
+    }
+
+    private int getIndexByData(T data) {
+        Node temp = head;
+        int index = 0;
+        while (temp != null) {
+            if ((data == null && temp.data == null) || temp.data.equals(data))
+                return index;
+            index++;
+            temp = temp.next;
+        }
+        return -1;
+    }
+
 
     private static class Node<T> {
         T data;
@@ -105,6 +129,7 @@ public class LinkedList<T> {
             this.next = next;
             this.data = data;
         }
+
     }
 
     @Override
@@ -171,7 +196,7 @@ public class LinkedList<T> {
      * @param list
      */
     public Object[] getElements(LinkedList<Integer> list) {
-        Object[] result =  new Object[list.size];
+        Object[] result = new Object[list.size];
         if (list != null) {
             for (int i = 0; i < list.size; i++) {
                 result[i] = get(list.get(i));
@@ -187,8 +212,16 @@ public class LinkedList<T> {
      * @param list
      */
 
-    public void subtract(LinkedList list) {
-
+    public void subtract(LinkedList<T> list) {
+        if (list != null && list.size > 0) {
+            for (int i = 0; i < list.size; i++) {
+                int index = getIndexByData(list.get(i));
+                if (index != -1)
+                    remove(index);
+                else
+                    throw new RuntimeException("wrong element of removed list");
+            }
+        }
     }
 
     /**
