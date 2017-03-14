@@ -153,7 +153,7 @@ public class LinkedList implements List{
 
         @Override
         public boolean hasNext() {
-            return pos != linkedList.size;
+            return pos < linkedList.size;
         }
 
         @Override
