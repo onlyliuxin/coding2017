@@ -1,0 +1,32 @@
+package com.fan;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class NumberTest {
+	private Number num;
+	
+	@Before
+	public void setUp() throws Exception {
+		num = new Number();
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	
+	}
+
+	@Test
+	public void testAdd() {
+		int res = num.add(2, 3);
+		assertEquals(5,res);
+	}
+	@Test
+	public void testMin() {
+		fail("Not yet implemented");
+	}
+
+}

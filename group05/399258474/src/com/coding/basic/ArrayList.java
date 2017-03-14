@@ -4,7 +4,7 @@ public class ArrayList implements List {
 	
 	private int size = 0;
 	
-	private Object[] elementData = new Object[10];
+	private Object[] elementData = new Object[2];
 	
 	public void add(Object o){
 		int len = elementData.length;

@@ -1,7 +1,5 @@
 package com.coding.basic;
 
-import java.util.EmptyStackException;
-
 public class Queue {
 
     private ArrayList elementData = new ArrayList();
@@ -13,10 +11,6 @@ public class Queue {
     }
 
     public Object deQueue() {
-        if (isEmpty()) {
-            throw new EmptyStackException();
-        }
-        size--;
         return elementData.remove(0);
     }
 

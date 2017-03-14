@@ -2,17 +2,17 @@ package com.coding.basic;
 
 import java.util.NoSuchElementException;
 
-public class LinkedList<E> implements List<E> {
+public class LinkedList implements List {
 	private int size = 0;
 	
-	private Node<E> first;
+	private Node first;
 	
-	private Node<E> last;
+	private Node last;
 	
-	public void add(E o){
+	public void add(Object o){
 		add(size,o);
 	}
-	public void add(int index , E o){
+	public void add(int index , Object o){
 		rangeCheck(index);
 		
 		if(index == size){
@@ -21,9 +21,9 @@ public class LinkedList<E> implements List<E> {
 			linkBefore(o, indexOf(index));
 		}
 	}
-	private void linkBefore(E o ,Node<E> succ){
-		final Node<E> prev = succ.prev;
-		final Node<E> newNode = new Node<E>(prev, o, succ);
+	private void linkBefore(Object o ,Node succ){
+		final Node prev = succ.prev;
+		final Node newNode = new Node(prev, o, succ);
 		succ.prev = newNode;
 		if(prev == null){
 			first = newNode;
@@ -32,9 +32,9 @@ public class LinkedList<E> implements List<E> {
 		}
 		size++;
 	}
-	private void linkLast(E o){
-		final Node<E> succ = last;
-		final Node<E> newNode = new Node<E>(succ, o, null);
+	private void linkLast(Object o){
+		final Node succ = last;
+		final Node newNode = new Node(succ, o, null);
 		last = newNode;
 		if(succ == null){
 			first = newNode;
@@ -43,38 +43,29 @@ public class LinkedList<E> implements List<E> {
 		}
 		size++;
 	}
-	/**
-	 * range check,
-	 * permit the range [0,size]
-	 * @param index
-	 */
 	private void rangeCheck(int index) {
 		if(index > size|| index < 0 )
 			throw new IndexOutOfBoundsException("Size"+size+":index"+index);
 	}
-	/**
-	 * element's index check,
-	 * permit the index [0,size)
-	 * @param index
-	 */
 	private void elementIndexCheck(int index){
 		if(index >=size||index < 0)
 			throw new IndexOutOfBoundsException("Size"+size+":index"+index);
 	}
 	/**
-	 * 
+	 * 获取“下标”为index的值,
+	 * index为size时返回null
 	 * @param index
 	 * @return
 	 */
-	private Node<E> indexOf(int index){
+	private Node indexOf(int index){
 		if(index < (this.size>>1) ){
-			Node<E> x = first;
+			Node x = first;
 			for (int i = 0; i < index; i++) {
 				x = x.next;
 			}
 			return x;
 		}else{
-			Node<E> x = last;
+			Node x = last;
 			for (int i = this.size-1; i > index; i--) {
 				x = x.prev;
 			}
@@ -82,12 +73,12 @@ public class LinkedList<E> implements List<E> {
 		}
 	}
 
-	public E get(int index){
+	public Object get(int index){
 		elementIndexCheck(index);
 		
-		return indexOf(index).data;
+		return indexOf(index);
 	}
-	public E remove(int index){
+	public Object remove(int index){
 		elementIndexCheck(index);
 		
 		if(index == 0){
@@ -99,10 +90,10 @@ public class LinkedList<E> implements List<E> {
 		}
 	}
 	
-	private E unlinkNode(Node<E> node) {
-		final Node<E> next = node.next;
-		final Node<E> prev = node.prev;
-		final E element = node.data;
+	private Object unlinkNode(Node node) {
+		final Node next = node.next;
+		final Node prev = node.prev;
+		final Object element = node.data;
 		if(next == null){
 			last = node;
 		}else{
@@ -124,20 +115,20 @@ public class LinkedList<E> implements List<E> {
 		return size;
 	}
 	
-	public void addFirst(E o){
+	public void addFirst(Object o){
 		linkBefore(o, first);
 	}
 	
-	public void addLast(E o){
+	public void addLast(Object o){
 		linkLast(o);
 	}
 	
-	public E removeFirst(){
+	public Object removeFirst(){
 		if(first == null)
 			throw new NoSuchElementException("first is null");
 		
-		E oldData = first.data;
-		final Node<E> next = first.next;
+		Object oldData = first.data;
+		final Node next = first.next;
 		first.data = null;
 		first.next = null;//GC
 		first = next;
@@ -152,12 +143,12 @@ public class LinkedList<E> implements List<E> {
 		return oldData;
 	}
 	
-	public E removeLast(){
+	public Object removeLast(){
 		if(last == null)
 			throw new NoSuchElementException("last is null");
 		
-		E oldData = last.data;
-		final Node<E> prev = last.prev;
+		Object oldData = last.data;
+		final Node prev = last.prev;
 		last.prev = null;
 		last.data = null;//GC
 		last = prev;
@@ -176,11 +167,11 @@ public class LinkedList<E> implements List<E> {
 		return null;
 	}
 	
-	private static class Node<E>{
-		E data;
-		Node<E> next;
-		Node<E> prev;
-		Node(Node<E> prev,E data,Node<E> next){
+	private static class Node{
+		Object data;
+		Node next;
+		Node prev;
+		Node(Node prev,Object data,Node next){
 			this.data = data;
 			this.next = next;
 			this.prev = prev;

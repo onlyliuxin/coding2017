@@ -33,7 +33,7 @@ public class Struts {
 		
 		*/
 		// 0
-		XmlParser phraser = new XmlParser(configFile);
+		XmlPhraser phraser = new XmlPhraser(configFile);
 		String className = phraser.getClassNameByActionName(actionName);
 		View view = new View();
 		try {

@@ -1,4 +1,3 @@
-package lessones01;
 public class Stack<T>{
 	Node<T> first;
 	Node<T> lastest;

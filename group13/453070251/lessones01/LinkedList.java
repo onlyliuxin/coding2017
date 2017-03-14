@@ -1,4 +1,3 @@
-package lessones01;
 public class LinkedList<T>{
 	public static void main(String[] args){
 		LinkedList<String> arr = new LinkedList<String>();
