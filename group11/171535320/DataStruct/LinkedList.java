@@ -264,7 +264,17 @@ public class LinkedList implements List {
 	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
 	public  void removeDuplicateValues(){
-
+		Node temp1 = head;
+		Node temp2 = head.next;
+		while(temp2 != null) {
+			if(temp1.data == temp2.data) {
+				temp2 = temp2.next;
+			} else {
+				temp1.next = temp2;
+				temp1 = temp2;
+				temp2 = temp2.next;
+			}
+		}
 	}
 
 	/**
