@@ -2,6 +2,8 @@ package main.week01.data_structure;
 
 import java.util.NoSuchElementException;
 
+import main.week01.data_structure.ArrayList.ArrayListIterator;
+
 public class LinkedList implements List {
 
 	private Node head;
@@ -11,7 +13,7 @@ public class LinkedList implements List {
 		if (isEmpty()) {
 			head = new Node(o);
 		} else {
-			Node tail = (Node)get(size-1);
+			Node tail = (Node) get(size - 1);
 			Node node = new Node(o);
 			tail.next = node;
 		}
@@ -24,28 +26,28 @@ public class LinkedList implements List {
 
 	public void add(int index, Object o) {
 		rangeCheck(index);
-		if (index ==0) {
+		if (index == 0) {
 			Node node = new Node(o);
 			node.next = head;
 			head = node;
 		} else {
-			Node pre = (Node)get(index-1);
+			Node pre = (Node) get(index - 1);
 			Node node = new Node(o);
 			node.next = pre.next;
 			pre.next = node;
 		}
 	}
-	
-	private void rangeCheck(int index){
-		if (index >= size || index <0){
-			throw new IndexOutOfBoundsException(); 
+
+	private void rangeCheck(int index) {
+		if (index >= size || index < 0) {
+			throw new IndexOutOfBoundsException();
 		}
 	}
-	
+
 	public Object get(int index) {
 		rangeCheck(index);
 		Node dest = head;
-		for (int i = 0; i< index; i++){
+		for (int i = 0; i < index; i++) {
 			dest = dest.next;
 		}
 		return dest.data;
@@ -53,10 +55,10 @@ public class LinkedList implements List {
 
 	public Object remove(int index) {
 		rangeCheck(index);
-		Node pre = (Node)get(index);
+		Node pre = (Node) get(index);
 		Node dest = pre.next;
 		pre.next = dest.next;
-		size --;
+		size--;
 		return dest;
 	}
 
@@ -68,11 +70,11 @@ public class LinkedList implements List {
 		Node node = new Node(o);
 		node.next = head;
 		head = node;
-		size ++;
+		size++;
 	}
 
 	public void addLast(Object o) {
-		Node last = (Node)get(size-1);
+		Node last = (Node) get(size - 1);
 		Node node = new Node(o);
 		last.next = node;
 		size++;
@@ -84,7 +86,7 @@ public class LinkedList implements List {
 		}
 		Node newhead = head;
 		head = head.next;
-		size --;
+		size--;
 		return newhead;
 	}
 
@@ -95,18 +97,14 @@ public class LinkedList implements List {
 		if (head.next == null) {
 			Node tmp = head;
 			head = null;
-			size --;
+			size--;
 			return tmp;
 		}
-		Node newLastNode = (Node)get(size-2);
+		Node newLastNode = (Node) get(size - 2);
 		Node oldLastNode = newLastNode.next;
 		newLastNode.next = null;
-		size --;
+		size--;
 		return oldLastNode;
-	}
-
-	public Iterator iterator() {
-		return null;
 	}
 
 	private static class Node {
@@ -119,4 +117,32 @@ public class LinkedList implements List {
 		}
 	}
 
+	public class LinkedListIterator implements Iterator {
+
+		private LinkedList list;
+
+		private int position = 0;
+
+		private LinkedListIterator() {
+		}
+
+		private LinkedListIterator(LinkedList list) {
+			this.list = list;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return position + 1 <= list.size;
+		}
+
+		@Override
+		public Object next() {
+			return list.get(position++);
+		}
+
+	}
+
+	public LinkedListIterator iterator() {
+		return new LinkedListIterator(this);
+	}
 }

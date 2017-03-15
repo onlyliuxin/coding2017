@@ -74,6 +74,7 @@ public class BinaryTreeNode<T extends Comparable> {
 	 * @param data
 	 * @return
 	 */
+    @SuppressWarnings("unchecked")
 	public BinaryTreeNode search(T data){
 		if(this.data == null){
 			return null;
@@ -97,6 +98,24 @@ public class BinaryTreeNode<T extends Comparable> {
 		
 	}
 	
+	private BinaryTreeNode findMin() {
+        if (this.data == null) {
+            return null;
+        }
+        if (this.left == null) {
+            return this;
+        }
+        return this.left.findMin();
+    }
 	
+	private BinaryTreeNode findMax() {
+		if (this.data == null) {
+            return null;
+        }
+        if (this.right == null) {
+            return this;
+        }
+        return this.right.findMin();
+    }
 	
 }
