@@ -1,3 +1,5 @@
+package lessones01;
+import lessones01.Node;
 public class LinkedList<T>{
 	public static void main(String[] args){
 		LinkedList<String> arr = new LinkedList<String>();
@@ -23,7 +25,7 @@ public class LinkedList<T>{
 	}
 	protected Node<T> first;
 	protected Node<T> lastest;
-	private int size;
+	protected int size;
 	public LinkedList(){
 		lastest = first = new Node<T>(null);
 		size = 0;
@@ -112,5 +114,14 @@ public class LinkedList<T>{
 			size++;
 		}
 		
+	}
+	protected Integer index(T o){
+		Node<T> n = _getNode(0);
+		if(o == null){
+			for(int i=0;(n = n.right)!=null;i++){if(n.value == null){return i;}}
+		}else{
+			for(int i=0;(n = n.right)!=null;i++){if(o.equals(n.value)){return i;}}
+		}
+		return null;
 	}
 }
