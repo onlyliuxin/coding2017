@@ -1,4 +1,4 @@
-package litestruts.test;
+package litestruts;
 
 import litestruts.Struts;
 import litestruts.View;

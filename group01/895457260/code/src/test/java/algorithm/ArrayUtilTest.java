@@ -1,4 +1,4 @@
-package algorithm.test;
+package algorithm;
 
 import algorithm.ArrayUtil;
 import org.junit.Assert;

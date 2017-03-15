@@ -1,4 +1,4 @@
-package datastructure.test;
+package datastructure;
 
 import datastructure.exception.EmptyQueueException;
 import datastructure.basic.Queue;

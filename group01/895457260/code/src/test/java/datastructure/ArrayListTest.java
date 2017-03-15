@@ -1,4 +1,4 @@
-package datastructure.test;
+package datastructure;
 
 import datastructure.basic.ArrayList;
 import datastructure.basic.Iterator;
