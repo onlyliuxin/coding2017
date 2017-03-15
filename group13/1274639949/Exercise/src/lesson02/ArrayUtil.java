@@ -105,9 +105,10 @@ public class ArrayUtil {
 	public int[] grow(int [] oldArray,  int size){
 		int len = oldArray.length;
 		int[] newArr = new int[len + size];
-		for(int i = 0; i < len; i++){
-			newArr[i] = oldArray[i];
-		}
+//		for(int i = 0; i < len; i++){
+//			newArr[i] = oldArray[i];
+//		}
+		System.arraycopy(oldArray, 0, newArr, 0, len);
 		return newArr;
 	}
 	
