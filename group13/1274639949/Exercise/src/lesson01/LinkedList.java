@@ -42,10 +42,12 @@ public class LinkedList<E> implements List<E> {
 			for(int i = 0; i < index; i++){
 				pos = pos.next;
 			}
-			temp.pre  = pos.pre;
-			temp.next = pos;
+			
+			temp.pre = pos.pre;
 			pos.pre.next = temp;
+			
 			pos.pre = temp;
+			temp.next = pos;
 		}
 		size++;
 		temp = null;
@@ -53,7 +55,7 @@ public class LinkedList<E> implements List<E> {
 
 	@Override
 	public void clear() {
-		while(pollFirst() != null){
+		while(pollLast() != null){
 		}
 	}
 
@@ -114,17 +116,7 @@ public class LinkedList<E> implements List<E> {
 			head.next = null;
 			last.pre  = null;
 			last      = null;
-		}/*else if(index == 0){
-			//链表中有两个或更多的元素，但是移除下标为0的元素
-			temp = head.next;
-			obj  = temp.data;
-			
-			head.next = temp.next;
-			temp.next.pre = head;
-			temp.pre  = null;
-			temp.next = null;
-			temp      = null;
-		}*/else if(index == size - 1){
+		}else if(index == size - 1){
 			//链表中有两个或更多的元素，但是移除下标为size()-1的元素
 			obj = last.data;
 			
