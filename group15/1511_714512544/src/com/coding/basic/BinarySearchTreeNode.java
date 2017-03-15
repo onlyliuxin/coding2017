@@ -5,6 +5,7 @@ package com.coding.basic;
  */
 public class BinarySearchTreeNode<T>{
 	private T data;
+	private BinarySearchTreeNode<T> parent;  //父节点
 	private BinarySearchTreeNode<T> left;
 	private BinarySearchTreeNode<T> right;
 	private int state;  //递归状态(非递归遍历表示一个节点运行到的状态)
@@ -13,6 +14,7 @@ public class BinarySearchTreeNode<T>{
 		this.data = data;
 		this.left = null;
 		this.right = null;
+		this.parent = null;
 	}
 
 	public T getData() {
@@ -45,5 +47,12 @@ public class BinarySearchTreeNode<T>{
 
 	public void setState(int state) {
 		this.state = state;
+	}
+	public BinarySearchTreeNode<T> getParent() {
+		return parent;
+	}
+
+	public void setParent(BinarySearchTreeNode<T> parent) {
+		this.parent = parent;
 	}
 }
