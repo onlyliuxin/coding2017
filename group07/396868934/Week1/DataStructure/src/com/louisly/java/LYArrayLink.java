@@ -1,5 +1,8 @@
 package com.louisly.java;
 
+import java.nio.file.NotDirectoryException;
+import java.util.LinkedList;
+
 public class LYArrayLink {
 
 	private int currentCount = 0;
@@ -34,7 +37,7 @@ public class LYArrayLink {
 				if (lastNode != null) {
 					lastNode.next = node.next;
 				} else {
-					// �Ƴ���һ��Ԫ��
+					// �Ƴ���һ��Ԫ��
 					header = node.next;
 				}
 				
@@ -88,6 +91,119 @@ public class LYArrayLink {
 	private static class LYNode {
 		Object data;
 		LYNode next;
+	}
+	
+	// 第三周作业
+	public void reverse() {
+		if (header == null || header == lastNode) {
+			return;
+		}
+		lastNode = header;
+		LYNode pre = null;
+		LYNode node = header;
+		while (node != null) {
+			LYNode next = node.next;
+			node.next = pre;
+			pre = node;
+			node = next;
+		}
+		header = pre;
+	}
+	
+	public void removeFirstHalf() {
+		int size = this.size()/2;
+		if (size == 0) {
+			return;
+		}
+		for (int i = 0; i < size; i++) {
+			header.data = null;
+			header = header.next;
+			currentCount--;
+		}
+	}
+	
+	public void remove(int index, int length) {
+		if (index > currentCount-1 || (length + index) > currentCount) {
+			throw new IndexOutOfBoundsException();
+		}
+		
+		LYNode preNode = null;
+		LYNode node = header;
+		for (int i = 0; i < index; i++) {
+			preNode = node;
+			node = node.next;
+		}
+	
+		for (int i = 0; i < length; i++) {
+			node.data = null;
+			node = node.next;
+			currentCount--;
+		}
+		
+		if (preNode == null) {
+			header = node;
+		} else {
+			preNode.next = node;
+		}
+		
+		if (length + index == currentCount) {
+			lastNode = node;
+		}
+	}
+	
+	public int[] getElements(LYArrayLink list) {
+		int length = list.size();
+		int[] result = new int[length];
+		for (int i = 0; i < result.length; i++) {
+			int index = ((Integer)list.get(i)).intValue();
+			Integer value = (Integer)this.get(index); 
+			result[i] = value.intValue();
+		}
+		return result;
+	}
+	
+	public void subtract(LYArrayLink list) {
+		int listIndex = 0;
+		LYNode node = header;
+		LYArrayLink indexLink = new LYArrayLink();
+		int thisIndex = 0;
+		while (node != null) {
+			
+			int thisValue = ((Integer)node.data).intValue();
+			
+			if (listIndex > list.size() - 1) {
+				break;
+			} else {
+				int listValue = ((Integer)list.get(listIndex)).intValue();
+				listIndex++;
+				
+				if (thisValue == listValue) {
+					indexLink.addObject(new Integer(thisIndex));
+				}
+			}
+			
+			node = node.next;
+			thisIndex++;
+		}
+		
+		for (int i = indexLink.size() - 1; i >= 0 ; i--) {
+			this.removeAtIndex(i);
+		}
+	}
+	
+	// 大于小于这个之间的值删除
+	public void removeRange(int min, int max) {
 		
 	}
+	
+	// 已知值递增。删除相同的元素
+	public void removeDuplicateValues() {
+		
+	}
+	
+	// 都递增  返回交集的链表
+	public LYArrayLink interSection(LYArrayLink list) {
+		return null;
+	}
+	
 }
