@@ -276,7 +276,7 @@ public class LinkedList implements List,Iterator {
 	 * @param list
 	 */
 	public  LinkedList intersection( LinkedList list){
-		return null;
+		return null; 
 	}
 
 	public void add(int index, Object o) {
