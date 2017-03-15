@@ -1,4 +1,4 @@
-package com.coding.basic;
+package main.week01.data_structure;
 
 import java.util.NoSuchElementException;
 

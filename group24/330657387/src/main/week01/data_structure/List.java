@@ -1,6 +1,7 @@
-package com.coding.basic;
+package main.week01.data_structure;
 
 public interface List {
+	
 	public void add(Object o);
 	public void add(int index, Object o);
 	public Object get(int index);
