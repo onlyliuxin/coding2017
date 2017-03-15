@@ -21,7 +21,7 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://car3.autoimg.cn/cardfs/product/g7/M0C/E6/15/1024x0_1_q87_autohomecar__wKgHzlZMXuuAYxcOAAY_ozxGmDc895.jpg";
+		String url = "http://localhost:8080/test.jpg";
 		
 		FileDownloader downloader = new FileDownloader(url);
 
@@ -34,6 +34,7 @@ public class FileDownloaderTest {
 			public void notifyFinished() {
 				downloadFinished = true;
 			}
+
 		});
 
 		

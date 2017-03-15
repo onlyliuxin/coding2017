@@ -1,53 +1,27 @@
 package com.coderising.download;
 
-import com.coderising.download.api.*;
+import com.coderising.download.api.Connection;
+import com.coderising.download.api.ConnectionException;
+import com.coderising.download.api.ConnectionManager;
+import com.coderising.download.api.DownloadListener;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
 
 public class FileDownloader {
+	
 	String url;
+	
 	DownloadListener listener;
+	
 	ConnectionManager cm;
-    int threadCompleteCount = 0;
-
-    final static int NUM_OF_THREAD = 1;
-	final static String DOWNLOAD_PATH = "downloaded.jpg";
+	
 
 	public FileDownloader(String _url) {
 		this.url = _url;
 		
 	}
-
-	private static HashMap[] getPartitionPositions(int length, int numOfThreads){
-        HashMap[] partitionPositions = new HashMap[numOfThreads];
-        int basePosition = 0;
-        int partitionLength = (int) Math.floor(length / numOfThreads);
-        for (int i = 0; i < numOfThreads; i++) {
-            HashMap<String, Integer> partitionPosition = new HashMap<>();
-            int startPos = basePosition;
-            int endPos = partitionLength + startPos - 1;
-            partitionPosition.put("startPos", startPos);
-            partitionPosition.put("endPos", endPos);
-            partitionPositions[i] = partitionPosition;
-            basePosition += partitionLength;
-        }
-        return partitionPositions;
-    }
-
-    private static void writeToFile(String path, byte[] buffer) throws IOException {
-	    String absolutePath = FileDownloader.class.getResource("").getPath() + path;
-//        FileWriter fw = new FileWriter(absolutePath);
-        FileOutputStream fos = new FileOutputStream(absolutePath);
-        fos.write(buffer);
-        fos.close();
-    }
-
-
+	
 	public void execute(){
-
-        // 在这里实现你的代码， 注意： 需要用多线程实现下载
+		// 在这里实现你的代码， 注意： 需要用多线程实现下载
 		// 这个类依赖于其他几个接口, 你需要写这几个接口的实现代码
 		// (1) ConnectionManager , 可以打开一个连接，通过Connection可以读取其中的一段（用startPos, endPos来指定）
 		// (2) DownloadListener, 由于是多线程下载， 调用这个类的客户端不知道什么时候结束，所以你需要实现当所有
@@ -60,55 +34,22 @@ public class FileDownloader {
 		// 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
-
-        Connection conn = null;
-
-        try {
-            conn = cm.open(url);
-            int contentLength = conn.getContentLength();
-
-            HashMap[] partitionPositions = getPartitionPositions(contentLength, NUM_OF_THREAD);
-
-            for (int i = 0; i < partitionPositions.length; i++) {
-                HashMap partitionPosition = partitionPositions[i];
-                int startPos = (int) partitionPosition.get("startPos");
-                int endPos = (int) partitionPosition.get("endPos");
-
-                DownloadThread dt = new DownloadThread(conn, startPos, endPos);
-                dt.setListener(new ThreadListener(){
-                    @Override
-                    public void onComplete(byte[] buffer) throws IOException {
-                        threadCompleteCount++;
-                        FileDownloader.writeToFile(DOWNLOAD_PATH, buffer);
-                        if(threadCompleteCount == NUM_OF_THREAD){
-                            getListener().notifyFinished();
-                        }
-                    }
-                });
-                dt.start();
-            }
-
-        } catch (ConnectionException | IOException e) {
-            e.printStackTrace();
-        }
-
-
-//		Connection conn = null;
-//		try {
-//
-//			conn = cm.open(this.url);
-//
-//			int length = conn.getContentLength();
-//
-//			new DownloadThread(conn,0,length-1).start();
-//
-//		} catch (ConnectionException e) {
-//			e.printStackTrace();
-//		}finally{
-//			if(conn != null){
-//				conn.close();
-//			}
-//		}
+		Connection conn = null;
+		try {
+			
+			conn = cm.open(this.url);
+			
+			int length = conn.getContentLength();	
+			
+			new DownloadThread(conn,0,length-1).start();
+			
+		} catch (ConnectionException e) {			
+			e.printStackTrace();
+		}finally{
+			if(conn != null){
+				conn.close();
+			}
+		}
 		
 		
 		
