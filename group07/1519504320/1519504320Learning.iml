@@ -19,5 +19,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="dom4j-1.6.1 (2)" level="project" />
   </component>
 </module>

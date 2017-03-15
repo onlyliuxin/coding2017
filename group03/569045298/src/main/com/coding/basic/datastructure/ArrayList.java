@@ -56,7 +56,7 @@ public class ArrayList implements List {
     }
 
     private void checkRange(int index) {
-        if (index < 0 || index >= size) {
+        if (index < 0 || index > elementData.length) {
             throw new IndexOutOfBoundsException();
         }
     }
@@ -76,8 +76,8 @@ public class ArrayList implements List {
 
     private class ArrayListIterator implements Iterator {
 
-        private ArrayList arrayList = null;
-        private int position = 0;
+        ArrayList arrayList = null;
+        int pos = 0;
 
         private ArrayListIterator(ArrayList arrayList) {
             this.arrayList = arrayList;
@@ -85,18 +85,24 @@ public class ArrayList implements List {
 
         @Override
         public boolean hasNext() {
-            return position < size();
+            // TODO
+            pos++;
+            if (pos > size) {
+                return false;
+            }
+            return true;
         }
 
         @Override
         public Object next() {
-            return get(position++);
+            // TODO
+            return elementData[pos];
         }
 
         @Override
         public Object remove() {
             // TODO
-            return this.arrayList.remove(position--);
+            return null;
         }
     }
 }

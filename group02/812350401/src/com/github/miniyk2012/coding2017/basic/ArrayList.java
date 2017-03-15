@@ -32,8 +32,7 @@ public class ArrayList implements List {
 		ensureIndex(index);
 		Object temp = elementData[index];
 		System.arraycopy(elementData, index+1, elementData, index,
-                size - index - 1);
-		elementData[size-1] = null;
+                size  - index);
 		size--;
 		return temp;
 	}

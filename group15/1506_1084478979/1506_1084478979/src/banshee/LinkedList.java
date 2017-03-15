@@ -2,8 +2,7 @@ package banshee;
 
 import java.util.NoSuchElementException;
 
-
-public class LinkedList  {
+public class LinkedList implements List {
 	
 	private Node head;
 	private Node last;
@@ -75,11 +74,11 @@ public class LinkedList  {
 		size--;
 		return e;
 	}
-//	public Iterator iterator(){
-//		//TODO
-//		//ï¿½ï¿½ï¿½ï¿½...
-//		return null;
-//	}
+	public Iterator iterator(){
+		//TODO
+		//²»»á...
+		return null;
+	}
 	
 	
 	private static  class Node{
@@ -120,7 +119,7 @@ public class LinkedList  {
 	
     private void rangeCheck(int index) {
         if (index > size || index < 0) {
-            throw new IndexOutOfBoundsException("Ö¸ï¿½ï¿½ï¿½ï¿½indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+            throw new IndexOutOfBoundsException("Ö¸¶¨µÄindex³¬¹ý½çÏÞ");
         }
     }
     

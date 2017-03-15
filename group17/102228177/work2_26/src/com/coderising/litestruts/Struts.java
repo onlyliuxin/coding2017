@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.dom4j.Element;
 
+
+
 public class Struts {
 
     public static View runAction(String actionName, Map<String,String> parameters) {
@@ -35,7 +37,7 @@ public class Struts {
 		Map<String, String> attribute = Dom4jUtil.getAttribute(element);
 		String className = attribute.get(actionName);
 		try {
-			Class<?> clazz = Class.forName(className);
+			Class clazz = Class.forName(className);
 			Object o = clazz.newInstance();
 			for (Map.Entry<String, String> entry : parameters.entrySet()) {
 				String key = entry.getKey();
@@ -44,14 +46,14 @@ public class Struts {
 				Method method = clazz.getDeclaredMethod(BeanUtil.setter(field.getName()),String.class);
 				method.invoke(o, value);
 			}
-			Method method = clazz.getDeclaredMethod("execute");
+			Method method = clazz.getDeclaredMethod("execute",null);
 			String str = (String) method.invoke(o);
 			Field[] fields = clazz.getDeclaredFields();
 			Map<String, String> map = new HashMap<String, String>();
 			for (Field field : fields) {
 				String fieldName = field.getName();
-				Method method2 =  clazz.getDeclaredMethod(BeanUtil.getter(fieldName));
-				String ret = (String) method2.invoke(o);
+				Method method2 =  clazz.getDeclaredMethod(BeanUtil.getter(fieldName),null);
+				String ret = (String) method2.invoke(o, null);
 				map.put(fieldName, ret);
 			}
 			View view = new View();

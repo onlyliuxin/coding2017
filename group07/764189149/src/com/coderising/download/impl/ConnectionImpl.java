@@ -1,7 +1,9 @@
 package com.coderising.download.impl;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -37,23 +39,24 @@ public class ConnectionImpl implements Connection{
 	@Override
 	public int getContentLength() {
 		int length = 0;
+
 		try {
 			URLConnection connection = urlObj.openConnection();
 			length = connection.getContentLength();
 		} catch (IOException e) {
 			System.out.println("getContentLength error:"+e.getMessage());
 		}
-		
+
 		return length;
 	}
 
 	@Override
 	public void close() {
+
 		// TODO Auto-generated method stub
 		
 	}
 
-	
 	
 
 }

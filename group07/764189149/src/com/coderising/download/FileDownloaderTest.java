@@ -20,6 +20,7 @@ public class FileDownloaderTest {
 
 	@Test
 	public void testDownload() {
+
 		String url = "http://www.java2s.com/Code/JarDownload/apache-activemq/apache-activemq-4.1.1.jar.zip "; 
 		FileDownloader downloader = new FileDownloader(url);
 		ConnectionManager cm = new ConnectionManagerImpl();
@@ -31,7 +32,7 @@ public class FileDownloaderTest {
 			}
 
 		});
-
+		
 		
 		downloader.execute();
 		

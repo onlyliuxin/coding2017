@@ -1,5 +1,8 @@
 package com.coding.basic;
 
+import java.util.*;
+import java.util.LinkedList;
+
 public class ArrayList implements List {
 
     private int size = 0;
@@ -88,6 +91,16 @@ public class ArrayList implements List {
 
                 cursor++;
                 return elementData[cursor];
+            }
+
+            @Override
+            public void remove() {
+                java.util.LinkedList l1  = new LinkedList();
+                java.util.Iterator it  = l1.iterator();
+                while (it.hasNext()){
+                    it.remove();
+                }
+
             }
         };
     }

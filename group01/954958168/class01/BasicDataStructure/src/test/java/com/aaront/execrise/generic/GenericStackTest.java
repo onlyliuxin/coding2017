@@ -22,25 +22,25 @@ public class GenericStackTest {
 
     @Test
     public void testPush() {
-        Assert.assertArrayEquals(new String[]{"1", "2", "3" }, stack.toArray());
+        Assert.assertArrayEquals(stack.toArray(), new String[]{"1", "2", "3"});
     }
 
     @Test
     public void testPop() {
         String element1 = stack.pop();
-        Assert.assertEquals("3", element1);
+        Assert.assertEquals(element1, "3");
         String element2 = stack.pop();
-        Assert.assertEquals("2", element2);
-        Assert.assertArrayEquals(new String[]{"1" }, stack.toArray());
+        Assert.assertEquals(element2, "2");
+        Assert.assertArrayEquals(stack.toArray(), new String[]{"1"});
     }
 
     @Test
     public void testPeek() {
         String element1 = stack.peek();
-        Assert.assertEquals("3", element1);
+        Assert.assertEquals(element1, "3");
         String element2 = stack.peek();
-        Assert.assertEquals("3", element2);
-        Assert.assertArrayEquals(new String[]{"1", "2", "3" }, stack.toArray());
+        Assert.assertEquals(element2, "3");
+        Assert.assertArrayEquals(stack.toArray(), new String[]{"1", "2", "3"});
     }
 
 }

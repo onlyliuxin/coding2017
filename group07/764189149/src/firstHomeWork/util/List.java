@@ -6,7 +6,7 @@ package firstHomeWork.util;
  * @date: 2017年2月21日 下午8:53:52
  * @param <E>
  */
-public interface List<E> {
+public interface List<E>{
 	/**
 	 * @Description: 添加元素
 	 * @param e
@@ -57,7 +57,6 @@ public interface List<E> {
 	  * @Description: 设置指定位置的元素
 	  * @param index
 	  * @param e
-	  * @return: E
 	  * @author: leijing  
 	  * @date: 2017年2月21日 下午8:58:58
 	  */

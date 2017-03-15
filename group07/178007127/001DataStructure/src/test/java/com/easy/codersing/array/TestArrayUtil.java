@@ -1,9 +1,11 @@
 package com.easy.codersing.array;
 
+import java.util.Arrays;
 
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.easy.core.AppUtils;
 
 public class TestArrayUtil {
 	@Test

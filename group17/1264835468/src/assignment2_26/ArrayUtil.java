@@ -14,7 +14,7 @@ public class ArrayUtil {
 	 * @param origin
 	 * @return
 	 */
-	public static void reverseArray(int[] origin) {
+	public void reverseArray(int[] origin) {
 		int mid = origin.length / 2;
 		for (int i = 0; i < mid; i++) {
 			int temp = origin[i];
@@ -32,7 +32,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 
-	public static int[] removeZero(int[] oldArray) {
+	public int[] removeZero(int[] oldArray) {
 		int count = 0;
 		for (int i : oldArray) {
 			if (i != 0)
@@ -56,7 +56,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 
-	public static int[] merge(int[] array1, int[] array2) {
+	public int[] merge(int[] array1, int[] array2) {
 		TreeSet<Integer> set = new TreeSet<>();
 		for (Integer integer : array1) {
 			set.add(integer);
@@ -80,7 +80,7 @@ public class ArrayUtil {
 	 * @param size
 	 * @return
 	 */
-	public static int[] grow(int[] oldArray, int size) {
+	public int[] grow(int[] oldArray, int size) {
 		return Arrays.copyOf(oldArray, size);
 	}
 
@@ -91,7 +91,7 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public static int[] fibonacci(int max) {
+	public int[] fibonacci(int max) {
 		if (max <= 1)
 			return new int[0];
 		List<Integer> fList = new ArrayList<>();
@@ -115,7 +115,7 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public static int[] getPrimes(int max) {
+	public int[] getPrimes(int max) {
 		boolean[] isPrime = new boolean[max];
 		List<Integer> primes = new ArrayList<>();
 		for (int i = 0; i < isPrime.length; i++) {
@@ -142,7 +142,7 @@ public class ArrayUtil {
 	 * @param max
 	 * @return
 	 */
-	public static int[] getPerfectNumbers(int max) {
+	public int[] getPerfectNumbers(int max) {
 		int sum = 0;
 		ArrayList<Integer> perfectNumbers = new ArrayList<>();
 		for (int i = 1; i < max; i++) {
@@ -170,7 +170,7 @@ public class ArrayUtil {
 	 * @param s
 	 * @return
 	 */
-	public static String join(int[] array, String seperator) {
+	public String join(int[] array, String seperator) {
 		StringBuilder stringBuilder = new StringBuilder();
 		for (int i : array) {
 			stringBuilder.append(i + seperator);

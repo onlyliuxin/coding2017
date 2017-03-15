@@ -1,5 +1,8 @@
+<<<<<<< HEAD
+=======
 package lessones01;
 import lessones01.Node;
+>>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479
 public class LinkedList<T>{
 	public static void main(String[] args){
 		LinkedList<String> arr = new LinkedList<String>();

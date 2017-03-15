@@ -8,11 +8,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class LinkedListTest {
-	private LinkedList<Integer> list;
+	private DoubleNodeLinkedList<Integer> list;
 
 	@Before
 	public void setUp() throws Exception {
-		list = new LinkedList<Integer>();
+		list = new DoubleNodeLinkedList<Integer>();
 	}
 
 	@After
