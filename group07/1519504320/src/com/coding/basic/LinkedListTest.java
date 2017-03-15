@@ -1,4 +1,4 @@
-package com.coding.basic;
+package basic;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -103,12 +103,7 @@ public class LinkedListTest {
         list.add(3);
         Iterator it = list.iterator();
         while (it.hasNext()){
-            int oo = (int)it.next();
-            if((oo==2)){
-                it.remove();
-            }else {
-                System.out.print(oo);
-            }
+            System.out.println(it.next());
         }
     }
 
@@ -190,32 +185,67 @@ public class LinkedListTest {
         //list.add(1);
         list.add(2);
         list.add(3);
+        list.add(3);
         list.add(4);
-        list.add(5);
-        list.add(6);
-        list.add(7);
+        list.add(77);
+        list.add(79);
+
         LinkedList list_test = new LinkedList();
         list_test.add(1);
         list_test.add(2);
         list_test.add(3);
         list_test.add(4);
+        list_test.add(5);
         list.subtract(list_test);
-        Assert.assertEquals(list.toString(), "567");
+        Assert.assertEquals(list.toString(), "7779");
 
     }
 
     @Test
     public void removeDuplicateValues() throws Exception {
+        list.add(1);
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(3);
+        list.add(4);
+        list.add(4);
+        list.add(4);
+        list.add(4);
+        list.add(4);
+        list.add(5);
+        list.add(5);
+        list.add(5);
+        list.add(8);
+        list.removeDuplicateValues();
+        Assert.assertEquals(list.toString(), "123458");
 
     }
 
     @Test
     public void removeRange() throws Exception {
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.removeRange(0,9);
+        Assert.assertEquals(list.toString(), "");
 
     }
 
     @Test
     public void intersection() throws Exception {
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        LinkedList ne = new LinkedList();
+        ne.add(1);
+        ne.add(2);
+        ne.add(3);
+        ne.add(5);
+        LinkedList result = list.intersection(ne);
+        Assert.assertEquals(result.toString(), "123");
 
     }
 

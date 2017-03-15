@@ -1,6 +1,5 @@
-package com.coding.basic;
+package basic;
 
-import java.util.Objects;
 
 public class LinkedList<T> implements List {
 
@@ -57,6 +56,7 @@ public class LinkedList<T> implements List {
             pre.next = n.next;
         }
         size--;
+
         return n;
     }
 
@@ -134,11 +134,6 @@ public class LinkedList<T> implements List {
 
                 }
                 return null;
-            }
-
-            public void remove() {
-                LinkedList.this.remove(cursor - 1);
-                cursor = cursor - 1;
             }
         };
     }
@@ -239,14 +234,30 @@ public class LinkedList<T> implements List {
      */
 
     public void subtract(LinkedList list) {
-        outer:
+
+        if (head == null) {
+            return;
+        }
+        Node fakeHead = new Node();
+        fakeHead.next = head;
+        Node pre = fakeHead;
+        Node cur = head;
         for (int i = 0; i < list.size(); i++) {
-            for (int j = 0; j < size(); j++) {
-                if (list.get(i) == get(j)) {
-                    remove(j);
+            pre = fakeHead;
+            cur = pre.next;
+            while (cur != null) {
+                if (cur.data == list.get(i) && cur.next != null) {
+                    pre.next = cur.next;
+                    cur = cur.next;
+                } else if (cur.data == list.get(i) && cur.next == null) {
+                    pre.next = null;
+                } else if (cur.data != list.get(i)) {
+                    pre = pre.next;
+                    cur = cur.next;
                 }
             }
         }
+        head = fakeHead.next;
     }
 
     /**
@@ -254,8 +265,32 @@ public class LinkedList<T> implements List {
      * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
      */
     public void removeDuplicateValues() {
+        if (head == null) {
+            return;
+        }
+        if (head.next == null) {
+            return;
+        }
+        Node pre = head;
+        Node cur = head.next;
+        while (cur != null) {
+            if (pre.data.equals(cur.data)) {
+                if (cur.next != null) {
+                    pre.next = cur.next;
+                    pre = pre;
+                    cur = pre.next;
+                    continue;
+                } else {
+                    pre.next = null;
+                    return;
+                }
+            } else {
+                pre = cur;
+                cur = cur.next;
+            }
 
 
+        }
     }
 
     /**
@@ -266,6 +301,29 @@ public class LinkedList<T> implements List {
      * @param max
      */
     public void removeRange(int min, int max) {
+        if (head == null) {
+            return;
+        }
+        Node node = head;
+        while (node != null && (int) node.data > min && (int) node.data < max) {
+            node = node.next;
+        }
+        if (node == null || node == null) {
+            head = null;
+            return;
+        } else {
+            head = node;
+        }
+        Node pre = head;
+        Node cur = head.next;
+        while (cur != null && (int) cur.data > min && (int) cur.data < max) {
+            if (cur.next != null) {
+                pre.next = cur.next;
+                cur = cur.next;
+            } else {
+                return;
+            }
+        }
 
     }
 
@@ -276,6 +334,26 @@ public class LinkedList<T> implements List {
      * @param list
      */
     public LinkedList intersection(LinkedList list) {
-        return null;
+        if (list == null && this == null) {
+            return null;
+        }
+        if (list == null || list.size() == 0) {
+            return this;
+        }
+        if (this == null) {
+            return list;
+        }
+        LinkedList result = new LinkedList();
+        for (int i = 0; i < list.size(); i++) {
+            Node n = head;
+            while ((int) n.data < (int) list.get(i) && n.next != null) {
+                n = n.next;
+            }
+            if ((int) n.data == (int) list.get(i)) {
+                result.add(list.get(i));
+            }
+
+        }
+        return result;
     }
 }

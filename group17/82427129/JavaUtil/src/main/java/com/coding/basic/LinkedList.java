@@ -1,180 +1,122 @@
 package com.coding.basic;
 
-import java.util.NoSuchElementException;
-
 public class LinkedList implements List {
-	private int size = 0;
 	
-	private Node first;
-	
-	private Node last;
+	private Node head;
 	
 	public void add(Object o){
-		add(size,o);
+		
 	}
 	public void add(int index , Object o){
-		rangeCheck(index);
 		
-		if(index == size){
-			linkLast(o);
-		}else{
-			linkBefore(o, indexOf(index));
-		}
 	}
-	private void linkBefore(Object o ,Node succ){
-		final Node prev = succ.prev;
-		final Node newNode = new Node(prev, o, succ);
-		succ.prev = newNode;
-		if(prev == null){
-			first = newNode;
-		}else{
-			prev.next = newNode;
-		}
-		size++;
-	}
-	private void linkLast(Object o){
-		final Node succ = last;
-		final Node newNode = new Node(succ, o, null);
-		last = newNode;
-		if(succ == null){
-			first = newNode;
-		}else{
-			succ.next = newNode;
-		}
-		size++;
-	}
-	private void rangeCheck(int index) {
-		if(index > size|| index < 0 )
-			throw new IndexOutOfBoundsException("Size"+size+":index"+index);
-	}
-	private void elementIndexCheck(int index){
-		if(index >=size||index < 0)
-			throw new IndexOutOfBoundsException("Size"+size+":index"+index);
-	}
-	/**
-	 * ��ȡ���±ꡱΪindex��ֵ,
-	 * indexΪsizeʱ����null
-	 * @param index
-	 * @return
-	 */
-	private Node indexOf(int index){
-		if(index < (this.size>>1) ){
-			Node x = first;
-			for (int i = 0; i < index; i++) {
-				x = x.next;
-			}
-			return x;
-		}else{
-			Node x = last;
-			for (int i = this.size-1; i > index; i--) {
-				x = x.prev;
-			}
-			return x;
-		}
-	}
-
 	public Object get(int index){
-		elementIndexCheck(index);
-		
-		return indexOf(index);
+		return null;
 	}
 	public Object remove(int index){
-		elementIndexCheck(index);
-		
-		if(index == 0){
-			return removeFirst();
-		}else if(index == size) {
-			return removeLast();
-		}else{
-			return unlinkNode(indexOf(index));
-		}
+		return null;
 	}
 	
-	private Object unlinkNode(Node node) {
-		final Node next = node.next;
-		final Node prev = node.prev;
-		final Object element = node.data;
-		if(next == null){
-			last = node;
-		}else{
-			next.prev = node;
-			node.next = next;
-		}
-		if(prev == null){
-			first = node;
-		}else{
-			prev.next = node;
-			node.prev = prev;
-		}
-		size--;
-		node.data = null;
-		
-		return element;
-	}
 	public int size(){
-		return size;
+		return -1;
 	}
 	
 	public void addFirst(Object o){
-		linkBefore(o, first);
+		
 	}
-	
 	public void addLast(Object o){
-		linkLast(o);
+		
 	}
-	
 	public Object removeFirst(){
-		if(first == null)
-			throw new NoSuchElementException("first is null");
-		
-		Object oldData = first.data;
-		final Node next = first.next;
-		first.data = null;
-		first.next = null;//GC
-		first = next;
-		
-		if(next == null){
-			last = null;
-		}else{
-			next.prev = null;
-		}
-		size--;
-		
-		return oldData;
+		return null;
 	}
-	
 	public Object removeLast(){
-		if(last == null)
-			throw new NoSuchElementException("last is null");
-		
-		Object oldData = last.data;
-		final Node prev = last.prev;
-		last.prev = null;
-		last.data = null;//GC
-		last = prev;
-		
-		if(prev == null){
-			first = null;
-		}else{
-			prev.next = null;
-		}
-		size--;
-		
-		return oldData;
+		return null;
 	}
-	
 	public Iterator iterator(){
 		return null;
 	}
 	
-	private static class Node{
+	
+	private static  class Node{
 		Object data;
 		Node next;
-		Node prev;
-		Node(Node prev,Object data,Node next){
-			this.data = data;
-			this.next = next;
-			this.prev = prev;
-		}
+		
+	}
+	
+	/**
+	 * 把该链表逆置
+	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
+	 */
+	public  void reverse(){		
+		
+	}
+	
+	/**
+	 * 删除一个单链表的前半部分
+	 * 例如：list = 2->5->7->8 , 删除以后的值为 7->8
+	 * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
+
+	 */
+	public  void removeFirstHalf(){
+		
+	}
+	
+	/**
+	 * 从第i个元素开始， 删除length 个元素 ， 注意i从0开始
+	 * @param i
+	 * @param length
+	 */
+	public  void remove(int i, int length){
+		
+	}
+	/**
+	 * 假定当前链表和list均包含已升序排列的整数
+	 * 从当前链表中取出那些list所指定的元素
+	 * 例如当前链表 = 11->101->201->301->401->501->601->701
+	 * listB = 1->3->4->6
+	 * 返回的结果应该是[101,301,401,601]  
+	 * @param list
+	 */
+	public static int[] getElements(LinkedList list){
+		return null;
+	}
+	
+	/**
+	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
+	 * 从当前链表中中删除在list中出现的元素 
+
+	 * @param list
+	 */
+	
+	public  void subtract(LinkedList list){
+		
+	}
+	
+	/**
+	 * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。
+	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
+	 */
+	public  void removeDuplicateValues(){
+		
+	}
+	
+	/**
+	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
+	 * 试写一高效的算法，删除表中所有值大于min且小于max的元素（若表中存在这样的元素）
+	 * @param min
+	 * @param max
+	 */
+	public  void removeRange(int min, int max){
+		
+	}
+	
+	/**
+	 * 假设当前链表和参数list指定的链表均以元素依值递增有序排列（同一表中的元素值各不相同）
+	 * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
+	 * @param list
+	 */
+	public  LinkedList intersection( LinkedList list){
+		return null;
 	}
 }
