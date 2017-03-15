@@ -9,8 +9,12 @@ public class LinkedList implements List {
 	private int size = 0;
 
 	public void add(Object o) {
+<<<<<<< HEAD
 		addToNode(head,o);
 		size++;
+=======
+		addLast(o);
+>>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479
 	}
 
 	public void add(int index, Object o) {
@@ -53,6 +57,7 @@ public class LinkedList implements List {
 		return node.next==null?null:node.next.data;
 	}
 
+<<<<<<< HEAD
 //	public Object get(Object o) {
 //
 //		if(head.next==null){
@@ -69,6 +74,8 @@ public class LinkedList implements List {
 //		return node;
 //	}
 
+=======
+>>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479
 	public Object remove(int index) {
 		if (index <0 || index > size - 1) {
 			throw new IndexOutOfBoundsException("index out of bound");
@@ -118,8 +125,11 @@ public class LinkedList implements List {
 		for (int i = 0; i <=size-1 ; i++) {
 			Node node=getLastNode(i).next;
 			list.addFirst(node.data);
+<<<<<<< HEAD
 //			node.data=null;
 //			node.next=null;
+=======
+>>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479
 		}
 		head=list.head;
 	}
@@ -175,7 +185,20 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	public  void subtract(LinkedList list){
+<<<<<<< HEAD
 
+=======
+		for (int bIndex = 0; bIndex <=list.size-1 ; bIndex++) {
+			for (int i = 0; i <= size-1; i++) {
+				if(get(i).equals(list.get(bIndex))){
+					remove(i--);
+				}
+				if(i>=0 && Integer.parseInt(get(i).toString())>Integer.parseInt(list.get(bIndex).toString())){
+					break;
+				}
+			}
+		}
+>>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479
 	}
 
 	/**
@@ -238,7 +261,21 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	public  LinkedList intersection( LinkedList list){
+<<<<<<< HEAD
 		return null;
+=======
+		LinkedList result=new LinkedList();
+		int aIndex=0;
+		for (int bIndex = 0; bIndex <= list.size()-1; bIndex++) {
+			for (; aIndex <= size-1; aIndex++) {
+				if(get(aIndex).equals(list.get(bIndex))){
+					result.add(get(aIndex));
+					break;
+				}
+			}
+		}
+		return result;
+>>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479
 	}
 
 	private class LinkedListInterator implements Iterator {

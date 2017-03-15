@@ -1,8 +1,12 @@
 package firstHomeWork.util;
 
+<<<<<<< HEAD
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
+=======
+import java.util.NoSuchElementException;
+>>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479
 
 
 public class LinkedList<E extends Comparable>  implements List<E> {

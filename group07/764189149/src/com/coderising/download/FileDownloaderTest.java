@@ -20,9 +20,13 @@ public class FileDownloaderTest {
 
 	@Test
 	public void testDownload() {
+<<<<<<< HEAD
 		
 //		String url = "http://pic17.nipic.com/20111102/3707281_235344313129_2.jpg"; 
 		String url = "http://www.java2s.com/Code/JarDownload/apache-activemq/apache-activemq-4.1.1.jar.zip"; 
+=======
+		String url = "http://www.java2s.com/Code/JarDownload/apache-activemq/apache-activemq-4.1.1.jar.zip "; 
+>>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479
 		FileDownloader downloader = new FileDownloader(url);
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
