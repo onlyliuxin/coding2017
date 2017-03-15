@@ -8,8 +8,6 @@ public class ConnectionManagerImpl implements ConnectionManager {
 
 	@Override
 	public Connection open(String url) throws ConnectionException {
-		
-		return null;
+	    return new ConnectionImpl(url);
 	}
-
 }

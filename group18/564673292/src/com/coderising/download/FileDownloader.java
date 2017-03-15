@@ -1,23 +1,24 @@
 package com.coderising.download;
 
-import com.coderising.download.api.Connection;
-import com.coderising.download.api.ConnectionException;
-import com.coderising.download.api.ConnectionManager;
-import com.coderising.download.api.DownloadListener;
+import com.coderising.download.api.*;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 
 
 public class FileDownloader {
-	
 	String url;
-	
 	DownloadListener listener;
-	
 	ConnectionManager cm;
-	
+    RandomAccessFile raf;
+
+	final int NUM_OF_THREADS = 3;
+	final String DESTINATION = "downloaded.jpg";
+    static int completed = 0;
 
 	public FileDownloader(String _url) {
 		this.url = _url;
-		
 	}
 	
 	public void execute(){
@@ -34,28 +35,87 @@ public class FileDownloader {
 		// 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
-		Connection conn = null;
-		try {
-			
-			conn = cm.open(this.url);
-			
-			int length = conn.getContentLength();	
-			
-			new DownloadThread(conn,0,length-1).start();
-			
-		} catch (ConnectionException e) {			
-			e.printStackTrace();
-		}finally{
-			if(conn != null){
-				conn.close();
-			}
-		}
-		
-		
-		
-		
+//		Connection conn = null;
+//		try {
+//
+//			conn = cm.open(this.url);
+//
+//			int length = conn.getContentLength();
+//
+//			new DownloadThread(conn,0,length-1).start();
+//
+//		} catch (ConnectionException e) {
+//			e.printStackTrace();
+//		}finally{
+//			if(conn != null){
+//				conn.close();
+//			}
+//		}
+//
+		// multi-thread download
+        String absolutePath = getAbsolutePath(DESTINATION);
+        try {
+            raf = new RandomAccessFile(absolutePath, "rw");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Connection conn = null;
+        try{
+            conn = cm.open(this.url);
+            int length = conn.getContentLength();
+            int[][] partitions = FileDownloader.getPartitions(NUM_OF_THREADS, length);
+            for (int i = 0; i < NUM_OF_THREADS; i++) {
+                int startPos = partitions[i][0];
+                int endPos = partitions[i][1];
+                DownloadThread dt = new DownloadThread(conn, startPos, endPos);
+                dt.setListener(new DownloadThreadListener(){
+                    @Override
+                    public void onThreadComplete(byte[] data) {
+                        try {
+                            writeFile(data, startPos);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        completed++;
+                        if(completed == NUM_OF_THREADS){
+                            listener.notifyFinished();
+                        }
+                    }
+                });
+                dt.start();
+            }
+        }catch( ConnectionException e){
+            e.printStackTrace();
+        }
 	}
-	
+
+    private void writeFile(byte[] data, int startPos) throws IOException {
+	    raf.seek(startPos);
+	    raf.write(data);
+    }
+
+    private static String getAbsolutePath(String path){
+        return FileDownloader.class.getResource("").getPath() + path;
+    }
+
+	private static int[][] getPartitions(int numOfThreads, int length){
+	    int[][] partitions = new int[numOfThreads][];
+	    int partitionLength = (int) Math.floor(numOfThreads / length);
+        for (int i = 0; i < numOfThreads; i++) {
+            int startPos = i * partitionLength;
+            int endPos;
+            if(i == numOfThreads - 1){
+                endPos = length - 1;
+            }else{
+                endPos = (i + 1) * partitionLength - 1;
+            }
+            int[] partition = new int[] {startPos, endPos};
+            partitions[i] = partition;
+        }
+        return partitions;
+    }
+
 	public void setListener(DownloadListener listener) {
 		this.listener = listener;
 	}

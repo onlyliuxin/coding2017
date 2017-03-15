@@ -20,12 +20,10 @@ public class FileDownloaderTest {
 
 	@Test
 	public void testDownload() {
-		
-		String url = "http://localhost:8080/test.jpg";
-		
+        String url = "http://car2.autoimg.cn/cardfs/product/g15/M06/4D/AA/1024x0_1_q87_autohomecar__wKgH5VfhDm2AaE3oAA4CCm97exU193.jpg";
+
 		FileDownloader downloader = new FileDownloader(url);
 
-	
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
 		
