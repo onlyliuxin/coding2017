@@ -14,7 +14,7 @@ import java.io.RandomAccessFile;
  */
 public class FileDownloader {
 
-    private int threadNumber = 3;//下载线程数
+    private static  final int threadNumber = 3;//下载线程数
     private String url;//传入的url地址
     public String fileName = "D://download";
 

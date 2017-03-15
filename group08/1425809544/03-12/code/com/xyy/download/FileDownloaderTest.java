@@ -12,20 +12,23 @@ import xyy.download.impl.ConnectionManagerImpl;
  */
 public class FileDownloaderTest {
     boolean downloadFinished = false;
+
     @Before
-    public void setUp() throws Exception {}
+    public void setUp() throws Exception {
+    }
+
     @After
-    public void tearDown() throws Exception {}
+    public void tearDown() throws Exception {
+    }
 
     @Test
-    public void testDownload(){
+    public void testDownload() {
 
         String url = "http://img.71lady.com/uploads/allimg/1701/2-1F11GKT4.jpg";
-        ConnectionManager connectionManager =  new ConnectionManagerImpl();
         FileDownloader fileDownloader = new FileDownloader(url);
+        ConnectionManager connectionManager = new ConnectionManagerImpl();
         fileDownloader.setConnectionManager(connectionManager);
-        fileDownloader.setListener(new DownloadListener(){
-
+        fileDownloader.setListener(new DownloadListener() {
             @Override
             public void notifyFinished() {
                 downloadFinished = true;
@@ -34,10 +37,10 @@ public class FileDownloaderTest {
 
         fileDownloader.execute();
 
-        while (!downloadFinished){
+        while (!downloadFinished) {
             System.out.print("还没有下载完成，休眠五秒");
             try {
-                Thread.sleep(5*1000);
+                Thread.sleep(5 * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

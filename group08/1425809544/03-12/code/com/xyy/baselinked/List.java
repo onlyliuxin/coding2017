@@ -1,4 +1,4 @@
-package baselinked;
+package xyy.baselinked;
 
 /**
  * Created by 14258 on 2017/3/14.

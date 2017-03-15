@@ -1,4 +1,4 @@
-package baselinked;
+package xyy.baselinked;
 
 /**
  * Created by 14258 on 2017/3/14.
@@ -147,16 +147,18 @@ public class LinkedList implements List {
     private class LinkedListIterator implements Iterator {
         private Node node = head;
 
-        @Override
         public boolean hasNext() {
             return node != null;
         }
 
-        @Override
         public Object next() {
             Object data = node.data;
             node = node.next;
             return data;
+        }
+
+        public void moveFirst() {
+            node = head;
         }
     }
 
@@ -244,34 +246,123 @@ public class LinkedList implements List {
 
     public void remove(int i, int length) {
 
-        if (i<0 || i>=size || length<0 ||length>size||(i+length>size)){
+        if (i < 0 || i >= size || length < 0 || length > size || (i + length > size)) {
             throw new IndexOutOfBoundsException();
         }
 
         Node node = head;
         Node pre = head;
         Node iNode = head;
-        for (int j = 0;j<i+length;j++){
-            if (node.next!=null){
+        for (int j = 0; j < i + length; j++) {
+            if (node.next != null) {
                 pre = node;
-                if (j==(i-1)){
+                if (j == (i - 1)) {
                     iNode = node;
                 }
                 node = node.next;
             }
         }
 
-        if (i==0){
+        if (i == 0) {
             head = node;
-        }else {
+        } else {
             iNode.next = node;
         }
 
         pre.next = null;
         pre = null;
-        size = size()-length;
+        size = size() - length;
 
     }
+
+    /**
+     * 假定当前链表和list均包含已升序排列的整数 从当前链表中取出那些list所指定的元素 例如当前链表 =
+     * 11->101->201->301->401->501->601->701 listB = 1->3->4->6
+     * 返回的结果应该是[101,301,401,601]
+     *
+     * @param list
+     */
+    public int[] getElements(LinkedList list) {
+        if (list == null || list.size() == 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        int[] arr = new int[list.size()];
+        for (int i = 1; i < list.size(); i++) {
+            int index = (Integer) list.get(i);
+            arr[i] = (Integer) get(index);
+        }
+        return null;
+    }
+
+    /**
+     * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。 从当前链表中中删除在list中出现的元素
+     *
+     * @param list
+     */
+    public void subtract(LinkedList list) {
+        if (list == null || list.size() == 0) {
+            return;
+        }
+        for (int i = 0; i < list.size(); i++) {
+            int data = (Integer) list.get(i);
+            LinkedListIterator iterator = (LinkedListIterator) this.iterator();
+            int index = 0;
+            while (iterator.hasNext()) {
+                int obj = (Integer) iterator.next();
+                if (obj == data) {
+                    remove(index);
+                    iterator.moveFirst();
+                    break;
+                }
+                index++;
+            }
+        }
+
+    }
+
+    /**
+     * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
+     */
+    public void removeDuplicateValues() {
+        if (head == null) {
+            return;
+        }
+        Node node = head;
+        Node pre = head;
+        while (node.next != null) {
+            node = node.next;
+            int value = (Integer) pre.data;
+            if ((Integer) node.data == value) {
+                //如果node 下一个是null.直接把node前一个pre的next指向空
+                if (node.next == null) {
+                    pre.next = null;
+                    size--;
+                    break;
+                }
+                pre.next = node.next;
+                node = node.next;
+                size--;
+            }
+            pre = pre.next;
+        }
+    }
+
+
+    /**
+     * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。 试写一高效的算法，删除表中所有值大于min且小于max的元素（若表中存在这样的元素）
+     *
+     * @param min
+     * @param max
+     */
+
+
+
+
+
+
+
+
+
 
 
 
