@@ -1,6 +1,7 @@
 package com.coding.basic;
 
 public class LinkedList implements List {
+	private int size;
 	
 	private Node head;
 	
@@ -18,7 +19,8 @@ public class LinkedList implements List {
 	}
 	
 	public int size(){
-		return -1;
+		
+		return size;
 	}
 	
 	public void addFirst(Object o){
@@ -41,16 +43,31 @@ public class LinkedList implements List {
 	private static  class Node{
 		Object data;
 		Node next;
-		
 	}
 	
 	/**
 	 * 把该链表逆置
+	 * 			head   				 head
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
-	public  void reverse(){		
-		
+	public void reverse(){	
+		/**
+		 * 长度超过1的单链表需要逆转
+		 */
+		if(size>1){
+			Node pre = head;
+			Node cur = head.next;
+			Node next = null;
+			while(cur!=null){
+				next = cur.next;
+				cur.next = pre;
+				pre = cur;
+				cur = next;
+			}
+			
+		}
 	}
+	
 	
 	/**
 	 * 删除一个单链表的前半部分
@@ -58,12 +75,12 @@ public class LinkedList implements List {
 	 * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
 
 	 */
-	public  void removeFirstHalf(){
+	public void removeFirstHalf(){
 		
 	}
 	
 	/**
-	 * 从第i个元素开始， 删除length 个元素 ， 注意i从0开始
+	 * 从第i个元素开始,删除length个元素 ,注意i从0开始
 	 * @param i
 	 * @param length
 	 */
@@ -107,7 +124,7 @@ public class LinkedList implements List {
 	 * @param min
 	 * @param max
 	 */
-	public  void removeRange(int min, int max){
+	public void removeRange(int min, int max){
 		
 	}
 	
@@ -116,7 +133,8 @@ public class LinkedList implements List {
 	 * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
 	 * @param list
 	 */
-	public  LinkedList intersection( LinkedList list){
+	public LinkedList intersection(LinkedList list){
+		
 		return null;
 	}
 }
