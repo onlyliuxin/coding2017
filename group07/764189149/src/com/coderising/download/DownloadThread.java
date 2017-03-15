@@ -13,10 +13,7 @@ public class DownloadThread extends Thread{
 	int endPos;
 	CyclicBarrier barrier ;
 	File file;
-<<<<<<< HEAD
-	int current;
-=======
->>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479
+
 
 	public DownloadThread(CyclicBarrier barrier , Connection conn, int startPos, int endPos , File file){
 		
@@ -25,26 +22,15 @@ public class DownloadThread extends Thread{
 		this.startPos = startPos;
 		this.endPos = endPos;
 		this.file = file;
-<<<<<<< HEAD
-		this.current = startPos;
-=======
->>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479
 	}
 	public void run(){	
 		try{
 			System.out.println("begin download: startPos="+startPos+",endPos="+endPos);
 			byte[] buffer = conn.read(startPos , endPos);
-<<<<<<< HEAD
-			RandomAccessFile rafile = new RandomAccessFile(file, "rw");
-			rafile.seek(startPos);
-			rafile.write(buffer, 0, buffer.length);
-			rafile.close();
-=======
 			RandomAccessFile raf = new RandomAccessFile(file, "rw");
 			raf.seek(startPos);
 			raf.write(buffer, 0, buffer.length);
 			raf.close();
->>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479
 			barrier.await();
 			System.out.println("finish download: startPos="+startPos+",endPos="+endPos);
 		}catch(Exception e){

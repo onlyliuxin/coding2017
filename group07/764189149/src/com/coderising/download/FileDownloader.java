@@ -40,14 +40,10 @@ public class FileDownloader {
 			conn = cm.open(this.url);
 
 			int length = conn.getContentLength();
-<<<<<<< HEAD
-			System.out.println("length:"+length);
-			String filePath = getFileName(this.url);
-=======
+
 			String filePath =getFileName(this.url);
 			//System.out.println(filePath);
-			
->>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479
+		
 			File file = new File(filePath);
 			
 			int blockSize = (length % THREAD_NUM == 0 ) ? length / THREAD_NUM : (length / THREAD_NUM + 1);
@@ -57,12 +53,8 @@ public class FileDownloader {
 				if(endPos > length - 1){
 					endPos = length - 1;
 				}
-<<<<<<< HEAD
-				new DownloadThread(barrier , conn, startPos, endPos , file).start();
 
-=======
 				new DownloadThread(barrier , conn, startPos, endPos , file).start();	
->>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479
 			}
 
 		} catch (ConnectionException e) {			
@@ -73,15 +65,8 @@ public class FileDownloader {
 			}
 		}
 	}
+	
 
-
-
-<<<<<<< HEAD
-=======
-
-	}
-
->>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479
 	private String getFileName(String url) {
 		int index = url.lastIndexOf("/");
 		return url.substring(index + 1 , url.length());
