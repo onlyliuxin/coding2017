@@ -1,22 +1,26 @@
 package org.coding.three.download;
 
+import java.io.File;
+import java.io.RandomAccessFile;
+import java.util.concurrent.CyclicBarrier;
+
 import org.coding.three.download.api.Connection;
-import org.coding.three.download.api.ConnectionException;
 import org.coding.three.download.api.ConnectionManager;
 import org.coding.three.download.api.DownloadListener;
 
 public class FileDownloader {
 	
 	String url;
+	String destPath;
+	private int threadCount;
 	
 	DownloadListener listener;
-	
 	ConnectionManager cm;
 	
-
-	public FileDownloader(String _url) {
+	public FileDownloader(String _url, String destPath, int threadCount) {
 		this.url = _url;
-		
+		this.destPath = destPath;
+		this.threadCount = threadCount;
 	}
 	
 	public void execute(){
@@ -36,23 +40,57 @@ public class FileDownloader {
 		Connection conn = null;
 		try {
 			conn = cm.open(this.url);
-			int length = conn.getContentLength();	
-			// TODO
-			int size = length / THREAD_COUNT;
-			for(int i = 0; i < THREAD_COUNT; i++) {
-				int start = i * size;
-				int end = start + size - 1;
-				if(i == THREAD_COUNT - 1) {
-					end += length % THREAD_COUNT;
+			int length = conn.getContentLength();
+			createDownloadFile(length);
+			int[][] threadData = allocationData(length);
+			CyclicBarrier barrier = new CyclicBarrier(this.threadCount, new Runnable() {
+				@Override
+				public void run() {
+					listener.notifyFinished();
 				}
-				new DownloadThread(this, conn, start, end).start();
+			});
+			// TODO
+			for(int i = 0; i < this.threadCount; i++) {
+				new DownloadThread(barrier, conn, threadData[i][0], threadData[i][1], this.destPath).start();
 			}
-		} catch (ConnectionException e) {			
+		} catch (Exception e) {			
 			e.printStackTrace();
+		} finally {
+			conn.close();
 		}
 		
 	}
 	
+	private int[][] allocationData(int length) {
+		int[][] threadData = new int[this.threadCount][2];
+		int size = length / this.threadCount;
+		int offset = length % this.threadCount;
+		for(int i = 0; i < this.threadCount; i++) {
+			int start = i * size;
+			int end = (i + 1) * size -1;
+			if(i + 1 == this.threadCount) {
+				end += offset;
+			}
+			threadData[i][0] = start;
+			threadData[i][1] = end;
+			
+		}
+		return threadData;
+	}
+
+
+	private void createDownloadFile(int length) throws Exception {
+		File file = new File(destPath);
+		if(file.exists()) {
+			file.delete();
+		}
+		RandomAccessFile raf = new RandomAccessFile(destPath, "rw");
+		for(int i = 0; i < length; i++) {
+			raf.writeByte(0);
+		}
+		raf.close();
+	}
+
 	public void setListener(DownloadListener listener) {
 		this.listener = listener;
 	}
@@ -64,17 +102,6 @@ public class FileDownloader {
 		return this.listener;
 	}
 	
-	
-	private static final int THREAD_COUNT = 3;
-	private int finshCount;
-
-	public synchronized void addFinshCount(){
-		finshCount++;
-	}
-	
-	public synchronized boolean isFinsh() {
-		return THREAD_COUNT == finshCount;
-	}
 	
 	
 }

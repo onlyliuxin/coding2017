@@ -22,14 +22,15 @@ public class FileDownloaderTest {
 	public void testDownload() {
 		
 //		String url = "http://7xq43s.com1.z0.glb.clouddn.com/yunanding-6.jpg";
-		String url = "http://orig04.deviantart.net/93d4/f/2007/314/9/5/audrey_tautou_by_shimoda7.jpg";
 //		String url = "http://www.yinwang.org/blog-cn/2016/11/17/all-about-hillary";
+//		String url = "http://orig04.deviantart.net/93d4/f/2007/314/9/5/audrey_tautou_by_shimoda7.jpg";
+		String url = "http://pic36.nipic.com/20131230/1081324_162447228136_2.jpg";
+		String destpath = "D:/b.jpg";
+		int threadCount = 3;
 		
-		FileDownloader downloader = new FileDownloader(url);
-	
+		FileDownloader downloader = new FileDownloader(url, destpath, threadCount);
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
-		
 		downloader.setListener(new DownloadListener() {
 			@Override
 			public void notifyFinished() {

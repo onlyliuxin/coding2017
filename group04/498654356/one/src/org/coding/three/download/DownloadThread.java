@@ -1,60 +1,36 @@
 package org.coding.three.download;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.Arrays;
+import java.util.concurrent.CyclicBarrier;
 
 import org.coding.three.download.api.Connection;
 
 public class DownloadThread extends Thread{
 
-	String filePath = "D:\\a.jpg";
-	
-	FileDownloader fileDownloader;
+	CyclicBarrier barrier;
 	Connection conn;
 	int startPos;
 	int endPos;
+	String destpath;
 
-	public DownloadThread(FileDownloader fileDownloader, Connection conn, int startPos, int endPos){
-		this.fileDownloader = fileDownloader;
+	public DownloadThread(CyclicBarrier barrier, Connection conn, int startPos, int endPos, String destpath) {
+		this.barrier = barrier;
 		this.conn = conn;		
 		this.startPos = startPos;
 		this.endPos = endPos;
+		this.destpath = destpath;
 	}
 	public void run(){	
-		RandomAccessFile accessFile = null; 
 		try {
-			synchronized (DownloadThread.class) {
-				File file = new File(filePath);
-				if(!file.exists()) {
-					file.createNewFile();
-					accessFile = new RandomAccessFile(file, "rw");
-					accessFile.setLength(conn.getContentLength());
-				}
 			byte[] b = conn.read(startPos, endPos);
-			accessFile = new RandomAccessFile(new File(filePath), "rw");
-			System.out.println(Thread.currentThread().getName() +  " --> 读取数据 " + b.length );
-			accessFile.seek(startPos);
-			accessFile.write(b);
-			}
-		} catch (IOException e) {
+			RandomAccessFile raf = new RandomAccessFile(destpath, "rw");
+			raf.seek(startPos);
+			raf.write(b);
+			raf.close();
+			conn.close();
+			barrier.await();
+		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			fileDownloader.addFinshCount();
-			if(fileDownloader.isFinsh()) {
-				fileDownloader.listener.notifyFinished();
-			}
-			if(accessFile != null) {
-				try {
-					accessFile.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			if(conn != null) {
-				conn.close();
-			}
 		}
 	}
 }

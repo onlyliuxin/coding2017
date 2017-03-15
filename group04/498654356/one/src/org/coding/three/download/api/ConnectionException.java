@@ -9,4 +9,8 @@ public class ConnectionException extends Exception {
 		super(msg);
 	}
 
+	public ConnectionException(Throwable t) {
+		super(t);
+	}
+	
 }
