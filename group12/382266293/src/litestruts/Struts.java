@@ -10,7 +10,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import org.dom4j.Node;
-import static util.Print.*;
 
 public class Struts {
 
@@ -28,7 +27,7 @@ public class Struts {
     	PropertyDescriptor[] pd = bi.getPropertyDescriptors();
     	
     	setParameters(actionObj, pd, parameters);
-    	String executeResult = (String) getResult(actionObj, bi, "execute");
+    	String executeResult = getResult(actionObj, bi, "execute");
     	String jsp = reader.parseResult(root, actionName, executeResult);   	
     	Map<String,String> readParamters = getReadParameters(actionObj, pd);
     	

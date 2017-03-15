@@ -1,5 +1,4 @@
 package week2;
-import week2.ArrayUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
