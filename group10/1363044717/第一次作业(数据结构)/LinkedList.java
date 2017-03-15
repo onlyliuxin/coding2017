@@ -61,19 +61,16 @@ public class LinkedList<E> implements List<E> {
             E e = removeFirst();
             return e;
         }
-        if (index == size) {
+        if (index == size - 1) {
             E e = removeLast();
             return e;
         }
         Node temp = head;
-        Node temp2 = null;
         for (int i = 0; i < index - 1; i++) {
             temp = temp.next;
         }
         E e = (E) temp.next.data;
-        temp2 = temp.next.next;
-        temp.next = null;
-        temp.next = temp2;
+        temp.next = temp.next.next;
         size--;
         return e;
     }
@@ -139,7 +136,7 @@ public class LinkedList<E> implements List<E> {
         public LinkedListIterator(LinkedList list){
             this.head=list.head;
             this.tail=list.tail;
-            this.endIndex = list.size();
+            this.endIndex = list.size() - 1;
             node=head;
         }
         @Override
