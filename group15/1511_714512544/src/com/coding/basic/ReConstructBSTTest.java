@@ -22,10 +22,10 @@ public class ReConstructBSTTest {
 
     @Test
     public void construct() throws Exception {
-        int[] preOrder = {1,2,4,7,3,5,6,8};
-        int[] inOrder = {4,7,2,1,5,3,8,6};
+        int[] preOrder = {1,2,3,4,5,6,7};
+        int[] inOrder = {3,2,4,1,6,5,7};
         ReConstructBST.Node n = ReConstructBST.construct(preOrder,inOrder);
-        ReConstructBST.printInPostOrder(n);
+        ReConstructBST.traveralByLevel(n);
     }
 
 }
