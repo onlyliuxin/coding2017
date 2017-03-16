@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 
 import com.coderising.download.api.Connection;
 
-public class ConnectionImpl implements Connection{
+class ConnectionImpl implements Connection{
 
 	/*http连接*/
 	private HttpURLConnection httpConnection;
