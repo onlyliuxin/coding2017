@@ -45,7 +45,6 @@ public class ArrayList implements List{
      */
     public Object get(int index) {
         rangeCheck(index);
-        rangeCheckForAdd(index);
         return elementData[index];
     }
 
