@@ -3,16 +3,19 @@ package download;
 import download.api.*;
 
 import java.io.*;
+import java.net.URL;
 import java.util.Date;
 
 /**
  * TODO:
  */
 public class FileDownloader {
-	private String url;
-	private DownloadListener listener;
+	private String url = null;
+	private int contentLength;
 	private ConnectionManager manager;
 	private boolean failed = false;
+
+	private DownloadCallback callback = new DownloadCallback();
 
 	private final int[] completedThreadCount = new int[1];
 
@@ -22,13 +25,16 @@ public class FileDownloader {
 	 * @see Config#targetDirectory
 	 * @see #execute()
 	 */
-	public FileDownloader(String url) {
+	public FileDownloader(String url) throws IOException {
 		this.url = url;
+		this.contentLength = new URL(url).openConnection().getContentLength();
 	}
 
 	/**
-	 * 开始下载
-	 * 调用这个方法前，先调用{@link #setConnectionManager(ConnectionManager)}和{@link #setListener(DownloadListener)}
+	 * 开始下载<br/>
+	 * 调用这个方法前，先调用以下几个方法：<br/>{@link #setConnectionManager(ConnectionManager)}<br/>
+	 * {@link #setOnCompleteListener(OnCompleteListener)}<br/>
+	 * {@link #setOnFailListener(OnFailListener)}
 	 */
 	public void execute() {
 		// 在这里实现你的代码， 注意： 需要用多线程实现下载
@@ -47,7 +53,14 @@ public class FileDownloader {
 		new Thread(() -> {
 			initDirectories();
 
-			int threadCount = 4;
+			int threadCount;
+			try {
+				threadCount = getThreadCount();
+			} catch (IOException e) {
+				e.printStackTrace();
+				callback.callback(false);
+				return;
+			}
 			File[] tempFiles = new File[threadCount];
 			Connection[] connections = new Connection[threadCount];
 			createMultiThread(threadCount, tempFiles, connections);
@@ -61,10 +74,25 @@ public class FileDownloader {
 					c.close();
 				}
 			}
-			if (!failed && listener != null) {
-				listener.notifyFinished();
-			}
+			callback.callback(true);
 		}).start();
+	}
+
+	private int getThreadCount() throws IOException {
+		if (this.url.split(":", 2)[0].toLowerCase().startsWith("http")) {
+			URL url = new URL(this.url);
+			int length = url.openConnection().getContentLength();
+			int count = length / Config.maxLengthPerThread;
+			if (count < Config.minThreadCount) {
+				return Config.minThreadCount;
+			} else if (count > Config.maxThreadCount) {
+				return Config.maxThreadCount;
+			} else {
+				return count;
+			}
+		} else {
+			return 1;
+		}
 	}
 
 	private void removeTempFiles(File[] tempFiles) {
@@ -115,13 +143,13 @@ public class FileDownloader {
 					new Date().getTime() + "_" + i);
 			tempFiles[i] = targetFile;
 
-			Connection connection = connect();
+			int startPos = (int) (1.0 * contentLength / threadCount * i);
+			int endPos = i == threadCount - 1 ? contentLength : (int) (1.0 * contentLength / threadCount * (i + 1));
+			endPos--;
+			Connection connection = connect(startPos, endPos);
 			if (connection != null) {
 				connections[i] = connection;
-				int length = connection.getContentLength();
-				int startPos = (int) (1.0 * length / threadCount * i);
-				int endPos = i == threadCount - 1 ? length : (int) (1.0 * length / threadCount * (i + 1));
-				new DownloadThread(connection, startPos, endPos, targetFile, () -> {
+				new DownloadThread(connection, targetFile, () -> {
 					synchronized (completedThreadCount) {
 						completedThreadCount[0]++;
 						completedThreadCount.notifyAll();
@@ -137,14 +165,13 @@ public class FileDownloader {
 		}
 	}
 
-	private Connection connect() {
-		Connection conn = null;
+	private Connection connect(int startPos, int endPos) {
 		try {
-            conn = manager.open(this.url);
+            return manager.open(url, startPos, endPos);
         } catch (ConnectionException e) {
             e.printStackTrace();
+            return null;
         }
-		return conn;
 	}
 
 	private void initDirectories() {
@@ -191,17 +218,26 @@ public class FileDownloader {
 
 	/**
 	 *
-	 * @param listener 下载成功后会调用<code>listener.notifyFinished()</code>，失败则不会调用
-	 * @see DownloadListener#notifyFinished()
+	 * @param listener 下载成功后会调用<code>onComplete.onComplete()</code>，失败则不会调用
+	 * @see OnCompleteListener#onComplete()
 	 */
-	public void setListener(DownloadListener listener) {
-		this.listener = listener;
+	public void setOnCompleteListener(OnCompleteListener listener) {
+		callback.setOnComplete(listener);
+	}
+
+	/**
+	 *
+	 * @param listener 下载失败后会调用<code>onFail.onFail()</code>
+	 * @see OnFailListener#onFail()
+	 */
+	public void setOnFailListener(OnFailListener listener) {
+		callback.setOnFail(listener);
 	}
 
 	/**
 	 *
 	 * @param manager 通过url打开连接
-	 * @see ConnectionManager#open(String)
+	 * @see ConnectionManager#open(String, int, int)
 	 */
 	public void setConnectionManager(ConnectionManager manager) {
 		this.manager = manager;

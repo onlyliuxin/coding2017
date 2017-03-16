@@ -4,17 +4,21 @@ import java.io.IOException;
 
 public interface Connection {
 	/**
-	 * 给定开始和结束位置， 读取数据， 返回值是字节数组
-	 * @param startPos 开始位置， 从0开始
-	 * @param endPos 结束位置
-	 * @return
+	 * 读取字节
+	 * @param bytes 存放读出的字节
+	 * @return 实际读出的字节数
 	 */
-	byte[] read(int startPos,int endPos) throws IOException;
+	int read(byte[] bytes) throws IOException;
 	/**
 	 * 得到数据内容的长度
 	 * @return
 	 */
 	int getContentLength();
+
+	/**
+	 * 恢复到初始状态，可以重新读字节
+	 */
+	void reset() throws IOException;
 	
 	/**
 	 * 关闭连接

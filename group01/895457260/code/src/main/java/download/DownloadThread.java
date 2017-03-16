@@ -1,7 +1,6 @@
 package download;
 
-import download.api.Connection;
-import download.api.DownloadException;
+import download.api.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,18 +9,11 @@ import java.io.IOException;
 
 public class DownloadThread extends Thread {
 	private Connection conn;
-	private int startPos;
-	private int endPos;
-
 	private File targetFile;
-	private OnCompleteListener onComplete;
-	private OnFailListener onFail;
+	private DownloadCallback callback = new DownloadCallback();
 
 	/**
-	 *
 	 * @param conn url连接
-	 * @param startPos 此线程会从url所指向文件的startPos处开始下载
-	 * @param endPos 此线程会在url所指向文件的endPos处停止下载
 	 * @param targetFile 保存下载内容的文件
 	 * @param onComplete 下载成功后自动调用
 	 * @param onFail 下载失败后自动调用
@@ -29,14 +21,12 @@ public class DownloadThread extends Thread {
 	 * @see OnCompleteListener#onComplete()
 	 * @see OnFailListener#onFail()
 	 */
-	DownloadThread(Connection conn, int startPos, int endPos, File targetFile,
+	DownloadThread(Connection conn, File targetFile,
 						  OnCompleteListener onComplete, OnFailListener onFail) {
-		this.conn = conn;		
-		this.startPos = startPos;
-		this.endPos = endPos;
+		this.conn = conn;
 		this.targetFile = targetFile;
-		this.onComplete = onComplete;
-		this.onFail = onFail;
+		callback.setOnComplete(onComplete);
+		callback.setOnFail(onFail);
 	}
 
 	@Override
@@ -56,19 +46,7 @@ public class DownloadThread extends Thread {
 				}
 			}
 		}
-		callback(success);
-	}
-
-	private void callback(boolean success) {
-		if (success) {
-			if (onComplete != null) {
-				onComplete.onComplete();
-			}
-		} else {
-			if (onFail != null) {
-				onFail.onFail();
-			}
-		}
+		callback.callback(success);
 	}
 
 	private boolean tryDownload() throws DownloadException {
@@ -97,8 +75,9 @@ public class DownloadThread extends Thread {
 	private void retry() {
 		try {
             recreateFile(targetFile);
-        } catch (IOException e1) {
-            e1.printStackTrace();
+            conn.reset();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 	}
 
@@ -109,27 +88,11 @@ public class DownloadThread extends Thread {
 
 	private void download(FileOutputStream fos) throws IOException {
 		int bufSize = 1024;
-		int from = startPos;
-		while (from < endPos) {
-			int to = Math.min(from + bufSize, endPos);
-			byte[] buf = conn.read(from, to);
-			from = to;
-			fos.write(buf);
+		byte[] buf = new byte[bufSize];
+		int len;
+		while ((len = conn.read(buf)) != -1) {
+			fos.write(buf, 0, len);
 			fos.flush();
 		}
-	}
-
-	public interface OnCompleteListener {
-		/**
-		 * 下载成功后自动调用此方法
-		 */
-		void onComplete();
-	}
-
-	public interface OnFailListener {
-		/**
-		 * 下载失败后自动调用此方法
-		 */
-		void onFail();
 	}
 }
