@@ -2,8 +2,6 @@ package main.week01.data_structure;
 
 import java.util.NoSuchElementException;
 
-import main.week01.data_structure.ArrayList.ArrayListIterator;
-
 public class LinkedList implements List {
 
 	private Node head;
@@ -11,13 +9,10 @@ public class LinkedList implements List {
 
 	public void add(Object o) {
 		if (isEmpty()) {
-			head = new Node(o);
+			addFirst(o);
 		} else {
-			Node tail = (Node) get(size - 1);
-			Node node = new Node(o);
-			tail.next = node;
+			addLast(o);
 		}
-		size++;
 	}
 
 	public boolean isEmpty() {
@@ -27,14 +22,15 @@ public class LinkedList implements List {
 	public void add(int index, Object o) {
 		rangeCheck(index);
 		if (index == 0) {
-			Node node = new Node(o);
-			node.next = head;
-			head = node;
+			addFirst(o);
+		} else if (index == size) {
+			addLast(o);
 		} else {
-			Node pre = (Node) get(index - 1);
+			Node pre = getNode(index - 1);
 			Node node = new Node(o);
 			node.next = pre.next;
 			pre.next = node;
+			size++;
 		}
 	}
 
@@ -53,13 +49,27 @@ public class LinkedList implements List {
 		return dest.data;
 	}
 
+	public Node getNode(int index) {
+		rangeCheck(index);
+		Node dest = head;
+		for (int i = 0; i < index; i++) {
+			dest = dest.next;
+		}
+		return dest;
+	}
+
 	public Object remove(int index) {
 		rangeCheck(index);
-		Node pre = (Node) get(index);
+		if (index == 0) {
+			return removeFirst();
+		}else if(index == size){
+			return removeLast();
+		}
+		Node pre = getNode(index - 1);
 		Node dest = pre.next;
 		pre.next = dest.next;
 		size--;
-		return dest;
+		return dest.data;
 	}
 
 	public int size() {
@@ -74,7 +84,7 @@ public class LinkedList implements List {
 	}
 
 	public void addLast(Object o) {
-		Node last = (Node) get(size - 1);
+		Node last = getNode(size - 1);
 		Node node = new Node(o);
 		last.next = node;
 		size++;
@@ -85,22 +95,14 @@ public class LinkedList implements List {
 			throw new NoSuchElementException();
 		}
 		Node newhead = head;
+		Node dest = head;
 		head = head.next;
 		size--;
-		return newhead;
+		return dest.data;
 	}
 
 	public Object removeLast() {
-		if (head == null) {
-			throw new NoSuchElementException();
-		}
-		if (head.next == null) {
-			Node tmp = head;
-			head = null;
-			size--;
-			return tmp;
-		}
-		Node newLastNode = (Node) get(size - 2);
+		Node newLastNode = getNode(size - 2);
 		Node oldLastNode = newLastNode.next;
 		newLastNode.next = null;
 		size--;

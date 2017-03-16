@@ -48,7 +48,7 @@ public class ArrayList implements List {
 		Object dest = elementData[index];
 		System.arraycopy(elementData, index + 1, elementData, index, size
 				- index - 1);
-		size--;
+		elementData[size---1]=null;//·ÀÖ¹ÄÚ´æĞ¹Â©
 		return dest;
 	}
 

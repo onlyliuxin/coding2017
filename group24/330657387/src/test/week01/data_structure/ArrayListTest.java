@@ -31,6 +31,14 @@ public class ArrayListTest {
 		list.add(2,2);
 		list.add(0,2);
 		assertEquals(2,list.get(0));
+		try{
+			list.add(-1 , "test");
+			fail("-1 can't be index");
+			list.add(1000, "test");
+			fail("out of range");
+		}catch (Exception e){
+			
+		}
 	}
 
 	@Test
