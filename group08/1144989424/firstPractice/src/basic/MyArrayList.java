@@ -83,7 +83,30 @@ public class MyArrayList implements MyList {
     }
     
     public MyIterator iterator(){
-        return null;
+        return new MyArrayListIterator(this);
+    }
+    
+    private class MyArrayListIterator implements MyIterator{
+        private MyArrayList list = null;
+        private int index = 0;
+        
+        private MyArrayListIterator(MyArrayList list){
+            this.list = list;
+        }
+        
+        @Override
+        public boolean hasNext(){
+            if(index < size){
+                return true;
+            }
+            return false;
+        }
+        
+        @Override
+        public Object next(){
+            return list.get(index++);
+        }
+        
     }
     
     private void expandArray(){
