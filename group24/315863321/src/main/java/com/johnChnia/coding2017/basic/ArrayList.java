@@ -10,6 +10,15 @@ import java.util.Arrays;
 public class ArrayList implements List{
     private Object[] elementData;
     private int size = 0;
+    private static final int DEFAULTCAPACITY = 10;
+
+
+    /**
+     * Constructs an list with the default capacity.
+     */
+    public ArrayList() {
+        elementData = new Object[DEFAULTCAPACITY];
+    }
 
     /**
      * Constructs an list with the specified initial capacity.
@@ -135,11 +144,15 @@ public class ArrayList implements List{
             grow();
     }
 
+    public Object[] toArray() {
+        return Arrays.copyOf(elementData, size());
+    }
+
     /**
      * A version of rangeCheck used by add and addAll.
      */
     private void rangeCheckForAdd(int index) {
-        if (index > elementData.length - 1 || index < 0) {
+        if (index > size() - 1 || index < 0) {
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
         }
     }
@@ -160,7 +173,7 @@ public class ArrayList implements List{
      * which throws an ArrayIndexOutOfBoundsException if index is negative.
      */
     private void rangeCheck(int index) {
-        if (index >= size) {
+        if (index >= size()) {
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
         }
     }
