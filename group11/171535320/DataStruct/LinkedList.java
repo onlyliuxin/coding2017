@@ -284,7 +284,27 @@ public class LinkedList implements List {
 	 * @param max
 	 */
 	public  void removeRange(int min, int max){
-
+		Node first = head;
+		Node first2 = first;
+		Node last = head.next;
+		Node last2 = last;
+		while(last != null) {
+			if((Integer)last.data < max && (Integer)first.data < min) {
+				first2 = first;
+				first = first.next;
+				last2 = last;
+				last = last.next;
+			} else if((Integer)last.data > max && (Integer)first.data > min) {
+				break;
+			} else if((Integer)last.data < max && (Integer)first.data > min) {
+				last2 = last;
+				last = last.next;
+			} else {
+				first2 = first;
+				first = first.next;
+			}
+		}
+		first2.next = last;
 	}
 
 	/**
@@ -293,6 +313,21 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	public  LinkedList intersection( LinkedList list){
-		return null;
+		LinkedList result = new LinkedList();
+		Node temp = head;
+		Node temp2 = list.head;
+		while(temp != null && temp2 != null) {
+			if((Integer)temp.data == (Integer)temp2.data) {
+				result.add(temp.data);
+				temp = temp.next;
+				temp2 = temp2.next;
+			} else if((Integer)temp.data > (Integer)temp2.data) {
+				temp2 = temp2.next;
+			} else {
+				temp = temp.next;
+			}
+		}
+
+		return result;
 	}
 }
