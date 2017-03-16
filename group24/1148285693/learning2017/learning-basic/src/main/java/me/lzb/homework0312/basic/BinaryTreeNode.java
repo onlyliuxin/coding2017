@@ -1,4 +1,4 @@
-package me.lzb.homework0312;
+package me.lzb.homework0312.basic;
 
 /**
  * 左边比父节点小，右边比父节点大

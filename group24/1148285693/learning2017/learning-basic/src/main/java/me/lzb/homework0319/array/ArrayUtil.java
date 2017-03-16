@@ -1,4 +1,4 @@
-package me.lzb.homework0319;
+package me.lzb.homework0319.array;
 
 public class ArrayUtil {
 

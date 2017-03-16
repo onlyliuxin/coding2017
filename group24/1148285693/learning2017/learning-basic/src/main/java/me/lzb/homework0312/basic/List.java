@@ -1,4 +1,4 @@
-package me.lzb.homework0312;
+package me.lzb.homework0312.basic;
 
 /**
  * list接口

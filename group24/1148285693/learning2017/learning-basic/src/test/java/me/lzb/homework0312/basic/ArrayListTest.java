@@ -1,7 +1,7 @@
-package me.lzb.homework0312;
+package me.lzb.homework0312.basic;
 
-import me.lzb.homework0312.ArrayList;
-import me.lzb.homework0312.Iterator;
+import me.lzb.homework0312.basic.ArrayList;
+import me.lzb.homework0312.basic.Iterator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
