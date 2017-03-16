@@ -28,17 +28,18 @@ public class ArrayList implements List {
 	public Object remove(int index){
         if (index < 0|| index > size)
             throw new IndexOutOfBoundsException();
-        for (int i = 0; i < size; i++) {
+        int i;
+        for (i = 0; i < size; i++) {
             if(i == index)
-                break
+                break;
         }
         if(i > index)
             return null;
         else{
             for (int j = i; j < size; j++) {
-                elementData[j] = elementData[++j]
+                elementData[j] = elementData[++j];
             }
-            return elementData[index--]
+            return elementData[index--];
         }
 	}
 	
