@@ -44,8 +44,8 @@ public class ReConstructBST{
         int rootIndexInOrder = is;
         while(rootIndexInOrder <= ie && inOrder[rootIndexInOrder]!=rootValue) rootIndexInOrder++;
 
-        int lCTLengthInOrder = rootIndexInOrder - is;
-        int lCTEndIndexPreOrder = ps + lCTLengthInOrder;
+        int lCTLengthInOrder = rootIndexInOrder - is;  //左子树长度
+        int lCTEndIndexPreOrder = ps + lCTLengthInOrder;  //左子树末尾节点在前序遍历序列中的位置
         if(lCTLengthInOrder > 0){
             //左子树有元素,构建左子树
             root.left = reConstruct(preOrder, ps+1, lCTEndIndexPreOrder, inOrder, is, rootIndexInOrder-1);

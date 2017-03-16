@@ -248,10 +248,10 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         if(n == null) return;
 
         Queue<BinarySearchTreeNode<T>> queue = new LinkedList<BinarySearchTreeNode<T>>();
-        queue.offer(n);
+        queue.offer(n);  //入队列
 
         while(!queue.isEmpty()){
-            BinarySearchTreeNode<T> node = queue.poll();
+            BinarySearchTreeNode<T> node = queue.poll();  //出队列
             System.out.print(node.getData() + " ");
             if(node.getLeft() != null) queue.offer(node.getLeft());
             if(node.getRight() != null) queue.offer(node.getRight());
@@ -345,7 +345,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
             hL = postOrderGetHeight(n.getLeft()); //求左子树深度
             hR = postOrderGetHeight(n.getRight()); //求右子树深度
             maxH = hL> hR? hL : hR ; //求左右子树深度最大的那个
-            return (maxH+1);//返回数的深度
+            return (maxH+1);//返回树的深度
         }
         return 0;  //空树返回0
     }
