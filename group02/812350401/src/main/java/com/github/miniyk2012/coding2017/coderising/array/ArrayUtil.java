@@ -171,7 +171,7 @@ public class ArrayUtil {
 	 * 例如array= [3,8,9], seperator = "-"
 	 * 则返回值为"3-8-9"
 	 * @param array
-	 * @param s
+	 * @param seperator
 	 * @return
 	 */
 	public String join(int[] array, String seperator){
