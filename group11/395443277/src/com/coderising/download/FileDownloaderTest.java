@@ -23,7 +23,7 @@ public class FileDownloaderTest {
 		
 //		String url = "https://s-media-cache-ak0.pinimg.com/564x/8e/bd/00/8ebd00b1f2ef862b6c80d57c2b45d129.jpg";
 		// http://wallpapercraze.com/images/wallpapers/dota2_nevermore_w1.jpeg
-		String url = "http://wallpapercraze.com/images/wallpapers/dota2_nevermore_w1.jpeg";
+		String url = "http://eskipaper.com/images/large-2.jpg";
 		
 		FileDownloader downloader = new FileDownloader(url);
 
@@ -39,8 +39,8 @@ public class FileDownloaderTest {
 
 		});
 
-		
-		downloader.execute();
+		String filePath = "D://java_learning//test.jpg";
+		downloader.execute(filePath);
 		
 		// 等待多线程下载程序执行完毕
 		while (!downloadFinished) {
