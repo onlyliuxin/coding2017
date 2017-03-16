@@ -13,7 +13,7 @@ import java.net.URLConnection;
  * Created by Haochen on 2017/3/16.
  * TODO:
  */
-abstract class BaseConnection implements Connection {
+public abstract class BaseConnection implements Connection {
     URLConnection connection;
     InputStream inputStream;
 
