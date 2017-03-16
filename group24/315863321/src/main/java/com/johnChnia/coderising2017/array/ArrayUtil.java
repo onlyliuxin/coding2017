@@ -225,10 +225,4 @@ public class ArrayUtil {
         }
     }
 
-
-    public static void main(String[] args) {
-        int[] a = new  int[]{2,3,5,7,11,13,17,19};
-        ArrayUtil arrayUtil = new ArrayUtil();
-        System.out.println(arrayUtil.join(a, "-"));
-    }
 }
