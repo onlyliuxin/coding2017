@@ -1,4 +1,4 @@
-package basic;
+package com.coding.basic;
 
 
 public class LinkedList<T> implements List {

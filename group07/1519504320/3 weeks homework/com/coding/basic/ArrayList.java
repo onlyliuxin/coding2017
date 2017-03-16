@@ -93,7 +93,6 @@ public class ArrayList implements List {
                 return elementData[cursor];
             }
 
-            @Override
             public void remove() {
                 java.util.LinkedList l1  = new LinkedList();
                 java.util.Iterator it  = l1.iterator();

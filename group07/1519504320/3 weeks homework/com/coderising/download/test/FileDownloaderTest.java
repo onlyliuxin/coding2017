@@ -1,5 +1,6 @@
-package com.coderising.download;
+package com.coderising.download.test;
 
+import com.coderising.download.FileDownloader;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

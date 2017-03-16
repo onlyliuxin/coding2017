@@ -1,4 +1,4 @@
-package basic;
+package com.coding.basic;
 
 import org.junit.After;
 import org.junit.Assert;
