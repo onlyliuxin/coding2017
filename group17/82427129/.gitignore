@@ -1,4 +1,3 @@
-
 /.metadata/
 
 /RemoteSystemsTempFiles/
@@ -14,3 +13,5 @@
 .classpath
 
 .project
+
+Test.java

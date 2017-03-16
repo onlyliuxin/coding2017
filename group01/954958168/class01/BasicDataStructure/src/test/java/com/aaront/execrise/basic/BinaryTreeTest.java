@@ -26,13 +26,13 @@ public class BinaryTreeTest {
     @Test
     public void testAdd() {
         int[] preorderDatas = binaryTree.traversal(BinaryTree.PREORDER);
-        Assert.assertArrayEquals(preorderDatas, new int[]{9, 4, 1, 2, 3, 5, 7, 10, 9, 17});
+        Assert.assertArrayEquals(new int[]{9, 4, 1, 2, 3, 5, 7, 10, 9, 17}, preorderDatas);
         int[] inorderDatas = binaryTree.traversal(BinaryTree.INORDER);
-        Assert.assertArrayEquals(inorderDatas, new int[]{1, 2, 3, 4, 5, 7, 9, 9, 10, 17});
+        Assert.assertArrayEquals(new int[]{1, 2, 3, 4, 5, 7, 9, 9, 10, 17}, inorderDatas);
         int[] postorderDatas = binaryTree.traversal(BinaryTree.POSTORDER);
-        Assert.assertArrayEquals(postorderDatas, new int[]{3, 2, 1, 7, 5, 4, 9, 17, 10, 9});
+        Assert.assertArrayEquals(new int[]{3, 2, 1, 7, 5, 4, 9, 17, 10, 9}, postorderDatas);
         int[] hierarchicalDatas = binaryTree.traversal(BinaryTree.HIERARCHICAL);
-        Assert.assertArrayEquals(hierarchicalDatas, new int[]{9, 4, 10, 1, 5, 9, 17, 2, 7, 3});
+        Assert.assertArrayEquals(new int[]{9, 4, 10, 1, 5, 9, 17, 2, 7, 3}, hierarchicalDatas);
     }
 
     @Test
@@ -63,26 +63,26 @@ public class BinaryTreeTest {
         // 删除叶子节点
         binaryTree.delete(11);
         int[] preOrderDatas = binaryTree.traversal();
-        Assert.assertArrayEquals(preOrderDatas, new int[]{50, 25, 12, 14, 40, 35, 45, 44, 43, 42, 75, 55, 70, 60, 65, 63, 61, 90, 80, 85, 82, 88});
+        Assert.assertArrayEquals(new int[]{50, 25, 12, 14, 40, 35, 45, 44, 43, 42, 75, 55, 70, 60, 65, 63, 61, 90, 80, 85, 82, 88}, preOrderDatas);
         binaryTree.delete(88);
         preOrderDatas = binaryTree.traversal();
-        Assert.assertArrayEquals(preOrderDatas, new int[]{50, 25, 12, 14, 40, 35, 45, 44, 43, 42, 75, 55, 70, 60, 65, 63, 61, 90, 80, 85, 82});
+        Assert.assertArrayEquals(new int[]{50, 25, 12, 14, 40, 35, 45, 44, 43, 42, 75, 55, 70, 60, 65, 63, 61, 90, 80, 85, 82}, preOrderDatas);
 
         // 删除一个子节点的节点
         binaryTree.delete(70);
         preOrderDatas = binaryTree.traversal();
-        Assert.assertArrayEquals(preOrderDatas, new int[]{50, 25, 12, 14, 40, 35, 45, 44, 43, 42, 75, 55, 60, 65, 63, 61, 90, 80, 85, 82});
+        Assert.assertArrayEquals(new int[]{50, 25, 12, 14, 40, 35, 45, 44, 43, 42, 75, 55, 60, 65, 63, 61, 90, 80, 85, 82}, preOrderDatas);
         binaryTree.delete(80);
         preOrderDatas = binaryTree.traversal();
-        Assert.assertArrayEquals(preOrderDatas, new int[]{50, 25, 12, 14, 40, 35, 45, 44, 43, 42, 75, 55, 60, 65, 63, 61, 90, 85, 82});
+        Assert.assertArrayEquals(new int[]{50, 25, 12, 14, 40, 35, 45, 44, 43, 42, 75, 55, 60, 65, 63, 61, 90, 85, 82}, preOrderDatas);
 
         // 删除两个子节点的节点
         binaryTree.delete(40);
         preOrderDatas = binaryTree.traversal();
-        Assert.assertArrayEquals(preOrderDatas, new int[]{50, 25, 12, 14, 42, 35, 45, 44, 43, 75, 55, 60, 65, 63, 61, 90, 85, 82});
+        Assert.assertArrayEquals(new int[]{50, 25, 12, 14, 42, 35, 45, 44, 43, 75, 55, 60, 65, 63, 61, 90, 85, 82}, preOrderDatas);
         binaryTree.delete(50);
         preOrderDatas = binaryTree.traversal();
-        Assert.assertArrayEquals(preOrderDatas, new int[]{55, 25, 12, 14, 42, 35, 45, 44, 43, 75, 60, 65, 63, 61, 90, 85, 82});
+        Assert.assertArrayEquals(new int[]{55, 25, 12, 14, 42, 35, 45, 44, 43, 75, 60, 65, 63, 61, 90, 85, 82}, preOrderDatas);
     }
 
     private void buildTree(int[] datas) {
