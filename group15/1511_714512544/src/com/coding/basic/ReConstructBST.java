@@ -1,5 +1,8 @@
 package com.coding.basic;
 
+import java.util.Queue;
+import java.util.LinkedList;
+
 /**
  * 由两种遍历结果确定二叉树（其中一个结果必须是中序遍历的结果）
  */
@@ -65,6 +68,20 @@ public class ReConstructBST{
         }
 
         System.out.print(n.data+" ");
+    }
+
+    public static void traveralByLevel(Node n){
+        if(n == null) return;
+
+        Queue<Node> queue = new LinkedList<Node>();
+        queue.offer(n);
+
+        while(!queue.isEmpty()){
+            Node node = queue.poll();
+            System.out.print(node.data + " ");
+            if(node.left != null) queue.offer(node.left);
+            if(node.right != null) queue.offer(node.right);
+        }
     }
 
 
