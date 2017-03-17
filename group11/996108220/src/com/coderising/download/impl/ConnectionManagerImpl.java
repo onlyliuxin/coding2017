@@ -7,7 +7,7 @@ import java.net.URLConnection;
 import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
-import com.coding.basic.newLinkedList;
+
 
 public class ConnectionManagerImpl implements ConnectionManager {
 

@@ -7,7 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import com.coderising.download.api.Connection;
-import com.coding.basic.newLinkedList;
+
 
 public class ConnectionImpl implements Connection{
 	URL url;
