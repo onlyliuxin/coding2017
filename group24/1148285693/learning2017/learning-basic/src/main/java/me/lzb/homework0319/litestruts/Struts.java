@@ -1,6 +1,7 @@
 package me.lzb.homework0319.litestruts;
 
 import org.apache.commons.lang3.StringUtils;
+import org.dom4j.DocumentException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -30,42 +31,83 @@ import java.util.Map;
 
 
 public class Struts {
+
     private static final String XML = "struts.xml";
-    private static final XmlUtil xmlUtil = XmlUtil.create(XML);
+
+    private static final XmlUtil resource = createResource(XML);
+
+    private static XmlUtil createResource(String xml){
+        try {
+            return new XmlUtil(xml);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public static View runAction(String actionName, Map<String,String> parameters) throws ClassNotFoundException, IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException {
 
-        Class loginClasss = Class.forName(xmlUtil.getAuctionPathByName(actionName));
-        LoginAction loginAction = (LoginAction) loginClasss.newInstance();
+        Object loginAction = getAuctionByName(actionName);
 
-        for (Map.Entry<String, String> entry : parameters.entrySet()) {
-            Method mSetter = loginClasss.getDeclaredMethod("set" + StringUtils.capitalize(entry.getKey()), String.class);
-            mSetter.invoke(loginAction, entry.getValue());
+        invokeSetMethods(loginAction, parameters);
+
+        String resultName = invokeExecute(loginAction).toString();
+
+        View view = new View();
+        view.setJsp(resource.getResultJsp(actionName, resultName));
+        view.setParameters(invokeGetMethods(loginAction));
+
+    	return view;
+    }
+
+    private static Object getAuctionByName(String auctionName) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        Class c = Class.forName(resource.getAuctionPathByName(auctionName));
+        return c.newInstance();
+    }
+
+
+    private static Object invokeExecute(Object o) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class c = o.getClass();
+        Method mExectue = c.getDeclaredMethod("execute");
+        return mExectue.invoke(o);
+    }
+
+
+    private static void invokeSetMethods(Object o, Map<String,String> parameteMap) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class c = o.getClass();
+        Method[]  methods = c.getDeclaredMethods();
+        for (int  i = 0;  i< methods.length; i++) {
+            String name = methods[i].getName();
+            if(StringUtils.startsWith(name, "set")){
+                String key = name.replaceAll("^set", "").toLowerCase();
+                if(parameteMap.containsKey(key)){
+                    methods[i].invoke(o, parameteMap.get(key));
+                }
+            }
         }
 
-        Method mExectue = loginClasss.getDeclaredMethod("execute");
-        String resultName = (String) mExectue.invoke(loginAction);
+//        //这样参数类型不固定的话不好搞
+//        for (Map.Entry<String, String> entry : parameteMap.entrySet()) {
+//            Method mSetter = c.getDeclaredMethod("set" + StringUtils.capitalize(entry.getKey()), String.class);
+//            mSetter.invoke(o, entry.getValue());
+//        }
+    }
 
 
-        //获取所有属性和get方法
+    private static Map invokeGetMethods(Object o) throws InvocationTargetException, IllegalAccessException {
         Map resultMap = new HashMap();
-        Method[] methods = loginClasss.getDeclaredMethods();
+        Class c = o.getClass();
+        Method[] methods = c.getDeclaredMethods();
         for(int i =0 ;i<methods.length;i++){
             String methodName = methods[i].getName();
             if(StringUtils.startsWith(methodName, "get")){
                 String key = methodName.replaceAll("^get", "");
                 key = StringUtils.lowerCase(key);
-                resultMap.put(key,methods[i].invoke(loginAction));
+                resultMap.put(key,methods[i].invoke(o));
             }
         }
-
-
-        View view = new View();
-        view.setJsp(xmlUtil.getResultJsp(actionName, resultName));
-        view.setParameters(resultMap);
-
-
-    	return view;
+        return resultMap;
     }
 
 }

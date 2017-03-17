@@ -15,7 +15,7 @@ public class XmlUtil {
 
     Document document;
 
-    private XmlUtil(String xmlPath) throws DocumentException {
+    public XmlUtil(String xmlPath) throws DocumentException {
         SAXReader reader = new SAXReader();
         document = reader.read(new File(XmlUtil.class.getResource("/").getFile() + "litestruts/" + xmlPath));
     }
@@ -31,15 +31,6 @@ public class XmlUtil {
     public String getResultJsp(String auctionName, String resultName) {
         Node auction = getAuctionNodeByName(auctionName);
         return auction.getDocument().selectSingleNode("//result[@name='" + resultName + "']").getText();
-    }
-
-    public static XmlUtil create(String xmlPath) {
-        try {
-            return new XmlUtil(xmlPath);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
 }
