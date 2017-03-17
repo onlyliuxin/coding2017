@@ -1,6 +1,5 @@
-package com.johnChnia.coding2017.basic.test;
+package com.johnChnia.coding2017.basic;
 
-import com.johnChnia.coding2017.basic.Queue;
 import org.junit.Before;
 import org.junit.Test;
 

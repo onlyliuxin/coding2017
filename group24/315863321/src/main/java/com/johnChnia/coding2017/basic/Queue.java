@@ -26,7 +26,7 @@ public class Queue {
      * @param element the element to add
      * @return {@code true}
      */
-    public boolean add(int element) {
+    public boolean add(Object element) {
         arrayList.add(element);
         return true;
     }
@@ -38,7 +38,7 @@ public class Queue {
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    public int remove() {
+    public Object remove() {
         if (arrayList.empty())
             throw new NoSuchElementException(emptyMsg());
         return arrayList.remove(0);
@@ -52,7 +52,7 @@ public class Queue {
      *
      * @return the head of this queue, or {@code 0} if this queue is empty
      */
-    public int peek() {
+    public Object peek() {
         if (arrayList.empty())
             return 0;
         return arrayList.get(0);
@@ -79,5 +79,9 @@ public class Queue {
      */
     private String emptyMsg() {
         return "Size: " + size();
+    }
+
+    public boolean empty() {
+        return arrayList.size() == 0;
     }
 }

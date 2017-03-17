@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
  * @// TODO: 2017/3/15 支持泛型
  */
 
-public class LinkedList {
+public class LinkedList implements List {
 
     private Node first = null;
     private int size = 0;
@@ -21,7 +21,7 @@ public class LinkedList {
     }
 
     private static class Node {
-        int element;
+        Object element;
         Node next;
         Node prev;
     }
@@ -31,7 +31,7 @@ public class LinkedList {
      *
      * @param element element to be appended to this list
      */
-    public void add(int element) {
+    public void add(Object element) {
         Node newNode = new Node();
         if (first == null) {
             addWhenListIsEmpty(newNode, element);
@@ -47,7 +47,7 @@ public class LinkedList {
         size++;
     }
 
-    private void addWhenListIsEmpty(Node newNode, int element) {
+    private void addWhenListIsEmpty(Node newNode, Object element) {
         first = newNode;
         first.element = element;
         first.next = null;
@@ -60,7 +60,7 @@ public class LinkedList {
      *
      * @param element the element to add
      */
-    public void addFirst(int element) {
+    public void addFirst(Object element) {
         Node newNode = new Node();
         if (first == null) {
             addWhenListIsEmpty(newNode, element);
@@ -85,7 +85,7 @@ public class LinkedList {
      * @param element element to be inserted.
      * @throws RuntimeException if list size less than 2.
      */
-    public void add(int index, int element) {
+    public void add(int index, Object element) {
         if (size() < 2)
             throw new RuntimeException("list size should greater than or equal to 2");
         isElementIndex(index);
@@ -133,15 +133,24 @@ public class LinkedList {
 
 
     /**
+     * @param index
+     * @return
+     * @// TODO: 2018/3/14 if i am happy, i will implement it right now!
+     */
+    public Object remove(int index) {
+        return null;
+    }
+
+    /**
      * Removes and returns the first element from this list.
      *
      * @return the first element from this list
      */
-    public int removeFirst() {
+    public Object removeFirst() {
         Node f = first;
         if (f == null)
             throw new NoSuchElementException();
-        int element = f.element;
+        Object element = f.element;
         Node next = first.next;
         first.element = 0;
         first.next = null; // help GC
@@ -160,7 +169,7 @@ public class LinkedList {
      * @param index index of the element to return
      * @return the element at the specified position in this list
      */
-    public int get(int index) {
+    public Object get(int index) {
         checkElementIndex(index);
         Node node = first;
         if (index == 0) {
@@ -178,7 +187,7 @@ public class LinkedList {
      * @return the first element in this list
      * @throws NoSuchElementException if this list is empty
      */
-    public int getFirst() {
+    public Object getFirst() {
         final Node f = first;
         if (f == null)
             throw new NoSuchElementException();

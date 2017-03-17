@@ -7,8 +7,8 @@ import java.util.Arrays;
  * @// TODO: 2017/3/15 支持泛型
  */
 
-public class ArrayList {
-    private int[] elementData;
+public class ArrayList implements List{
+    private Object[] elementData;
     private int size = 0;
 
     /**
@@ -20,7 +20,7 @@ public class ArrayList {
      */
     public ArrayList(int initialCapacity) {
         if (initialCapacity > 0) {
-            elementData = new int[initialCapacity];
+            elementData = new Object[initialCapacity];
         } else {
             throw new IllegalArgumentException("Illegal Capacity: " +
                     initialCapacity);
@@ -34,7 +34,7 @@ public class ArrayList {
      * @return the element at the specified position in this list
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public int get(int index) {
+    public Object get(int index) {
         rangeCheck(index);
         rangeCheckForAdd(index);
         return elementData[index];
@@ -46,7 +46,7 @@ public class ArrayList {
      *
      * @param element element to be appended to this list
      */
-    public void add(int element) {
+    public void add(Object element) {
         ensureCapacityInternal(size + 1);
         elementData[size++] = element;
     }
@@ -61,7 +61,7 @@ public class ArrayList {
      * @param index   index at which the specified element is to be inserted
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public void add(int element, int index) {
+    public void add(int index, Object element) {
         rangeCheckForAdd(index);
         ensureCapacityInternal(size + 1);
         System.arraycopy(elementData, index, elementData, index + 1,
@@ -79,9 +79,9 @@ public class ArrayList {
      * @return the element that was removed from the list
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public int remove(int index) {
+    public Object remove(int index) {
         rangeCheckForAdd(index);
-        int oldValue = elementData[index];
+        Object oldValue = elementData[index];
         int numMoved = size() - index - 1;
         if (numMoved > 0) {
             System.arraycopy(elementData, index + 1, elementData, index,
@@ -115,7 +115,8 @@ public class ArrayList {
      * number of elements specified by the double length of list.
      */
     private void grow() {
-        elementData = Arrays.copyOf(elementData, 2 * elementData.length);
+        elementData = Arrays.copyOf(elementData,
+                2 * elementData.length);
     }
 
     public String toString() {

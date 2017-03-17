@@ -1,4 +1,4 @@
-package com.johnChnia.coding2017.basic.test;
+package com.johnChnia.coding2017.basic;
 
 import com.johnChnia.coding2017.basic.ArrayList;
 import org.junit.Before;
@@ -44,7 +44,7 @@ public class ArrayListTest {
         for (int i = 0; i < 3; i++) {
             arrayList3.add(10);
         }
-        arrayList3.add(1000, 1);
+        arrayList3.add(1, 1000);
         assertThat(arrayList3.get(1), equalTo(1000));
     }
 
@@ -53,7 +53,7 @@ public class ArrayListTest {
         for (int i = 0; i < 6; i++) {
             arrayList4.add(i);
         }
-        int removed = arrayList4.remove(4);
+        Object removed = arrayList4.remove(4);
         System.out.println(arrayList4);
         assertThat(removed, equalTo(4));
         assertThat(arrayList4.size(), equalTo(5));
