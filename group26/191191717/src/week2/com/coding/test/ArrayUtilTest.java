@@ -72,7 +72,7 @@ public class ArrayUtilTest
     @Test
     public void testGetPerfectNumbers()
     {
-        int [] validateArr={6,28};;
+        int [] validateArr={6,28};
         int [] newArr=arrayUtil.getPerfectNumbers(100);
         Assert.assertArrayEquals(validateArr, newArr);
     }
