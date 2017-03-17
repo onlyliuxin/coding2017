@@ -73,16 +73,59 @@ public class LinkedList implements List {
 	}
 	
 	public void addFirst(Object o){
-		
+        if(this.head == null){
+            Node tmp = new Node();
+            tmp.data = o;
+            tmp.next = null;
+            this.head = tmp;
+        }else {
+            Node newNode = new Node();
+            newNode.data = o;
+            newNode.next = this.head;
+            this.head = newNode;
+        }
 	}
 	public void addLast(Object o){
-		
+        Node tmp = this.head;
+        if(tmp == null){
+            Node newNode = new Node();
+            newNode.data = o;
+            newNode.next = null;
+            this.head = newNode;
+        }else {
+            while (tmp.next.next != null) {
+                tmp = tmp.next;
+            }
+            Node newNode = new Node();
+            newNode.data = o;
+            newNode.next = null;
+            tmp.next.next = newNode;
+        }
 	}
 	public Object removeFirst(){
-		return null;
+        if(this.head == null){
+            return null;
+        }else {
+            Node newNode = this.head;
+            this.head = this.head.next;
+            return newNode;
+        }
 	}
 	public Object removeLast(){
-		return null;
+        Node tmp = this.head;
+        if(tmp == null){
+            return null;
+        }else if(tmp.next == null){
+            this.head = null;
+            return tmp;
+        }else{
+            while (tmp.next.next != null) {
+                tmp = tmp.next;
+            }
+            Node newNode = tmp.next;
+            tmp.next.next = null;
+            return newNode;
+        }
 	}
 	public Iterator iterator(){
 		return null;
@@ -99,8 +142,7 @@ public class LinkedList implements List {
 	 * 把该链表逆置
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
-	public  void reverse(){		
-		
+	public  void reverse(){
 	}
 	
 	/**
@@ -110,7 +152,13 @@ public class LinkedList implements List {
 
 	 */
 	public  void removeFirstHalf(){
-		
+		int size = this.size();
+        int times = size/2;
+        Node tmp = this.head;
+        for (int i=0; i<times; i++){
+            tmp = tmp.next;
+        }
+        this.head = tmp;
 	}
 	
 	/**

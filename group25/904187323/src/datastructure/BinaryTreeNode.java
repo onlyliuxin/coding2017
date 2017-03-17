@@ -26,6 +26,17 @@ public class BinaryTreeNode {
 	}
 	
 	public BinaryTreeNode insert(Object o){
+        BinaryTreeNode newBTN = new BinaryTreeNode();
+        newBTN.data = o;
+        newBTN.left = newBTN.right = null;
+        if(this.data == null){
+            this.data = newBTN;
+            return  newBTN;
+        }else{
+            if(o>this.data){
+
+            }
+        }
 		return  null;
 	}
 	
