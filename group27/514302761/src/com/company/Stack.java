@@ -1,22 +1,32 @@
 package com.company;
 
+import java.util.EmptyStackException;
+
 public class Stack {
 	private ArrayList elementData = new ArrayList();
 	
-	public void push(Object o){		
+	public void push(Object o){
+		elementData.add(o);
 	}
 	
-	public Object pop(){
-		return null;
+	public Object pop()
+	{
+	 if(isEmpty()){
+	 	throw new EmptyStackException();
+	 }
+	 return elementData.get(size()-1);
 	}
 	
 	public Object peek(){
-		return null;
+		if(isEmpty()){
+			throw new EmptyStackException();
+		}
+		return elementData.get(size()-1);
 	}
 	public boolean isEmpty(){
-		return false;
+		return size()==0;
 	}
 	public int size(){
-		return -1;
+		return elementData.size();
 	}
 }

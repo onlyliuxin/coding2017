@@ -1,19 +1,21 @@
 package com.company;
 
 public class Queue {
-	
-	public void enQueue(Object o){		
+	private LinkedList elementDatas=new LinkedList();
+	public void enQueue(Object o){
+        elementDatas.add(o);
 	}
 	
 	public Object deQueue(){
-		return null;
+
+	    return elementDatas.removeFirst();
 	}
 	
 	public boolean isEmpty(){
-		return false;
+		return size()==0;
 	}
 	
 	public int size(){
-		return -1;
+		return elementDatas.size();
 	}
 }

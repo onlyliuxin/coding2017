@@ -2,15 +2,15 @@ package com.company;
 
 public class BinaryTreeNode {
 	
-	private Object data;
+	private Comparable data;
 	private BinaryTreeNode left;
 	private BinaryTreeNode right;
-	
+
 	public Object getData() {
 		return data;
 	}
 	public void setData(Object data) {
-		this.data = data;
+		this.data = (Comparable) data;
 	}
 	public BinaryTreeNode getLeft() {
 		return left;
@@ -25,8 +25,35 @@ public class BinaryTreeNode {
 		this.right = right;
 	}
 	
-	public BinaryTreeNode insert(Object o){
-		return  null;
+	public BinaryTreeNode insert(Comparable  o){
+		BinaryTreeNode insercode=new BinaryTreeNode();
+		BinaryTreeNode compareNode=this;
+			insercode.setData(o);
+	while (null!=compareNode){
+		if(null==compareNode.getData()){
+			compareNode.setData(o);
+			break;
+		}else{
+			Comparable com= (Comparable) compareNode.getData();
+			int result=com.compareTo(o);
+			if(result==0){
+				break;
+			}else if (result>0){
+			if(null==compareNode.getLeft()){
+				compareNode.setLeft(insercode);
+				break;
+			}
+                compareNode=compareNode.getLeft();
+			}else if(result<0){
+			    if(null==compareNode.getRight()){
+                    compareNode.setRight(insercode);
+                    break;
+                }
+                compareNode=compareNode.getLeft();
+            }
+		}
+	}
+		return  insercode;
 	}
 	
 }

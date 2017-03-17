@@ -1,49 +1,174 @@
 package com.company;
 
 
+import java.util.NoSuchElementException;
 
 public class LinkedList implements List {
 	
 	private Node head;
 	
 	public void add(Object o){
-		
+		if(null==head){
+			head=new Node();
+			head.data=o;
+		}else {
+		    Node node=head;
+		    while (null!=node.next){
+		        node=node.next;
+            }
+         Node addNode=new Node();
+		    addNode.data=o;
+		    node.next=addNode;
+        }
 	}
 	public void add(int index , Object o){
-		
+		int size=size();
+		if(index<0&&index>size){
+		    throw new IndexOutOfBoundsException();
+        }
+        if(index==size){
+		   add(o);
+		   return;
+        }
+        if (size==0){
+            head=new Node();
+            head.data=o;
+            return;
+        }
+        Node node=head;
+        Node addNode=new Node();
+        addNode.data=o;
+        for (int i=0;i<index-1;i++){
+            node=node.next;
+        }
+        addNode.next=node.next;
+        node.next=addNode;
 	}
 	public Object get(int index){
-		return null;
+        if(index<0&&index>size()-1){
+            throw new IndexOutOfBoundsException();
+        }
+        Node node=head;
+        for (int i=0;i<index;i++){
+            node=node.next;
+        }
+		return node.data;
 	}
 	public Object remove(int index){
-		return null;
+        if(index<0&&index>size()-1){
+            throw new IndexOutOfBoundsException();
+        }
+        Node removeNode=head;
+        if (index==0){
+            head=head.next;
+        }else {
+            Node node=head;
+            for (int i=0;i<index-1;i++){
+                node=node.next;
+            }
+            removeNode=node.next;
+            node.next=removeNode.next;
+        }
+		return removeNode.data;
 	}
 	
 	public int size(){
-		return -1;
+	    int size=0;
+	    if(null==head){
+	        return  0;
+        }else{
+	        Node node=head.next;
+	        size=1;
+	        while (null!=node){
+	            node=node.next;
+	            size++;
+            }
+        }
+        return size;
 	}
 	
 	public void addFirst(Object o){
-		
+		if(null==head){
+		    add(o);
+        }else {
+		   Node node =new Node();
+		   node.data=o;
+		   node.next=head;
+		   head=node;
+        }
 	}
 	public void addLast(Object o){
-		
+		if(null==head){
+		    add(o);
+
+        }else{
+		    Node node=head;
+		    while (null!=node.next){
+		        node=node.next;
+            }
+            Node addNode=new Node();
+		    addNode.data=o;
+		    node.next=addNode;
+        }
 	}
 	public Object removeFirst(){
-		return null;
+		if(null==head){
+		    throw new NoSuchElementException();
+        }
+        Node node=head;
+		head=node.next;
+	    return node;
 	}
 	public Object removeLast(){
-		return null;
+        if(null==head){
+            throw new NoSuchElementException();
+        }
+        Node node=head;
+        if(null==node.next){
+            head=null;
+            return  node;
+        }else {
+            while (null!=node.next.next){
+                node=node.next;
+            }
+            Node lastnode=node.next;
+            node.next=null;
+            return lastnode;
+        }
+
 	}
 	public Iterator iterator(){
-		return null;
+	    return new Iterator() {
+	        private int currentPos=0;
+            @Override
+            public boolean hasNext() {
+               if(size()==0){
+                   return false;
+               }else {
+                   if(currentPos<size()){
+                       return  true;
+                   }else{
+                       return false;
+                   }
+               }
+
+            }
+
+            @Override
+            public Object next() {
+                Object object=get(currentPos);
+                currentPos++;
+                return object;
+            }
+        };
+
 	}
 	
 	
 	private static  class Node{
 		Object data;
 		Node next;
-		
+
 	}
 	
 	/**
