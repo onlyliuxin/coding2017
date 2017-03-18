@@ -106,7 +106,7 @@ public class Struts {
 
     /**
      * 根据名称获取指定节点
-     * @param rootElement	跟节点
+     * @param rootElement	根节点
      * @param actionName	action名称
      * @return
      */
