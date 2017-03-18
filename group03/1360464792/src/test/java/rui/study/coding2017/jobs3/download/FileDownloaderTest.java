@@ -1,4 +1,4 @@
-package rui.study.coding2017.jobs3;
+package rui.study.coding2017.jobs3.download;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,8 +22,8 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://localhost:8080/test.jpg";
-		
+		String url = "http://sw.bos.baidu.com/sw-search-sp/software/952c9d6e73f50/QQ_8.9.20029.0_setup.exe";
+
 		FileDownloader downloader = new FileDownloader(url);
 
 	
@@ -35,7 +35,6 @@ public class FileDownloaderTest {
 			public void notifyFinished() {
 				downloadFinished = true;
 			}
-
 		});
 
 		
@@ -52,9 +51,6 @@ public class FileDownloaderTest {
 			}
 		}
 		System.out.println("下载完成！");
-		
-		
-
 	}
 
 }
