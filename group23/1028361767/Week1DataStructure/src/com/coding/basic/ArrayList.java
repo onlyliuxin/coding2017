@@ -50,6 +50,7 @@ public class ArrayList implements List {
         }
         Object obj = elementData[index];
         System.arraycopy(elementData, index + 1, elementData, index, size - index);
+        elementData[size-1] = null;
         size--;
         return obj;
     }
