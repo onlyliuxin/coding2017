@@ -21,8 +21,8 @@ rebel.*
 
 target
 
-bin/
-.setting/
-*.classpath
-*.project
+#bin/
+#.setting/
+#*.classpath
+#*.project
 
