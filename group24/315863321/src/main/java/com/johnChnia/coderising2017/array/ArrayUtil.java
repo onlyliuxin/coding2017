@@ -1,8 +1,7 @@
 package com.johnChnia.coderising2017.array;
 
 import com.johnChnia.coding2017.basic.Queue;
-
-import java.util.ArrayList;
+import com.johnChnia.coding2017.basic.ArrayList;
 
 
 public class ArrayUtil {
