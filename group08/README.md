@@ -63,3 +63,9 @@ https://github.com/Greastate/coding2017/blob/master/group08/406166841/2-26/CPU.m
 
 ##529757467
 >http://www.jianshu.com/p/b773756f741f
+
+##1425809544
+>http://blog.csdn.net/qq_25385555/article/details/62226463
+
+##286060098
+>http://www.jianshu.com/p/8b3afe761bff
