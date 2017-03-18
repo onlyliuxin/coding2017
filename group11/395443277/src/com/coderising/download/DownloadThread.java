@@ -36,6 +36,7 @@ public class DownloadThread extends Thread {
 			barrier.await();
 
 		} catch (IOException e) {
+			// TODO: what if download fail, deal with exception, need to inform main thread.
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();

@@ -1,6 +1,5 @@
 package com.coderising.download;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.concurrent.CyclicBarrier;
@@ -53,8 +52,6 @@ public class FileDownloader {
 
 			// create a file
 			createPlaceHolderFile(filePath, length);
-
-			byte[] totalBytes = new byte[length];
 
 			Runnable barrierAction = new Runnable() {
 				@Override
