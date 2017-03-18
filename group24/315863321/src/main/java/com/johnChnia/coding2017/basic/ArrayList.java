@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 /**
  * Created by john on 2017/3/8.
- * @// TODO: 2017/3/15 支持泛型
+ * @// TODO: 2017/4/1  实现Iterator 接口
  */
 
-public class ArrayList implements List{
+public class ArrayList<E> implements List<E> {
     private Object[] elementData;
     private int size = 0;
     private static final int DEFAULTCAPACITY = 10;
@@ -43,9 +43,9 @@ public class ArrayList implements List{
      * @return the element at the specified position in this list
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public Object get(int index) {
+    public E get(int index) {
         rangeCheck(index);
-        return elementData[index];
+        return (E) elementData[index];
     }
 
 
@@ -54,7 +54,7 @@ public class ArrayList implements List{
      *
      * @param element element to be appended to this list
      */
-    public void add(Object element) {
+    public void add(E element) {
         ensureCapacityInternal(size + 1);
         elementData[size++] = element;
     }
@@ -69,7 +69,7 @@ public class ArrayList implements List{
      * @param index   index at which the specified element is to be inserted
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public void add(int index, Object element) {
+    public void add(int index, E element) {
         rangeCheckForAdd(index);
         ensureCapacityInternal(size + 1);
         System.arraycopy(elementData, index, elementData, index + 1,
@@ -87,7 +87,7 @@ public class ArrayList implements List{
      * @return the element that was removed from the list
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public Object remove(int index) {
+    public E remove(int index) {
         rangeCheckForAdd(index);
         Object oldValue = elementData[index];
         int numMoved = size() - index - 1;
@@ -95,8 +95,28 @@ public class ArrayList implements List{
             System.arraycopy(elementData, index + 1, elementData, index,
                     numMoved);
         }
-        elementData[--size] = 0; // let jc to clear
-        return oldValue;
+        elementData[--size] = null; // let jc to clear
+        return (E) oldValue;
+    }
+
+    /**
+     * Returns the index of the first occurrence of the specified element
+     * in this list, or -1 if this list does not contain the element.
+     * More formally, returns the lowest index <tt>i</tt> such that
+     * <tt>(o==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;o.equals(get(i)))</tt>,
+     * or -1 if there is no such index.
+     */
+    public int indexOf(Object o) {
+        if (o == null) {
+            for (int i = 0; i < size; i++)
+                if (elementData[i] == null)
+                    return i;
+        } else {
+            for (int i = 0; i < size; i++)
+                if (o.equals(elementData[i]))
+                    return i;
+        }
+        return -1;
     }
 
     /**
