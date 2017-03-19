@@ -7,43 +7,40 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 
 public class DownloadThread extends Thread{
 
 	private Connection conn;
 	private int startPos;
 	private int endPos;
-	private RandomAccessFile raf;
-	private DownloadListener listener;
+	CyclicBarrier barrier;
+	String filePath;
 
-	public DownloadThread(Connection conn, int startPos, int endPos, RandomAccessFile raf, DownloadListener listener){
-		this.raf = raf;
+	public DownloadThread(Connection conn, int startPos, int endPos, String filePath, CyclicBarrier barrier){
 		this.conn = conn;
 		this.startPos = startPos;
 		this.endPos = endPos;
-		this.listener = listener;
+		this.filePath = filePath;
+		this.barrier = barrier;
 	}
 	public void run(){
 		try {
-			raf.seek(startPos);
 			byte[] bytes = conn.read(startPos, endPos);
-			int contentLength = endPos - startPos;
-			raf.write(bytes, 0, contentLength);
-
-			if(raf.length() >= (conn.getContentLength() - 2)){
-				listener.notifyFinished();
-			}
+			RandomAccessFile raf = new RandomAccessFile(filePath, "rwd");
+			raf.seek(startPos);
+			raf.write(bytes);
+			raf.close();
+			conn.close();
+			barrier.await();
 
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				raf.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			conn.close();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (BrokenBarrierException e) {
+			e.printStackTrace();
 		}
-
 	}
 }

@@ -9,6 +9,7 @@ import com.ace.download.api.DownloadListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.concurrent.CyclicBarrier;
 
 public class FileDownloader {
 	
@@ -18,12 +19,12 @@ public class FileDownloader {
 	
 	ConnectionManager cm;
 
-	File file;
+	String filePath;
 	
 
-	public FileDownloader(String _url) {
+	public FileDownloader(String _url, String filePath) {
 		this.url = _url;
-		
+		this.filePath = filePath;
 	}
 
 	private String generateFileName(String url){
@@ -45,29 +46,29 @@ public class FileDownloader {
 		// 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
+		CyclicBarrier barrier = new CyclicBarrier(3 , new Runnable(){
+			public void run(){
+				listener.notifyFinished();
+			}
+		});
+
 		Connection conn = null;
 		try {
-			file = new File("D:\\Upgrade\\" + generateFileName(this.url));
-            RandomAccessFile raf = new RandomAccessFile(file, "rwd");
+
+            RandomAccessFile raf = new RandomAccessFile(filePath, "rwd");
 
 			conn = cm.open(this.url);
-//            raf.setLength(conn.getContentLength());
+            raf.setLength(conn.getContentLength());
 
 			int length = conn.getContentLength();
             int partSize = (length % 3 == 0) ? length / 3 : (length / 3 + 1);
 
-            synchronized (FileDownloader.class) {
-                for(int i = 0; i < 3; i++){
-                    int startPos = partSize * i;
-                    int endPos = partSize * (i + 1) - 1;
-                    new DownloadThread(conn, startPos, endPos, raf, listener).start();
-                }
-            }
+				for(int i = 0; i < 3; i++) {
+					int startPos = partSize * i;
+					int endPos = partSize * (i + 1) - 1;
+					new DownloadThread(conn, startPos, endPos, filePath, barrier).start();
+				}
 
-
-			
-
-			
 		} catch (ConnectionException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

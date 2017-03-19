@@ -211,16 +211,9 @@ public class LinkedList implements List {
 	    int[] newArray = new int[list.size()];
 	    ArrayList newArrayList = new ArrayList();
         for(int i = 0; i < list.size(); i++){
-            for(int j = 0; j < this.size(); j++){
-                if(j == (int)list.get(i)){
-                    newArrayList.add(this.get(j));
-                }
-            }
+        	newArray[i] = (int)this.get((int)list.get(i));
         }
 
-        for(int k = 0; k < newArray.length; k++){
-            newArray[k] = (int)newArrayList.get(k);
-        }
 		return newArray;
 	}
 
@@ -272,15 +265,17 @@ public class LinkedList implements List {
 	public  void removeRange(int min, int max){
 	    ArrayList newArrayList = new ArrayList();
 	    int count = 0;
+	    int start = 0;
+	    int end = 0;
         for (int i = 0; i < this.size(); i++) {
-            if((int)this.get(i) > min && (int)this.get(i) <max) {
-                newArrayList.add(i);
-            }
+        	if(min >= (int)this.get(i)){
+        		start = i+1;
+			}
+			if(max >= (int)this.get(i)){
+        		end = i;
+			}
         }
-
-        for (int j = 0; j < newArrayList.size(); j++){
-            this.remove((int)newArrayList.get(j) - j);
-        }
+		this.remove(start, end-start);
 	}
 
 
@@ -291,13 +286,20 @@ public class LinkedList implements List {
 	 */
 	public  LinkedList intersection( LinkedList list){
 	    LinkedList newLinkedList = new LinkedList();
-        for (int i = 0; i < this.size(); i++) {
-            for(int j = 0; j < list.size(); j++){
-                if(this.get(i) == list.get(j)){
-                    newLinkedList.add(list.get(j));
-                }
-            }
-        }
+	    int l1 = 0;
+	    int l2 = 0;
+	    while(l1 < this.size() && l2 < list.size()){
+	    	if(this.get(l1) == list.get(l2)){
+	    		newLinkedList.add(this.get(l1));
+	    		l1 ++;
+	    		l2 ++;
+			} else if ((int)this.get(l1) > (int)list.get(l2)){
+	    		l1 ++;
+			} else {
+				l2 ++;
+			}
+		}
+
         return newLinkedList;
 	}
 

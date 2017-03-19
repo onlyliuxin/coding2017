@@ -10,6 +10,7 @@ import java.net.URL;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URLConnection;
+import java.util.Arrays;
 
 
 public class ConnectionImpl implements Connection {
@@ -24,7 +25,6 @@ public class ConnectionImpl implements Connection {
 	@Override
 	public byte[] read(int startPos, int endPos) throws IOException {
         URLConnection urlConnection = urlObj.openConnection();
-        urlConnection.setAllowUserInteraction(true);
         urlConnection.setRequestProperty("Range","bytes=" + startPos + "-" + endPos);
 		inputStream = urlConnection.getInputStream();
         byteArrayOutputStream = new ByteArrayOutputStream();
@@ -34,9 +34,13 @@ public class ConnectionImpl implements Connection {
         while((length = inputStream.read(bytes)) != -1){
 			byteArrayOutputStream.write(bytes, 0, length);
         }
-        inputStream.close();
-        byteArrayOutputStream.close();
-		return byteArrayOutputStream.toByteArray();
+		byte[] data = byteArrayOutputStream.toByteArray();
+		int contentLen = endPos - startPos + 1;
+		if(byteArrayOutputStream.size() > contentLen){
+			data = Arrays.copyOf(data, contentLen);
+		}
+
+		return data;
 	}
 
 	@Override
