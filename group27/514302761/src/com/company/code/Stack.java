@@ -1,9 +1,9 @@
-package com.company;
+package com.company.code;
 
 import java.util.EmptyStackException;
 
 public class Stack {
-	private ArrayList elementData = new ArrayList();
+	private ArrayList<Number> elementData = new ArrayList<Number>();
 	
 	public void push(Object o){
 		elementData.add(o);
