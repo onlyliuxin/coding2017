@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class TestStrust {
 	 @Test
-	    public void testLoginActionSuccess() {
+	    public void testLoginActionSuccess() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException, NoSuchMethodException, SecurityException {
 
 	        String actionName = "login";
 
