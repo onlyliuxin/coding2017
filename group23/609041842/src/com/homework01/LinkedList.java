@@ -1,4 +1,4 @@
-package code;
+package com.homework01;
 
 public class LinkedList {
 	private static Node head;
