@@ -1,6 +1,5 @@
 package com.johnChnia.coding2017.basic;
 
-import com.johnChnia.coding2017.basic.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,17 +11,18 @@ import static org.hamcrest.junit.MatcherAssert.assertThat;
  */
 
 public class ArrayListTest {
-    private ArrayList arrayList1;
-    private ArrayList arrayList2;
-    private ArrayList arrayList3;
-    private ArrayList arrayList4;
+    private ArrayList<Integer> arrayList1;
+    private ArrayList<Integer> arrayList2;
+    private ArrayList<Integer> arrayList3;
+    private ArrayList<Integer> arrayList4;
+    private ArrayList<String> arrayList5;
 
     @Before
     public void setUp() throws Exception {
-        arrayList1 = new ArrayList(3);
-        arrayList2 = new ArrayList(3);
-        arrayList3 = new ArrayList(3);
-        arrayList4 = new ArrayList(3);
+        arrayList1 = new ArrayList<>(3);
+        arrayList2 = new ArrayList<>(3);
+        arrayList3 = new ArrayList<>(3);
+        arrayList4 = new ArrayList<>(3);
     }
 
     @Test
@@ -58,4 +58,6 @@ public class ArrayListTest {
         assertThat(removed, equalTo(4));
         assertThat(arrayList4.size(), equalTo(5));
     }
+
+
 }

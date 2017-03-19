@@ -10,15 +10,15 @@ import static org.hamcrest.junit.MatcherAssert.assertThat;
  * Created by john on 2017/3/11.
  */
 public class QueueTest {
-    Queue queue1;
-    Queue queue2;
-    Queue queue3;
+    Queue<Integer> queue1;
+    Queue<Integer> queue2;
+    Queue<Integer> queue3;
 
     @Before
     public void setUp() throws Exception {
-        queue1 = new Queue();
-        queue2 = new Queue();
-        queue3 = new Queue();
+        queue1 = new Queue<>();
+        queue2 = new Queue<>();
+        queue3 = new Queue<>();
 
     }
 

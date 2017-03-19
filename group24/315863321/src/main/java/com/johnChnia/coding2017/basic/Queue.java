@@ -4,17 +4,17 @@ import java.util.NoSuchElementException;
 
 /**
  * Created by john on 2017/3/10.
- * @// TODO: 2017/3/15 支持泛型 
+ * @// TODO: 2017/4/1 实现Iterator
  */
-public class Queue {
+public class Queue<E> {
 
-    private ArrayList arrayList;
+    private ArrayList<E> arrayList;
 
     /**
      * Constructs an queue using 10 capacity of ArrayList.
      */
     public Queue() {
-        arrayList = new ArrayList(10);
+        arrayList = new ArrayList<>();
     }
 
 
@@ -26,7 +26,7 @@ public class Queue {
      * @param element the element to add
      * @return {@code true}
      */
-    public boolean add(Object element) {
+    public boolean add(E element) {
         arrayList.add(element);
         return true;
     }
@@ -38,7 +38,7 @@ public class Queue {
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    public Object remove() {
+    public E remove() {
         if (arrayList.empty())
             throw new NoSuchElementException(emptyMsg());
         return arrayList.remove(0);

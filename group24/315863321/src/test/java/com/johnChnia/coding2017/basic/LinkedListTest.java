@@ -3,29 +3,29 @@ package com.johnChnia.coding2017.basic;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.junit.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by john on 2017/3/9.
  */
 public class LinkedListTest {
 
-    private LinkedList linkList1;
-    private LinkedList linkList2;
-    private LinkedList linkList3;
-    private LinkedList linkList4;
-    private LinkedList linkList5;
-    private LinkedList linkList6;
+    private LinkedList<Integer> linkList1;
+    private LinkedList<Integer> linkList2;
+    private LinkedList<Integer> linkList3;
+    private LinkedList<Integer> linkList4;
+    private LinkedList<Integer> linkList5;
+    private LinkedList<Integer> linkList6;
 
     @Before
     public void setUp() throws Exception {
-        linkList1 = new LinkedList();
-        linkList2 = new LinkedList();
-        linkList3 = new LinkedList();
-        linkList4 = new LinkedList();
-        linkList5 = new LinkedList();
-        linkList6 = new LinkedList();
+        linkList1 = new LinkedList<>();
+        linkList2 = new LinkedList<>();
+        linkList3 = new LinkedList<>();
+        linkList4 = new LinkedList<>();
+        linkList5 = new LinkedList<>();
+        linkList6 = new LinkedList<>();
     }
 
     @Test

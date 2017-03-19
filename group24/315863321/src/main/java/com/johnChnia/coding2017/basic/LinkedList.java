@@ -5,12 +5,12 @@ import java.util.NoSuchElementException;
 /**
  * Created by john on 2017/3/9.
  *
- * @// TODO: 2017/3/15 支持泛型
+ * @// TODO: 2017/4/1 支持Iterator
  */
 
-public class LinkedList implements List {
+public class LinkedList<E> implements List<E> {
 
-    private Node first = null;
+    private Node<E> first = null;
     private int size = 0;
 
     /**
@@ -20,10 +20,10 @@ public class LinkedList implements List {
 
     }
 
-    private static class Node {
-        Object element;
-        Node next;
-        Node prev;
+    private static class Node<T> {
+        T element;
+        Node<T> next;
+        Node<T> prev;
     }
 
     /**
@@ -31,13 +31,13 @@ public class LinkedList implements List {
      *
      * @param element element to be appended to this list
      */
-    public void add(Object element) {
-        Node newNode = new Node();
+    public void add(E element) {
+        Node<E> newNode = new Node<>();
         if (first == null) {
             addWhenListIsEmpty(newNode, element);
             return;
         }
-        Node last = first;
+        Node<E> last = first;
         while (last.next != null)
             last = last.next;
         last.next = newNode;
@@ -47,7 +47,7 @@ public class LinkedList implements List {
         size++;
     }
 
-    private void addWhenListIsEmpty(Node newNode, Object element) {
+    private void addWhenListIsEmpty(Node<E> newNode, E element) {
         first = newNode;
         first.element = element;
         first.next = null;
@@ -60,8 +60,8 @@ public class LinkedList implements List {
      *
      * @param element the element to add
      */
-    public void addFirst(Object element) {
-        Node newNode = new Node();
+    public void addFirst(E element) {
+        Node<E> newNode = new Node<>();
         if (first == null) {
             addWhenListIsEmpty(newNode, element);
             return;
@@ -85,7 +85,7 @@ public class LinkedList implements List {
      * @param element element to be inserted.
      * @throws RuntimeException if list size less than 2.
      */
-    public void add(int index, Object element) {
+    public void add(int index, E element) {
         if (size() < 2)
             throw new RuntimeException("list size should greater than or equal to 2");
         isElementIndex(index);
@@ -93,8 +93,8 @@ public class LinkedList implements List {
             addFirst(element);
             return;
         } else {
-            Node temp = new Node();
-            Node temp2 = first;
+            Node<E> temp = new Node<>();
+            Node<E> temp2 = first;
             for (int i = 0; i < index; i++) {
                 temp2 = temp2.next;
             }
@@ -118,11 +118,11 @@ public class LinkedList implements List {
     public void remove() {
         if (size == 0)
             throw new RuntimeException("linkList size should greater than or equal to 1");
-        Node next = first.next;
+        Node<E> next = first.next;
         if (next == null) {
             first = null;
         } else {
-            Node last = first;
+            Node<E> last = first;
             while (last.next != null)
                 last = last.next;
             last.prev.next = null;
@@ -137,7 +137,7 @@ public class LinkedList implements List {
      * @return
      * @// TODO: 2018/3/14 if i am happy, i will implement it right now!
      */
-    public Object remove(int index) {
+    public E remove(int index) {
         return null;
     }
 
@@ -146,13 +146,13 @@ public class LinkedList implements List {
      *
      * @return the first element from this list
      */
-    public Object removeFirst() {
-        Node f = first;
+    public E removeFirst() {
+        Node<E> f = first;
         if (f == null)
             throw new NoSuchElementException();
-        Object element = f.element;
-        Node next = first.next;
-        first.element = 0;
+        E element = f.element;
+        Node<E> next = first.next;
+        first.element = null;
         first.next = null; // help GC
 
         first = next;
@@ -169,9 +169,9 @@ public class LinkedList implements List {
      * @param index index of the element to return
      * @return the element at the specified position in this list
      */
-    public Object get(int index) {
+    public E get(int index) {
         checkElementIndex(index);
-        Node node = first;
+        Node<E> node = first;
         if (index == 0) {
             return first.element;
         }
@@ -187,8 +187,8 @@ public class LinkedList implements List {
      * @return the first element in this list
      * @throws NoSuchElementException if this list is empty
      */
-    public Object getFirst() {
-        final Node f = first;
+    public E getFirst() {
+        final Node<E> f = first;
         if (f == null)
             throw new NoSuchElementException();
         return f.element;
@@ -220,7 +220,7 @@ public class LinkedList implements List {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(first.element);
-        Node temp = first;
+        Node<E> temp = first;
         while (temp.next != null) {
             temp = temp.next;
             sb.append("→");

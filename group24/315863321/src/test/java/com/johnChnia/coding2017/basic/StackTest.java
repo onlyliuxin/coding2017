@@ -1,29 +1,28 @@
 package com.johnChnia.coding2017.basic;
 
-import com.johnChnia.coding2017.basic.Stack;
 import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.junit.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by john on 2017/3/10.
  */
 public class StackTest {
-    Stack stack1;
-    Stack stack2;
-    Stack stack3;
-    Stack stack4;
+    Stack<Integer> stack1;
+    Stack<Integer> stack2;
+    Stack<Integer> stack3;
+    Stack<Integer> stack4;
 
     @Before
     public void setUp() throws Exception {
-        stack1 = new Stack();
-        stack2 = new Stack();
-        stack3 = new Stack();
-        stack4 = new Stack();
+        stack1 = new Stack<>();
+        stack2 = new Stack<>();
+        stack3 = new Stack<>();
+        stack4 = new Stack<>();
     }
 
     @Test
