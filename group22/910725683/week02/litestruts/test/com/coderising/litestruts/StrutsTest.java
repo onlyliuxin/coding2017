@@ -19,7 +19,6 @@ public class StrutsTest {
         params.put("name","test");
         params.put("password","1234");
         
-        
         View view  = Struts.runAction(actionName,params);        
         
         Assert.assertEquals("/jsp/homepage.jsp", view.getJsp());
@@ -31,7 +30,7 @@ public class StrutsTest {
 		String actionName = "login";
 		Map<String,String> params = new HashMap<String,String>();
         params.put("name","test");
-        params.put("password","123456"); //密码和预设的不一�?
+        params.put("password","123456"); //密码和预设的不一�?
         
         View view  = Struts.runAction(actionName,params);        
         

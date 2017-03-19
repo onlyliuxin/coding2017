@@ -1,6 +1,7 @@
 package com.coderising.array;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ArrayUtil {
 	
@@ -13,8 +14,11 @@ public class ArrayUtil {
 	 */
 	public void reverseArray(int[] origin){
 		int arrayLength = origin.length;
+		//注意整数截断，奇数长度不用额外处理
 		for (int i = 0 ; i < arrayLength / 2 ; i++){
+			int temp = origin[i];
 			origin[i]=origin[arrayLength - i - 1];
+			origin[arrayLength - i - 1] = temp;
 		}
 	}
 	
@@ -54,6 +58,8 @@ public class ArrayUtil {
 	 */
 	
 	public int[] merge(int[] array1, int[] array2){
+		
+		//注意此处算出来的newArrayLength是最大值，实际可能小于这个长度
 		int newArrayLength = array1.length + array2.length;
 		int[] newArray = new int[newArrayLength];
 		final int MAX_VALUE = Integer.MAX_VALUE;
@@ -63,7 +69,10 @@ public class ArrayUtil {
 		int element1;
 		int element2;
 		
-		while(newArrayIndex < newArrayLength){
+		//注意是两个数组都是递增的，可以交替步进比较，当大小翻转的时候交替，要求踢重，则相等的时候步进但不保存
+		while(index1 < array1.length || index2 < array2.length){
+			
+			//此处取巧的点在于已知数组是int型，故最大值是已知的，当步进到头时取最大值，即“钳位”
 			if (index1 < array1.length){
 				element1 = array1[index1];
 			}else{
@@ -76,15 +85,22 @@ public class ArrayUtil {
 				element2 = MAX_VALUE;
 			}		
 			
+			//谁小谁步进
 			if (element1 < element2){
 				newArray[newArrayIndex++] = element1;
 				index1++;
 			}else{
-				newArray[newArrayIndex++] = element2;
-				index2++;
+				if (element1 == element2){
+					//相等后不再赋值给新数组
+					index2++;
+				}else{
+					newArray[newArrayIndex++] = element2;
+					index2++;
+				}
 			}
 		}
-		return newArray;
+		//移除没用到的位置
+		return Arrays.copyOf(newArray, newArrayIndex);
 	}
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
@@ -97,6 +113,7 @@ public class ArrayUtil {
 	 */
 	public int[] grow(int [] oldArray,  int size){
 		int[] newArray = new int[oldArray.length + size];
+		//Java对引用类型自动赋值，故0不需要额外的处理
 		System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
 		return newArray;
 	}
@@ -147,7 +164,10 @@ public class ArrayUtil {
 	}
 	
 	private boolean isPrime(int num){
-		for (int i = 2 ; i < num / 2 ; i++){
+		if (num == 0 || num == 1){
+			return false;
+		}
+		for (int i = 2 ; i <= num / 2 ; i++){
 			if (num % i == 0){
 				return false;
 			}
@@ -172,8 +192,13 @@ public class ArrayUtil {
 	}
 	
 	private boolean isPerfectNumbers(int num){
+		if (num == 1){
+			return false;
+		}
 		int sum = 1;
-		for (int i = 2 ; i < num / 2 ; i++){
+		//注意因子是对称的，故比较的上限是的平方根
+		int sqr = (int) Math.sqrt(num);
+		for (int i = 2 ; i <= sqr ; i++){
 			if (num % i == 0){
 				sum = sum + i + num / i;
 			}
@@ -207,5 +232,4 @@ public class ArrayUtil {
 		}
 		return array;
  	}
-	
 }
