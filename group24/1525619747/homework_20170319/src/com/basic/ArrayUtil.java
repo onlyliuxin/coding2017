@@ -88,11 +88,10 @@ public class ArrayUtil
 		int index1 = 0;
 		int index2 = 0;
 		int index3 = 0;
-		
+
 		while (index1 < length1 && index2 < length2)
 		{
-			
-			
+
 			if (index3 > 0)
 			{
 				if (array3[index3 - 1] == array1[index1])
@@ -106,7 +105,7 @@ public class ArrayUtil
 					continue;
 				}
 			}
-			
+
 			if (array1[index1] == array2[index2])
 			{
 				array3[index3++] = array1[index1];
@@ -128,13 +127,15 @@ public class ArrayUtil
 			}
 		}
 
-		while (index1 < length1) {
+		while (index1 < length1)
+		{
 			array3[index3++] = array1[index1++];
 		}
-		while (index2 < length2) {
+		while (index2 < length2)
+		{
 			array3[index3++] = array1[index2++];
 		}
-		
+
 		int[] newArray = new int[index3];
 		for (int i = 0; i < index3; i++)
 		{
@@ -157,10 +158,12 @@ public class ArrayUtil
 	{
 		int length = oldArray.length;
 		int[] newArr = new int[length + size];
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i < length; i++)
+		{
 			newArr[i] = oldArray[i];
 		}
-		for (int i = length; i < length + size; i++) {
+		for (int i = length; i < length + size; i++)
+		{
 			newArr[i] = 0;
 		}
 		return newArr;
@@ -175,30 +178,33 @@ public class ArrayUtil
 	 */
 	public int[] fibonacci(int max)
 	{
-		if (max == 1) {
+		if (max == 1)
+		{
 			return null;
 		}
 		int[] arr = new int[max / 2];
 		int a = 1;
 		int b = 1;
 		int c = 0;
-		
+
 		arr[0] = 1;
 		arr[1] = 1;
-		
+
 		int index = 2;
-		while (a + b < max) {
+		while (a + b < max)
+		{
 			arr[index++] = a + b;
 			c = b;
 			b = a + b;
 			a = c;
 		}
-		
+
 		int[] newArr = new int[index];
-		for (int i = 0; i < index; i++) {
+		for (int i = 0; i < index; i++)
+		{
 			newArr[i] = arr[i];
 		}
-		
+
 		return newArr;
 	}
 
@@ -213,23 +219,29 @@ public class ArrayUtil
 		int size = max / 2 + 1;
 		int[] arr = new int[size];
 		int index = 0;
-		for (int i = 2; i < max; i++) {
-			if (isPrime(i)) {
+		for (int i = 2; i < max; i++)
+		{
+			if (isPrime(i))
+			{
 				arr[index++] = i;
 			}
 		}
-		
+
 		int[] newArr = new int[index];
-		for (int i = 0; i < index; i++) {
+		for (int i = 0; i < index; i++)
+		{
 			newArr[i] = arr[i];
 		}
-		
+
 		return newArr;
 	}
-	
-	public boolean isPrime(int i) {
-		for (int j = 2; j < i / 2; j++) {
-			if (i % j == 0) {
+
+	public boolean isPrime(int i)
+	{
+		for (int j = 2; j < i / 2; j++)
+		{
+			if (i % j == 0)
+			{
 				return false;
 			}
 		}
@@ -247,28 +259,34 @@ public class ArrayUtil
 		int size = max / 2 + 1;
 		int[] arr = new int[size];
 		int index = 0;
-		for (int i = 2; i < max; i++) {
-			if (isPerfectNumber(i)) {
+		for (int i = 2; i < max; i++)
+		{
+			if (isPerfectNumber(i))
+			{
 				arr[index++] = i;
 			}
 		}
-		
+
 		int[] newArr = new int[index];
-		for (int i = 0; i < index; i++) {
+		for (int i = 0; i < index; i++)
+		{
 			newArr[i] = arr[i];
 		}
-		
+
 		return newArr;
 	}
-	
-	public boolean isPerfectNumber(int num) {
+
+	public boolean isPerfectNumber(int num)
+	{
 		int sum = 0;
-		for (int i = 1; i <= num / 2; i++) {
-			if (num % i == 0) {
+		for (int i = 1; i <= num / 2; i++)
+		{
+			if (num % i == 0)
+			{
 				sum += i;
 			}
 		}
-//		System.out.println("num: " + num + ", sum:" + sum);
+		// System.out.println("num: " + num + ", sum:" + sum);
 		return (num == sum);
 	}
 
@@ -283,10 +301,11 @@ public class ArrayUtil
 	{
 		String str = "";
 		int length = array.length;
-		for (int a : array) {
+		for (int a : array)
+		{
 			str += a + seperator;
 		}
-		str = str.substring(0, str.length()-1);
+		str = str.substring(0, str.length() - 1);
 		return str;
 	}
 

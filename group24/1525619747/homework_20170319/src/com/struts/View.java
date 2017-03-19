@@ -2,21 +2,29 @@ package com.struts;
 
 import java.util.Map;
 
-public class View {
+public class View
+{
 	private String jsp;
 	private Map parameters;
-	
-	public String getJsp() {
+
+	public String getJsp()
+	{
 		return jsp;
 	}
-	public View setJsp(String jsp) {
+
+	public View setJsp(String jsp)
+	{
 		this.jsp = jsp;
 		return this;
 	}
-	public Map getParameters() {
+
+	public Map getParameters()
+	{
 		return parameters;
 	}
-	public View setParameters(Map parameters) {
+
+	public View setParameters(Map parameters)
+	{
 		this.parameters = parameters;
 		return this;
 	}

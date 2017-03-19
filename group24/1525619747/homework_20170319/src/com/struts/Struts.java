@@ -15,7 +15,8 @@ public class Struts
 			Map<String, String> parameters) throws DocumentException,
 			ClassNotFoundException, NoSuchMethodException, SecurityException,
 			InstantiationException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException, NoSuchFieldException
+			IllegalArgumentException, InvocationTargetException,
+			NoSuchFieldException
 	{
 
 		/*
@@ -34,55 +35,57 @@ public class Struts
 		 * 4. 根据struts.xml中的 <result> 配置,以及execute的返回值， 确定哪一个jsp，
 		 * 放到View对象的jsp字段中。
 		 */
-		
+
 		DomXmlHelper dx = new DomXmlHelper();
 		String action = "login";
 		String className = dx.getActionClassByName(action);
-//		System.out.println(className);
-		
+		// System.out.println(className);
+
 		Class<?> class1 = null;
 		class1 = Class.forName(className);
-//		System.out.println("类名称   " + class1.getName());
-		
-		if (class1 != null) {	        
-	        // 调用class1的setName方法, 待参数
-			//根据.class反射出来的类实例
-			Object instance = class1.newInstance(); 
-			
+		// System.out.println("类名称   " + class1.getName());
+
+		if (class1 != null)
+		{
+			// 调用class1的setName方法, 待参数
+			// 根据.class反射出来的类实例
+			Object instance = class1.newInstance();
+
 			Method method = class1.getMethod("setName", String.class);
-	        Object res1 =method.invoke(instance, "test");
-	       
-	        method = class1.getMethod("setPassword", String.class);
-	        Object res2 = method.invoke(instance, "1234");
-	        
-	        // set attr
-	        for (Map.Entry<String, String> entity : parameters.entrySet()) {
-	        	String attrName = entity.getKey();
-	        	String attrValue = entity.getValue();
-	        	
-		        Field idF = class1.getDeclaredField(attrName); // 获取属性  
-		        idF.setAccessible(true); // 使用反射机制可以打破封装性，导致了java对象的属性不安全。  
-		        idF.set(instance, attrValue); // set  
-	        }
-	        
-	        View view = new View();
-	        
-	        method = class1.getMethod("execute");
-	        Object res3 = method.invoke(instance);
-//	        System.out.println(res3);
-	        String jsp = dx.getActionView(action, res3.toString());	       
-	        view.setJsp(jsp);
-	        
-	        method = class1.getMethod("getMessage");
-	        Object res4 = method.invoke(instance);
-//	        System.out.println(res4);
-	        
-	        Map<String, String> map = new HashMap<String, String>();
-	        map.put("message", res4.toString());
-	        
-	        view.setParameters(map);
-	        
-	        return view;
+			Object res1 = method.invoke(instance, "test");
+
+			method = class1.getMethod("setPassword", String.class);
+			Object res2 = method.invoke(instance, "1234");
+
+			// set attr
+			for (Map.Entry<String, String> entity : parameters.entrySet())
+			{
+				String attrName = entity.getKey();
+				String attrValue = entity.getValue();
+
+				Field idF = class1.getDeclaredField(attrName); // 获取属性
+				idF.setAccessible(true); // 使用反射机制可以打破封装性，导致了java对象的属性不安全。
+				idF.set(instance, attrValue); // set
+			}
+
+			View view = new View();
+
+			method = class1.getMethod("execute");
+			Object res3 = method.invoke(instance);
+			// System.out.println(res3);
+			String jsp = dx.getActionView(action, res3.toString());
+			view.setJsp(jsp);
+
+			method = class1.getMethod("getMessage");
+			Object res4 = method.invoke(instance);
+			// System.out.println(res4);
+
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("message", res4.toString());
+
+			view.setParameters(map);
+
+			return view;
 		}
 
 		return null;
