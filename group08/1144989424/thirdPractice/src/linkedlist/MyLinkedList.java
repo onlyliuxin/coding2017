@@ -132,13 +132,25 @@ public class MyLinkedList implements MyList {
             this.data = data;
         }
     }
+    public void set(int i, Object obj){
+        remove(i);
+        add(i,obj);
+    }
     
     /**
      * 把该链表逆置
      * 例如链表为 3->7->10 , 逆置后变为  10->7->3
      */
-    public  void reverse(){     
-        
+    public  void reverse(){
+        //单链表的实现方法,遍历了一遍
+        //如果是双向链表的话，逆置就简单多了
+        int half = size/2;
+        for(int i = 0; i < half; i ++){
+            Object o1 = get(i);
+            set(i,o1);
+            Object o2 = get(size - 1 - i);
+            set(size - 1 - i, o2);
+        }
     }
     
     /**
@@ -147,7 +159,13 @@ public class MyLinkedList implements MyList {
      * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
      */
     public  void removeFirstHalf(){
-        
+        int half = size/2;
+        Node tempNode = head.next;
+        for(int i = 0; i < half; i++){
+            tempNode = tempNode.next;
+        }
+        //通过移动head指针来实现移除前半部分
+        head.next = tempNode;
     }
     
     /**
@@ -156,7 +174,23 @@ public class MyLinkedList implements MyList {
      * @param length
      */
     public  void remove(int i, int length){
+        if(i < 0 || i > size || i < length || length < 0 || length > size){
+            return;
+        }
         
+        Node tempNode = head.next;
+        for(int j = 0; j < i; j++){
+            tempNode = tempNode.next;
+        }
+        Node n1 = tempNode;
+        
+        for(int j = i; j < length; j++){
+            tempNode = tempNode.next;
+        }
+        Node n2 = tempNode;
+        
+        //移除n1到n2中间的元素
+        n1.next = n2;
     }
     /**
      * 假定当前链表和listB均包含已升序排列的整数
@@ -167,7 +201,25 @@ public class MyLinkedList implements MyList {
      * @param list
      */
     public  int[] getElements(MyLinkedList list){
-        return null;
+        if(list == null){
+            return null;
+        }
+        
+        Node tempNode = head.next;
+        Node result = head;
+        int[] res = new int[list.size()];
+        
+        for(int j = 0,i = 0; j < size; j++){
+            if(j == (int)list.removeFirst()){
+                result.next = tempNode;
+                res[i++] = (int) tempNode.data;
+            }else{
+                tempNode = tempNode.next;
+            }
+        }
+        
+//        return result;
+        return res;
     }
     
     /**
@@ -178,6 +230,8 @@ public class MyLinkedList implements MyList {
     
     public  void subtract(MyLinkedList list){
         
+        //1.对list递增排序
+        //2.遍历当前链表，同时和list做比较，向后移动list指针，注意是递增的
     }
     
     /**
@@ -185,7 +239,8 @@ public class MyLinkedList implements MyList {
      * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
      */
     public  void removeDuplicateValues(){
-        
+        //1.遍历链表，比较后一个和当前的大小，
+        //2.相等则，删除后一个，同时再比较原先删除的节点的后一个（可能需要while）
     }
     
     /**
@@ -195,7 +250,9 @@ public class MyLinkedList implements MyList {
      * @param max
      */
     public  void removeRange(int min, int max){
-        
+        //1.找到第一个值大于min的节点，的前一个节点
+        //2.找到第一个值小于max的节点
+        //3.用第一步找出的节点指向第二步找出的节点的next
     }
     
     /**
@@ -204,6 +261,8 @@ public class MyLinkedList implements MyList {
      * @param list
      */
     public  MyLinkedList intersection( MyLinkedList list){
+        //1.假设当前链表节点个数是m,list中的节点个数是n
+        //2.现在需要遍历m+n次，依次把值给链表C传递，同时，给C链表add的时候，注意比较大小
         return null;
     }
     
