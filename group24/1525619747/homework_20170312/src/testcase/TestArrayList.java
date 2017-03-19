@@ -33,7 +33,7 @@ public class TestArrayList
 		catch (ArrayIndexOutOfBoundsException e)
 		{
 			assertNotNull(e);
-//			System.out.println(e.getMessage());
+			// System.out.println(e.getMessage());
 			assertEquals("100", e.getMessage());
 		}
 
@@ -54,19 +54,19 @@ public class TestArrayList
 			}
 			list.add(3, 20);
 			list.add(0, 30);
-			
+
 		}
 		catch (ArrayIndexOutOfBoundsException e)
 		{
 			assertNull(e);
 		}
-		
-//		Iterator it = list.iterator();
-//		for ( ; it.hasNext(); ) {
-//			System.out.print(it.next() + " ");
-//		}
-//		System.out.println();
-		
+
+		// Iterator it = list.iterator();
+		// for ( ; it.hasNext(); ) {
+		// System.out.print(it.next() + " ");
+		// }
+		// System.out.println();
+
 		assertTrue(list.get(0).equals(30));
 		assertTrue(list.get(4).equals(20));
 		assertTrue(list.get(5).equals(3));
@@ -81,7 +81,7 @@ public class TestArrayList
 		catch (ArrayIndexOutOfBoundsException e)
 		{
 			assertNotNull(e);
-//			System.out.println(e.getMessage());
+			// System.out.println(e.getMessage());
 			assertEquals("100", e.getMessage());
 		}
 	}
@@ -120,8 +120,8 @@ public class TestArrayList
 		catch (ArrayIndexOutOfBoundsException e)
 		{
 			assertNotNull(e);
-//			System.out.println(e.getMessage());
-//			System.out.println(list.size());
+			// System.out.println(e.getMessage());
+			// System.out.println(list.size());
 			String errorInfo = "Index to get: 10 is invalid, current range: 0 - "
 					+ (list.size() - 1);
 			assertEquals(errorInfo, e.getMessage());
@@ -159,7 +159,7 @@ public class TestArrayList
 		catch (ArrayIndexOutOfBoundsException e)
 		{
 			assertNotNull(e);
-//			System.out.println(e.getMessage());
+			// System.out.println(e.getMessage());
 		}
 
 		try
@@ -169,7 +169,7 @@ public class TestArrayList
 		catch (ArrayIndexOutOfBoundsException e)
 		{
 			assertNotNull(e);
-//			System.out.println(e.getMessage());
+			// System.out.println(e.getMessage());
 		}
 	}
 

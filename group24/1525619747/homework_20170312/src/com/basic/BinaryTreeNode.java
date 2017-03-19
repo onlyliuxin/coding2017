@@ -6,14 +6,17 @@ public class BinaryTreeNode
 	private Object data;
 	private BinaryTreeNode left;
 	private BinaryTreeNode right;
-	
-	public BinaryTreeNode(Object data) {
+
+	public BinaryTreeNode (Object data)
+	{
 		this.data = data;
 		left = null;
 		right = null;
 	}
-	
-	public BinaryTreeNode(Object data, BinaryTreeNode left, BinaryTreeNode right) {
+
+	public BinaryTreeNode (Object data, BinaryTreeNode left,
+			BinaryTreeNode right)
+	{
 		this.data = data;
 		this.left = left;
 		this.right = right;
@@ -51,38 +54,50 @@ public class BinaryTreeNode
 
 	/*
 	 * 排序二叉树的插入
-	 * */
+	 */
 	public BinaryTreeNode insert(Object o)
 	{
-		if ( ((Integer) data) > ((Integer) o) ) {
-			if (left == null) {
+		if (((Integer) data) > ((Integer) o))
+		{
+			if (left == null)
+			{
 				setLeft(new BinaryTreeNode(o));
-			} else {
+			}
+			else
+			{
 				left.insert(o);
-			}			
-		} else {
-			if (right == null) {
+			}
+		}
+		else
+		{
+			if (right == null)
+			{
 				setRight(new BinaryTreeNode(o));
-			} else {
+			}
+			else
+			{
 				right.insert(o);
-			}			
+			}
 		}
 		return this;
 	}
-	
+
 	/*
 	 * 前序遍历
-	 * */
-	public void preOrderInterator() {
-		if (left != null) {
+	 */
+	public void preOrderInterator()
+	{
+		if (left != null)
+		{
 			left.preOrderInterator();
 		}
-		
+
 		System.out.print(data.toString() + " ");
-		
-		if (right != null) {
+
+		if (right != null)
+		{
 			right.preOrderInterator();
-		}				
+		}
 	}
 
 }

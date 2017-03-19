@@ -54,7 +54,7 @@ public class ArrayList implements List
 					+ " is invalid, current range: 0 - " + (size - 1);
 			throw new ArrayIndexOutOfBoundsException(errorInfo);
 		}
-		
+
 		Object o = elementData[index];
 		for (int i = index; i < size - 1; i++)
 		{

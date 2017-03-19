@@ -7,7 +7,8 @@ import com.basic.BinaryTreeNode;
 public class TestBinaryTreeNode
 {
 	@Test
-	public void testBinaryTree() {
+	public void testBinaryTree()
+	{
 		BinaryTreeNode binNode = new BinaryTreeNode(5);
 		binNode.insert(1);
 		binNode.insert(10);
@@ -16,9 +17,9 @@ public class TestBinaryTreeNode
 		binNode.insert(2);
 		binNode.insert(15);
 		binNode.insert(8);
-		
-		//1 2 4 5 6 8 10 15 
+
+		// 1 2 4 5 6 8 10 15
 		binNode.preOrderInterator();
 	}
-	
+
 }
