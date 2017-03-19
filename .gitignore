@@ -1,7 +1,4 @@
 
-build/
-.idea/
-.gradle/
 *.class
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -23,7 +20,9 @@ rebel.*
 .rebel.*
 
 target
-*.DS_Store
-liuxin/.DS_Store
-liuxin/src/.DS_Store
+
+#bin/
+#.setting/
+#*.classpath
+#*.project
 
