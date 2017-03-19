@@ -1,132 +1,56 @@
-package Collection;
+package zhuakuang.homework.first.Collection;
 
 public class LinkedList implements List {
 
-    private int theSize = 0;//表示该链表的长度
-    private Node beginMarker;//链表的头元素
-    private Node endMarker;//链表的尾元素
-
-    //链表的构造方法
-    public LinkedList() {
-        beginMarker = new Node(null, null, null);
-        endMarker = new Node(null, beginMarker, null);
-        beginMarker.next = endMarker;
-    }
+    private Node head;
+    private Node tail;
 
     public void add(Object o) {
-        add(size(), o);
+
     }
 
     public void add(int index, Object o) {
-        addBefore(getNode(index), o);
+
     }
 
     public Object get(int index) {
-        return getNode(index).data;
+        return null;
     }
 
     public Object remove(int index) {
-        return remove(getNode(index));
+        return null;
     }
 
     public int size() {
-        return theSize;
+        return -1;
     }
 
     public void addFirst(Object o) {
-        addBefore(getNode(0), o);
+
     }
 
     public void addLast(Object o) {
-        addBefore(getNode(theSize), o);
+
     }
 
     public Object removeFirst() {
-        return remove(getNode(0));
+        return null;
     }
 
     public Object removeLast() {
-        return remove(getNode(theSize - 1));
+        return null;
     }
 
     public Iterator iterator() {
-        return new Itr();
+        return null;
     }
 
-    private class Itr implements Iterator {
-
-        private Node cursor = beginMarker.next;
-
-        @Override
-        public boolean hasNext() {
-
-            return cursor != endMarker;
-        }
-
-        @Override
-        public Object next() {
-
-            Object o = cursor.data;
-            cursor = cursor.next;
-
-            return o;
-        }
-
-    }
-
-    private Object remove(Node node) {
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
-        theSize--;
-        return node.data;
-    }
-
-    private Node getNode(int index) {
-        Node p;
-        if (index < 0 || index > size()) {
-            throw new IndexOutOfBoundsException();
-        }
-        if (index == -1) {
-            return beginMarker;
-        } else if (index == theSize) {
-            return endMarker;
-        }
-        if (index < size() / 2) {
-            p = beginMarker.next;
-            for (int i = 0; i < index; i++) {
-                p = p.next;
-            }
-        } else {
-            p = endMarker.prev;
-            for (int i = size() - 1; i > index; i--) {
-                p = p.prev;
-            }
-        }
-        return p;
-    }
-
-    private void addBefore(Node node, Object o) {
-        Node newNode = new Node(o, node.prev, node);
-        newNode.prev.next = newNode;
-        node.prev = newNode;
-        theSize++;
-        //nodeCount++;
-    }
 
     private static class Node {
-        public Object data;
-        public Node next;
-        public Node prev;
+        Object data;
+        Node next;
 
-        public Node(Object data, Node prev, Node next) {
-            this.data = data;
-            this.prev = prev;
-            this.next = next;
-        }
     }
-
-
-    //以下不用实现
 
     /**
      * 把该链表逆置
