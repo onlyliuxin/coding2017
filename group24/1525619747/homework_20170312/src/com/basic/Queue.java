@@ -2,23 +2,25 @@ package com.basic;
 
 public class Queue
 {
+	private LinkedList list = new LinkedList();
 
 	public void enQueue(Object o)
 	{
+		list.addLast(o);
 	}
 
 	public Object deQueue()
 	{
-		return null;
+		return list.removeFirst();
 	}
 
 	public boolean isEmpty()
 	{
-		return false;
+		return (list.size() == 0);
 	}
 
 	public int size()
 	{
-		return -1;
+		return list.size();
 	}
 }

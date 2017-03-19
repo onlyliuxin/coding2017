@@ -21,13 +21,13 @@ public class ArrayList implements List
 
 	public void add(int index, Object o)
 	{
-		if (index > size)
+		if (index >= size && size > 0)
 		{
 			String errorInfo = "Index to add: " + index
 					+ " is out of current size: " + size;
 			throw new ArrayIndexOutOfBoundsException(errorInfo);
 		}
-		for (int i = size + 1; i > index + 1; i--)
+		for (int i = size; i > index; i--)
 		{
 			elementData[i] = elementData[i - 1];
 		}
@@ -54,11 +54,12 @@ public class ArrayList implements List
 					+ " is invalid, current range: 0 - " + (size - 1);
 			throw new ArrayIndexOutOfBoundsException(errorInfo);
 		}
+		
+		Object o = elementData[index];
 		for (int i = index; i < size - 1; i++)
 		{
 			elementData[i] = elementData[i + 1];
 		}
-		Object o = elementData[size];
 		elementData[size--] = null;
 		return o;
 	}

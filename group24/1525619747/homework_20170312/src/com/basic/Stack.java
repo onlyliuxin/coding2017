@@ -6,25 +6,26 @@ public class Stack
 
 	public void push(Object o)
 	{
+		elementData.add(0, o);
 	}
 
 	public Object pop()
 	{
-		return null;
+		return elementData.remove(0);
 	}
 
 	public Object peek()
 	{
-		return null;
+		return elementData.get(0);
 	}
 
 	public boolean isEmpty()
 	{
-		return false;
+		return (elementData.size() == 0);
 	}
 
 	public int size()
 	{
-		return -1;
+		return elementData.size();
 	}
 }
