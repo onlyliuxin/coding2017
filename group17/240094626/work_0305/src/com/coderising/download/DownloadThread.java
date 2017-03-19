@@ -1,76 +1,51 @@
 package com.coderising.download;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.util.concurrent.CyclicBarrier;
 
 import com.coderising.download.api.Connection;
 
 public class DownloadThread extends Thread{
 
-	Connection conn;
-	int startPos;
-	int endPos;
-	int threadId;
-	private static final int  BUFF_LENGTH = 1024;
-	private final static String TEMP_FILE_PATH = "E:/temp";
-	String filePath ;
+	private Connection conn;
+	private int startPos;
+	private int endPos;
+	private int threadId;
+	private String localFile;
+	private static final int  BUFF_LENGTH = 1024 * 4;
 	boolean isFinished = false;
-	long currSize = 0;
+	int currSize = 0;
+	CyclicBarrier barrier;
 
-	public DownloadThread( Connection conn, int startPos, int endPos,int threadId){
+	public DownloadThread( Connection conn, int startPos, int endPos,int threadId,String localFile,CyclicBarrier barrier){
 		
 		this.conn = conn;		
 		this.startPos = startPos;
 		this.endPos = endPos;
 		this.threadId = threadId;
-		filePath = TEMP_FILE_PATH + "/"+threadId+".tmp";
+		this.localFile = localFile;
+		this.barrier = barrier;
 	}
 	public void run(){	
 		try {
-			// create  temp file with threadId
-			createTmepFile();
-			
-			// read  temp file 
-			writeTempFile();
-			
+			System.out.println("Thread"+threadId+" begin download bytes range:"+startPos+"-"+endPos);
+			RandomAccessFile raf = new RandomAccessFile(localFile, "rw");
+			int totalLen = endPos - startPos + 1;
+			while(currSize < totalLen){
+				int start = currSize + startPos;
+				int end = start + BUFF_LENGTH-1;
+				byte[] data = conn.read(start,(end>endPos?endPos:end));
+				
+				raf.seek(start);
+				raf.write(data);
+				currSize += data.length;
+				
+				
+			}
+			raf.close();
+			barrier.await(); //等待别的线程完成
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	private void createTmepFile() {
-		//判断路径temp是否存在，不存在则先创建
-    	File tempDir = new File(TEMP_FILE_PATH);
-    	if(!tempDir.exists() || !tempDir.isDirectory()){
-    		tempDir.mkdir();
-    	}
-    	
-    	File file = new File(filePath);
-    	if(file.exists()){
-			currSize = file.length();
-		}else{
-			currSize = 0;
-		}
-	}
-	private int writeTempFile() {
-		int size = 0;
-    	OutputStream fout = null;
-    	try{
-    	    fout = new FileOutputStream(filePath, true);	
-    	    for(int i = 0; i < sbLogMsg.size(); i++){
-                StringBuffer logMsg = sbLogMsg.get(i);
-                byte[] tmpBytes = CommUtil.StringToBytes(logMsg.toString());
-                fout.write(tmpBytes);
-                size += tmpBytes.length;
-             }
-    	}catch(Exception e){
-    	    e.printStackTrace();
-    	}finally{
-    		if(fout != null){
-    			fout.close();
-    		}
-    	}
-    	return size;
-		
 	}
 }

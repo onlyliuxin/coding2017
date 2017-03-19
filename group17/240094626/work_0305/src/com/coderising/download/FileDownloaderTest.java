@@ -21,9 +21,10 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://localhost:8080/test.jpg";
+		String url = "http://images2015.cnblogs.com/blog/610238/201604/610238-20160421154632101-286208268.png";
+		String localFile = "E:\\Users\\2017coding\\temp\\pic.png";
 		int threadNum = Runtime.getRuntime().availableProcessors();
-		FileDownloader downloader = new FileDownloader(url,threadNum);
+		FileDownloader downloader = new FileDownloader(url,threadNum,localFile);
 
 	
 		ConnectionManager cm = new ConnectionManagerImpl();

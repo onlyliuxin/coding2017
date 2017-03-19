@@ -1,32 +1,38 @@
 package com.coderising.download;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.concurrent.CyclicBarrier;
+
 import com.coderising.download.api.Connection;
-import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
 
 
 public class FileDownloader {
 	
-	String url;
+	private String url;
 	
-	DownloadListener listener;
+	private DownloadListener listener;
 	
-	ConnectionManager cm;
+	private ConnectionManager cm;
 	
-	int threadNum;
+	private String localFile;
+	
+	private int threadNum;
 	
 	 //一组开始下载位置
     private int[] startPos;
     //一组结束下载位置
     private int[] endPos;
     
-    private boolean stop = false;
-	
-
-	public FileDownloader(String _url,int threadNum) {
+    
+	public FileDownloader(String _url,int threadNum,String localFile) {
 		this.url = _url;
 		this.threadNum = threadNum;
+		this.localFile = localFile;
+		startPos = new int[threadNum];
+		endPos = new int[threadNum];
 		
 	}
 	
@@ -44,13 +50,24 @@ public class FileDownloader {
 		// 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
+		
+		CyclicBarrier barrier = new CyclicBarrier(threadNum, new Runnable() {
+			@Override
+			public void run() {
+				listener.notifyFinished();
+			}
+		});
+		
 		Connection conn = null;
 		try {
 			
 			conn = cm.open(this.url);
 			
 			int length = conn.getContentLength();
+			
 			if(length > 0){
+				holderFile(localFile,length);
+				
 				for(int i = 0 , len = length/threadNum; i < threadNum; i++){
 					int size = i * len;
 					startPos[i] = size;
@@ -59,14 +76,18 @@ public class FileDownloader {
 					}else{
 						endPos[i] = size + len-1;
 					}
-					Connection downConn = cm.open(url);
-					new DownloadThread(downConn, startPos[i], endPos[i], i+1).start();
+					new DownloadThread(cm.open(url), 
+										startPos[i], 
+										endPos[i], 
+										i+1, 
+										localFile,
+										barrier).start();
 				}
 				
 			}
 			
 			
-		} catch (ConnectionException e) {			
+		} catch (Exception e) {			
 			e.printStackTrace();
 		}finally{
 			if(conn != null){
@@ -79,6 +100,14 @@ public class FileDownloader {
 		
 	}
 	
+	private void holderFile(String localFile, int length) throws IOException {
+		RandomAccessFile raf = new RandomAccessFile(localFile, "rw");
+		for(int i = 0; i < length; i++){
+			raf.write(0);
+		}
+		raf.close();
+	}
+
 	public void setListener(DownloadListener listener) {
 		this.listener = listener;
 	}
