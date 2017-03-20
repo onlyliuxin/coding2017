@@ -1,4 +1,4 @@
-package com.stackwei.DataStructure;
+package com.list;
 
 public interface List {
 	public void add(Object o);
