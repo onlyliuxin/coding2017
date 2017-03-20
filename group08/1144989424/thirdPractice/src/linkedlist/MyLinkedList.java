@@ -1,5 +1,7 @@
 package linkedlist;
 
+import java.util.Comparator;
+
 /**
  * 实现LinkedList基本功能
  * @author Wayss
@@ -230,8 +232,20 @@ public class MyLinkedList implements MyList {
     
     public  void subtract(MyLinkedList list){
         
+        //方法一
         //1.对list递增排序
         //2.遍历当前链表，同时和list做比较，向后移动list指针，注意是递增的
+        
+        //方法二
+        //1.两层遍历嵌套
+        for(int i = 0; i < list.size(); i++){
+            for(int j = 0; j < size; j++){
+                if(list.get(i).equals(this.get(j))){
+                    this.remove(j);
+                }
+            }
+        }
+
     }
     
     /**
@@ -241,6 +255,14 @@ public class MyLinkedList implements MyList {
     public  void removeDuplicateValues(){
         //1.遍历链表，比较后一个和当前的大小，
         //2.相等则，删除后一个，同时再比较原先删除的节点的后一个（可能需要while）
+        for(int i = 0; i < size; i++){
+            while(this.get(i).equals(this.get(i+1))){
+                this.remove(i+1);
+                //由于remove会把size的大小减一，所以，不会出现数组越界
+                i++;
+                //i++的目的是为了判断连续多个值相等的情况
+            }
+        }
     }
     
     /**
@@ -253,6 +275,24 @@ public class MyLinkedList implements MyList {
         //1.找到第一个值大于min的节点，的前一个节点
         //2.找到第一个值小于max的节点
         //3.用第一步找出的节点指向第二步找出的节点的next
+        Node minNode = head.next;
+        Node maxNode = head.next;
+        
+        int first = 0;
+        int last = 0;
+        //循环停止的条件是，找到了第一个节点不小于min的点了。
+        //所以，minNode也就没有再往后移动了。即，在不小于min的第一个点的前一个
+        while((int)this.get(first++) < min){
+            minNode = minNode.next;
+        }
+        
+        while((int)this.get(last++) < max){
+            maxNode = maxNode.next;
+        }
+        //maxNode往后再移动一个位置，表示的是第一个不小于max的点
+        maxNode = maxNode.next;
+        
+        minNode.next = maxNode;
     }
     
     /**
@@ -263,7 +303,26 @@ public class MyLinkedList implements MyList {
     public  MyLinkedList intersection( MyLinkedList list){
         //1.假设当前链表节点个数是m,list中的节点个数是n
         //2.现在需要遍历m+n次，依次把值给链表C传递，同时，给C链表add的时候，注意比较大小
-        return null;
+        MyLinkedList result = new MyLinkedList();
+        int i = 0;
+        int j = 0;
+        while(i < size){
+            while(j < list.size()){
+                if((int)this.get(i) < (int)list.get(j)){
+                    result.add(this.get(i));
+                    i++;
+                }else if((int)this.get(i) == (int)list.get(j)){
+                    result.add(this.get(i));
+                    i++;
+                    j++;
+                }else{
+                    result.add(list.get(j));
+                    j++;
+                }
+            }
+        }
+            
+        return result;
     }
     
 }
