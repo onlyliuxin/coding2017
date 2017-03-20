@@ -19,6 +19,17 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.jvnet.hudson.dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>1.6.1-hudson-3</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>20.0</version>
+            </dependency>
             <!--test-->
             <dependency>
                 <groupId>junit</groupId>
