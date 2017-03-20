@@ -15,14 +15,20 @@ public class ArrayUtil {
 	 */
 	public void reverseArray(int[] origin){
 		makeSure(origin);
-		int length = origin.length - 1;
+		/*int length = origin.length - 1;
 		int [] newArr = new int[length + 1];
 
 		for (int i = 0; i <= length; ++i)
 			newArr[i] = origin[length - i];
 
 		for (int i = 0 ; i <= length; ++i)
-			origin[i] = newArr[i];
+			origin[i] = newArr[i];*/
+
+		for (int i = 0, j = origin.length - 1; i < j; ++i, --j) {
+			int t = origin[i];
+			origin[i] = origin[j];
+			origin[j] = t;
+		}
 
 	}
 
