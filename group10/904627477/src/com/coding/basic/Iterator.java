@@ -1,4 +1,4 @@
-package com.coding;
+package com.coding.basic;
 
 public interface Iterator {
 	public boolean hasNext();
