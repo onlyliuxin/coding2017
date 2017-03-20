@@ -1,4 +1,4 @@
-package code;
+package com.homework01;
 
 import java.util.Arrays;
 
@@ -36,7 +36,7 @@ public class ArrayList {
 		System.arraycopy(obj, index+1, tar, index, obj.length-index-1);
 		Object o = obj[index];
 		obj = tar;
-		return o;//·µ»Ø±»É¾ÔªËØ
+		return o;//ï¿½ï¿½ï¿½Ø±ï¿½É¾Ôªï¿½ï¿½
 	}
 	public static void main(String[] args) {
 		ArrayList al = new ArrayList();
