@@ -62,16 +62,14 @@ public class LinkedList implements List {
     public Object remove(int index) {
         checkRange(index);
         checkNodeNotNull();
-        Object object;
         if (index == 0) {
-            object = removeFirst();
-            return object;
+            removeFirst();
+            return head;
         }
         Node pre = node(index - 1);
-        object = pre.next.data;
         pre.next = pre.next.next;
         size--;
-        return object;
+        return head;
     }
 
     @Override
@@ -94,25 +92,20 @@ public class LinkedList implements List {
 
     public Object removeFirst() {
         checkNodeNotNull();
-        Object oldValue = head.data;
         head = head.next;
         size--;
-        return oldValue;
+        return head;
     }
 
     public Object removeLast() {
         checkNodeNotNull();
-        Object oldValue;
         if (size == 1) {
-            oldValue = head.data;
             head = null;
-            return oldValue;
         }
         Node pre = node(size() - 2);
-        oldValue = pre.next.data;
         pre.next = null;
         size--;
-        return oldValue;
+        return head;
     }
 
     private void checkRange(int index) {

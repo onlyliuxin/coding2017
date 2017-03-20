@@ -89,15 +89,18 @@ public class ArrayList<E> implements List<E> {
 	}
 
 	public Iterator iterator(){
-		return new ArrayListIterator();
+		return new ArrayListIterator(this);
 	}
 
 	private class ArrayListIterator<E> implements Iterator{
 
-		private int endIndex = size - 1;
+		private Object [] array;
+		private int endIndex = 0;
 		private int index = 0;
 
-		public ArrayListIterator(){
+		public ArrayListIterator(ArrayList list){
+			this.array=list.elementData;
+			this.endIndex = list.size();
 		}
 		@Override
 		public boolean hasNext() {
@@ -109,7 +112,7 @@ public class ArrayList<E> implements List<E> {
 			if(!this.hasNext()) {
 				throw new NoSuchElementException();//没有元素了
 			} else {
-				return (E)elementData[this.index++];
+				return (E)Array.get(this.array, this.index++);
 			}
 		}
 	}

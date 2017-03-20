@@ -1,17 +1,9 @@
 /.metadata/
-
 /RemoteSystemsTempFiles/
-
-
 
 /JavaUtil/.settings/
 
-/JavaUtil/target/
-
-
-
 .classpath
-
 .project
 
 Test.java

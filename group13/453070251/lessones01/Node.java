@@ -1,4 +1,3 @@
-package lessones01;
 public class Node<T>{
 	public Node<T> left;
 	public Node<T> right;

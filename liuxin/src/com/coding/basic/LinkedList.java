@@ -1,5 +1,7 @@
 package com.coding.basic;
 
+
+
 public class LinkedList implements List {
 	
 	private Node head;
@@ -71,20 +73,20 @@ public class LinkedList implements List {
 		
 	}
 	/**
-	 * 假定当前链表和listB均包含已升序排列的整数
-	 * 从当前链表中取出那些listB所指定的元素
+	 * 假定当前链表和list均包含已升序排列的整数
+	 * 从当前链表中取出那些list所指定的元素
 	 * 例如当前链表 = 11->101->201->301->401->501->601->701
 	 * listB = 1->3->4->6
 	 * 返回的结果应该是[101,301,401,601]  
 	 * @param list
 	 */
-	public  int[] getElements(LinkedList list){
+	public static int[] getElements(LinkedList list){
 		return null;
 	}
 	
 	/**
 	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
-	 * 从当前链表中中删除在listB中出现的元素 
+	 * 从当前链表中中删除在list中出现的元素 
 
 	 * @param list
 	 */

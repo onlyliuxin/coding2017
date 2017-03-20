@@ -2,10 +2,6 @@ package com.LinkedList;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -74,7 +70,7 @@ public class LinkedListUtilTest {
 		llu.add(601);
 		llu.add(701);
 		llu.add(801);
-		LinkedList<Integer> l = new LinkedList<Integer>();
+		LinkedListUtil<Integer> l = new LinkedListUtil<Integer>();
 		l.add(1);
 		l.add(3);
 		l.add(4);

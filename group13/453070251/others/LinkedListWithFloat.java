@@ -1,7 +1,11 @@
+<<<<<<< HEAD:group13/453070251/lessones01/LinkedListWithFloat.java
+public class LinkedListWithFloat<T> extends LinkedList<T>{
+=======
 package others;
 import lessones01.Node;
 import lessones03.LinkedListNoPrior;
 public class LinkedListWithFloat<T> extends LinkedListNoPrior<T>{
+>>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479:group13/453070251/others/LinkedListWithFloat.java
 	public static void main(String[] args){
 		LinkedListWithFloat<String> arr = new LinkedListWithFloat<String>();
 		arr.add("0");

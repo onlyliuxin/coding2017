@@ -40,16 +40,16 @@ public class ArrayList  {
 		return -1;
 	}
 	
-//	public Iterator iterator(){
-//		//TODO
-//		//ï¿½ï¿½ï¿½á¡£ï¿½ï¿½ï¿½ï¿½
-//		return null;
-//	}
+	public Iterator iterator(){
+		//TODO
+		//²»»á¡£¡£¡£
+		return null;
+	}
 	
 
 	private void rangeCheck( int index) {  
         if (index >= size || index < 0){
-            throw new IndexOutOfBoundsException("Ö¸ï¿½ï¿½ï¿½ï¿½indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+            throw new IndexOutOfBoundsException("Ö¸¶¨µÄindex³¬¹ý½çÏÞ");
         }  
     }  
 	
@@ -57,7 +57,7 @@ public class ArrayList  {
 	public void ensureCapacity(int minCapacity) {
 		int oldCapacity = elementData.length;
 		if (minCapacity > oldCapacity) {
-            //ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Îªï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1.5ï¿½ï¿½
+            //¼ÆËãÐÂµÄÈÝÁ¿´óÐ¡£¬Îªµ±Ç°ÈÝÁ¿µÄ1.5±¶
             int newCapacity = (oldCapacity * 3) / 2 + 1;
             if (newCapacity < minCapacity)
                 newCapacity = minCapacity;
