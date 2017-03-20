@@ -1,6 +1,7 @@
 package com.github.fei9009.coderising0305.download;
 
 import java.io.RandomAccessFile;
+import java.util.concurrent.CyclicBarrier;
 
 import com.github.fei9009.coderising0305.download.api.Connection;
 
@@ -9,30 +10,28 @@ public class DownloadThread extends Thread{
 	Connection conn;
 	int startPos;
 	int endPos;
-
-	public DownloadThread( Connection conn, int startPos, int endPos){
+	CyclicBarrier barrier;
+	String localFile;
+	
+	public DownloadThread( Connection conn, int startPos, int endPos, String localFile, CyclicBarrier barrier){
 		
 		this.conn = conn;		
 		this.startPos = startPos;
 		this.endPos = endPos;
+		this.localFile = localFile;
+		this.barrier = barrier;
 	}
 	public void run(){	
-		RandomAccessFile out = null;
 		try{
 			byte[] buffer = conn.read(startPos, endPos);
-			out = new RandomAccessFile("src/com/github/fei9009/coderising0305/download/fruits.jpg","rwd");
-			out.seek(startPos);
-			out.write(buffer);
-			FileDownloader fileloader = new FileDownloader("");
-			fileloader.getListener();
+			RandomAccessFile file = new RandomAccessFile(localFile,"rw");
+			file.seek(startPos);	
+			file.write(buffer);
+			file.close();
+			conn.close();
+			barrier.await(); 
 		}catch(Exception e){
 			e.printStackTrace();
-		}finally{
-			try{
-				out.close();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
 		}
 	}
 }

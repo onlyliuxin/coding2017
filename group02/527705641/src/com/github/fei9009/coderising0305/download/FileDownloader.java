@@ -1,5 +1,9 @@
 package com.github.fei9009.coderising0305.download;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.concurrent.CyclicBarrier;
+
 import com.github.fei9009.coderising0305.download.api.Connection;
 import com.github.fei9009.coderising0305.download.api.ConnectionException;
 import com.github.fei9009.coderising0305.download.api.ConnectionManager;
@@ -7,16 +11,17 @@ import com.github.fei9009.coderising0305.download.api.DownloadListener;
 
 public class FileDownloader {
 	
-	String url;
-	
+	private String url;
+	private String localFile;
 	DownloadListener listener;
-	
 	ConnectionManager cm;
 	
+	//At most 3 threads
+	private static final int DOWNLOAD_TRHEAD_NUM = 3;
 
-	public FileDownloader(String _url) {
+	public FileDownloader(String _url, String localFile) {
 		this.url = _url;
-		
+		this.localFile = localFile;
 	}
 	
 	public void execute(){
@@ -33,30 +38,61 @@ public class FileDownloader {
 		// 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
+		CyclicBarrier barrier = new CyclicBarrier(DOWNLOAD_TRHEAD_NUM , new Runnable(){
+			public void run(){
+				listener.notifyFinished();
+			}
+		}); 
 		Connection conn = null;
+		
 		try {
 			
 			conn = cm.open(this.url);
-			
+
 			int length = conn.getContentLength();	
-			int count = 6;
-			int block = length/10024/count;
-			for (int i = 1;i <= count; i++){
-				int startPos = (i-1) * block;
-				int endPos = i * block - 1;
-				if (i == count) {
-					endPos = length;
-				}
-			}
-			new DownloadThread(conn,0,length-1).start();
+			createPlaceHolderFile(this.localFile, length);			
 			
-		} catch (ConnectionException e) {			
+			int[][] ranges = allocateDownloadRange(DOWNLOAD_TRHEAD_NUM, length);
+			
+			for(int i=0; i< DOWNLOAD_TRHEAD_NUM; i++){
+				DownloadThread thread = new DownloadThread(cm.open(url), ranges[i][0], ranges[i][1], localFile, barrier);
+				thread.start();				
+			}
+			
+		} catch (Exception e) {			
 			e.printStackTrace();
 		}finally{
 			if(conn != null){
 				conn.close();
 			}
 		}
+	}
+	
+	private void createPlaceHolderFile(String fileName, int contentLen) throws IOException{
+		
+		RandomAccessFile file = new RandomAccessFile(fileName,"rw");
+		for(int i=0; i<contentLen ;i++){
+			file.write(0);
+		}
+		file.close();
+	}
+	
+	private int[][] allocateDownloadRange(int threadNum, int contentLen){
+		int[][] ranges = new int[threadNum][2];
+		
+		int eachThreadSize = contentLen / threadNum;
+		int left = contentLen % threadNum;
+		
+		for(int i=0;i<threadNum;i++){
+			int startPos = i * eachThreadSize;
+			int endPos = (i + 1) * eachThreadSize - 1;
+			if ((i == (threadNum - 1))) {
+				endPos += left;
+			}
+			ranges[i][0] = startPos;
+			ranges[i][1] = endPos;
+		}
+		return ranges;
 	}
 	
 	public void setListener(DownloadListener listener) {

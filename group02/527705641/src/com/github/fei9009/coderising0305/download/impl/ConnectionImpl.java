@@ -3,49 +3,66 @@ package com.github.fei9009.coderising0305.download.impl;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.util.Arrays;
 
 import com.github.fei9009.coderising0305.download.api.Connection;
+import com.github.fei9009.coderising0305.download.api.ConnectionException;
 
 
 public class ConnectionImpl implements Connection{
 	
-	private String url;
+	URL url;
+	static final int BUFFER_SIZE = 1024;
 	
-	public ConnectionImpl(String url){
-		this.url=url;
+	ConnectionImpl(String _url) throws ConnectionException{
+		try {			
+			url = new URL(_url);
+		} catch (MalformedURLException e) {			
+			throw new ConnectionException();
+		}
 	}
 	
 	@Override
 	public byte[] read(int startPos, int endPos) throws IOException {
 		
-		URL url = new URL(this.url);
-		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-		conn.setRequestProperty("Range", "bytes="+startPos+"-"+endPos);
-		BufferedInputStream in = new BufferedInputStream(conn.getInputStream());
-		ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-		byte[] buffer = new byte[1024];
-		int size = 0;         
-        while ((size = in.read(buffer)) != -1) {         
-            out.write(buffer, 0, size);         
+		HttpURLConnection httpConn = (HttpURLConnection)url.openConnection();
+		httpConn.setRequestProperty("Range", "bytes=" + startPos + "-"+ endPos);
+		InputStream is  = httpConn.getInputStream();
+		//is.skip(startPos);		
+		byte[] buff = new byte[BUFFER_SIZE];  
+        int totalLen = endPos - startPos + 1;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();        
+      
+        while(baos.size() < totalLen){  
+        	int len = is.read(buff);           
+            if (len < 0) {  
+                break;  
+            }             
+            baos.write(buff,0, len);            
+        }  
+        if(baos.size() > totalLen){
+        	byte[] data = baos.toByteArray();
+        	return Arrays.copyOf(data, totalLen);
         }
-        byte[] b = out.toByteArray();
-        out.close();
-        in.close();
-		return b;
+		return baos.toByteArray();
 	}
 
 	@Override
 	public int getContentLength() {
 		
-		try{
-			URL u = new URL(url);
-			HttpURLConnection conn = (HttpURLConnection)u.openConnection();
-			return conn.getContentLength();
-		}catch(Exception e){
+		URLConnection con;
+		try {
+			con = url.openConnection();
+			return con.getContentLength(); 
+			
+		} catch (IOException e) {			
 			e.printStackTrace();
-		}
+		}  
 		return -1;
 	}
 

@@ -23,9 +23,9 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://inews.gtimg.com/newsapp_bt/0/1209438116/1000";
+		String url = "http://images2015.cnblogs.com/blog/610238/201604/610238-20160421154632101-286208268.png";
 		
-		FileDownloader downloader = new FileDownloader(url);
+		FileDownloader downloader = new FileDownloader(url,"c:\\ctest.jpg");
 
 	
 		ConnectionManager cm = new ConnectionManagerImpl();
@@ -53,7 +53,6 @@ public class FileDownloaderTest {
 			}
 		}
 		System.out.println("下载完成！");
-		
 		
 
 	}
