@@ -63,11 +63,11 @@ public class FileDownloader {
 			int length = conn.getContentLength();
             int partSize = (length % 3 == 0) ? length / 3 : (length / 3 + 1);
 
-				for(int i = 0; i < 3; i++) {
-					int startPos = partSize * i;
-					int endPos = partSize * (i + 1) - 1;
-					new DownloadThread(conn, startPos, endPos, filePath, barrier).start();
-				}
+            for(int i = 0; i < 3; i++) {
+                int startPos = partSize * i;
+                int endPos = partSize * (i + 1) - 1;
+                new DownloadThread(conn, startPos, endPos, filePath, barrier).start();
+            }
 
 		} catch (ConnectionException e) {
 			e.printStackTrace();
