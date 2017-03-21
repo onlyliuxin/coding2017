@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
 public class ArrayUtil {
 	
 	/**
@@ -14,13 +16,15 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin){
-		int end = origin.length-1;
-		int temp ;
-		for (int i = 0; i < end; i++,end--) {
-			temp=origin[i];
-			origin[i]=origin[end];
-			origin[end] = temp;
+		if(null ==origin ||0==origin.length){
+			return;
 		}
+		for (int i = 0,j=origin.length-1; i < j; i++,j--) {
+			int temp=origin[i] ;
+			origin[i]= origin[j];
+			origin[i]=temp;
+		}
+		
 	}
 	
 	/**
@@ -32,23 +36,18 @@ public class ArrayUtil {
 	 */
 	
 	public int[] removeZero(int[] oldArray){		
-		int zeroCnt = 0;
-		for (int i : oldArray) {
-			if(0==i){
-				zeroCnt++;
-			}
-			
-		}		
-		int size = 0;
-		int [] result = new int[oldArray.length-zeroCnt];
-		for (int i : oldArray) {
-			if(0!=i){
-				result[size]=i;
-				size++;
-			}
-			
+		if(null==oldArray||oldArray.length ==0){
+			return null;
 		}
-		return result;
+		int notZeroCnt = 0;
+		int [] temp = new int[oldArray.length];
+		for (int i = 0; i < oldArray.length; i++) {
+			if(oldArray[i]!=0){
+				temp[notZeroCnt++] = oldArray[i];
+			}
+		}
+		System.arraycopy(temp, 0, temp, 0, notZeroCnt);
+		return temp;
 	}
 	
 	/**
@@ -60,31 +59,34 @@ public class ArrayUtil {
 	 */
 	
 	public int[] merge(int[] array1, int[] array2){		
-		//合拼数组，缺排序，缺去重
+		if(null==array1&&null==array2){
+			return null;
+		}		
 		int [] temp = new int[array1.length+array2.length];
-		System.arraycopy(array1, 0, temp, 0, array1.length);
-		System.arraycopy(array2, 0, temp, array1.length, array2.length);		
-		List<Integer>  resultList= new ArrayList<Integer>();
-		for (int i : temp) {
-			if(!resultList.contains(i))
-				resultList.add(i);
-		}//已去重数组，缺排序
-		int [] result = new int[resultList.size()];
-		for (int i = 0; i < resultList.size(); i++) {
-			result[i] = resultList.get(i);
-		}
-		//冒泡排序
-		for (int i = 0; i < result.length-1; i++) {
-			for (int j = 0; j < result.length-i-1; j++) {
-				if(result[j]>result[j+1]){
-					int tempInt = result[j];
-					result[j] =result[j+1];
-					result[j+1] = tempInt;					
-				}
+		int i = 0;
+		int j = 0;
+		int count = 0;
+		while (i<array1.length&&j<array2.length) {
+			if(array1[i]<array2[j]){
+				temp[count++] = array1[i++];
 			}
-				
-		}						
-		return  result;
+			if(array1[i]>array2[j]){
+				temp[count++] = array2[j++];
+			}
+			if(array1[i]==array2[j]){
+				temp[count++] = array2[j];
+				i++;
+				j++;
+			}
+		}
+		while(i==array1.length&&j<array2.length){
+			temp[count++] = array2[j++];
+		}
+		while(j==array2.length&&i<array1.length){
+			temp[count++] = array1[i++];
+		}
+		System.arraycopy(temp, 0, temp, 0, count);
+		return  temp;
 	}
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
@@ -107,16 +109,25 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max){
-		int first =0;
-		int second = 1;
-		List<Integer>  resultList= new ArrayList<Integer>();		
-		if(max!=second)
-		add(first,second,max,resultList);
-		int [] result = new int[resultList.size()];
-		for (int i = 0; i < resultList.size(); i++) {
-			result[i] = resultList.get(i);
+		if(1==max){
+			return new int[0];
 		}
-		return result;
+		if(2==max){
+			return new int[]{1,1};
+		}
+		int [] temp = new int [max]  ;
+		temp[0] = 1;
+		temp[1] = 1;
+		int cnt = 2;
+		for (int i = 2 ; i < max; i++) {
+			temp[i] = temp[i-1] + temp[i-2];
+			if(temp[i]>=max){
+				break;
+			}else{
+				cnt++;
+			}
+		}
+		return Arrays.copyOf(temp, cnt);
 	}
 	
 	/**
@@ -126,23 +137,30 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max){
-		List<Integer>  resultList= new ArrayList<Integer>();
+		if(max<2){
+			return new int[0];
+		}
+		int [] temp = new int[max];
+		int cnt = 0;
 		for (int i = 2; i < max; i++) {
-			boolean isAdd = true;
-			for (int j = 2; j < i; j++) {
-				if(0==i%j){
-					isAdd = false;
-					break;
-				}					
+			if(isPrime(i)){
+				temp[cnt++] = i;
 			}
-			if(isAdd)
-				resultList.add(i);
 		}
-		int [] result = new int[resultList.size()];
-		for (int i = 0; i < resultList.size(); i++) {
-			result[i] = resultList.get(i);
+		return Arrays.copyOf(temp, cnt);
+	}
+	
+	private boolean isPrime(int n){
+		int i = 2;
+		while(i<n){
+			if(n%i==0){
+				break;
+			}
+			if(n%i!=0){
+				i++;
+			}
 		}
-		return result;
+		return i==n;
 	}
 	
 	/**
@@ -152,22 +170,23 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max){
-		List<Integer>  resultList= new ArrayList<Integer>();
-		for (int i = 1; i < max; i++) {
-			int temp = 0;
+		if(max<0){
+			return null;
+		}
+		int cnt = 0;
+		int [] temp = new int[max];
+		for (int i = 2; i < max; i++) {
+			int sum = 0;
 			for (int j = 1; j < i; j++) {
-				if(0==i%j){
-					temp+=j;
+				if(i%j==0){
+					sum+=j;
 				}
 			}
-			if(i==temp)
-				resultList.add(i);
+			if(sum==i){
+				temp[cnt++] = i;
+			}
 		}
-		int [] result = new int[resultList.size()];
-		for (int i = 0; i < resultList.size(); i++) {
-			result[i] = resultList.get(i);
-		}
-		return result;
+		return Arrays.copyOf(temp, cnt);
 	}
 	
 	/**
@@ -179,24 +198,19 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator){
-		return Arrays.toString(array).replace("[", "").replace("]", "").replace(", ", seperator);
+		if(null==array||array.length==0){
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < array.length; i++) {
+			sb.append(array[i]);
+			if(i<array.length-1){
+				sb.append(seperator);
+			}
+		}
+		return sb.toString();
 	}
 	
-	/**
-	 * 
-	 * @param number1
-	 * @param number2
-	 * @param max
-	 * @param resultList
-	 * @return
-	 */
-	public List<Integer> add(int number1,int number2,int max,List<Integer>  resultList){
-		if(number2<max){
-			resultList.add(number2);
-			return add(number2,number1+number2,max,resultList);
-		}else{
-			return resultList;
-		}			
-	};
+	
 
 }
