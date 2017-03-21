@@ -1,7 +1,8 @@
 package com.coderising.download;
 
-import java.io.File;
+import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.concurrent.CyclicBarrier;
 
 import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
@@ -20,7 +21,7 @@ public class FileDownloader {
 		this.url = _url;
 	}
 
-	public void execute() {
+	public void execute(String filePath) {
 		// 在这里实现你的代码， 注意： 需要用多线程实现下载
 		// 这个类依赖于其他几个接口, 你需要写这几个接口的实现代码
 		// (1) ConnectionManager , 可以打开一个连接，通过Connection可以读取其中的一段（用startPos,
@@ -39,34 +40,35 @@ public class FileDownloader {
 
 		Connection conn = null;
 		try {
+			final int NUM_THREADS = 3;
+
 			conn = cm.open(this.url);
 
 			int length = conn.getContentLength();
+			System.out.println("total file size is: " + length);
 
 			// Separate length to 3
-			int partLen = (int) Math.ceil(length / 3);
+			int partLen = (int) Math.ceil(length / NUM_THREADS);
 
 			// create a file
-			String filePath = "D://java_learning//test.jpg";
+			createPlaceHolderFile(filePath, length);
 
-			// create three threads
-//			DownloadThread t1 = new DownloadThread(cm.open(this.url), 0, partLen - 1, filePath);
-//			t1.start();
-//			t1.join();
-//			
-//			DownloadThread t2 = new DownloadThread(cm.open(this.url), partLen, partLen * 2 - 1, filePath);
-//			t2.start();
-//			t2.join();
-//			
-//			DownloadThread t3 =new DownloadThread(cm.open(this.url), partLen * 2, length - 1, filePath);
-//			t3.start();
-//			t3.join();
+			Runnable barrierAction = new Runnable() {
+				@Override
+				public void run() {
+					getListener().notifyFinished();
+				}
+			};
 
-			new DownloadThread(cm.open(this.url), 0, length-1, filePath).start();
-			
-//			getListener().notifyFinished();
-			
+			CyclicBarrier barrier = new CyclicBarrier(3, barrierAction);
+
+			new DownloadThread(cm.open(this.url), 0, partLen - 1, filePath, barrier).start();
+			new DownloadThread(cm.open(this.url), partLen, partLen * 2 - 1, filePath, barrier).start();
+			new DownloadThread(cm.open(this.url), partLen * 2, length - 1, filePath, barrier).start();
+
 		} catch (ConnectionException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			if (conn != null) {
@@ -74,6 +76,16 @@ public class FileDownloader {
 			}
 		}
 
+	}
+
+	private void createPlaceHolderFile(String filePath, int contentLength) throws IOException {
+		RandomAccessFile file = new RandomAccessFile(filePath, "rw");
+
+		for (int i = 0; i < contentLength; i++) {
+			file.write(0);
+		}
+
+		file.close();
 	}
 
 	public void setListener(DownloadListener listener) {
