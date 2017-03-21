@@ -3,7 +3,7 @@ package list;
 import java.util.Arrays;
 
 public class ArrayList<E> {
-	private transient static int INITIAL_SIZE = 10;
+	private transient static final int INITIAL_SIZE = 10;
 	private transient int arrayLength;
 	private transient int size;
 	private transient E[] array;
@@ -43,11 +43,13 @@ public class ArrayList<E> {
 		array[index] = e;
 		return result;
 	}
-	private void ensureCapacity(int size){
+	public void ensureCapacity(int size){
 		E[] oldArray = array;
 		int oldSize = arrayLength;
 		while(size>arrayLength){
 			arrayLength = arrayLength + (arrayLength >> 1);
+		}
+		if(oldSize!=arrayLength){
 			array = Arrays.copyOf(oldArray, arrayLength);
 		}
 	}

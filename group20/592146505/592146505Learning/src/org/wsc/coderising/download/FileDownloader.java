@@ -1,5 +1,7 @@
 package org.wsc.coderising.download;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.wsc.coderising.download.api.Connection;
 import org.wsc.coderising.download.api.ConnectionException;
 import org.wsc.coderising.download.api.ConnectionManager;
@@ -14,13 +16,15 @@ import org.wsc.coderising.download.api.DownloadListener;
  *
  */
 public class FileDownloader {
+	private final static int THREAD_NUM = 10;
 	
-	String url;
+	private String url;
 	
-	DownloadListener listener;
+	private DownloadListener listener;
 	
-	ConnectionManager cm;
+	private ConnectionManager cm;
 	
+	private AtomicInteger atomicInteger = new AtomicInteger();
 
 	public FileDownloader(String _url) {
 		this.url = _url;
@@ -41,25 +45,29 @@ public class FileDownloader {
 		// 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
-		Connection conn = null;
 		try {
-			
-			conn = cm.open(this.url);
-			
-			int length = conn.getContentLength();	
-			
-			new DownloadThread(conn,0,length-1).start();
+			int length = cm.getContentLength(url);
+			int perThred_length = length/THREAD_NUM;
+			int redundant  = length%THREAD_NUM;
+			for (int i = 0; i < THREAD_NUM; i++) {
+				int startPos = i*perThred_length;
+				int endPos = (i+1)*perThred_length-1;
+				if(i == THREAD_NUM -1)//最后一个线程
+					endPos+=redundant;
+				Connection conn = cm.open(this.url);
+				atomicInteger.getAndIncrement();
+				new DownloadThread(conn,startPos,endPos,new DownloadListener() {
+					@Override
+					public void notifyFinished() {
+						if(atomicInteger.decrementAndGet()==0)
+							listener.notifyFinished();
+					}
+				}).start();
+			}
 			
 		} catch (ConnectionException e) {			
 			e.printStackTrace();
-		}finally{
-			if(conn != null){
-				conn.close();
-			}
 		}
-		
-		
-		
 		
 	}
 	
