@@ -18,7 +18,7 @@ public class LinkedListTest {
         linkedList.add("1");
         linkedList.add("2");
         linkedList.add("3");
-        System.out.println(linkedList);
+//        System.out.println(linkedList);
     }
 
     @After
@@ -113,6 +113,19 @@ public class LinkedListTest {
         System.out.println(linkedList);
         linkedList.removeDuplicateValues();
         System.out.println(linkedList);
+    }
+
+    @Test
+    public void removeRange() {
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        list.add(1);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(7);
+        System.out.println(list);
+        list.removeRange(1, 6);
+        System.out.println(list);
     }
 
 }

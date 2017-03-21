@@ -21,10 +21,9 @@ public class LinkedList<T> {
     }
 
     private Node<T> getLast() {
-        Node last = null;
-        while (head.next != null) {
-            last = head;
-            head = head.next;
+        Node<T> last = head;
+        while (last.next != null) {
+            last = last.next;
         }
         return last;
     }
@@ -252,7 +251,21 @@ public class LinkedList<T> {
      * @param max
      */
     public void removeRange(int min, int max) {
-
+        Integer first = (Integer) get(0);
+        Integer last = (Integer) getLast().data;
+        if (first > max || last < min)
+            return;
+        List<Integer> indexRange = new ArrayList<Integer>();
+        Node<Integer> temp = (Node<Integer>) head;
+        int index = 0;
+        while (temp != null) {
+            if (temp.data >= min && temp.data <= max) {
+                indexRange.add(index);
+            }
+            index++;
+            temp = temp.next;
+        }
+        remove(indexRange.get(0), indexRange.size());
     }
 
     /**
@@ -261,7 +274,7 @@ public class LinkedList<T> {
      *
      * @param list
      */
-    public LinkedList intersection(LinkedList list) {
+    public LinkedList intersection(LinkedList<T> list) {
         return null;
     }
 }
