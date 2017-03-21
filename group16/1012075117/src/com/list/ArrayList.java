@@ -1,4 +1,4 @@
-package com.stackwei.DataStructure;
+package com.list;
 
 /**
  * 
