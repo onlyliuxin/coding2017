@@ -1,5 +1,6 @@
 package com.donaldy.litestruts;
 
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -15,21 +16,67 @@ import java.util.regex.Pattern;
 
 public class Struts {
 
+
+    private final static Configuration cfg = new Configuration("struts.xml");
+
     public static View runAction(String actionName, Map<String,String> parameters) {
+
+        String clzName = cfg.getClassName(actionName);
+
+        if (clzName == null) {
+            return null;
+        }
+
+        try {
+            Class<?> clz = Class.forName(clzName);
+            Object action = clz.newInstance();
+
+            ReflectionUtil.setParameters(action, parameters);
+
+            Method m = clz.getDeclaredMethod("execute");
+
+            String resultName = (String) m.invoke(action);
+
+            String jsp = cfg.getResultView(actionName, resultName);
+
+            Map<String, Object> params = ReflectionUtil.getParamterMap(action);
+
+            View view = new View();
+            view.setJsp(jsp);
+            view.setParameters(params);
+
+            return view;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
+    }
+
+    /*public static View runAction(String actionName, Map<String,String> parameters) {
         Element  rootElement = null;
         try {
-            /**
+            *//**
              * 0.读取配置文件
-             */
+             *//*
             rootElement = readStrutsXml().getRootElement();
         } catch (DocumentException e) {
             e.printStackTrace();
         }
 
-        /**
+        *//**
          * 1.根据actionName找到class
          * 并设置
-         */
+         *//*
         String classPath = findClass(actionName, rootElement);
 
         return handle(classPath, parameters, rootElement);
@@ -133,6 +180,6 @@ public class Struts {
 
         }
         return map;
-    }
+    }*/
 
 }
