@@ -281,7 +281,35 @@ public class LinkedList<T> implements List<T> {
 	 */
 
 	public  void subtract(LinkedList list){
-
+        if (list == null || list.size() == 0) {
+            return;
+        }
+        Node node = head;
+        Node beforeNode = null;
+        Node temp = null;
+        int j = 0;    //参数list索引
+		for (;node != null && j < list.size() ;) {
+            int paradata = ((Integer)list.get(j)).intValue();
+            int data = ((Integer)node.data).intValue();
+            if (data == paradata) {
+                j++;
+                size--;
+                temp = node;
+                if (beforeNode == null) {
+                    head = node.next;
+                    node = node.next;
+                } else {;
+                    beforeNode.next = node.next;
+                    node = node.next;
+                }
+                temp.next = null;
+            } else if (data < paradata) {
+                beforeNode = node;
+                node = node.next;
+            } else {
+                j++;
+            }
+        }
 	}
 
 	/**

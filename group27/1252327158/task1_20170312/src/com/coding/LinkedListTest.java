@@ -145,7 +145,20 @@ public class LinkedListTest {
 
 	@Test
 	public void subtract() throws Exception {
-
+		LinkedList<Integer> intList = new LinkedList<>();
+		intList.addLast(11);
+		intList.addLast(101);
+		intList.addLast(201);
+		intList.addLast(301);
+		intList.addLast(401);
+		LinkedList<Integer>  delList= new LinkedList<>();
+		delList.addLast(11);
+		delList.addLast(101);
+		delList.addLast(301);
+		delList.addLast(401);
+		intList.subtract(delList);
+		Assert.assertEquals(201, ((Integer)intList.get(0)).intValue());
+		Assert.assertEquals(1, intList.size());
 	}
 
 	@Test
