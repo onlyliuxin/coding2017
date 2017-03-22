@@ -11,9 +11,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class FileDownloader {
-	private int threadNum = 4;
+	private int threadNum = 1;
 	
 	String url;
 	
@@ -51,23 +53,33 @@ public class FileDownloader {
 			if (length < 0){
 				throw new ConnectionException();
 			}
-			File file =getFile(length);
+			threadNum = length / 1024;
 			System.out.println("length = "+length);
+			FileUtil.setFile(url,length);
 			int part = length/threadNum;
+			ExecutorService exe = Executors.newFixedThreadPool(threadNum);
 			for (int i = 0; i < threadNum; i++) {
 				DownloadThread thread;
 				if (i==threadNum-1){
-					thread = new DownloadThread(conn,i*part,length);
+					thread = new DownloadThread(conn,i*part,length-1);
 				}else {
 					thread = new DownloadThread(conn,i*part,(i+1)*part);
 				}
-				thread.setFile(file);
-				thread.start();
+				exe.execute(thread);
 			}
-			listener.notifyFinished();
-		} catch (ConnectionException e) {
+			exe.shutdown();
+			while (true) {
+				if (exe.isTerminated()) {
+					System.out.println("结束了！");
+					listener.notifyFinished();
+					break;
+				}
+				System.out.println("休眠");
+				Thread.sleep(200);
+			}
+		} catch (ConnectionException | InterruptedException e) {
 			e.printStackTrace();
-		}finally{
+		} finally{
 			if(conn != null){
 				conn.close();
 			}
@@ -82,8 +94,6 @@ public class FileDownloader {
 		this.listener = listener;
 	}
 
-	
-	
 	public void setConnectionManager(ConnectionManager ucm){
 		this.cm = ucm;
 	}
@@ -92,36 +102,4 @@ public class FileDownloader {
 		return this.listener;
 	}
 
-	private String getFileName(String url){
-		int index = url.lastIndexOf("/");
-		if (index<0){
-			return "temp";
-		}
-		String filename = url.substring(index+1);
-		if (filename.equals("")){
-			return "temp";
-		}else {
-			return filename;
-		}
-	}
-	private File getFile(int totalLen){
-		File dir = new File("D:/Download/test");
-		if(!dir.exists()){
-			dir.mkdirs();
-		}
-		File file = new File(dir, getFileName(url));
-		RandomAccessFile raf = null;
-		try {
-			raf = new RandomAccessFile(file, "rws");
-			System.out.println("totalLen = "+ totalLen);
-			if (totalLen < 0){
-				throw new ConnectionException();
-			}
-			raf.setLength(totalLen);
-			raf.close();
-		} catch (ConnectionException | IOException e) {
-			e.printStackTrace();
-		}
-		return file;
-	}
 }

@@ -23,20 +23,23 @@ public class FileDownloaderTest {
 
 //        String url = "http://localhost:8080/test.jpg";
 
-        String url = "http://n1.itc.cn/img8/wb/recom/2016/07/26/146946506808699302.JPEG";
+//        String url = "http://n1.itc.cn/img8/wb/recom/2016/07/26/146946506808699302.JPEG";
+
+//        String url = "http://localhost:8080/mybatis-jpetstore-6.0.0/";
+//        String url = "http://www.cnblogs.com/iwideal/p/6045118.html";
+//        String url = "http://localhost:8080/mybatis-jpetstore-6.0.0/actions/Catalog.action";
+//        String url = "http://blog.csdn.net/cnhk1225/article/details/34429317";
+//        String url = "http://rel.huya.com/apk/live.apk";
+//        String url = "http://yydl.duowan.com/4/setup/YYSetup-8.20.0.1-zh-CN.exe";
+//        String url = "https://discuss.kotlinlang.org/t/kotlin-1-1-language-reference-as-anki-https-apps-ankiweb-net-deck/2324";
+        String url = "http://qtdream.com/";
         FileDownloader downloader = new FileDownloader(url);
 
 
         ConnectionManager cm = new ConnectionManagerImpl();
         downloader.setConnectionManager(cm);
 
-        downloader.setListener(new DownloadListener() {
-            @Override
-            public void notifyFinished() {
-                downloadFinished = true;
-            }
-
-        });
+        downloader.setListener(() -> downloadFinished = true);
 
 
         downloader.execute();
@@ -44,7 +47,7 @@ public class FileDownloaderTest {
         // 等待多线程下载程序执行完毕
         while (!downloadFinished) {
             try {
-                System.out.println("还没有下载完成，休眠五秒");
+                System.out.println("");
                 System.out.println("None");
                 //休眠5秒
                 Thread.sleep(5000);
@@ -52,7 +55,6 @@ public class FileDownloaderTest {
                 e.printStackTrace();
             }
         }
-        System.out.println("下载完成！");
 
         System.out.println("Done!");
 

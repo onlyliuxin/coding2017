@@ -1,13 +1,11 @@
 package com.coderising.litestruts;
 
-import java.lang.reflect.Method;
 import java.util.Map;
 
 
 
 public class Struts {
 
-	
     public static View runAction(String actionName, Map<String,String> parameters) {
 
         /*
@@ -30,7 +28,6 @@ public class Struts {
         
         */
     	
-    
     	return null;
     }    
 
