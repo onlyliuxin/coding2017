@@ -77,7 +77,7 @@ public class Struts {
 //	                	System.out.println(name);
 //	                	break;
 //	        		}
-//	        	}                   	                 	                    	               	
+//	        	}
 	        }
 	        Method execute = action.getDeclaredMethod("execute");
 	        String result = (String)execute.invoke(object);
@@ -92,6 +92,7 @@ public class Struts {
 	        
 	        View view = new View();
 	        view.setParameters(map);
+			return view;
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
@@ -105,9 +106,6 @@ public class Struts {
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		}
-        
-    
-    	return null;
     }    
 
 }
