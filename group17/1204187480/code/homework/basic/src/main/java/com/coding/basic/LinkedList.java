@@ -119,6 +119,24 @@ public class LinkedList implements List {
      * 例如链表为 3->7->10 , 逆置后变为  10->7->3
      */
     public void reverse() {
+        if (size == 0) {
+            return;
+        }
+        Node[] nodes = new Node[size];
+        int i = 0;
+        // 迭代链表的数据生成数组
+        while (iterator.hasNext()) {
+            nodes[i++] = (Node) iterator.next();
+        }
+        // 遍历数组越生成新的 链表
+        Node newHead = nodes[--i];
+        Node next = newHead.next;
+        for (int j = --i; j >= 0; j--) {
+            next.next = nodes[j];
+            next = next.next;
+
+        }
+        this.head = newHead;
 
     }
 
