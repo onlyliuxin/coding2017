@@ -1,4 +1,4 @@
-package com.company;
+package com.company.code;
 
 public class Queue {
 	private LinkedList elementDatas=new LinkedList();

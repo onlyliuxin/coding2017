@@ -1,4 +1,4 @@
-package com.company;
+package com.company.code;
 
 public interface List {
 	public void add(Object o);

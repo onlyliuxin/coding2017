@@ -1,8 +1,8 @@
-package com.company;
+package com.company.code;
 
 import java.util.Arrays;
 
-public class ArrayList implements List {
+public class ArrayList<I extends Number> implements List {
 	
 	private int size = 0;
 	

@@ -1,4 +1,4 @@
-package com.company;
+package com.company.code;
 
 
 import java.util.NoSuchElementException;
