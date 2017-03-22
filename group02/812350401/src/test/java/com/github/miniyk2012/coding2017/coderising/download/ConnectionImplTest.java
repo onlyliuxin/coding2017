@@ -1,4 +1,4 @@
-package com.github.miniyk2012.coding2017.coderising.download.test;
+package com.github.miniyk2012.coding2017.coderising.download;
 
 import com.github.miniyk2012.coding2017.coderising.download.api.Connection;
 import com.github.miniyk2012.coding2017.coderising.download.impl.ConnectionManagerImpl;
