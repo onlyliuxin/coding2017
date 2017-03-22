@@ -1,6 +1,7 @@
 package com.coderising.litestruts;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.*;
 
@@ -79,6 +81,9 @@ public class Struts {
 //	        		}
 //	        	}
 	        }
+	        	}
+	        }
+
 	        Method execute = action.getDeclaredMethod("execute");
 	        String result = (String)execute.invoke(object);
 	        
@@ -106,6 +111,9 @@ public class Struts {
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		}
+        
+    
+    	return null;
     }    
 
 }
