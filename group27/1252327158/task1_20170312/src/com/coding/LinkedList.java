@@ -183,7 +183,16 @@ public class LinkedList<T> implements List<T> {
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
 	public  void reverse(){
-
+		if (size <= 1) {
+			 return;
+		 }
+		 Node<T> node = head;
+		 while (node.next != null) {
+			 Node<T> temp = node.next;
+			 node.next = temp.next;
+			 temp.next = head;
+			 head = temp;
+		 }
 	}
 
 	/**
@@ -193,7 +202,11 @@ public class LinkedList<T> implements List<T> {
 
 	 */
 	public  void removeFirstHalf(){
-
+		if (size < 2) {
+			return;
+		}
+		int delSize = (int)Math.floor(size/2);
+		remove(0, delSize);
 	}
 
 	/**
@@ -202,8 +215,31 @@ public class LinkedList<T> implements List<T> {
 	 * @param length
 	 */
 	public  void remove(int i, int length){
-
+		if (i < 0 || i >= size || length < 0 || i + length > size) {
+			throw new IndexOutOfBoundsException();
+		}
+		if (i == 0) {
+			head = removeStartWith(head, length);
+			return;
+		}
+		Node beforeStart = head;      //被删除元素的前一个
+		for (int index = 1; index < i; index++) {
+			beforeStart = beforeStart.next;
+		}
+        beforeStart.next = removeStartWith(beforeStart.next, length);
 	}
+
+	private Node<T> removeStartWith(Node<T> startNode, int length) {
+		Node<T> node = null;
+		for (int index = 1; index <= length; index++) {
+			node = startNode;
+			startNode = startNode.next;
+			node.next = null;
+			size--;
+		}
+		return startNode;
+	}
+
 	/**
 	 * 假定当前链表和list均包含已升序排列的整数
 	 * 从当前链表中取出那些list所指定的元素
@@ -212,8 +248,29 @@ public class LinkedList<T> implements List<T> {
 	 * 返回的结果应该是[101,301,401,601]
 	 * @param list
 	 */
-	public static int[] getElements(LinkedList list){
-		return null;
+	public int[] getElements(LinkedList list){
+		if (size == 0 || list == null || list.size == 0) {
+			return new int[0];
+		}
+		int[] result = new int[list.size];
+		Node node = head;
+		int index = 0;
+		int resultIndex = 0;
+		for (int i = 0; i < size; i++ ) {
+			int listData = ((Integer)list.get(index)).intValue();
+			if ( listData >= size) {
+				throw new IndexOutOfBoundsException();
+			}
+			if (i == listData) {
+				result[resultIndex++] = ((Integer)node.data).intValue();
+				index++;
+			}
+           	if (index == list.size || listData == size) {
+				break;
+			}
+			node = node.next;
+		}
+		return result;
 	}
 
 	/**
