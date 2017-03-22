@@ -155,9 +155,7 @@ public class LinkedList<T> implements List<T> {
 		//最近一次返回的节点
 		private Node<T> lastReturn;
 		
-		private int index;
-		
-		
+		private int index;		
 		
 		@Override
 		public boolean hasNext() {			
@@ -165,8 +163,9 @@ public class LinkedList<T> implements List<T> {
 		}
 
 		@Override
-		public Object next() {
-			// TODO Auto-generated method stub
+		public T next() {
+			
+			
 			return null;
 		}
 		

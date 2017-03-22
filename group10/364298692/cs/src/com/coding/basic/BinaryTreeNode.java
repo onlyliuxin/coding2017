@@ -26,6 +26,11 @@ public class BinaryTreeNode {
 	}
 	
 	public BinaryTreeNode insert(Object o){
+		if(data==null){
+			data = o;
+			return this;
+		}
+		int compareResult = ((Object) data).compareTo(o);
 		BinaryTreeNode node = new BinaryTreeNode();
 		node.data = o;
 		if(data.hashCode() > o.hashCode()){
