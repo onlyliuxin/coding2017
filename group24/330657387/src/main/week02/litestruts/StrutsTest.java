@@ -1,6 +1,5 @@
 package main.week02.litestruts;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,19 +7,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class StrutsTest {
-
-	@Test
-	public void showstr() throws Exception{
-		String actionName = "login";
-        
-		Map<String,String> params = new HashMap<String,String>();
-        params.put("name","test");
-        params.put("password","1234");
-		
-		View view  = Struts.runAction(actionName,params);
-		
-		System.out.println(Arrays.toString(Struts.str));
-	}
 	
 	@Test
 	public void testLoginActionSuccess() throws Exception {

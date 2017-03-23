@@ -1,24 +1,15 @@
 package main.week02.litestruts;
 
-import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 public class Struts {
 
-	public static String[] str = new String[10];
-
 	public static View runAction(String actionName,
-			Map<String, String> parameters) throws Exception {
+			Map<String, String> parameters) throws Exception,
+			NoSuchFieldException {
 
 		/*
 		 * 
@@ -37,29 +28,52 @@ public class Struts {
 		 * 放到View对象的jsp字段中。
 		 */
 
-		// 读取xml文档的元素值
-		// 1.获取工厂
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		// 2.产生解析器
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		// 3.解析xml文档，得到代表文档的document对象
-		Document document = builder.parse(new File(
-				"./src/main/week02/litestruts/struts.xml"));
-		// 根据标签名获取节点列表
-		NodeList list = document.getElementsByTagName("action");
-
-		HashMap<String, String> actionMap = new HashMap<String, String>(); 
-
-		for (int i = 0; i < list.getLength(); i++) {
-			// 获取节点列表里的节点
-			Element action = (Element) list.item(i);
-			// 获取节点的属性值
-			actionMap.put(action.getAttribute("name"), action.getAttribute("class"));
+		XmlSaxUtil config = new XmlSaxUtil("struts.xml");
+		String classname = config.getClassName(actionName);
+		// 1 通过反射存入parameter
+		// 没有这个类名就报错
+		if (null == classname) {
+			throw new CustomException("没有这个action啊！");
 		}
-		
-		
+		// 通过反射获取实例
+		Class<?> controllerClass = Class.forName(classname);
+		// 创建实例
+		Object controller = controllerClass.newInstance();
+		// 获取类中声明的全部成员变量
+		Field[] fields = controllerClass.getDeclaredFields();
+		// 备用
+		Method m;
+		// 得到该action所有result的结果合集
 
-		return null;
+		// 为controller注入变量
+		for (String key : parameters.keySet()) {
+			for (Field f : fields) {
+				if (f.getName() == key) {
+					m = controllerClass.getMethod("set"
+							+ key.replace(key.substring(0, 1),key.substring(0, 1).toUpperCase()), String.class);
+					m.invoke(controller, parameters.get(key));
+					break;
+				}
+			}
+		}
+
+		// 2 通过反射调用excute 获取返回值
+		m = controllerClass.getMethod("execute");
+		String result = (String) m.invoke(controller);
+
+		// 3 把message放到View对象的parameters
+		View view = new View();
+		Map<String, String> viewParam = new HashMap<String, String>();
+
+		// 新建并传入View的viewParam属性值
+		m = controllerClass.getMethod("getMessage");
+		viewParam.put("message", (String) m.invoke(controller));
+		view.setParameters(viewParam);
+		
+		// 传入jsp路径
+		view.setJsp(config.getResultView(actionName, result));
+
+		return view;
 	}
 
 }
