@@ -1,4 +1,4 @@
-package com.github.miniyk2012.coding2017.basic.test;
+package com.github.miniyk2012.coding2017.basic;
 
 import static org.junit.Assert.*;
 

@@ -1,7 +1,6 @@
-package com.github.miniyk2012.coding2017.basic.test;
+package com.github.miniyk2012.coding2017.basic;
 
 import org.junit.Before;
-import com.github.miniyk2012.coding2017.basic.ArrayList;
 
 
 public class ArrayListTest extends ListTest {

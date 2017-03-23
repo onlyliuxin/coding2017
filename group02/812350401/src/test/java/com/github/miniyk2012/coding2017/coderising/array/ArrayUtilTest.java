@@ -1,4 +1,4 @@
-package com.github.miniyk2012.coding2017.coderising.array.test;
+package com.github.miniyk2012.coding2017.coderising.array;
 
 import static org.junit.Assert.*;
 

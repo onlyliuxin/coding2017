@@ -1,13 +1,10 @@
-package com.github.miniyk2012.coding2017.basic.test;
+package com.github.miniyk2012.coding2017.basic;
 
 import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.github.miniyk2012.coding2017.basic.Iterator;
-import com.github.miniyk2012.coding2017.basic.LinkedList;
 
 
 public class LinkedListTest extends ListTest{
