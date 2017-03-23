@@ -317,7 +317,21 @@ public class LinkedList<T> implements List<T> {
 	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
 	public  void removeDuplicateValues(){
-
+		if (size < 2) {
+			return;
+		}
+		Node node = head;
+		Node delNode = null;
+		while (node.next != null) {
+			if (((Integer)node.next.data).equals(node.data)) {
+				delNode = node.next;
+				node.next = node.next.next;
+				delNode.next = null;
+				size--;
+			} else {
+				node = node.next;
+			}
+		}
 	}
 
 	/**
@@ -327,7 +341,27 @@ public class LinkedList<T> implements List<T> {
 	 * @param max
 	 */
 	public  void removeRange(int min, int max){
-
+ 		if (min >= max) {
+			return;
+		}
+		Node node = head;
+		int delLen = 0;
+		int startIndex = -1;
+		for (int i = 0; i < size; i++) {
+			int currentData = ((Integer)node.data).intValue();
+			if (currentData > min && currentData < max) {
+				if (delLen == 0) {
+					startIndex = i;
+				}
+				delLen++;
+			} else if (currentData >= max) {
+				break;
+			}
+			node = node.next;
+		}
+		if (delLen > 0) {
+			remove(startIndex, delLen);
+		}
 	}
 
 	/**
@@ -336,6 +370,24 @@ public class LinkedList<T> implements List<T> {
 	 * @param list
 	 */
 	public  LinkedList intersection( LinkedList list){
-		return null;
+		if (list.size() == 0 || size == 0) {
+			return null;
+		}
+		LinkedList result = new LinkedList();
+		Node node = head;
+		Iterator listIter = list.iterator();
+		while (listIter.hasNext()) {
+			int listData = ((Integer)listIter.next()).intValue();
+			for (;node != null;) {
+				int currentData = ((Integer)node.data).intValue();
+				if (currentData == listData) {
+					result.addLast(currentData);
+				} else if (currentData > listData) {
+					break;
+				}
+				node = node.next;
+			}
+		}
+		return result;
 	}
 }
