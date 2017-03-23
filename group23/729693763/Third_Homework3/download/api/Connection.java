@@ -1,4 +1,4 @@
-package com.coderising.download.api;
+package com.zhous.download.api;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ public interface Connection {
 	 * @param endPos 结束位置
 	 * @return
 	 */
-	public byte[] read(int startPos,int endPos) throws IOException;
+	public byte[] read(int startPos, int endPos) throws IOException;
 	/**
 	 * 得到数据内容的长度
 	 * @return

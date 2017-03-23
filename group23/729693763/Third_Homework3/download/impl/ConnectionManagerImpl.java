@@ -1,15 +1,27 @@
-package com.coderising.download.impl;
+package com.zhous.download.impl;
 
-import com.coderising.download.api.Connection;
-import com.coderising.download.api.ConnectionException;
-import com.coderising.download.api.ConnectionManager;
+import  com.zhous.download.api.*;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class ConnectionManagerImpl implements ConnectionManager {
 
+
+
 	@Override
 	public Connection open(String url) throws ConnectionException {
-		
-		return null;
+		Connection ct = null;
+		URL u = null;
+		try {
+			u = new URL(url);
+			ct = new ConnectionImpl(url);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} finally {
+			//URL类不需要关闭
+		}
+		return ct;
 	}
 
 }

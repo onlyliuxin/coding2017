@@ -1,4 +1,4 @@
-package com.coderising.download.api;
+package com.zhous.download.api;
 
 public interface DownloadListener {
 	public void notifyFinished();
