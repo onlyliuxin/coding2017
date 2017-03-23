@@ -5,18 +5,31 @@ import download.api.*;
 import java.io.*;
 import java.util.Date;
 
-
+/**
+ * TODO:
+ */
 public class FileDownloader {
-	String url;
-	DownloadListener listener;
-	ConnectionManager manager;
+	private String url;
+	private DownloadListener listener;
+	private ConnectionManager manager;
+	private boolean failed = false;
 
 	private final int[] completedThreadCount = new int[1];
 
+	/**
+	 * 下载一个url指向的文件，下载目录见 <code>Config</code>
+	 *
+	 * @see Config#targetDirectory
+	 * @see #execute()
+	 */
 	public FileDownloader(String url) {
 		this.url = url;
 	}
-	
+
+	/**
+	 * 开始下载
+	 * 调用这个方法前，先调用{@link #setConnectionManager(ConnectionManager)}和{@link #setListener(DownloadListener)}
+	 */
 	public void execute() {
 		// 在这里实现你的代码， 注意： 需要用多线程实现下载
 		// 这个类依赖于其他几个接口, 你需要写这几个接口的实现代码
@@ -41,16 +54,23 @@ public class FileDownloader {
 
 			waitForComplete(threadCount);
 			mergeTempFiles(tempFiles);
+			removeTempFiles(tempFiles);
 
 			for (Connection c : connections) {
 				if (c != null) {
 					c.close();
 				}
 			}
-			if (listener != null) {
+			if (!failed && listener != null) {
 				listener.notifyFinished();
 			}
 		}).start();
+	}
+
+	private void removeTempFiles(File[] tempFiles) {
+		for (File tempFile : tempFiles) {
+			tempFile.delete(); // 只删除临时文件，不删除临时目录
+		}
 	}
 
 	private void mergeTempFiles(File[] tempFiles) {
@@ -61,7 +81,6 @@ public class FileDownloader {
 			fos = new FileOutputStream(saveFile);
 			for (File tempFile : tempFiles) {
 				write(tempFile, fos);
-				tempFile.delete(); // 只删除临时文件，不删除临时目录
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -109,7 +128,7 @@ public class FileDownloader {
 					}
 				}, () -> {
 					try {
-						downloadFailed(connections);
+						downloadFailed(connections, tempFiles);
 					} catch (DownloadException e) {
 						e.printStackTrace();
 					}
@@ -137,10 +156,12 @@ public class FileDownloader {
 		}
 	}
 
-	private void downloadFailed(Connection[] connections) throws DownloadException {
+	private void downloadFailed(Connection[] connections, File[] tempFiles) throws DownloadException {
 		for (Connection c : connections) {
 			c.close();
 		}
+		removeTempFiles(tempFiles);
+		failed = true;
 		throw new DownloadException();
 	}
 
@@ -168,15 +189,21 @@ public class FileDownloader {
 		}
 	}
 
+	/**
+	 *
+	 * @param listener 下载成功后会调用<code>listener.notifyFinished()</code>，失败则不会调用
+	 * @see DownloadListener#notifyFinished()
+	 */
 	public void setListener(DownloadListener listener) {
 		this.listener = listener;
 	}
 
-	public void setConnectionManager(ConnectionManager manager){
+	/**
+	 *
+	 * @param manager 通过url打开连接
+	 * @see ConnectionManager#open(String)
+	 */
+	public void setConnectionManager(ConnectionManager manager) {
 		this.manager = manager;
-	}
-	
-	public DownloadListener getListener(){
-		return this.listener;
 	}
 }
