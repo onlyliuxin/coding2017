@@ -33,8 +33,8 @@ public class ArrayList implements List {
     public void add(Object o) {
         //如果越界了，需要复制原有的数组到扩充后的数组中
         if(this.current_size + 1 > this.max_size) {
-            this.elementData = copyToNew(this.elementData,this.max_size * 2);
             this.max_size = (int) Math.floor(this.max_size * this.extendPercent);
+            this.elementData = copyToNew(this.elementData,this.max_size);
         }
         this.elementData[this.current_size] = o;
         this.current_size ++;
@@ -50,8 +50,8 @@ public class ArrayList implements List {
         //如果越界了，需要复制原有的数组到扩充后的数组中
         if(this.current_size + 1 > this.max_size) {
             //如果越界了，需要复制原有的数组到扩充后的数组中
-            this.elementData = copyToNew(this.elementData,this.max_size * 2);
             this.max_size = (int) Math.floor(this.max_size * this.extendPercent);
+            this.elementData = copyToNew(this.elementData,this.max_size);
         }
         //数组中间插入
         if(index < this.current_size){
@@ -107,23 +107,22 @@ public class ArrayList implements List {
 
     public Iterator iterator(){
         return new Iterator() {
-            int cursor = 0;
-            int before_cursor = -1;
-            @Override
+            int next_pos = 0;
+            int pos = -1;
             public boolean hasNext() {
-                return cursor != ArrayList.this.size();
+                if(max_size <= 0){
+                    return false;
+                }
+                return next_pos < ArrayList.this.size();
             }
 
-            @Override
             public Object next() {
-                Object next = ArrayList.this.get(cursor);
-                before_cursor = cursor++;
+                Object next = ArrayList.this.get(next_pos);
+                pos = next_pos ++;
                 return next;
             }
-
-            @Override
             public void remove(){
-                ArrayList.this.remove(before_cursor);
+                ArrayList.this.remove(pos);
             }
         };
     }

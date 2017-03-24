@@ -146,4 +146,29 @@ public class LinkedListTest {
             Assert.assertEquals(array[i+array.length/2], linklist.get(i));
         }
     }
+
+    @Test
+    public void testRemoveDuplicateValues() throws Exception {
+        LinkedList linklist = new LinkedList();
+        String[] array = new String[]{"a","b","b","b","d","d","d"};
+        for (String str : array){
+            linklist.add(str);
+        }
+        linklist.printList();
+        linklist.removeDuplicateValues();
+        linklist.printList();
+
+    }
+
+    @Test
+    public void testRemove1() throws Exception {
+        LinkedList linklist = new LinkedList();
+        String[] array = new String[]{"a","b","c","d","e","f","g"};
+        for (String str : array){
+            linklist.add(str);
+        }
+        linklist.printList();
+        linklist.remove(0,4);
+        linklist.printList();
+    }
 }
