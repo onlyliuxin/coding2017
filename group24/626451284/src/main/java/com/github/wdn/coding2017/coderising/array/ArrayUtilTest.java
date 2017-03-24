@@ -1,4 +1,4 @@
-package com.github.wdn.coding2017.array;
+package com.github.wdn.coding2017.coderising.array;
 
 import org.junit.Assert;
 import org.junit.Test;
