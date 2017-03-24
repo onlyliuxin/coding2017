@@ -227,9 +227,31 @@ public class LinkedList implements List {
 	 * @param i
 	 * @param length
 	 */
-	public  void remove(int i, int length){
+	public void remove(int i, int length){
+        Node current = head;
+        Node firstHalf = null;
+        for (int k = 0; k < i; k ++){
+            if(current == null){
+                return;
+            }
+            firstHalf = current;  //记录待删除节点的前一个节点
+            current = current.next;
+        }
 
-	}
+        //移动length长度
+        for (int j = 0; j < length; j++) {
+            if(current == null){
+                return;
+            }
+            current = current.next;
+        }
+
+        if(i == 0){
+            head = current;
+        }else {
+            firstHalf.next = current;
+        }
+    }
 	/**
 	 * 假定当前链表和list均包含已升序排列的整数
 	 * 从当前链表中取出那些list所指定的元素
@@ -257,8 +279,21 @@ public class LinkedList implements List {
 	 * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。
 	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
-	public  void removeDuplicateValues(){
-
+	public void removeDuplicateValues(){
+        if(this.head == null){
+            return;
+        }
+        Node current = this.head;
+        Node current_next = this.head;
+        while (current_next != null){
+            current_next = current_next.next; //如果放到下个while循环后面写，就需要判断一次current_next是不是null了
+            while(current_next != null && current_next.data.equals(current.data)){
+                //删除重复节点
+                current.next = current_next.next;
+                current_next = current_next.next;
+            }
+            current = current_next;
+        }
 	}
 
 	/**
@@ -268,7 +303,7 @@ public class LinkedList implements List {
 	 * @param max
 	 */
 	public  void removeRange(int min, int max){
-
+        //怎么才能高效呢
 	}
 
 	/**
@@ -284,8 +319,9 @@ public class LinkedList implements List {
      * 遍历列表
      */
     public void printList(){
+        System.out.println();
         for (Node cursor = this.head;cursor!=null;cursor=cursor.next){
-            System.out.println(cursor.data+" ");
+            System.out.print(cursor.data+" ");
         }
     }
 }

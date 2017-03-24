@@ -19,4 +19,9 @@ public class BinaryTreeTest {
         binaryTree1.leftOrderScan(binaryTree1.getRoot());
         binaryTree2.leftOrderScan(binaryTree2.getRoot());
     }
+
+    @Test
+    public void testInsert(){
+        BinaryTree<Integer> binaryTree3 = new BinaryTree<Integer>();
+    }
 }
