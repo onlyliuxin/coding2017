@@ -1,34 +1,67 @@
 package com.coderising.litestruts;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 
 
 
 public class Struts {
 
+	private final static Configuration cfg = new Configuration("struts.xml");
+	
     public static View runAction(String actionName, Map<String,String> parameters) {
 
-    	 /*
-        
-		0. ¶ÁÈ¡ÅäÖÃÎÄ¼şstruts.xml
+        /*
+         
+		0. è¯»å–é…ç½®æ–‡ä»¶struts.xml
  		
- 		1. ¸ù¾İactionNameÕÒµ½Ïà¶ÔÓ¦µÄclass £¬ ÀıÈçLoginAction,   Í¨¹ı·´ÉäÊµÀı»¯£¨´´½¨¶ÔÏó£©
-		¾İparametersÖĞµÄÊı¾İ£¬µ÷ÓÃ¶ÔÏóµÄsetter·½·¨£¬ ÀıÈçparametersÖĞµÄÊı¾İÊÇ 
+ 		1. æ ¹æ®actionNameæ‰¾åˆ°ç›¸å¯¹åº”çš„class ï¼Œ ä¾‹å¦‚LoginAction,   é€šè¿‡åå°„å®ä¾‹åŒ–ï¼ˆåˆ›å»ºå¯¹è±¡ï¼‰
+		æ®parametersä¸­çš„æ•°æ®ï¼Œè°ƒç”¨å¯¹è±¡çš„setteræ–¹æ³•ï¼Œ ä¾‹å¦‚parametersä¸­çš„æ•°æ®æ˜¯ 
 		("name"="test" ,  "password"="1234") ,     	
-		ÄÇ¾ÍÓ¦¸Ãµ÷ÓÃ setNameºÍsetPassword·½·¨
+		é‚£å°±åº”è¯¥è°ƒç”¨ setNameå’ŒsetPasswordæ–¹æ³•
 		
-		2. Í¨¹ı·´Éäµ÷ÓÃ¶ÔÏóµÄexectue ·½·¨£¬ ²¢»ñµÃ·µ»ØÖµ£¬ÀıÈç"success"
+		2. é€šè¿‡åå°„è°ƒç”¨å¯¹è±¡çš„exectue æ–¹æ³•ï¼Œ å¹¶è·å¾—è¿”å›å€¼ï¼Œä¾‹å¦‚"success"
 		
-		3. Í¨¹ı·´ÉäÕÒµ½¶ÔÏóµÄËùÓĞgetter·½·¨£¨ÀıÈç getMessage£©,  
-		Í¨¹ı·´ÉäÀ´µ÷ÓÃ£¬ °ÑÖµºÍÊôĞÔĞÎ³ÉÒ»¸öHashMap , ÀıÈç {"message":  "µÇÂ¼³É¹¦"} ,  
-		·Åµ½View¶ÔÏóµÄparameters
+		3. é€šè¿‡åå°„æ‰¾åˆ°å¯¹è±¡çš„æ‰€æœ‰getteræ–¹æ³•ï¼ˆä¾‹å¦‚ getMessageï¼‰,  
+		é€šè¿‡åå°„æ¥è°ƒç”¨ï¼Œ æŠŠå€¼å’Œå±æ€§å½¢æˆä¸€ä¸ªHashMap , ä¾‹å¦‚ {"message":  "ç™»å½•æˆåŠŸ"} ,  
+		æ”¾åˆ°Viewå¯¹è±¡çš„parameters
 		
-		4. ¸ù¾İstruts.xmlÖĞµÄ <result> ÅäÖÃ,ÒÔ¼°executeµÄ·µ»ØÖµ£¬  È·¶¨ÄÄÒ»¸öjsp£¬  
-		·Åµ½View¶ÔÏóµÄjsp×Ö¶ÎÖĞ¡£
+		4. æ ¹æ®struts.xmlä¸­çš„ <result> é…ç½®,ä»¥åŠexecuteçš„è¿”å›å€¼ï¼Œ  ç¡®å®šå“ªä¸€ä¸ªjspï¼Œ  
+		æ”¾åˆ°Viewå¯¹è±¡çš„jspå­—æ®µä¸­ã€‚
         
         */
     	
+    
     	
+    	String clzName = cfg.getClassName(actionName);
+    	
+    	if(clzName == null){
+    		return null;
+    	}
+    	
+    	try {
+    		
+    		Class<?> clz = Class.forName(clzName);    		
+			Object action = clz.newInstance();
+			
+			ReflectionUtil.setParameters(action, parameters);
+			
+			Method m = clz.getDeclaredMethod("execute");			
+			String resultName = (String)m.invoke(action);
+			
+			Map<String,Object> params = ReflectionUtil.getParamterMap(action);	
+			String resultView = cfg.getResultView(actionName, resultName);			
+			View view = new View();			
+			view.setParameters(params);
+			view.setJsp(resultView);
+			return view;
+			
+			
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
     	return null;
     }    
 
