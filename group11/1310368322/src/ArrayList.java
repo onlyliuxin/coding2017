@@ -1,18 +1,31 @@
-package Day_2017_2_20_DateStructure;
+package Day_2017_2_26_FirstHomework;
 
 public class ArrayList {
 	
-	
-	private int size = 0;
-	
-	private Object[] elementData = new Object[10];
-
+	private static final int DEFAULT_SIZE = 10;
+	private static final int MAX_VALUE = 2147483647;
+	private Object[] elementData = new Object[DEFAULT_SIZE];
 	private Exception Exception;
+	private int size = 0;
+
+	public ArrayList(){
+		this(DEFAULT_SIZE);
+	}
+	public ArrayList(int defaultSize) {
+		rangCheckForConstructor(defaultSize);
+		elementData = new Object[defaultSize];
+	}
+	
+
+	private void rangCheckForConstructor(int defaultSize) {
+		if(defaultSize<0 || defaultSize>MAX_VALUE){
+			throw new IndexOutOfBoundsException("数值不合理");
+		}
+		
+	}
 	
 	public void add(Object o){
-		if(size>elementData.length){
-			elementData = ArrayList.grow(elementData, 10);
-		}
+		ensureCapacity();
 		for(int i = 0; i < elementData.length; i++){
 			if(null == elementData[i]){
 				elementData[i] = o; 
@@ -21,13 +34,14 @@ public class ArrayList {
 		}
 		size++;
 	}
-	public void add(int index, Object o){
+	private void ensureCapacity() {
 		if(size>elementData.length){
 			elementData = ArrayList.grow(elementData, 10);
 		}
-		if(index<0){
-			System.out.println("您插入的位置有误");	
-		}
+	}
+	public void add(int index, Object o){
+		rangeCheckForAdd(index);
+		ensureCapacity();
 		int k = -1;
 		for(int i = index; i < elementData.length; i++){
 			if(null==elementData[i]){
@@ -40,6 +54,12 @@ public class ArrayList {
 		}
 		elementData[index] = o;
 		size++;
+	}
+	private void rangeCheckForAdd(int index) {
+		if(index < 0 || index > this.size){// add 的元素只能在 [0,size](可以给size位置插元素，但不可以给size后插元素)
+			throw new IndexOutOfBoundsException("下标越界");
+		}
+		
 	}
 	public Object get(int index){
 		return elementData[index];
@@ -72,7 +92,6 @@ public class ArrayList {
 	
 	public static void main(String[] args) {
 		ArrayList a = new ArrayList();
-		a.add("a");
 		a.getElementData();
 		System.out.println(a.size);
 	}
