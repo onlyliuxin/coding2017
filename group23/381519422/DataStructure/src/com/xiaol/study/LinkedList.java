@@ -159,6 +159,7 @@ public class LinkedList implements List {
 	}
 	
 	//---------------下面的方法暂时先不实现
+	// removeDuplicateValues（），removeRange（）可以不实现
 	
 	/**
 	 * 把该链表逆置
@@ -182,8 +183,16 @@ public class LinkedList implements List {
 	 * @param i
 	 * @param length
 	 */
-	public  void remove(int i, int length){
-		
+	public void remove(int i, int length) {
+		if (i < 0) {
+			throw new RuntimeException("非法参数");
+		}
+		Node indexNode = getIndexNode(i);
+		Node nextNode = getIndexNode(i);
+		for (int j = 0; j < length; j++) {
+			nextNode = nextNode.next;
+		}
+		indexNode.next = nextNode;
 	}
 	
 	/**
@@ -194,8 +203,15 @@ public class LinkedList implements List {
 	 * 返回的结果应该是[101,301,401,601]  
 	 * @param list
 	 */
-	public  int[] getElements(LinkedList list){
-		return null;
+	public int[] getElements(LinkedList list) {
+		int[] retVal = new int[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			int index = (int) list.get(i);
+			Node indexNode = getIndexNode(index);
+			int data = (int) indexNode.data;
+			retVal[i] = data;
+		}
+		return retVal;
 	}
 	
 	/**
