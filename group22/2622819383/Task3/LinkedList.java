@@ -4,9 +4,9 @@ public class LinkedList {
     * 例如链表为 3->7->10 , 逆置后变为  10->7->3
     */
     public void reverse() {		
-        int times = theSize;
+        int times = theSize - 1;  //第一个元素自然移动到最后，所以只需进行theSize - 1次操作        
         int index = 0;
-        while (0 < --times)
+        while (0 < times--)
             add(index++, removeLast());
     }
 
@@ -68,7 +68,7 @@ public class LinkedList {
 
         return ret;
     }
-
+    
     /**
     * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
     * 从当前链表中中删除在list中出现的元素 
