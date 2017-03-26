@@ -1,5 +1,7 @@
 package me.lzb.homework0312.basic;
 
+import me.lzb.homework0312.basic.ArrayList;
+import me.lzb.homework0312.basic.Iterator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -68,29 +70,21 @@ public class ArrayListTest {
 
     @Test
     public void removeTest() throws IndexOutOfBoundsException {
-
-        ArrayList list = new ArrayList();
-        list.add("a");
-        list.add("b");
-        list.add("c");
-        list.add("d");
-
-
-        String r1 = list.remove(1).toString();
+        String r1 = arrayList.remove(1).toString();
         Assert.assertEquals("b", r1);
-        Assert.assertEquals(3, list.size());
+        Assert.assertEquals(3, arrayList.size());
 
-        String r0 = list.remove(0).toString();
+        String r0 = arrayList.remove(0).toString();
         Assert.assertEquals("a", r0);
-        Assert.assertEquals(2, list.size());
+        Assert.assertEquals(2, arrayList.size());
 
-        String rs = list.remove(list.size() - 1).toString();
+        String rs = arrayList.remove(arrayList.size() - 1).toString();
         Assert.assertEquals("d", rs);
-        Assert.assertEquals(1, list.size());
+        Assert.assertEquals(1, arrayList.size());
 
         thrown.expect(IndexOutOfBoundsException.class);
         thrown.expectMessage("index boom");
-        list.remove(100);
+        arrayList.remove(100);
 
     }
 
