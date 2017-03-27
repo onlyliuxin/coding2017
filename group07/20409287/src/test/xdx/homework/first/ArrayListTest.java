@@ -38,9 +38,14 @@ public class ArrayListTest {
     public void testAdd() throws Exception {
 
         List<Integer> testList = new ArrayList<>();
-        Assert.assertTrue(testList.add(1));
-        Assert.assertTrue(testList.add(2));
-        Assert.assertTrue(testList.add(3));
+        final int NUM = 1000000;
+        for (Integer i = 0; i < NUM; i++) {
+            testList.add(i);
+        }
+        for (Integer i = 0; i < NUM; i++) {
+            Assert.assertEquals(i, testList.get(i));
+        }
+        Assert.assertEquals(NUM, testList.size());
         System.out.println(testList.toString());
     }
 

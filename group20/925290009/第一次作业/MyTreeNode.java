@@ -1,6 +1,6 @@
 package BasicData;
 
-//insert ·½·¨ÓĞÎÊÌâ
+//insert æ–¹æ³•æœ‰é—®é¢˜
 public class MyTreeNode<T extends Comparable<T>> {
 
 	private T data;
