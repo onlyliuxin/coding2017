@@ -4,16 +4,15 @@ import java.util.EmptyStackException;
 
 /**
  * Created by john on 2017/3/10.
- * @// TODO: 2017/3/15 支持泛型
  */
-public class Stack {
-    private LinkedList linkList;
+public class Stack<E> {
+    private LinkedList<E> linkList;
 
     /**
      * Creates an empty Stack.
      */
     public Stack() {
-        linkList = new LinkedList();
+        linkList = new LinkedList<>();
     }
 
 
@@ -22,7 +21,7 @@ public class Stack {
      *
      * @param element the element to be pushed onto this stack.
      */
-    public void push(int element) {
+    public void push(E element) {
         linkList.addFirst(element);
     }
 
@@ -33,7 +32,7 @@ public class Stack {
      * @return The object at the top of this stack.
      * @throws EmptyStackException if this stack is empty.
      */
-    public int pop() {
+    public E pop() {
         if (empty()) {
             throw new EmptyStackException();
         }
@@ -47,7 +46,7 @@ public class Stack {
      * @return the object at the top of this stack.
      * @throws EmptyStackException if this stack is empty.
      */
-    public int peek() {
+    public E peek() {
         if (empty()) {
             throw new EmptyStackException();
         }
@@ -58,7 +57,7 @@ public class Stack {
      * Tests if this stack is empty.
      *
      * @return <code>true</code> if and only if this stack contains
-     *          no elements; <code>false</code> otherwise.
+     * no elements; <code>false</code> otherwise.
      */
     public boolean empty() {
         return linkList.size() == 0;
