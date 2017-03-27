@@ -332,7 +332,7 @@ public class LinkedList implements List {
     		if(!foundMin && (int)node.data > min){
     			foundMin = true;
     		}
-    		if((int)node.data > max){
+    		if(foundMin && (int)node.data > max){
     			break;
     		}
     		if(foundMin == false){
