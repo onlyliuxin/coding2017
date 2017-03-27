@@ -1,10 +1,10 @@
 package array;
 
-import static util.Print.*;
 import java.util.Arrays;
 import java.util.BitSet;
-import Collection.Iterator;
-import Collection.Concrete.ArrayList;
+
+import collection.Iterator;
+import collection.concrete.ArrayList;
 
 
 
