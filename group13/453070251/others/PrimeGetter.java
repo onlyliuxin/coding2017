@@ -1,6 +1,7 @@
 package others;
+import lessones01.LinkedList;
 public class PrimeGetter{
-	private static LinkedListWithFloat<Integer> primes = new LinkedListWithFloat<Integer>();
+	private static LinkedList<Integer> primes = new LinkedList<Integer>();
 	public static int get(int arg_num){
 		for(int i = primes.size()-1;i<arg_num;i++){add();}
 		return primes.get(arg_num);
