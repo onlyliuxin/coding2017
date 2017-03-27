@@ -11,9 +11,9 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin){ // time :O(n)
-		int leno = origin.length,temp=0;  
+		int leno = origin.length;  
 		for(int i=0;i<leno/2;i++){   
-			temp = origin[i];
+			int temp = origin[i];
 			origin[i] = origin[leno-1-i];
 			origin[leno-1-i] = temp;
 		}
@@ -74,7 +74,7 @@ public class ArrayUtil {
 		temp = 0;
 		for(int i=1;i<len1+len2;i++){
 			if(temparray[i] == temparray[i-1]) temp += 1;
-			temparray[i-temp] = temparray[i];
+			else temparray[i-temp] = temparray[i];
 		}
 		int[]res = new int[len1+len2-temp];
 		System.arraycopy(temparray, 0, res, 0, len1+len2-temp);
@@ -195,6 +195,7 @@ public class ArrayUtil {
 		if(array == null) return "";
 		int lena = array.length;
 		String res = "";
+
 		for(int i=0;i<lena-1;i++){
 			res += array[i];
 			res += seperator;
