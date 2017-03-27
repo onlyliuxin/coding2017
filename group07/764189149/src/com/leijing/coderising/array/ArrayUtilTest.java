@@ -1,5 +1,8 @@
 package com.leijing.coderising.array;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -90,5 +93,4 @@ public class ArrayUtilTest {
 		System.out.println(result);
 		Assert.assertEquals(expectedString, result);
 	}
-
 }
