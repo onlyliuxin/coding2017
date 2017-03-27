@@ -14,6 +14,8 @@ public class FileDownloader {
 	
 	ConnectionManager cm;
 	
+	Thread[] threads = new Thread[3];
+	
 
 	public FileDownloader(String _url) {
 		this.url = _url;
@@ -44,7 +46,6 @@ public class FileDownloader {
 			int size = length / 3;
 			int remain = length - size;
 			
-			Thread[] threads = new Thread[3];
 			for(int i=0;i<3;i++){
 				conn = cm.open(this.url);
 				int startPos = i*size;
@@ -55,18 +56,23 @@ public class FileDownloader {
 				threads[i] = new DownloadThread(conn,startPos,endPos);
 				threads[i].start();
 			}
-			boolean finish;
-			do{
-				finish = true;
-				for(int i=0;i<threads.length;i++){
-//					System.out.println("线程" + i + "状态:" + threads[i].getState());
-					if(!"TERMINATED".equals(threads[i].getState().toString())){
-						finish = false;
-						continue;
-					}
+
+			new Thread(new Runnable(){
+				public void run(){
+					boolean finish;
+					do{
+						finish = true;
+						for(int i=0;i<threads.length;i++){
+//							System.out.println("线程" + i + "状态:" + threads[i].getState());
+							if(!"TERMINATED".equals(threads[i].getState().toString())){
+								finish = false;
+								continue;
+							}
+						}
+					}while(!finish);
+					getListener().notifyFinished();
 				}
-			}while(!finish);
-			this.getListener().notifyFinished();
+			}).start();;
 			
 		} catch (ConnectionException e) {			
 			e.printStackTrace();
