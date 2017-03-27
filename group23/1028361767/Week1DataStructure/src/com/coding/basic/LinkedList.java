@@ -67,7 +67,7 @@ public class LinkedList implements List {
                 pos++;
             } while (pos != index);
         }
-        return cur;
+        return cur.data;
     }
 
     public Object remove(int index) {
@@ -87,7 +87,7 @@ public class LinkedList implements List {
             prev.next = cur.next;
         }
         size--;
-        return cur;
+        return cur.data;
     }
 
     public int size() {
@@ -122,7 +122,7 @@ public class LinkedList implements List {
         Node ret = head;
         head = head.next;
         size--;
-        return ret;
+        return ret.data;
     }
 
     public Object removeLast() {
@@ -143,7 +143,7 @@ public class LinkedList implements List {
             prev.next = null;
         }
         size--;
-        return ret;
+        return ret.data;
     }
 
     public Iterator iterator() {
@@ -167,7 +167,20 @@ public class LinkedList implements List {
      * 例如链表为 3->7->10 , 逆置后变为  10->7->3
      */
     public void reverse() {
-
+    	if(size == 0 || size == 1){
+    		return ;
+    	}
+    	Node node = head;
+    	Node nextNode = head.next;
+    	Node tmp;
+    	node.next = null;
+    	do{
+    		tmp = nextNode.next;
+    		nextNode.next = node;
+    		node = nextNode;
+    		nextNode = tmp;
+    	}while(nextNode != null);
+    	head = node;
     }
 
     /**
@@ -176,9 +189,19 @@ public class LinkedList implements List {
      * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
      */
     public void removeFirstHalf() {
-
+    	if(size == 0 || size == 1){
+    		return ;
+    	}
+    	int num = size / 2;
+    	size -= num;
+    	Node node = head;
+    	while(num > 0){
+    		node = node.next;
+    		num--;
+    	}
+    	head = node;
     }
-
+    
     /**
      * 从第i个元素开始， 删除length 个元素 ， 注意i从0开始
      *
@@ -186,7 +209,28 @@ public class LinkedList implements List {
      * @param length
      */
     public void remove(int i, int length) {
-
+    	checkMinBound(i);
+    	checkMaxBound(i + length, size);
+    	Node prev = null;
+    	Node node = head;
+    	int index = 0;
+    	while(index < i){
+    		prev = node;
+    		node = node.next;
+    		index++;
+    	}
+    	Node nextNode = node.next;
+    	while(index < (i + length - 1)){
+    		nextNode = nextNode.next;
+    		index++;
+    	}
+    	size -= length;
+    	if(i == 0){
+    		head = nextNode;
+    	}else{
+    		prev.next = nextNode;
+    		head = prev;
+    	}
     }
 
     /**
@@ -198,8 +242,26 @@ public class LinkedList implements List {
      *
      * @param list
      */
-    public static int[] getElements(LinkedList list) {
-        return null;
+    public int[] getElements(LinkedList list) {
+    	int[] ret = new int[list.size()];
+    	if(ret.length == 0){
+    		return ret;
+    	}
+    	int index;
+    	int j = 0;
+    	Node node = head;
+    	for(int i=0;i<list.size();i++){
+    		index = (int)list.get(i);
+    		while(j < index){
+    			node = node.next;
+    			if(node == null){
+    				throw new IndexOutOfBoundsException();
+    			}
+    			j++;
+    		}
+    		ret[i] = (int)node.data;
+    	}
+    	return ret;
     }
 
     /**
@@ -210,7 +272,28 @@ public class LinkedList implements List {
      */
 
     public void subtract(LinkedList list) {
-
+    	if(size == 0){
+    		return ;
+    	}
+    	Node prev = null;
+    	Node node = head;
+    	int data;
+    	for(int i=0;i<list.size();i++){
+    		data = (int)list.get(i);
+    		do{
+    			if(data == (int)node.data){
+    				if(prev == null){
+    					head = node.next;
+    				}else{
+    					prev.next = node.next;
+    				}
+    				size--;
+    				node = node.next;
+    				break;
+    			}
+    			prev = node;
+    		}while((node = node.next) != null);
+    	}
     }
 
     /**
@@ -218,7 +301,20 @@ public class LinkedList implements List {
      * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
      */
     public void removeDuplicateValues() {
-
+    	if(size == 0 || size == 1){
+    		return ;
+    	}
+    	Node node = head;
+    	Node next = node.next;
+    	do{
+    		if((int)node.data == (int)next.data){
+    			node.next = next.next;
+    			size--;
+    		}else{
+    			node = node.next;
+    		}
+    		next = next.next;
+    	}while(next != null);
     }
 
     /**
@@ -229,7 +325,28 @@ public class LinkedList implements List {
      * @param max
      */
     public void removeRange(int min, int max) {
-
+    	Node prev = null;
+    	Node node = head;
+    	boolean foundMin = false;
+    	do{
+    		if(!foundMin && (int)node.data > min){
+    			foundMin = true;
+    		}
+    		if((int)node.data > max){
+    			break;
+    		}
+    		if(foundMin == false){
+    			prev = node;
+    		}else{
+    			size -= 1;
+    		}
+    		node = node.next;
+    	}while(node != null);
+    	if(prev == null){
+    		head = node;
+    	}else{
+    		prev.next = node;
+    	}
     }
 
     /**
@@ -239,6 +356,44 @@ public class LinkedList implements List {
      * @param list
      */
     public LinkedList intersection(LinkedList list) {
-        return null;
+    	LinkedList ret = new LinkedList();
+    	Node node = head;
+    	int nodeValue;
+    	int elementValue;
+    	for(int i=0;i<list.size();i++){
+    		nodeValue = (int)node.data;
+    		elementValue = (int)list.get(i);
+    		if(nodeValue == elementValue){
+    			ret.add(nodeValue);
+    		}else if(nodeValue < elementValue){
+    			node = node.next;
+    			while(node != null){
+    				nodeValue = (int)node.data;
+    				if(nodeValue == elementValue){
+    					ret.add(nodeValue);
+    					node = node.next;
+    					break;
+    				}else if(nodeValue > elementValue){
+    					break;
+    				}
+    				node = node.next;
+    			}
+    		}
+    	}
+        return ret;
+    }
+    
+    public String toString(){
+    	Node node = head;
+    	StringBuilder sb = new StringBuilder();
+    	if(node == null){
+    		return "";
+    	}else{
+    		sb.append(head.data);
+    		while((node = node.next) != null){
+    			sb.append(",").append(node.data);
+    		}
+    		return sb.toString();
+    	}
     }
 }
