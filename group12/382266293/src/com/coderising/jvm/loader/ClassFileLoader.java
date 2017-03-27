@@ -15,7 +15,6 @@ public class ClassFileLoader {
 
 		String clzFileName = "//" + className.replaceAll("\\.", "//") + ".class";
 		return loadClassFile(clzFileName);
-
 	}
 
 	@SuppressWarnings("resource")
