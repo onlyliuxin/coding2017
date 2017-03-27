@@ -63,9 +63,9 @@ public class FileDownloaderTest {
 	}
 
 	private boolean actualContent(File downloaded, File source) {
-		String excepted = readFile(downloaded);
+		String expected = readFile(downloaded);
 		String actual = readFile(source);
-		return excepted.equals(actual);
+		return expected.equals(actual);
 	}
 
 	private String readFile(File file) {
