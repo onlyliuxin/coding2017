@@ -1,5 +1,7 @@
 package com.coding.basic;
 
+import edu.princeton.cs.algs4.BinarySearch;
+
 import java.util.Stack;
 
 /**
@@ -43,15 +45,19 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
                 if(current.getLeft() != null){
                     current = current.getLeft();
                 }else {
-                    current.setLeft(new BinarySearchTreeNode<T>(data));
-                    return current.getLeft();
+                    BinarySearchTreeNode<T> child = new BinarySearchTreeNode<T>(data);
+                    current.setLeft(child);
+                    child.setParent(current);
+                    return child;
                 }
             }else {//当前节点数据大于root
                 if(current.getRight() != null){
                     current = current.getRight();
                 }else {
-                    current.setRight(new BinarySearchTreeNode<T>(data));
-                    return current.getRight();
+                    BinarySearchTreeNode<T> child = new BinarySearchTreeNode<T>(data);
+                    current.setRight(child );
+                    child.setParent(current);
+                    return child;
                 }
             }
         }
@@ -230,9 +236,83 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         }
     }
 
-    //按层遍历，每层从左到右输出
-    /*public void  TraversalByLayer(){
+    //删除某个节点n
+    public void delete(BinarySearchTreeNode<T> n){
+        BinarySearchTreeNode<T> p = n.getParent();  //节点的父节点
+        BinarySearchTreeNode<T> child;  //节点的子节点
 
-    }*/
-    
+        //该节点没有任何子节点。// 叶子结点，直接删除即可。要考虑待删除结点是root的情况。
+        if(n.getLeft()==null && n.getRight()==null){
+            //该节点是根节点
+            if(n == root){
+                root = null;
+                return ;
+            }
+            //非根节点
+            if(n == p.getLeft()){
+                p.setLeft(null);
+            }else if(n == p.getRight()){
+                p.setRight(null);
+            }
+        }
+
+        // 内部结点，把它的后继的值拷进来，然后递归删除它的后继。
+        else if(n.getLeft()!=null && n.getRight()!=null){
+            BinarySearchTreeNode<T> next = successor(n);  //找到n的中序后继节点
+            n.setData(next.getData());
+            delete(next);  //中序后继节点
+        }
+
+        //只有一个孩子的结点，把它的孩子交给它的父结点即可
+        else {
+            if(n.getLeft() != null){ //得到子节点
+                child = n.getLeft();
+            }else {
+                child = n.getRight();
+            }
+
+            if(n == root){  // n是根节点的情况
+                child.setParent(null);
+                root = child;
+                return;
+            }
+            //非根节点
+            if(n == p.getLeft()){
+                p.setLeft(child);
+                child.setParent(p);
+            }else{
+                p.setRight(child);
+                child.setParent(p);
+            }
+
+        }
+    }
+
+    //找到n的中序后继节点
+    public BinarySearchTreeNode<T> successor(BinarySearchTreeNode<T> n){
+            if( n == null) return null;
+            if( n.getRight() == null ) return null;
+            return findMin(n.getRight());
+    }
+
+    //查找n树的最小值
+    public BinarySearchTreeNode<T> findMin(BinarySearchTreeNode<T> n){
+        BinarySearchTreeNode<T> current = n;
+        while(current.getLeft() != null){
+            current = current.getLeft();
+        }
+        return current;
+    }
+
+    //查找n树的最大值
+    public BinarySearchTreeNode<T> findMax(BinarySearchTreeNode<T> n){
+        BinarySearchTreeNode<T> current = n;
+        while(current.getRight() != null){
+            current = current.getRight();
+        }
+        return current;
+    }
+
+
+
 }
