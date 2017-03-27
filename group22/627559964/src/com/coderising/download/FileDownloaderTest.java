@@ -21,10 +21,9 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://localhost:8080/test.jpg";
+		String url = "https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/super/crop=378,138,1512,942/sign=9cca06797b3e6709aa4f1fbf06f4a805/f9198618367adab471a1e11d8fd4b31c8701e47f.jpg";
 		
-		FileDownloader downloader = new FileDownloader(url);
-
+		FileDownloader downloader = new FileDownloader(url, "C:/Users/Administrator/Desktop/1.jpg");
 	
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
@@ -45,7 +44,7 @@ public class FileDownloaderTest {
 			try {
 				System.out.println("还没有下载完成，休眠五秒");
 				//休眠5秒
-				Thread.sleep(5000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {				
 				e.printStackTrace();
 			}

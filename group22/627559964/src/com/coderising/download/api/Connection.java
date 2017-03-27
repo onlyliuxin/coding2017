@@ -1,6 +1,7 @@
 package com.coderising.download.api;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public interface Connection {
 	/**
@@ -20,4 +21,5 @@ public interface Connection {
 	 * 关闭连接
 	 */
 	public void close();
+	
 }
