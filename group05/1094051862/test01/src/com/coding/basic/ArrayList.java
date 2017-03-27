@@ -8,7 +8,7 @@ public class ArrayList implements List {
 	
 	private Object[] elementData = new Object[10];
 	
-	private int increaseSize = 3;
+	private int increaseSize = 10;
 	private void increaseArray() {
 		Object[] newData = Arrays.copyOf(elementData, elementData.length + increaseSize);
 		elementData = newData;
