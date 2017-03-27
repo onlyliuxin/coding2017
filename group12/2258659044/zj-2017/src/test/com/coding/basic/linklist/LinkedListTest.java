@@ -1,11 +1,11 @@
-package test.com.coding.basic;
+package test.com.coding.basic.linklist;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.coding.basic.Iterator;
-import com.coding.basic.LinkedList;
+import com.coding.basic.linklist.LinkedList;
 
 public class LinkedListTest {
 

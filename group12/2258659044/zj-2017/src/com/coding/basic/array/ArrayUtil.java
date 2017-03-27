@@ -1,6 +1,5 @@
-package com.coderising.array;
+package com.coding.basic.array;
 
-import com.coding.basic.ArrayList;
 
 public class ArrayUtil {
 	

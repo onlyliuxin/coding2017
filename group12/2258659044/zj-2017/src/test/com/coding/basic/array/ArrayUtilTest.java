@@ -1,10 +1,10 @@
-package test.com.coderising.array;
+package test.com.coding.basic.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.coderising.array.ArrayUtil;
-import com.coding.basic.ArrayList;
+import com.coding.basic.array.ArrayList;
+import com.coding.basic.array.ArrayUtil;
 
 public class ArrayUtilTest {
 
