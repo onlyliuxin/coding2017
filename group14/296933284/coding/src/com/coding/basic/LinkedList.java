@@ -4,145 +4,109 @@ import java.util.Collection;
 
 
 /**
- * LinkedList (´øÍ·½áµãµÄµ¥Á´±í) ÊµÏÖ µÚ14Ğ¡×é 296933284
+ * LinkedList (å•é“¾è¡¨) ç¬¬14å°ç»„ 296933284
  * 
  * @author Tonnyson
  *
  */
-public class LinkedList implements List {
+public class LinkedList<T> implements List<T> {
 
-	private Node head;
+	private Node<T> head;
 	private int size;
 
 	public LinkedList() {
 		super();
-		this.head = new Node();
-		this.size = 0;
+		this.head = new Node<T>(null);
 	}
 
-	public void add(Object obj) {
-		addLast(obj);
+	@Override
+	public boolean add(T element) {
+		addLast(element);
+		return true;
 	}
 
-	public void add(int index, Object obj) {
+	@Override
+	public void add(int index, T element) {
 		
-		if (index == size + 1) {
-			addLast(obj);
+		if (index == size) {
+			addLast(element);
 		} else {
-			Node r = getPreNode(index);
-			Node node = new Node();
-			node.data = obj;
+			Node<T> r = getPreNode(index);
+			Node<T> node = new Node<>(element);
 			node.next = r.next;
 			r.next = node;
 			size++;
 		}
 	}
 
-	
-	
-	/**
-	 * µ¥Á´±íÊ×²¿²åÈë½Úµã
-	 * 
-	 * @param obj Ëù²åÈë½ÚµãµÄ½ÚµãÖµ
-	 *            
-	 */
-	public void addFirst(Object obj) {
-		Node node = new Node();
-		node.data = obj;
-
+	public void addFirst(T element) {
+		Node<T> node = new Node<>(element);
 		node.next = head.next;
 		head.next = node;
 		size++;
 	}
 
-	/**
-	 * µ¥Á´±íÎ²²¿²åÈë½Úµã
-	 * 
-	 * @param obj Ëù²åÈë½ÚµãµÄ½ÚµãÖµ
-	 * 
-	 */
-	public void addLast(Object obj) {
+	public void addLast(T element) {
 		
-		Node node = new Node();
-		node.data = obj;
-		node.next = null;
-		
-		Node r = head;
+		Node<T> node = new Node<>(element);
+
+		Node<T> r = head;
 		while (r.next != null) r = r.next;
-		
+
 		r.next = node;
 		
 		size++;
 
 	}
 
-	/**
-	 * ½«¼¯ºÏÖĞËùÓĞÔªËØ°´Ë³Ğò²åÈëµ¥Á´±í
-	 * 
-	 * @param c Òª²åÈëµ¥Á´±íµÄËùÓĞÔªËØµÄ¼¯ºÏ
-	 *            
-	 */
-	public void addAll(Collection c) {
+	public void addAll(Collection<T> c) {
 
-		Iterator iter = (Iterator) c.iterator();
+		Iterator<T> iter = (Iterator<T>) c.iterator();
 
 		while (iter.hasNext()) {
 			addLast(iter.next());
 		}
 	}
 
-	/**
-	 * »ñÈ¡Ö¸¶¨Î»ÖÃµÄ½ÚµãÖµ
-	 */
-	public Object get(int index) {
-		// rangCheck(index);
+	@Override
+	public T get(int index) {
+
+		rangCheck(index);
 		
-		return getPreNode(index).next.data;
+		return (T) getPreNode(index).next.data;
 	}
 
-	/**
-	 * É¾³ıÖ¸¶¨Î»ÖÃ½Úµã£¬²¢·µ»Ø½ÚµãÖµ
-	 */
-	public Object remove(int index) {
+	@Override
+	public T remove(int index) {
 		
 		rangCheck(index);
 		
-		Node r = getPreNode(index);
+		Node<T> r = getPreNode(index);
 		
-		Object result = r.next.data;
+		T result = (T) r.next.data;
 		
 		r.next = r.next.next;
 		size--;
-		return result;
+
+		return  result;
 	}
-	
-	/**
-	 * É¾³ıµ¥Á´±íµÚÒ»¸ö½Úµã£¬²¢·µ»Ø½ÚµãÖµ
-	 * 
-	 * @return µÚÒ»¸ö½ÚµãµÄÖµ
-	 */
-	public Object removeFirst() {
+
+	public T removeFirst() {
 		return remove(0);
 	}
-	
-	/**
-	 * É¾³ıµ¥Á´±í×îºóÒ»¸ö½Úµã£¬²¢·µ»Ø½ÚµãÖµ
-	 * 
-	 * @return ×îºóÒ»¸ö½ÚµãµÄÖµ
-	 */
-	public Object removeLast() {
+
+	public T removeLast() {
 		return remove(size - 1);
 	}
-	
-	// »ñÈ¡Ö¸¶¨Î»ÖÃµÄÇ°Çı½áµã²¢·µ»Ø
-	private Node getPreNode(int index) {
+
+	private Node<T> getPreNode(int index) {
 		
 		rangCheck(index);
 		
 		if (index == 0) {
 			return head;
 		} else {
-			Node r = head;
+			Node<T> r = head;
 			
 			for (int i = 0; i < index; i++)
 				r = r.next;
@@ -151,25 +115,23 @@ public class LinkedList implements List {
 		}
 		
 	}
-	
-	/**
-	 * ·µ»Øµ¥Á´±íµÄ³¤¶È
-	 */
+
+	@Override
 	public int size() {
 		return size;
 	}
 
-	/**
-	 * µü´úÆ÷
-	 * 
-	 * @return ·µ»ØÒ»¸öµü´úÆ÷¶ÔÏó
-	 */
-	public Iterator iterator() {
-		return new Iter();
+	@Override
+	public boolean isEmpty() {
+		return size == 0;
 	}
 
-	// µü´úÆ÷ÄÚ²¿Àà
-	private class Iter implements Iterator {
+	@Override
+	public Iterator<T> iterator() {
+		return new Iter<>();
+	}
+
+	private class Iter<T> implements Iterator<T> {
 		int current = 0;
 
 		@Override
@@ -178,35 +140,30 @@ public class LinkedList implements List {
 		}
 
 		@Override
-		public Object next() {
+		public T next() {
 			int i = current;
 			
 			rangCheck(i);
 			
 			current++;
 
-			return get(i);
+			return (T) get(i);
 		}
 
 	}
-	
-	/**
-	 * ¼ì²éÊÇ·ñÔ½½ç
-	 * 
-	 * @param index
-	 */
+
 	private void rangCheck(int index) {
-		if (index > size || index < 0)
+		if ( index < 0 || index >= size)
 			throw new IndexOutOfBoundsException();
 	}
 
-	private static class Node {
-		Object data;
-		Node next;
-		
-		public Node() {
+	private static class Node<T> {
+		T data;
+		Node<T> next;
+
+		Node(T data) {
 			super();
-			this.data = null;
+			this.data = data;
 			this.next = null;
 		}
 		
