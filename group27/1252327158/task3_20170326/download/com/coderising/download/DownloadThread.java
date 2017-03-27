@@ -44,10 +44,10 @@ public class DownloadThread extends Thread{
 			randomAccessFile.write(read);
 			doLog("END");
 		} catch (IOException e) {
-			doLog("EXP");
+			doLog("EXP1");
 			e.printStackTrace();
 		} catch (com.coderising.download.api.ConnectionException e) {
-			doLog("EXP");
+			doLog("EXP2");
 			e.printStackTrace();
 		} finally {
 			if (randomAccessFile != null) {

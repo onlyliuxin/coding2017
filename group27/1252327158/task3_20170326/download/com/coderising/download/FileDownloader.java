@@ -53,7 +53,7 @@ public class FileDownloader {
 					endPos = length - 1;
 				}
 				atomicInteger.getAndIncrement();
-				new DownloadThread(cm, this.url, startPos, endPos, null, new DownloadListener() {
+				new DownloadThread(cm, this.url, startPos, endPos, "download_file.jpeg", new DownloadListener() {
 					@Override
 					public void notifyFinished() {
 						if (atomicInteger.decrementAndGet() == 0) {
