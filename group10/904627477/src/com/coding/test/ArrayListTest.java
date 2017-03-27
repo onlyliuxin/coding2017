@@ -6,8 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.coding.ArrayList;
-import com.coding.Iterator;
+import com.coding.basic.ArrayList;
+import com.coding.basic.Iterator;
 
 public class ArrayListTest {
 	
