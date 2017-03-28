@@ -14,8 +14,8 @@ import com.coderising.jvm.loader.ClassFileLoader;
 public class ClassFileloaderTest {
 
 	
-	static String path1 = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
-	static String path2 = "C:\temp";
+	static String path1 = "E:\\practise\\group05\\1094051862\\mini-jvm\\bin";
+	static String path2 = "C:\\temp";
 	
 	
 	
@@ -58,6 +58,7 @@ public class ClassFileloaderTest {
 	
     @Test	
 	public void testMagicNumber(){
+    	
     	ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
 		String className = "com.coderising.jvm.test.EmployeeV1";
@@ -68,6 +69,7 @@ public class ClassFileloaderTest {
 		String acctualValue = this.byteToHexString(codes);
 		
 		Assert.assertEquals("cafebabe", acctualValue);
+		
 	}
     
     
