@@ -1,61 +1,48 @@
-package com.coderising.download;
-
-import com.coderising.download.api.Connection;
-import com.coderising.download.api.ConnectionException;
-import com.coderising.download.api.ConnectionManager;
-import com.coderising.download.api.DownloadListener;
-
-
-public class FileDownloader {
-	
-	String url;
-	
-	DownloadListener listener;
-	
-	ConnectionManager cm;
-	
-
-	public FileDownloader(String _url) {
-		this.url = _url;
-		
+import java.util.List;
+import java.util.ArrayList;
+import java.io.RandomAccessFile;
+import java.io.IOException;
+public class FileDownloader {	
+	//DownloadListener listener;
+    String url;	
+    
+        
+	public FileDownloader(String url) {
+		this.url = url;	
 	}
 	
-	public void execute(){
-		// åœ¨è¿™é‡Œå®ç°ä½ çš„ä»£ç ï¼Œ æ³¨æ„ï¼š éœ€è¦ç”¨å¤šçº¿ç¨‹å®ç°ä¸‹è½½
-		// è¿™ä¸ªç±»ä¾èµ–äºå…¶ä»–å‡ ä¸ªæ¥å£, ä½ éœ€è¦å†™è¿™å‡ ä¸ªæ¥å£çš„å®ç°ä»£ç 
-		// (1) ConnectionManager , å¯ä»¥æ‰“å¼€ä¸€ä¸ªè¿æ¥ï¼Œé€šè¿‡Connectionå¯ä»¥è¯»å–å…¶ä¸­çš„ä¸€æ®µï¼ˆç”¨startPos, endPosæ¥æŒ‡å®šï¼‰
-		// (2) DownloadListener, ç”±äºæ˜¯å¤šçº¿ç¨‹ä¸‹è½½ï¼Œ è°ƒç”¨è¿™ä¸ªç±»çš„å®¢æˆ·ç«¯ä¸çŸ¥é“ä»€ä¹ˆæ—¶å€™ç»“æŸï¼Œæ‰€ä»¥ä½ éœ€è¦å®ç°å½“æ‰€æœ‰
-		//     çº¿ç¨‹éƒ½æ‰§è¡Œå®Œä»¥åï¼Œ è°ƒç”¨listenerçš„notifiedFinishedæ–¹æ³•ï¼Œ è¿™æ ·å®¢æˆ·ç«¯å°±èƒ½æ”¶åˆ°é€šçŸ¥ã€‚
-		// å…·ä½“çš„å®ç°æ€è·¯ï¼š
-		// 1. éœ€è¦è°ƒç”¨ConnectionManagerçš„openæ–¹æ³•æ‰“å¼€è¿æ¥ï¼Œ ç„¶åé€šè¿‡Connection.getContentLengthæ–¹æ³•è·å¾—æ–‡ä»¶çš„é•¿åº¦
-		// 2. è‡³å°‘å¯åŠ¨3ä¸ªçº¿ç¨‹ä¸‹è½½ï¼Œ  æ³¨æ„æ¯ä¸ªçº¿ç¨‹éœ€è¦å…ˆè°ƒç”¨ConnectionManagerçš„openæ–¹æ³•
-		// ç„¶åè°ƒç”¨readæ–¹æ³•ï¼Œ readæ–¹æ³•ä¸­æœ‰è¯»å–æ–‡ä»¶çš„å¼€å§‹ä½ç½®å’Œç»“æŸä½ç½®çš„å‚æ•°ï¼Œ è¿”å›å€¼æ˜¯byte[]æ•°ç»„
-		// 3. æŠŠbyteæ•°ç»„å†™å…¥åˆ°æ–‡ä»¶ä¸­
-		// 4. æ‰€æœ‰çš„çº¿ç¨‹éƒ½ä¸‹è½½å®Œæˆä»¥åï¼Œ éœ€è¦è°ƒç”¨listenerçš„notifiedFinishedæ–¹æ³•
+	public void execute() throws IOException {
+        
+		// ÔÚÕâÀïÊµÏÖÄãµÄ´úÂë£¬ ×¢Òâ£º ĞèÒªÓÃ¶àÏß³ÌÊµÏÖÏÂÔØ
+		// Õâ¸öÀàÒÀÀµÓÚÆäËû¼¸¸ö½Ó¿Ú, ÄãĞèÒªĞ´Õâ¼¸¸ö½Ó¿ÚµÄÊµÏÖ´úÂë
+		// (1) ConnectionManager , ¿ÉÒÔ´ò¿ªÒ»¸öÁ¬½Ó£¬Í¨¹ıConnection¿ÉÒÔ¶ÁÈ¡ÆäÖĞµÄÒ»¶Î£¨ÓÃstartPos, endPosÀ´Ö¸¶¨£©
+		// (2) DownloadListener, ÓÉÓÚÊÇ¶àÏß³ÌÏÂÔØ£¬ µ÷ÓÃÕâ¸öÀàµÄ¿Í»§¶Ë²»ÖªµÀÊ²Ã´Ê±ºò½áÊø£¬ËùÒÔÄãĞèÒªÊµÏÖµ±ËùÓĞ
+		//     Ïß³Ì¶¼Ö´ĞĞÍêÒÔºó£¬ µ÷ÓÃlistenerµÄnotifiedFinished·½·¨£¬ ÕâÑù¿Í»§¶Ë¾ÍÄÜÊÕµ½Í¨Öª¡£
+		// ¾ßÌåµÄÊµÏÖË¼Â·£º
+		// 1. ĞèÒªµ÷ÓÃConnectionManagerµÄopen·½·¨´ò¿ªÁ¬½Ó£¬ È»ºóÍ¨¹ıConnection.getContentLength·½·¨»ñµÃÎÄ¼şµÄ³¤¶È
+		// 2. ÖÁÉÙÆô¶¯3¸öÏß³ÌÏÂÔØ£¬  ×¢ÒâÃ¿¸öÏß³ÌĞèÒªÏÈµ÷ÓÃConnectionManagerµÄopen·½·¨
+		// È»ºóµ÷ÓÃread·½·¨£¬ read·½·¨ÖĞÓĞ¶ÁÈ¡ÎÄ¼şµÄ¿ªÊ¼Î»ÖÃºÍ½áÊøÎ»ÖÃµÄ²ÎÊı£¬ ·µ»ØÖµÊÇbyte[]Êı×é
+		// 3. °ÑbyteÊı×éĞ´Èëµ½ÎÄ¼şÖĞ
+		// 4. ËùÓĞµÄÏß³Ì¶¼ÏÂÔØÍê³ÉÒÔºó£¬ ĞèÒªµ÷ÓÃlistenerµÄnotifiedFinished·½·¨
 		
-		// ä¸‹é¢çš„ä»£ç æ˜¯ç¤ºä¾‹ä»£ç ï¼Œ ä¹Ÿå°±æ˜¯è¯´åªæœ‰ä¸€ä¸ªçº¿ç¨‹ï¼Œ ä½ éœ€è¦æ”¹é€ æˆå¤šçº¿ç¨‹çš„ã€‚
-		Connection conn = null;
-		try {
-			
-			conn = cm.open(this.url);
-			
-			int length = conn.getContentLength();	
-			
-			new DownloadThread(conn,0,length-1).start();
-			
-		} catch (ConnectionException e) {			
-			e.printStackTrace();
-		}finally{
-			if(conn != null){
-				conn.close();
-			}
-		}
-		
-		
-		
-		
+		// ÏÂÃæµÄ´úÂëÊÇÊ¾Àı´úÂë£¬ Ò²¾ÍÊÇËµÖ»ÓĞÒ»¸öÏß³Ì£¬ ÄãĞèÒª¸ÄÔì³É¶àÏß³ÌµÄ¡£
+		Connection conn = null;                				
+        conn = new Connection(url);	
+        int length = conn.getContentLength();
+        String targetURL = "E:/" + url.substring(url.lastIndexOf("/") + 1);
+        RandomAccessFile raf = new RandomAccessFile(targetURL, "rw");
+        raf.setLength(length);
+        raf.close();          
+                                 
+        for (int i = 0; i < 3; i++) {
+            int part = length / 3;
+            int start = i * part;
+            int end = (i == 2) ? length - 1 : (i + 1) * part - 1;
+            DownloadThread t = new DownloadThread(conn, start, end, targetURL);
+            t.start();                
+        }        										
 	}
-	
+	/*
 	public void setListener(DownloadListener listener) {
 		this.listener = listener;
 	}
@@ -69,5 +56,9 @@ public class FileDownloader {
 	public DownloadListener getListener(){
 		return this.listener;
 	}
+    */
+    public static void main(String[] args) throws IOException {
+        new FileDownloader("http://images2015.cnblogs.com/blog/610238/201604/610238-20160421154632101-286208268.png").execute();
+    }
 	
 }
