@@ -5,19 +5,28 @@ import com.bruce.homework0312.download.api.ConnectionException;
 import com.bruce.homework0312.download.api.ConnectionManager;
 import com.bruce.homework0312.download.api.DownloadListener;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.util.concurrent.CyclicBarrier;
+
 
 public class FileDownloader {
 	
-	String url;
-	
-	DownloadListener listener;
-	
-	ConnectionManager cm;
-	
+	private String url;
 
-	public FileDownloader(String _url) {
+	private String localFile;
+	
+	private DownloadListener listener;
+	
+	private ConnectionManager cm;
+	
+	private static final int DOWNLOAD_THREAD_COUNT = 3;
+
+	public FileDownloader(String _url, String localFile) {
 		this.url = _url;
-		
+		this.localFile = localFile;
 	}
 	
 	public void execute(){
@@ -34,15 +43,25 @@ public class FileDownloader {
 		// 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
+
+		CyclicBarrier barrier = new CyclicBarrier(DOWNLOAD_THREAD_COUNT, new Runnable() {
+			@Override
+			public void run() {
+				listener.notifyFinished();
+			}
+		});
+
 		Connection conn = null;
 		try {
-			
 			conn = cm.open(this.url);
-			
-			int length = conn.getContentLength();	
-			
-			new DownloadThread(conn,0,length-1).start();
-			
+			int length = conn.getContentLength();
+			createPlaceHolderFile(this.localFile, length);
+			int[][] ranges = allocateDownloadRange(DOWNLOAD_THREAD_COUNT, length);
+			for (int i = 0; i < DOWNLOAD_THREAD_COUNT; i++) {
+				DownloadThread thread = new DownloadThread(conn, ranges[i][0], ranges[i][1], localFile, barrier);
+				thread.start();
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
@@ -50,18 +69,37 @@ public class FileDownloader {
 				conn.close();
 			}
 		}
-		
-		
-		
-		
 	}
-	
+
+	//创建一个大小为length的空文件，准备存放下载内容
+	private void createPlaceHolderFile(String localFile, int length) throws IOException {
+		RandomAccessFile file = new RandomAccessFile(localFile, "rw");
+		for (int i = 0; i < length; i++) {
+			file.write(0);
+		}
+		file.close();
+	}
+
+	//根据文件总长度和下载的线程数量，“切分”文件
+	private int[][] allocateDownloadRange (int threadCount, int totalLength) {
+		//二维数组第二维长度为2，用于存放startPos和endPo
+		int[][] ranges = new int[threadCount][2];
+		int perLen = totalLength / threadCount;
+		int left = totalLength % threadCount;
+		for (int i = 0; i < threadCount; i++) {
+			ranges[i][0] = i * perLen;
+			ranges[i][1] = (i+1) * perLen - 1;
+			if (i == (threadCount-1)) {
+				ranges[i][1] += left;
+			}
+		}
+		return ranges;
+	}
+
 	public void setListener(DownloadListener listener) {
 		this.listener = listener;
 	}
 
-	
-	
 	public void setConnectionManager(ConnectionManager ucm){
 		this.cm = ucm;
 	}
