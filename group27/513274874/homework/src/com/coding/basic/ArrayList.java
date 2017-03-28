@@ -65,16 +65,20 @@ public class ArrayList implements List {
 
     public Object remove(int index) {
         Object o = this.get(index);
-        this.size--;
+
         //index后面的数向前移动一位
         for (int cur = index + 1; cur < this.size; cur++) {
             this.elementData[cur] = this.elementData[cur + 1];
         }
+        //最后一个元素删除
+        this.elementData[this.size-1] = null;
+
+        this.size--;
         return o;
     }
 
     public int size() {
-        return this.size;
+        return this.size + 1;
     }
 
     public Iterator iterator() {
