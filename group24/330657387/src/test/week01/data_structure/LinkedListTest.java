@@ -50,5 +50,22 @@ public class LinkedListTest {
 		assertEquals("B", iter.next());
 		assertFalse(iter.hasNext());
 	}
+	
+	@Test
+	public void testReverse(){
+		list.add("A");
+		list.add("B");
+		list.add("C");
+		list.add("D");
+		list.reverse();
+		LinkedListIterator iter = list.iterator();
+		StringBuilder sb = new StringBuilder();
+		while(iter.hasNext()){
+			sb.append(iter.next());
+			sb.append("->");
+		}
+		sb.append("null");
+		assertEquals("D->C->B->A->null", sb.toString());
+	}
 
 }
