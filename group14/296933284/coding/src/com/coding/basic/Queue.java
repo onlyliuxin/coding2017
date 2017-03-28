@@ -1,49 +1,27 @@
 package com.coding.basic;
 
 /**
- * Queue ÊµÏÖ
- * First In First Out
- * µÚ14Ğ¡×é 296933284
- * 
+ * Queue å®ç° ç¬¬14å°ç»„ 296933284
+ *
  * @author Tonnyson
  *
  */
-public class Queue {
+public class Queue<T> {
 	
-	private LinkedList elementData = new LinkedList();
-	
-	/**
-	 * Ïò¶ÓÁĞÖĞ²åÈëÔªËØ
-	 * 
-	 * @param obj
-	 */
-	public void enQueue(Object obj){		
-		elementData.addLast(obj);
+	private LinkedList<T> elementData = new LinkedList<>();
+
+	public void enQueue(T element){
+		elementData.addLast(element);
 	}
-	
-	/**
-	 * É¾³ı¶ÓÊ×ÔªËØ
-	 * 
-	 * @return
-	 */
-	public Object deQueue(){
+
+	public T deQueue(){
 		return elementData.removeFirst();
 	}
 	
-	/**
-	 * ÅĞ¶Ï¶ÓÁĞÊÇ·ñÎª¿Õ
-	 * 
-	 * @return
-	 */
 	public boolean isEmpty(){
 		return elementData.size() == 0;
 	}
-	
-	/**
-	 * ·µ»Ø¶ÓÁĞµÄÔªËØ¸öÊı
-	 * 
-	 * @return
-	 */
+
 	public int size(){
 		return elementData.size();
 	}

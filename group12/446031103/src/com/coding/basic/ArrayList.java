@@ -2,6 +2,8 @@ package com.coding.basic;
 
 import java.util.Arrays;
 
+
+
 /**
  * 
  * arrayList集合-数组
@@ -11,10 +13,8 @@ import java.util.Arrays;
  * @date 2017年2月21日 下午3:49:24
  */
 public class ArrayList implements List {
-	// 记录ArrayList集合大小
 	private int size = 0;
-	// 初始化存储数组
-	private Object[] elementData = new Object[100];
+	private Object[] elementData = new Object[0];
 	/**
 	 * 
 	 * 向最后插入元素 
@@ -24,10 +24,9 @@ public class ArrayList implements List {
 	 * @see com.coding.basic.List#add(java.lang.Object)
 	 */
 	public void add(Object o){
-		// 数组不够时增长
-		growOrNot(size + 1);
+		ensureCapacity(size + 1);
 		elementData[size] = o;
-		++size;
+		size++;
 	}
 	/**
 	 * 
@@ -40,10 +39,10 @@ public class ArrayList implements List {
 	 */
 	public void add(int index, Object o){
 		validate(index);
-		growOrNot(size + 1);
+		ensureCapacity(size + 1);
 		System.arraycopy(elementData, index, elementData, index + 1, size - index);
 		elementData[index] = o;
-		++size;
+		size++;
 	}
 	/**
 	 * 
@@ -67,12 +66,12 @@ public class ArrayList implements List {
 	 * @return 删除的元素
 	 * @see com.coding.basic.List#remove(int)
 	 */
-	public Object remove(int index){
-		Object oldValue = elementData[index];
+	public Object remove(int index){		
 		validate(index);
+		Object oldValue = elementData[index];
 		System.arraycopy(elementData, index + 1, elementData, index, size - index - 1);
 		elementData[size] = null;
-		--size;
+		size--;
 		return oldValue;
 	}
 	/**
@@ -84,25 +83,24 @@ public class ArrayList implements List {
 	 * @see com.coding.basic.List#size()
 	 */
 	public int size(){
-		return size;
-	}
-	
-	public Iterator iterator(){
-		return null;
+		return this.size;
 	}
 	/**
-	 * 
-	 * 判断是否需要增长数组 
-	 *
-	 * @MethodName growOrNot
-	 * @author msh
-	 * @date 2017年2月21日 下午3:53:29
+	 * 迭代
+	 * @return
+	 */
+	public Iterator iterator(){
+		return new ArrayListIterator();
+	}
+	/**
+	 * 判断是否需要数组增长
 	 * @param minCapacity
 	 */
-	private void growOrNot(int minCapacity) {
-		// 当增加长度大于数组长度时，增长
-		if (minCapacity > elementData.length) {
-			elementData = Arrays.copyOf(elementData, elementData.length * 2);
+	private void ensureCapacity(int minCapacity) {
+		if(minCapacity>elementData.length){
+			int newCapacity = Math.max(minCapacity, elementData.length*2);
+			Object[] newElementData = new Object[newCapacity];
+			System.arraycopy(elementData, 0, newElementData, 0, elementData.length);
 		}
 	}
 	/**
@@ -117,5 +115,27 @@ public class ArrayList implements List {
 	private void validate(int index) {
 		if (index < 0 || index >= size)
 			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+	}
+	/**
+	 * 
+	 * @author Administrator
+	 *
+	 */
+	private class ArrayListIterator implements Iterator{
+		private int position;
+        private ArrayList list;
+		@Override
+		public boolean hasNext() {
+			return position < list.size();
+		}
+
+		@Override
+		public Object next() {
+			 if (hasNext()) {
+	                return list.get(position++);
+	          }
+			return null;
+		}
+		
 	}
 }
