@@ -15,6 +15,26 @@ public class BinaryTree<T extends Comparable<T>>{
         return this.root;
     }
 
+    // recursive way,
+    // t is the node that roots the subtree.
+    public BinaryTreeNode<T> insert(T data, BinaryTreeNode t){
+        if(t == null){
+            return new BinaryTreeNode<T>(data);
+        }
+        int comparator = ((T) t.data).compareTo(data);
+        if(comparator > 0){
+            t.left = insert(data,t.right);
+        }else if(comparator < 0){
+            t.right = insert(data,t.left);
+        }else {
+            // do nothing
+        }
+        return t;
+
+    }
+
+
+    //loop way
     public void insert(T data){
         if(this.root == null){
             BinaryTreeNode node = new BinaryTreeNode(data);
