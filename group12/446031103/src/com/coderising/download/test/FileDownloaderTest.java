@@ -1,9 +1,10 @@
-package com.coderising.download;
+package com.coderising.download.test;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.coderising.download.FileDownloader;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
 import com.coderising.download.impl.ConnectionManagerImpl;
@@ -21,9 +22,9 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://localhost:8080/test.jpg";
+		String url = "http://images2015.cnblogs.com/blog/610238/201604/610238-20160421154632101-286208268.png";
 		
-		FileDownloader downloader = new FileDownloader(url);
+		FileDownloader downloader = new FileDownloader(url,"E:\\TEST\\test.jpg");
 
 	
 		ConnectionManager cm = new ConnectionManagerImpl();
@@ -51,7 +52,6 @@ public class FileDownloaderTest {
 			}
 		}
 		System.out.println("下载完成！");
-		
 		
 
 	}
