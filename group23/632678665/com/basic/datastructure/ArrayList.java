@@ -2,7 +2,6 @@ package com.basic.datastructure;
 
 import java.util.Arrays;
 
-import org.junit.Test;
 
 public class ArrayList implements List{
 	private Object [] array =new Object [15];
@@ -60,5 +59,4 @@ public class ArrayList implements List{
 		Object [] newArray;
 		return newArray=Arrays.copyOf(o, (int) (o.length*1.5));
 	}
-	
 }
