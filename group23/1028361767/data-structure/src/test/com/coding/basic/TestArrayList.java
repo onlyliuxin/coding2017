@@ -1,8 +1,9 @@
 package test.com.coding.basic;
 
-import com.coding.basic.ArrayList;
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.coding.basic.array.ArrayList;
 
 public class TestArrayList {
 
