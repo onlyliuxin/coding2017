@@ -8,9 +8,8 @@ import org.junit.Test;
 import com.coderising.jvm.loader.ClassFileLoader;
 
 public class ClassFileloaderTest {
-
 	
-	static String path1 = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
+	static String path1 = "F:\\githubRes\\coding2017\\group12\\2258659044\\zj-2017\\bin";
 	static String path2 = "C:\temp";
 	
 	
@@ -42,12 +41,12 @@ public class ClassFileloaderTest {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
 		
-		String className = "com.coderising.jvm.test.EmployeeV1";
+		String className = "test.com.coderising.jvm.loader.EmployeeV1";
 		
 		byte[] byteCodes = loader.readBinaryCode(className);
 		
 		// 注意：这个字节数可能和你的JVM版本有关系， 你可以看看编译好的类到底有多大
-		Assert.assertEquals(1056, byteCodes.length);
+		Assert.assertEquals(1070, byteCodes.length);
 		
 	}
 	
@@ -56,7 +55,7 @@ public class ClassFileloaderTest {
 	public void testMagicNumber(){
     	ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
-		String className = "com.coderising.jvm.test.EmployeeV1";
+		String className = "test.com.coderising.jvm.loader.EmployeeV1";
 		byte[] byteCodes = loader.readBinaryCode(className);
 		byte[] codes = new byte[]{byteCodes[0],byteCodes[1],byteCodes[2],byteCodes[3]};
 		
