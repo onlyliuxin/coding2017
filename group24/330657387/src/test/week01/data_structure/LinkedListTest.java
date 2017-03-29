@@ -1,6 +1,9 @@
 package test.week01.data_structure;
 
 import static org.junit.Assert.*;
+
+import java.util.Arrays;
+
 import main.week01.data_structure.LinkedList;
 import main.week01.data_structure.LinkedList.LinkedListIterator;
 
@@ -8,12 +11,26 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class LinkedListTest {
-	
+
 	private LinkedList list;
+	private LinkedList[] lists = new LinkedList[3];
 
 	@Before
 	public void setUp() throws Exception {
 		list = new LinkedList();
+		
+		lists[0] = new LinkedList();
+		lists[1] = new LinkedList();
+		lists[2] = new LinkedList();
+
+		lists[1].add("A");
+
+		lists[2].add("A");
+		lists[2].add("B");
+		lists[2].add("C");
+		lists[2].add("D");
+		lists[2].add("E");
+
 	}
 
 	@Test
@@ -32,7 +49,7 @@ public class LinkedListTest {
 		list.add("D");
 		list.add(0, "E");
 		assertEquals("E", list.remove(0));
-		assertEquals("D", list.remove(list.size()-1));
+		assertEquals("D", list.remove(list.size() - 1));
 		assertEquals(3, list.size());
 	}
 
@@ -50,22 +67,137 @@ public class LinkedListTest {
 		assertEquals("B", iter.next());
 		assertFalse(iter.hasNext());
 	}
-	
+
 	@Test
-	public void testReverse(){
-		list.add("A");
-		list.add("B");
-		list.add("C");
-		list.add("D");
-		list.reverse();
-		LinkedListIterator iter = list.iterator();
+	public void testReverse() {
+		LinkedList l = lists[2];
+		l.reverse();
+		LinkedListIterator iter = l.iterator();
 		StringBuilder sb = new StringBuilder();
-		while(iter.hasNext()){
+		while (iter.hasNext()) {
+			sb.append(iter.next());
+		}
+		// assertEquals("", sb.toString());
+		// assertEquals("A", sb.toString());
+		assertEquals("EDCBA", sb.toString());
+		
+	}
+
+	@Test
+	public void testRemoveFirstHalf() {
+		LinkedList l = lists[0];
+		l.removeFirstHalf();
+		
+		LinkedListIterator iter = l.iterator();
+		StringBuilder sb = new StringBuilder();
+		while (iter.hasNext()) {
 			sb.append(iter.next());
 			sb.append("->");
 		}
 		sb.append("null");
-		assertEquals("D->C->B->A->null", sb.toString());
+		
+		assertEquals("null", sb.toString());
+		//assertEquals("A->null", sb.toString());
+		//assertEquals("C->D->E->null", sb.toString());
 	}
 
+	@Test
+	public void testRemoveByIndex() {
+		try{
+			LinkedList l = lists[2];
+			l.remove(0, 1);
+			System.out.println(l.ToString());
+		}catch(Exception e){
+			assertEquals(IndexOutOfBoundsException.class, e.getClass());
+		}
+	}
+
+	@Test
+	public void testGetElements() {
+		list.add(11);
+		list.add(22);
+		list.add(33);
+		list.add(44);
+		list.add(55);
+		list.add(66);
+		list.add(77);
+		list.add(88);
+		list.add(99);
+		
+		LinkedList l = new LinkedList();
+		l.add(1);
+		l.add(3);
+		l.add(4);
+		l.add(6);
+		try{
+			int[] res = list.getElements(l);
+			System.out.println(Arrays.toString(res));
+		}catch(Exception e){
+			assertEquals(e.getMessage(), "传入链表为空？");
+		}
+	}
+
+	@Test
+	public void testSubtract() {
+		list.add(11);
+		list.add(22);
+		list.add(33);
+		list.add(44);
+		list.add(55);
+		list.add(66);
+		list.add(77);
+		list.add(88);
+		list.add(99);
+		
+		LinkedList l = new LinkedList();
+		l.add(11);
+		l.add(33);
+		l.add(44);
+		l.add(66);
+		try{
+			list.subtract(l);
+			System.out.println(list.ToString());
+		}catch(Exception e){
+			assertEquals(e.getMessage(), "传入链表为空？");
+		}
+	}
+
+	@Test
+	public void testRemoveDuplicateValues() {
+		list.add(11);
+		list.add(11);
+		list.add(22);
+		list.add(33);
+		list.add(33);
+
+		list.removeDuplicateValues();
+		
+		System.out.println(list.ToString());
+	}
+
+	@Test
+	public void testRemoveRange() throws Exception {
+		list.add(11);
+		list.add(22);
+		list.add(33);
+		list.add(44);
+		list.add(55);
+		list.add(66);
+		list.add(77);
+		list.add(88);
+		list.add(99);
+		System.out.println(list.ToString());
+		
+		try{
+			list.removeRange(50, 80);
+			System.out.println(list.ToString());
+		}catch(Exception e){
+			assertEquals(e.getMessage(), "输入有问题！");
+		}
+	}
+
+	@Test
+	public void testIntersection() {
+		
+	}
 }

@@ -49,7 +49,7 @@ public class LinkedList implements List {
 		return dest.data;
 	}
 
-	public Node getNode(int index) {
+	private Node getNode(int index) {
 		rangeCheck(index);
 		Node dest = head;
 		for (int i = 0; i < index; i++) {
@@ -132,6 +132,10 @@ public class LinkedList implements List {
 			this.list = list;
 		}
 
+		public void reset() {
+			position = 0;
+		}
+
 		@Override
 		public boolean hasNext() {
 			return position + 1 <= list.size;
@@ -152,18 +156,19 @@ public class LinkedList implements List {
 	 * 把该链表逆置 例如链表为 3->7->10 , 逆置后变为 10->7->3
 	 */
 	public void reverse() {
-		if(size <= 1){
+		if (size <= 1) {
 			return;
 		}
-		Node A = head,B = head.next;
+		Node a = head, b = head.next;
 		head.next = null;
 		Node temp;
-		while(null != B.next){
-			temp = B.next;
-			B.next = A;
-			B=temp;
+		while (null != b) {
+			temp = b.next;
+			b.next = a;
+			a = b;
+			b = temp;
 		}
-		head = B;
+		head = a;
 	}
 
 	/**
@@ -171,11 +176,11 @@ public class LinkedList implements List {
 	 * ,删除以后的值为7,8,10
 	 */
 	public void removeFirstHalf() {
-		if(size <= 1){
+		if (size <= 1) {
 			return;
 		}
-		size = size%2 == 0?size/2:size/2+1;
-		head = getNode(size-1);
+		size = size % 2 == 0 ? size / 2 : size / 2 + 1;
+		head = getNode(size - 1);
 	}
 
 	/**
@@ -186,13 +191,14 @@ public class LinkedList implements List {
 	 */
 	public void remove(int i, int length) {
 		rangeCheck(i);
-		rangeCheck(i+length-1);
-		if(i==0){
+		rangeCheck(i + length - 1);
+		if (i == 0) {
 			head = getNode(length);
 			size -= length;
+		} else {
+			Node pre = getNode(i - 1);
+			pre.next = getNode(i + length - 1).next;
 		}
-		Node pre = getNode(i-1);
-		pre.next = getNode(i+length);
 	}
 
 	/**
@@ -201,26 +207,62 @@ public class LinkedList implements List {
 	 * 返回的结果应该是[101,301,401,601]
 	 * 
 	 * @param list
+	 * @throws Exception
 	 */
-	public static int[] getElements(LinkedList list) {
-		return null;
+	public int[] getElements(LinkedList list) throws Exception {
+		if (list == null) {
+			throw new Exception("传入链表为空？");
+		}
+		int[] res = new int[list.size];
+		for (int i = 0; i < list.size; i++) {
+			res[i] = Integer.parseInt(get(
+					Integer.parseInt(list.get(i).toString()) - 1).toString());
+		}
+		return res;
 	}
 
 	/**
 	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。 从当前链表中中删除在list中出现的元素
 	 * 
 	 * @param list
+	 * @throws Exception
 	 */
 
-	public void subtract(LinkedList list) {
-		
+	public void subtract(LinkedList list) throws Exception {
+		if (list == null) {
+			throw new Exception("传入链表为空？");
+		}
+		LinkedListIterator beSub = this.iterator(), sub = list.iterator();
+		while (sub.hasNext()) {
+			Object a = sub.next();
+			while (beSub.hasNext()) {
+				Object b = beSub.next();
+				if (a.equals(b)) {
+					this.remove(beSub.position - 1);
+				}
+			}
+			beSub.reset();
+		}
 	}
 
 	/**
 	 * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
 	public void removeDuplicateValues() {
-
+		LinkedListIterator iter = this.iterator();
+		if (size <= 1) {
+			return;
+		}
+		Object a = iter.next();
+		while (iter.hasNext()) {
+			Object b = iter.next();
+			if (b.equals(a)) {
+				remove(iter.position - 1);
+				continue;
+			} else {
+				a = b;
+			}
+		}
 	}
 
 	/**
@@ -228,9 +270,42 @@ public class LinkedList implements List {
 	 * 
 	 * @param min
 	 * @param max
+	 * @throws Exception
 	 */
-	public void removeRange(int min, int max) {
-
+	public void removeRange(int min, int max) throws Exception {
+		if(min > max){
+			throw new Exception("输入有问题！");
+		}
+		if(max < Integer.parseInt(get(0).toString())){
+			throw new Exception("全部太小！");
+		}
+		if(min > Integer.parseInt(get(size-1).toString())){
+			throw new Exception("全部太大！");
+		}
+		int firstRemove = -1,lastRemove = -1;
+		LinkedListIterator iter = this.iterator();
+		boolean hasmin = false;
+		while(iter.hasNext()){
+			int n = Integer.parseInt(iter.next().toString());
+			if(n>min && !hasmin){
+			 firstRemove = iter.position - 1;
+			 hasmin = true;
+			} 
+			if(n<max){
+			 lastRemove = iter.position - 1;
+			}
+		}
+		if(hasmin && firstRemove == 0){
+			head = getNode(lastRemove);
+			size -= lastRemove-firstRemove+1;
+			head = head.next;
+		}else{
+			Node pre = getNode(firstRemove-1);
+			pre.next = getNode(lastRemove);
+			size -= lastRemove-firstRemove+1;
+			pre.next = pre.next.next;
+		}
+		
 	}
 
 	/**
@@ -241,5 +316,16 @@ public class LinkedList implements List {
 	 */
 	public LinkedList intersection(LinkedList list) {
 		return null;
+	}
+
+	public String ToString() {
+		LinkedListIterator iter = this.iterator();
+		StringBuilder sb = new StringBuilder();
+		while (iter.hasNext()) {
+			sb.append(iter.next());
+			sb.append("->");
+		}
+		sb.append("null");
+		return sb.toString();
 	}
 }
