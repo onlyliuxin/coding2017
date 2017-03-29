@@ -7,33 +7,34 @@ import collection.AbstractList;
 import collection.Iterator;
 
 public class Stack<E> extends AbstractList<E> {
-	
+
 	private ArrayList<E> myList;
 
 	public Stack() {
 		this.myList = new ArrayList<E>();
 	}
 
-	public void push(E e){
+	public void push(E e) {
 		myList.addLast(e);
 	}
-	
-	public E pop(){
+
+	public E pop() {
 		checkEmpty();
 		return myList.removeLast();
 	}
-	
+
 	private void checkEmpty() {
 		if (0 == size())
 			throw new EmptyStackException();
 	}
 
-	public E peek(){
+	public E peek() {
 		checkEmpty();
 		return myList.getLast();
 	}
 
-	public int size(){
+	@Override
+	public int size() {
 		return myList.size();
 	}
 
@@ -47,7 +48,7 @@ public class Stack<E> extends AbstractList<E> {
 		checkEmpty();
 		return myList.get(size() - index - 1);
 	}
-	
+
 	@Override
 	protected Iterator<E> iterator() {
 		return new StackIterator(myList);
@@ -77,12 +78,12 @@ public class Stack<E> extends AbstractList<E> {
 			return false;
 		return true;
 	}
-	
+
 	private class StackIterator<E> implements Iterator<E> {
 
 		private ArrayList<E> myArrayList;
 		private int pos;
-		
+
 		public StackIterator(ArrayList<E> myList) {
 			myArrayList = myList;
 			pos = 0;
@@ -101,6 +102,4 @@ public class Stack<E> extends AbstractList<E> {
 		}
 	}
 
-	
-	
 }
