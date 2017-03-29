@@ -1,6 +1,4 @@
 package week2;
-import static org.junit.Assert.fail;
-
 import java.util.HashMap;
 import java.util.Map;
 
