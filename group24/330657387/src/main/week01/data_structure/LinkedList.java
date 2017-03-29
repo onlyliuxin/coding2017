@@ -2,6 +2,9 @@ package main.week01.data_structure;
 
 import java.util.NoSuchElementException;
 
+import main.week01.data_structure.api.Iterator;
+import main.week01.data_structure.api.List;
+
 public class LinkedList implements List {
 
 	private Node head;
@@ -315,7 +318,41 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	public LinkedList intersection(LinkedList list) {
-		return null;
+		if(0 == list.size){
+			return this;
+		}
+		if(0 == size){
+			return list;
+		}
+		LinkedList res = new LinkedList();
+		Node a = head, b = list.head;
+		while(null != a && null != b){
+			if(a.equals(b)){
+				res.add(a.data);
+				a = a.next;
+				b = b.next;
+				continue;
+			}
+			if(Integer.parseInt(a.data.toString()) > Integer.parseInt(b.data.toString())){
+				res.add(b.data);
+				b = b.next;
+				continue;
+			}
+			if(Integer.parseInt(a.data.toString()) < Integer.parseInt(b.data.toString())){
+				res.add(a.data);
+				a = a.next;
+				continue;
+			}
+		}
+		while(null != a){
+			res.add(a.data);
+			a = a.next;
+		}
+		while(null != b){
+			res.add(b.data);
+			b = b.next;
+		}
+		return res;
 	}
 
 	public String ToString() {

@@ -1,10 +1,9 @@
-package test.week01.data_structure;
+package main.week01.data_structure;
 
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
 
-import main.week01.data_structure.LinkedList;
 import main.week01.data_structure.LinkedList.LinkedListIterator;
 
 import org.junit.Before;
@@ -198,6 +197,22 @@ public class LinkedListTest {
 
 	@Test
 	public void testIntersection() {
+		list.add(11);
+//		list.add(22);
+//		list.add(33);
+//		list.add(44);
+//		list.add(55);
+//		list.add(66);
+//		list.add(77);
+//		list.add(88);
+//		list.add(99);
 		
+		LinkedList l = new LinkedList();
+		l.add(10);
+//		l.add(30);
+//		l.add(40);
+//		l.add(60);
+
+		System.out.println(list.intersection(l).ToString());
 	}
 }

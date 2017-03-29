@@ -1,12 +1,6 @@
-package test.week02.practice;
-
-import static org.junit.Assert.*;
+package main.week02.practice;
 
 import java.util.Arrays;
-import java.util.HashMap;
-
-import main.week02.practice.ArrayUtil;
-
 import org.junit.Before;
 import org.junit.Test;
 

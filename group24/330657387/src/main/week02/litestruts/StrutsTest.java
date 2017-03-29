@@ -1,10 +1,7 @@
-package test.week02.litestruts;
+package main.week02.litestruts;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import main.week02.litestruts.Struts;
-import main.week02.litestruts.View;
 
 import org.junit.Assert;
 import org.junit.Test;
