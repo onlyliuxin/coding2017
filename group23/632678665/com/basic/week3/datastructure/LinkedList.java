@@ -178,6 +178,12 @@ public class LinkedList implements List {
 			return data;
 		}
 
+		@Override
+		public void remove() {
+			// TODO Auto-generated method stub
+			
+		}
+
 	}
 
 	/**
