@@ -36,7 +36,6 @@ public class ConnectionImpl implements Connection{
 		InputStream raw = null;
 		BufferedInputStream in = null;
 		int size = endPos - startPos + 1;
-
 		byte[] data = new byte[size];
 		try{
 			raw = urlConnection.getInputStream();
