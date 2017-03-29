@@ -22,7 +22,7 @@ public class FileDownloaderTest {
 	public void testDownload() {
 		
 //		String url = "http://localhost:8080/test.jpg";
-		String url = "http://img4.duitang.com/uploads/item/201411/09/20141109224803_GXSri.jpeg";
+		String url = "http://ww3.sinaimg.cn/large/729119fdgw1f0nnftw3hij21kw11x4qp.jpg";
 		
 		FileDownloader downloader = new FileDownloader(url);
 
@@ -46,7 +46,7 @@ public class FileDownloaderTest {
 			try {
 				System.out.println("还没有下载完成，休眠五秒");
 				//休眠5秒
-				Thread.sleep(5000);
+				Thread.sleep(5);
 			} catch (InterruptedException e) {				
 				e.printStackTrace();
 			}
