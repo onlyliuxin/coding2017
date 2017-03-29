@@ -153,15 +153,18 @@ public class Struts {
 //					System.out.println(results.item(i).getTextContent());
 //				}
 //			}
-//			
-////			NamedNodeMap name = beans.item(0).getAttributes(); 
+			
+//			NamedNodeMap name = beans.item(0).getAttributes();
+//			NodeList results = doc.getElementsByTagName("struts");
+//			for (int i = 0; i < results.getLength(); i++) {
+//				System.out.println(results.item(i).getAttributes().getNamedItem("name").getNodeValue());
+//				System.out.println(results.item(i).getTextContent());
+//			}
 //			
 //		} catch (Exception e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}  
-    	
-    	 
-//	}
+//    }
    
 }
