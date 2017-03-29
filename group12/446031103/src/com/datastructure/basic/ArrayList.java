@@ -1,4 +1,4 @@
-package com.coding.basic;
+package com.datastructure.basic;
 
 import java.util.Arrays;
 
@@ -21,7 +21,7 @@ public class ArrayList implements List {
 	 *
 	 * @Method add 添加
 	 * @param o 元素
-	 * @see com.coding.basic.List#add(java.lang.Object)
+	 * @see com.datastructure.basic.List#add(java.lang.Object)
 	 */
 	public void add(Object o){
 		ensureCapacity(size + 1);
@@ -35,7 +35,7 @@ public class ArrayList implements List {
 	 * @Method add 添加
 	 * @param index 下标
 	 * @param o 元素
-	 * @see com.coding.basic.List#add(int, java.lang.Object)
+	 * @see com.datastructure.basic.List#add(int, java.lang.Object)
 	 */
 	public void add(int index, Object o){
 		validate(index);
@@ -51,7 +51,7 @@ public class ArrayList implements List {
 	 * @Method get 取得
 	 * @param index 下标
 	 * @return
-	 * @see com.coding.basic.List#get(int)
+	 * @see com.datastructure.basic.List#get(int)
 	 */
 	public Object get(int index){
 		validate(index);
@@ -64,7 +64,7 @@ public class ArrayList implements List {
 	 * @Method remove 删除
 	 * @param index 下标
 	 * @return 删除的元素
-	 * @see com.coding.basic.List#remove(int)
+	 * @see com.datastructure.basic.List#remove(int)
 	 */
 	public Object remove(int index){		
 		validate(index);
@@ -80,7 +80,7 @@ public class ArrayList implements List {
 	 *
 	 * @Method size 集合大小
 	 * @return 集合大小
-	 * @see com.coding.basic.List#size()
+	 * @see com.datastructure.basic.List#size()
 	 */
 	public int size(){
 		return this.size;

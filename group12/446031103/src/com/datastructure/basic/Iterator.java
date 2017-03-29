@@ -1,4 +1,4 @@
-package com.coding.basic;
+package com.datastructure.basic;
 
 public interface Iterator {
 	public boolean hasNext();

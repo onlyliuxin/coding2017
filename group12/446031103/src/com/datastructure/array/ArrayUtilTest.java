@@ -1,4 +1,4 @@
-package com.coderising.array;
+package com.datastructure.array;
 
 import static org.junit.Assert.*;
 

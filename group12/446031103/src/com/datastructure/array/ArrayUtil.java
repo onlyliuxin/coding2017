@@ -1,4 +1,4 @@
-package com.coderising.array;
+package com.datastructure.array;
 
 import java.util.ArrayList;
 import java.util.Arrays;
