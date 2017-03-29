@@ -3,50 +3,160 @@ package com.coding.basic;
 public class LinkedList implements List {
 
 	private Node head;
+	private int size = 0;
 
 	public void add(Object o) {
-
+		Node newNode = new Node(o);
+		if (null == head) {
+			head = newNode;
+			size++;
+			return;
+		}
+		Node currNode = head;
+		while (null != currNode.next) {
+			currNode = currNode.next;
+		}
+		currNode.next = newNode;
+		size++;
 	}
 
 	public void add(int index, Object o) {
-
+		rangeCheck(index);
+		if (index == size) {
+			add(o);
+			return;
+		}
+		if (index == 0) {
+			Node newNode = new Node(o);
+			newNode.next = head;
+			head = newNode;
+			size++;
+			return;
+		}
+		Node newNode = new Node(o);
+		Node currNode = head;
+		for (int i = 0; i < index - 1; i++) {
+			currNode = currNode.next;
+		}
+		newNode.next = currNode.next;
+		currNode.next = newNode;
+		size++;
 	}
 
 	public Object get(int index) {
-		return null;
+		rangeCheck(index);
+		Node node = head;
+		for (int i = 0; i < index; i++) {
+			node = node.next;
+		}
+		return node;
+	}
+
+	private void rangeCheck(int index) {
+		if (index < 0 || index > size) {
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+		}
 	}
 
 	public Object remove(int index) {
-		return null;
+		rangeCheck(index);
+		if (index == 0) {
+			return this.removeFirst();
+		}
+		if (index == size - 1) {
+			return this.removeLast();
+		}
+		Node currNode = head;
+		for (int i = 0; i < index - 1; i++) {
+			currNode = currNode.next;
+		}
+		Node removeNode = currNode.next;
+		currNode.next = removeNode.next;
+		//removeNode = null;
+		size--;
+		return removeNode;
 	}
 
 	public int size() {
-		return -1;
+		return size;
 	}
 
 	public void addFirst(Object o) {
-
+		if (null == head) {
+			head = new Node(o);
+			size++;
+			return;
+		}
+		Node newNode = new Node(o);
+		newNode.next = head;
+		head = newNode;
+		size++;
 	}
 
 	public void addLast(Object o) {
-
+		this.add(o);
 	}
 
 	public Object removeFirst() {
-		return null;
+		if (null == head) {
+			return null;
+		}
+		Node currNode = head;
+		head = currNode.next;
+		size--;
+		return head;
 	}
 
 	public Object removeLast() {
+		if (null == head) {
+			return null;
+		}
+		if (null == head.next) {
+			Node currNode = head;
+			head = null;
+			size--;
+			return currNode;
+		}
+		Node currNode = head;
+		while (null != currNode.next) {
+			currNode = currNode.next;
+		}
+		currNode = null;
+		size--;
 		return null;
 	}
 
 	public Iterator iterator() {
-		return null;
+		return new MyIterator();
 	}
 
 	private static class Node {
 		Object data;
 		Node next;
+
+		Node(Object data) {
+			this.data = data;
+		}
+
+		@Override
+		public String toString() {
+			return this.data.toString();
+		}
+	}
+
+	private class MyIterator implements Iterator {
+
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public Object next() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
 	}
 
