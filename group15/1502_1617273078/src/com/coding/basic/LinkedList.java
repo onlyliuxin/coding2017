@@ -167,14 +167,22 @@ public class LinkedList implements List {
 	 */
 	public  void reverse(){
         int cusize = thesize;
+        //创建list副本，内容一致
+        LinkedList listbak=new LinkedList();
+        for (int i = 0; i <thesize ; i++) {
+            Object o = get(i);
+            listbak.add(o);
+        }
         for (int i = 1; i <cusize ; i++) {
-            this.addFirst(get(i));
+            addFirst(listbak.get(i));
         }
-        Node node=head;
-        for (int i = thesize/2; i <=thesize ; i++) {
-            remove(i);
+
+        //去除后面的内容
+        int dexsing = thesize / 2 + 1;
+        int sizesign = thesize;
+        for (int i = dexsing; i <sizesign ; i++) {
+            remove(dexsing);
         }
-        //node.next = null;
     }
 	
 	/**
@@ -185,45 +193,53 @@ public class LinkedList implements List {
 	 */
 	public  void removeFirstHalf(){
         Node node=head;
-        for (int i = 1; i <thesize/2 ; i++) {
+        int sign=thesize;
+        for (int i = 1; i <=sign/2 ; i++) {
             node = node.next;
+            thesize--;
+
         }
-        node.next = null;
+        head = node;
 
     }
 	
 	/**
-	 * 从第i个元素开始， 删除length 个元素 ， 注意i从0开始
+	 * 从第i个元素开始， 删除length 个元素 ， 注意i从0开始（删除的元素包括了i）
 	 * @param i
 	 * @param length
 	 */
 	public  void remove(int i, int length){
         Node node = head;
-        if (length > thesize) {
-            node = null;
-            node.next = null;
-        } else {
-            if (i == 0) {
+        if (i == 0) {
                 for (int j = 1; j <=length ; j++) {
                     node = node.next;
+                    thesize--;
                 }
                 head = node;
-            } else if (i != 0 || (i + length + 1) < thesize) {
-                for (int j = 0; j <thesize ; j++) {
-                    node = node.next;
-                    if (j == i) {
+        } else if (i != 0 && length  < thesize-i) {
+            int sizesign = thesize;
+            Node f;
+            Node l;
+            for (int j =1; j <i ; j++) {
+                node = node.next;
 
-                        head = node;
-                    }
-                }
-
-            }else {
-                for (int j = 0; j <i+1 ; j++) {
-                    node = node.next;
-                }
-                head = node;
             }
+            f = node;
+            for (int j = 1; j <=i+length ; j++) {
+                node = node.next;
+            }
+            l = node;
+            f.next = l;
+            thesize = thesize - length;
+
+        }else {
+            for (int j = 1; j <i ; j++) {
+                node = node.next;
+            }
+            node.next = null;
+            thesize = i;
         }
+
     }
 	/**
 	 * 假定当前链表和list均包含已升序排列的整数
@@ -236,7 +252,10 @@ public class LinkedList implements List {
 	public  int[] getElements(LinkedList list){
         int[] res = new int[list.size()];
         for (int i = 0; i <list.size() ; i++) {
-            res[i] = (int) this.get(i);
+            if ((Integer)list.get(i)<size()) {
+                res[i] = (int) this.get((Integer) list.get(i));
+            }
+
         }
         return res;
 	}
@@ -249,16 +268,33 @@ public class LinkedList implements List {
 	 */
 	
 	public  void subtract(LinkedList list){
-		
-	}
+        for (int i = 0; i <list.size() ; i++) {
+            //int sizesign = thesize;
+            for (int j = 0; j <thesize ; j++) {
+                if (list.get(i).equals(get(j))) {
+                    remove(j);
+
+                }
+            }
+        }
+
+    }
 	
 	/**
 	 * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。
 	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
 	public  void removeDuplicateValues(){
-		
-	}
+        for (int i = 0; i <size() ; i++) {
+            Object sign = get(i);
+            for (int j = i+1; j <size() ; j++) {
+                if (sign.equals(get(j))) {
+                    remove(j);
+                }
+            }
+        }
+
+    }
 	
 	/**
 	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
@@ -267,8 +303,64 @@ public class LinkedList implements List {
 	 * @param max
 	 */
 	public  void removeRange(int min, int max){
-		
-	}
+	    if((Integer)(get(size()-1)) <min|| (Integer)get(0)>max){
+
+        } else if (min < (Integer) (get(size() - 1))&&(Integer) (get(size() - 1))<max&& min>(Integer) (get(0))){
+            Node node = head;
+            if ((Integer) head.data > min) {
+                Node newhead = new Node(null,null);
+                head = newhead;
+                thesize = 0;
+            }else
+            for (int i = 1; i <size() ; i++) {
+                //node = node.next;
+                if ((Integer) node.next.data > min) {
+                    node.next = null;
+                    thesize = i + 1;
+                }else {
+                    node = node.next;
+                }
+            }
+        } else if (min < (Integer) (get(0))&&(Integer) (get(0))<max&& (Integer)get(size()-1)<max) {
+            Node node = head;
+            for (int i = 1; i <size() ; i++) {
+                node = node.next;
+                if ((Integer) node.data > max) {
+                    head = node;
+                    thesize = thesize - i;
+                    break;
+                }
+            }
+        }else {
+            Node node = head;
+            Node nodemin=null;
+            Node nodemax = null;
+            int minsign = 0;
+            int maxsign=0;
+            for (int i = 1; i <size() ; i++) {
+
+                if ((Integer) node.next.data > min) {
+                    nodemin = node;
+                     minsign = i-1;
+                     break;
+                }
+                node = node.next;
+            }
+            for (int i = 1; i <size() ; i++) {
+                if ((Integer) node.next.data > max) {
+                    nodemax = node.next;
+                    maxsign = i+1;
+                    break;
+                }
+                node = node.next;
+            }
+            nodemin.next = nodemax;
+            System.out.println(minsign);
+            System.out.println(maxsign);
+            thesize = thesize - (maxsign - minsign);
+        }
+
+    }
 	
 	/**
 	 * 假设当前链表和参数list指定的链表均以元素依值递增有序排列（同一表中的元素值各不相同）
@@ -276,6 +368,15 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	public  LinkedList intersection( LinkedList list){
-		return null;
+        LinkedList list1 = new LinkedList();
+        for (int i = 0; i <size() ; i++) {
+            for (int j = 0; j <list.size() ; j++) {
+                if (get(i).equals(list.get(j))) {
+                    list1.add(get(i));
+                }
+
+            }
+        }
+        return list1;
 	}
 }

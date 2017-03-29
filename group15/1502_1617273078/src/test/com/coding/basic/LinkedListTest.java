@@ -128,15 +128,11 @@ public void testReverse() throws Exception {
     list.add(8);
     list.add(10);
     list.reverse();
-   // list.addFirst(2);
-    System.out.println(list.size());
     Iterator iterator = list.iterator();
     while (iterator.hasNext()) {
-       // String s= new String(iterator.next());
-        System.out.print(iterator.next());
+        System.out.print(iterator.next()+" ");
     }
-    //System.out.println(list.get(1));
-} 
+}
 
 /** 
 * 
@@ -144,7 +140,23 @@ public void testReverse() throws Exception {
 * 
 */ 
 public void testRemoveFirstHalf() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    LinkedList list = new LinkedList();
+    list.add(2);
+
+    list.add(3);
+    list.add(8);
+    list.add(10);
+    list.add(11);
+
+    list.removeFirstHalf();
+    // list.addFirst(2);
+    //System.out.println(list.size());
+    Iterator iterator = list.iterator();
+    while (iterator.hasNext()) {
+        // String s= new String(iterator.next());
+        System.out.print(iterator.next()+" ");
+    }
 } 
 
 /** 
@@ -153,7 +165,24 @@ public void testRemoveFirstHalf() throws Exception {
 * 
 */ 
 public void testRemoveForILength() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    LinkedList list = new LinkedList();
+    list.add(2);
+
+    list.add(3);
+    list.add(8);
+    list.add(10);
+    list.add(11);
+
+    list.remove(3,6);
+    // list.addFirst(2);
+    System.out.println(list.size());
+    Iterator iterator = list.iterator();
+    while (iterator.hasNext()) {
+        // String s= new String(iterator.next());
+        System.out.print(iterator.next()+" ");
+    }
+
 } 
 
 /** 
@@ -162,7 +191,28 @@ public void testRemoveForILength() throws Exception {
 * 
 */ 
 public void testGetElements() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    LinkedList list = new LinkedList();
+    list.add(11);
+    list.add(101);
+    list.add(201);
+    list.add(301);
+    list.add(401);
+    list.add(501);
+    list.add(601);
+    list.add(701);
+    //list.remove(3,6);
+    LinkedList listb = new LinkedList();
+    listb.add(1);
+    listb.add(3);
+    listb.add(4);
+    listb.add(6);
+    int[] res;
+    res=list.getElements(listb);
+    //System.out.println(list.size());
+    for (int i = 0; i <res.length; i++) {
+        System.out.print(res[i]+" ");
+    }
 } 
 
 /** 
@@ -171,7 +221,31 @@ public void testGetElements() throws Exception {
 * 
 */ 
 public void testSubtract() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    LinkedList list = new LinkedList();
+    list.add(11);
+    list.add(101);
+    list.add(201);
+    list.add(301);
+    list.add(401);
+    list.add(501);
+    list.add(601);
+    list.add(701);
+    //list.remove(3,6);
+    LinkedList listb = new LinkedList();
+    listb.add(101);
+    listb.add(701);
+/*
+    listb.add(301);
+    listb.add(401);
+    listb.add(601);
+*/
+
+    list.subtract(listb);
+    Iterator iterator = list.iterator();
+    while (iterator.hasNext()) {
+        System.out.print(iterator.next()+"  ");
+    }
 } 
 
 /** 
@@ -180,7 +254,17 @@ public void testSubtract() throws Exception {
 * 
 */ 
 public void testRemoveDuplicateValues() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    LinkedList list = new LinkedList();
+    list.add(11);
+    list.add(201);
+    list.add(301);
+    list.add(301);
+    list.removeDuplicateValues();
+    Iterator iterator = list.iterator();
+    while (iterator.hasNext()) {
+        System.out.print(iterator.next()+"  ");
+    }
 } 
 
 /** 
@@ -189,7 +273,22 @@ public void testRemoveDuplicateValues() throws Exception {
 * 
 */ 
 public void testRemoveRange() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    LinkedList list = new LinkedList();
+    list.add(11);
+    list.add(101);
+    list.add(201);
+    list.add(301);
+    list.add(401);
+    list.add(501);
+    list.add(601);
+    list.add(701);
+
+    list.removeRange(222,555);
+    Iterator iterator = list.iterator();
+    while (iterator.hasNext()) {
+        System.out.print(iterator.next()+"  ");
+    }
 } 
 
 /** 
@@ -198,7 +297,26 @@ public void testRemoveRange() throws Exception {
 * 
 */ 
 public void testIntersection() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    LinkedList list = new LinkedList();
+    LinkedList list1 = new LinkedList();
+    LinkedList list2 = new LinkedList();
+    list.add(11);
+    list.add(101);
+    list.add(201);
+    list.add(301);
+    list.add(401);
+    list.add(501);
+    list.add(601);
+    list.add(701);
+    list1.add(501);
+    list1.add(601);
+    list1.add(701);
+    list2=list.intersection(list1);
+    Iterator iterator = list2.iterator();
+    while (iterator.hasNext()) {
+        System.out.print(iterator.next()+"  ");
+    }
 } 
 
 
