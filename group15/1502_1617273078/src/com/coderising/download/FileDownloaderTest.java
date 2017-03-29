@@ -41,7 +41,7 @@ public class FileDownloaderTest {
 		});
 
 		
-		downloader.execute(3);
+		downloader.execute(5);
 		
 		// 等待多线程下载程序执行完毕
 		while (!downloadFinished) {

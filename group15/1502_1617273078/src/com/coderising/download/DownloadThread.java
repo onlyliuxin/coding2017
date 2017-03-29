@@ -23,14 +23,10 @@ public class DownloadThread extends Thread{
 			if (file != null) {
 				out = new RandomAccessFile(file,"rwd");
 			}
-			//byte [] b = conn.read(startPos, endPos);
-			//FileDownloader.writefile(startPos,file,b);
-			//System.out.println("the byt length"+b.length);
-			//out.seek(startPos);
 
-			//out.write(b);
 			byte[] buffer = new byte[1024];
-			out.seek(startPos);
+		/*	out.seek(startPos);
+			out.write(conn.read(startPos,endPos));*/
 			InputStream in = conn.getHttpURLConnection().getInputStream();
 			in.skip(startPos);
 			int len = 0;
@@ -42,9 +38,9 @@ public class DownloadThread extends Thread{
 					out.write(buffer, 0, len);
 				}
 			}
-			//conn.close();
-			//in.close();
+
 			out.close();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

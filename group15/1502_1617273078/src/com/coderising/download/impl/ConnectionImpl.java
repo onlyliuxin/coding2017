@@ -1,22 +1,39 @@
 package com.coderising.download.impl;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.util.Arrays;
 
 import com.coderising.download.api.Connection;
 
 public class ConnectionImpl implements Connection {
 	HttpURLConnection httpURLConnection;
+	static final int BUFFER_SIZE = 1024;
 	@Override
 	public byte[] read(int startPos, int endPos) throws IOException {
-		byte[] data = new byte[endPos - startPos];
+		//byte[] data = new byte[endPos - startPos];
 		//httpURLConnection.setRequestProperty("Range", "bytes=" + startPos + "-" + endPos);
 		InputStream fis=httpURLConnection.getInputStream();
 		fis.skip(startPos);
-		fis.read(data);
+		byte[] buff = new byte[BUFFER_SIZE];
+		int totalLen = endPos - startPos + 1;
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		while (baos.size() < totalLen) {
+			int len = fis.read(buff);
+			if (len < 0) {
+				break;
+			}
+			baos.write(buff,0,len);
+		}
+		if (baos.size() > totalLen) {
+			byte[] datas = baos.toByteArray();
+			return Arrays.copyOf(datas, totalLen);
+		}
 
-		return data;
+
+		return baos.toByteArray();
 	}
 
 	@Override
