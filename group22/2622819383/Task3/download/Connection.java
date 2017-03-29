@@ -45,7 +45,9 @@ public class Connection {
         int hasRead = 0;        
         while ((hasRead = in.read(buf)) != -1) {
             out.write(buf, 0, hasRead);
-        }               
+        }   
+        out.close();
+        in.close();
         return out.toByteArray();            
     }
     
@@ -55,6 +57,6 @@ public class Connection {
     }
     
     public void close() {
-        conn.disconnect();
+        
     }
 }

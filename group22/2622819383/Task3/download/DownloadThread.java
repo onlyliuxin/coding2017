@@ -20,7 +20,7 @@ public class DownloadThread extends Thread{
     
 	public void run() {               
         System.out.println("线程" + getName() + "startPos:" + startPos + "; endPos:" + endPos);
-        lock.lock(); 
+        
         
         try {
            
@@ -32,7 +32,7 @@ public class DownloadThread extends Thread{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        lock.unlock();
+        
         System.out.println("线程" + this.getName() + "下载完成.");
         
 	}
