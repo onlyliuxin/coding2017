@@ -8,11 +8,11 @@ import org.junit.Test;
  */
 public class LinkedListTest {
 
-    LinkedList linkedList;
+    org.pan.coding2017.basic2.LinkedList linkedList;
 
     @Before
     public void setUp() throws Exception {
-        linkedList = new LinkedList();
+        linkedList = new org.pan.coding2017.basic2.LinkedList();
         linkedList.add(0);
         linkedList.add(1);
         linkedList.add(2);
