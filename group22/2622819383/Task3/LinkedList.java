@@ -6,8 +6,10 @@ public class LinkedList {
     public void reverse() {		
         int times = theSize - 1;  //第一个元素自然移动到最后，所以只需进行theSize - 1次操作        
         int index = 0;
-        while (0 < times--)
+        while (0 < times) {
             add(index++, removeLast());
+            times--;
+        }
     }
 
     /**
@@ -44,28 +46,19 @@ public class LinkedList {
     * @param list
     */
     public int[] getElements(LinkedList list) {
-        Iterator itSelf = iterator();
-        Iterator itList = list.iterator();
+        Iterator it = iterator();        
         int[] ret = new int[list.size()];
+        int start = -1;
+        int value = 0;
+        int i = 0;   //数组ret的索引
         
-        int i = 0;    //list中元素的值，代表当前列表中要取出元素的秩
-            lastI = 0;//上一次取出元素的秩
-            moveTimes = 0;
-            value = itSelf.next();
-            index = 0;//要返回的数组中元素的秩
-
-        while (itList.hasNext()) {
-            i = itList.next();
-            if (theSize <= i) throw new IndexOutOfBoundsException();
-
-            moveTimes = i - lastI;            
-            while (0 < moveTimes--)
-                value = itSelf.next();
-
-            ret[index++] = value;
-            lastI = i;
+        for (Integer num : list) {
+            while (start < num && it.hasNext()) {
+                value = it.next();
+                start++;
+            }
+            ret[i++] = value;
         }
-
         return ret;
     }
     
@@ -74,36 +67,17 @@ public class LinkedList {
     * 从当前链表中中删除在list中出现的元素 
 
     * @param list
-    */
-    //返回与e相等的元素的秩；如果查找失败则返回-1
-    private int find(Object e) {
-        Iterator it = iterator();
-        int i = -1;    //要返回的元素的秩
-        Object value = null;
-        
-        while (it.hasNext()) {
-            value = it.next();
-            i++;
-            if (value == e) return i;
-            if (e < value) return -1;
-        }
-
-        return -1;
-    }       
-
+    */ 
     public void subtract(LinkedList list) {
-        Iterator it = list.iterator();
-        Object value = null;
-        int i = -1;
-        
-        while (it.hasNext()) {
-            value = it.next();
-            i = find(value);
-            
-            //删去重复元素
-            while (0 <= i) {
-                remove(i);
-                i = find(value);
+        Object current = null;
+        for (Object e : list) {
+            Iterator it = iterator();
+            while (it.hasNext()) {
+                current = it.next();
+                if (current.compareTo(e) == 0)
+                    it.remove();
+                if (current.compareTo(e) > 0)
+                    break;
             }
         }
     }
@@ -135,15 +109,31 @@ public class LinkedList {
     * @param min
     * @param max
     */
-    //[low, min]U[max, end]
 
 
     public  void removeRange(int min, int max) {
+        //双链表删去(p, q)间的节点
+        Node p = header;
+        Node q = null;
+        int removedNum = 0; //要删去节点的数目
+        while ((p = p.succ()) != trailer && (p.data() <= min))
+            ；
+        p = p.prev();
+        q = p;
+        while ((q = q.succ()) != trailer && (q.data() < max))
+            removedNum++;
+        p.succ = q;
+        q.prev = p;
+        theSize -= removedNum;
+        
+        
+        
+        /*
         //删去(i, j]
         int i = 0, j = 0;
         Iterator it = iterator();
         while (it.hasNext()) {
-            Object value = it.next();
+            int value = it.next();
             if (value <= min) i++;
             if (value < max) j++;
             else break; //if(max <= value) break;
@@ -155,6 +145,7 @@ public class LinkedList {
         head.succ = tail;
         tail.pred = head;
         theSize -= (j - i);
+        */
 
     }
 
