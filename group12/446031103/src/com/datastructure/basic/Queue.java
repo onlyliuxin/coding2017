@@ -1,5 +1,7 @@
 package com.datastructure.basic;
 
+import com.datastructure.linklist.LinkedList;
+
 /**
  * 
  * 队列-先进先出

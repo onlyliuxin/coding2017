@@ -1,5 +1,8 @@
-package com.datastructure.basic;
+package com.datastructure.linklist;
 import java.util.Stack;
+
+import com.datastructure.basic.Iterator;
+import com.datastructure.basic.List;
 
 /**
  * 

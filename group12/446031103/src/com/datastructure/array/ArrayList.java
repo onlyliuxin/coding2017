@@ -1,6 +1,9 @@
-package com.datastructure.basic;
+package com.datastructure.array;
 
 import java.util.Arrays;
+
+import com.datastructure.basic.Iterator;
+import com.datastructure.basic.List;
 
 
 
