@@ -1,11 +1,11 @@
 package test.com.coding.basic;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.coding.basic.LinkedList;
+import com.coding.basic.linklist.LinkedList;
 
 public class TestLinkedList {
 	
