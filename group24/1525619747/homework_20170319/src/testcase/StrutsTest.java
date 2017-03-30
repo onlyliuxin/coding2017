@@ -18,8 +18,7 @@ public class StrutsTest
 	public void testLoginActionSuccess() throws ClassNotFoundException,
 			NoSuchMethodException, SecurityException, InstantiationException,
 			IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, DocumentException, NoSuchFieldException
-	{
+			InvocationTargetException, DocumentException, NoSuchFieldException {
 
 		String actionName = "login";
 
@@ -38,8 +37,7 @@ public class StrutsTest
 	public void testLoginActionFailed() throws ClassNotFoundException,
 			NoSuchMethodException, SecurityException, InstantiationException,
 			IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, DocumentException, NoSuchFieldException
-	{
+			InvocationTargetException, DocumentException, NoSuchFieldException {
 		String actionName = "login";
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("name", "test");
