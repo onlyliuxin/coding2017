@@ -47,7 +47,7 @@ public class Struts {
     		Element loginName = (Element)doc.selectSingleNode("//action[1]");
     		Element logoutName = (Element)doc.selectSingleNode("//action[2]");
     		//判断action的name属性内容
-    		if(actionName.equals(loginName.attributeValue("name"))){
+    		if(actionName !=null && actionName.equals(loginName.attributeValue("name"))){
     			//传入的actionName内容为login则进行login操作
     			
     			//获取class路径
@@ -101,7 +101,7 @@ public class Struts {
     			}
     			return view;
     			
-    		}else if(actionName.equals(logoutName.attributeValue("name"))){
+    		}else if(actionName !=null && actionName.equals(logoutName.attributeValue("name"))){
     			//actionName是logout则进行logout操作
     		}
     		
