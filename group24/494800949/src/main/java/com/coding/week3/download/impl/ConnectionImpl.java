@@ -6,7 +6,6 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.util.Arrays;
 
 
 public class ConnectionImpl implements Connection {
@@ -33,14 +32,7 @@ public class ConnectionImpl implements Connection {
 
 		InputStream inputStream = httpURLConnection.getInputStream();
 		BufferedInputStream bis = new BufferedInputStream(inputStream);
-		try {
-			bis.read(bytes, startPos ,bytes.length-1);
-		}catch (RuntimeException e){
-			System.out.println("Exception start:"+startPos +"/end: " +endPos+"/ lengh： "+(bytes.length-1));
-		}
-
-		System.out.println(Thread.currentThread().getName() + "读取bytes: startPos=" + startPos
-				+ ",endPos=" + endPos + "，bytes=" + Arrays.toString(bytes));
+		bis.read(bytes, startPos ,bytes.length-1);
 		return bytes;
 	}
 

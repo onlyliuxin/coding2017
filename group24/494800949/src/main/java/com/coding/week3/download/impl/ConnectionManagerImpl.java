@@ -27,11 +27,6 @@ public class ConnectionManagerImpl implements ConnectionManager {
             httpURLConnection.setRequestProperty("Charset", "UTF-8");
             // 打开到此 URL 引用的资源的通信链接（如果尚未建立这样的连接）。
             httpURLConnection.connect();
-//			byte[] bytes = new byte[httpURLConnection.getContentLength()];
-//			httpURLConnection.getInputStream().read(bytes, 0 , httpURLConnection.getContentLength()-1);
-//			System.out.println("原始信息："+Arrays.toString(bytes));
-//			System.out.println("contentLength："+httpURLConnection.getContentLength());
-//			System.out.println("byte arr length："+bytes.length);
             return new ConnectionImpl(httpURLConnection);
         } catch (java.io.IOException e) {
             e.printStackTrace();
