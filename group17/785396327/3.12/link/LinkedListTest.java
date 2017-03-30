@@ -128,4 +128,18 @@ public class LinkedListTest {
         System.out.println(list);
     }
 
+    @Test
+    public void intersection() {
+        LinkedList<Integer> list1 = new LinkedList<Integer>();
+        list1.add(2);
+        list1.add(3);
+        list1.add(7);
+        LinkedList<Integer> list2 = new LinkedList<Integer>();
+        list2.add(2);
+        list2.add(3);
+        list2.add(7);
+        LinkedList newList = list1.intersection(list2);
+        System.out.println(newList);
+    }
+
 }
