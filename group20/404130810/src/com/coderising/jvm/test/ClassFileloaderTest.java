@@ -9,7 +9,7 @@ import com.coderising.jvm.loader.ClassFileLoader;
 
 public class ClassFileloaderTest {
 
-	static String path1 = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
+	static String path1 = "E:\\MyDev\\mygit\\coding2017\\group20\\404130810\\bin\\";
 	static String path2 = "C:\temp";
 
 	@Before
