@@ -16,8 +16,8 @@ public class ConnectionManagerImpl implements ConnectionManager {
 	public Connection open(String url) throws ConnectionException {
 		try {
 			URL urlObj = new URL(url);
-			HttpURLConnection urlConnection = (HttpURLConnection)urlObj.openConnection();
-			conn = new ConnectionImpl(urlConnection);
+			HttpURLConnection httpConn = (HttpURLConnection)urlObj.openConnection();
+			conn = new ConnectionImpl(httpConn);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) { 
