@@ -1,18 +1,12 @@
 package com.coding.download;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CyclicBarrier;
 
 import com.coding.download.api.Connection;
 import com.coding.download.api.ConnectionException;
 import com.coding.download.api.ConnectionManager;
 import com.coding.download.api.DownloadListener;
-import com.coding.download.api.Resource;
 import com.coding.util.IOUtils;
 
 
