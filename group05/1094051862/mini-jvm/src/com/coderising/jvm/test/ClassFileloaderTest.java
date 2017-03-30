@@ -1,5 +1,7 @@
 package com.coderising.jvm.test;
 
+import java.io.IOException;
+
 import org.junit.After;
 import  org.junit.Assert;
 import org.junit.Before;
@@ -41,7 +43,7 @@ public class ClassFileloaderTest {
 	}
 	
 	@Test
-	public void testClassFileLength() {		
+	public void testClassFileLength() throws ClassNotFoundException, IOException {		
 		
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
@@ -57,7 +59,7 @@ public class ClassFileloaderTest {
 	
 	
     @Test	
-	public void testMagicNumber(){
+	public void testMagicNumber() throws ClassNotFoundException, IOException{
     	
     	ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
@@ -65,18 +67,17 @@ public class ClassFileloaderTest {
 		byte[] byteCodes = loader.readBinaryCode(className);
 		byte[] codes = new byte[]{byteCodes[0],byteCodes[1],byteCodes[2],byteCodes[3]};
 		
-		
 		String acctualValue = this.byteToHexString(codes);
 		
 		Assert.assertEquals("cafebabe", acctualValue);
 		
 	}
     
-    
-    
-    
-    
-    
+    /**
+     * 二进制数组转换成16进制
+     * @param codes
+     * @return
+     */
 	private String byteToHexString(byte[] codes ){
 		StringBuffer buffer = new StringBuffer();
 		for(int i=0;i<codes.length;i++){
