@@ -1,11 +1,10 @@
 package com.coderising.jvm.test;
 
+import com.coderising.jvm.loader.ClassFileLoader;
 import org.junit.After;
-import  org.junit.Assert;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.coderising.jvm.loader.ClassFileLoader;
 
 
 
@@ -14,8 +13,8 @@ import com.coderising.jvm.loader.ClassFileLoader;
 public class ClassFileloaderTest {
 
 	
-	static String path1 = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
-	static String path2 = "C:\temp";
+	static String path1 = "/Users/guodongchow/Desktop/coding2017/projects/mini-jvm/bin/";
+	static String path2 = "/Users/guodongchow/bin";
 	
 	
 	
@@ -36,7 +35,7 @@ public class ClassFileloaderTest {
 		
 		String clzPath = loader.getClassPath();
 		
-		Assert.assertEquals(path1+";"+path2,clzPath);
+		Assert.assertEquals(path1+";"+path2+";",clzPath);
 		
 	}
 	
@@ -47,9 +46,9 @@ public class ClassFileloaderTest {
 		loader.addClassPath(path1);
 		
 		String className = "com.coderising.jvm.test.EmployeeV1";
-		
+
 		byte[] byteCodes = loader.readBinaryCode(className);
-		
+
 		// 注意：这个字节数可能和你的JVM版本有关系， 你可以看看编译好的类到底有多大
 		Assert.assertEquals(1056, byteCodes.length);
 		
