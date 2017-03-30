@@ -1,3 +1,4 @@
+package lessones01;
 public class Node<T>{
 	public Node<T> left;
 	public Node<T> right;
@@ -21,11 +22,11 @@ public class Node<T>{
 		_connect(left,right);
 		return this;
 	}
-	private void _connect(Node<T> arg_left,Node<T> arg_right){
+	private static <E> void _connect(Node<E> arg_left,Node<E> arg_right){
 		if(arg_left != null){arg_left.right = arg_right;}
 		if(arg_right != null){arg_right.left = arg_left;}
 	}
-	private void _connect(Node<T> arg_left,Node<T> node,Node<T> arg_right){
+	private static <E> void _connect(Node<E> arg_left,Node<E> node,Node<E> arg_right){
 		_connect(arg_left,node);
 		_connect(node,arg_right);
 	}
