@@ -1,4 +1,7 @@
-package com.coding.basic;
+package com.coding.basic.array;
+
+import com.coding.basic.Iterator;
+import com.coding.basic.List;
 
 public class ArrayList implements List {
 	
