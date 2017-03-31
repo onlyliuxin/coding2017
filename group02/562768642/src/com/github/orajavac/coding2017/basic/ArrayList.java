@@ -39,7 +39,7 @@ public class ArrayList implements List,Iterator{
 	}
 	
 	public Object remove(int index){
-		if (index==elementData.length-1){	//É¾³ı×îºóÒ»¸öË÷ÒıÔªËØÀïµÄÖµ
+		if (index==elementData.length-1){	//åˆ é™¤æœ€åä¸€ä¸ªç´¢å¼•å…ƒç´ é‡Œçš„å€¼
 			elementData[index]=null;
 		}else{
 			elementData[index]=null;
@@ -50,7 +50,7 @@ public class ArrayList implements List,Iterator{
 				}else if(i>index){
 					if(i+1!=len){
 						elementData[i]=elementData[i+1];
-					}else{	//ÎÒÃÇ¼ÙÉèÊı×éË÷Òı 0-3£¬ÄÇÃ´Êı×é³¤¶ÈÊÇ4£¬3+1==4£¬elementData[i+1]»á±¨´í
+					}else{	//æˆ‘ä»¬å‡è®¾æ•°ç»„ç´¢å¼• 0-3ï¼Œé‚£ä¹ˆæ•°ç»„é•¿åº¦æ˜¯4ï¼Œ3+1==4ï¼ŒelementData[i+1]ä¼šæŠ¥é”™
 						elementData[i]=null;
 					}
 				}
