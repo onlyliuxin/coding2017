@@ -1,7 +1,7 @@
 package jvm;
 
-import jvm.LiteJvm;
 import jvm.exception.MagicNumberException;
+import jvm.exception.ReadClassException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Before;
@@ -22,11 +22,11 @@ import java.lang.reflect.Method;
 public class LiteJvmTest {
 
     private LiteJvm jvm = LiteJvm.INSTANCE;
-    private File file;
+    private String fileName;
 
     @Before
     public void before() throws Exception {
-        file = new File("target/classes/algorithm/ArrayUtil.class");
+        fileName = "target/classes/algorithm/ArrayUtil.class";
     }
 
     @After
@@ -34,14 +34,14 @@ public class LiteJvmTest {
     }
 
     /**
-     * Method: launch(File file)
+     * Method: launch(File fileName)
      */
     @Test
     public void testLaunch() {
 //TODO: Test goes here...
         try {
-            jvm.launch(file);
-        } catch (MagicNumberException | IOException e) {
+            jvm.launch(fileName);
+        } catch (MagicNumberException | ReadClassException e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -64,7 +64,7 @@ public class LiteJvmTest {
     }
 
     /**
-     * Method: getBytes(File file)
+     * Method: getBytes(File fileName)
      */
     @Test
     public void testGetBytes() throws Exception {
@@ -72,7 +72,7 @@ public class LiteJvmTest {
         try {
             Method method = LiteJvm.class.getDeclaredMethod("getBytes", File.class);
             method.setAccessible(true);
-            byte[] bytes = (byte[]) method.invoke(jvm, file);
+            byte[] bytes = (byte[]) method.invoke(jvm, fileName);
             Assert.assertEquals(3851, bytes.length);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
