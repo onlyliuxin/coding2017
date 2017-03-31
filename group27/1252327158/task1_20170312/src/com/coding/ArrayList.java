@@ -63,12 +63,12 @@ public class ArrayList<T> implements List<T> {
 		if (index >= size || index < 0) {
 			throw new IndexOutOfBoundsException();
 		}
+		modCount++;
 		Object item = elementData[index];
 		for (int i = index; i < size - 1; i++) {
 			elementData[i] = elementData[i+1];
 		}
-		size--;
-		modCount++;
+        elementData[--size] = null; //清除该位置的引用，如果不赋null值，除非对应的位置被其他元素覆盖，否则原来的对象就一直不会被回收
 		return (T)item;
 	}
 
