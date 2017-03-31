@@ -32,7 +32,7 @@ public class ConnectionImpl implements Connection{
 
 	public byte[] read(int startPos, int endPos) throws IOException {
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestProperty("Range",  "bytes="+startPos+"-"+endPos);
+		conn.setRequestProperty("Range",  "bytes="+startPos+"-"+endPos);  //重要
 
 		InputStream is=  conn.getInputStream();
 

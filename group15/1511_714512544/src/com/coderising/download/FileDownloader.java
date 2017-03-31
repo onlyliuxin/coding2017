@@ -12,7 +12,7 @@ import com.coderising.download.api.DownloadListener;
 public class FileDownloader {
 
 	private String url;
-	private String localFile;
+	private String savepath;
 
 	DownloadListener listener;
 
@@ -21,9 +21,9 @@ public class FileDownloader {
 
 	private static final int DOWNLOAD_TRHEAD_NUM = 3;
 
-	public FileDownloader(String _url, String localFile) {
+	public FileDownloader(String _url, String savepath) {
 		this.url = _url;
-		this.localFile = localFile;
+		this.savepath = savepath;
 
 	}
 
@@ -42,9 +42,10 @@ public class FileDownloader {
 
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
 
+		//栅栏
 		CyclicBarrier barrier = new CyclicBarrier(DOWNLOAD_TRHEAD_NUM , new Runnable(){
 			public void run(){
-				listener.notifyFinished();
+				listener.notifyFinished();  //所有线程到了之后执行
 			}
 		});
 
@@ -55,7 +56,7 @@ public class FileDownloader {
 
 			int length = conn.getContentLength();
 
-			createPlaceHolderFile(this.localFile, length);
+			createPlaceHolderFile(this.savepath, length);
 
 			int[][] ranges = allocateDownloadRange(DOWNLOAD_TRHEAD_NUM, length);
 
@@ -63,7 +64,7 @@ public class FileDownloader {
 
 
 				DownloadThread thread = new DownloadThread(
-						cm.open(url),ranges[i][0], ranges[i][1], localFile, barrier );
+						cm.open(url),ranges[i][0], ranges[i][1], savepath, barrier );
 
 				thread.start();
 			}
@@ -77,7 +78,7 @@ public class FileDownloader {
 		}
 
 	}
-
+	//占住磁盘位置
 	private void createPlaceHolderFile(String fileName, int contentLen) throws IOException{
 
 		RandomAccessFile file = new RandomAccessFile(fileName,"rw");
