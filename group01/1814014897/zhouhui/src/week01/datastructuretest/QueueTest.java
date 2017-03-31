@@ -1,10 +1,10 @@
-package week01.BasicDataStructureTest;
+package week01.datastructuretest;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import week01.BasicDataStructure.Queue;
+import week01.datastructure.Queue;
 
 
 public class QueueTest {

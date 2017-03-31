@@ -1,4 +1,4 @@
-package week01.BasicDataStructureTest;
+package week01.datastructuretest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

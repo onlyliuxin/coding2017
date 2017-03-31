@@ -1,4 +1,4 @@
-package week01.BasicDataStructure;
+package week01.datastructure;
 
 public interface List {
 	public void add(Object o);

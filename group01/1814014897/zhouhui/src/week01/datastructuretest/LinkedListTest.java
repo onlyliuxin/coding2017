@@ -1,11 +1,11 @@
-package week01.BasicDataStructureTest;
+package week01.datastructuretest;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import week01.BasicDataStructure.Iterator;
-import week01.BasicDataStructure.LinkedList;
+import week01.datastructure.Iterator;
+import week01.datastructure.LinkedList;
 
 public class LinkedListTest {
 	
@@ -87,6 +87,7 @@ public class LinkedListTest {
 	public void testRemoveFirst() {
 		Assert.assertEquals(linkedList.removeFirst(), 0);
 		Assert.assertEquals(linkedList.removeFirst(), 1);
+		Assert.assertEquals(linkedList.removeFirst(), 2);
 	}
 
 	@Test
