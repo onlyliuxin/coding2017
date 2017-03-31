@@ -1,8 +1,9 @@
 package com.coding.basic;
 
-import edu.princeton.cs.algs4.BinarySearch;
-
+import java.util.Queue;
 import java.util.Stack;
+
+import java.util.LinkedList;
 
 /**
  二叉树
@@ -236,6 +237,27 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         }
     }
 
+    /**
+     * 层次遍历
+        1.先根结点入队列
+        2.从队列中取出一个元素
+        3.访问该元素的节点
+        4.若该元素所指节点的左右子节点非空，则将左右孩子节点分别按照指针顺序入栈
+     */
+    public void traveralByLevel(BinarySearchTreeNode<T> n){
+        if(n == null) return;
+
+        Queue<BinarySearchTreeNode<T>> queue = new LinkedList<BinarySearchTreeNode<T>>();
+        queue.offer(n);  //入队列
+
+        while(!queue.isEmpty()){
+            BinarySearchTreeNode<T> node = queue.poll();  //出队列
+            System.out.print(node.getData() + " ");
+            if(node.getLeft() != null) queue.offer(node.getLeft());
+            if(node.getRight() != null) queue.offer(node.getRight());
+        }
+    }
+
     //删除某个节点n
     public void delete(BinarySearchTreeNode<T> n){
         BinarySearchTreeNode<T> p = n.getParent();  //节点的父节点
@@ -312,6 +334,22 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         }
         return current;
     }
+
+    /*
+      求树的高度(利用后序遍历)
+     */
+    public int postOrderGetHeight(BinarySearchTreeNode<T> n){
+        int hL = 0, hR = 0, maxH = 0;
+
+        if(n != null){
+            hL = postOrderGetHeight(n.getLeft()); //求左子树深度
+            hR = postOrderGetHeight(n.getRight()); //求右子树深度
+            maxH = hL> hR? hL : hR ; //求左右子树深度最大的那个
+            return (maxH+1);//返回树的深度
+        }
+        return 0;  //空树返回0
+    }
+
 
 
 
