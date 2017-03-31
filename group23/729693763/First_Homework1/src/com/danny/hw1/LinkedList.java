@@ -41,12 +41,11 @@ public class LinkedList implements List{
 		
 		//delete all node
 		if ( size() == 1 ) {
+			deleteNode = this.Head;
 			this.Head = null;
 			this.Tail = null;			
-		}
-		
-		//Remove Head
-		if ( index == 0 ) {
+		} else if ( index == 0 ) {
+			//Remove Head
 			deleteNode = this.Head;
 			this.Head = this.Head.next;			
 		} else if ( index == size() - 1) {
