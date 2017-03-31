@@ -1,7 +1,5 @@
 package test.collection;
 
-import static util.Print.*;
-
 import java.util.EmptyStackException;
 import static util.TestUtil.*;
 import org.junit.After;
@@ -14,12 +12,14 @@ import junit.framework.TestCase;
 public class StackTest extends TestCase {
 
 	Stack<Integer> myStack;
-	
+
+	@Override
 	@Before
 	public void setUp() throws Exception {
-		myStack= new Stack<Integer>();
+		myStack = new Stack<Integer>();
 	}
 
+	@Override
 	@After
 	public void tearDown() throws Exception {
 		myStack = null;
@@ -46,12 +46,12 @@ public class StackTest extends TestCase {
 		int size = myStack.size();
 		for (int i = size; i > 0; i--) {
 			assertEquals(i, myStack.size());
-			int expect = i-1;
+			int expect = i - 1;
 			assertEquals(i, myStack.size());
 			int actual = myStack.pop();
 			assertEquals(expect, actual);
 		}
-		
+
 		try {
 			myStack.pop();
 			fail("no exception throw");
@@ -62,36 +62,35 @@ public class StackTest extends TestCase {
 
 	@Test
 	public void testPeek() {
-		
+
 		int expected = 0;
 		int peek1 = 0;
 		int repeated = 0;
-		
+
 		for (int i = 0; i < 10; i++) {
 			myStack.push(i);
 			expected = i;
-			
+
 			peek1 = myStack.peek();
 			assertEquals(expected, peek1);
-			
+
 			for (int j = 0; j < i; j++) {
 				repeated = myStack.peek();
 				assertEquals(expected, repeated);
 			}
 		}
-		
+
 	}
-	
-	
+
 	public void testGet() {
-		
+
 		try {
 			myStack.get(getRandomNumber());
 			fail("no exception throw");
 		} catch (Exception e) {
 			assertEquals(EmptyStackException.class, e.getClass());
 		}
-		
+
 	}
 
 	@Test
@@ -113,7 +112,7 @@ public class StackTest extends TestCase {
 			expected[i] = actual;
 			myStack.add(actual);
 		}
-		
+
 		int expectedInt;
 		for (int i = 0; i < size; i++) {
 			expectedInt = expected[size - i - 1];

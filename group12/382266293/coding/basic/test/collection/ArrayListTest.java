@@ -1,6 +1,5 @@
 package test.collection;
 
-import static util.Print.*;
 import static util.TestUtil.*;
 import java.util.Date;
 import java.util.NoSuchElementException;
@@ -17,18 +16,19 @@ import junit.framework.TestCase;
 
 public class ArrayListTest extends TestCase {
 
-
 	private ArrayList<Integer> myAL;
 	private static Random rnd = new Random();
-	
+
+	@Override
 	@Before
 	public void setUp() throws Exception {
-		
+
 		myAL = new ArrayList<Integer>();
-		assertEquals(true,myAL.isEmpty());
-		
+		assertEquals(true, myAL.isEmpty());
+
 	}
 
+	@Override
 	@After
 	public void tearDown() throws Exception {
 		myAL = null;
@@ -36,7 +36,7 @@ public class ArrayListTest extends TestCase {
 
 	@Test
 	public void testRawTypeArrayList() {
-		
+
 		List rawList = new ArrayList();
 		assertEquals(rawList.size(), 0);
 		rawList.add(new Date());
@@ -45,49 +45,49 @@ public class ArrayListTest extends TestCase {
 
 	@Test
 	public void testEmpty() {
-		
-		assertEquals(true,myAL.isEmpty());
-		
+
+		assertEquals(true, myAL.isEmpty());
+
 		myAL.add(5);
-		assertEquals(false,myAL.isEmpty());
-		
+		assertEquals(false, myAL.isEmpty());
+
 		int num = getRandomNumber();
 		addIntWithNatureOrder(myAL, num);
-		assertEquals(false,myAL.isEmpty());
-		
+		assertEquals(false, myAL.isEmpty());
+
 	}
 
 	@Test
 	public void testAddIntAutoBoxing() {
-		
+
 		myAL.add(5);
 		myAL.add(5);
 		myAL.add(5);
-		myAL.add(1,10);
+		myAL.add(1, 10);
 		int c = myAL.get(1);
-		assertEquals(10,c);
-		
-		assertEquals(4,myAL.size());
-		myAL.add(4,15);
+		assertEquals(10, c);
+
+		assertEquals(4, myAL.size());
+		myAL.add(4, 15);
 		int a = myAL.get(0);
 		Integer b = myAL.get(1);
-		c =  myAL.get(2);
+		c = myAL.get(2);
 		int d = myAL.get(3);
 		int e = myAL.get(4);
-		assertEquals(5,a);
-		assertEquals(new Integer(10),b);
-		assertEquals(5,c);
-		assertEquals(5,d);
-		assertEquals(15,e);
+		assertEquals(5, a);
+		assertEquals(new Integer(10), b);
+		assertEquals(5, c);
+		assertEquals(5, d);
+		assertEquals(15, e);
 	}
-	
+
 	@Test
 	public void testGet() {
-		
+
 		int[] result = addRandomInt(myAL, getRandomNumber());
-		
-		int actual,expected;
-		
+
+		int actual, expected;
+
 		for (int i = 0; i < result.length; i++) {
 			actual = myAL.get(i);
 			expected = result[i];
@@ -100,7 +100,7 @@ public class ArrayListTest extends TestCase {
 	public void testRemove() {
 
 		addIntWithNatureOrder(myAL, 100);
-		
+
 		testRemoveAndGetFromTail(myAL);
 		try {
 			myAL.remove(10);
@@ -113,59 +113,56 @@ public class ArrayListTest extends TestCase {
 
 	@Test
 	public void testSize() {
-		
-		assertEquals(0,myAL.size());
+
+		assertEquals(0, myAL.size());
 		int num = getRandomNumber();
 		addIntWithNatureOrder(myAL, num);
-		assertEquals(num,myAL.size());
+		assertEquals(num, myAL.size());
 	}
 
-
-	
 	@Test
 	public void testGrow() {
-		
+
 		int actualSize = 12345;
-		
+
 		addIntWithNatureOrder(myAL, actualSize);
-		
-		assertEquals(actualSize,myAL.size());
+
+		assertEquals(actualSize, myAL.size());
 	}
-	
 
 	@Test
 	public void testIterator() {
-		
-		addIntWithNatureOrder(myAL,100);
-		
+
+		addIntWithNatureOrder(myAL, 100);
+
 		Iterator<Integer> it = myAL.iterator();
 
-		for(int i = 0; it.hasNext(); i++){
+		for (int i = 0; it.hasNext(); i++) {
 			int actual = it.next();
-			assertEquals(i,actual);
+			assertEquals(i, actual);
 		}
-		
-	    try {
+
+		try {
 			it.next();
-	    } catch (NoSuchElementException ex) {
-	        assertEquals(ex.getClass(),NoSuchElementException.class);
-	    }
+		} catch (NoSuchElementException ex) {
+			assertEquals(ex.getClass(), NoSuchElementException.class);
+		}
 	}
-	
+
 	@Test
 	public void testIndexOf() {
-		
-		int num = 200;
-		addIntWithNatureOrder(myAL,num);
 
-		int expected,actual;
-		for (int i = 0; i < num-1; i++) {
+		int num = 200;
+		addIntWithNatureOrder(myAL, num);
+
+		int expected, actual;
+		for (int i = 0; i < num - 1; i++) {
 			expected = i;
 			actual = myAL.indexOf(i);
 			assertEquals(expected, actual);
 		}
-		
-		assertEquals(-1, myAL.indexOf(-1*getRandomNumber()));
+
+		assertEquals(-1, myAL.indexOf(-1 * getRandomNumber()));
 
 	}
 

@@ -10,4 +10,5 @@ public interface List {
 	public Object get(int index);
 	public Object remove(int index);
 	public int size();
+	public Iterator iterator();
 }
