@@ -1,4 +1,4 @@
-package week3;
+package week3.thread;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,9 +8,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.CountDownLatch;
 
-/**
- * Created by zndbl on 2017/3/27.
- */
 public class DownloadThread extends Thread {
 
     private File file;
@@ -19,7 +16,9 @@ public class DownloadThread extends Thread {
     private int startPos;
     private int endPos;
 
-    public DownloadThread(File file, CountDownLatch countDownLatch, String address, int startPos, int endPos ) {
+    public DownloadThread(File file, CountDownLatch countDownLatch,
+                          String address, int startPos, int endPos) {
+        super();
         this.file = file;
         this.countDownLatch = countDownLatch;
         this.address = address;
@@ -29,27 +28,34 @@ public class DownloadThread extends Thread {
 
     public void run() {
         Thread current = Thread.currentThread();
-        System.out.println(current.getName() + "开始下载" + startPos + "_" + endPos);
+        System.out.println(current.getName() + "开始下载:" + startPos + "-"
+                + endPos);
         RandomAccessFile randomAccessFile = null;
         InputStream inputStream = null;
         try {
             URL url = new URL(address);
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestProperty("Range", "bytes=" + startPos + "_" + endPos);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url
+                    .openConnection();
+            httpURLConnection.setRequestProperty("Range", "bytes=" + startPos
+                    + "-" + endPos);
             inputStream = httpURLConnection.getInputStream();
             randomAccessFile = new RandomAccessFile(file, "rw");
             randomAccessFile.seek(startPos);
             byte[] bytes = new byte[1024];
-            int length = 0;
-            while ((length = inputStream.read(bytes)) != -1) {
-                randomAccessFile.write(bytes, 0, length);
+            int read = 0;
+            while ((read = inputStream.read(bytes)) != -1) {
+                randomAccessFile.write(bytes, 0, read);
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                randomAccessFile.close();
-                inputStream.close();
+                if (randomAccessFile != null) {
+                    randomAccessFile.close();
+                }
+                if (inputStream != null) {
+                    inputStream.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -58,6 +64,4 @@ public class DownloadThread extends Thread {
         }
 
     }
-
-
 }

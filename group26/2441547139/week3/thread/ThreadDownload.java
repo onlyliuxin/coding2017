@@ -1,4 +1,4 @@
-package week3;
+package week3.thread;
 
 /**
  * Created by zndbl on 2017/3/26.
@@ -23,7 +23,7 @@ public class ThreadDownload {
 //                bufferedOutputStream.write(buffer, 0, len);
 //                bufferedOutputStream.flush();
 //            }
-//        } catch (Exception e) {
+//        } catch (Exception e) {ScheduledThreadPoolExecutor
 //            e.printStackTrace();
 //        }
 
@@ -31,7 +31,5 @@ public class ThreadDownload {
         String url = "http://wx.qlogo.cn/mmopen/fqCl7qHPjf2JaKGXwqRe3WoMwnBouoSNG2Xd3kYAcfLEmibXEpZH9HVDyDiassfPgiav8kx9wNDypGxaibxdQFIXzIhib2N2ibuo07/0";
         FileDownload fileDownload = new FileDownload(url);
         fileDownload.download(3);
-
-
     }
 }
