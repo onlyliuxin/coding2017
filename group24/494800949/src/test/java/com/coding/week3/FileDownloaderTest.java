@@ -1,15 +1,16 @@
 package com.coding.week3;
 
-import com.coding.week3.download.FileDownloader;
 import com.coding.week3.download.api.ConnectionManager;
 import com.coding.week3.download.api.DownloadListener;
 import com.coding.week3.download.impl.ConnectionManagerImpl;
+import com.coding.week3.download1.FileDownloader;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 
 
 public class FileDownloaderTest {
@@ -49,17 +50,17 @@ public class FileDownloaderTest {
 		
 		downloader.execute();
 		
-		// 等待多线程下载程序执行完毕
-		while (!downloadFinished) {
-			try {
-				System.out.println("还没有下载完成，休眠五秒");
-				//休眠5秒
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {				
-				e.printStackTrace();
-			}
-		}
-		System.out.println("下载完成！");
+//		// 等待多线程下载程序执行完毕
+//		while (!downloadFinished) {
+//			try {
+//				System.out.println("还没有下载完成，休眠五秒");
+//				//休眠5秒
+//				Thread.sleep(5000);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		System.out.println("下载完成！");
 		
 		
 

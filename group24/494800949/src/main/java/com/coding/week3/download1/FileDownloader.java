@@ -1,4 +1,4 @@
-package com.coding.week3.download;
+package com.coding.week3.download1;
 
 
 import com.coding.week3.download.api.Connection;
@@ -8,6 +8,9 @@ import com.coding.week3.download.api.DownloadListener;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class FileDownloader {
@@ -59,32 +62,27 @@ public class FileDownloader {
 			fileLength = conn.getContentLength();
 			//已读字节数量
 
-            int perLenOfThread ;
-            int lastLen ;
-			Thread[] threads = new Thread[nThread];
-            if ( fileLength % nThread == 0) {
-                perLenOfThread = fileLength / nThread;
-            } else {
-                lastLen = fileLength % nThread;
-                perLenOfThread = (fileLength + (nThread - lastLen)) / nThread;
-            }
+			ExecutorService executorService = Executors.newFixedThreadPool(nThread);
+			int[][] allotSize = alloctSize(nThread, fileLength);
 
-			//启动线程
 			for (int i = 0; i < nThread; i++) {
-				Connection conn1 = cm.open(this.url);
 				RandomAccessFile ras = new RandomAccessFile(savePath, "rw");
-                if ( i < nThread - 1) {
-					threads[i] = new DownloadThread(conn1, perLenOfThread * i, perLenOfThread * (i + 1)-1, ras, downloadBytesCount);
-					threads[i].start();
-				} else {
-					threads[i] =  new DownloadThread(conn1, perLenOfThread * (nThread - 1), fileLength - 1, ras, downloadBytesCount);
-					threads[i].start();
-				}
-            }
+				executorService.execute(new DownloadTask(cm.open(url), allotSize[0][i],
+						allotSize[1][i], ras , downloadBytesCount));
+			}
+			//关闭线程池
+			executorService.shutdown();
+			boolean isTermination ;
+			do {
+				System.out.println("已下载："+(downloadBytesCount.get()/1024)+"K,百分比："+ (downloadBytesCount.get()/ (fileLength/100))+"%" );
+				//循环等待，直到线程全部关闭
+				isTermination = executorService.awaitTermination(500, TimeUnit.MILLISECONDS);
+			} while (!isTermination);
 
-			shutdown(threads);
 
 		} catch (ConnectionException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally{
 			if(conn != null){
@@ -93,33 +91,25 @@ public class FileDownloader {
 		}
 	}
 
-	private void shutdown(Thread[] threads){
-		while (true) {
-			boolean allTerminated  = true;
-			for (int i = 0; i < nThread; i++) {
-				allTerminated = allTerminated & threads[i].getState().equals(Thread.State.TERMINATED);
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-//				System.out.println(threads[i].getName() + "状态："+threads[i].getState().toString());
+	private int[][] alloctSize(int nThread, int fileLength){
+		int[][] allotSize = new int[2][nThread];
+		int perLenOfTask = fileLength / nThread;
+		int lastLen = fileLength % nThread;
+		for (int i = 0; i < nThread; i++) {
+			int start = perLenOfTask * i;
+			int end = perLenOfTask * (i + 1) - 1;
+			if (i == nThread - 1) {
+				end += lastLen;
 			}
-
-			System.out.println("已下载："+(downloadBytesCount.get()/1024)+"K,百分比："+ (downloadBytesCount.get()/ (fileLength/100))+"%" );
-			if (allTerminated) {
-				listener.notifyFinished();
-				break;
-			}
+			allotSize[0][i] = start;
+			allotSize[1][i] = end;
 		}
+		return allotSize;
 	}
-
 
 	public void setListener(DownloadListener listener) {
 		this.listener = listener;
 	}
-
-	
 	
 	public void setConnectionManager(ConnectionManager ucm){
 		this.cm = ucm;
