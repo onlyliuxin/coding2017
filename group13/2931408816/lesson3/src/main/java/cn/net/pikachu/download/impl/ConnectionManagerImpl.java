@@ -22,13 +22,6 @@ public class ConnectionManagerImpl implements ConnectionManager {
 
     @Override
 	public Connection open(String url) throws ConnectionException {
-        URL u;
-        try {
-            u = new URL(url);
-		} catch (java.io.IOException e) {
-			e.printStackTrace();
-			throw new ConnectionException();
-		}
-		return new ConnectionImpl(u);
+		return new ConnectionImpl(url);
 	}
 }

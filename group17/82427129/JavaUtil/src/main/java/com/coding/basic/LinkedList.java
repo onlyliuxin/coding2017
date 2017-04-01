@@ -1,46 +1,149 @@
 package com.coding.basic;
 
-public class LinkedList implements List {
+import java.util.LinkedHashSet;
+
+public class LinkedList<E> implements List<E> {
 	
-	private Node head;
+	private Node<E> head;
+	private int size;
 	
-	public void add(Object o){
+	public LinkedList(){}
+	
+	public void add(E o){
+		add(size, o);
+	}
+	public void add(int index , E o){
+		rangeCheckforAdd(index);
 		
+		if(index == 0){
+			addFirst(o);
+		}else{
+			addNext(index, o);
+		}
 	}
-	public void add(int index , Object o){
+
+	private void addNext(int index, E o) {
+		Node<E> newNode = new Node<E>(o, null);
+		Node<E> prev = indexOf(index-1);
+		Node<E> next = prev.next;
+		newNode.next = next;
+		prev.next = newNode;
 		
+		size++;
 	}
-	public Object get(int index){
-		return null;
+
+	public void addFirst(E o) {
+		Node<E> newNode = new Node<E>(o, null);
+		Node<E> next = head;
+		head = newNode;
+		newNode.next = next;
+		
+		size++;
 	}
-	public Object remove(int index){
-		return null;
+	
+	public void addLast(E o){
+		add(o);
+	}
+	private Node<E> indexOf(int index){
+		Node<E> node = head;
+		for (int i = 0; i < index; i++) {
+			node = node.next;
+		}
+		return node;
+	}
+	private void rangeCheck(int index){
+		if(index >= size || index < 0)
+			throw new IndexOutOfBoundsException("index:"+index+",size:"+size);
+	}
+	private void rangeCheckforAdd(int index){
+		if(index > size || index < 0)
+			throw new IndexOutOfBoundsException("index:"+index+",size:"+size);
+	}
+	
+	public E get(int index){
+		rangeCheck(index);
+		
+		return indexOf(index).data;
+	}
+	public E remove(int index){
+		rangeCheck(index);
+		
+		if(index == 0){
+			return removeFirst();
+		}else{
+			return removeNext(index);
+		}
+	}
+	public void clear(){
+		for (Node<E> x = head; x!= null; ) {
+			Node<E> next = x.next;
+			x.data = null;
+			x.next = null;
+			x = next;
+		}
+		size = 0;
+		head = null;
+	}
+
+	private E removeNext(int index) {
+		final Node<E> rv = indexOf(index);
+		final E element = rv.data;
+		final Node<E> prev = indexOf(index-1);
+		prev.next = rv.next;
+		rv.next = null;
+		size--;
+		return element;
 	}
 	
 	public int size(){
-		return -1;
+		return size;
 	}
 	
-	public void addFirst(Object o){
-		
+	public E removeFirst(){
+		final E element = head.data;
+		final Node<E> rv = head;
+		final Node<E> next = rv.next;
+		head = next;
+		rv.next = null;
+		size --;
+		return element;
 	}
-	public void addLast(Object o){
-		
-	}
-	public Object removeFirst(){
-		return null;
-	}
-	public Object removeLast(){
-		return null;
+	public E removeLast(){
+		E e = remove(size-1);
+		return e;
 	}
 	public Iterator iterator(){
 		return null;
 	}
+	@Override
+	public String toString() {
+		StringBuilder s = new StringBuilder();
+		for (int i = 0; i < size; i++) {
+			s.append(get(i)).append(",");
+		}
+		return s.toString();
+	}
 	
-	
-	private static  class Node{
-		Object data;
-		Node next;
+	private static class Node<E>{
+		E data;
+		Node<E> next;
+		public Node(E data,Node<E> next) {
+			this.data = data;
+			this.next = next;
+		}
+	}
+	public class ListItr implements Iterator {
+
+		
+		@Override
+		public boolean hasNext() {
+			return false;
+		}
+
+		@Override
+		public Object next() {
+			return null;
+		}
 		
 	}
 	
@@ -48,8 +151,16 @@ public class LinkedList implements List {
 	 * 把该链表逆置
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
-	public  void reverse(){		
-		
+	public void reverse(){
+		int i = 1;
+		if(size == 1 || size == 0){
+			return;
+		}
+		while(i < size){
+			E e = remove(i);
+			addFirst(e);
+			i++;
+		}
 	}
 	
 	/**
@@ -58,8 +169,11 @@ public class LinkedList implements List {
 	 * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
 
 	 */
-	public  void removeFirstHalf(){
-		
+	public void removeFirstHalf(){
+		int size = this.size>>1;
+		for (int i = 0; i < size; i++) {
+			removeFirst();
+		}
 	}
 	
 	/**
@@ -67,8 +181,15 @@ public class LinkedList implements List {
 	 * @param i
 	 * @param length
 	 */
-	public  void remove(int i, int length){
+	public void remove(int i, int length){
+		if(i < 0 )
+			throw new IndexOutOfBoundsException("i requested >= 0 ,i:"+i);
+		if(length < 0)
+			throw new IndexOutOfBoundsException("length requested > 0 ,length:"+length);
 		
+		for (int j = 0; j < length&&j<size; j++) {
+			remove(i);
+		}
 	}
 	/**
 	 * 假定当前链表和list均包含已升序排列的整数
@@ -78,8 +199,18 @@ public class LinkedList implements List {
 	 * 返回的结果应该是[101,301,401,601]  
 	 * @param list
 	 */
-	public static int[] getElements(LinkedList list){
-		return null;
+	public int[] getElements(LinkedList<Integer> list){
+		int[] r = new int[list.size];
+		for (int i = 0; i < r.length; i++) {
+			int index = list.get(i);
+			if(index >= this.size()){
+				r[i] = 0;
+				break;
+			}else{
+				r[i] = (int) this.get(index);
+			}
+		}
+		return r;
 	}
 	
 	/**
@@ -89,16 +220,42 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	
-	public  void subtract(LinkedList list){
-		
+	public void subtract(LinkedList<E> list){
+		int i = 0;//this list's index
+		while(i < this.size){
+			boolean flag = false;
+			int j = 0;//parameter list's index
+			E e = get(i);
+			
+			while(j< list.size){
+				if(e.equals(list.get(j))){
+					remove(i);
+					flag = true;
+					break;
+				}else{
+					j++;
+				}
+			}
+			if(!flag){
+				i++;
+			}
+		}
 	}
 	
 	/**
 	 * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。
 	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
-	public  void removeDuplicateValues(){
-		
+	public void removeDuplicateValues(){
+		LinkedHashSet<E> set = new LinkedHashSet<E>();
+		for (int i = 0; i < size; i++) {
+			set.add(get(i));
+		}
+		clear();
+		java.util.Iterator<E> iterator = set.iterator();
+		while(iterator.hasNext()){
+			add(iterator.next());
+		}
 	}
 	
 	/**
@@ -107,8 +264,16 @@ public class LinkedList implements List {
 	 * @param min
 	 * @param max
 	 */
-	public  void removeRange(int min, int max){
-		
+	public void removeRange(int min, int max){
+		int i = 0;
+		while(i < size){
+			int e = (int)get(i);
+			if(e > min && e < max){
+				remove(i);
+			}else{
+				i++;
+			}
+		}
 	}
 	
 	/**
@@ -116,7 +281,22 @@ public class LinkedList implements List {
 	 * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
 	 * @param list
 	 */
-	public  LinkedList intersection( LinkedList list){
-		return null;
+	public LinkedList<E> intersection( LinkedList<E> list){
+		LinkedList<E> linkedList = new LinkedList<E>();
+		int i = 0;//this list's index
+		int j = 0;//parameter list's index
+		int j2= 0;
+		while( i < this.size ){
+			E e = get(i++);
+			j = j2+1;
+			while(j < list.size ){
+				if(e.equals(list.get(j))){
+					linkedList.add(e);
+					j2 = j;
+				}
+				j++;
+			}
+		}
+		return linkedList;
 	}
 }

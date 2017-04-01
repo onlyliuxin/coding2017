@@ -7,13 +7,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Arrays;
 
 public class DownloadThread extends Thread{
 
 	private Connection conn;
 	private int startPos;
 	private int endPos;
-	private RandomAccessFile raf = null;
 
 	public DownloadThread( Connection conn, int startPos, int endPos){
 		
@@ -24,19 +24,25 @@ public class DownloadThread extends Thread{
 	public void run(){
 		try {
 			byte[] bytes = conn.read(startPos,endPos);
-			raf.write(bytes);
-			System.out.println("startPos = "+startPos+", "+"endPos = "+endPos);
+			LogUtil.log(" startPos = "+startPos+", "+"endPos = "+endPos);
+			writeToFile(bytes);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void setFile(File file){
+	private void writeToFile(byte[] bytes){
+		File file = FileUtil.getFile();
 		try {
-			raf = new RandomAccessFile(file, "rws");
+			RandomAccessFile raf = new RandomAccessFile(file, "rw");
+			LogUtil.log("写入文件");
 			raf.seek(startPos);
+			raf.write(bytes);
+			raf.close();
+			LogUtil.log("\n"+Arrays.toString(bytes));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 }
