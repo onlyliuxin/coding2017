@@ -1,13 +1,13 @@
 package com.coding.basic;
 
-public class Queue {
-	private LinkedList elementData = new LinkedList();
+public class Queue<E> {
+	private DoubleNodeLinkedList<E> elementData = new DoubleNodeLinkedList<E>();
 	
-	public void enQueue(Object o){
+	public void enQueue(E o){
 		elementData.addLast(o);
 	}
 	
-	public Object deQueue(){
+	public E deQueue(){
 		return elementData.removeLast();
 	}
 	

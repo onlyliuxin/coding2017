@@ -8,6 +8,8 @@
       <module name="lesson1_test" target="1.8" />
       <module name="lesson2_main" target="1.8" />
       <module name="lesson2_test" target="1.8" />
+      <module name="lesson3_main" target="1.8" />
+      <module name="lesson3_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
