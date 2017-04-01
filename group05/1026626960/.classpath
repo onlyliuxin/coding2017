@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="src/cn/study2/myStruts/lib/commons-logging-1.1.3.jar"/>
-	<classpathentry kind="lib" path="src/cn/study2/myStruts/lib/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="src/cn/study2/myStruts/lib/junit-4.4.jar"/>
-	<classpathentry kind="output" path="bin"/>
-</classpath>
