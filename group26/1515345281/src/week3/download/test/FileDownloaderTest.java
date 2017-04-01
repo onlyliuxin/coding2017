@@ -12,8 +12,10 @@ public class FileDownloaderTest {
 	@Test
 	public void testFileDownloader() {
 
-		String url = "http://210.43.133.109:9999/dldir1.qq.com/qqfile/qq/QQ8.9.1/20437/QQ8.9.1.exe";
-		String localFile = "e://qq8.exe";
+		/*String url = "http://210.43.133.109:9999/dldir1.qq.com/qqfile/qq/QQ8.9.1/20437/QQ8.9.1.exe";
+		String localFile = "e://qq8.exe";*/
+		String url="http://www.iqiyi.com/common/flashplayer/20170331/036801ea7a2e24.swf";
+		String localFile="e:\\036801ea7a2e24.swf";
 		long begin=System.currentTimeMillis();
 		FileDownloader downloader = new FileDownloader(url, localFile);
 		downloader.setListener(new DownloadListener() {
