@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class ClassFileloaderTest {
 
-    static String path1 = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
+    static String path1 = "/Users/Korben/wks/hom/01.coding2017/group20/1107837739/1107837739Learning/mini-jvm/out/production/mini-jvm/";
     static String path2 = "C:\temp";
 
     @Before
