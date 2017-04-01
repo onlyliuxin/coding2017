@@ -126,5 +126,23 @@ public class LRUPageFrame {
 		}
 		return buffer.toString();
 	}
+
+    /**
+     * 测试双向链表逆序输出
+     * @return
+     */
+    public String lastToString(){
+        StringBuilder buffer = new StringBuilder();
+        Node node = last;
+        while(node != null){
+            buffer.append(node.pageNum);
+
+            node = node.prev;
+            if(node != null){
+                buffer.append(",");
+            }
+        }
+        return buffer.toString();
+    }
 	
 }
