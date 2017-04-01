@@ -8,14 +8,11 @@ import org.junit.Test;
 import com.coderising.jvm.loader.ClassFileLoader;
 
 
-
-
-
 public class ClassFileloaderTest {
 
 	
-	static String path1 = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
-	static String path2 = "C:\temp";
+	static String path1 = "H:\\github\\coding2017\\group06\\1378560653\\bin";
+	static String path2 = "C:\\Temp";
 	
 	
 	
