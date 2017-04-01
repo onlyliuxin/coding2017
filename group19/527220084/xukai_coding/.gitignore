@@ -5,4 +5,15 @@
 *iml
 .idea
 *gen-*
-rebel.xml
+
+*.class
+
+.metadata
+.recommenders
+
+#macOS
+.DS_Store
+
+rebel.*
+.rebel.*
+
