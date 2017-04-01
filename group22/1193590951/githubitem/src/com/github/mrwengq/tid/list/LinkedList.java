@@ -1,4 +1,4 @@
-package com.github.mrwengq.first;
+package com.github.mrwengq.tid.list;
 
 public class LinkedList implements List {
 	private Node head;
@@ -26,7 +26,7 @@ public class LinkedList implements List {
 		size++;
 	}
 
-	private Node findNode(int index) {
+	private Node findNode(int index) {//用于查找节点
 		Node no = head;
 			for (; index > 0; index--)
 				no = no.next;			
@@ -175,8 +175,34 @@ public class LinkedList implements List {
 	 * 把该链表逆置
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
-	public  void reverse(){		
-		
+	public  void reverse(){	 
+		if(size==0){
+			throw new RuntimeException();
+		}
+		int cs = size/2;
+		int endIndex = size -1;
+		for(int i = 0;i<cs;i++){ 
+			Node node1 = findNode(i);
+			Node node2 = findNode(endIndex-i);
+			Node BeforNode1 = null; //node1前一个节点
+			Node AfterNode2 = null;//node2 后一个节点
+			if(i != 0 ){
+				BeforNode1 = findNode(i-1);
+				AfterNode2 = findNode(endIndex-i).next;
+			}
+			Node AfterNode1 = findNode(i).next;
+			Node BeforNode2 = findNode(endIndex-i-1);
+			if(BeforNode1!= null && AfterNode2!=null){
+				BeforNode1.next = node2;
+				node1.next = AfterNode2; 
+			}
+			BeforNode2.next = node1;
+			node2.next = AfterNode1; 
+			if(i==0){
+				head = node2;
+			}
+			
+		}
 	}
 	
 	/**
@@ -186,7 +212,19 @@ public class LinkedList implements List {
 
 	 */
 	public  void removeFirstHalf(){
+		if(size<2){
+			throw new RuntimeException();
+		}
 		
+		int len  = size/2;
+		Node node = findNode(len-1);//len-1为删除链表的最后一位下标
+		for( int j = len-2; j>=0 ; j--){
+			Node temp = findNode(j);
+			temp.next = null;
+		}
+		head = node.next;
+		node.next = null;
+		size -= len;
 	}
 	
 	/**
@@ -195,6 +233,17 @@ public class LinkedList implements List {
 	 * @param length
 	 */
 	public  void remove(int i, int length){
+		if(0 == size||i > size-1){
+			throw new RuntimeException();
+		}
+		Node beforNode = findNode(i-1); //i的前一个元素
+		Node afterNode = findNode(i+length);//被删除最大下标节点的下一个节点
+		for( int j = i+length-1; j<i ; j--){
+			Node temp = findNode(j);
+			temp.next = null;
+		}
+		beforNode.next = afterNode;
+		size -=length;
 		
 	}
 	/**
@@ -205,8 +254,22 @@ public class LinkedList implements List {
 	 * 返回的结果应该是[101,301,401,601]  
 	 * @param list
 	 */
-	public static int[] getElements(LinkedList list){
-		return null;
+	public int[] getElements(LinkedList list){
+		int temp = list.size()-1; 
+		if(temp>size){
+			throw new RuntimeException();
+		}
+		int[] b = new int[list.size()];
+		for(int i = 0;i<list.size;i++){
+			temp = (int)list.get(i);
+			Node no = head;
+			while(temp>0){
+				for (; temp > 0; temp--)
+					no = no.next;	
+			}
+			b[i] = (int)no.data;
+		}
+		return b;
 	}
 	
 	/**
@@ -217,6 +280,19 @@ public class LinkedList implements List {
 	 */
 	
 	public  void subtract(LinkedList list){
+		if(list==null){
+			throw new RuntimeException();
+		}
+		for(int i = 0;i<list.size();i++){
+			for(int j = 0;j<this.size();j++){
+				if((int)this.get(j)==(int)list.get(i)){
+					System.out.println(this.get(j)+"    " +j);
+					this.remove(j);
+					break;
+				}
+			}
+		}
+
 		
 	}
 	
@@ -225,7 +301,14 @@ public class LinkedList implements List {
 	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
 	public  void removeDuplicateValues(){
-		
+		int len = size -1;
+		for(int i = 0;i<len;i++){
+			int next = i+1;
+			while((int)this.get(i)==(int)this.get(next)){
+				this.remove(next);
+				len = this.size()-1;
+			}
+		}
 	}
 	
 	/**
@@ -235,8 +318,51 @@ public class LinkedList implements List {
 	 * @param max
 	 */
 	public  void removeRange(int min, int max){
-		
+		int lmin = 0;
+		int lmax = size-1;
+		int lmid = (int)size-1/2;
+		int rmin = 0;//在需要删除的集合中的最小值
+		int rmax = 0;//在需要删除的集合中的最大值
+		while(lmin<lmax){
+			lmid = (lmax+lmin)/2;
+			if((int)this.get(lmid) > min){
+				lmax = lmid-1;
+				if((int)this.get(lmax)<min){
+				 rmin = lmid;
+				 break;
+				}
+			}else if((int)this.get(lmid) <= min){
+				lmin = lmid+1;
+				if((int)this.get(lmin)>min){
+					rmin = lmin;
+					break;
+				}			
+			}
+		}
+		while(lmin<lmax){
+			lmid = (lmax+lmin)/2;
+			if((int)this.get(lmid)<max){
+				lmin = lmid +1;
+				if((int)this.get(lmin)>max){
+					rmax = lmid;
+				}
+			}else if((int)this.get(lmid)>=max){
+				lmax = lmid -1;
+				if((int)this.get(lmax)<max){
+					rmax = lmax;
+				}
+			}
+		}
+		Node beforNode = findNode(rmin-1);
+		Node afterNode = findNode(rmax+1);
+		for(int i = rmax;i>=rmin;i--){
+			Node removeNode = findNode(i);
+			removeNode.next = null;
+			size--;
+		}
+		beforNode.next = afterNode;
 	}
+
 	
 	/**
 	 * 假设当前链表和参数list指定的链表均以元素依值递增有序排列（同一表中的元素值各不相同）
@@ -244,6 +370,32 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	public  LinkedList intersection( LinkedList list){
-		return null;
+		int len = size;
+		int llen = list.size();
+		int i = 0;
+		int j = 0;
+		LinkedList ll= new LinkedList();
+		while(true){
+			if(i == len &&j == llen ){
+				break;
+			}
+			if(i>len-1){
+				ll.add(list.get(j++));
+				continue;
+			}
+			if(j>llen-1){
+				ll.add(this.get(i++));
+				continue;
+			}
+			if((int)get(i)<(int)list.get(j)){
+				ll.add(this.get(i++));
+			}else if((int)get(i)>(int)list.get(j)){
+				ll.add(list.get(j++));
+			}else{
+				ll.add(list.get(j++));
+				i++;
+			}
+		}
+		return ll;
 	}
 }
