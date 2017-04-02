@@ -7,15 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-
-
-
-
 public class ClassFileloaderTest {
 
 	
-	static String path1 = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
-	static String path2 = "C:\temp";
+	static String path1 = "haha";
+	static String path2 = "nana";
 	
 	@Before
 	public void setUp() throws Exception {		 
@@ -67,6 +63,7 @@ public class ClassFileloaderTest {
 		Assert.assertEquals("cafebabe", acctualValue);
 	}
     
+	@org.jetbrains.annotations.NotNull
 	private String byteToHexString(byte[] codes ){
 		StringBuffer buffer = new StringBuffer();
 		for(int i=0;i<codes.length;i++){
