@@ -125,7 +125,13 @@ public class ArrayUtilTest
 	@Test
 	public void testGetPerfectNumbers()
 	{
-		int[] array =  myArray.getPerfectNumbers(10000);
+		int[] array =  myArray.getPerfectNumbers(-1);
+		assertNull(array);
+		
+		array =  myArray.getPerfectNumbers(0);
+		assertArrayEquals(array, new int[0]);
+		
+		array =  myArray.getPerfectNumbers(10000);
 		int[] a = {6, 28, 496, 8128 };
 		assertArrayEquals(a, array);
 	}
@@ -133,21 +139,26 @@ public class ArrayUtilTest
 	@Test
 	public void testJoin()
 	{
-		int[] Array0 = {3, 5, 7, 8, 9};
-		String s0 = myArray.join(Array0, "-");
+		int[] array0 = {3, 5, 7, 8, 9};
+		String s0 = myArray.join(array0, "-");
 		String s1 = "3-5-7-8-9";
 		assertEquals(s1, s0);
 		
-		int[] Array1 = {3};
-		String s2 = myArray.join(Array1, "-");
+		int[] array1 = {3};
+		String s2 = myArray.join(array1, "-");
 		String s3 = "3";
 		assertEquals(s2, s3);
 		
 		//传递空数组时，返回空字符串
-		int[] Array2 = new int[0];
-		String s4 = myArray.join(Array2, "-");
+		int[] array2 = new int[0];
+		String s4 = myArray.join(array2, "-");
 		String s5 = "";
 		assertEquals(s4, s5);
+		
+		//传递数组为null
+		int[] array3 = null;
+		String s6 = myArray.join(array3, "-");
+		assertNull(s6);
 	}
 
 }
