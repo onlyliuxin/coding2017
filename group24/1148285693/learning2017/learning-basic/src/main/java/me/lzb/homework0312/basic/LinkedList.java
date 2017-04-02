@@ -18,15 +18,31 @@ public class LinkedList implements List {
     private static class Node {
         Object data;
         Node next;
+//        int intData;
 
         public Node(Object data, Node next) {
             this.data = data;
             this.next = next;
         }
-
+//        public Node(Object data, Node next, int i) {
+//            this.data = data;
+//            this.next = next;
+//            this.intData = i;
+//        }
     }
 
 
+//    public void add(int i) {
+//        if (first == null) {
+//            first = new Node(null, null, i);
+//            last = first;
+//        } else {
+//            Node n = new Node(null, null, i);
+//            last.next = n;
+//            last = n;
+//        }
+//        size = size + 1;
+//    }
     public void add(Object o) {
         if (first == null) {
             first = new Node(o, null);
@@ -38,6 +54,18 @@ public class LinkedList implements List {
         }
         size = size + 1;
     }
+//
+//    public void addInt(int i) {
+//        if (first == null) {
+//            first = new Node(null, null, i);
+//            last = first;
+//        } else {
+//            Node n = new Node(null, null, i);
+//            last.next = n;
+//            last = n;
+//        }
+//        size = size + 1;
+//    }
 
 
     public void add(int index, Object o) throws IndexOutOfBoundsException {
@@ -72,16 +100,20 @@ public class LinkedList implements List {
 
     }
 
-
-    public Object get(int index) {
-        if (index < 0 || index >= size) {
+    private Node getNode(int index){
+        if (size == 0 || index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("index boom");
         }
         Node result = first;
         for (int i = 0; i < index; i++) {
             result = result.next;
         }
-        return result.data;
+        return result;
+    }
+
+
+    public Object get(int index) {
+        return getNode(index).data;
     }
 
 
@@ -125,6 +157,13 @@ public class LinkedList implements List {
         size = size - 1;
         return result.data;
     }
+
+
+
+
+
+
+
 
     public int size() {
         return size;
@@ -190,6 +229,23 @@ public class LinkedList implements List {
      */
     public void reverse() {
 
+        //还可以用堆栈 先进后出
+
+        if(size() <= 1){
+            return;
+        }
+        Object[] array = new Object[size];
+        Node tmp = first;
+        for (int i = 0; i < size; i++) {
+            array[i] = tmp.data;
+            tmp = tmp.next;
+        }
+        this.first = null;
+        this.last = null;
+        for (int i = array.length - 1; i >= 0 ; i--) {
+            add(array[i]);
+        }
+
     }
 
     /**
@@ -199,6 +255,13 @@ public class LinkedList implements List {
      */
     public void removeFirstHalf() {
 
+        if (size <= 1){
+            return;
+        }
+        int b = size/ 2;
+        Node n = getNode(b);
+        this.first = n;
+        size = (size % 2) + b;
     }
 
     /**
@@ -208,7 +271,32 @@ public class LinkedList implements List {
      * @param length
      */
     public void remove(int i, int length) {
+        if (size == 0 || i < 0 || i >= size){
+            return;
+        }
 
+        length = size - i >= length ? length : size - i;
+
+
+        if(i + length == size){
+            this.first = null;
+            this.last = null;
+            size = 0;
+            return;
+        }
+
+        if(i == 0){
+            Node n = getNode(length);
+            first = n;
+            size = size - length;
+            return;
+        }
+
+
+        Node a = getNode(i - 1);
+        Node b = getNode(i + length);
+        a.next = b;
+        size = size - length;
     }
 
     /**
@@ -220,8 +308,37 @@ public class LinkedList implements List {
      *
      * @param list
      */
-    public static int[] getElements(LinkedList list) {
-        return null;
+    public int[] getElements(LinkedList list) {
+
+        if(size <= 0 || list.size() <= 0){
+            return new int[0];
+        }
+
+
+
+        int[] result = new int[list.size()];
+
+        Node tmp = list.first;
+        int index = 0;
+        Node tmp2 = first;
+        for (int i = 0; i < list.size(); i++) {
+            int newIndex = (int)tmp.data;
+            int maxJ = newIndex - index;
+            for (int j = 0; j <= maxJ; j++) {
+
+                if(j == maxJ){
+                    result[i] = (int)tmp2.data;
+                    break;
+                }
+                tmp2 = tmp2.next;
+            }
+            index = newIndex;
+            tmp = tmp.next;
+        }
+
+        size = size - list.size();
+
+        return result;
     }
 
     /**
@@ -232,14 +349,56 @@ public class LinkedList implements List {
      */
 
     public void subtract(LinkedList list) {
+        for (int i = 0; i < list.size(); i++) {
+            this.remove(list.get(i));
+        }
 
     }
+
+
+    public void remove(Object obj){
+        if(size <= 0){
+            return;
+        }
+        if(first.data.equals(obj)){
+            first=first.next;
+            size = size - 1;
+            return;
+        }
+        Node tmp = first;
+        Node tmp2 = first.next;
+        for (int i = 1; i < size; i++) {
+            if(tmp2.data.equals(obj)){
+                tmp.next = tmp2.next;
+                size = size - 1;
+                return;
+            }
+            tmp = tmp.next;
+            tmp2 = tmp2.next;
+        }
+
+    }
+
 
     /**
      * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。
      * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
      */
     public void removeDuplicateValues() {
+        if(size <= 1){
+            return;
+        }
+
+        Node tmp = first;
+        for (int i = 1; i < size; i++) {
+            if(tmp.next == null){
+                break;
+            }
+            if (tmp.data.equals(tmp.next.data)){
+                tmp.next = tmp.next.next;
+            }
+            tmp = tmp.next;
+        }
 
     }
 
@@ -251,7 +410,45 @@ public class LinkedList implements List {
      * @param max
      */
     public void removeRange(int min, int max) {
+        if(size <= 0){
+            return;
+        }
 
+        Node tmp = first;
+        int a = -1;
+        int b = -1;
+        for (int i = 0; i < size; i++) {
+            if((int)tmp.data > min && a == -1){
+                a = i;
+            }
+
+            if((int)tmp.data >= max && b == -1){
+                b = i;
+            }
+
+            tmp = tmp.next;
+        }
+
+
+        if(min < max){
+            remove(a, b - a);
+            return;
+
+        }
+
+
+        if(min == max){
+
+        }
+
+
+        if(min > max){
+
+        }
+
+
+
+        return;
     }
 
     /**
@@ -261,6 +458,53 @@ public class LinkedList implements List {
      * @param list
      */
     public LinkedList intersection(LinkedList list) {
-        return null;
+        LinkedList result = new LinkedList();
+
+        if(list == null || list.size <= 0 || size <= 0){
+            return result;
+        }
+
+        int i1 = 0;
+        int i2 = 0;
+
+        while( i1 < this.size  && i2<list.size() ){
+
+            int value1 = (int)this.get(i1);
+            int value2 = (int)list.get(i2);
+
+            if(value1 == value2){
+                result.add(value1);
+                i1++;
+                i2++;
+
+            } else if (value1 < value2){
+                i1++;
+
+            } else{
+                i2++;
+
+            }
+        }
+
+
+        return result;
     }
+
+
+
+    public String toString(){
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("[");
+        Node node = first;
+        while(node != null){
+            buffer.append(node.data);
+            if(node.next != null){
+                buffer.append(",");
+            }
+            node = node.next;
+        }
+        buffer.append("]");
+        return buffer.toString();
+    }
+
 }
