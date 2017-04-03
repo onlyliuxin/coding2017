@@ -23,6 +23,8 @@
 
     <modules>
         <module>learning-basic</module>
+        <module>mini-jvm</module>
+        <!--<module>example</module>-->
     </modules>
 
     <properties>
