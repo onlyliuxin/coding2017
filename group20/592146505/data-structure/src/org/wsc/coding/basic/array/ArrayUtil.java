@@ -1,4 +1,4 @@
-package org.wsc.coderising.array;
+package org.wsc.coding.basic.array;
 
 public class ArrayUtil {
 	/**
