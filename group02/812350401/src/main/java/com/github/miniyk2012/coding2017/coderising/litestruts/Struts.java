@@ -170,6 +170,7 @@ public class Struts {
 //    	View view = runAction("login", params);
 //    	logger.info(view.toString());
         System.out.println(Struts.class.getResource(""));
+        System.out.println(Struts.class.getResource("/"));
         System.out.println(Struts.class.getClassLoader().getResource(""));
     }
     
