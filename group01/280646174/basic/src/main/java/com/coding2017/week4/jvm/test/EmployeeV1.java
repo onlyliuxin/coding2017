@@ -1,4 +1,4 @@
-package com.coding2017.week4.jvm.loader;
+package com.coding2017.week4.jvm.test;
 
 public class EmployeeV1 {
 
