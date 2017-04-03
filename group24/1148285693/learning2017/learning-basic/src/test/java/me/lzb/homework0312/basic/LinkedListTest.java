@@ -1,7 +1,5 @@
 package me.lzb.homework0312.basic;
 
-import me.lzb.homework0312.basic.Iterator;
-import me.lzb.homework0312.basic.LinkedList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -17,6 +15,8 @@ public class LinkedListTest {
 
     private LinkedList linkedList;
 
+    private LinkedList intList;
+
     private String[] strArray;
 
     @Rule
@@ -31,14 +31,26 @@ public class LinkedListTest {
         linkedList.add("d");
 
         strArray = new String[]{"a", "b", "c", "d"};
+
+        intList = new LinkedList();
+        intList.add(0);
+        intList.add(1);
+        intList.add(2);
+        intList.add(3);
+        intList.add(4);
+        intList.add(5);
+        intList.add(6);
+        intList.add(7);
+        intList.add(8);
+
     }
 
 
     @Test
-    public void iteratoreTest(){
+    public void iteratoreTest() {
         Iterator iterator = linkedList.iterator();
         int a = 0;
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Assert.assertEquals(strArray[a], iterator.next().toString());
             a = a + 1;
         }
@@ -104,5 +116,143 @@ public class LinkedListTest {
 
     }
 
+
+    @Test
+    public void reverseTest() {
+        linkedList.reverse();
+        Assert.assertEquals("[d,c,b,a]", linkedList.toString());
+    }
+
+    @Test
+    public void removeFirstHalfTest() {
+        intList.removeFirstHalf();
+        Assert.assertEquals("[4,5,6,7,8]", intList.toString());
+        Assert.assertEquals(5, intList.size());
+        linkedList.removeFirstHalf();
+        Assert.assertEquals("[c,d]", linkedList.toString());
+        Assert.assertEquals(2, linkedList.size());
+    }
+
+    @Test
+    public void removeITest() {
+        intList.remove(0, 10);
+        Assert.assertEquals("[]", intList.toString());
+        Assert.assertEquals(0, intList.size());
+
+
+        linkedList.remove(1, 2);
+        Assert.assertEquals("[a,d]", linkedList.toString());
+        Assert.assertEquals(2, linkedList.size());
+
+
+        LinkedList l = new LinkedList();
+        l.add("a");
+        l.add("b");
+        l.add("c");
+        l.add("d");
+        l.remove(0, 2);
+        Assert.assertEquals("[c,d]", l.toString());
+        Assert.assertEquals(2, l.size());
+    }
+
+
+    @Test
+    public void getElementsTest() {
+        int[] a = {1, 3, 4, 6};
+
+        LinkedList l = new LinkedList();
+        l.add(1);
+        l.add(3);
+        l.add(4);
+        l.add(6);
+        int[] re = intList.getElements(l);
+
+        Assert.assertEquals(a.length, re.length);
+        for (int i = 0; i < a.length; i++) {
+            Assert.assertEquals(a[i], re[i]);
+        }
+
+    }
+
+
+    @Test
+    public void subtractTest() {
+        LinkedList l = new LinkedList();
+        l.add(1);
+        l.add(3);
+        l.add(4);
+        l.add(6);
+        intList.subtract(l);
+        Assert.assertEquals(5, intList.size());
+        Assert.assertEquals("[0,2,5,7,8]", intList.toString());
+    }
+
+
+    @Test
+    public void removeDuplicateValuesTest() {
+        LinkedList list = new LinkedList();
+        list.add(1);
+        list.add(1);
+        list.add(2);
+        list.add(2);
+        list.add(3);
+        list.add(5);
+        list.add(5);
+        list.add(6);
+        list.removeDuplicateValues();
+
+        Assert.assertEquals("[1,2,3,5,6]", list.toString());
+    }
+
+
+    @Test
+    public void removeRangeTest() {
+        {
+            LinkedList linkedList = new LinkedList();
+
+            linkedList.add(11);
+            linkedList.add(12);
+            linkedList.add(13);
+            linkedList.add(14);
+            linkedList.add(16);
+            linkedList.add(16);
+            linkedList.add(19);
+
+            linkedList.removeRange(10, 19);
+            Assert.assertEquals("[19]", linkedList.toString());
+        }
+
+        {
+            LinkedList linkedList = new LinkedList();
+
+            linkedList.add(11);
+            linkedList.add(12);
+            linkedList.add(13);
+            linkedList.add(14);
+            linkedList.add(16);
+            linkedList.add(16);
+            linkedList.add(19);
+
+            linkedList.removeRange(10, 14);
+            Assert.assertEquals("[14,16,16,19]", linkedList.toString());
+        }
+    }
+
+
+    @Test
+    public void intersectionTest() {
+        LinkedList list1 = new LinkedList();
+        list1.add(1);
+        list1.add(6);
+        list1.add(7);
+
+        LinkedList list2 = new LinkedList();
+        list2.add(2);
+        list2.add(5);
+        list2.add(6);
+
+        LinkedList newList = list1.intersection(list2);
+        Assert.assertEquals("[6]", newList.toString());
+    }
 
 }
