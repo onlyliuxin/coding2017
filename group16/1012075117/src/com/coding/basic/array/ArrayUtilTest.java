@@ -1,4 +1,4 @@
-package com.array;
+package com.coding.basic.array;
 
 import org.junit.Test;
 

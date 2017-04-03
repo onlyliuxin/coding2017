@@ -1,4 +1,4 @@
-package com.litestruts;
+package com.coderising.litestruts;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -15,6 +15,12 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+/**
+ * 读取配置文件 struts.xml - 第二次作业
+ * @author stackwei
+ * @date 2017/3/20
+ * @status ok
+ */
 public class Struts {
 	public static View runAction(String actionName, Map<String, String> parameters) throws Exception {
 
