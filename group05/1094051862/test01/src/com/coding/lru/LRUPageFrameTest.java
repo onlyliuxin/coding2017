@@ -14,18 +14,25 @@ public class LRUPageFrameTest {
 		frame.access(0);
 		frame.access(1);
 		Assert.assertEquals("1,0,7", frame.toString());
+		System.out.println(frame.toString());
 		frame.access(2);
 		Assert.assertEquals("2,1,0", frame.toString());
+		System.out.println(frame.toString());
 		frame.access(0);
 		Assert.assertEquals("0,2,1", frame.toString());
+		System.out.println(frame.toString());
 		frame.access(0);
 		Assert.assertEquals("0,2,1", frame.toString());
+		System.out.println(frame.toString());
 		frame.access(3);
 		Assert.assertEquals("3,0,2", frame.toString());
+		System.out.println(frame.toString());
 		frame.access(0);
 		Assert.assertEquals("0,3,2", frame.toString());
+		System.out.println(frame.toString());
 		frame.access(4);
 		Assert.assertEquals("4,0,3", frame.toString());
+		System.out.println(frame.toString());
 	}
 
 }
