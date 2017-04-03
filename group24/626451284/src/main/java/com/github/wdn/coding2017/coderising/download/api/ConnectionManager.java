@@ -1,4 +1,4 @@
-package com.coderising.download.api;
+package com.github.wdn.coding2017.coderising.download.api;
 
 public interface ConnectionManager {
 	/**

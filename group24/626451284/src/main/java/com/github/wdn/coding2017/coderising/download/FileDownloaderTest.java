@@ -1,12 +1,12 @@
-package com.coderising.download;
+package com.github.wdn.coding2017.coderising.download;
 
+import com.github.wdn.coding2017.coderising.download.api.ConnectionManager;
+import com.github.wdn.coding2017.coderising.download.api.DownloadListener;
+import com.github.wdn.coding2017.coderising.download.impl.ConnectionManagerImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.coderising.download.api.ConnectionManager;
-import com.coderising.download.api.DownloadListener;
-import com.coderising.download.impl.ConnectionManagerImpl;
 
 public class FileDownloaderTest {
 	boolean downloadFinished = false;
@@ -21,7 +21,7 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://localhost:8080/test.jpg";
+		String url = "http://pic1.win4000.com/wallpaper/9/58dcbb7ee7de0.jpg";
 		
 		FileDownloader downloader = new FileDownloader(url);
 

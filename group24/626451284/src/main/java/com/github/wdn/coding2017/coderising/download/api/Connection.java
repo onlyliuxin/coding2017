@@ -1,6 +1,7 @@
-package com.coderising.download.api;
+package com.github.wdn.coding2017.coderising.download.api;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 
 public interface Connection {
 	/**
@@ -20,4 +21,7 @@ public interface Connection {
 	 * 关闭连接
 	 */
 	public void close();
+
+
+	void setHttpURLConnection(HttpURLConnection httpURLConnection);
 }

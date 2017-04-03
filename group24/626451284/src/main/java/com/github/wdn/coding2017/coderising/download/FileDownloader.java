@@ -1,10 +1,14 @@
-package com.coderising.download;
+package com.github.wdn.coding2017.coderising.download;
 
-import com.coderising.download.api.Connection;
-import com.coderising.download.api.ConnectionException;
-import com.coderising.download.api.ConnectionManager;
-import com.coderising.download.api.DownloadListener;
 
+import com.github.wdn.coding2017.coderising.download.api.Connection;
+import com.github.wdn.coding2017.coderising.download.api.ConnectionException;
+import com.github.wdn.coding2017.coderising.download.api.ConnectionManager;
+import com.github.wdn.coding2017.coderising.download.api.DownloadListener;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.concurrent.CountDownLatch;
 
 public class FileDownloader {
 	
@@ -35,25 +39,34 @@ public class FileDownloader {
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
 		Connection conn = null;
+
 		try {
-			
 			conn = cm.open(this.url);
-			
-			int length = conn.getContentLength();	
-			
-			new DownloadThread(conn,0,length-1).start();
-			
-		} catch (ConnectionException e) {			
+			int threadSum = 4;
+			final CountDownLatch latch = new CountDownLatch(threadSum);
+			int length = conn.getContentLength();
+			if(length<=1024){
+				new DownloadThread(cm.open(this.url),0,length,latch).start();
+			}else{
+				int partLength = length/threadSum;
+				for (int i = 0; i < threadSum; i++) {
+					if(i==threadSum-1){
+						new DownloadThread(cm.open(this.url),i*partLength,length,latch).start();
+					}else{
+						new DownloadThread(cm.open(this.url),i*partLength,i*partLength+partLength,latch).start();
+					}
+
+				}
+			}
+			latch.await();
+			listener.notifyFinished();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
 			if(conn != null){
 				conn.close();
 			}
 		}
-		
-		
-		
-		
 	}
 	
 	public void setListener(DownloadListener listener) {
