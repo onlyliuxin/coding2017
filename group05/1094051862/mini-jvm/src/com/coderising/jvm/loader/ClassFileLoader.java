@@ -16,7 +16,7 @@ public class ClassFileLoader {
 
 	public byte[] readBinaryCode(String className) throws ClassNotFoundException, IOException {
 		if (clzPaths.size() == 0) {
-			return new byte[0];
+			throw new ClassNotFoundException(className);
 		}
 		String actualPath = getActualPath(className);
 		

@@ -60,7 +60,6 @@ public class ClassFileloaderTest {
 	
     @Test	
 	public void testMagicNumber() throws ClassNotFoundException, IOException{
-    	
     	ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
 		String className = "com.coderising.jvm.test.EmployeeV1";
