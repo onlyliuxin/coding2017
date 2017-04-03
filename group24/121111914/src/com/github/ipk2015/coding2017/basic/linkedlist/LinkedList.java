@@ -1,6 +1,10 @@
-package com.github.ipk2015.coding2017.basic;
+package com.github.ipk2015.coding2017.basic.linkedlist;
 
 import java.util.NoSuchElementException;
+
+import com.github.ipk2015.coding2017.basic.Iterator;
+import com.github.ipk2015.coding2017.basic.List;
+import com.github.ipk2015.coding2017.basic.ListUtils;
 
 public class LinkedList implements List {
 	
