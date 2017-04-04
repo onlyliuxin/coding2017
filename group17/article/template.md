@@ -12,7 +12,7 @@
 
 1204187480 http://blog.leanote.com/post/luoziyihao/js%E9%97%AD%E5%8C%85
 
-102228177  
+102228177  http://note.youdao.com/noteshare?id=1f8f4a9d861e24948cdf0219a0d39f4e
 
 876385982 
 
