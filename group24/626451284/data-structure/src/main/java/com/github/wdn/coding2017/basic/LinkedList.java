@@ -40,6 +40,7 @@ public class LinkedList implements List {
 		newNode.setPre(pre);
 		newNode.setNext(indexNode);
 		indexNode.setPre(newNode);
+		size++;
 	}
 	private void checkIndex(int index){
 		if(index >= size || index <0){
@@ -56,8 +57,10 @@ public class LinkedList implements List {
 		if(index==size-1){
 			return tail;
 		}
+		Node current = head;
 		for (int i = 0; i < index; i++) {
-			result = head.getNext();
+			result = current.getNext();
+			current = result;
 		}
 		return result;
 	}
@@ -79,6 +82,7 @@ public class LinkedList implements List {
 		}else{
 			tail = pre;
 		}
+		size--;
 		return indexNode.getData();
 	}
 	
@@ -91,25 +95,43 @@ public class LinkedList implements List {
 		head.setPre(newNode);
 		newNode.setNext(head);
 		head = newNode;
+		size++;
 	}
 	public void addLast(Object o){
 		Node newNode = new Node(o);
 		tail.setNext(newNode);
 		newNode.setPre(tail);
 		tail = newNode;
+		size++;
 	}
 	public Object removeFirst(){
+		if(size<1){
+			throw new IllegalArgumentException();
+		}
+		if(size==1){
+			tail=null;
+		}
 		Node next = head.getNext();
 		Node oldHead = head;
-		head = next;
 		head.setPre(null);
+		head = next;
+		oldHead.setNext(null);
+		size--;
 		return oldHead;
 	}
 	public Object removeLast(){
+		if(size<1){
+			throw new IllegalArgumentException();
+		}
+		if(size==1){
+			head=null;
+		}
 		Node oldTail = tail;
 		Node pre = tail.getPre();
 		tail = pre;
 		tail.setNext(null);
+		oldTail.setPre(null);
+		size--;
 		return oldTail;
 	}
 	public Iterator iterator(){
@@ -161,6 +183,28 @@ public class LinkedList implements List {
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
 	public  void reverse(){
+		Node current = head;
+		Node next = current.getNext();
+		Node pre = current.getPre();
+		while(next!=null){
+			Node nNext = next.getNext();
+			if(pre!=null){
+				pre.setPre(current);
+			}
+			if(current!=null){
+				current.setPre(next);
+				current.setNext(pre);
+			}
+			if(next!=null){
+				next.setNext(current);
+			}
+			pre = current;
+			current = next;
+			next = nNext;
+		}
+		Node oldHead = head;
+		head = tail;
+		tail = oldHead;
 	 }
 
 	 /**
@@ -170,16 +214,54 @@ public class LinkedList implements List {
 
 	 */
 	public  void removeFirstHalf(){
-
+		int removeSize = size/2;
+		for (int i = 0; i < removeSize; i++) {
+			removeFirst();
+		}
 	}
 
 	/**
 	 * 从第i个元素开始， 删除length 个元素 ， 注意i从0开始
-	 * @param i
-	 * @param length
+	 * @param start 开始位置
+	 * @param length 长度
 	 */
-	public  void remove(int i, int length){
+	public  void remove(int start, int length){
+		checkIndex(start);
+		if(length<1){
+			return;
+		}
+		if(start==0 && length>=size){
+			int removeSum = size;
+			for (int j = 0; j < removeSum; j++) {
+				removeFirst();
+			}
+			size = size-length;
+			return;
+		}
 
+		int customMaxIndex = start+length;
+		int endIndex = customMaxIndex < size ? customMaxIndex : size;
+		if(start==0){
+			for (int j = 0; j < length; j++) {
+				removeFirst();
+			}
+			size = size-length;
+			return;
+		}
+		if(endIndex==size){
+			int removeSum = size-start;
+			for (int j = 0; j < removeSum; j++) {
+				removeLast();
+			}
+			return;
+		}
+		Node startNode = getNode(start-1);
+		Node endNode = getNode(endIndex);
+		startNode.getNext().setPre(null);
+		startNode.setNext(endNode);
+		endNode.getPre().setNext(null);
+		endNode.setPre(startNode);
+		size = size-length;
 	}
 	/**
 	 * 假定当前链表和list均包含已升序排列的整数
@@ -189,8 +271,24 @@ public class LinkedList implements List {
 	 * 返回的结果应该是[101,301,401,601]
 	 * @param list
 	 */
-	public static int[] getElements(LinkedList list){
-		return null;
+	public int[] getElements(LinkedList list){
+		for (int i = 0; i < list.size; i++) {
+			if(Integer.parseInt(list.get(i).toString())>=this.size){
+				throw new IndexOutOfBoundsException();
+			}
+		}
+		int[] result = new int[list.size];
+		int index = 0;
+		for (int i = 0; i < this.size; i++) {
+			if (index==list.size()){
+				break;
+			}
+			if(Integer.parseInt(list.get(index).toString())==i){
+				result[index] = Integer.parseInt(this.get(i).toString());
+				index++;
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -201,7 +299,22 @@ public class LinkedList implements List {
 	 */
 	
 	public  void subtract(LinkedList list){
-		
+		int index = 0;
+		Object compare = list.get(index);
+		Node current = head;
+		while(current!=null && compare!=null){
+			Node preCurrent = current;
+			current = current.getNext();
+			// TODO 这里不能删除重复元素只能删除一次
+			if(preCurrent.getData().equals(compare)){
+				preCurrent.getPre().setNext(preCurrent.getNext());
+				preCurrent.getNext().setPre(preCurrent.getPre());
+				preCurrent.setPre(null);
+				preCurrent.setNext(null);
+				size--;
+				compare = ++index < list.size ? list.get(index) : null;
+			}
+		}
 	}
 	
 	/**
@@ -209,7 +322,24 @@ public class LinkedList implements List {
 	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
 	public  void removeDuplicateValues(){
-		
+		Node current = head;
+		Node next = current.getNext();
+		while (next!=null){
+			if(next.getData().equals(current.getData())){
+				Node preNext = next;
+				next = preNext.getNext();
+				current.setNext(preNext.getNext());
+				if (next != null) {
+					next.setPre(current);
+				}
+				preNext.setPre(null);
+				preNext.setNext(null);
+				size--;
+			}else{
+				current = next;
+				next = next.getNext();
+			}
+		}
 	}
 	
 	/**
@@ -219,7 +349,23 @@ public class LinkedList implements List {
 	 * @param max
 	 */
 	public  void removeRange(int min, int max){
-		
+		int minIndex = -1;
+		int maxIndex = -1;
+		int index = 0;
+		Node current = head;
+		while (current!=null){
+			if(current.getData().equals(min)){
+				minIndex = index;
+			}
+			if(current.getData().equals(max)){
+				maxIndex = index;
+			}
+			index++;
+			current = current.getNext();
+		}
+		if (minIndex > -1 && maxIndex > -1 && min <= max && minIndex + 1 < size) {
+			remove(minIndex + 1, maxIndex - minIndex - 1);
+		}
 	}
 	
 	/**
@@ -229,5 +375,18 @@ public class LinkedList implements List {
 	 */
 	public  LinkedList intersection( LinkedList list){
 		return null;
+	}
+	@Override
+	public String toString(){
+		StringBuffer stringBuffer = new StringBuffer();
+		stringBuffer.append("[");
+		for (int i = 0; i < size; i++) {
+			stringBuffer.append(get(i));
+			if(i!=size-1){
+				stringBuffer.append(",");
+			}
+		}
+		stringBuffer.append("]");
+		return stringBuffer.toString();
 	}
 }
