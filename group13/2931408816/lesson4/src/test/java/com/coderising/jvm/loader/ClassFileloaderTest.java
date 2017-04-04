@@ -1,4 +1,4 @@
-package com.coderising.jvm.test;
+package com.coderising.jvm.loader;
 
 import org.junit.After;
 import  org.junit.Assert;
