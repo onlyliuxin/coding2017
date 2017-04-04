@@ -1,5 +1,9 @@
 package main.week03.download;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
 import main.week03.download.api.ConnectionManager;
 import main.week03.download.api.DownloadListener;
 import main.week03.download.impl.ConnectionManagerImpl;
@@ -8,12 +12,25 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
-
 public class FileDownloaderTest {
 	boolean downloadFinished = false;
+	String _url = "http://images2015.cnblogs.com/blog/610238/201604/610238-20160421154632101-286208268.png";
+	String _filePath = "/";
 	@Before
 	public void setUp() throws Exception {
+		File file = new File(".");
+		
+		String packageName = this.getClass().getPackage().getName();
+		// 把包名转化成路径的一部分
+		packageName = packageName.replace('.', '/');
+
+		_filePath = file.getCanonicalPath() + "/src/" + packageName + "/" + "test.jpg";
+		try{ 
+		    System.out.println(file.getCanonicalPath());//获取标准的路径 
+		    System.out.println(file.getAbsolutePath());//获取绝对路径 
+		    System.out.println(file.getPath());
+		    System.out.println(packageName);
+		}catch(Exception e){}
 	}
 
 	@After
@@ -21,13 +38,13 @@ public class FileDownloaderTest {
 	}
 
 	@Test
-	public void testDownload() {
-		
-		String url = "http://localhost:8080/test.jpg";
-		
-		FileDownloader downloader = new FileDownloader(url);
-
+	public void testPath(){}
 	
+	@Test
+	public void testDownload() throws IOException {
+		
+		FileDownloader downloader = new FileDownloader(_url, _filePath);
+
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
 		
@@ -39,7 +56,6 @@ public class FileDownloaderTest {
 
 		});
 
-		
 		downloader.execute();
 		
 		// 等待多线程下载程序执行完毕
