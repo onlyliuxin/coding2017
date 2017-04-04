@@ -10,6 +10,9 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin){
+		if(origin==null){
+			return ;
+		}
 		int len = origin.length;
 		for (int i = 0; i < len/2 ; i++) {
 			int temp = origin[len-1-i];
@@ -27,6 +30,9 @@ public class ArrayUtil {
 	 */
 	
 	public int[] removeZero(int[] oldArray){
+		if(oldArray==null){
+			return new int[0];
+		}
 		int[] tempArr = new int[oldArray.length];
 		int size = 0;
 		for (int i = 0; i < oldArray.length; i++) {
@@ -49,6 +55,11 @@ public class ArrayUtil {
 	 */
 	
 	public int[] merge(int[] array1, int[] array2){
+		if(array1==null&&array2==null){
+			return new int[0];
+		}else if(array1==null||array2==null){
+			return array1==null?array2:array1;
+		}
 		int[] arr3 = new int[array1.length+array2.length];
 		int len1 = array1.length;
 		int len2 = array2.length; 
@@ -85,10 +96,27 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
+		if(oldArray==null){
+			return new int[0];
+		}
 		if(size<0){
 			throw new IllegalArgumentException();
 		}
 		int[] newArr = new int[oldArray.length + size];
+		for (int i = 0; i < oldArray.length; i++) {
+			newArr[i] = oldArray[i];
+		}
+		return newArr;
+	}
+	
+	public static byte[] grow(byte[] oldArray,  int size){
+		if(oldArray==null){
+			return new byte[0];
+		}
+		if(size<0){
+			throw new IllegalArgumentException();
+		}
+		byte[] newArr = new byte[oldArray.length + size];
 		for (int i = 0; i < oldArray.length; i++) {
 			newArr[i] = oldArray[i];
 		}
@@ -202,13 +230,28 @@ public class ArrayUtil {
 	 * @param s
 	 * @return
 	 */
-	public String join(int[] array, String seperator){
+	/*My
+	 public String join(int[] array, String seperator){
 		String result = "";
 		for (int i = 0; i < array.length; i++) {
 			result = result + array[i] + seperator;
 		}
 		int index = result.lastIndexOf(seperator);
 		return result.substring(0, index);
+	}*/
+	
+	public String join(int[] array, String seperator){
+		if(array==null){
+			return "";
+		}
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < array.length; i++) {
+			sb.append(array[i]);
+			if(i<array.length-1){
+				sb.append(seperator);
+			}
+		}
+		return sb.toString();
 	}
 	
 
