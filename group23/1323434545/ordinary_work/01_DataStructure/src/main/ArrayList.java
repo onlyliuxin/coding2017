@@ -16,7 +16,7 @@ public class ArrayList implements List {
 
 	@Override
 	public void add(int index, Object o) {
-		//检查是否越界
+		// 检查是否越界
 		ListUtils.CheckIndexInRange(0, size, index);
 		if (size == elementData.length) {
 			elementData = Arrays.copyOf(elementData, elementData.length + 10);
