@@ -73,7 +73,7 @@ public class ArrayUtil {
 		return returnArray;
 	}
 	
-	private static int[] returnByIntArray(Collection<Integer> collection){
+	public static int[] returnByIntArray(Collection<Integer> collection){
 		int[] returnArray = new int[collection.size()];
 		int i = 0;
 		for(Iterator<Integer> it = collection.iterator(); it.hasNext();){

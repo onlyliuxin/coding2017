@@ -32,7 +32,8 @@ public class ConnectionImpl implements Connection{
 	
 	@Override
 	public byte[] read(int startPos, int endPos) throws IOException {
-		byte[] buffer = new byte[1024 * 1024];    
+		//缓冲的意思是，告诉输出流，请你把它读满，可能读1024，也可能不足1024
+		byte[] buffer = new byte[1024];    
 		is.skip(startPos);
         //该线程需要下载的字节数
 		int currentSectionLength = endPos - startPos + 1;
