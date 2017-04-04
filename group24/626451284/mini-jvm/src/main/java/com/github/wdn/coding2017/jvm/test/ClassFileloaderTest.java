@@ -14,8 +14,8 @@ import org.junit.Test;
 public class ClassFileloaderTest {
 
 	
-	static String path1 = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
-	static String path2 = "C:\temp";
+	static String path1 = "E:\\softdata\\ideaworkspace\\self\\coding2017\\group24\\626451284\\mini-jvm\\target\\classes";
+	static String path2 = "E:\\temp";
 	
 	
 	
@@ -46,12 +46,12 @@ public class ClassFileloaderTest {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
 		
-		String className = "com.coderising.jvm.test.EmployeeV1";
+		String className = "com.github.wdn.coding2017.jvm.test.EmployeeV1";
 		
 		byte[] byteCodes = loader.readBinaryCode(className);
 		
 		// 注意：这个字节数可能和你的JVM版本有关系， 你可以看看编译好的类到底有多大
-		Assert.assertEquals(1056, byteCodes.length);
+		Assert.assertEquals(1078, byteCodes.length);
 		
 	}
 	
@@ -60,13 +60,12 @@ public class ClassFileloaderTest {
 	public void testMagicNumber(){
     	ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
-		String className = "com.coderising.jvm.test.EmployeeV1";
+		String className = "com.github.wdn.coding2017.jvm.test.EmployeeV1";
 		byte[] byteCodes = loader.readBinaryCode(className);
 		byte[] codes = new byte[]{byteCodes[0],byteCodes[1],byteCodes[2],byteCodes[3]};
 		
 		
 		String acctualValue = this.byteToHexString(codes);
-		
 		Assert.assertEquals("cafebabe", acctualValue);
 	}
     
