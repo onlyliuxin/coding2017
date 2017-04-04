@@ -1,60 +1,49 @@
 package com.github.wdn.coding2017.basic.lru;
 
+import com.github.wdn.coding2017.basic.LinkedList;
+
 /**
  * 用双向链表实现LRU算法
  * @author liuxin
  *
  */
 public class LRUPageFrame {
-	
-	private static class Node {
-		
-		Node prev;
-		Node next;
-		int pageNum;
-
-		Node() {
-		}
-	}
-
 	private int capacity;
-	
-	
-	private Node first;// 链表头
-	private Node last;// 链表尾
-
-	
+	private LinkedList cache = new LinkedList();
 	public LRUPageFrame(int capacity) {
-		
 		this.capacity = capacity;
-		
 	}
 
 	/**
 	 * 获取缓存中对象
 	 * 
-	 * @param key
+	 * @param pageNum
 	 * @return
 	 */
 	public void access(int pageNum) {
-		
+		if(capacity==cache.size()){
+			int exist = exist(pageNum);
+			if(exist>-1){
+				cache.addFirst(cache.remove(exist));
+			}else{
+				cache.removeLast();
+				cache.addFirst(pageNum);
+			}
+		}else {
+			cache.addFirst(pageNum);
+		}
 	
 	}
-	
-	
-
-	public String toString(){
-		StringBuilder buffer = new StringBuilder();
-		Node node = first;
-		while(node != null){
-			buffer.append(node.pageNum);			
-			
-			node = node.next;
-			if(node != null){
-				buffer.append(",");
+	private int exist(int pageNum){
+		for (int i = 0; i < cache.size(); i++) {
+			if(cache.get(i).equals(pageNum)){
+				return i;
 			}
 		}
-		return buffer.toString();
+		return -1;
+	}
+	public String toString(){
+		return cache.toString().replace("[","").replace("]","");
 	}
 	
 }

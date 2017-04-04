@@ -92,12 +92,20 @@ public class LinkedList implements List {
 	
 	public void addFirst(Object o){
 		Node newNode = new Node(o);
+		if (size==0){
+			add(o);
+			return;
+		}
 		head.setPre(newNode);
 		newNode.setNext(head);
 		head = newNode;
 		size++;
 	}
 	public void addLast(Object o){
+		if (size == 0) {
+			add(o);
+			return;
+		}
 		Node newNode = new Node(o);
 		tail.setNext(newNode);
 		newNode.setPre(tail);
