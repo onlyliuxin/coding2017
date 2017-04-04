@@ -1,13 +1,12 @@
 package com.coding.week3.download1;
 
 
-import com.coding.week3.download.api.Connection;
-import com.coding.week3.download.api.ConnectionException;
-import com.coding.week3.download.api.ConnectionManager;
-import com.coding.week3.download.api.DownloadListener;
+import com.coding.week3.download1.api.Connection;
+import com.coding.week3.download1.api.ConnectionException;
+import com.coding.week3.download1.api.ConnectionManager;
+import com.coding.week3.download1.api.DownloadListener;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -55,36 +54,39 @@ public class FileDownloader {
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
 		Connection conn = null;
+		DownloadTask[] downloadTasks = new DownloadTask[nThread];
 		try {
 
 			//根据文件长度为每个线程分配下载字节数量
 			conn = cm.open(this.url);
 			fileLength = conn.getContentLength();
 			//已读字节数量
-
 			ExecutorService executorService = Executors.newFixedThreadPool(nThread);
-			int[][] allotSize = alloctSize(nThread, fileLength);
-
+//			int[][] allotSize = alloctSize(nThread, fileLength);
+			int[][] allotSize = readPos(nThread, fileLength);
 			for (int i = 0; i < nThread; i++) {
 				RandomAccessFile ras = new RandomAccessFile(savePath, "rw");
-				executorService.execute(new DownloadTask(cm.open(url), allotSize[0][i],
-						allotSize[1][i], ras , downloadBytesCount));
+				downloadTasks[i] = new DownloadTask(url, cm, allotSize[0][i],
+						allotSize[1][i], ras , downloadBytesCount);
+				executorService.execute(downloadTasks[i]);
 			}
 			//关闭线程池
 			executorService.shutdown();
 			boolean isTermination ;
 			do {
-				System.out.println("已下载："+(downloadBytesCount.get()/1024)+"K,百分比："+ (downloadBytesCount.get()/ (fileLength/100))+"%" );
-				//循环等待，直到线程全部关闭
 				isTermination = executorService.awaitTermination(500, TimeUnit.MILLISECONDS);
+				if (fileLength > 0)
+					System.out.println("已下载："+(downloadBytesCount.get()/1024)+"K,百分比："+ (downloadBytesCount.get()/ (fileLength/100))+"%" );
+				//循环等待，直到线程全部关闭
 			} while (!isTermination);
-
+			System.out.println(111111);
 
 		} catch (ConnectionException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally{
+			writePos(downloadTasks);
 			if(conn != null){
 				conn.close();
 			}
@@ -118,5 +120,48 @@ public class FileDownloader {
 	public DownloadListener getListener(){
 		return this.listener;
 	}
-	
+
+	private void writePos(DownloadTask[] tasks){
+		File file = new File("");
+		File posFile = new File(file.getAbsolutePath()+"/tempPos");
+		RandomAccessFile ras = null;
+		try {
+			ras = new RandomAccessFile(posFile, "rw");
+			if (!posFile.exists())  {
+				posFile.createNewFile();
+			}
+			for (int i = 0; i < tasks.length; i++) {
+				ras.writeInt(tasks[i].getEachThreadDownloadBytesCount());
+				ras.writeInt(tasks[i].endPos);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private int[][] readPos(int nThread, int fileLength){
+		File file = new File("");
+		File posFile = new File(file.getAbsolutePath()+"/tempPos");
+		if (!posFile.exists()) {
+			return alloctSize(nThread, fileLength);
+		}
+		RandomAccessFile ras = null;
+		int[][] pos = new int[2][nThread];
+		try {
+			ras = new RandomAccessFile(posFile, "r");
+			ras.seek(0);
+			for (int i = 0; i < nThread; i++) {
+				pos[0][i]  = ras.readInt();
+				pos[1][i]  = ras.readInt();
+			}
+			return pos;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return pos;
+	}
 }

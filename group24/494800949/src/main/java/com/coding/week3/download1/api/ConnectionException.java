@@ -1,6 +1,8 @@
 package com.coding.week3.download1.api;
 
-public class ConnectionException extends Exception {
+import java.io.IOException;
+
+public class ConnectionException extends IOException {
     public ConnectionException() {
     }
 
