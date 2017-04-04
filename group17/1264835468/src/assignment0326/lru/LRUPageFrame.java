@@ -8,7 +8,6 @@ package assignment0326.lru;
 public class LRUPageFrame {
 
     private static class Node {
-
         Node prev;
         Node next;
         int pageNum;
@@ -29,7 +28,7 @@ public class LRUPageFrame {
     private int size;
     public LRUPageFrame(int capacity) {
         if(capacity<=0)
-            throw new IllegalArgumentException("capacity:"+capacity+" < 0");
+            throw new IllegalArgumentException("capacity:"+capacity+" <= 0");
         this.capacity = capacity;
         first=null;
         last=null;
@@ -82,6 +81,7 @@ public class LRUPageFrame {
         if(target==first){
             return;
         }
+
         Node prevOfTarget=target.prev;
         prevOfTarget.next=target.next;
 

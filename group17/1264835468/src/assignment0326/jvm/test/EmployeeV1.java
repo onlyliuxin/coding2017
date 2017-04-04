@@ -1,8 +1,5 @@
-package assignment0326.lru;
+package assignment0326.jvm.test;
 
-/**
- * Created by Administrator on 2017/3/29.
- */
 public class EmployeeV1 {
 
 

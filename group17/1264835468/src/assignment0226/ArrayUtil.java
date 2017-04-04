@@ -180,5 +180,4 @@ public class ArrayUtil {
 
 		return stringBuilder.toString();
 	}
-
 }
