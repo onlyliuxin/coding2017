@@ -3,6 +3,8 @@ package cn.mark.work0226.litestruts;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +17,11 @@ import org.dom4j.io.SAXReader;
 
 
 public class Struts {
+	
+	private static final Configuration CFG = new Configuration("struts.xml");
 
     public static View runAction(String actionName, Map<String,String> parameters) {
+	
 
         /*
          
@@ -27,7 +32,7 @@ public class Struts {
 		("name"="test" ,  "password"="1234") ,     	
 		那就应该调用 setName和setPassword方法
 		
-		2. 通过反射调用对象的exectue 方法， 并获得返回值，例如"success"
+		2. 通过反射调用对象的exectue 方法， 并获得返回值，例如"success
 		
 		3. 通过反射找到对象的所有getter方法（例如 getMessage）,  
 		通过反射来调用， 把值和属性形成一个HashMap , 例如 {"message":  "登录成功"} ,  
@@ -37,48 +42,45 @@ public class Struts {
 		放到View对象的jsp字段中。
         
         */
-    	String classPath = null;
-    	String className = null;
+    	String clzName = CFG.getClassName(actionName);
     	
-    	Document dom = XMLUtils.getDocument("bin"+File.separator+"struts.xml");
-    	Element ele = XMLUtils.getElement(dom, actionName);
-    	Attribute classAttr = ele.attribute("class");
-		classPath = classAttr.getValue();
-		className = classPath.substring(classPath.lastIndexOf(".")+1);
-    	System.out.println(className);
+    	if (clzName == null){
+    		return null;
+    	}
     	
-    	
-    	
-		try {
-			Class clz = Class.forName(classPath);
-			System.out.println(clz.getName());
+    	try {
+			Class<?> clz = Class.forName(clzName);
+			Object action = clz.newInstance();
 			
-		
+			ReflectionUtil.setParameters(action, parameters);
+			
+			Method m = clz.getDeclaredMethod("execute");
+			String resultName = (String)m.invoke(action);
+			
+			Map<String,Object> params = ReflectionUtil.getParameterMap(clz);
+			String resultView = CFG.getResultView(actionName, resultName);
+			View view = new View();
+			view.setParameters(params);
+			view.setJsp(resultName);
+			return view;
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}  catch (SecurityException e) {
-			// TODO Auto-generated catch block
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
     	
     	
     	return null;
-    }    
-
-    
-    public static void main(String[] args) {
-    	
-    	String actionName = "login";
-        
-		Map<String,String> params = new HashMap<String,String>();
-        params.put("name","test");
-        params.put("password","1234");
-        
-        
-       Struts.runAction(actionName,params);        
-	}
+    }
 }
