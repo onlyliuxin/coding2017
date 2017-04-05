@@ -171,7 +171,18 @@ public class LinkedList implements List {
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
 	public  void reverse(){		
-		
+		if(null==head){
+			return;
+		}
+		Node tempNode=new Node();
+		Node currentNode=head.next;
+		head.next=null;
+		while(null!=currentNode){
+			tempNode=currentNode.next;
+			currentNode.next=head;
+			head=currentNode;
+			currentNode=tempNode;
+		}
 	}
 	
 	/**
@@ -181,7 +192,17 @@ public class LinkedList implements List {
 
 	 */
 	public  void removeFirstHalf(){
-		
+		if(null==head){
+			return;
+		}
+		Node tempNode;
+		int size=size();
+		size=size/2;
+		for(int i=0;i<size;i++){
+			tempNode=head;
+			head=head.next;
+			tempNode.next=null;
+		}
 	}
 	
 	/**
@@ -189,8 +210,31 @@ public class LinkedList implements List {
 	 * @param i
 	 * @param length
 	 */
-	public  void remove(int i, int length){
-		
+	public  void remove(int index, int length){
+		ListUtils.checkIndexInRange(index+length, size());
+		if(null==head){
+			return;
+		}
+		Node tempNode;
+		if(index==0){
+			for(int i=0;i<length;i++){
+				tempNode=head;
+				head=head.next;
+				tempNode.next=null;
+			}
+			return;
+		}
+		Node startNode=head;
+		for(int i=0;i<index-1;i++){
+			startNode=startNode.next;
+		}
+		Node endNode=startNode.next;
+		for(int i=0;i<length;i++){
+			tempNode=endNode;
+			endNode=endNode.next;
+			tempNode.next=null;
+		}
+		startNode.next=endNode;
 	}
 	/**
 	 * 假定当前链表和list均包含已升序排列的整数
@@ -200,8 +244,25 @@ public class LinkedList implements List {
 	 * 返回的结果应该是[101,301,401,601]  
 	 * @param list
 	 */
-	public static int[] getElements(LinkedList list){
-		return null;
+	public  int[] getElements(LinkedList list){
+		int[] array=new int[list.size()];
+		Iterator iterator = list.iterator();
+		int temp=0,next=0,size=0,oriSize=size();
+		Node tempNode=head;
+		while(iterator.hasNext()){
+			next = (Integer) iterator.next();
+			if(next>=oriSize){
+				break;
+			}
+			temp=next-temp;
+			for(int i=0;i<temp;i++){
+				tempNode=tempNode.next;
+			}
+			array[size]=(Integer)tempNode.data;
+			temp=next;
+			size++;
+		}
+		return array;
 	}
 	
 	/**
@@ -212,7 +273,45 @@ public class LinkedList implements List {
 	 */
 	
 	public  void subtract(LinkedList list){
-		
+		if(null==head){
+			return;
+		}
+		Iterator iterator = list.iterator();
+		Node tempNode=head;
+		Node preNode=head;
+		Node currentNode=head;
+		int next,tempData=(Integer)head.data;
+		boolean isEnd=false;
+		while(iterator.hasNext()){
+			next = (Integer) iterator.next();
+			while(tempData<next){
+				preNode=currentNode;
+				currentNode=currentNode.next;
+				if(null==currentNode){
+					isEnd=true;
+					break;
+				}
+				tempData=(Integer)currentNode.data;
+			} 
+			if(isEnd){
+				break;
+			}
+			if(tempData>next){
+				continue;
+			}
+			if(currentNode==head){
+				head=head.next;
+			}else{   
+				preNode.next=currentNode.next;
+			}
+			tempNode=currentNode;
+			currentNode=currentNode.next;
+			tempNode.next=null;
+			if(null==currentNode){
+				break;
+			}
+			tempData=(Integer)currentNode.data;
+		}
 	}
 	
 	/**
@@ -220,17 +319,91 @@ public class LinkedList implements List {
 	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
 	public  void removeDuplicateValues(){
-		
+		Node currentNode=head;
+		Node tempNode=head;
+		int tempData;
+		while(null!=currentNode && null!=currentNode.next){
+			tempData=(Integer)currentNode.data;
+			if(tempData==(Integer)currentNode.next.data){
+				if(null!=currentNode.next.next){
+					tempNode=currentNode.next;
+					currentNode.next=currentNode.next.next;
+					tempNode.next=null;
+				}else{
+					currentNode.next=null;
+				}
+			}else{
+				currentNode=currentNode.next;
+			}
+		}
 	}
 	
 	/**
 	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
-	 * 试写一高效的算法，删除表中所有值大于min且小于max的元素（若表中存在这样的元素）
+	 * 试写一高效的算法，删除表中所有值大于等于min且小于等于max的元素（若表中存在这样的元素）
 	 * @param min
 	 * @param max
 	 */
 	public  void removeRange(int min, int max){
-		
+		if(null==head){
+			return;
+		}
+		int size=size();
+		int headData=(Integer)head.data;
+		int endData=(Integer)get(size-1);
+		if(headData>=min && endData<=max){
+			head=null;
+			return;
+		}
+		if(headData>max || endData<min){
+			return;
+		}
+		int startIndex=searchIndexInRange(min,0,size-1);
+		if((Integer)get(startIndex)<min){
+			startIndex++;
+		}
+		int endIndex=searchIndexInRange(max,startIndex,size-1);
+		if(startIndex==0){
+			for(int i=0;i<endIndex+1;i++){
+				head=head.next;
+			}
+		}else{
+			Node beforeNode=head;
+			for(int i=0;i<startIndex-1;i++){
+				beforeNode=beforeNode.next;
+			}
+			Node curNode=beforeNode;
+			for(int i=startIndex-2;i<endIndex;i++){
+				curNode=curNode.next; 
+			}
+			beforeNode.next=curNode;
+		}
+	}
+	/*
+	 * 返回的index所在位的值小于等于arm
+	 * */
+	private int searchIndexInRange(int arm,int beginIndex,int endIndex){
+		int tempData=(Integer)get(beginIndex);
+		if(tempData>=arm){
+			return beginIndex;
+		}
+		tempData=(Integer)get(endIndex);
+		if(tempData<=arm){
+			return endIndex;
+		}
+		int middleIndex=0;
+		while(beginIndex<endIndex-1){
+			middleIndex=(beginIndex+endIndex)/2;
+			tempData=(Integer)get(middleIndex);
+			if(tempData<arm){
+				beginIndex=middleIndex;
+			}else if(tempData>arm){
+				endIndex=middleIndex;
+			}else{
+				break;
+			}
+		}
+		return middleIndex;
 	}
 	
 	/**
@@ -239,6 +412,31 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	public  LinkedList rsection( LinkedList list){
-		return null;
+		LinkedList armList=new LinkedList();
+		Node tempNode=head;
+		if(null==list || list.size()==0){
+			while(null!=tempNode){
+				armList.add(tempNode.data);
+				tempNode=tempNode.next;
+			}
+		}else{
+			Iterator iterator = list.iterator();
+			Integer next;
+			Integer data;
+			while(iterator.hasNext()){
+				next = (Integer)iterator.next();
+				while(null!=tempNode){
+					data = (Integer)tempNode.data;
+					if(data<next){
+						armList.add(data);
+						tempNode=tempNode.next;
+					}else{
+						break;
+					}
+				}
+				armList.add(next);
+			}
+		}
+		return armList;
 	}
 }
