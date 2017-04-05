@@ -1,3 +1,5 @@
+package lru;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -28,7 +30,7 @@ public class LRUPageFrameTest {
 
     @Test
     public void testInnerMethod() {
-//        LRUPageFrame lruPageFrame = new LRUPageFrame(3);
+//        lru.LRUPageFrame lruPageFrame = new lru.LRUPageFrame(3);
 //        lruPageFrame.access(1);
 //        lruPageFrame.access(2);
 //        lruPageFrame.access(3);

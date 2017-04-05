@@ -1,3 +1,5 @@
+package lru;
+
 /**
  * Created by william on 2017/3/31.
  * 1. 新数据插入到链表头部；
