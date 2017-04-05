@@ -30,12 +30,11 @@ public class DownloadThread extends Thread{
 
 			byte [] buffer = conn.read(startPos, endPos);
 
-			int hasRead = conn.getContentLength();
+			int hasRead = buffer.length;
 
 			System.out.println("hasRead : " + hasRead);
 
-			if (hasRead > 0)
-				raf.write(buffer, 0, hasRead);
+			raf.write(buffer, 0, hasRead);
 
 		} catch (IOException e) {
 			e.printStackTrace();
