@@ -1,4 +1,6 @@
-package com.coding.basic;
+package com.datastructure.basic;
+
+import com.datastructure.linklist.LinkedList;
 
 /**
  * 
