@@ -1,14 +1,14 @@
-package com.github.chaoswang.learning.java.collection.myown;
+package com.github.chaoswang.learning.java.stack;
 
 import java.util.Arrays;
 import java.util.EmptyStackException;
 
-public class MyStack<E> {
+public class Stack<E> {
 	private int size = 0;
 	private int initialSize;
 	private Object[] elements = null;//可以改为用自己的ArrayList来实现
 	
-	public MyStack(int initialSize){
+	public Stack(int initialSize){
 		this.initialSize = initialSize;
 		elements = new Object[initialSize];
 	}

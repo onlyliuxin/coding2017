@@ -7,6 +7,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import com.github.chaoswang.learning.java.stack.Stack;
+
 public class MyStackTest {
 	
 	@Rule
@@ -14,7 +16,7 @@ public class MyStackTest {
 
 	@Test
 	public void testPushAndPop(){
-		MyStack<String> myStack = new MyStack<String>(3);
+		Stack<String> myStack = new Stack<String>(3);
 		myStack.push("1");
 		myStack.push("2");
 		myStack.push("3");
@@ -27,7 +29,7 @@ public class MyStackTest {
 	@Test
 	public void testPopWhenQueueIsEmpty(){
 		thrown.expect(EmptyStackException.class);
-		MyStack<String> myStack = new MyStack<String>(3);
+		Stack<String> myStack = new Stack<String>(3);
 		myStack.push("1");
 		myStack.pop();
 		//¼ÌÐøÒÆ³ýÅ×Òì³£
@@ -36,7 +38,7 @@ public class MyStackTest {
 	
 	@Test
 	public void testSearch(){
-		MyStack<String> myStack = new MyStack<String>(3);
+		Stack<String> myStack = new Stack<String>(3);
 		myStack.push("1");
 		myStack.push("2");
 		myStack.push("3");
