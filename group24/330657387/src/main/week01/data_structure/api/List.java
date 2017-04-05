@@ -1,4 +1,4 @@
-package main.week01.data_structure;
+package main.week01.data_structure.api;
 
 public interface List {
 	

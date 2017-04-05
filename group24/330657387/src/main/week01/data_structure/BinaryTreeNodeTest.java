@@ -1,7 +1,6 @@
-package test.week01.data_structure;
+package main.week01.data_structure;
 
 import static org.junit.Assert.*;
-import main.week01.data_structure.BinaryTreeNode;
 
 import org.junit.Before;
 import org.junit.Test;
