@@ -18,7 +18,7 @@ public class LinkedListTest {
         linkedList.add("1");
         linkedList.add("2");
         linkedList.add("3");
-        System.out.println(linkedList);
+//        System.out.println(linkedList);
     }
 
     @After
@@ -113,6 +113,33 @@ public class LinkedListTest {
         System.out.println(linkedList);
         linkedList.removeDuplicateValues();
         System.out.println(linkedList);
+    }
+
+    @Test
+    public void removeRange() {
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        list.add(1);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(7);
+        System.out.println(list);
+        list.removeRange(1, 6);
+        System.out.println(list);
+    }
+
+    @Test
+    public void intersection() {
+        LinkedList<Integer> list1 = new LinkedList<Integer>();
+        list1.add(2);
+        list1.add(3);
+        list1.add(7);
+        LinkedList<Integer> list2 = new LinkedList<Integer>();
+        list2.add(2);
+        list2.add(3);
+        list2.add(7);
+        LinkedList newList = list1.intersection(list2);
+        System.out.println(newList);
     }
 
 }

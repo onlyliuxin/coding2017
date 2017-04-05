@@ -21,10 +21,9 @@ public class LinkedList<T> {
     }
 
     private Node<T> getLast() {
-        Node last = null;
-        while (head.next != null) {
-            last = head;
-            head = head.next;
+        Node<T> last = head;
+        while (last.next != null) {
+            last = last.next;
         }
         return last;
     }
@@ -252,7 +251,21 @@ public class LinkedList<T> {
      * @param max
      */
     public void removeRange(int min, int max) {
-
+        Integer first = (Integer) get(0);
+        Integer last = (Integer) getLast().data;
+        if (first > max || last < min)
+            return;
+        List<Integer> indexRange = new ArrayList<Integer>();
+        Node<Integer> temp = (Node<Integer>) head;
+        int index = 0;
+        while (temp != null) {
+            if (temp.data >= min && temp.data <= max) {
+                indexRange.add(index);
+            }
+            index++;
+            temp = temp.next;
+        }
+        remove(indexRange.get(0), indexRange.size());
     }
 
     /**
@@ -261,7 +274,44 @@ public class LinkedList<T> {
      *
      * @param list
      */
-    public LinkedList intersection(LinkedList list) {
-        return null;
+    public LinkedList intersection(LinkedList<Integer> list) {
+        LinkedList<Integer> newList = new LinkedList<Integer>();
+        merge(newList, (Node<Integer>) this.head, list.head);
+        return newList;
+    }
+
+    private void merge(LinkedList<Integer> newList, Node<Integer> thisHead, Node<Integer> mergeHead) {
+        if (thisHead == null && mergeHead == null)
+            return;
+        if (thisHead == null) {
+            //无论是否包含，有元素的链表必须指向next
+            if (!newList.contains(mergeHead.data))
+                newList.add(mergeHead.data);
+            mergeHead = mergeHead.next;
+            merge(newList, null, mergeHead);
+        }
+        if (mergeHead == null) {
+            if (!newList.contains(thisHead.data))
+                newList.add(thisHead.data);
+            thisHead = thisHead.next;
+            merge(newList, thisHead, null);
+        }
+        //要再进行一次判断是因为递归到最底层return之后，返回上一层时某个链表已经为null了，但是上一层还是会将剩下的执行完
+        if (thisHead != null && mergeHead != null) {
+            if (thisHead.data < mergeHead.data && !newList.contains(thisHead.data)) {
+                newList.add(thisHead.data);
+                thisHead = thisHead.next;
+                merge(newList, thisHead, mergeHead);
+            } else if (!newList.contains(mergeHead.data)) {
+                newList.add(mergeHead.data);
+                mergeHead = mergeHead.next;
+                merge(newList, thisHead, mergeHead);
+            }
+        }
+    }
+
+    private boolean contains(Integer data) {
+        int index = this.getIndexByData((T) data);
+        return index != -1;
     }
 }
