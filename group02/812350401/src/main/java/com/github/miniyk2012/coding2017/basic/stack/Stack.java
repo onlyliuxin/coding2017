@@ -1,4 +1,6 @@
-package com.github.miniyk2012.coding2017.basic;
+package com.github.miniyk2012.coding2017.basic.stack;
+
+import com.github.miniyk2012.coding2017.basic.ArrayList;
 
 public class Stack {
 	
