@@ -58,7 +58,7 @@ public class FileDownloader {
 
 			int length = conn.getContentLength();
 
-			//确保文件里有足够的空间？
+			//确保文件里有足够的空间，就先创建空文件。
 			createPlaceHolderFile(this.filePath, length);
 
 			//每个线程的读取区间
