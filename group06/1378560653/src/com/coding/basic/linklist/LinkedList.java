@@ -1,37 +1,44 @@
-package com.coding.basic;
+package com.coding.basic.linklist;
 
+import java.util.Arrays;
+import java.util.Stack;
 
+import com.coding.basic.Iterator;
+import com.coding.basic.List;
 
 public class LinkedList implements List {
-	
 	private Node head;
 	private int size;
+	
+	public LinkedList(){
+		this.head = null;
+		this.size = 0;
+	}
 	
 	private static class Node {
 		Object data;
 		Node next;
 		
-		public Node(Object data){
+		private Node(Object data){
 			this.data = data;
 			this.next = null;
 		}
 	}
 	
-	public LinkedList(){
-		this.head = new Node(null);
-		this.size = 0;
-	}
-	
 	public void add(Object o){
-		Node newNode = new Node(o);
-		Node pNode = head;
-		while(pNode.next != null){
-			pNode = pNode.next;
+		Node node = new Node(o);
+		if(head == null){
+			head = node;
+		}else{
+			Node pNode = head;
+			while(pNode.next != null){
+				pNode = pNode.next;
+			}
+			pNode.next = node;
 		}
-		
-		pNode.next = newNode;
 		size++;
 	}
+
 	public void add(int index , Object o){
 		checkIndex(index);
 		
@@ -59,9 +66,13 @@ public class LinkedList implements List {
 	}
 	public Object remove(int index){
 		checkIndex(index);
-		if(size == 0){
+		if(head == null){
 			return null;
 		}
+		
+		if(index == 0){
+			removeFirst();
+		}//忘了考虑这种情况了
 		
 		Node node = new Node(null);
 		Node pNode = head;
@@ -72,35 +83,31 @@ public class LinkedList implements List {
 		node.next = pNode.next;
 		size--;
 		
-		return pNode;
+		return pNode.data;
 	}
 	
 	public int size(){
-		Node pNode = head;
-		while(pNode.next != null){
-			pNode = pNode.next;
-			size++;
-		}
 		return size;
 	}
 	
 	public void addFirst(Object o){
-		if(size == 0){
-			head.data = o;
-		}
-		
 		Node newNode = new Node(o);
-		Node pNode = head;
-		head = newNode;
-		newNode.next = pNode.next;
+		
+		if(head == null){
+			head = newNode;
+		}else{
+			newNode.next = head;
+			head = newNode;	
+		}
 		size++;
 	}
+	
 	public void addLast(Object o){
-		if(size == 0){
-			head.data = o;
+		Node newNode = new Node(o);
+		if(head == null){
+			head = newNode;
 		}
 		
-		Node newNode = new Node(o);
 		Node pNode = head;
 		while(pNode.next != null){
 			pNode = pNode.next;
@@ -109,8 +116,9 @@ public class LinkedList implements List {
 		newNode.next = null;
 		size++;
 	}
+	
 	public Object removeFirst(){
-		if(size == 0){
+		if(head == null){
 			return null;
 		}
 		
@@ -118,10 +126,11 @@ public class LinkedList implements List {
 		head = pNode.next;
 		head.next = pNode.next.next;
 		size--;
-		return pNode;
+		return pNode.data;
 	}
+	
 	public Object removeLast(){
-		if(size == 0){
+		if(head == null){
 			return null;
 		}
 		
@@ -134,7 +143,7 @@ public class LinkedList implements List {
 		
 		node.next = null;
 		size--;
-		return pNode;
+		return pNode.data;
 	}
 	public Iterator iterator(){
 		return new LinkedListIterator();
@@ -169,25 +178,47 @@ public class LinkedList implements List {
 	 * 把该链表逆置
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
-	public  void reverse(Node head){	
-		if(head.next == null || head.next.next == null){
+	public  void reverse(){	
+		if(head == null){
 			return;
 		}
 		
-		Node p = head.next;
-		Node q = head.next.next;
-		Node t = null;
+		Stack<Node> s = new Stack<>();
 		
-		while(q.next != null){
-			t = q.next;
-			q.next = p;
-			p = q;
-			q = t;
+		Node currentNode = head;
+		while(currentNode != null){
+			s.push(currentNode);
+			
+			Node nextNode = currentNode.next;
+			currentNode.next = null; //把链断开
+			currentNode = nextNode;
 		}
 		
-		head.next.next = null;//设置链表尾部
-		head.next = p;//设置链表头部
+		head = s.pop();
+		
+		currentNode = head;
+		while(!s.isEmpty()){
+			Node nextNode = s.pop();
+			currentNode.next = nextNode;
+			currentNode = nextNode;
+		}
 	}
+		
+	/*if(head == null || head.next == null){
+		return;
+	}
+	
+	Node next = null;//当前节点的后一个节点
+	Node pre = null;//当前节点的前一个节点
+	
+	while(head != null){
+		next = head.next;
+		head.next = pre;
+		pre = head;
+		head = next;
+	}
+	head = pre;
+	}*/
 	
 	/**
 	 * 删除一个单链表的前半部分
@@ -196,22 +227,15 @@ public class LinkedList implements List {
 
 	 */
 	public  void removeFirstHalf(){
-		if(size == 0 || head.next == null || head.next.next == null){
+		if(head == null || head.next == null){
 			return;
 		}
 		
-		Node pNode = head;
-		Node node = null;
-		for(int i = 0; i < size/2; i++){
-			node = pNode;
-			pNode = pNode.next;
+		for(int i = 0; i <= size/2; i++){
+			removeFirst();
+			size--;
 		}
 		
-		if(size %2 == 0){
-			head.next = pNode;
-		}else{
-			head.next = node;
-		}
 	}
 	
 	/**
@@ -220,7 +244,7 @@ public class LinkedList implements List {
 	 * @param length
 	 */
 	public  void remove(int i, int length){
-		if(size == 0 || head.next == null){
+		if(head == null){
 			return;
 		}
 		
@@ -228,6 +252,7 @@ public class LinkedList implements List {
 			checkIndex(k);
 			remove(k);
 		}
+		size -= length;
 	}
 	/**
 	 * 假定当前链表和list均包含已升序排列的整数
@@ -238,17 +263,21 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	public int[] getElements(LinkedList list){
-		if(list.size == 0 || list == null){
+		if(list == null){
 			return new int[0];
 		}
 		
 		int[] array = new int[list.size];
-		int k = 0;
+		int count = 0;
 		for(int i = 0; i < list.size; i++){
 			int index = (int) list.get(i);
-			array[k] = (int) get(index);
+			if(index > -1 && index < size){
+				array[count] = (int) get(index);
+				count++;
+			}
 		}
-		return array;
+		
+		return Arrays.copyOf(array, count); //Arrays.copyOf(a,count)截取数组a的count长度
 	}
 	
 	/**
@@ -258,15 +287,16 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	
-	public  void subtract(LinkedList list,LinkedList oldList){
-		if(oldList == null || oldList.size ==0 || list == null || list.size == 0){
+	public  void subtract(LinkedList list){
+		if(list == null){
 			return;
 		}
 		
-		for(int i = 0; i < oldList.size; i++){
-			for(int j = 0; j < list.size; j++){
-				if(list.get(j) == oldList.get(i)){
-					oldList.remove(i);
+		for(int i = 0; i < list.size; i++){
+			for(int j = 0; j < size; j++){
+				if(list.get(i).equals(get(j))){
+					remove(j);
+					size --;
 				}
 			}
 		}
@@ -276,20 +306,43 @@ public class LinkedList implements List {
 	 * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。
 	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
-	public  void removeDuplicateValues(LinkedList list){
-		if(list == null || list.size == 0){
+	public  void removeDuplicateValues(){
+		if(head == null){
 			return;
 		}
-		
-		int count = 0;
-		Node pNode = head;
-		while(pNode.next != null){
-			pNode = pNode.next;
-			count++;
-			if(pNode.data == pNode.next.data){
-				list.remove(count+1);
+	
+		for(int i = 0; i < size; i++){
+			for(int j = i+1; j < size; j++){
+				if(get(i).equals(get(j))){
+					remove(j);
+					size--;
+				}
 			}
 		}
+		/*if(head == null){
+			throw new RuntimeException("LinkedList is empty!");
+		}else{
+			Node pre = head;
+			Node cur = head;
+			while(cur.next != null){
+				cur = cur.next;
+				Object data = pre.data;
+				while(cur.data == data){
+					if(cur.next == null){
+						pre.next = null;
+						break;
+					}
+					pre.next = cur.next;
+					size--;
+					cur =cur.next;
+					if(cur == null){
+						break;
+					}
+				}
+				pre = pre.next;
+			}
+		}
+		*/
 	}
 	
 	/**
@@ -299,19 +352,25 @@ public class LinkedList implements List {
 	 * @param max
 	 */
 	public  void removeRange(int min, int max){
-		if(size == 0){
+		if(head == null){
 			return;
 		}
 		
-		int count = 0;
-		Node pNode = head;
-		while(pNode.next != null){
-			pNode = pNode.next;
-			count++;
-			if(min < (int)pNode.data || (int)pNode.data < max){
-				remove(count);
+		Node pre = head;
+		Node cur = head;
+		
+		while(cur.next != null){
+			cur = cur.next;
+			int data = (int)cur.data;
+			if(data < max && data > min){
+				pre.next = cur.next;
+				cur = cur.next;
+			} else {
+				pre = pre.next;
+				cur = cur.next;
 			}
 		}
+
 	}
 	
 	/**
@@ -319,24 +378,68 @@ public class LinkedList implements List {
 	 * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
 	 * @param list
 	 */
-	public  LinkedList intersection( LinkedList list){
-		if(list.size == 0){
+	public  LinkedList intersection(LinkedList list){
+		if(head == null || list.size ==0 ){
 			return null;
 		}
 		
-		LinkedList listC = new LinkedList();
-		Node p = head;
-		Node q = list.head;
+		LinkedList result = new LinkedList();
 		
-		while(p.next != null){
-			p = p.next;
-			while(q.next !=null){
-				q = q.next;
-				if(p.data.equals(q.data)){
-					listC.add(p);
-				}
+		int i = 0;
+		int j = 0;
+		
+		while(i < this.size && j < list.size()){
+			
+			int value1 = (int)this.get(i);
+			int value2 = (int)list.get(j);
+			
+			if(value1 == value2){
+				result.add(value1);
+				i++;
+				j++;
+			} else if (value1 < value2) {
+				i++;
+			} else {
+				j++;
 			}
 		}
-		return listC;
+		return result;
+	}
+	
+	/*
+	 * 为了测试方便，引入toString()方法
+	 */
+	public String toString() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("[");
+		Node node = head;
+		while(node != null){
+			buffer.append(node.data);
+			if(node.next != null){
+				buffer.append(",");
+			}
+			node = node.next;
+		}
+		buffer.append("]");
+		
+		return buffer.toString();
+	}
+	
+	public static void main(String args[]){
+		LinkedList list7 = new LinkedList();
+		
+		list7.add(1);
+		list7.add(2);
+		list7.add(3);
+		list7.add(4);
+		list7.add(5);
+		list7.add(6);
+		list7.add(12);
+		
+		for(int i = 0; i < list7.size(); i++){
+			System.out.println(list7.get(i));
+		}
 	}
 }
+
+

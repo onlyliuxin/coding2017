@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 
-public class StructsTest {
+public class StrutsTest {
 
 	@Test
 	public void testLoginActionSuccess() {
