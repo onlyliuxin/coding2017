@@ -74,7 +74,7 @@ public class KArrayList<T> implements KList<T> {
     @Override
     @SuppressWarnings("unchecked")
     public T get(int index) {
-        if (index < -1 || index >= size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -83,7 +83,7 @@ public class KArrayList<T> implements KList<T> {
 
     @Override
     public T set(int index, T element) {
-        if (index < -1 || index >= size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -94,7 +94,7 @@ public class KArrayList<T> implements KList<T> {
 
     @Override
     public void add(int index, T element) {
-        if (index < -1 || index > size) {
+        if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -109,7 +109,7 @@ public class KArrayList<T> implements KList<T> {
     @Override
     @SuppressWarnings("unchecked")
     public T remove(int index) {
-        if (index < -1 || index >= size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -132,7 +132,7 @@ public class KArrayList<T> implements KList<T> {
 
     @Override
     public KIterator<T> iterator() {
-        return new ArrayListIterator(this);
+        return new ArrayListIterator();
     }
 
     private void ensureCapacity(int minCapacity) {
@@ -147,21 +147,19 @@ public class KArrayList<T> implements KList<T> {
 
     private class ArrayListIterator implements KIterator<T> {
         private int position;
-        private KArrayList<T> list;
 
-        ArrayListIterator(KArrayList<T> list) {
-            this.list = list;
+        ArrayListIterator() {
         }
 
         @Override
         public boolean hasNext() {
-            return position < list.size();
+            return position < size();
         }
 
         @Override
         public T next() {
             if (hasNext()) {
-                return list.get(position++);
+                return get(position++);
             }
             return null;
         }
