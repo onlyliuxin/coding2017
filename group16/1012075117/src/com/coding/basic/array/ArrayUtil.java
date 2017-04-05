@@ -1,7 +1,13 @@
-package com.array;
+package com.coding.basic.array;
 
 import java.util.Arrays;
 
+/**
+ * 数组工具类-第二次作业
+ * @author stackwei
+ * @date 2017/3/20
+ * @status ok
+ */
 public class ArrayUtil {
 	/**
 	 * 给定一个整形数组a , 对该数组的值进行置换 例如： a = [7, 9 , 30, 3] , 置换后为 [3, 30, 9,7] 如果 a =

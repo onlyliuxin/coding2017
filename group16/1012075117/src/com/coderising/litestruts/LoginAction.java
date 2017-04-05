@@ -1,4 +1,4 @@
-package com.litestruts;
+package com.coderising.litestruts;
 
 public class LoginAction {
 	private String name ;

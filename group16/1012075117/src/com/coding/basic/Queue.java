@@ -1,9 +1,10 @@
-package com.list;
+package com.coding.basic;
 
 /**
- * 
- * @author stackwei -2017.2.25
- *
+ * 实现 Queue - 第一次作业
+ * @author stackwei
+ * @date 2017/2/25
+ * @status ok
  */
 public class Queue {
 
