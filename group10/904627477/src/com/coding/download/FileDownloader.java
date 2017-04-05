@@ -1,17 +1,12 @@
 package com.coding.download;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.CyclicBarrier;
 
 import com.coding.download.api.Connection;
 import com.coding.download.api.ConnectionException;
 import com.coding.download.api.ConnectionManager;
 import com.coding.download.api.DownloadListener;
-import com.coding.download.api.Resource;
 import com.coding.util.IOUtils;
 
 
@@ -26,6 +21,7 @@ public class FileDownloader {
 	ConnectionManager cm;
 	
 	private static String localFile = "c:/test/test.jpg"; 
+	private final static int MAX_THREAD_NUM = 3;
 	
 
 	public FileDownloader(String _url) {
@@ -47,14 +43,12 @@ public class FileDownloader {
 		// 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
-		/**/
+		/* my
 		try {
 			Connection conn = cm.open(url);
 			int length = conn.getContentLength();
 			File file = new File(localFile);
-			if(!file.exists()){
-				IOUtils.createFile(length, localFile);
-			}
+			IOUtils.createFile(length, localFile);
 			Resource res = new Resource(url,file);
 			Thread c = new CreateThread(res,length);
 			Thread r = new RemoveThread(res,listener);
@@ -63,26 +57,30 @@ public class FileDownloader {
 		} catch (ConnectionException e) {
 			e.printStackTrace();
 		} 
-		/*Connection conn = null;
+		*/
 		try {
-			conn = cm.open(this.url);
-			int length = conn.getContentLength();	
+			CyclicBarrier barrier = new CyclicBarrier(MAX_THREAD_NUM, new Runnable() {
+				@Override
+				public void run() {
+					listener.notifyFinished();
+				}
+			});
+			Connection conn = cm.open(url);
+			int length = conn.getContentLength();
+			IOUtils.createFile(length, localFile);
 			File file = new File(localFile);
-			if(!file.exists()){
-				IOUtils.createFile(length, localFile);
+			int size = length/MAX_THREAD_NUM;
+			int last = length%MAX_THREAD_NUM;
+			for(int i=0;i<MAX_THREAD_NUM;i++){
+				int startPos = i*size;
+				int endPos = (i+1)*size-1;
+				endPos = i==(MAX_THREAD_NUM-1)?(endPos+last):endPos;
+				DownloadThread dt = new DownloadThread(cm.open(url),startPos ,endPos , file, barrier);
+				dt.start();
 			}
-			
-			
-			
-			new DownloadThread(cm.open(this.url),0,length-1,file).start();
-			
-		} catch (ConnectionException e) {			
+		} catch (ConnectionException e) {
 			e.printStackTrace();
-		}finally{
-			if(conn != null){
-				conn.close();
-			}
-		}*/
+		} 
 	}
 	
 	public void setListener(DownloadListener listener) {

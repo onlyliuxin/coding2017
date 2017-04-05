@@ -1,8 +1,5 @@
 package com.coderising.download;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,10 +7,10 @@ import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
-/**
- * 借鉴954958168
- */
+
 public class FileDownloader {
+
+	String targetPath;
 
 	String url;
 
@@ -21,12 +18,14 @@ public class FileDownloader {
 
 	ConnectionManager cm;
 
-	public FileDownloader(String _url) {
-		this.url = _url;
+	final int threadCount = 3;
 
+	public FileDownloader(String _url, String _targetPath) {
+		this.url = _url;
+		this.targetPath = _targetPath;
 	}
 
-	public void execute() throws ConnectionException, InterruptedException, IOException {
+	public void execute() {
 		// 在这里实现你的代码， 注意： 需要用多线程实现下载
 		// 这个类依赖于其他几个接口, 你需要写这几个接口的实现代码
 		// (1) ConnectionManager , 可以打开一个连接，通过Connection可以读取其中的一段（用startPos,
@@ -42,31 +41,26 @@ public class FileDownloader {
 		// 4. 所有的线程都下载完成以后， 需要调用listener的notifiedFinished方法
 
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
-
-		Connection conn = cm.open(this.url);
+		Connection conn = null;
+		try {
+			conn = cm.open(this.url);
+		} catch (ConnectionException e) {
+			e.printStackTrace();
+		}
 		int length = conn.getContentLength();
-		conn.close();
-		List<DownloadThread> threads = new ArrayList<>();
-		int i;
-		for (i = 0; i < 3; i++) {
-			DownloadThread thread = new DownloadThread(cm.open(this.url), i * (length / 3), (i + 1) * (length / 3) - 1);
-			threads.add(thread);
-			thread.start();
+
+		List<Integer> list = new ArrayList<>();
+		int n = length / threadCount;
+		list.add(-1);
+		for (int i = 1; i < threadCount; i++) {
+			list.add(i * n - 1);
 		}
-		if (i * (length / 3) < length) {
-			DownloadThread thread = new DownloadThread(cm.open(this.url), i * (length / 3), length - 1);
-			threads.add(thread);
-			thread.start();
+		if (length / threadCount != 0) {
+			list.add(length - 1);
 		}
-		for (DownloadThread thread : threads) {
-			thread.join();
+		for (int i = 1; i < list.size(); i++) {
+			new DownloadThread(conn, list.get(i - 1) + 1, list.get(i), this.targetPath, this.listener).start();
 		}
-		FileOutputStream fos = new FileOutputStream(new File("temp.jpg"));
-		for (DownloadThread thread : threads) {
-			fos.write(thread.getContent());
-		}
-		fos.close();
-		this.listener.notifyFinished();
 
 	}
 
@@ -76,10 +70,6 @@ public class FileDownloader {
 
 	public void setConnectionManager(ConnectionManager ucm) {
 		this.cm = ucm;
-	}
-
-	public DownloadListener getListener() {
-		return this.listener;
 	}
 
 }

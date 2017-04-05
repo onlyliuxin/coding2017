@@ -1,9 +1,9 @@
-package com.coderising.download;
+package com.coding.coderising.download;
 
-import com.coderising.download.api.Connection;
-import com.coderising.download.api.ConnectionException;
-import com.coderising.download.api.ConnectionManager;
-import com.coderising.download.api.DownloadListener;
+import com.coding.coderising.download.api.Connection;
+import com.coding.coderising.download.api.ConnectionException;
+import com.coding.coderising.download.api.ConnectionManager;
+import com.coding.coderising.download.api.DownloadListener;
 
 
 public class FileDownloader {

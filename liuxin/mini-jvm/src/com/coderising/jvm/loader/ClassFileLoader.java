@@ -16,21 +16,12 @@ public class ClassFileLoader {
 		
 	}
 	
-	private byte[] loadClassFile(String clzFileName) {
-		
-		return null;
-	}
-	
-	
 	
 	public void addClassPath(String path) {
 		
 	}
 	
-	public String getClassPath_V1(){
-		
-		return  null;
-	}
+	
 	
 	public String getClassPath(){
 		return null;
