@@ -9,10 +9,10 @@ import org.junit.Test;
 
 public class ClassFileloaderTest {
 
-	
-	static String path1 = "haha";
-	static String path2 = "nana";
-	
+
+	static String path1 = ClassFileloaderTest.class.getClassLoader().getResource("struts").getPath();
+	static String path2 = ClassFileloaderTest.class.getClassLoader().getResource("jvm").getPath();
+
 	@Before
 	public void setUp() throws Exception {		 
 	}
@@ -38,9 +38,10 @@ public class ClassFileloaderTest {
 	public void testClassFileLength() {		
 		
 		ClassFileLoader loader = new ClassFileLoader();
-		loader.addClassPath(path1);
+        loader.addClassPath(path1);
+        loader.addClassPath(path2);
 		
-		String className = "jvm/EmployeeV1.class";
+		String className = "com.github.miniyk2012.coding2017.jvm.test.EmployeeV1.class";
 		
 		byte[] byteCodes = loader.readBinaryCode(className);
 		
@@ -53,7 +54,8 @@ public class ClassFileloaderTest {
 	public void testMagicNumber(){
     	ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
-		String className = "jvm/EmployeeV1.class";
+		loader.addClassPath(path2);
+		String className = "com.github.miniyk2012.coding2017.jvm.test.EmployeeV1.class";
 		byte[] byteCodes = loader.readBinaryCode(className);
 		byte[] codes = new byte[]{byteCodes[0],byteCodes[1],byteCodes[2],byteCodes[3]};
 		
