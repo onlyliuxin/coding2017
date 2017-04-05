@@ -12,14 +12,12 @@ public class TestQueue
 	 * test enQueue() isEmpty() and size() deQueue
 	 */
 	@Test
-	public void testQueue()
-	{
+	public void testQueue() {
 		Queue queue = new Queue();
 
 		assertTrue(queue.isEmpty());
 
-		for (int i = 10; i < 20; i++)
-		{
+		for (int i = 10; i < 20; i++) {
 			queue.enQueue(i);
 		}
 
