@@ -2,6 +2,7 @@ package com.coderising.download;
 
 
 
+import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
 import com.coderising.download.impl.ConnectionManagerImpl;
@@ -14,10 +15,8 @@ public class FileDownloaderTest {
 
     public static void main(String[] args) {
 
-        String url = "http://qunying.jb51.net:8080/201702/books/Wiresharkshjb.rar";
-
+        String url = "https://www.baidu.com/index.html";
         FileDownloader downloader = new FileDownloader(url);
-
 
         ConnectionManager cm = new ConnectionManagerImpl();
         downloader.setConnectionManager(cm);
@@ -32,7 +31,7 @@ public class FileDownloaderTest {
 
         try {
             downloader.execute();
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | ConnectionException e) {
             e.printStackTrace();
         }
 

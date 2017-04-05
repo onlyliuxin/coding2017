@@ -1,8 +1,10 @@
 package com.coderising.array;
 
-import xdx.homework.first.ArrayList;
-import xdx.homework.first.List;
-import xdx.homework.first.Queue;
+
+
+import com.basic.ArrayList;
+import com.basic.List;
+import com.basic.Queue;
 
 import java.util.Arrays;
 

@@ -1,6 +1,9 @@
-package com.coderising.array;
+package com.basic.test;
 
 
+import com.basic.ArrayList;
+import com.basic.Iterator;
+import com.basic.List;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

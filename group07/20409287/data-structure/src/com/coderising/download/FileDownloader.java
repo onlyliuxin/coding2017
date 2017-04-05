@@ -7,7 +7,12 @@ import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileDownloader {
 
@@ -18,6 +23,8 @@ public class FileDownloader {
     private ConnectionManager cm;
 
     private int threadCount = 3;    //线程数量
+
+    private String fileName;
 
     public FileDownloader(String _url) {
         this.url = _url;
@@ -39,27 +46,36 @@ public class FileDownloader {
 
         // 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
         Connection conn = null;
+        List<Thread> threadList = new ArrayList<>();
         try {
 
             conn = cm.open(this.url);
             int length = conn.getContentLength();
-
+            fileName = url.substring(url.lastIndexOf("/") + 1, url.length());
             // 创建大小一致的文件
-
-            /*
-             * 将下载任务分配给每个线程
-             */
-            int blockSize = length / threadCount;//计算每个线程理论上下载的数量.
-            for (int threadId = 0; threadId < threadCount; threadId++) {//为每个线程分配任务
-                int startIndex = threadId * blockSize; //线程开始下载的位置
-                int endIndex = (threadId + 1) * blockSize - 1; //线程结束下载的位置
-                if (threadId == (threadCount - 1)) {  //如果是最后一个线程,将剩下的文件全部交给这个线程完成
+            RandomAccessFile raf = new RandomAccessFile(new File(fileName), "rw");
+            raf.setLength(length);
+            // 分配下载任务
+            int blockSize = length / threadCount;   //每个线程理论上下载的数量.
+            for (int threadId = 0; threadId < threadCount; threadId++) {
+                int startIndex = threadId * blockSize; //开始下载的位置
+                int endIndex = (threadId + 1) * blockSize - 1; //结束下载的位置
+                if (threadId == (threadCount - 1)) {
                     endIndex = length - 1;
                 }
-                new DownloadThread(conn, startIndex, endIndex, "xdx.rar").start();//开启线程下载
+                Thread downTaskThread = new DownloadThread(conn, startIndex, endIndex, raf);
+                threadList.add(downTaskThread);
             }
 
+            for (Thread t : threadList) {
+                t.start();
+                t.join();
+            }
         } catch (ConnectionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());;
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             if (conn != null) {
@@ -67,6 +83,9 @@ public class FileDownloader {
             }
         }
 
+        System.out.println("所有线程下载完成!");
+
+        listener.notifyFinished();
 
     }
 

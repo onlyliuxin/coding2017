@@ -1,6 +1,6 @@
 package com.coderising.download.impl;
 
-import xdx.homework.third.download.api.Connection;
+import com.coderising.download.api.Connection;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,18 +22,22 @@ public class ConnectionImpl implements Connection {
     @Override
     public byte[] read(int startPos, int endPos) throws IOException {
 
+        conn = (HttpURLConnection) url.openConnection();
+        conn.setConnectTimeout(5000);
         conn.setRequestProperty("Range", "bytes=" + startPos + "-" + endPos);
         System.out.println("线程_" + Thread.currentThread().getName()
                 + "的下载起点是: " + startPos + "  下载终点是: " + endPos);
         byte[] data = new byte[endPos - startPos];
         if (conn.getResponseCode() == 206) {
             InputStream inputStream = conn.getInputStream();
-            byte[] buffer = new byte[1024];
-            int count = 1;
-            while(inputStream.read(buffer) > 0){
-                System.arraycopy(buffer, 0, data, count * 1024, 1024);
-                count++;
+            int length = inputStream.read(data);
+            if (length < 0) {
+                System.out.println("该线程下载失败: " + Thread.currentThread().getName());
+            } else {
+                System.out.println("下载成功: " + Thread.currentThread().getName());
             }
+        } else {
+            System.out.println("不支持多线程下载: " + url);
         }
         return data;
     }
