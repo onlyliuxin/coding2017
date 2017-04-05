@@ -1,6 +1,10 @@
-package com.coding.basic;
+package com.coding.basic.linklist;
 
 import java.util.NoSuchElementException;
+
+import com.coding.basic.Iterator;
+import com.coding.basic.List;
+import com.coding.basic.Stack;
 
 public class LinkedList implements List {
 	
@@ -179,7 +183,6 @@ public class LinkedList implements List {
 		}else{
 			if(length<(size-i)){
 				getPointNode(i-1).next = getPointNode(i+length);
-				size = size-length;
 				size = size-length;
 			}else{
 				getPointNode(i-1).next = null;
