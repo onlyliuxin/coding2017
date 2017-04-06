@@ -18,7 +18,7 @@ public class ArrayList implements List{
 		}else if(capacity == 0){
 			
 		}else{
-			new IllegalArgumentException("initsize:"+capacity);
+			throw new IllegalArgumentException("initsize:"+capacity);
 		}
 	}
 	
@@ -39,13 +39,13 @@ public class ArrayList implements List{
 
 	@Override
 	public Object get(int index) {
-		checkIndex(index);
+		checkIndex(index + 1);
 		return elementData[index];
 	}
 
 	@Override
 	public Object remove(int index) {
-		checkIndex(index);
+		checkIndex(index + 1);
 		Object removeparam = elementData[index];
 		int numMoved = size - index - 1;
 		if(numMoved > 0){
