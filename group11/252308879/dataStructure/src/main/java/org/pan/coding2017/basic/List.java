@@ -6,19 +6,9 @@ package org.pan.coding2017.basic;
  */
 public interface List {
 
-    boolean add(Object o);
-
-    boolean add(int index, Object o);
-
-    Object set(int index, Object element);
-
+    void add(Object o);
+    void add(int index, Object o);
     Object get(int index);
-
     Object remove(int index);
-
     int size();
-
-    boolean isEmpty();
-
-    Iterator iterator();
 }

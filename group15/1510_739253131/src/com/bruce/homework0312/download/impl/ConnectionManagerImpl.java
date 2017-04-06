@@ -12,7 +12,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
 
 	@Override
 	public Connection open(String path) throws ConnectionException, IOException {
-		return null;
+		return new ConnectionImpl(path);
 	}
 
 }
