@@ -20,6 +20,10 @@ public class ArrayUtil {
 	 */
 	public static int[] reverseArray(int[] origin){
 		int length = origin.length;
+		if(origin == null || length == 0){
+			return null;
+		}
+		
 		for(int i=0;i<length/2;i++){
 			int tmp = origin[i];
 			origin[i] = origin[length - 1 - i];
@@ -69,7 +73,7 @@ public class ArrayUtil {
 		return returnArray;
 	}
 	
-	private static int[] returnByIntArray(Collection<Integer> collection){
+	public static int[] returnByIntArray(Collection<Integer> collection){
 		int[] returnArray = new int[collection.size()];
 		int i = 0;
 		for(Iterator<Integer> it = collection.iterator(); it.hasNext();){

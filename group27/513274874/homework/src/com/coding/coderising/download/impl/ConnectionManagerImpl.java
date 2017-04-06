@@ -1,24 +1,33 @@
-package com.coderising.download.impl;
+package com.coding.coderising.download.impl;
+
+
+import com.coding.coderising.download.api.Connection;
+import com.coding.coderising.download.api.ConnectionException;
+import com.coding.coderising.download.api.ConnectionManager;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.coderising.download.api.Connection;
-import com.coderising.download.api.ConnectionException;
-import com.coderising.download.api.ConnectionManager;
 
 public class ConnectionManagerImpl implements ConnectionManager {
 
 	@Override
 	public Connection open(String url) throws ConnectionException {
-		Connection con;
-		try {
-			URL newUrl = new URL(url);
-			con = new ConnectionImpl(newUrl);
-		} catch (MalformedURLException e) {
-			throw new ConnectionException("URL格式出现错误"+e.getMessage());
-		}
-		return con;
+
+
+        Connection connection = null;
+        try {
+            if(url == null || "".equals(url.trim())) return null;
+
+            URL urlO = new URL(url);
+            connection = new ConnectionImpl(urlO);
+
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return connection;
+
 	}
 
 }
