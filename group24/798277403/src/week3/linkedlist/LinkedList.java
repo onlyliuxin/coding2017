@@ -1,10 +1,11 @@
-package week1;
+package week3.linkedlist;
+
 
 /**
  * 自己实现的LinkedList
  * Created by zhouliang on 2017-03-10.
  */
-class LinkedList<E> implements List<E> {
+class LinkedList<E>  implements List<E>{
 
     private int size;
     private Node<E> first;
@@ -120,6 +121,7 @@ class LinkedList<E> implements List<E> {
         size++;
     }
 
+    //检查index是否是合法的get下标
     private void checkElementIndex(int index) {
         if (!isElementIndex(index)) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: "
@@ -131,6 +133,7 @@ class LinkedList<E> implements List<E> {
         return index >= 0 && index < size;
     }
 
+    //检查index是否是合法的add下标
     private void checkPositionIndex(int index) {
         if (!isPositionIndex(index)) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: "
@@ -141,6 +144,7 @@ class LinkedList<E> implements List<E> {
     private boolean isPositionIndex(int index) {
         return index >= 0 && index <= size;
     }
+
     @Override
     public int size() {
         return size;
@@ -149,22 +153,35 @@ class LinkedList<E> implements List<E> {
     private static class Node<E>{
         E value;
         Node<E> next;
-
         Node(){
-
         }
-
         Node(E e){
             this.value = e;
         }
     }
+
 
     /**
      * 把该链表逆置
      * 例如链表为 3->7->10 , 逆置后变为  10->7->3
      */
     public  void reverse(){
+        Node<E> preNode = first;
 
+        //头尾结点互换位置
+        Node<E> node = last;
+        last = first;
+        first = node;
+
+        node = preNode.next;
+        Node<E> nextNode;
+
+        while (node != null) {
+            nextNode = node.next;
+            node.next = preNode;
+            preNode = node;
+            node = nextNode;
+        }
     }
 
     /**
@@ -173,7 +190,13 @@ class LinkedList<E> implements List<E> {
      * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
      */
     public  void removeFirstHalf(){
-
+        int num = this.size/2;
+        this.size = this.size - num;
+        while(num>0){
+            //Node temp = first.next;
+            first = first.next;
+            num--;
+        }
     }
 
     /**
@@ -182,8 +205,28 @@ class LinkedList<E> implements List<E> {
      * @param length
      */
     public  void remove(int i, int length){
-
+        checkPositionIndex(i);
+        if(length+i>size-1){
+            throw new IndexOutOfBoundsException("Index: " + (i+length) + ", Size: "
+                    + size);
+        }
+        int temp = 0;
+        Node<E> newFirst = first;
+        Node<E> beginNode = newFirst;
+        while(temp < i){
+            beginNode = beginNode.next;
+            temp++;
+        }
+        Node<E> endNode = beginNode.next;
+        size = size - length;
+        while(length>0){
+            endNode = endNode.next;
+            length--;
+        }
+        first = newFirst;
+        beginNode.next = endNode;
     }
+
     /**
      * 假定当前链表和listB均包含已升序排列的整数
      * 从当前链表中取出那些listB所指定的元素
@@ -192,8 +235,26 @@ class LinkedList<E> implements List<E> {
      * 返回的结果应该是[101,301,401,601]
      * @param list
      */
-    public  int[] getElements(LinkedList list){
-        return null;
+    public  int[] getElements(LinkedList<Integer> list){
+        if(list==null || list.size()==0){
+            return  null;
+        }else{
+            int[] result = new int[list.size()];
+            int index = 0;
+            int length = 0;
+            Node temp = first;
+            for (int i=0; i<list.size(); i++){
+                while(index<(Integer) list.get(i)){
+                    temp = temp.next;
+                    index++;
+                }
+                result[length++] = (Integer) temp.value;
+            }
+/*            for (int i=0; i<list.size(); i++){
+                result[length++] = (Integer) get((Integer) list.get(i));
+            }*/
+            return result;
+        }
     }
 
     /**
@@ -202,7 +263,28 @@ class LinkedList<E> implements List<E> {
      * @param list
      */
     public  void subtract(LinkedList list){
-
+        Node temp = first;
+        Node preNode = first;
+        for (int i=0; i<list.size(); i++){
+            int value = (Integer) list.get(i);
+            while((Integer)temp.value < value){
+                preNode = temp;
+                temp = temp.next;
+            }
+            if(i==0){
+                first = first.next;
+                preNode = temp;
+                temp = temp.next;
+                size--;
+            }
+            if((Integer)temp.value == value){
+                preNode.next = temp.next;
+                size--;
+            }else{
+                preNode = temp;
+                temp = temp.next;
+            }
+        }
     }
 
     /**
@@ -210,7 +292,16 @@ class LinkedList<E> implements List<E> {
      * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
      */
     public  void removeDuplicateValues(){
-
+        Node temp = first;
+        while(temp.next!=null){
+            Node nextNode = temp.next;
+            if(temp.value == nextNode.value){
+                temp.next = nextNode.next;
+                size--;
+            }else{
+                temp = temp.next;
+            }
+        }
     }
 
     /**
@@ -220,7 +311,28 @@ class LinkedList<E> implements List<E> {
      * @param max
      */
     public  void removeRange(int min, int max){
-
+        Node temp = first;
+        Node beginNode = null;
+        Node endNode = null;
+        Node preNode = null;
+        while(temp != null){
+            if((Integer)temp.value<=min){
+                preNode = temp;
+            }
+            if((Integer)temp.value>min && (Integer)temp.value<max){
+                if(beginNode==null){
+                    beginNode = temp;
+                }
+                endNode = temp;
+                size--;
+            }
+            temp = temp.next;
+        }
+        if(beginNode == first){
+            first = endNode.next;
+        }else{
+            preNode.next = endNode.next;
+        }
     }
 
     /**
@@ -228,7 +340,21 @@ class LinkedList<E> implements List<E> {
      * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
      * @param list
      */
-    public  LinkedList intersection( LinkedList list){
-        return null;
+    public LinkedList intersection(LinkedList list){
+        Node temp = first;
+        LinkedList result = new LinkedList();
+        for(int i=0; i<list.size(); i++){
+            int value = (Integer)list.get(i);
+            if(temp!=null && (Integer)temp.value <= value ){
+                while(temp!=null && (Integer)temp.value<=value){
+                    if(temp.value == list.get(i)){
+                        result.add(list.get(i));
+                    }
+                    temp = temp.next;
+                }
+            }
+
+        }
+        return result;
     }
 }
