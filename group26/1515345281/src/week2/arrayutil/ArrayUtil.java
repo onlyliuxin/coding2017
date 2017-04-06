@@ -12,6 +12,9 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin){
+		if(origin==null || origin.length==0){
+			return ;
+		}
 		for(int i=0;i<origin.length/2;i++){
 			int temp=origin[i];
 			origin[i]=origin[origin.length-1-i];
@@ -28,6 +31,10 @@ public class ArrayUtil {
 	 */
 	
 	public int[] removeZero(int[] oldArray){
+		
+		if(oldArray==null || oldArray.length==0){
+			return null;
+		}
 		
 		int length=0;
 		for(int i=0;i<oldArray.length;i++){
@@ -56,6 +63,7 @@ public class ArrayUtil {
 	 */
 	
 	public int[] merge(int[] array1, int[] array2){
+		
 		ArrayList<Integer> list=new ArrayList<Integer>();
 		int i=0;
 		int j=0;

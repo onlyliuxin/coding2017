@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.coding.test;
 
 import java.io.File;
@@ -55,3 +56,18 @@ public class Test {
 	}
 
 }
+=======
+package com.coding.test;
+
+
+
+
+
+public class Test {
+	
+	public static void main(String[] args){
+		System.out.println(System.getProperty("user.dir"));
+	}
+
+}
+>>>>>>> af825262bae1fc9054b6c5b71461d5a3213f6cf4
