@@ -65,7 +65,7 @@ public class LinkedListTest {
 
 	@Test
 	public void testRemoveInt() {
-		LinkedList li = new LinkedList();
+		/*LinkedList li = new LinkedList();
 		li.add("1");
 		li.add("2");
 		li.add("3");
@@ -75,8 +75,23 @@ public class LinkedListTest {
 		assertEquals(li.get(0), "1");
 		assertEquals(li.get(1), "2");
 		assertEquals(li.get(2), "3");
-		assertEquals(li.get(3), "5");
+		assertEquals(li.get(3), "5");*/
+		LinkedList ll = new LinkedList();
+		ll.add(11);
+		ll.add(101);
+		ll.add(201);
+		ll.add(301);
+		ll.add(401);
+		ll.add(501);
+		ll.add(601);
+		ll.add(701);
+		ll.remove(0);
+		ll.remove(1);
+		//ll.remove(3);
+		//ll.remove(4);
+		System.out.println(ll.get(0)+" "+ll.get(1)+" "+ll.get(2)+" "+ll.get(3));
 
+		
 	}
 
 	@Test

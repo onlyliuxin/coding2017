@@ -12,21 +12,17 @@ public class LoginAction
 	private String password;
 	private String message;
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public String getPassword()
-	{
+	public String getPassword() {
 		return password;
 	}
 
-	public String execute()
-	{
+	public String execute() {
 		System.out.println("name: " + name + " , password: " + password);
-		if ("test".equals(name) && "1234".equals(password))
-		{
+		if ("test".equals(name) && "1234".equals(password)) {
 			this.message = "login successful";
 			return "success";
 		}
@@ -34,18 +30,15 @@ public class LoginAction
 		return "fail";
 	}
 
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public void setPassword(String password)
-	{
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public String getMessage()
-	{
+	public String getMessage() {
 		return this.message;
 	}
 }
