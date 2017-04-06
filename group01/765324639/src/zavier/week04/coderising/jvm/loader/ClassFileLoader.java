@@ -54,10 +54,13 @@ public class ClassFileLoader {
     }
 
     private String convertClassNameToFilePath(String fillClassName) {
-        return fillClassName.replace(".", "\\") + ".class";
+        return fillClassName.replace(".", File.separator) + ".class";
     }
 
     public void addClassPath(String path) {
+        if (clzPaths.contains(path)) {
+            return;
+        }
         clzPaths.add(path);
     }
 
