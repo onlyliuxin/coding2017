@@ -3,7 +3,7 @@ package DataStruct;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class ArrayList implements List {
+public class ArrayList<I> implements List {
 	
 	private int size = 0;
 	
