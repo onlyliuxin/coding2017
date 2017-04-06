@@ -1,92 +1,140 @@
 package com.coderising.jvm.loader;
 
-/**
- * Created by wang on 2017/3/27.
- */
-
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import com.coderising.jvm.clz.ClassFile;
+
+
 
 
 
 public class ClassFileLoader {
 
-    private List<String> clzPaths = new ArrayList<String>();
-    private static final int BUFFER_LENGTH = 1024;
-    public byte[] readBinaryCode(String className) {
+	private List<String> clzPaths = new ArrayList<String>();
+	
+	public byte[] readBinaryCode(String className) {
+		
+		className = className.replace('.', File.separatorChar) +".class";
+		
+		for(String path : this.clzPaths){
+			
+			String clzFileName = path + File.separatorChar + className;
+			byte[] codes = loadClassFile(clzFileName);
+			if(codes != null){
+				return codes;
+			}			
+		}
+		
+		return null;
+		
+		
+		
+	}
+	
+	private byte[] loadClassFile(String clzFileName) {
+		
+		File f = new File(clzFileName);
+		
+		try {
+		
+			return IOUtils.toByteArray(new FileInputStream(f));
+			
+		} catch (IOException e) {			
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	
+	public void addClassPath(String path) {
+		if(this.clzPaths.contains(path)){
+			return;
+		}
+		
+		this.clzPaths.add(path);
+		
+	}
+	
+	
+	
+	public String getClassPath(){
+		return StringUtils.join(this.clzPaths,";");
+	}
 
-        File clzFile = new File(getClzPath(className));
-        FileInputStream fis = null;
-        ByteArrayOutputStream bos = null;
-        try {
-            fis = new FileInputStream(clzFile);
-            bos = new ByteArrayOutputStream();
-            int len = 0;
-            byte[] buf = new byte[BUFFER_LENGTH];
-            while(-1 !=(len = fis.read(buf))){
-                bos.write(buf,0,len);
-            }
-            bos.flush();
-            return bos.toByteArray();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            if(bos!=null){
-                try {
-                    bos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }if(fis!=null){
-                try {
-                    fis.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return null;
+	public ClassFile loadClass(String className) {
+		byte[] codes = this.readBinaryCode(className);
+		ClassFileParser parser = new ClassFileParser();
+		return parser.parse(codes);
+		
+	}
+	
+	
+	
+	// ------------------------------backup------------------------
+    public String getClassPath_V1(){
+		
+		StringBuffer buffer = new StringBuffer();
+		for(int i=0;i<this.clzPaths.size();i++){
+			buffer.append(this.clzPaths.get(i));
+			if(i<this.clzPaths.size()-1){
+				buffer.append(";");
+			}
+		}
+		return buffer.toString();
+	}
+	
+	private byte[] loadClassFile_V1(String clzFileName) {
+		
+		BufferedInputStream bis = null;
+		
+		try {
+			
+			File f = new File(clzFileName);
+			
+						
+			bis = new BufferedInputStream(new FileInputStream(f));
+			
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			
+			
+			byte[] buffer = new byte[1024];
+			int length = -1;
+			
+			while((length = bis.read(buffer)) != -1){
+				bos.write(buffer, 0, length);				
+			}
+			
+			byte [] codes = bos.toByteArray();
+			
+			return codes;
+			
+		} catch(IOException e){
+			e.printStackTrace();
+			
+		} finally{
+			if(bis != null){
+				try {
+					bis.close();
+				} catch (IOException e) {					
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+		
+	}
 
 
-    }
-
-    private String getClzPath(String className) {
-        String clzPath = this.getClassPath() +
-                className.replace(".","\\") +
-                ".class";
-        return clzPath;
-    }
-
-
-
-
-    public void addClassPath(String path) {
-        if(path==null){
-            throw new IllegalArgumentException();
-        }
-        clzPaths.add(path);
-    }
-
-
-
-    public String getClassPath(){
-        StringBuilder sb = new StringBuilder();
-        for(int i=0; i<clzPaths.size(); i++ ){
-            sb.append(clzPaths.get(i));
-            if(i<clzPaths.size()-1){
-                sb.append(";");
-            }
-        }
-
-        return sb.toString();
-
-    }
-
-
-
-
+	
 
 }
