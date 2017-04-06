@@ -1,5 +1,10 @@
 package main.week02.practice;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import com.sun.xml.internal.ws.org.objectweb.asm.Label;
+
 public class ArrayUtil {
 
 	/**
@@ -40,7 +45,7 @@ public class ArrayUtil {
 			}
 		}
 		int[] newArray = new int[i];
-		System.arraycopy(oldArray, 0, newArray, 0,newArray.length);
+		System.arraycopy(oldArray, 0, newArray, 0, newArray.length);
 		return newArray;
 	}
 
@@ -54,7 +59,56 @@ public class ArrayUtil {
 	 */
 
 	public int[] merge(int[] array1, int[] array2) {
-		return null;
+		if (array1.length == 0) {
+			return array2;
+		}
+		if (array2.length == 0) {
+			return array1;
+		}
+		int n = 0;
+		int[] merge = new int[array1.length + array2.length];
+		int i = 0, j = 0;
+		while (i < array1.length || j < array2.length) {
+			if (array1[i] == array2[j]) {
+				merge[n] = array1[i];
+				n++;
+				i++;
+				j++;
+				if (i == array1.length) {
+					System.arraycopy(array2, j, merge, n, array2.length - j);
+					n += array2.length - j;
+					break;
+				}
+				if (j == array2.length) {
+					System.arraycopy(array1, i, merge, n, array1.length - i);
+					n += array1.length - i;
+					break;
+				}
+				continue;
+			}
+			if (array1[i] < array2[j]) {
+				merge[n] = array1[i];
+				n++;
+				i++;
+				if (i == array1.length) {
+					System.arraycopy(array2, j, merge, n, array2.length - j);
+					n += array2.length - j;
+					break;
+				}
+			} else {
+				merge[n] = array2[j];
+				n++;
+				j++;
+				if (j == array2.length) {
+					System.arraycopy(array1, i, merge, n, array1.length - i);
+					n += array1.length - i;
+					break;
+				}
+			}
+		}
+		int[] res = new int[n];
+		System.arraycopy(merge, 0, res, 0, n);
+		return res;
 	}
 
 	/**
@@ -67,7 +121,9 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int[] oldArray, int size) {
-		return null;
+		int[] res = new int[oldArray.length + size];
+		System.arraycopy(oldArray, 0, res, 0, oldArray.length);
+		return res;
 	}
 
 	/**
@@ -78,7 +134,24 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max) {
-		return null;
+		if (max <= 1) {
+			return new int[0];
+		}
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		list.add(1);
+		int index = 1;
+		while (list.get(index) + list.get(index - 1) < max) {
+			list.add(list.get(index) + list.get(index - 1));
+			index++;
+		}
+		Iterator<Integer> iter = list.iterator();
+		int[] res = new int[list.size()];
+		int i = 0;
+		while (iter.hasNext()) {
+			res[i++] = iter.next();
+		}
+		return res;
 	}
 
 	/**
@@ -88,7 +161,22 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max) {
-		return null;
+		if (max <= 2) {
+			return new int[0];
+		}
+		int n = 2;
+		int arr[] = new int[max];
+		int j = 0;
+		a: for (; n < max; n++) {
+			for (int i = 2; i < n / 2 + 1; i++) {
+				if (n % i == 0)
+					continue a;
+			}
+			arr[j++] = n;
+		}
+		int[] res = new int[j];
+		System.arraycopy(arr, 0, res, 0, j);
+		return res;
 	}
 
 	/**
@@ -98,7 +186,23 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max) {
-		return null;
+		if (max <= 6) {
+			return new int[0];
+		}
+		int n = 6, sum = 0, j = 0;
+		int[] arr = new int[max];
+		for (; n < max; n++, sum = 0) {
+			for (int i = 1; i < n / 2 + 1; i++) {
+				if (n % i == 0)
+					sum += i;
+
+			}
+			if (sum == n)
+				arr[j++] = n;
+		}
+		int[] res = new int[j];
+		System.arraycopy(arr, 0, res, 0, j);
+		return res;
 	}
 
 	/**
@@ -109,7 +213,17 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator) {
-		return null;
+		if (array.length == 0) {
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		int i;
+		for (i = 0; i < array.length - 1; i++) {
+			sb.append(array[i]);
+			sb.append(seperator);
+		}
+		sb.append(array[i]);
+		return sb.toString();
 	}
 
 }

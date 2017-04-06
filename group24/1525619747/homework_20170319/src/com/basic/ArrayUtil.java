@@ -12,21 +12,18 @@ public class ArrayUtil
 	 * @param origin
 	 * @return
 	 */
-	public void reverseArray(int[] origin)
-	{
+	public void reverseArray(int[] origin) {
 		int length = origin.length;
 		int left = 0;
 		int right = length - 1;
 		int a = 0;
 		int b = 0;
-		while (left < right)
-		{
+		while (left < right) {
 			swap(origin, left++, right--);
 		}
 	}
 
-	private void swap(int[] origin, int i, int j)
-	{
+	private void swap(int[] origin, int i, int j) {
 		// TODO Auto-generated method stub
 		int tmp = origin[i];
 		origin[i] = origin[j];
@@ -41,29 +38,23 @@ public class ArrayUtil
 	 * @return
 	 */
 
-	public int[] removeZero(int[] oldArray)
-	{
+	public int[] removeZero(int[] oldArray) {
 		int length = oldArray.length;
 		int[] newArray = new int[length];
 		int[] zeroArray = new int[length];
 
 		int zIndex = 0;
 		int nzIndex = 0;
-		for (int i = 0; i < length; i++)
-		{
-			if (oldArray[i] == 0)
-			{
+		for (int i = 0; i < length; i++) {
+			if (oldArray[i] == 0) {
 				zeroArray[zIndex++] = oldArray[i];
-			}
-			else
-			{
+			} else {
 				newArray[nzIndex++] = oldArray[i];
 			}
 		}
 
 		int[] newArray2 = new int[nzIndex];
-		for (int i = 0; i < nzIndex; i++)
-		{
+		for (int i = 0; i < nzIndex; i++) {
 			newArray2[i] = newArray[i];
 		}
 
@@ -79,8 +70,7 @@ public class ArrayUtil
 	 * @return
 	 */
 
-	public int[] merge(int[] array1, int[] array2)
-	{
+	public int[] merge(int[] array1, int[] array2) {
 		int length1 = array1.length;
 		int length2 = array2.length;
 		int[] array3 = new int[length1 + length2];
@@ -89,56 +79,46 @@ public class ArrayUtil
 		int index2 = 0;
 		int index3 = 0;
 
-		while (index1 < length1 && index2 < length2)
-		{
+		while (index1 < length1 && index2 < length2) {
 
-			if (index3 > 0)
-			{
-				if (array3[index3 - 1] == array1[index1])
-				{
+			if (index3 > 0) {
+				if (array3[index3 - 1] == array1[index1]) {
 					++index1;
 					continue;
 				}
-				if (array3[index3 - 1] == array2[index2])
-				{
+				if (array3[index3 - 1] == array2[index2]) {
 					++index2;
 					continue;
 				}
 			}
 
-			if (array1[index1] == array2[index2])
-			{
+			if (array1[index1] == array2[index2]) {
 				array3[index3++] = array1[index1];
 				++index1;
 				++index2;
 				continue;
 			}
-			if (array1[index1] < array2[index2])
-			{
+			if (array1[index1] < array2[index2]) {
 				array3[index3++] = array1[index1];
 				++index1;
 				continue;
 			}
-			if (array1[index1] > array2[index2])
-			{
+			if (array1[index1] > array2[index2]) {
 				array3[index3++] = array2[index2];
 				++index2;
 				continue;
 			}
 		}
 
-		while (index1 < length1)
-		{
+		while (index1 < length1) {
 			array3[index3++] = array1[index1++];
 		}
-		while (index2 < length2)
-		{
+		while (index2 < length2) {
 			array3[index3++] = array1[index2++];
 		}
 
 		int[] newArray = new int[index3];
-		for (int i = 0; i < index3; i++)
-		{
+		for (int i = 0; i < index3; i++) {
 			newArray[i] = array3[i];
 		}
 
@@ -154,16 +134,13 @@ public class ArrayUtil
 	 * @param size
 	 * @return
 	 */
-	public int[] grow(int[] oldArray, int size)
-	{
+	public int[] grow(int[] oldArray, int size) {
 		int length = oldArray.length;
 		int[] newArr = new int[length + size];
-		for (int i = 0; i < length; i++)
-		{
+		for (int i = 0; i < length; i++) {
 			newArr[i] = oldArray[i];
 		}
-		for (int i = length; i < length + size; i++)
-		{
+		for (int i = length; i < length + size; i++) {
 			newArr[i] = 0;
 		}
 		return newArr;
@@ -176,10 +153,8 @@ public class ArrayUtil
 	 * @param max
 	 * @return
 	 */
-	public int[] fibonacci(int max)
-	{
-		if (max == 1)
-		{
+	public int[] fibonacci(int max) {
+		if (max == 1) {
 			return null;
 		}
 		int[] arr = new int[max / 2];
@@ -191,8 +166,7 @@ public class ArrayUtil
 		arr[1] = 1;
 
 		int index = 2;
-		while (a + b < max)
-		{
+		while (a + b < max) {
 			arr[index++] = a + b;
 			c = b;
 			b = a + b;
@@ -200,8 +174,7 @@ public class ArrayUtil
 		}
 
 		int[] newArr = new int[index];
-		for (int i = 0; i < index; i++)
-		{
+		for (int i = 0; i < index; i++) {
 			newArr[i] = arr[i];
 		}
 
@@ -214,34 +187,27 @@ public class ArrayUtil
 	 * @param max
 	 * @return
 	 */
-	public int[] getPrimes(int max)
-	{
+	public int[] getPrimes(int max) {
 		int size = max / 2 + 1;
 		int[] arr = new int[size];
 		int index = 0;
-		for (int i = 2; i < max; i++)
-		{
-			if (isPrime(i))
-			{
+		for (int i = 2; i < max; i++) {
+			if (isPrime(i)) {
 				arr[index++] = i;
 			}
 		}
 
 		int[] newArr = new int[index];
-		for (int i = 0; i < index; i++)
-		{
+		for (int i = 0; i < index; i++) {
 			newArr[i] = arr[i];
 		}
 
 		return newArr;
 	}
 
-	public boolean isPrime(int i)
-	{
-		for (int j = 2; j < i / 2; j++)
-		{
-			if (i % j == 0)
-			{
+	public boolean isPrime(int i) {
+		for (int j = 2; j < i / 2; j++) {
+			if (i % j == 0) {
 				return false;
 			}
 		}
@@ -254,35 +220,28 @@ public class ArrayUtil
 	 * @param max
 	 * @return
 	 */
-	public int[] getPerfectNumbers(int max)
-	{
+	public int[] getPerfectNumbers(int max) {
 		int size = max / 2 + 1;
 		int[] arr = new int[size];
 		int index = 0;
-		for (int i = 2; i < max; i++)
-		{
-			if (isPerfectNumber(i))
-			{
+		for (int i = 2; i < max; i++) {
+			if (isPerfectNumber(i)) {
 				arr[index++] = i;
 			}
 		}
 
 		int[] newArr = new int[index];
-		for (int i = 0; i < index; i++)
-		{
+		for (int i = 0; i < index; i++) {
 			newArr[i] = arr[i];
 		}
 
 		return newArr;
 	}
 
-	public boolean isPerfectNumber(int num)
-	{
+	public boolean isPerfectNumber(int num) {
 		int sum = 0;
-		for (int i = 1; i <= num / 2; i++)
-		{
-			if (num % i == 0)
-			{
+		for (int i = 1; i <= num / 2; i++) {
+			if (num % i == 0) {
 				sum += i;
 			}
 		}
@@ -297,12 +256,10 @@ public class ArrayUtil
 	 * @param s
 	 * @return
 	 */
-	public String join(int[] array, String seperator)
-	{
+	public String join(int[] array, String seperator) {
 		String str = "";
 		int length = array.length;
-		for (int a : array)
-		{
+		for (int a : array) {
 			str += a + seperator;
 		}
 		str = str.substring(0, str.length() - 1);
