@@ -7,23 +7,25 @@ package cn.mark.work0219;
 public class MyLinkedList implements MyList{
 	
 	private Node head;
+	private Node last;
 	private int size;//集合的长度
+	
+	public MyLinkedList(){
+		this.head = new Node(null);
+	}
 
 	/**
 	 * 添加元素
 	 */
 	@Override
 	public boolean add(Object o) {
-		//为空判断
-		if ( o == null ){
-			System.out.println("不允许null的元素插入!");
-			return false;
-		}
-		if(head == null){
-			head = new Node();
-			head.data = o;
-		}else{
-			
+		if (this.last == null){
+			this.last = new Node(o);
+			this.last.pre = this.head;
+			this.last.next = this.last;
+		} else {
+			Node oldLast = this.last;
+			this.last = new Node(o);
 		}
 		
 		return false;
@@ -49,13 +51,18 @@ public class MyLinkedList implements MyList{
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.size;
 	}
 	
 	private static class Node{
 		Object data;
+		Node pre;
 		Node next;
+		
+		
+		Node(Object data){
+			this.data = data;
+		}
 	}
 
 
