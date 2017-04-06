@@ -1,9 +1,8 @@
-package com.bruce.homework0312.download_1;
+package com.bruce.homework0312.mydownload;
 
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
