@@ -1,60 +1,33 @@
 package com.coding.basic;
 
 /**
- * Stack ÊµÏÖ
- * Last In First Out
- * µÚ14Ğ¡×é 296933284
- * 
+ * Stack å®ç° ç¬¬14å°ç»„ 296933284
+ *
  * @author Tonnyson
  *
  */
-public class Stack {
+public class Stack<T> {
 	
-	private ArrayList elementData = new ArrayList();
+	private ArrayList<T> elementData = new ArrayList<>();
 	private int top = 0;
 
-	/**
-	 * ÏòÕ»ÖĞ²åÈëÔªËØ
-	 * 
-	 * @param obj
-	 */
-	public void push(Object obj) {
-		elementData.add(obj);
+	public void push(T element) {
+		elementData.add(element);
 		top++;
 	}
-	
-	/**
-	 * ´ÓÕ»ÖĞÈ¡³öÔªËØ
-	 * 
-	 * @return
-	 */
-	public Object pop() {
+
+	public T pop() {
 		return elementData.remove(--top);
 	}
 
-	/**
-	 * »ñÈ¡Õ»¶¥ÔªËØ
-	 * 
-	 * @return
-	 */
-	public Object peek() {
+	public T peek() {
 		return elementData.get(top - 1);
 	}
 	
-	/**
-	 * ÅĞ¶ÏÕ»ÊÇ·ñÎª¿Õ
-	 * 
-	 * @return
-	 */
 	public boolean isEmpty() {
 		return top == 0;
 	}
-	
-	/**
-	 * »ñÈ¡Õ»ÖĞÔªËØ¸öÊı
-	 * 
-	 * @return
-	 */
+
 	public int size() {
 		return top;
 	}
