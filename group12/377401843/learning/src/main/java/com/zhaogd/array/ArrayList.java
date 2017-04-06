@@ -1,6 +1,9 @@
-package com.zhaogd.collection;
+package com.zhaogd.array;
 
 import java.util.Arrays;
+
+import com.zhaogd.collection.Iterator;
+import com.zhaogd.collection.List;
 
 public class ArrayList implements List {
 
@@ -13,7 +16,7 @@ public class ArrayList implements List {
 	 *
 	 * @Method add
 	 * @param o
-	 * @see com.guodong.datastructure.List#add(java.lang.Object)
+	 * @see com.zhaogd.collection.guodong.datastructure.List#add(java.lang.Object)
 	 */
 	public void add(Object o) {
 		ensureCapacityInternal(size + 1);
@@ -27,7 +30,7 @@ public class ArrayList implements List {
 	 * @Method add
 	 * @param index
 	 * @param o
-	 * @see com.guodong.datastructure.List#add(int, java.lang.Object)
+	 * @see com.zhaogd.collection.guodong.datastructure.List#add(int, java.lang.Object)
 	 */
 	public void add(int index, Object o) {
 		checkRangeForAdd(index);
@@ -46,7 +49,7 @@ public class ArrayList implements List {
 	 * @Method get
 	 * @param index
 	 * @return
-	 * @see com.guodong.datastructure.List#get(int)
+	 * @see com.zhaogd.collection.guodong.datastructure.List#get(int)
 	 */
 	public Object get(int index) {
 		checkRangeForGetOrRemove(index);
@@ -60,7 +63,7 @@ public class ArrayList implements List {
 	 * @Method remove
 	 * @param index
 	 * @return
-	 * @see com.guodong.datastructure.List#remove(int)
+	 * @see com.zhaogd.collection.guodong.datastructure.List#remove(int)
 	 */
 	public Object remove(int index) {
 		checkRangeForGetOrRemove(index);
@@ -80,7 +83,7 @@ public class ArrayList implements List {
 	 *
 	 * @Method size
 	 * @return
-	 * @see com.guodong.datastructure.List#size()
+	 * @see com.zhaogd.collection.guodong.datastructure.List#size()
 	 */
 	public int size() {
 		return size;

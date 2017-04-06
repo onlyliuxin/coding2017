@@ -1,6 +1,9 @@
-package com.zhaogd.collection;
+package com.zhaogd.collection.linkedlist;
 
 import java.util.NoSuchElementException;
+
+import com.zhaogd.collection.Iterator;
+import com.zhaogd.collection.List;
 
 public class LinkedList implements List {
 
@@ -15,7 +18,7 @@ public class LinkedList implements List {
 	 *
 	 * @Method add
 	 * @param o
-	 * @see com.guodong.datastructure.List#add(java.lang.Object)
+	 * @see com.zhaogd.collection.guodong.datastructure.List#add(java.lang.Object)
 	 */
 	public void add(Object o) {
 		linkLast(o);
@@ -27,7 +30,7 @@ public class LinkedList implements List {
 	 * @Method add
 	 * @param index
 	 * @param o
-	 * @see com.guodong.datastructure.List#add(int, java.lang.Object)
+	 * @see com.zhaogd.collection.guodong.datastructure.List#add(int, java.lang.Object)
 	 */
 	public void add(int index, Object o) {
 		checkIndexForAdd(index);
@@ -54,7 +57,7 @@ public class LinkedList implements List {
 	 * @Method get
 	 * @param index
 	 * @return
-	 * @see com.guodong.datastructure.List#get(int)
+	 * @see com.zhaogd.collection.guodong.datastructure.List#get(int)
 	 */
 	public Object get(int index) {
 		checkIndexForGet(index);
@@ -71,7 +74,7 @@ public class LinkedList implements List {
 	 * @Method remove
 	 * @param index
 	 * @return
-	 * @see com.guodong.datastructure.List#remove(int)
+	 * @see com.zhaogd.collection.guodong.datastructure.List#remove(int)
 	 */
 	public Object remove(int index) {
 		checkIndexForGet(index);

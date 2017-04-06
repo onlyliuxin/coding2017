@@ -1,4 +1,6 @@
-package com.zhaogd.collection;
+package com.zhaogd.collection.stack;
+
+import com.zhaogd.collection.linkedlist.LinkedList;
 
 public class Stack {
 	private LinkedList elementData = new LinkedList();
