@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/Users/Victor/Desktop/dom4j-1.6.1.jar" sourcepath="/Volumes/TimeMachine/dom4j_1_6_1.zip"/>
+	<classpathentry kind="lib" path="/Users/Victor/JAR/dom4j-1.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

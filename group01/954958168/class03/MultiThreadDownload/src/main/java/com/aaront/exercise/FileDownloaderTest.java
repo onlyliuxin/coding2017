@@ -19,7 +19,8 @@ public class FileDownloaderTest {
 
     @Test
     public void testDownload() {
-        String url = "http://localhost:8080/test.jpg";
+        String url = "http://121.42.185.101/forum/test.jpg";
+        //String url = "https://raw.githubusercontent.com/thlcly/coding2017/master/README.md";
         FileDownloader downloader = new FileDownloader(url);
         ConnectionManager cm = new ConnectionManagerImpl();
         downloader.setConnectionManager(cm);
