@@ -1,11 +1,6 @@
 package com.coding.litestruts;
 
-import java.util.List;
 import java.util.Map;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 
 
 
@@ -37,21 +32,21 @@ public class Struts {
     	}
     	View view = new View();
     	String path = getStrutsXMLPath();
-    	Element actionEle = getActionElement(path, actionName);
+    	Action actionEle = StrutsXMLParser.getStrutsXML(path).get(actionName);
     	if(actionEle==null){
     		return null;
     	}
-    	String className = actionEle.attributeValue("class");
-		Object action = ReflectUtil.getObject(className, parameters);
-		if(action==null){
-			return null;
-		}
-		String methodName = actionEle.attributeValue("method");
-		methodName = methodName==null?"execute":methodName;
-		Object reslut = ReflectUtil.exectue(action, methodName);
-		String jsp = getElementJsp(actionEle, reslut!=null?reslut.toString():null);
-		view.setJsp(jsp);
-		view.setParameters(ReflectUtil.getAttributes(action));
+    	Object action = ReflectUtil.getObject(actionEle.getClazz(), parameters);
+    	if(action==null){
+    		return null;
+    	}
+    	Object reslut = ReflectUtil.exectue(action, actionEle.getMethod());
+    	if(reslut==null){
+    		return null;
+    	}
+    	Result resultEle = actionEle.getResults().get(reslut.toString());
+    	view.setJsp(resultEle.getJspPath());
+    	view.setParameters(ReflectUtil.getAttributes(action));
 		return view;
     }
     
@@ -60,47 +55,6 @@ public class Struts {
     	path = path.substring(1);
     	return path;
     }
-    
-    @SuppressWarnings("unchecked")
-	public static Element getActionElement(String path,String actionName){
-    	if(path==null||actionName==null){
-    		return null;
-    	}
-    	Element actionEle = null;
-    	try {
-			SAXReader read = new SAXReader();
-			Document doc = read.read(path);
-			Element root = doc.getRootElement();
-			List<Element> actions = root.elements("action");
-			for (Element element : actions) {
-				String name = element.attributeValue("name");
-				if(actionName.equals(name)){
-					actionEle = element;
-					break;
-				}
-			}
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (DocumentException e) {
-			e.printStackTrace();
-		}
-    	return actionEle;
-    }
-    
-	@SuppressWarnings("unchecked")
-	public static String getElementJsp(Element actionEle, String reslut) {
-		String jsp = null;
-		if(reslut!=null){
-			List<Element> results = actionEle.elements("result");
-			for (Element reslutEle : results) {
-				String resName = reslutEle.attributeValue("name");
-				resName = resName==null?"success":resName;
-				if(reslut.equals(resName)){
-					jsp = reslutEle.getText().trim();
-				}
-			}
-		}
-		return jsp;
-	}
+   
 
 }
