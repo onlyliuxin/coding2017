@@ -13,4 +13,7 @@ public interface List {
 	Object remove(int index);
 
 	int size();
+
+
+
 }

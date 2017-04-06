@@ -1,4 +1,4 @@
-# XXXX
+# 自由写作
 
 ## 须知
 ---
@@ -10,7 +10,7 @@
 ## 文章
 ---
 
-1204187480
+1204187480 http://blog.leanote.com/post/luoziyihao/js%E9%97%AD%E5%8C%85
 
 102228177  
 
@@ -26,11 +26,11 @@
 
 296910598
 
-1264835468 
+1264835468 http://www.jianshu.com/p/634ca8cdd6e3
 
 516886559
 
-1282579502
+1282579502 https://www.evernote.com/shard/s413/sh/142601dd-edc3-4e37-871e-37a7489d7634/a092bf080e1aefbaeab96d34edac8cf0
 
 614982500
 
