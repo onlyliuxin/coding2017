@@ -1,37 +1,38 @@
-package com.coderising.download;
+package com.coding.coderising.download;
+
+
+import com.coding.coderising.download.api.Connection;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
 
-import com.coderising.download.api.Connection;
 
 public class DownloadThread extends Thread{
 	
 	
-	private Connection conn;
-	private int startPos;
-	private int endPos;
-	private String filePath;
 
-	public DownloadThread(Connection conn, int startPos, int endPos,String filePath){
-		this.conn = conn;
+	Connection conn;
+	int startPos;
+	int endPos;
+
+	// 将下载到的字节输出到raf中
+	private RandomAccessFile raf;
+
+	public DownloadThread( Connection conn, int startPos, int endPos){
+		
+		this.conn = conn;		
+
 		this.startPos = startPos;
 		this.endPos = endPos;
 		this.filePath = filePath;
 	}
-	public void run(){	
+
+	public void run(){
 		try {
-			System.out.println("线程" + this.getName() + "开始下载. startPos:" + startPos + "; endPos:" + endPos);
-			byte[] buffer = conn.read(startPos, endPos);
-			RandomAccessFile ra = new RandomAccessFile(filePath, "rw");
-			ra.seek(startPos);
-			ra.write(buffer, 0, buffer.length);
-			ra.close();
-			System.out.println("线程" + this.getName() + "下载完成.");
-			}catch (IOException e) {
-				e.printStackTrace();
+			conn.read(startPos,endPos);
+		} catch (IOException e) {
+			e.printStackTrace();
+
 		}
 	}
 }
