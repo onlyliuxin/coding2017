@@ -1,11 +1,11 @@
 package com.coding.basic;
 
 /**
- * Êµ¼ÊÉÏÊÇÒ»¸ö¶ş²æËÑË÷Ê÷BinarySearchTree
+ * å®é™…ä¸Šæ˜¯ä¸€ä¸ªäºŒå‰æœç´¢æ ‘BinarySearchTree
  */
 public class BinaryTreeNode {
 	
-	//¸ù½Úµãthis//
+	//æ ¹èŠ‚ç‚¹this//
 	private Object data;
 	private BinaryTreeNode left;
 	private BinaryTreeNode right;
@@ -37,7 +37,7 @@ public class BinaryTreeNode {
 		this.right = right;
 	}
 	
-	//Ç°Ğò±éÀú£¬¸ù×óÓÒ//
+	//å‰åºéå†ï¼Œæ ¹å·¦å³//
 	public void preOrder(BinaryTreeNode node) {
 		if (node.data!=null) {
 			System.out.print(node.data + " ");
@@ -50,7 +50,7 @@ public class BinaryTreeNode {
 		}
 	}
 	
-	//ÖĞĞò±éÀú£¬×ó¸ùÓÒ//
+	//ä¸­åºéå†ï¼Œå·¦æ ¹å³//
 	public void inOrder(BinaryTreeNode node) {
 		if (node.data!=null) {
 			if (node.left!=null) {
@@ -63,7 +63,7 @@ public class BinaryTreeNode {
 		}
 	}
 	
-	//ºóĞò±éÀú£¬×óÓÒ¸ù//
+	//ååºéå†ï¼Œå·¦å³æ ¹//
 	public void postOrder(BinaryTreeNode node) {
 		if (node.data!=null) {
 			if (node.left!=null) {
@@ -77,15 +77,15 @@ public class BinaryTreeNode {
 	}
 	
 	public BinaryTreeNode insert(Object o){
-		//ÏÈ¿´¿´¸ù½ÚµãÊÇ²»ÊÇ¿ÕµÄ//
+		//å…ˆçœ‹çœ‹æ ¹èŠ‚ç‚¹æ˜¯ä¸æ˜¯ç©ºçš„//
 		if (this.data==null){
 			this.data=o;
 			return this;
 		}else{
-			//Ğ¡µÄÈ¥×ó±ß£¬´óµÄÈ¥ÓÒ±ß//
+			//å°çš„å»å·¦è¾¹ï¼Œå¤§çš„å»å³è¾¹//
 			if ((int) o < (int) this.data){
-				/*Èô×ó±ßÊÇ¿ÕµÄÄÇ¾ÍÊÇÄãÁË£¬Á´ÉÏÒ»¸öĞÂµÄ½Úµã
-				 *Èô×ó±ß²»ÊÇ¿ÕµÄÔò¼ÌĞøÍùÏÂÕÒ¿ÕµÄ
+				/*è‹¥å·¦è¾¹æ˜¯ç©ºçš„é‚£å°±æ˜¯ä½ äº†ï¼Œé“¾ä¸Šä¸€ä¸ªæ–°çš„èŠ‚ç‚¹
+				 *è‹¥å·¦è¾¹ä¸æ˜¯ç©ºçš„åˆ™ç»§ç»­å¾€ä¸‹æ‰¾ç©ºçš„
 				 */
 				if (this.left==null){
 					this.left = new BinaryTreeNode(o);
@@ -95,8 +95,8 @@ public class BinaryTreeNode {
 					return this.left.insert(o);
 				}
 			}else{
-				/*ÈôÓÒ±ßÊÇ¿ÕµÄÄÇ¾ÍÊÇÄãÁË£¬Á´ÉÏÒ»¸öĞÂµÄ½Úµã
-				 *ÈôÓÒ±ß²»ÊÇ¿ÕµÄÔò¼ÌĞøÍùÏÂÕÒ¿ÕµÄ
+				/*è‹¥å³è¾¹æ˜¯ç©ºçš„é‚£å°±æ˜¯ä½ äº†ï¼Œé“¾ä¸Šä¸€ä¸ªæ–°çš„èŠ‚ç‚¹
+				 *è‹¥å³è¾¹ä¸æ˜¯ç©ºçš„åˆ™ç»§ç»­å¾€ä¸‹æ‰¾ç©ºçš„
 				 */
 				if (this.right==null){
 					this.right = new BinaryTreeNode(o);
