@@ -1,5 +1,6 @@
 package main.week03.download;
 
+import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.concurrent.CyclicBarrier;
 
@@ -33,7 +34,7 @@ public class DownloadThread extends Thread {
 					+ "]");
 
 			byte[] data = conn.read(startPos, endPos);
-			//设置文件的读取权限
+			//设置文件的读取权限，每个线程都独立有这个实例，这样，多线程读写同一文件就没问题。
 			RandomAccessFile file = new RandomAccessFile(localFile, "rw");
 
 			file.seek(startPos);
@@ -47,9 +48,9 @@ public class DownloadThread extends Thread {
 			barrier.await(); // 等待别的线程完成
 
 		} catch (Exception e) {
+			//如果线程出错了，无法await，怎么处理？
 			e.printStackTrace();
-
-		}
+		} finally{}//这块里应该写close的
 
 	}
 }

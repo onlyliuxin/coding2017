@@ -12,7 +12,8 @@ import main.week03.download.FileDownloader;
 import main.week03.download.api.Connection;
 import main.week03.download.api.ConnectionException;
 
-public class ConnectionImpl implements Connection {
+//包级可见，是保护措施
+class ConnectionImpl implements Connection {
 
 	URL url;
 	static final int BUFFER_SIZE = 1024;
@@ -29,12 +30,14 @@ public class ConnectionImpl implements Connection {
 	@Override
 	public byte[] read(int startPos, int endPos) throws IOException {
 		int totalLen = endPos - startPos + 1;
-
+		
 		//是URLConnection的子类，负责http协议的链接
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestProperty("Range", "bytes=" + startPos + "-" + endPos);
-
 		InputStream inputStream = conn.getInputStream();
+
+		//客户端可以在请求里放置参数，设置接收数据区间
+		//代替了is.skip(),但是is.skip里有read，所以是边读边移动下标的，和本程序意图相违背。
+		conn.setRequestProperty("Range", "bytes=" + startPos + "-" + endPos);
 
 		byte[] buffer = new byte[BUFFER_SIZE];
 
