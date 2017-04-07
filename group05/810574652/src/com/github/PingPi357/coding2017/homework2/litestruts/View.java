@@ -1,4 +1,4 @@
-package com.coderising.litestruts;
+package com.github.PingPi357.coding2017.homework2.litestruts;
 
 import java.util.Map;
 

@@ -1,7 +1,6 @@
 package com.bruce.homework0312.download.api;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 public interface ConnectionManager {
 	/**
