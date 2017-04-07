@@ -10,9 +10,14 @@ public class Stack {
 	public void push(Object o){		
 		elementData.add(0, o);
 	}
-	
+
+	// 如果队列已经没有值了，则抛出ArrayIndexOutOfBoundsException的异常
 	public Object pop(){
-		return elementData.remove(0);
+	    try {
+            return elementData.remove(0);
+        } catch (Exception e) {
+	        throw new NullStackException();
+        }
 	}
 	
 	public Object peek(){
@@ -24,4 +29,15 @@ public class Stack {
 	public int size(){
 		return elementData.size();
 	}
+
+	public static void main(String[] args) {
+		Stack s = new Stack();
+		s.pop();
+	}
+
+	public static class NullStackException extends RuntimeException {
+	    NullStackException() {
+	        super("Null Stack!");
+        }
+    }
 }

@@ -1,9 +1,7 @@
 package com.github.miniyk2012.coding2017.basic.stack;
 
 import com.github.miniyk2012.coding2017.basic.Queue;
-
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created by thomas_young on 5/4/2017.
@@ -78,7 +76,35 @@ public class StackUtil {
      * @return
      */
     public static boolean isValidPairs(String s){
-        return false;
+        Map<String, String> matchBrackets = new HashMap<String, String>() {{
+            put("{", "}");
+            put("[", "]");
+            put("(", ")");
+        }};
+
+        Stack stack = new Stack();
+        for (int i=0; i<s.length(); i++) {
+            String c = s.substring(i, i+1);
+            if (matchBrackets.keySet().contains(c)) {
+                stack.push(c);
+            } else if (matchBrackets.values().contains(c)) {
+                try {
+                    String preC = (String) stack.pop();
+                    if (matchBrackets.get(preC).equals(c)) {
+                        continue;
+                    } else {
+                        return false;
+                    }
+                } catch (Stack.NullStackException e) {
+                    return false;
+                }
+            }
+        }
+        if (!stack.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public static void main(String[] args) {
@@ -111,5 +137,19 @@ public class StackUtil {
         s.push(4);
         s.push(2);
         System.out.println(Arrays.toString(StackUtil.getTop(s, 10)));
+
+        System.out.println((isValidPairs("[")));
+        System.out.println((isValidPairs("[]")));
+        System.out.println((isValidPairs("ad[(a{f})]db")));
+        System.out.println((isValidPairs("ad[(a{f))]db")));
+        System.out.println((isValidPairs("ad[(a{f}(saf)((afsdg)))]db")));
+        System.out.println((isValidPairs("ad[))]db")));
+        System.out.println((isValidPairs("(([[[ad[))]db")));
+        System.out.println((isValidPairs("(([[[ad[))]db")));
+        System.out.println((isValidPairs("(()")));
+        System.out.println((isValidPairs("()")));
+        System.out.println((isValidPairs("")));
+        System.out.println((isValidPairs("([e{d}f])")));
+        System.out.println((isValidPairs("([b{x]y})")));
     }
 }
