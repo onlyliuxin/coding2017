@@ -1,6 +1,8 @@
-package com.coding.basic;
+package com.coding.basic.stack;
 
 import org.junit.Test;
+
+import com.coding.basic.array.ArrayList;
 
 public class Stack {
 

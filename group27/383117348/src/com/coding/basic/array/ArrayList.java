@@ -1,8 +1,11 @@
-package com.coding.basic;
+package com.coding.basic.array;
 
 import java.util.Arrays;
 
 import org.junit.Test;
+
+import com.coding.basic.Iterator;
+import com.coding.basic.List;
 
 public class ArrayList implements List {
 
