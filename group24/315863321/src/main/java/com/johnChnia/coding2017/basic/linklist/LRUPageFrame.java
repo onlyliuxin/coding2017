@@ -30,7 +30,6 @@ public class LRUPageFrame {
 
     /**
      * 获取缓存中的对象
-     * 1 2 3
      *
      * @param pageNum 对象值
      */
@@ -65,8 +64,7 @@ public class LRUPageFrame {
                     node.next.prev = node.prev;
                 } else {
                     node.prev.next = null;
-                    node.next = first;
-                    node.prev = null;
+                    last = node.prev;
                 }
                 node.next = first;
                 node.prev = null;
