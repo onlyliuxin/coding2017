@@ -23,7 +23,7 @@ public class Struts {
     	 * */
     	SAXReader reader = new SAXReader();
 		try {
-			Document document = reader.read(new File("src/com/coderising/litestruts/struts.xml"));
+			Document document = reader.read(new File("src/com/coderising/litestruts/struts.xml"));		//re:创建一个java类来接收		
 			Element root = document.getRootElement();
 			Iterator iter = root.elementIterator();
 			while(iter.hasNext()){

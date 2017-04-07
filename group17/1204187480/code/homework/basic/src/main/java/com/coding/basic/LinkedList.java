@@ -4,8 +4,6 @@ public class LinkedList implements List {
 
     private Node head;
     private int size = 0;
-    private Iterator iterator = new LinkedListIterator();
-
 
     public void add(Object o) {
         Node newNode = new Node(o, null);
@@ -98,8 +96,8 @@ public class LinkedList implements List {
         return remove(size - 1);
     }
 
-    public Iterator iterator() {
-        return iterator;
+    public LinkedListIterator iterator() {
+        return new LinkedListIterator(head);
     }
 
     private void checkIndex(int index) {
@@ -114,6 +112,22 @@ public class LinkedList implements List {
         }
     }
 
+
+    @Override
+    public String toString() {
+        Iterator iterator = iterator();
+        StringBuilder builder = new StringBuilder("[");
+        while ((iterator.hasNext())) {
+            builder.append(iterator.next()).append(',');
+        }
+        if (size() > 0) {
+            builder.deleteCharAt(builder.length() - 1);
+        }
+        return builder
+                .append(']')
+                .toString();
+    }
+
     /**
      * 把该链表逆置
      * 例如链表为 3->7->10 , 逆置后变为  10->7->3
@@ -122,17 +136,18 @@ public class LinkedList implements List {
         if (size == 0) {
             return;
         }
-        Node[] nodes = new Node[size];
+        Object[] datas = new Object[size];
         int i = 0;
         // 迭代链表的数据生成数组
+        Iterator iterator = iterator();
         while (iterator.hasNext()) {
-            nodes[i++] = (Node) iterator.next();
+            datas[i++] = iterator.next();
         }
         // 遍历数组越生成新的 链表
-        Node newHead = nodes[--i];
-        Node next = newHead.next;
+        Node newHead = new Node(datas[--i], null);
+        Node next = newHead;
         for (int j = --i; j >= 0; j--) {
-            next.next = nodes[j];
+            next.next = new Node(datas[j], null);
             next = next.next;
 
         }
@@ -146,8 +161,22 @@ public class LinkedList implements List {
      * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
      */
     public void removeFirstHalf() {
-
+        removeFirstSize(size >> 1);
     }
+
+    public void removeFirstSize(int firstSize) {
+        firstSize = firstSize > size() ? size() : firstSize;
+        LinkedListIterator iterator = iterator();
+        int i = 1;
+        while (i++ <= firstSize) {
+            iterator.nextNode();
+        }
+        if (size > 0) {
+            head = iterator.nextNode();
+            size = size() - firstSize;
+        }
+    }
+
 
     /**
      * 从第i个元素开始， 删除length 个元素 ， 注意i从0开始
@@ -156,6 +185,21 @@ public class LinkedList implements List {
      * @param length
      */
     public void remove(int i, int length) {
+        if (i == 0 ) {removeFirstSize(length); return;}
+        if (i >= size || length == 0) {return;}
+
+        int lastLenth = size - i;
+        length = length <= lastLenth? length : lastLenth;
+        Node pre = node(i-1);
+        int j = 0;
+
+        Node next = pre;
+        while (j++ < length){
+            next = next.next;
+        }
+        pre.next = next.next;
+        size = size - length;
+
 
     }
 
@@ -229,6 +273,13 @@ public class LinkedList implements List {
 
         private Node next;
 
+        public LinkedListIterator() {
+        }
+
+        private LinkedListIterator(Node next) {
+            this.next = next;
+        }
+
         @Override
         public boolean hasNext() {
             return next != null;
@@ -242,6 +293,16 @@ public class LinkedList implements List {
             Node ret = next;
             next = next.next;
             return ret.data;
+        }
+
+
+        private Node nextNode() {
+            if (next == null) {
+                throw new IndexOutOfBoundsException("there is no node in list");
+            }
+            Node ret = next;
+            next = next.next;
+            return ret;
         }
     }
 }

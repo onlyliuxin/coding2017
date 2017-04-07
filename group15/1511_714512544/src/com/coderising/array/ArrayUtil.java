@@ -12,6 +12,7 @@ public class ArrayUtil {
      * @return
      */
     public void reverseArray(int[] origin){
+        if(origin == null) return ; //边界条件
         int len = origin.length;
         int temp = 0;
         for (int i = 0; i < len/2; i++) {
@@ -30,6 +31,7 @@ public class ArrayUtil {
      */
 
     public int[] removeZero(int[] oldArray){
+        if(oldArray == null) return null; //边界条件
         int[] temp = new int[oldArray.length];
         int index = 0;
         for (int i : oldArray) {
@@ -52,6 +54,10 @@ public class ArrayUtil {
      */
 
     public int[] merge(int[] array1, int[] array2){
+        if(array1 == null && array2 == null ) return null;
+        if(array1 == null) return array2;
+        if(array2 == null) return array1;
+
         int[] array3 = new int[array1.length+array2.length];
         for (int i = 0; i < array1.length; i++) {
             array3[i] = array1[i];
