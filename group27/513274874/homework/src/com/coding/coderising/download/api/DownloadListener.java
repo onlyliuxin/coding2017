@@ -1,4 +1,4 @@
-package com.coderising.download.api;
+package com.coding.coderising.download.api;
 
 public interface DownloadListener {
 	public void notifyFinished();
