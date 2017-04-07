@@ -284,6 +284,6 @@ public class LinkedListUtil {
 			}
 		}
 
-		return ;
-	}C
+		return C;
+	}
 }

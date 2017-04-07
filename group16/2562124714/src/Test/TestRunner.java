@@ -1,5 +1,6 @@
 package Test;
 
+import com.coding.basic.linklist.LRUPageFrameTest;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.notification.Failure;
 
@@ -10,7 +11,7 @@ import javax.xml.transform.Result;
  */
 public class TestRunner {
     public static  void  main(String[] args) {
-        org.junit.runner.Result result = JUnitCore.runClasses(StrutsTest.class);
+        org.junit.runner.Result result = JUnitCore.runClasses(LRUPageFrameTest.class);
         for (Failure failure:result.getFailures()) {
             System.out.println(failure.toString());
         }
