@@ -1,7 +1,10 @@
-package com.coding.basic;
+package com.coding.basic.linkedList;
 
 import java.util.Collection;
 import java.util.NoSuchElementException;
+
+import com.coding.basic.Iterator;
+import com.coding.basic.List;
 
 public class LinkedList<T> implements List<T> {
 /*

@@ -1,6 +1,6 @@
 package com.coding.basic;
 
-public class BinaryTreeNode {
+public class BinaryTreeNode implements Comparable{
 	
 	private Object data;
 	private BinaryTreeNode left;
@@ -30,15 +30,26 @@ public class BinaryTreeNode {
 			data = o;
 			return this;
 		}
-		int compareResult = ((Object) data).compareTo(o);
+		int compareResult = compareTo(o);
 		BinaryTreeNode node = new BinaryTreeNode();
 		node.data = o;
-		if(data.hashCode() > o.hashCode()){
+		if(compareResult>0){
 			this.right = node;
 		}else{
 			this.left = node;
 		}
 		return  this;
+	}
+	@Override
+	public int compareTo(Object o) {
+		//两个object比较的规则
+		if(data.hashCode() > o.hashCode()){
+			return 1;
+		}else if(data.hashCode() > o.hashCode()){
+			return -1;
+		}else{
+			return 0;
+		}		
 	}
 	
 	
