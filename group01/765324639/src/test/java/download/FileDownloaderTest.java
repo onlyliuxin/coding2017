@@ -47,14 +47,14 @@ public class FileDownloaderTest {
         // 等待多线程下载程序执行完毕
         while (!downloadFinished) {
             try {
-                System.out.println("还没有下载完成，休眠五秒");
+                System.out.println("Downloaded not complete, sleep 5 second");
                 // 休眠5秒
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("下载完成！");
+        System.out.println("download complete！");
 
     }
 

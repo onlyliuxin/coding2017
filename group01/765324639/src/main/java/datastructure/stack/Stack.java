@@ -32,4 +32,16 @@ public class Stack {
     public int size() {
         return elementData.size();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        int i = 0;
+        for ( ; i < elementData.size() - 1; i++) {
+            builder.append(elementData.get(i) + ",");
+        }
+        builder.append(elementData.get(i));
+        return builder.toString();
+    }
+    
 }

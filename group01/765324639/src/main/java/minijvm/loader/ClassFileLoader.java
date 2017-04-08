@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import minijvm.clz.ClassFile;
+
 
 
 public class ClassFileLoader {
@@ -64,12 +66,15 @@ public class ClassFileLoader {
         clzPaths.add(path);
     }
 
-
-
     public String getClassPath() {
         return String.join(";", clzPaths);
     }
 
-
+    public ClassFile loadClass(String className) throws ClassNotFoundException {
+        byte[] codes = this.readBinaryCode(className);
+        ClassFileParser parser = new ClassFileParser();
+        return parser.parse(codes);
+        
+    }
 
 }

@@ -22,7 +22,7 @@ public class DownloadThread extends Thread {
 
     @Override
     public void run() {
-        System.out.println("开始下载：" + startPos + "~" + endPos);
+        System.out.println("start download:" + startPos + "~" + endPos);
         byte[] data = new byte[endPos - startPos];
         try {
             data = conn.read(startPos, endPos);

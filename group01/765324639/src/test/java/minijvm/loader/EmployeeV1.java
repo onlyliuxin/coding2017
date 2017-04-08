@@ -2,7 +2,6 @@ package minijvm.loader;
 
 public class EmployeeV1 {
 
-
     private String name;
     private int age;
 
