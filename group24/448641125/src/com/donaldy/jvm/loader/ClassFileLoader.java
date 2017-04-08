@@ -20,7 +20,7 @@ public class ClassFileLoader {
 		for (String clzPath : clzPaths) {
 
 			File file = new File(clzPath + className.replace(".", "\\") + ".class");
-			
+
 
 			if (!file.exists())
 				continue;

@@ -1,5 +1,6 @@
 package com.github.wdn.coding2017.jvm.loader;
 
+import com.github.wdn.coding2017.jvm.clz.ClassFile;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -38,7 +39,7 @@ public class ClassFileLoader {
 				int offset=0;
 				// for循环使用inputStream api读取 一次读完。。
 				for(offset = 0; offset < fileLength && (len = inputStream.read(fileBytes, offset, (int)fileLength - offset)) != -1; offset += len) {
-					System.out.println("dd");
+					;
 				}
 				// while循环使用System.arraycopy读取
 				/*while ((len = inputStream.read(bytes))>-1){
@@ -73,8 +74,10 @@ public class ClassFileLoader {
 		return stringBuffer.toString();
 	}
 
-	
 
-	
-
+	public ClassFile loadClass(String className) {
+		ClassFileParser classFileParser = new ClassFileParser();
+		ClassFile classFile = classFileParser.parse(readBinaryCode(className));
+		return classFile;
+	}
 }

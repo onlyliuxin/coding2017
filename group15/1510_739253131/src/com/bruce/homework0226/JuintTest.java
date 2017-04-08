@@ -33,8 +33,6 @@ public class JuintTest extends TestCase{
             System.out.println("集合为："+ Arrays.toString(arrayList.toArray()));
             System.out.println("集合底层数组长度："+ arrayList.arrayLength());
 //            System.out.println("集合下标-1处的元素："+arrayList.get(-1));
-        } catch (MyException e) {
-            System.out.println("发生异常>>>"+e);
         } catch (Exception e) {
             e.printStackTrace();
         }
