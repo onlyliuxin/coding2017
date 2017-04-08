@@ -1,5 +1,7 @@
 package com.johnChnia.coding2017.basic;
 
+import com.johnChnia.coding2017.basic.linklist.LinkedList;
+
 import java.util.EmptyStackException;
 
 /**
