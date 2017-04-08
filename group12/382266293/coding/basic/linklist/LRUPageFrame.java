@@ -6,9 +6,9 @@ package linklist;
  *
  */
 public class LRUPageFrame {
-	
+
 	private static class Node {
-		
+
 		Node prev;
 		Node next;
 		int pageNum;
@@ -24,7 +24,6 @@ public class LRUPageFrame {
 			result = prime * result + pageNum;
 			return result;
 		}
-		
 
 		@Override
 		public String toString() {
@@ -48,18 +47,16 @@ public class LRUPageFrame {
 	}
 
 	private int capacity;
-	
-	
+
 	private Node first;// 链表头
 	private Node last;// 链表尾
 
-	
 	public LRUPageFrame(int capacity) {
-		
+
 		this.capacity = capacity;
-		
+
 	}
-	
+
 	private int size;
 
 	/**
@@ -83,11 +80,11 @@ public class LRUPageFrame {
 			moveLastPoint();
 			return;
 		}
-		
+
 		if (p == first) {
 			return;
 		}
-		
+
 		if (p == last) {
 			p.next = first;
 			first.prev = p;
@@ -95,17 +92,15 @@ public class LRUPageFrame {
 			moveLastPoint();
 			return;
 		}
-		
+
 		movePtoFirst(p);
-		
+
 	}
 
 	private void moveLastPoint() {
 		last = last.prev;
 		last.next = null;
 	}
-
-
 
 	private void movePtoFirst(Node p) {
 		p.prev.next = p.next;
@@ -115,8 +110,6 @@ public class LRUPageFrame {
 		first = p;
 	}
 
-
-
 	private void addNode(int pageNum) {
 		Node node = new Node(pageNum);
 		if (null == first) {
@@ -124,21 +117,18 @@ public class LRUPageFrame {
 			size++;
 			return;
 		}
-		if (null == last) {
-			node.next = first;
-			first.prev = node;
-			first = node;
-			last = node.next;
-			size++;
-			return;
-		}
+
 		node.next = first;
 		first.prev = node;
 		first = node;
 		size++;
+
+		if (null == last) {
+			last = node.next;
+			return;
+		}
+
 	}
-
-
 
 	private Node findNode(int pageNum) {
 		Node node = first;
@@ -154,21 +144,20 @@ public class LRUPageFrame {
 
 	public static void main(String[] args) {
 
-		
 	}
 
-	public String toString(){
+	public String toString() {
 		StringBuilder buffer = new StringBuilder();
 		Node node = first;
-		while(node != null){
-			buffer.append(node.pageNum);			
-			
+		while (node != null) {
+			buffer.append(node.pageNum);
+
 			node = node.next;
-			if(node != null){
+			if (node != null) {
 				buffer.append(",");
 			}
 		}
 		return buffer.toString();
 	}
-	
+
 }

@@ -4,8 +4,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.coderising.jvm.clz.ClassFile;
 
 public class ClassFileLoader {
 
@@ -15,6 +18,14 @@ public class ClassFileLoader {
 
 		String clzFileName = "//" + className.replaceAll("\\.", "//") + ".class";
 		return loadClassFile(clzFileName);
+	}
+
+	public ClassFile loadClass(String className) throws UnsupportedEncodingException {
+
+		ClassFileParser clzParser = new ClassFileParser();
+		byte[] codes = readBinaryCode(className);
+		ClassFile clzFile = clzParser.parse(codes);
+		return clzFile;
 	}
 
 	@SuppressWarnings("resource")
