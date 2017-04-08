@@ -37,38 +37,46 @@ public class LRUPageFrame {
 	 * @return
 	 */
 	public void access(int pageNum) {
+		Node node = findNode(pageNum);
+		if(node == null) {
+			addNode(pageNum);
+		} else {
+			moveExistNode(node);
+		}
+	}
+
+	private void moveExistNode(Node node) {
+		if(node == first) {
+			return ;
+		}
+		if(node == last) {
+			removeLastNode();
+			node.next = first;
+			first.prev = node;
+			first = node;
+			return;
+		}
+		node.prev.next = node.next;
+		node.next.prev = node.prev;
+		node.prev = null;
+		node.next = first;
+		first = node;
+	}
+
+	private void addNode(int pageNum) {
 		if(first == null) {
 			first = new Node();
 			first.pageNum = pageNum;
 			last = first;
-		} else {
-			if(isFull()) { 
-				Node node = findNode(pageNum);
-				if(node == null) { // not found
-					removeLastNode();
-					push(pageNum);
-				} else {
-					if(node == first) {
-						return ;
-					}
-					if(node == last) {
-						removeLastNode();
-						node.next = first;
-						first.prev = node;
-						first = node;
-						return;
-					}
-					node.prev.next = node.next;
-					node.next.prev = node.prev;
-					node.prev = null;
-					node.next = first;
-					first = node;
-				}
-			} else {
+		}else {
+			if(isFull()) {
+				removeLastNode();
+				push(pageNum);
+			}else {
 				push(pageNum);
 			}
 		}
-	
+		
 	}
 
 	private boolean isFull() {
@@ -91,6 +99,9 @@ public class LRUPageFrame {
 	
 
 	private Node findNode(int pageNum) {
+		if(first == null) {
+			return null;
+		}
 		if(first.pageNum == pageNum) {
 			return first;
 		}
@@ -122,7 +133,6 @@ public class LRUPageFrame {
 		Node node = first;
 		while(node != null){
 			buffer.append(node.pageNum);			
-			
 			node = node.next;
 			if(node != null){
 				buffer.append(",");
