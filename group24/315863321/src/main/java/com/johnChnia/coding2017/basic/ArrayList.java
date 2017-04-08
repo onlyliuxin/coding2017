@@ -71,7 +71,7 @@ public class ArrayList<E> implements List<E> {
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
     public void add(int index, E element) {
-        rangeCheckForAdd(index);
+        rangeCheck(index);
         ensureCapacityInternal(size + 1);
         System.arraycopy(elementData, index, elementData, index + 1,
                 size - index);
@@ -86,12 +86,10 @@ public class ArrayList<E> implements List<E> {
      *
      * @param index the index of the element to be removed
      * @return the element that was removed from the list
-     * @throws IndexOutOfBoundsException {@inheritDoc}
+     * @throws IndexOutOfBoundsException {@inheritDoc} index out of B
      */
     public E remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
-        }
+        rangeCheck(index);
         Object oldValue = elementData[index];
         int numMoved = size() - index - 1;
         if (numMoved > 0) {
@@ -170,14 +168,6 @@ public class ArrayList<E> implements List<E> {
         return Arrays.copyOf(elementData, size());
     }
 
-    /**
-     * A version of rangeCheck used by add and addAll.
-     */
-    private void rangeCheckForAdd(int index) {
-        if (index > size() - 1 || index < 0) {
-            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
-        }
-    }
 
     /**
      * Constructs an IndexOutOfBoundsException detail message.
@@ -195,7 +185,7 @@ public class ArrayList<E> implements List<E> {
      * which throws an ArrayIndexOutOfBoundsException if index is negative.
      */
     private void rangeCheck(int index) {
-        if (index >= size()) {
+        if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
         }
     }
