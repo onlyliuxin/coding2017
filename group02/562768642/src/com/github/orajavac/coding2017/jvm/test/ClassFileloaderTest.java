@@ -16,14 +16,14 @@ import com.github.orajavac.coding2017.jvm.loader.ClassFileLoader;
 
 public class ClassFileloaderTest {
 	private static final Object FULL_QUALIFIED_CLASS_NAME = null;
-	static String path1 = "bin/";
-	static String path2 = "com/github/orajavac/coding2017/jvm/EmployeeV1";
+	static String path1 = "bin";
+	static String path2 = "com.github.orajavac.coding2017.jvm.test.EmployeeV1";
 	
 	static ClassFile clzFile = null;
 	static {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
-		String className = "com.github.orajavac.coding2017.jvm.EmployeeV1";
+		String className = "com.github.orajavac.coding2017.jvm.test.EmployeeV1";
 		
 		clzFile = loader.loadClass(className);
 		clzFile.print();
@@ -56,12 +56,12 @@ public class ClassFileloaderTest {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
 		
-		String className = "com.github.orajavac.coding2017.jvm.EmployeeV1";
+		String className = "com.github.orajavac.coding2017.jvm.test.EmployeeV1";
 		
 		byte[] byteCodes = loader.readBinaryCode(className);
 		
 		// 注意：这个字节数可能和你的JVM版本有关系， 你可以看看编译好的类到底有多大
-		Assert.assertEquals(1078, byteCodes.length);
+		Assert.assertEquals(1088, byteCodes.length);
 		
 	}
 	
@@ -70,7 +70,7 @@ public class ClassFileloaderTest {
 	public void testMagicNumber(){
     	ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
-		String className = "com.github.orajavac.coding2017.jvm.EmployeeV1";
+		String className = "com.github.orajavac.coding2017.jvm.test.EmployeeV1";
 		byte[] byteCodes = loader.readBinaryCode(className);
 		byte[] codes = new byte[]{byteCodes[0],byteCodes[1],byteCodes[2],byteCodes[3]};
 		

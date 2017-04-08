@@ -45,7 +45,7 @@ public class ClassFileParser {
 		for (int i=1;i<constPoolCount-1;i++){
 			int tag = iter.nextU1ToInt();
 			if (tag == 7){	//class info
-				int uft8Index = iter.nextU1ToInt();
+				int uft8Index = iter.nextU2ToInt();
 				ClassInfo clzInfo = new ClassInfo(pool);
 				clzInfo.setUtf8Index(uft8Index);
 				pool.addConstantInfo(clzInfo);
@@ -82,7 +82,7 @@ public class ClassFileParser {
 				nameType.setIndex2(iter.nextU2ToInt());
 				pool.addConstantInfo(nameType);
 			}else{
-				throw new RuntimeException("the constant pool tag "+tag+" has");
+				throw new RuntimeException("the constant pool tag "+tag+" has not found");
 			}
 		}
 		return pool;
