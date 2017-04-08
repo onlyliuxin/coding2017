@@ -71,14 +71,9 @@ public class LinkedListTest {
 	public void testReverse() {
 		LinkedList l = lists[2];
 		l.reverse();
-		LinkedListIterator iter = l.iterator();
-		StringBuilder sb = new StringBuilder();
-		while (iter.hasNext()) {
-			sb.append(iter.next());
-		}
 		// assertEquals("", sb.toString());
-		// assertEquals("A", sb.toString());
-		assertEquals("EDCBA", sb.toString());
+		// assertEquals("A", l.toString());
+		assertEquals("E->D->C->B->A->null", l.toString());
 		
 	}
 
@@ -105,7 +100,7 @@ public class LinkedListTest {
 		try{
 			LinkedList l = lists[2];
 			l.remove(0, 1);
-			System.out.println(l.ToString());
+			System.out.println(l.toString());
 		}catch(Exception e){
 			assertEquals(IndexOutOfBoundsException.class, e.getClass());
 		}
@@ -155,7 +150,7 @@ public class LinkedListTest {
 		l.add(66);
 		try{
 			list.subtract(l);
-			System.out.println(list.ToString());
+			System.out.println(list.toString());
 		}catch(Exception e){
 			assertEquals(e.getMessage(), "传入链表为空？");
 		}
@@ -171,7 +166,7 @@ public class LinkedListTest {
 
 		list.removeDuplicateValues();
 		
-		System.out.println(list.ToString());
+		System.out.println(list.toString());
 	}
 
 	@Test
@@ -185,11 +180,11 @@ public class LinkedListTest {
 		list.add(77);
 		list.add(88);
 		list.add(99);
-		System.out.println(list.ToString());
+		System.out.println(list.toString());
 		
 		try{
 			list.removeRange(50, 80);
-			System.out.println(list.ToString());
+			System.out.println(list.toString());
 		}catch(Exception e){
 			assertEquals(e.getMessage(), "输入有问题！");
 		}
@@ -208,11 +203,11 @@ public class LinkedListTest {
 //		list.add(99);
 		
 		LinkedList l = new LinkedList();
-		l.add(10);
-//		l.add(30);
-//		l.add(40);
-//		l.add(60);
+		l.add(11);
+		l.add(33);
+//		l.add(44);
+//		l.add(66);
 
-		System.out.println(list.intersection(l).ToString());
+		System.out.println(list.intersection(l).toString());
 	}
 }

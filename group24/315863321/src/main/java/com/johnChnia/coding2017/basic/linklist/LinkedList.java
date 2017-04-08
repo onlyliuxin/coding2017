@@ -1,4 +1,6 @@
-package com.johnChnia.coding2017.basic;
+package com.johnChnia.coding2017.basic.linklist;
+
+import com.johnChnia.coding2017.basic.List;
 
 import java.util.NoSuchElementException;
 
@@ -345,7 +347,7 @@ public class LinkedList<E> implements List<E> {
                 valueNode = valueNode.next;
                 indexOfArray++;
             } else {
-                mapNode = mapNode.next;
+                valueNode = valueNode.next;
             }
             indexOfList++;
         }
