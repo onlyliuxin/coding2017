@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  * Created by john on 2017/3/8.
+ *
  * @// TODO: 2017/4/1  实现Iterator 接口
  */
 
@@ -23,7 +24,7 @@ public class ArrayList<E> implements List<E> {
     /**
      * Constructs an list with the specified initial capacity.
      *
-     * @param initialCapacity
+     * @param initialCapacity capacity of arrayList.
      * @throws IllegalArgumentException if the specified initial capacity
      *                                  is negative or zero
      */
@@ -88,7 +89,9 @@ public class ArrayList<E> implements List<E> {
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
     public E remove(int index) {
-        rangeCheckForAdd(index);
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+        }
         Object oldValue = elementData[index];
         int numMoved = size() - index - 1;
         if (numMoved > 0) {
