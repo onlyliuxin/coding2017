@@ -152,7 +152,10 @@ public class LRUPageFrame {
 		return null;
 	}
 
+	public static void main(String[] args) {
 
+		
+	}
 
 	public String toString(){
 		StringBuilder buffer = new StringBuilder();
