@@ -1,4 +1,7 @@
-package com.coding2017.basic;
+package com.coding2017.basic.linklist;
+
+import com.coding2017.basic.Iterator;
+import com.coding2017.basic.List;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;

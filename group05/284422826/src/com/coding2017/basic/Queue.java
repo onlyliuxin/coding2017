@@ -1,5 +1,7 @@
 package com.coding2017.basic;
 
+import com.coding2017.basic.linklist.LinkedList;
+
 import java.util.EmptyStackException;
 
 public class Queue {
