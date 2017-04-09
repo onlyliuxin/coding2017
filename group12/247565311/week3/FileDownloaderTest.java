@@ -19,8 +19,8 @@ public class FileDownloaderTest {
 
 	@Test
 	public void testDownload() {
-		String url = "https://edmullen.net/test/rc.jpg";
-		String path = "D:\\hellp.jpg";
+		String url = "http://music.163.com/api/pc/download/latest";
+		String path = "D:\\hellp.exe";
 		FileDownloader downloader = new FileDownloader(url,path);
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
@@ -30,16 +30,21 @@ public class FileDownloaderTest {
 				downloadFinished = true;
 			}
 		});
-		downloader.execute();
-		// 等待多线程下载程序执行完毕
+		double time = 0;
+		try {
+			downloader.execute();
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
 		while (!downloadFinished) {
 			try {
-				System.out.println("还没有下载完成，休眠五秒");
-				Thread.sleep(5000);//休眠5秒
+				Thread.sleep(100);//休眠0.1秒
+				
+				time += 1;
 			} catch (InterruptedException e) {				
 				e.printStackTrace();
 			}
 		}
-		System.out.println("下载完成！");
+		System.out.println("下载完成！耗时："+time/10.0+" 秒。");
 	}
 }
