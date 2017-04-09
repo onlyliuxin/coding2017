@@ -3,6 +3,7 @@ package test.week02.practice;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 import main.week02.practice.ArrayUtil;
 
@@ -48,32 +49,63 @@ public class ArrayUtilTest {
 
 	@Test
 	public void testMerge() {
-		fail("Not yet implemented");
+		int[][] array1 = {{0,1,2,5,6,9,11},
+				{1,2,3},
+				{}};
+		int[][] array2 = {{0,3,8,15,16,20,50},{1},{}};
+		for(int i=0;i<3;i++){
+			System.out.println("前："+Arrays.toString(array1[i])+Arrays.toString(array2[i]));
+			System.out.println("后："+Arrays.toString(util.merge(array1[i], array2[i])));			
+		}
 	}
 
 	@Test
 	public void testGrow() {
-		fail("Not yet implemented");
+		int[][] origin = {{1,20,3,65,4,6,9,7},
+				{},
+				{1,0},
+				{1,0,2,3},
+				{23,0,0,32}};
+		for(int[] a : origin){
+			System.out.println("前："+Arrays.toString(a));
+			System.out.println("后："+Arrays.toString(util.grow(a, 3)));			
+		}
 	}
 
 	@Test
 	public void testFibonacci() {
-		fail("Not yet implemented");
+		int[] origin = {1,2,3,65,4,6,9,7};
+		for(int a : origin){
+			System.out.println(Arrays.toString(util.fibonacci(a)));			
+		}
 	}
 
 	@Test
 	public void testGetPrimes() {
-		fail("Not yet implemented");
+		int[] origin = {1,2,3,65,4,6,9,7};
+		for(int a : origin){
+			System.out.println(Arrays.toString(util.getPrimes(a)));			
+		}
 	}
 
 	@Test
 	public void testGetPerfectNumbers() {
-		fail("Not yet implemented");
+		int[] origin = {1,2,3,65,4,6,999,7};
+		for(int a : origin){
+			System.out.println(Arrays.toString(util.getPerfectNumbers(a)));			
+		}
 	}
 
 	@Test
 	public void testJoin() {
-		fail("Not yet implemented");
+		int[][] origin = {{1,20,3,65,4,6,9,7},
+				{},
+				{1,0},
+				{1,0,2,3},
+				{23,0,0,32}};
+		for(int[] a : origin){
+			System.out.println(util.join(a , "="));
+		}
 	}
 
 }
