@@ -3,9 +3,7 @@ package com.github.miniyk2012.coding2017.coderising.download;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import com.github.miniyk2012.coding2017.coderising.download.api.ConnectionManager;
-import com.github.miniyk2012.coding2017.coderising.download.api.DownloadListener;
 import com.github.miniyk2012.coding2017.coderising.download.impl.ConnectionManagerImpl;
 
 public class FileDownloaderTest {
@@ -24,17 +22,12 @@ public class FileDownloaderTest {
 		
 		String url = "http://inews.gtimg.com/newsapp_bt/0/1209438116/1000";
 //		String url = "https://www.baidu.com/img/bd_logo.png";
-
-		FileDownloader downloader = new FileDownloader(url, "test.png");
+		String filePath = "src/main/resources/downloads/test.png";
+        FileDownloader downloader = new FileDownloader(url, filePath);
 	
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
-		downloader.setListener(new DownloadListener() {
-			@Override
-			public void notifyFinished() {
-				downloadFinished = true;
-			}
-		});
+		downloader.setListener(() -> downloadFinished = true);
 		
 		downloader.execute();
 		

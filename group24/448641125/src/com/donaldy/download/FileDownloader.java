@@ -47,19 +47,20 @@ public class FileDownloader {
 			
 			int length = conn.getContentLength();
 
-			int partLength = length ;
+			System.out.println("length : " + length);
+
+			int partLength = length / 3 + 1;
 
 			System.out.println("partLengh : " + partLength);
 
 			int startPos = 0;
 
-			/*for (int i = 0 ; i < 5; ++ i) {
-				System.out.println("Thread is ready...");
+			for (int i = 0 ; i < 3; ++ i) {
+				System.out.println("Thread:" + i + " is ready...");
 				executorService.execute(new DownloadThread(conn, startPos, startPos + partLength));
+				System.out.println("startPos: " + startPos + ", endPos: " + (startPos + partLength));
 				startPos += partLength;
-			}*/
-
-			new DownloadThread(conn, startPos, startPos + partLength).start();
+			}
 
 			executorService.shutdown();
 
