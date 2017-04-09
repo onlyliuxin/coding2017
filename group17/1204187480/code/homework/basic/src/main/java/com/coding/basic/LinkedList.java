@@ -230,6 +230,8 @@ public class LinkedList implements List {
         while (iterator.hasNext()) {
             int index = (int) iterator.next();
             Node node = node(fromNode, fromIndex, index);
+            fromIndex = index;
+            fromNode = node;
             if (node == null) {
                 return retArray;
             } else {
