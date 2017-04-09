@@ -1,5 +1,6 @@
 package jvm;
 
+import jvm.classfile.ClassFile;
 import jvm.exception.ReadClassException;
 import org.junit.After;
 import org.junit.Assert;
@@ -41,9 +42,16 @@ public class ClassFileLoaderTest {
 		String className = "jvm.EmployeeV1";
 		byte[] byteCodes = loader.readBinaryCode(className);
 		byte[] codes = new byte[] {byteCodes[0], byteCodes[1], byteCodes[2], byteCodes[3]};
-		
-		String actualValue = this.byteToHexString(codes);
-		Assert.assertEquals("cafebabe", actualValue);
+
+		boolean check = loader.checkMagicNumber(codes);
+		Assert.assertTrue(check);
+	}
+
+	@Test
+	public void testLoad() throws ReadClassException {
+		String className = "jvm.EmployeeV1";
+		ClassFile classFile = loader.load(className);
+		System.out.println("done");
 	}
 
 	private String byteToHexString(byte[] codes) {
