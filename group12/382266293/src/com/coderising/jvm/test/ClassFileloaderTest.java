@@ -15,7 +15,7 @@ import com.coderising.jvm.loader.ClassFileLoader;
 
 public class ClassFileloaderTest {
 
-	static String path1 = "C:\\Users\\Administrator\\git\\coding2017n\\group12\\382266293\\bin";
+	static String path1 = "C:\\Users\\steve\\workspace\\coding2017n\\group12\\382266293\\bin";
 	static String path2 = "C:\temp";
 	String FULL_QUALIFIED_CLASS_NAME = "com/coderising/jvm/test/EmployeeV1";
 
@@ -65,7 +65,7 @@ public class ClassFileloaderTest {
 
 		byte[] byteCodes = loader.readBinaryCode(className);
 
-		// 注意：这个字节数可能和你的JVM版本有关系， 你可以看看编译好的类到底有多大
+		// 娉ㄦ剰锛氳繖涓瓧鑺傛暟鍙兘鍜屼綘鐨凧VM鐗堟湰鏈夊叧绯伙紝 浣犲彲浠ョ湅鐪嬬紪璇戝ソ鐨勭被鍒板簳鏈夊澶�
 		Assert.assertEquals(1056, byteCodes.length);
 
 	}
@@ -160,7 +160,7 @@ public class ClassFileloaderTest {
 			Assert.assertEquals(9, nameAndType.getIndex1());
 			Assert.assertEquals(14, nameAndType.getIndex2());
 		}
-		// 抽查几个吧
+		// 鎶芥煡鍑犱釜鍚�
 		{
 			MethodRefInfo methodRef = (MethodRefInfo) pool.getConstantInfo(45);
 			Assert.assertEquals(1, methodRef.getClassInfoIndex());
