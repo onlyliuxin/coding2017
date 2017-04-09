@@ -13,7 +13,7 @@ import com.coderising.jvm.loader.ClassFileLoader;
 
 public class ClassFileloaderTest {
 
-	
+	//E:\\mygit\\coding2017\\group12\\446031103\\bin
 	static String path1 = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
 	static String path2 = "C:\temp";
 	
@@ -45,13 +45,12 @@ public class ClassFileloaderTest {
 		
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
-		
 		String className = "com.coderising.jvm.test.EmployeeV1";
 		
 		byte[] byteCodes = loader.readBinaryCode(className);
 		
 		// 注意：这个字节数可能和你的JVM版本有关系， 你可以看看编译好的类到底有多大
-		Assert.assertEquals(1056, byteCodes.length);
+		Assert.assertEquals(1024, byteCodes.length);
 		
 	}
 	
