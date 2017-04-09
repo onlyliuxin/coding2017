@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 
 import com.coderising.download.api.Connection;
 
-public class ConnectionImpl implements Connection{
+class ConnectionImpl implements Connection{
 
 	/*http连接*/
 	private HttpURLConnection httpConnection;
@@ -18,19 +18,8 @@ public class ConnectionImpl implements Connection{
 	@Override
 	public byte[] read(int startPos, int endPos) throws IOException {
 
-		byte[] data = null;
 		InputStream is = getDownloadStream(startPos,endPos);		
-		if(is !=null){
-			ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
-	        byte[] buffer = new byte[1024]; 
-	        int length = -1; 
-	        while ((length = is.read(buffer)) != -1) { 
-	            baos.write(buffer, 0, length); 
-	        } 
-	        baos.flush();
-	        data = baos.toByteArray(); 		
-		}
-        return data;
+		return inputStremCovertToArray(is);
 	}
 
 	@Override
@@ -53,6 +42,27 @@ public class ConnectionImpl implements Connection{
 		httpConnection.disconnect();
 	}
 	
+	/**
+	 * 将输入流转换为byte数组
+	 * @param is
+	 * @return
+	 * @throws IOException
+	 */
+	private byte[] inputStremCovertToArray(InputStream is) throws IOException{
+		
+		byte[] data = null;	
+		if(is !=null){
+			ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
+	        byte[] buffer = new byte[1024]; 
+	        int length = -1; 
+	        while ((length = is.read(buffer)) != -1) { 
+	            baos.write(buffer, 0, length); 
+	        } 
+	        baos.flush();
+	        data = baos.toByteArray(); 		
+		}
+        return data;
+	}
 	public void setHttpConnection(HttpURLConnection httpConnection) {
 		this.httpConnection = httpConnection;
 	}

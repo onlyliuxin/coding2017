@@ -31,18 +31,7 @@ public class FileDownloader {
 			conn = cm.open(this.url);			
 			int length = conn.getContentLength();			
 			//分配下载块
-			int blockSize = length / threadNum;
-			DownloadThread[] threads = new DownloadThread[threadNum];
-			for (int thread = 1; thread <= threadNum; thread++) {				
-                int startIndex = (thread - 1) * blockSize;  
-                int endIndex = thread * blockSize-1;  
-                if (thread == threadNum) {//最后一个线程下载的长度
-                    endIndex = length;  
-                }                   
-                DownloadThread thr = new DownloadThread(downloadPath,cm.open(this.url),startIndex,endIndex);
-                threads[thread-1] = thr;
-                thr.start();
-            }
+			DownloadThread[] threads = assignDownloadPart(length);
 			//判断所有线程是否下载完成
 			new NotifyCaller(listener,threads,length).start();
 			
@@ -53,6 +42,29 @@ public class FileDownloader {
 				conn.close();
 			}
 		}								
+	}
+
+	/**
+	 * 分配下载块并启动下载
+	 * @param length
+	 * @return
+	 * @throws ConnectionException
+	 */
+	private DownloadThread[] assignDownloadPart(int length)
+			throws ConnectionException {
+		int blockSize = length / threadNum;
+		DownloadThread[] threads = new DownloadThread[threadNum];
+		for (int thread = 1; thread <= threadNum; thread++) {				
+		    int startIndex = (thread - 1) * blockSize;  
+		    int endIndex = thread * blockSize-1;  
+		    if (thread == threadNum) {//最后一个线程下载的长度
+		        endIndex = length;  
+		    }                   
+		    DownloadThread thr = new DownloadThread(downloadPath,cm.open(this.url),startIndex,endIndex);
+		    threads[thread-1] = thr;
+		    thr.start();
+		}
+		return threads;
 	}
 		
 	public void setListener(DownloadListener listener) {
