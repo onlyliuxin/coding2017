@@ -1,111 +1,59 @@
 package com.coderising.jvm.loader;
 
-import java.io.ByteArrayOutputStream;
+import com.coderising.jvm.clz.ClassFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class ClassFileLoader {
 
     private List<String> clzPaths = new ArrayList<String>();
 
     public byte[] readBinaryCode(String className) {
-        if (className == null || className.length() == 0) {
-            return null;
-        }
 
-        File classFile = getClassFileFromClassPath(className);
+        className = className.replace('.', File.separatorChar) + ".class";
 
-        if (classFile == null) {
-            return null;
-        }
-
-        return readFileBytes(classFile);
-    }
-
-    public void addClassPath(String path) {
-        if (path == null || path.length() == 0) {
-            return;
-        }
-
-        clzPaths.add(path);
-    }
-
-    public String getClassPath() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < clzPaths.size(); i++) {
-            stringBuilder.append(clzPaths.get(i));
-            if (i < clzPaths.size() - 1) {
-                stringBuilder.append(";");
+        for (String path : this.clzPaths) {
+            String clzFileName = path + File.separatorChar + className;
+            byte[] codes = loadClassFile(clzFileName);
+            if (codes != null) {
+                return codes;
             }
         }
 
-        return stringBuilder.toString();
+        return null;
     }
 
-    private byte[] readFileBytes(File file) {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private byte[] loadClassFile(String clzFileName) {
+        File f = new File(clzFileName);
 
-        FileInputStream in = null;
         try {
-            in = new FileInputStream(file);
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = in.read(buffer)) != -1) {
-                out.write(buffer, 0, len);
-            }
-
-            return out.toByteArray();
+            return IOUtils.toByteArray(new FileInputStream(f));
         } catch (IOException e) {
             e.printStackTrace();
             return null;
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
-    private File getClassFileFromClassPath(String className) {
-        className = className2FilePath(className);
-        className += ".class";
-
-        // 从当前路径读取
-        File classFile = getFileFromDir("", className);
-        if (classFile != null) {
-            return classFile;
+    public void addClassPath(String path) {
+        if (this.clzPaths.contains(path)) {
+            return;
         }
 
-        // 从环境变量路径读取
-        for (String clzPath : clzPaths) {
-            classFile = getFileFromDir(clzPath, className);
-            if (classFile != null) {
-                return classFile;
-            }
-        }
-
-        return null;
+        this.clzPaths.add(path);
     }
 
-    private File getFileFromDir(String dir, String fileName) {
-        File file = new File(dir);
-        File destFile;
-        if (file.exists() && file.isDirectory()) {
-            destFile = new File(file.getAbsolutePath() + File.separator + fileName);
-            if (destFile.isFile() && destFile.exists()) {
-                return destFile;
-            }
-        }
-        return null;
+    public String getClassPath() {
+        return StringUtils.join(this.clzPaths, ";");
     }
 
-    private String className2FilePath(String className) {
-        return className.replaceAll("\\.", File.separator);
+    public ClassFile loadClass(String className) {
+        byte[] codes = this.readBinaryCode(className);
+        ClassFileParser parser = new ClassFileParser();
+        return parser.parse(codes);
     }
 }
