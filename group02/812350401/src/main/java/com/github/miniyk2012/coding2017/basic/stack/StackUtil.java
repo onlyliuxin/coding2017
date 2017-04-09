@@ -52,7 +52,7 @@ public class StackUtil {
      */
     public static Object[] getTop(Stack s, int len) {
         if (len < 0) {
-            throw new IndexOutOfBoundsException();
+            return null;
         }
         Stack tempS = new Stack();
         while (tempS.size()<len && !s.isEmpty()) {
@@ -62,8 +62,11 @@ public class StackUtil {
         Object[] o = new Object[actualLen];
         int i = actualLen;
         while (!tempS.isEmpty()) {
-            o[--i] = tempS.pop();
+            Object temp = tempS.pop();
+            o[--i] = temp;
+            s.push(temp);
         }
+
         return o;
     }
 
