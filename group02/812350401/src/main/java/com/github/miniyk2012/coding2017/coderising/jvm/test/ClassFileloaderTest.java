@@ -18,6 +18,16 @@ public class ClassFileloaderTest {
 	static String path2 = ClassFileloaderTest.class.getClassLoader().getResource("jvm").getPath();
     static ClassFile clzFile = null;
 
+    static {
+        ClassFileLoader loader = new ClassFileLoader();
+        loader.addClassPath(path1);
+        loader.addClassPath(path2);
+        String className = "com.github.miniyk2012.coding2017.jvm.test.EmployeeV1";
+
+        clzFile = loader.loadClass(className);
+        clzFile.print();
+    }
+
 	@Before
 	public void setUp() throws Exception {		 
 	}
@@ -51,7 +61,7 @@ public class ClassFileloaderTest {
 		byte[] byteCodes = loader.readBinaryCode(className);
 		
 		// 注意：这个字节数可能和你的JVM版本有关系， 你可以看看编译好的类到底有多大
-		Assert.assertEquals(1114, byteCodes.length);
+		Assert.assertEquals(1056, byteCodes.length);
 		
 	}
 	

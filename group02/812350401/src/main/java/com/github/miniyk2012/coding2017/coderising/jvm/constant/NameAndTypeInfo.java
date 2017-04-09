@@ -28,14 +28,16 @@ public class NameAndTypeInfo extends ConstantInfo{
 	
 	
 	public String getName(){
-		ConstantPool pool = this.getConstantPool();
-		UTF8Info utf8Info1 = (UTF8Info)pool.getConstantInfo(index1);
+		// ConstantPool pool = this.getConstantPool();
+		// UTF8Info utf8Info1 = (UTF8Info)pool.getConstantInfo(index1);
+		UTF8Info utf8Info1 = (UTF8Info)getConstantInfo(index1);
 		return utf8Info1.getValue();
 	}
 	
 	public String getTypeInfo(){
-		ConstantPool pool = this.getConstantPool();
-		UTF8Info utf8Info2 = (UTF8Info)pool.getConstantInfo(index2);
+		// ConstantPool pool = this.getConstantPool();
+		// UTF8Info utf8Info2 = (UTF8Info)pool.getConstantInfo(index2);
+		UTF8Info utf8Info2 = (UTF8Info)getConstantInfo(index2);
 		return utf8Info2.getValue();
 	}
 	
