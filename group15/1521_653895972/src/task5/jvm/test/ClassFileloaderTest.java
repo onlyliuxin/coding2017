@@ -13,16 +13,16 @@ import task5.jvm.loader.ClassFileLoader;
 public class ClassFileloaderTest {
 
 	
-	private static final String FULL_QUALIFIED_CLASS_NAME = "com/coderising/jvm/test/EmployeeV1";
+	private static final String FULL_QUALIFIED_CLASS_NAME = "task5.jvm.test.EmployeeV1";
 	
-	static String path1 = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
+	static String path1 = "D:\\oneces\\GitHub\\coding2017\\group15\\1521_653895972\\out\\production\\1521_653895972";
 	static String path2 = "C:\temp";
 	
 	static ClassFile clzFile = null;
 	static {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
-		String className = "com.coderising.jvm.test.EmployeeV1";
+		String className = "task5.jvm.test.EmployeeV1";
 		
 		clzFile = loader.loadClass(className);
 		clzFile.print();
@@ -56,7 +56,7 @@ public class ClassFileloaderTest {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
 		
-		String className = "com.coderising.jvm.test.EmployeeV1";
+		String className = "task5.jvm.test.EmployeeV1";
 		
 		byte[] byteCodes = loader.readBinaryCode(className);
 		
@@ -70,7 +70,7 @@ public class ClassFileloaderTest {
 	public void testMagicNumber(){
     	ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
-		String className = "com.coderising.jvm.test.EmployeeV1";
+		String className = "task5.jvm.test.EmployeeV1";
 		byte[] byteCodes = loader.readBinaryCode(className);
 		byte[] codes = new byte[]{byteCodes[0],byteCodes[1],byteCodes[2],byteCodes[3]};
 		

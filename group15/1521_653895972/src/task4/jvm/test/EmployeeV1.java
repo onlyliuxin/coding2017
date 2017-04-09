@@ -1,4 +1,4 @@
-package week04.jvm.test;
+package task4.jvm.test;
 
 public class EmployeeV1 {
 	

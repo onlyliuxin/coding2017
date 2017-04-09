@@ -1,5 +1,7 @@
 package task4.jvm.loader;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -15,10 +17,7 @@ public class ClassFileLoader {
 	private List<String> clzPaths = new ArrayList<String>();
 	
 	public byte[] readBinaryCode(String className) throws Exception {
-		URL base = this.getClass().getResource("/");
-		String baseToString = ""+base;
-		String filePath = baseToString.replaceAll("file:/", "")+className.replace(".", "\\")+".class";
-		//String filePath = clzPaths.get(0)+"\\"+className.replace(".", "\\")+".class";  //符合Junit测试调用addClassPath方法
+		String filePath = clzPaths.get(0)+File.separatorChar+className.replace('.',File.separatorChar)+".class";
 		File file = new File(filePath);
 		
 		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
@@ -33,19 +32,13 @@ public class ClassFileLoader {
 	}
 	
 	public void addClassPath(String path) {
+		if (clzPaths.contains(path))
+			return;
 		clzPaths.add(path);
 	}
 		
 	public String getClassPath(){
-		StringBuffer strBuffer = new StringBuffer();
-		for(int i=0;i<clzPaths.size();i++){
-			if(i == (clzPaths.size() - 1)){
-				strBuffer.append(clzPaths.get(i));
-			}else{
-				strBuffer.append(clzPaths.get(i)+";");
-			}
-		}
-		return strBuffer.toString();
+		return StringUtils.join(clzPaths,";");
 	}
 
 }

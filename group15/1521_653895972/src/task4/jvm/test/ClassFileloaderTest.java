@@ -10,7 +10,7 @@ import task4.jvm.loader.ClassFileLoader;
 public class ClassFileloaderTest {
 
 	
-	static String path1 = "D:\\GitHub\\coding2017\\group01\\1814014897\\zhouhui\\bin";
+	static String path1 = "D:\\oneces\\GitHub\\coding2017\\group15\\1521_653895972\\out\\production\\1521_653895972";
 	static String path2 = "C:\temp";
 	
 	
@@ -31,7 +31,6 @@ public class ClassFileloaderTest {
 		loader.addClassPath(path2);
 		
 		String clzPath = loader.getClassPath();
-		
 		Assert.assertEquals(path1+";"+path2,clzPath);
 		
 	}
@@ -42,12 +41,12 @@ public class ClassFileloaderTest {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
 		
-		String className = "week04.jvm.test.EmployeeV1";
+		String className = "task4.jvm.test.EmployeeV1";
 		
 		byte[] byteCodes = loader.readBinaryCode(className);
 		
 		// 注意：这个字节数可能和你的JVM版本有关系， 你可以看看编译好的类到底有多大
-		Assert.assertEquals(1040, byteCodes.length);
+		Assert.assertEquals(1038, byteCodes.length);
 		
 	}
 	
@@ -56,7 +55,7 @@ public class ClassFileloaderTest {
 	public void testMagicNumber() throws Exception{
     	ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
-		String className = "week04.jvm.test.EmployeeV1";
+		String className = "task4.jvm.test.EmployeeV1";
 		byte[] byteCodes = loader.readBinaryCode(className);
 		byte[] codes = new byte[]{byteCodes[0],byteCodes[1],byteCodes[2],byteCodes[3]};
 		

@@ -29,7 +29,7 @@ public class LRUPageFrame {
     /**
      * 获取缓存中对象
      *
-     * @param key
+     * @param pageNum
      * @return
      */
     public void access(int pageNum) {
