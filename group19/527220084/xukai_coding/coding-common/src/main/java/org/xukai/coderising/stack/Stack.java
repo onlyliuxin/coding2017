@@ -1,4 +1,6 @@
-package org.xukai.common;
+package org.xukai.coderising.stack;
+
+import org.xukai.common.ArrayList;
 
 import java.util.EmptyStackException;
 
@@ -30,5 +32,9 @@ public class Stack {
 
 	public int size(){
 		return elementData.size();
+	}
+
+	public void display() {
+		elementData.display();
 	}
 }
