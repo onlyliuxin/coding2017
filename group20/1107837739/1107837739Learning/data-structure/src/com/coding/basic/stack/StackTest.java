@@ -10,13 +10,13 @@ import org.junit.Test;
  *
  * Created by Korben on 18/02/2017.
  */
-public class KStackTest {
-    private KStack<Integer> stack;
+public class StackTest {
+    private Stack<Integer> stack;
     private int initTestSize;
 
     @Before
     public void init() {
-        stack = new KStack<>();
+        stack = new Stack<>();
         initTestSize = 5;
 
         for (int i = 0; i < initTestSize; i++) {
@@ -55,11 +55,11 @@ public class KStackTest {
 
     @Test
     public void empty() throws Exception {
-        Assert.assertFalse(stack.empty());
+        Assert.assertFalse(stack.isEmpty());
         for (int i = 0; i < initTestSize; i++) {
             stack.pop();
         }
-        Assert.assertTrue(stack.empty());
+        Assert.assertTrue(stack.isEmpty());
     }
 
     @Test

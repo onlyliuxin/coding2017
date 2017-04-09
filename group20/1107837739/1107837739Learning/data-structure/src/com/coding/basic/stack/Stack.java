@@ -8,12 +8,12 @@ import java.util.Objects;
  *
  * Created by Korben on 18/02/2017.
  */
-public class KStack<T> {
+public class Stack<T> {
 
     private int size;
     private Object[] dataArray = {};
 
-    public KStack() {
+    public Stack() {
     }
 
     public int size() {
@@ -47,7 +47,7 @@ public class KStack<T> {
         return (T) dataArray[size - 1];
     }
 
-    public boolean empty() {
+    public boolean isEmpty() {
         return size == 0;
     }
 
