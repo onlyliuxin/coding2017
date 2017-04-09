@@ -1,12 +1,12 @@
-package com.coderising.download;
+package com.coding.coderising.download;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.coderising.download.api.ConnectionManager;
-import com.coderising.download.api.DownloadListener;
-import com.coderising.download.impl.ConnectionManagerImpl;
+import com.coding.coderising.download.api.ConnectionManager;
+import com.coding.coderising.download.api.DownloadListener;
+import com.coding.coderising.download.impl.ConnectionManagerImpl;
 
 public class FileDownloaderTest {
 	boolean downloadFinished = false;
@@ -21,7 +21,7 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "http://localhost:8080/test.jpg";
+		String url = "C:/Users/苏磊/Desktop/R%T[DQRU~@$6TKZ7)TD81JW.png";
 		
 		FileDownloader downloader = new FileDownloader(url);
 
