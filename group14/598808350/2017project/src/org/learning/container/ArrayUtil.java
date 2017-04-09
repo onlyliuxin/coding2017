@@ -127,7 +127,7 @@ public class ArrayUtil {
 	public static int[] fibonacci(int max){
 		int[] result = null;
 		if (max == 1) return result = new int[0];
-		if (max == 2) return result = new int[]{1};
+		if (max == 2) return result = new int[]{1,1};
 		
 		int a =1,b=1,c=0;
 		int aIndex = 0;

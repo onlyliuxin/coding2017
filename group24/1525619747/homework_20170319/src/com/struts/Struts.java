@@ -16,8 +16,7 @@ public class Struts
 			ClassNotFoundException, NoSuchMethodException, SecurityException,
 			InstantiationException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException,
-			NoSuchFieldException
-	{
+			NoSuchFieldException {
 
 		/*
 		 * 
@@ -45,8 +44,7 @@ public class Struts
 		class1 = Class.forName(className);
 		// System.out.println("类名称   " + class1.getName());
 
-		if (class1 != null)
-		{
+		if (class1 != null) {
 			// 调用class1的setName方法, 待参数
 			// 根据.class反射出来的类实例
 			Object instance = class1.newInstance();
@@ -58,8 +56,7 @@ public class Struts
 			Object res2 = method.invoke(instance, "1234");
 
 			// set attr
-			for (Map.Entry<String, String> entity : parameters.entrySet())
-			{
+			for (Map.Entry<String, String> entity : parameters.entrySet()) {
 				String attrName = entity.getKey();
 				String attrValue = entity.getValue();
 
