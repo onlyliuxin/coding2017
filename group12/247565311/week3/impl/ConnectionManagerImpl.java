@@ -13,16 +13,6 @@ public class ConnectionManagerImpl implements ConnectionManager {
     ConnectionImpl conImpl = null;
 	@Override
 	public Connection open(String url) throws ConnectionException {
-		try {
-			URL urllink = new URL(url);
-			conImpl = new ConnectionImpl();
-			HttpURLConnection httpconn = (HttpURLConnection)urllink.openConnection();
-			httpconn.setConnectTimeout(5*1000);
-			httpconn.setRequestProperty("User-Agent","Mozilla/4.0 (compatiable; MSIE 5.0; Windows NT; DigExt)"); // Ä£Äâä¯ÀÀÆ÷
-			conImpl.setConn(httpconn);
-		} catch (Exception e) {
-			throw (ConnectionException)e;
-		}
-		 return conImpl;
+		 return new ConnectionImpl(url);
 	}
 }
