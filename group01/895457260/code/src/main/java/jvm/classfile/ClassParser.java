@@ -1,6 +1,7 @@
 package jvm.classfile;
 
 import jvm.classfile.constant.item.Constant;
+import jvm.classfile.constant.item.IReference;
 import jvm.classfile.constant.item.impl.CountConstant;
 import jvm.classfile.constant.parser.ConstantParser;
 import jvm.classfile.constant.parser.ConstantParserFactory;
@@ -37,15 +38,32 @@ public class ClassParser {
 
     public static ClassFile parse(byte[] bytes) {
         ClassFile classFile = new ClassFile();
+
+        classFile.minorVersion = parseMinorVersion(bytes, index);
+        classFile.majorVersion = parseMajorVersion(bytes, index);
         classFile.constantPool = parseConstantPool(bytes, index);
         classFile.classIndex = parseClassIndex(bytes, index);
         classFile.accessFlag = parseAccessFlag(bytes, index);
-        restore(classFile);
+        linkConstantReferences(classFile);
         return classFile;
     }
 
-    private static void restore(ClassFile classFile) {
-        
+    private static int parseMinorVersion(byte[] bytes, StartIndex index) {
+        return ByteUtils.toInt(bytes, index.minorVersion, 2);
+    }
+
+    private static int parseMajorVersion(byte[] bytes, StartIndex index) {
+        return ByteUtils.toInt(bytes, index.majorVersion, 2);
+    }
+
+    private static void linkConstantReferences(ClassFile classFile) {
+        ConstantPool constantPool = classFile.constantPool;
+        Map<Integer, Constant> constantMap = constantPool.constantMap;
+        constantMap.forEach((i, c) -> {
+            if (c instanceof IReference) {
+                ((IReference) c).linkReference(constantPool);
+            }
+        });
     }
 
     private static ConstantPool parseConstantPool(byte[] bytes, StartIndex index) {
@@ -54,21 +72,20 @@ public class ClassParser {
         ConstantPool constantPool = new ConstantPool();
         int currentIndex = index.constantPoolCount;
 
-        index.constantIndexMap.put(1, currentIndex);
+        index.constantIndexMap.put(0, currentIndex);
         int count = ByteUtils.toInt(bytes, currentIndex, COUNT_LEN);
-        constantPool.constantMap.put(1, new CountConstant(count));
+        constantPool.constantMap.put(0, new CountConstant(count));
         currentIndex += COUNT_LEN;
 
         Map<Integer, ConstantParser> parserMap = new HashMap<>();
-        for (int i = 2; i <= count; ++i) {
-            ConstantParser parser = ConstantParserFactory.get(
-                    ByteUtils.toInt(bytes, currentIndex, ConstantParser.TAG_LEN),
-                    bytes, currentIndex);
+        for (int i = 1; i < count; ++i) {
+            int tag = ByteUtils.toInt(bytes, currentIndex, ConstantParser.TAG_LEN);
+            ConstantParser parser = ConstantParserFactory.get(tag, bytes, currentIndex);
             parserMap.put(i, parser);
             index.constantIndexMap.put(i, currentIndex);
             currentIndex += parser.length();
         }
-        for (int i = 2; i <= count; ++i) {
+        for (int i = 1; i < count; ++i) {
             ConstantParser parser = parserMap.get(i);
             int startIndex = index.constantIndexMap.get(i);
             Constant constant = parser.parse(bytes, startIndex);
@@ -84,8 +101,6 @@ public class ClassParser {
 
     private static ClassIndex parseClassIndex(byte[] bytes, StartIndex index) {
         ClassIndex classIndex = new ClassIndex();
-        classIndex.minorVersion = ByteUtils.toInt(bytes, index.minorVersion, 2);
-        classIndex.majorVersion = ByteUtils.toInt(bytes, index.majorVersion, 2);
         classIndex.thisClass = ByteUtils.toInt(bytes, index.thisClass, 2);
         classIndex.superClass = ByteUtils.toInt(bytes, index.superClass, 2);
         return classIndex;

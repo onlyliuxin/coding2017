@@ -11,4 +11,12 @@ import java.util.Map;
  */
 public class ConstantPool {
     Map<Integer, Constant> constantMap = new HashMap<>();
+
+    public int getSize() {
+        return constantMap.size() - 1;
+    }
+
+    public Constant getConstantInfo(int index) {
+        return constantMap.get(index);
+    }
 }

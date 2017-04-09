@@ -5,5 +5,5 @@ package jvm.classfile.constant.item;
  * TODO:
  */
 public interface Constant {
-    int length();
+    int size();
 }

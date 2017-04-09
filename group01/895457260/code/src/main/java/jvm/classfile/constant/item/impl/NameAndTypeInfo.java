@@ -1,5 +1,6 @@
 package jvm.classfile.constant.item.impl;
 
+import jvm.classfile.ConstantPool;
 import jvm.classfile.constant.item.Constant;
 
 /**
@@ -16,7 +17,7 @@ public class NameAndTypeInfo implements Constant {
     }
 
     @Override
-    public int length() {
+    public int size() {
         return 5;
     }
 
@@ -25,6 +26,14 @@ public class NameAndTypeInfo implements Constant {
     }
 
     public int getDescriptorIndex() {
+        return descriptorIndex;
+    }
+
+    public int getIndex1() {
+        return nameIndex;
+    }
+
+    public int getIndex2() {
         return descriptorIndex;
     }
 }

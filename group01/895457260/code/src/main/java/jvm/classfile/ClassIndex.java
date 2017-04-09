@@ -5,8 +5,14 @@ package jvm.classfile;
  * TODO:
  */
 public class ClassIndex {
-    int minorVersion;
-    int majorVersion;
     int thisClass;
     int superClass;
+
+    public int getThisClassIndex() {
+        return thisClass;
+    }
+
+    public int getSuperClassIndex() {
+        return superClass;
+    }
 }

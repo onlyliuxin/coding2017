@@ -48,7 +48,7 @@ public class ConstantParserFactory {
             case CONSTANT_UTF8:
                 startIndex += ConstantParser.TAG_LEN;
                 int length = ByteUtils.toInt(bytes, startIndex, 2);
-                return new Utf8InfoParser(length);
+                return new UTF8InfoParser(length);
             case CONSTANT_METHOD_HANDLE:
                 return new MethodHandleInfoParser();
             case CONSTANT_METHOD_TYPE:

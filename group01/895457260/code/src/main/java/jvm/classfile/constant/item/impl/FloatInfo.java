@@ -1,5 +1,6 @@
 package jvm.classfile.constant.item.impl;
 
+import jvm.classfile.ConstantPool;
 import jvm.classfile.constant.item.Constant;
 
 /**
@@ -14,7 +15,7 @@ public class FloatInfo implements Constant {
     }
 
     @Override
-    public int length() {
+    public int size() {
         return 5;
     }
 

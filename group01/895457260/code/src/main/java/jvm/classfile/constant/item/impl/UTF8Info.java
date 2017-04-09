@@ -1,22 +1,29 @@
 package jvm.classfile.constant.item.impl;
 
+import jvm.classfile.ConstantPool;
 import jvm.classfile.constant.item.Constant;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by Haochen on 2017/4/9.
  * TODO:
  */
-public class Utf8Info implements Constant {
+public class UTF8Info implements Constant {
     private int length;
-    private byte[] bytes;
+    private String value;
 
-    public Utf8Info(int length, byte[] bytes) {
+    public UTF8Info(int length, byte[] bytes) {
         this.length = length;
-        this.bytes = bytes;
+        try {
+            this.value = new String(bytes, "utf8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public int length() {
+    public int size() {
         return 3 + length;
     }
 
@@ -24,7 +31,7 @@ public class Utf8Info implements Constant {
         return length;
     }
 
-    public byte[] getBytes() {
-        return bytes;
+    public String getValue() {
+        return value;
     }
 }

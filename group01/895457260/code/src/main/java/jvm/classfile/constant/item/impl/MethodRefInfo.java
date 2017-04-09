@@ -1,5 +1,6 @@
 package jvm.classfile.constant.item.impl;
 
+import jvm.classfile.ConstantPool;
 import jvm.classfile.constant.item.Constant;
 
 /**
@@ -8,23 +9,23 @@ import jvm.classfile.constant.item.Constant;
  */
 public class MethodRefInfo implements Constant {
     private int classIndex;
-    private int nameAndTypeindex;
+    private int nameAndTypeIndex;
 
     public MethodRefInfo(int classIndex, int nameAndTypeIndex) {
         this.classIndex = classIndex;
-        this.nameAndTypeindex = nameAndTypeIndex;
+        this.nameAndTypeIndex = nameAndTypeIndex;
     }
 
     @Override
-    public int length() {
+    public int size() {
         return 5;
     }
 
-    public int getClassIndex() {
+    public int getClassInfoIndex() {
         return classIndex;
     }
 
-    public int getNameAndTypeindex() {
-        return nameAndTypeindex;
+    public int getNameAndTypeIndex() {
+        return nameAndTypeIndex;
     }
 }

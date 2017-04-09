@@ -1,5 +1,6 @@
 package jvm.classfile.constant.item.impl;
 
+import jvm.classfile.ConstantPool;
 import jvm.classfile.constant.item.Constant;
 
 /**
@@ -8,15 +9,15 @@ import jvm.classfile.constant.item.Constant;
  */
 public class FieldRefInfo implements Constant {
     private int classIndex;
-    private int nameAndTypeindex;
+    private int nameAndTypeIndex;
 
     public FieldRefInfo(int classIndex, int nameAndTypeIndex) {
         this.classIndex = classIndex;
-        this.nameAndTypeindex = nameAndTypeIndex;
+        this.nameAndTypeIndex = nameAndTypeIndex;
     }
 
     @Override
-    public int length() {
+    public int size() {
         return 5;
     }
 
@@ -24,7 +25,7 @@ public class FieldRefInfo implements Constant {
         return classIndex;
     }
 
-    public int getNameAndTypeindex() {
-        return nameAndTypeindex;
+    public int getNameAndTypeIndex() {
+        return nameAndTypeIndex;
     }
 }
