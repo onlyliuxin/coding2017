@@ -1,5 +1,6 @@
 package com.coderising.jvm.loader;
 
+import com.coderising.jvm.clz.AccessFlag;
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.clz.ClassIndex;
 import com.coderising.jvm.constant.ClassInfo;
@@ -24,38 +25,64 @@ public class ClassFileParser {
 		clzFile.setMajorVersion(it.next2ByteToInt());
 		
 		//constant_pool
-		int poolCount = it.next2ByteToInt() - 1;
+		clzFile.setConstantPool(parseConstantPool(it));
+		
+		//access_flag
+		clzFile.setAccessFlag(parseAccessFlag(it));
+		
+		//classIndex
+		clzFile.setClassIndex(parseClassInfex(it));
+		
+		return clzFile;
+	}
+
+	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
+		int value = iter.next2ByteToInt();
+		AccessFlag accessFlag = new AccessFlag(value);
+		return accessFlag;
+	}
+
+	private ClassIndex parseClassInfex(ByteCodeIterator iter) {
+		int thisClassIndex = iter.next2ByteToInt();
+		int superClassIndex = iter.next2ByteToInt();
+		ClassIndex classIndex = new ClassIndex(thisClassIndex, superClassIndex);
+		return classIndex;
+
+	}
+
+	private ConstantPool parseConstantPool(ByteCodeIterator iter) {
+		int poolCount = iter.next2ByteToInt() - 1;
 		ConstantPool constantPool = new ConstantPool();
 		constantPool.setSize(poolCount);
 		constantPool.addConstantInfo(new NULLConstantInfo());
 		while(poolCount > 0) {
-			int tag = it.next1ByteToInt();
+			int tag = iter.next1ByteToInt();
 			if(tag == ConstantPool.C_CLASS_INFO) {
-				int nameIndex = it.next2ByteToInt();
+				int nameIndex = iter.next2ByteToInt();
 				ClassInfo classInfo = new ClassInfo(nameIndex, constantPool);
 				constantPool.addConstantInfo(classInfo);
 			} else if(tag == ConstantPool.C_UTF8_INFO) {
-				int length = it.next2ByteToInt();
-				String str = it.nextLengthByteToString(length);
+				int length = iter.next2ByteToInt();
+				String str = iter.nextLengthByteToString(length);
 				UTF8Info utf8Info = new UTF8Info(str);
 				constantPool.addConstantInfo(utf8Info);
 			} else if(tag == ConstantPool.C_METHODREF_INFO) {
-				int classInfoIndex = it.next2ByteToInt();
-				int nameAndTypeIndex = it.next2ByteToInt();
+				int classInfoIndex = iter.next2ByteToInt();
+				int nameAndTypeIndex = iter.next2ByteToInt();
 				MethodRefInfo methodRefInfo = new MethodRefInfo(classInfoIndex, nameAndTypeIndex);
 				constantPool.addConstantInfo(methodRefInfo);
 			} else if(tag == ConstantPool.C_NAME_AND_TYPE_INFO) {
-				int index1 = it.next2ByteToInt();
-				int index2 = it.next2ByteToInt();
+				int index1 = iter.next2ByteToInt();
+				int index2 = iter.next2ByteToInt();
 				NameAndTypeInfo nameAndTypeInfo = new NameAndTypeInfo(index1 , index2);
 				constantPool.addConstantInfo(nameAndTypeInfo);
 			} else if(tag == ConstantPool.C_FIELDREF_INFO) {
-				int classInfoIndex = it.next2ByteToInt();
-				int nameAndTypeIndex = it.next2ByteToInt();
+				int classInfoIndex = iter.next2ByteToInt();
+				int nameAndTypeIndex = iter.next2ByteToInt();
 				FieldRefInfo fieldRefInfo = new FieldRefInfo(classInfoIndex, nameAndTypeIndex) ;
 				constantPool.addConstantInfo(fieldRefInfo);
 			} else if(tag == ConstantPool.C_STRING_INFO) {
-				int index = it.next2ByteToInt();
+				int index = iter.next2ByteToInt();
 				StringInfo stringInfo = new StringInfo(index);
 				constantPool.addConstantInfo(stringInfo);
 			} else {
@@ -63,18 +90,7 @@ public class ClassFileParser {
 			}
 			poolCount--;
 		}
-		clzFile.setConstantPool(constantPool);
-		
-		//access_flag TODO
-		it.next2ByteToInt();
-		
-		//classIndex
-		int thisClassIndex = it.next2ByteToInt();
-		int superClassIndex = it.next2ByteToInt();
-		ClassIndex classIndex = new ClassIndex(thisClassIndex, superClassIndex);
-		clzFile.setClassIndex(classIndex);
-		
-		return clzFile;
+		return constantPool;
 	}
 
 }

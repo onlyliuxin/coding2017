@@ -5,6 +5,7 @@ import  org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.coderising.jvm.clz.AccessFlag;
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.clz.ClassIndex;
 import com.coderising.jvm.constant.ClassInfo;
@@ -190,6 +191,13 @@ public class ClassFileloaderTest {
     	
     	Assert.assertEquals(FULL_QUALIFIED_CLASS_NAME, thisClassInfo.getClassName());
     	Assert.assertEquals("java/lang/Object", superClassInfo.getClassName());
+    }
+    
+    @Test
+    public void testAccessFlag() {
+    	AccessFlag accessFlag = clzFile.getAccessFlag();
+    	Assert.assertEquals(true, accessFlag.isPublicClass());
+    	Assert.assertEquals(false, accessFlag.isFinalClass());
     }
 
 }

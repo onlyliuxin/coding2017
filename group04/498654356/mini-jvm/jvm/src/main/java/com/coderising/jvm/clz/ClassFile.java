@@ -8,6 +8,7 @@ public class ClassFile {
 	private int MajorVersion;
 	private ConstantPool constantPool;
 	private ClassIndex classIndex;
+	private AccessFlag accessFlag;
 	
 	public int getMinorVersion() {
 		return minorVersion;
@@ -46,5 +47,12 @@ public class ClassFile {
 		this.classIndex = classIndex;
 	}
 
+	public AccessFlag getAccessFlag() {
+		return accessFlag;
+	}
+
+	public void setAccessFlag(AccessFlag accessFlag) {
+		this.accessFlag = accessFlag;
+	}
 	
 }
