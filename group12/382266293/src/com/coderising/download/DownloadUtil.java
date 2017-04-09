@@ -45,7 +45,7 @@ public class DownloadUtil {
 	}
 
 	public static int calculateConnects(int length) {
-		int conns = length / 1024 / 1024 / 25;
+		int conns = length / 1024 / 1024 / 10;
 		if (conns < MIN_CONNECTIONS) {
 			return MIN_CONNECTIONS;
 		} else if (conns > MAX_CONNECTIONS) {

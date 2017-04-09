@@ -46,6 +46,7 @@ public class Struts {
             for (Map.Entry<String, String> entry : parameters.entrySet()) {
                 System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
                 // 这里 只能传递object吧
+                //actionClass.gett
                 Method method = actionClass.getDeclaredMethod(methodNameconversion(entry.getKey()), String.class);
                 method.setAccessible(true);
                 method.invoke(base,entry.getValue());
