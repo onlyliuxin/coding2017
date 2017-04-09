@@ -1,9 +1,12 @@
-package com.coding.basic;
+package com.coding.basic.linklist;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 import org.junit.Test;
+
+import com.coding.basic.Iterator;
+import com.coding.basic.List;
 
 public class LinkedList implements List {
 
@@ -75,26 +78,19 @@ public class LinkedList implements List {
 	 */
 	public Object remove(int index) {
 		checkIndex(index);
-		Node current = getNodeByIndex(index);
-		final Node node = current;
-		final Node prev = node.prev;
-		final Node next = node.next;
-		if (prev == null) {
-			first = next;
+		Node element = first;
+		if (index == 0) {
+			first = first.next;
 		} else {
-			prev.next = next;
-			next.prev = prev;
-			current = null;
-		}
-		if (next == null) {
-			last = prev;
-		} else {
-			prev.next = next;
-			next.prev = prev;
-			current = null;
+			Node pos = first;
+			for (int i = 0; i < index - 1; i++) {
+				pos = pos.next;
+			}
+			element = pos.next;
+			pos.next = pos.next.next;
 		}
 		size--;
-		return node.data;
+		return element.data;
 	}
 
 	/**
@@ -267,171 +263,143 @@ public class LinkedList implements List {
 
 		}
 	}
+
 	/**
-	 * 把该链表逆置
-	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
+	 * 把该链表逆置 例如链表为 3->7->10 , 逆置后变为 10->7->3
 	 */
-	public  void reverse(){		
-		Node head = first;
-        Node reverse = null;
-        while (head != null) {
-            Node second = head.next;
-            head.next = reverse;
-            reverse = head;
-            head = second;
-        }
-        first = reverse;
+	public void reverse() {
+		if (size == 0)
+			return;
+
+		for (int i = 1; i < size; i++) {
+			addFirst(get(i));
+			remove(i + 1);
+		}
+
 	}
-	//有问题
+
 	@Test
-	public void testReverse(){
+	public void testReverse() {
 		LinkedList list = getList();
 		Iterator ite = list.iterator();
-		while(ite.hasNext()){
-			System.out.print(ite.next()+" ");
+		while (ite.hasNext()) {
+			System.out.print(ite.next() + " ");
 		}
 		list.reverse();
 		Iterator it = list.iterator();
-		while(it.hasNext()){
-			System.out.println("----");
-			System.out.print(it.next()+" ");
+		while (it.hasNext()) {
+			System.out.print("----");
+			System.out.print(it.next() + " ");
 		}
 	}
-	
+
 	/**
-	 * 删除一个单链表的前半部分
-	 * 例如：list = 2->5->7->8 , 删除以后的值为 7->8
-	 * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
+	 * 删除一个单链表的前半部分 例如：list = 2->5->7->8 , 删除以后的值为 7->8 如果list = 2->5->7->8->10
+	 * ,删除以后的值为7,8,10
 	 */
-	public  void removeFirstHalf(){
-		int mid = (int) Math.ceil(size/2.0);
-		for(int x=0;x<mid;x++){
-			Node node =getNodeByIndex(x);
-			node = null;
+	public void removeFirstHalf() {
+		if (size == 0)
+			return;
+
+		int removeNum = size / 2;
+		for (int i = 0; i < removeNum; i++) {
+			removeFirst();
 		}
-		Node node = getNodeByIndex(mid);
-		first = node;
-		first.prev = null;
 	}
-	
+
 	/**
 	 * 从第i个元素开始， 删除length 个元素 ， 注意i从0开始
+	 * 
 	 * @param i
 	 * @param length
 	 */
-	public  void remove(int i, int length){
-		if(i>0){
+	public void remove(int i, int length) {
+		if (length + i > size || i < 0 || i >= size)
+			return;
 
-			Node prev = getNodeByIndex(i-1);
-			Node next = getNodeByIndex(i+length);
-			for(int x=i;x<i+length;x++){
-				Node node = getNodeByIndex(x);
-				node = null;
-			}
-			prev.next = next;
-			next.prev = prev;
-		}else if(i==0){
-			Node [] nodes = new Node[length];
-			for(int x = i;x<i+length;x++){
-				nodes[x] = getNodeByIndex(x);
-			}
-			first = getNodeByIndex(i+length);
-			first.prev = null;
-			for(int x=0;x<nodes.length;x++){
-				nodes[x] = null;
-			}
-		}else{
-			throw new IndexOutOfBoundsException();
+		for (int k = i; k < (length + i); k++) {
+			remove(i);
 		}
 	}
+
 	/**
-	 * 假定当前链表和list均包含已升序排列的整数
-	 * 从当前链表中取出那些list所指定的元素
-	 * 例如当前链表 = 11->101->201->301->401->501->601->701
-	 * listB = 1->3->4->6
-	 * 返回的结果应该是[101,301,401,601]  
+	 * 假定当前链表和list均包含已升序排列的整数 从当前链表中取出那些list所指定的元素 例如当前链表 =
+	 * 11->101->201->301->401->501->601->701 listB = 1->3->4->6
+	 * 返回的结果应该是[101,301,401,601]
+	 * 
 	 * @param list
 	 */
-	public int[] getElements(LinkedList list){
-        int[] array = new int[list.size];
-        for (int i = 0; i < array.length; i++) {
-            int element = (int) list.get(i);
-            array[i] = ((Integer) get(element));
-        }
+	public int[] getElements(LinkedList list) {
+		int[] array = new int[list.size];
+		for (int i = 0; i < array.length; i++) {
+			int element = (int) list.get(i);
+			array[i] = ((Integer) get(element));
+		}
 
-        System.out.println(Arrays.toString(array));
-
-        return array;
+		return array;
 	}
-	
+
 	/**
-	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
-	 * 从当前链表中中删除在list中出现的元素 
+	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。 从当前链表中中删除在list中出现的元素
+	 * 
 	 * @param list
 	 */
-	
-	public  void subtract(LinkedList list){
+
+	public void subtract(LinkedList list) {
 		int length = list.size();
-        for (int i = size - 1; i >= 0; i--) {
-            for (int j = 0; j < length; j++) {
-                if (get(i) == list.get(j)) {
-                    remove(i);
-                    break;
-                }
-            }
-        }
+		for (int i = size - 1; i >= 0; i--) {
+			for (int j = 0; j < length; j++) {
+				if (get(i) == list.get(j)) {
+					remove(i);
+					break;
+				}
+			}
+		}
 	}
-	
+
 	/**
-	 * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。
-	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
+	 * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
-	public  void removeDuplicateValues(){
+	public void removeDuplicateValues() {
 		for (int i = size - 1; i > 0; i--) {
-            if (get(i) == get(i - 1)) {
-                remove(i);
-            }
-        }
+			if (get(i) == get(i - 1)) {
+				remove(i);
+			}
+		}
 	}
-	
+
 	/**
-	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
-	 * 试写一高效的算法，删除表中所有值大于min且小于max的元素（若表中存在这样的元素）
+	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。 试写一高效的算法，删除表中所有值大于min且小于max的元素（若表中存在这样的元素）
+	 * 
 	 * @param min
 	 * @param max
 	 */
-	public  void removeRange(int min, int max){
+	public void removeRange(int min, int max) {
 		for (int i = size - 1; i >= 0; i--) {
-            int element = ((int) get(i));
-            if ((element > min) && element < max) {
-                remove(i);
-            }
-        }
+			int element = ((int) get(i));
+			if ((element > min) && element < max) {
+				remove(i);
+			}
+		}
 	}
-	
+
 	/**
 	 * 假设当前链表和参数list指定的链表均以元素依值递增有序排列（同一表中的元素值各不相同）
 	 * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
+	 * 
 	 * @param list
 	 */
-	public  LinkedList intersection( LinkedList list){
+	public LinkedList intersection(LinkedList list) {
 		LinkedList newList = new LinkedList();
-        int length = list.size();
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < length; j++) {
-                if (get(i) == list.get(j)) {
-                    newList.add(get(i));
-                    break;
-                }
-            }
-        }
-
-        Iterator it = newList.iterator();
-        while (it.hasNext()) {
-            System.out.print(it.next() + " ");
-        }
-        System.out.println();
-        return newList;
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < list.size; j++) {
+				if (get(i).equals(list.get(j))) {
+					newList.add(list.get(j));
+					break;
+				}
+			}
+		}
+		return newList;
 	}
 
 	/*------------------------------------------------------单元测试----------------------------------------------------*/
@@ -542,8 +510,8 @@ public class LinkedList implements List {
 			System.out.println(ite.next());
 		}
 	}
-	
-	private LinkedList getList(){
+
+	private LinkedList getList() {
 		LinkedList list = new LinkedList();
 		for (int i = 0; i < 10; i++) {
 			list.add(i);
