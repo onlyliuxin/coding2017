@@ -292,22 +292,19 @@ public class LinkedList implements List {
 			throw new RuntimeException("LinkedList is empty!");
 		}else{
 			Node q = head;
-			//头判断
-			if((int)q.data>min && (int)q.data<max){ 
-				head = head.next;
-				size--;
-				removeRange(min, max);
-				return;
-			}
-			
-			Node p = q.next;
+			Node p = head.next;
 			while(p!=null){ 
 				if((int)p.data>min && (int)p.data<max){ 
+					q.next=p.next; 
 					size--;
-					q.next = p.next;
+					p=q;
+					p=p.next;
 				}
-				q = q.next;
-				p = q.next;
+				else{
+					q=p;
+					p=p.next;
+					q=q.next;
+				} 
 			}
 		}
 	}
@@ -324,16 +321,12 @@ public class LinkedList implements List {
 	}
 	
 	private void intersection(LinkedList linkedList, Node node1,Node node2){
-		if(node1 == null){
-			while(node2 != null){
-				linkedList.add(node2.data);
-				node2 = node2.next;
-			}
+		if(node1 ==null && node2 == null){
+			
+		}else if(node1 == null){
+			traverse(linkedList, node2);
 		}else if(node2 == null){
-			while(node1 != null){
-				linkedList.add(node1.data);
-				node1 = node1.next;
-			}
+			traverse(linkedList, node1);
 		}else{
 			if((int)node1.data < (int)node2.data){
 				linkedList.add(node1.data);
@@ -342,6 +335,13 @@ public class LinkedList implements List {
 				linkedList.add(node2.data);
 				intersection(linkedList,node1, node2.next);
 			} 
+		}
+	}
+
+	private void traverse(LinkedList linkedList, Node node) {
+		while(node != null){
+			linkedList.add(node.data);
+			node = node.next;
 		}
 	}
 	
