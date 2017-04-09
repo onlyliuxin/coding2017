@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.zhaogd.collection.linkedlist.LinkedList;
+
 public class LinkedListTest {
 
 	private LinkedList linkedList;
