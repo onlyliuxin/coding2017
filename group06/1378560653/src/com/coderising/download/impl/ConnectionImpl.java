@@ -48,7 +48,7 @@ class ConnectionImpl implements Connection {
 		
 		//is.skip(startPos);//跳过startPos之前的内容
 		
-		byte[] buff = new byte[BUFFER_SIZE];
+		byte[] buff = new byte[BUFFER_SIZE];//buff是搬运工
 		int totalLen = endPos - startPos + 1; //注意+1
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(); //字节数组流， 可以捕获内存缓冲区的数据，转换成字节数组。----输出流
 		
