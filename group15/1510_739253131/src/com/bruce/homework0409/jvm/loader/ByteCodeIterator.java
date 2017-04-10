@@ -36,4 +36,15 @@ public class ByteCodeIterator {
     public String nextU4ToHexString() {
         return Util.byteToHexString(new byte[] { codes[pos++], codes[pos++], codes[pos++], codes[pos++] });
     }
+
+    public String nextUxToHexString(int len) {
+        if (len < 1) {
+            return null;
+        }
+        byte[] array = new byte[len];
+        for (int i = 0; i < len; i++) {
+            array[i] = codes[pos++];
+        }
+        return Util.byteToHexString(array);
+    }
 }

@@ -9,6 +9,7 @@ import com.bruce.homework0409.jvm.constant.FieldRefInfo;
 import com.bruce.homework0409.jvm.constant.MethodRefInfo;
 import com.bruce.homework0409.jvm.constant.NameAndTypeInfo;
 import com.bruce.homework0409.jvm.constant.NullConstantInfo;
+import com.bruce.homework0409.jvm.constant.StringInfo;
 import com.bruce.homework0409.jvm.constant.UTF8Info;
 
 import java.util.Arrays;
@@ -90,6 +91,11 @@ public class ClassFileParser {
                 nameAndTypeInfo.setIndex1(nameIndex);
                 nameAndTypeInfo.setIndex2(descriptorIndex);
                 pool.addConstantInfo(nameAndTypeInfo);
+            } else if (tag == 8) {//string_info
+                int stringIndex = iter.nextU2ToInt();
+                StringInfo stringInfo = new StringInfo(pool);
+                stringInfo.setIndex(stringIndex);
+                pool.addConstantInfo(stringInfo);
             } else {
                 throw new RuntimeException("The constant "+ tag + " has not been build");
             }
