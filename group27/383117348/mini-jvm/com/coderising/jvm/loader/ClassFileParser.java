@@ -26,6 +26,7 @@ public class ClassFileParser {
 		if(!magicNum.equals("cafebabe")){
 			throw new RuntimeException("文件类型错误");
 		}
+		ByteCodeIterator iter = new ByteCodeIterator(codes);
 		
 		int minVersion = by.nextU2Int();
 		int majorVersion = by.nextU2Int();
@@ -34,13 +35,19 @@ public class ClassFileParser {
 		AccessFlag flag = parseAccessFlag(by);
 		ClassIndex index = parseClassIndex(by);
 		
+		parseInterfaces(iter);
+		
 		file.setMinorVersion(minVersion);
 		file.setMajorVersion(majorVersion);
 		file.setAccessFlag(flag);
 		file.setClassIndex(index);
 		file.setConstPool(constant);
+		
+		
 		return file;
 	}
+
+	
 
 	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
 		AccessFlag flag = new AccessFlag(iter.nextU2Int());
@@ -105,6 +112,13 @@ public class ClassFileParser {
 	        }
 	        return pool;
 	}
+	
+	private void parseInterfaces(ByteCodeIterator iter) {
+		int interfaceCount = iter.nextU2Int();
+		
+		
+	}
+	
 
 	
 }
