@@ -1,9 +1,13 @@
 package assignment0326.jvm.loader;
 
+import assignment0326.jvm.clz.ClassFile;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +42,9 @@ public class ClassFileLoader {
 
 
         public void addClassPath(String path) {
+            if(this.clzPaths.contains(path)){
+                return;
+            }
             clzPaths.add(path);
         }
 
@@ -53,7 +60,25 @@ public class ClassFileLoader {
         }
 
 
+    private byte[] loadClassFile(String clzFileName) {
 
+        try {
+
+            return Files.readAllBytes(Paths.get(clzFileName));
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public ClassFile loadClass(String className) {
+        byte[] codes = this.readBinaryCode(className);
+        ClassFileParser parser = new ClassFileParser();
+        return parser.parse(codes);
+
+    }
 
 
 }
