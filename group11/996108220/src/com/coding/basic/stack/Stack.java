@@ -1,11 +1,13 @@
-package com.coding.basic;
+package com.coding.basic.stack;
+
+import com.coding.basic.ArrayList;
 
 public class Stack {
 	//用动态数组实现栈
 	private ArrayList elementData = new ArrayList();
 	
 	public void push(Object o){	
-		elementData.add(elementData.size());
+		elementData.add(o);
 	}
 	
 	public Object pop(){
@@ -21,4 +23,18 @@ public class Stack {
 	public int size(){
 		return elementData.size();
 	}
+	public String toString() {
+
+		StringBuffer buffer=new StringBuffer("[");
+		for (int i = elementData.size()-1; i >=0; i--) {
+			if (i==0) {
+				buffer.append(elementData.get(i).toString()+"]");
+			}
+			else {
+				buffer.append(elementData.get(i).toString()+",");
+			}
+		}
+		return buffer.toString();
+	}
+
 }
