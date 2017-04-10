@@ -1,5 +1,6 @@
 package com.coderising.jvm.loader;
 
+import com.coderising.jvm.clz.ClassFile;
 import com.sun.deploy.util.StringUtils;
 import sun.misc.IOUtils;
 
@@ -94,6 +95,13 @@ public class ClassFileLoader {
 		return StringUtils.join(this.clzPaths, ";");
 	}
 
+
+	public ClassFile loadClass(String className) {
+		byte[] codes = this.readBinaryCode(className);
+		ClassFileParser parser = new ClassFileParser();
+		return parser.parse(codes);
+
+	}
 	
 
 	
