@@ -1,4 +1,6 @@
-package com.johnChnia.coding2017.basic;
+package com.johnChnia.coding2017.basic.stack;
+
+import com.johnChnia.coding2017.basic.linklist.LinkedList;
 
 import java.util.EmptyStackException;
 
