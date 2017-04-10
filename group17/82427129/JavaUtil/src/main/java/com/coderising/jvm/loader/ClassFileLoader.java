@@ -96,9 +96,4 @@ public class ClassFileLoader {
 		return sb.toString();
 	}
 
-	public static void main(String[] args) {
-		String d = "com.taiji.array.Load";
-		ClassFileLoader cc = new ClassFileLoader();
-		System.out.print(cc.convertName(d));
-	}
 }

@@ -1,6 +1,8 @@
-package com.coding.basic;
+package com.coding.basic.stack;
 
 import java.util.EmptyStackException;
+
+import com.coding.basic.ArrayList;
 
 public class Stack<E> {
 	private ArrayList<E> elementData = new ArrayList<E>();
