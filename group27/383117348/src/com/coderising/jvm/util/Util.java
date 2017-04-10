@@ -21,4 +21,9 @@ public class Util {
 		}
 		return buffer.toString();
 	}
+	
+	public static float byteToFloat(byte[] codes){
+		String s1 = byteToHexString(codes);
+		return Float.valueOf(s1).floatValue();
+	}
 }

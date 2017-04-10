@@ -24,6 +24,14 @@ public class ByteCodeIterator {
 		return Util.byteToHexString(getByteBySize(4));
 	}
 	
+	public float nextU4Float(){
+		return Util.byteToFloat(getByteBySize(4));
+	}
+	
+	public int nextU4Integer(){
+		return Util.byteToInt(getByteBySize(4));
+	}
+	
 	public byte[] getByteByLength(int length){
 		if(pos+length>code.length){
 			throw new RuntimeException("长度超出字节数组最大长度");

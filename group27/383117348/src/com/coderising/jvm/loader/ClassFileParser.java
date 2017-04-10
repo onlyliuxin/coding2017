@@ -8,6 +8,8 @@ import com.coderising.jvm.clz.ClassIndex;
 import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.constant.FieldRefInfo;
+import com.coderising.jvm.constant.FloatInfo;
+import com.coderising.jvm.constant.IntegerInfo;
 import com.coderising.jvm.constant.MethodRefInfo;
 import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.NullConstantInfo;
@@ -68,6 +70,14 @@ public class ClassFileParser {
 						e.printStackTrace();
 					}
 	        		pool.addConstantInfo(utf8);
+	        	}else if(tag == 3){
+	        		IntegerInfo integer = new IntegerInfo(pool);
+	        		integer.setValue(iter.nextU4Integer());
+	        		pool.addConstantInfo(integer);
+	        	}else if(tag == 4){
+	        		FloatInfo floatInfo = new FloatInfo(pool);
+	        		floatInfo.setValue(iter.nextU4Float());
+	        		pool.addConstantInfo(floatInfo);
 	        	}else if(tag == 7){
 	        		ClassInfo classInfo = new ClassInfo(pool);
 	                classInfo.setUtf8Index(iter.nextU2Int());

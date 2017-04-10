@@ -2,6 +2,7 @@ package com.coderising.jvm.constant;
 
 public abstract class ConstantInfo {
 	public static final int UTF8_INFO = 1;
+	public static final int INTEGER_INFO = 3;
 	public static final int FLOAT_INFO = 4;
 	public static final int CLASS_INFO = 7;
 	public static final int STRING_INFO = 8;
