@@ -2,7 +2,7 @@ package week5;
 import java.util.HashSet;
 
 import week1.ArrayList;
-public class LRU {
+public class LRUPageFrame {
 	int size;
 	Node head = new Node(0);
 	HashSet<Integer> lib = new HashSet<Integer>();

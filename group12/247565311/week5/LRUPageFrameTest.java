@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class LRUTest {
+public class LRUPageFrameTest {
 
 	@Before
 	public void setUp() throws Exception {
@@ -19,7 +19,7 @@ public class LRUTest {
 
 	@Test
 	public void testAdd() {
-        LRU lru = new LRU(5);
+        LRUPageFrame lru = new LRUPageFrame(5);
         lru.add(3);
         lru.add(7);
         lru.add(5);
