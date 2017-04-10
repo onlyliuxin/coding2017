@@ -38,9 +38,10 @@ public class Stack<E> {
     }
 
     public E pop() {
-        if(isEmpty()) throw new RuntimeException("空栈!");
+        if(isEmpty()) return null;
         Node popNode = top;
         top = top.next;
+        size--;
         return popNode.data;
     }
 
@@ -49,7 +50,7 @@ public class Stack<E> {
     }
 
     public E peek() {
-        if(isEmpty()) throw new RuntimeException("空栈!");
+        if(isEmpty()) return null;
         return top.data;
     }
 

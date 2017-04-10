@@ -1,9 +1,11 @@
 package com.coderising.jvm.loader;
 
+import com.coderising.jvm.clz.ClassFile;
+import org.junit.Assert;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 public class ClassFileLoader {
@@ -42,7 +44,14 @@ public class ClassFileLoader {
 		}
 		return bao.toByteArray();
 	}
-	
+
+	public ClassFile loadClass(String className) {
+
+		byte[] byteCode = readBinaryCode(className);
+		// 此处应有字节码处理
+		ClassFileParser classFileParse = new ClassFileParser();
+		return classFileParse.parse(byteCode);
+	}
 	
 	public void addClassPath(String path) {
 		clzPaths.add(path);
