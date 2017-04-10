@@ -18,7 +18,7 @@ public class Struts {
 		if(actionName == null || parameters == null) return null;
 		List<Element> actions = null; 
 		try {
-			File xmlfile = new File("D:\\5Java\\coding2017\\group12\\247565311\\week2\\struts.xml");
+			File xmlfile = new File(System.getProperty("user.dir")+"\\bin\\week2\\struts.xml");
 			Document doc = new SAXReader().read(xmlfile);
 			Element root = doc.getRootElement();
 			actions = root.elements();
