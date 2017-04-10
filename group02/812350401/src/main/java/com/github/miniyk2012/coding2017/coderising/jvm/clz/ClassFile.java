@@ -48,9 +48,7 @@ public class ClassFile {
 	public void setClassIndex(ClassIndex clzIndex) {
 		this.clzIndex = clzIndex;		
 	}
-	
-	
-	
+
 	
 	public void print(){
 		
@@ -60,8 +58,7 @@ public class ClassFile {
 		System.out.println("Class Name:"+ getClassName());
 		
 		System.out.println("Super Class Name:"+ getSuperClassName());
-		
-		
+
 	}
 	
 	private String getClassName(){

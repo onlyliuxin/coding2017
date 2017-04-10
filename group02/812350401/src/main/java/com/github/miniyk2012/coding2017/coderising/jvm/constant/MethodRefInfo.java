@@ -29,27 +29,28 @@ public class MethodRefInfo extends ConstantInfo {
 	}
 	
 	public String toString(){
-	
 		return getClassName() +" : "+ this.getMethodName() + " : " + this.getParamAndReturnType() ;
 	}
+
 	public String getClassName(){
-		ConstantPool pool = this.getConstantPool();		
-		ClassInfo clzInfo = (ClassInfo)pool.getConstantInfo(this.getClassInfoIndex());
+		// ConstantPool pool = this.getConstantPool();
+		// ClassInfo clzInfo = (ClassInfo)pool.getConstantInfo(this.getClassInfoIndex());
+        ClassInfo  clzInfo = (ClassInfo)this.getConstantInfo(classInfoIndex);
 		return clzInfo.getClassName();
 	}
 	
 	public String getMethodName(){
-		ConstantPool pool = this.getConstantPool();
-		NameAndTypeInfo  typeInfo = (NameAndTypeInfo)pool.getConstantInfo(this.getNameAndTypeIndex());
+		// ConstantPool pool = this.getConstantPool();
+		// NameAndTypeInfo  typeInfo = (NameAndTypeInfo)pool.getConstantInfo(this.getNameAndTypeIndex());
+        NameAndTypeInfo typeInfo = (NameAndTypeInfo)this.getConstantInfo(nameAndTypeIndex);
 		return typeInfo.getName();
 	}
 	
 	public String getParamAndReturnType(){
-		ConstantPool pool = this.getConstantPool();
-		NameAndTypeInfo  typeInfo = (NameAndTypeInfo)pool.getConstantInfo(this.getNameAndTypeIndex());
+		// ConstantPool pool = this.getConstantPool();
+		// NameAndTypeInfo  typeInfo = (NameAndTypeInfo)pool.getConstantInfo(this.getNameAndTypeIndex());
+        NameAndTypeInfo typeInfo = (NameAndTypeInfo)this.getConstantInfo(nameAndTypeIndex);
 		return typeInfo.getTypeInfo();
 	}
-	
-	
 	
 }
