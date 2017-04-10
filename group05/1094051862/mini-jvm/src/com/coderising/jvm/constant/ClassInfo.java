@@ -2,7 +2,7 @@ package com.coderising.jvm.constant;
 
 public class ClassInfo extends ConstantInfo {
 	private int type = ConstantInfo.CLASS_INFO;
-	private int utf8Index ;
+	private int utf8Index ;//name_index
 	public ClassInfo(ConstantPool pool) {
 		super(pool);
 	}

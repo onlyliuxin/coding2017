@@ -8,6 +8,7 @@ public abstract class ConstantInfo {
 	public static final int FIELD_INFO = 9;
 	public static final int METHOD_INFO = 10;
 	public static final int NAME_AND_TYPE_INFO = 12;
+	
 	protected ConstantPool constantPool;
 	
 	public ConstantInfo(){

@@ -8,6 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.coderising.jvm.clz.ClassFile;
+import com.coderising.jvm.clz.ClassIndex;
+import com.coderising.jvm.constant.ClassInfo;
+import com.coderising.jvm.constant.ConstantPool;
+import com.coderising.jvm.constant.MethodRefInfo;
+import com.coderising.jvm.constant.NameAndTypeInfo;
+import com.coderising.jvm.constant.UTF8Info;
 import com.coderising.jvm.loader.ClassFileLoader;
 
 
@@ -26,7 +32,7 @@ public class ClassFileloaderTest {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
 		String className = "com.coderising.jvm.test.EmployeeV1";
-		
+			
 		clzFile = loader.loadClass(className);
 		clzFile.print();
 	}
