@@ -8,115 +8,126 @@ import assignment0326.jvm.constant.*;
 
 public class ClassFileParser {
 
-	private ConstantPool constantPool;
-	public ClassFile parse(byte[] codes) {
-		ClassFile classFile=new ClassFile();
-		ByteCodeIterator iterator = new ByteCodeIterator(codes);
-		iterator.skip(4);
+    private ConstantPool constantPool;
 
-		classFile.setMinorVersion(iterator.next2BytesToInt());
-		classFile.setMajorVersion(iterator.next2BytesToInt());
+    public ClassFile parse(byte[] codes) {
+        ClassFile classFile = new ClassFile();
+        ByteCodeIterator iterator = new ByteCodeIterator(codes);
+        magicNumberVerify(iterator);
 
-		classFile.setConstPool(parseConstantPool(iterator));
+        classFile.setMinorVersion(iterator.next2BytesToInt());
+        classFile.setMajorVersion(iterator.next2BytesToInt());
 
-		classFile.setAccessFlag(parseAccessFlag(iterator));
+        classFile.setConstPool(parseConstantPool(iterator));
 
-		classFile.setClassIndex(parseClassIndex(iterator));
-		return classFile;
-	}
+        classFile.setAccessFlag(parseAccessFlag(iterator));
 
-	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
-		AccessFlag flag = new AccessFlag(iter.next2BytesToInt());
-		return flag;
-	}
+        classFile.setClassIndex(parseClassIndex(iterator));
+        return classFile;
+    }
 
-	private ClassIndex parseClassIndex(ByteCodeIterator iter) {
-		ClassIndex classIndex=new ClassIndex();
-		classIndex.setThisClassIndex(iter.next2BytesToInt());
-		classIndex.setSuperClassIndex(iter.next2BytesToInt());
-		return classIndex;
+    private void magicNumberVerify(ByteCodeIterator iterator) {
+        String magicNumber=Integer.toHexString(iterator.nextByteToInt());
+        for (int i = 0; i < 3; i++) {
+            magicNumber += Integer.toHexString(iterator.nextByteToInt());
+        }
+        if (!"cafebabe".equals(magicNumber)) {
+            throw new RuntimeException("Illegal class file.");
+        }
+    }
 
-	}
+    private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
+        AccessFlag flag = new AccessFlag(iter.next2BytesToInt());
+        return flag;
+    }
 
-	private ConstantPool parseConstantPool(ByteCodeIterator iter) {
-		constantPool=new ConstantPool();
-		int size=iter.next2BytesToInt();
-		constantPool.addConstantInfo(new NullConstantInfo());
-		for (int i = 0; i < size-1; i++) {
-			parseConstant(iter);
-		}
-		return constantPool;
-	}
+    private ClassIndex parseClassIndex(ByteCodeIterator iter) {
+        ClassIndex classIndex = new ClassIndex();
+        classIndex.setThisClassIndex(iter.next2BytesToInt());
+        classIndex.setSuperClassIndex(iter.next2BytesToInt());
+        return classIndex;
 
-	private void parseConstant(ByteCodeIterator iter) {
-		int flag=iter.nextByteToInt();
-		ConstantInfo constantInfo;
-		switch (flag){
-			case ConstantInfo.UTF8_INFO:
-				constantInfo=parseUTF8Info(iter);
-				break;
-			case ConstantInfo.CLASS_INFO:
-				constantInfo = parseClassInfo(iter);
-				break;
-			case ConstantInfo.STRING_INFO:
-				constantInfo = parseStringInfo(iter);
-				break;
-			case ConstantInfo.FIELD_INFO:
-				constantInfo = parseFieldInfo(iter);
-				break;
-			case ConstantInfo.METHOD_INFO:
-				constantInfo = parseMethodInfo(iter);
-				break;
-			case ConstantInfo.NAME_AND_TYPE_INFO:
-				constantInfo = parseNameAndTypeInfo(iter);
-				break;
-			default:
-				throw new RuntimeException("Unsupported flag");
-		}
-		constantPool.addConstantInfo(constantInfo);
-	}
+    }
 
-	private ConstantInfo parseUTF8Info(ByteCodeIterator iter) {
-		UTF8Info utf8Info = new UTF8Info(constantPool);
-		int length=iter.next2BytesToInt();
-		String value=new String(iter.nextNBytes(length));
-		utf8Info.setLength(length);
-		utf8Info.setValue(value);
-		return utf8Info;
-	}
+    private ConstantPool parseConstantPool(ByteCodeIterator iter) {
+        constantPool = new ConstantPool();
+        int size = iter.next2BytesToInt();
+        constantPool.addConstantInfo(new NullConstantInfo());
+        for (int i = 0; i < size - 1; i++) {
+            parseConstant(iter);
+        }
+        return constantPool;
+    }
 
-	private ConstantInfo parseClassInfo(ByteCodeIterator iter) {
-		ClassInfo classInfo = new ClassInfo(constantPool);
-		classInfo.setUtf8Index(iter.next2BytesToInt());
-		return classInfo;
-	}
+    private void parseConstant(ByteCodeIterator iter) {
+        int tag = iter.nextByteToInt();
+        ConstantInfo constantInfo;
+        switch (tag) {
+            case ConstantInfo.UTF8_INFO:
+                constantInfo = parseUTF8Info(iter);
+                break;
+            case ConstantInfo.CLASS_INFO:
+                constantInfo = parseClassInfo(iter);
+                break;
+            case ConstantInfo.STRING_INFO:
+                constantInfo = parseStringInfo(iter);
+                break;
+            case ConstantInfo.FIELD_INFO:
+                constantInfo = parseFieldInfo(iter);
+                break;
+            case ConstantInfo.METHOD_INFO:
+                constantInfo = parseMethodInfo(iter);
+                break;
+            case ConstantInfo.NAME_AND_TYPE_INFO:
+                constantInfo = parseNameAndTypeInfo(iter);
+                break;
+            default:
+                throw new RuntimeException("Unsupported tag");
+        }
+        constantPool.addConstantInfo(constantInfo);
+    }
 
-	private ConstantInfo parseStringInfo(ByteCodeIterator iter) {
-		StringInfo stringInfo = new StringInfo(constantPool);
-		stringInfo.setIndex(iter.next2BytesToInt());
-		return stringInfo;
-	}
+    private ConstantInfo parseUTF8Info(ByteCodeIterator iter) {
+        UTF8Info utf8Info = new UTF8Info(constantPool);
+        int length = iter.next2BytesToInt();
+        String value = new String(iter.nextNBytes(length));
+        utf8Info.setLength(length);
+        utf8Info.setValue(value);
+        return utf8Info;
+    }
 
-	private ConstantInfo parseFieldInfo(ByteCodeIterator iter) {
-		FieldRefInfo fieldRefInfo = new FieldRefInfo(constantPool);
-		fieldRefInfo.setClassInfoIndex(iter.next2BytesToInt());
-		fieldRefInfo.setNameAndTypeIndex(iter.next2BytesToInt());
-		return fieldRefInfo;
-	}
+    private ConstantInfo parseClassInfo(ByteCodeIterator iter) {
+        ClassInfo classInfo = new ClassInfo(constantPool);
+        classInfo.setUtf8Index(iter.next2BytesToInt());
+        return classInfo;
+    }
 
-	private ConstantInfo parseMethodInfo(ByteCodeIterator iter) {
-		MethodRefInfo methodRefInfo = new MethodRefInfo(constantPool);
-		methodRefInfo.setClassInfoIndex(iter.next2BytesToInt());
-		methodRefInfo.setNameAndTypeIndex(iter.next2BytesToInt());
-		return methodRefInfo;
-	}
+    private ConstantInfo parseStringInfo(ByteCodeIterator iter) {
+        StringInfo stringInfo = new StringInfo(constantPool);
+        stringInfo.setIndex(iter.next2BytesToInt());
+        return stringInfo;
+    }
 
-	private ConstantInfo parseNameAndTypeInfo(ByteCodeIterator iter) {
-		NameAndTypeInfo nameAndTypeInfo = new NameAndTypeInfo(constantPool);
-		nameAndTypeInfo.setIndex1(iter.next2BytesToInt());
-		nameAndTypeInfo.setIndex2(iter.next2BytesToInt());
-		return nameAndTypeInfo;
-	}
+    private ConstantInfo parseFieldInfo(ByteCodeIterator iter) {
+        FieldRefInfo fieldRefInfo = new FieldRefInfo(constantPool);
+        fieldRefInfo.setClassInfoIndex(iter.next2BytesToInt());
+        fieldRefInfo.setNameAndTypeIndex(iter.next2BytesToInt());
+        return fieldRefInfo;
+    }
+
+    private ConstantInfo parseMethodInfo(ByteCodeIterator iter) {
+        MethodRefInfo methodRefInfo = new MethodRefInfo(constantPool);
+        methodRefInfo.setClassInfoIndex(iter.next2BytesToInt());
+        methodRefInfo.setNameAndTypeIndex(iter.next2BytesToInt());
+        return methodRefInfo;
+    }
+
+    private ConstantInfo parseNameAndTypeInfo(ByteCodeIterator iter) {
+        NameAndTypeInfo nameAndTypeInfo = new NameAndTypeInfo(constantPool);
+        nameAndTypeInfo.setIndex1(iter.next2BytesToInt());
+        nameAndTypeInfo.setIndex2(iter.next2BytesToInt());
+        return nameAndTypeInfo;
+    }
 
 
 }

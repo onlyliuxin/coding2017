@@ -50,7 +50,7 @@ public class StackUtil {
      * @return
      */
     public static Object[] getTop(Stack s, int len) {
-        if(len>s.size())
+        if (len > s.size())
             throw new RuntimeException("Stack size:" + s.size() + " < " + len);
         Object[] objects = new Object[len];
         for (int i = 0; i < len; i++) {
@@ -96,8 +96,8 @@ public class StackUtil {
         return c == ']' || c == ')' || c == '}';
     }
 
-    private static boolean match(char c1, char c2) {
-        return (c1 == '(' && c2 == ')') || (c1 == '[' && c2 == ']') || (c1 == '{' && c2 == '}');
+    private static boolean match(char left, char right) {
+        return (left == '(' && right == ')') || (left == '[' && right == ']') || (left == '{' && right == '}');
     }
 
 
