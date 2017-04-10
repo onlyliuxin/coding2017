@@ -12,7 +12,7 @@ public class ClassFileLoader {
 
     public byte[] readBinaryCode(String className) {
         InputStream fis = null;
-        String filePath = clzPaths.get(0) + "\\\\" + className.replaceAll("\\.", "\\\\") + ".class";
+        String filePath = clzPaths.get(0) + File.pathSeparator + className.replaceAll("\\.", File.pathSeparator) + ".class";
         byte[] buffer = new byte[(int) new File(filePath).length()];
         try {
             if (clzPaths.size() > 0 && className != null && !className.trim().equals("")) {
