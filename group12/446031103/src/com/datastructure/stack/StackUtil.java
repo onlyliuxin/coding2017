@@ -1,4 +1,6 @@
 package com.datastructure.stack;
+import java.util.Objects;
+import java.util.Stack;
 
 public class StackUtil {
 	/**
@@ -6,7 +8,11 @@ public class StackUtil {
 	 * 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
 	 */
 	public static void reverse(Stack s) {
-
+		Stack temp = new Stack();
+		while(!s.isEmpty()){
+			temp.push(s.pop());
+		}
+		s = temp;
 	}
 
 	/**
@@ -15,7 +21,17 @@ public class StackUtil {
 	 * @param o
 	 */
 	public static void remove(Stack s,Object o) {
-
+		Stack temp = new Stack();
+		while(!s.isEmpty()){
+			Object result=s.pop();
+			if(Objects.equals(result, o)){
+				continue;
+			}
+			temp.push(result);
+		}
+		while(!temp.isEmpty()){
+			s.push(temp.pop());
+		}
 	}
 
 	/**
@@ -25,7 +41,17 @@ public class StackUtil {
 	 * @return
 	 */
 	public static Object[] getTop(Stack s,int len) {
-		return null;
+		Object [] obj= new Object[len] ;
+		Stack temp = new Stack();
+		for (int i = 0; i <len; i++) {
+			Object result=s.pop();
+			obj[i] = result;
+			temp.push(result);
+		}
+		while(!temp.isEmpty()){
+			s.push(temp.pop());
+		}
+		return obj;
 	}
 	/**
 	 * 字符串s 可能包含这些字符：  ( ) [ ] { }, a,b,c... x,yz
@@ -36,6 +62,46 @@ public class StackUtil {
 	 * @return
 	 */
 	public static boolean isValidPairs(String s){
-		return false;
+		Stack temp1 = new Stack();
+		Stack temp2 = new Stack();
+		char [] c = s.toCharArray();
+		int clength = c.length;
+		if(clength%2==0){
+			for (int i = 0; i < clength; i++) {
+				if(i<clength/2){
+					temp1.push(c[i]);
+				}else{
+					temp2.push(c[i]);
+				}
+			}
+		}else{
+			char result=c[clength/2+1];
+			if(contain(result)){
+				return false;
+			};
+			for (int i = 0; i < clength; i++) {
+				if(i<clength/2){
+					temp1.push(c[i]);
+				}else{
+					if(i==clength/2-1){
+						continue;
+					}						
+					temp2.push(c[i]);
+				}
+			}
+		}
+		StackUtil.reverse(temp2);
+		while(!temp1.isEmpty()){
+			if(Objects.equals(temp1.pop(), temp2.pop())||contain(temp1.pop())||contain(temp2.pop())){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private static boolean contain(Object object){
+		return Objects.equals(object, '(')||Objects.equals(object, ')')||
+				   Objects.equals(object, '[')||Objects.equals(object, ']')||
+				   Objects.equals(object, '{')||Objects.equals(object, '}');
 	}
 }
