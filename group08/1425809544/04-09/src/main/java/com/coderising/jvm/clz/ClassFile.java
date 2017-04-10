@@ -9,7 +9,7 @@ import com.coderising.jvm.constant.ConstantPool;
 public class ClassFile {
 
 
-    private int magic;//魔数
+    private String magic;//魔数
     private int minorVersion;//副版本号
     private int majorVersion;//主版本号
 
@@ -17,12 +17,11 @@ public class ClassFile {
     private ClassIndex clzIndex;//索引类:定义了当前类和父类
     private ConstantPool constantPool;//常量池大小为常量数量减一
 
-
-    public int getMagic() {
+    public String getMagic() {
         return magic;
     }
 
-    public void setMagic(int magic) {
+    public void setMagic(String magic) {
         this.magic = magic;
     }
 
@@ -34,20 +33,20 @@ public class ClassFile {
         this.minorVersion = minorVersion;
     }
 
-    public int getMajorVersion() {
-        return majorVersion;
-    }
-
-    public void setMajorVersion(int majorVersion) {
-        this.majorVersion = majorVersion;
-    }
-
     public AccessFlag getAccessFlag() {
         return accessFlag;
     }
 
     public void setAccessFlag(AccessFlag accessFlag) {
         this.accessFlag = accessFlag;
+    }
+
+    public int getMajorVersion() {
+        return majorVersion;
+    }
+
+    public void setMajorVersion(int majorVersion) {
+        this.majorVersion = majorVersion;
     }
 
     public ClassIndex getClzIndex() {
@@ -62,7 +61,7 @@ public class ClassFile {
         return constantPool;
     }
 
-    public void setConstantPool(ConstantPool pool) {
+    public void setConstantPool(ConstantPool constantPool) {
         this.constantPool = constantPool;
     }
 

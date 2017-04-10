@@ -1,6 +1,6 @@
 package com.coderising.jvm.util;
 
-public class Util {
+public class BytesIterUtil {
 	public static int byteToInt(byte[] codes){
     	String s1 = byteToHexString(codes);
     	return Integer.valueOf(s1, 16).intValue();
