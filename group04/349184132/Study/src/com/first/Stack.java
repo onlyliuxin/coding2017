@@ -17,7 +17,9 @@ public class Stack {
 				e.printStackTrace();
 			}
 		}
-		return elementData.get(--size);
+		Object obj = elementData.get(--size);
+		elementData.remove(size);
+		return obj;
 	}
 	
 	public Object peek(){

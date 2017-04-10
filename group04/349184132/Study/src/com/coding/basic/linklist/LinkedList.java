@@ -130,14 +130,14 @@ public class LinkedList implements List {
         last = node;
         size++;
     }
-
+    // not help GC
     public Object removeFirst() {
         Node oldFirst = first;
         first = first.next;
         size--;
         return oldFirst.data;
     }
-
+    // not help GC
     public Object removeLast() {
         Node oldLast = last;
         last = last.pre;
