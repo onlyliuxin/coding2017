@@ -1,9 +1,9 @@
 package litestruts;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -11,15 +11,13 @@ import org.jdom2.input.SAXBuilder;
 import static util.Print.*;
 public class Configuration {
 
-	
-	ActionCfg actionCfg = new ActionCfg();
-	
+	Map<String,ActionCfg> actions = new HashMap<>();
+
 	private static Configuration cfg = new Configuration();
 	
 	private Configuration() {
-		
+
 	}
-	
 	public static Configuration getNewInstance() {
 		
 		if (cfg == null) {
@@ -28,75 +26,108 @@ public class Configuration {
 		return cfg;
 	}
 	
-	private String getFile(String fileName) {
+	public void parse(String fileName) {
 		
 		String src = this.getClass().getPackage().getName();
-		return "file://" + src + "\\" + fileName + ".xml";
+		String filepath = src.replace(".", "/") + "/" +fileName;
+
+		InputStream is = this.getClass().getResourceAsStream("/" + filepath);
+		
+		parseXML(is);
+		
+		try {
+			is.close();
+		} catch (IOException e) {			
+			
+		}
+		
 	}
 	
-	public void parseAction(String src) {
-		
-		String fileName = getFile(src);
+	public void parseXML(InputStream is) {
+
 		SAXBuilder reader = new SAXBuilder();
 	    try {
-			Document doc = reader.build("C:\\struts.xml");
+			Document doc = reader.build(is);
 			Element root = doc.getRootElement();
 			
 			for(Element element : root.getChildren("action")) {
 				
-				String name = element.getAttributeValue("name");
+				String actionName = element.getAttributeValue("name");
 				String clz = element.getAttributeValue("class");
-				actionCfg.actionInfo.put(name, clz);
+				ActionCfg ac = new ActionCfg(actionName,clz);
 				
 				for(Element e : element.getChildren("result")) {
 					
 					String result = e.getAttributeValue("name");
 					String jsp = e.getText().trim();
-					println("result:" + result + "jsp:" + jsp);
-					Map<String,String> res = new HashMap<>();
-					res.put(result, jsp);
-					actionCfg.resultInfo.put(name, res);
+					ac.addViewResult(result, jsp);
 				}
+				
+				actions.put(actionName, ac);
 			}
 			
 		} catch (JDOMException | IOException e) {
 			e.printStackTrace();
 		}
- 
+	}
+	
+	
+	public String getClassName(String action) {
+		ActionCfg cfg = this.actions.get(action);
+		if (cfg == null) {
+			return null;
+		}
+		return cfg.getClassName(); 
+	}
+	
+	
+	public String getResultView(String action, String resultName) {
+		ActionCfg cfg = this.actions.get(action);
+		if (cfg == null) {
+			return null;
+		}
+		return cfg.getViewResult().get(resultName); 
 	}
 
 	public static void main(String[] args) {
 		Configuration cfg = new Configuration();
-		cfg.parseAction("struts");
-		Map info = cfg.getActionInfo();
-		Map result = cfg.getResultInfo().get("login");
-		println(info);
-		println(result);
+		cfg.parse("struts.xml");
+		String clz = cfg.getClassName("login");
+		println(clz);
+		
+
 	}
+
 
 	
 	private static class ActionCfg {
 		
-		private Map<String,String> actionInfo;
-		private Map<String,Map<String,String>> resultInfo;
-		public ActionCfg() {
-			this.actionInfo = new HashMap<String,String>();
-			this.resultInfo = new HashMap<String,Map<String,String>>();
+		String name;
+		String clz;
+		Map<String,String> viewResult = new HashMap<>();
+
+		public Map<String, String> getViewResult() {
+			return viewResult;
 		}
-		
+
+		public ActionCfg(String name, String clz) {
+			this.name = name;
+			this.clz = clz;
+		}
+
+		public void addViewResult(String result, String jsp) {
+			viewResult.put(result, jsp);
+			
+		}
+
+		public String getClassName() {
+			return clz;
+		}
+
 	}
 
 
-	public Map<String, Map<String,String>> getResultInfo() {
-		
-		return actionCfg.resultInfo;
-	}
 
-	public Map<String, String> getActionInfo() {
-		
-		return actionCfg.actionInfo;
-	}
-	
 	
 	
 

@@ -5,17 +5,12 @@ public class LinkedList implements List
 
 	private Node head;
 
-	public void add(Object o)
-	{
-		if (head == null)
-		{
+	public void add(Object o) {
+		if (head == null) {
 			head = new Node(o, null);
-		}
-		else
-		{
+		} else {
 			Node nodePointer = head;
-			while (nodePointer.next != null)
-			{
+			while (nodePointer.next != null) {
 				nodePointer = nodePointer.next;
 			}
 			nodePointer.next = new Node(o, null);
@@ -23,30 +18,25 @@ public class LinkedList implements List
 
 	}
 
-	public void add(int index, Object o)
-	{
+	public void add(int index, Object o) {
 		int size = size();
-		if (index < 0 || index > size)
-		{
+		if (index < 0 || index > size) {
 			String errorInfo = "Invalid index to add:" + index
 					+ " out of range: [0," + size + "]";
 			throw new ArrayIndexOutOfBoundsException(errorInfo);
 		}
 		int step = 0;
 		Node nodePointer = head;
-		while (step < index)
-		{
+		while (step < index) {
 			nodePointer = nodePointer.next;
 			++step;
 		}
 		nodePointer.next = new Node(o, nodePointer.next);
 	}
 
-	public Object get(int index)
-	{
+	public Object get(int index) {
 		int size = size();
-		if (index < 0 || index > size)
-		{
+		if (index < 0 || index > size) {
 			String errorInfo = "Invalid index to get:" + index
 					+ " out of range: [0," + size + "]";
 			throw new ArrayIndexOutOfBoundsException(errorInfo);
@@ -54,8 +44,7 @@ public class LinkedList implements List
 
 		int step = 0;
 		Node nodePointer = head;
-		while (step < index)
-		{
+		while (step < index) {
 			nodePointer = nodePointer.next;
 			++step;
 		}
@@ -63,11 +52,9 @@ public class LinkedList implements List
 		return nodePointer.data;
 	}
 
-	public Object remove(int index)
-	{
+	public Object remove(int index) {
 		int size = size();
-		if (index < 0 || index > size)
-		{
+		if (index < 0 || index > size) {
 			String errorInfo = "Invalid index to remove:" + index
 					+ " out of range: [0," + size + "]";
 			throw new ArrayIndexOutOfBoundsException(errorInfo);
@@ -77,8 +64,7 @@ public class LinkedList implements List
 		Node nodePointer = head;
 		Node lastPointer = head;
 
-		while (step < index)
-		{
+		while (step < index) {
 			lastPointer = nodePointer;
 			nodePointer = nodePointer.next;
 			++step;
@@ -86,15 +72,12 @@ public class LinkedList implements List
 
 		Object o = null;
 
-		if (lastPointer == nodePointer)
-		{
+		if (lastPointer == nodePointer) {
 			Node toDelete = head;
 			o = toDelete.data;
 			head = head.next;
 			toDelete = null;
-		}
-		else
-		{
+		} else {
 			o = nodePointer.data;
 			lastPointer.next = nodePointer.next;
 			nodePointer = null;
@@ -103,15 +86,12 @@ public class LinkedList implements List
 		return o;
 	}
 
-	public int size()
-	{
+	public int size() {
 		int size = 0;
-		if (head != null)
-		{
+		if (head != null) {
 			++size;
 			Node nodePointer = head;
-			while (nodePointer.next != null)
-			{
+			while (nodePointer.next != null) {
 				++size;
 				nodePointer = nodePointer.next;
 			}
@@ -119,37 +99,30 @@ public class LinkedList implements List
 		return size;
 	}
 
-	public void addFirst(Object o)
-	{
-		if (head == null)
-		{
+	public void addFirst(Object o) {
+		if (head == null) {
 			head = new Node(o, null);
 			return;
 		}
 		head = new Node(o, head);
 	}
 
-	public void addLast(Object o)
-	{
-		if (head == null)
-		{
+	public void addLast(Object o) {
+		if (head == null) {
 			head = new Node(o, null);
 			return;
 		}
 
 		Node nodePointer = head;
-		while (nodePointer.next != null)
-		{
+		while (nodePointer.next != null) {
 			nodePointer = nodePointer.next;
 		}
 		nodePointer.next = new Node(o, null);
 	}
 
 	@SuppressWarnings ("unused")
-	public Object removeFirst()
-	{
-		if (head == null)
-		{
+	public Object removeFirst() {
+		if (head == null) {
 			return null;
 		}
 
@@ -161,18 +134,15 @@ public class LinkedList implements List
 		return o;
 	}
 
-	public Object removeLast()
-	{
-		if (head == null)
-		{
+	public Object removeLast() {
+		if (head == null) {
 			return null;
 		}
 
 		Node nodePointer = head;
 		Node lastPointer = head;
 
-		while (nodePointer.next != null)
-		{
+		while (nodePointer.next != null) {
 			lastPointer = nodePointer;
 			nodePointer = nodePointer.next;
 		}
@@ -183,24 +153,19 @@ public class LinkedList implements List
 		return o;
 	}
 
-	public Iterator iterator()
-	{
-		return new Iterator()
-		{
+	public Iterator iterator() {
+		return new Iterator() {
 
 			private Node nodePointer = head;
 
-			public boolean hasNext()
-			{
+			public boolean hasNext() {
 				// TODO Auto-generated method stub
 				return (nodePointer != null);
 			}
 
-			public Object next()
-			{
+			public Object next() {
 				// TODO Auto-generated method stub
-				if (hasNext())
-				{
+				if (hasNext()) {
 					Object o = nodePointer.data;
 					nodePointer = nodePointer.next;
 					return o;
@@ -215,8 +180,7 @@ public class LinkedList implements List
 		Object data;
 		Node next;
 
-		public Node (Object o, Node n)
-		{
+		public Node (Object o, Node n) {
 			this.data = o;
 			this.next = n;
 		}
@@ -225,16 +189,13 @@ public class LinkedList implements List
 	/**
 	 * 把该链表逆置 例如链表为 3->7->10 , 逆置后变为 10->7->3
 	 */
-	public void reverse()
-	{
-		if (head == null)
-		{
+	public void reverse() {
+		if (head == null) {
 			return;
 		}
 
 		Node reverse = null;
-		while (size() > 0)
-		{
+		while (size() > 0) {
 			reverse = new Node(removeFirst(), reverse);
 		}
 
@@ -246,13 +207,11 @@ public class LinkedList implements List
 	 * ,删除以后的值为7,8,10
 	 */
 	@SuppressWarnings ("unused")
-	public void removeFirstHalf()
-	{
+	public void removeFirstHalf() {
 		int removeLength = size() / 2;
 		int step = 0;
 		Node toDelete = null;
-		while (step < removeLength)
-		{
+		while (step < removeLength) {
 			toDelete = head;
 			head = head.next;
 			toDelete = null;
@@ -266,18 +225,15 @@ public class LinkedList implements List
 	 * @param i
 	 * @param length
 	 */
-	public void remove(int i, int length)
-	{
+	public void remove(int i, int length) {
 		int size = size();
-		if (i >= size)
-		{
+		if (i >= size) {
 			return;
 		}
 		Node nodePointer = head;
 		Node lastPointer = head;
 		int step = 0;
-		while (step < i)
-		{
+		while (step < i) {
 			lastPointer = nodePointer;
 			nodePointer = nodePointer.next;
 			++step;
@@ -285,20 +241,15 @@ public class LinkedList implements List
 
 		step = 0;
 		Node toDelete = null;
-		if (lastPointer == head)
-		{
-			while (step < length)
-			{
+		if (lastPointer == head) {
+			while (step < length) {
 				toDelete = head;
 				head = head.next;
 				toDelete = null;
 				++step;
 			}
-		}
-		else
-		{
-			while (step < length)
-			{
+		} else {
+			while (step < length) {
 				toDelete = nodePointer;
 				nodePointer = nodePointer.next;
 				toDelete = null;
@@ -316,13 +267,11 @@ public class LinkedList implements List
 	 * 
 	 * @param list
 	 */
-	public int[] getElements(LinkedList list)
-	{
+	public int[] getElements(LinkedList list) {
 		int[] elements = new int[list.size()];
 		Iterator it = list.iterator();
 		int index = 0;
-		for (; it.hasNext();)
-		{
+		for (; it.hasNext();) {
 			elements[index++] = (Integer) get((Integer) (it.next()));
 		}
 		return elements;
@@ -334,29 +283,22 @@ public class LinkedList implements List
 	 * @param list
 	 */
 
-	public void subtract(LinkedList list)
-	{
-		if (head == null)
-		{
+	public void subtract(LinkedList list) {
+		if (head == null) {
 			return;
 		}
 		Node nodePointer = head;
 		Node lastPointer = head;
 		Node toDelte = null;
-		while (nodePointer != null)
-		{
-			if (list.contain(nodePointer.data))
-			{
-				if (nodePointer == head)
-				{
+		while (nodePointer != null) {
+			if (list.contain(nodePointer.data)) {
+				if (nodePointer == head) {
 					toDelte = head;
 					head = head.next;
 					toDelte = null;
 					nodePointer = head;
 					lastPointer = head;
-				}
-				else
-				{
+				} else {
 					toDelte = nodePointer;
 					lastPointer.next = nodePointer.next;
 					toDelte = null;
@@ -368,13 +310,10 @@ public class LinkedList implements List
 
 	}
 
-	private boolean contain(Object o)
-	{
+	private boolean contain(Object o) {
 		Node nodePointer = head;
-		while (nodePointer != null)
-		{
-			if (nodePointer.data.equals(o))
-			{
+		while (nodePointer != null) {
+			if (nodePointer.data.equals(o)) {
 				return true;
 			}
 			nodePointer = nodePointer.next;
@@ -385,20 +324,17 @@ public class LinkedList implements List
 	/**
 	 * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
-	public void removeDuplicateValues()
-	{
+	public void removeDuplicateValues() {
 		Node nodePointer = head;
-		if (nodePointer.next == null)
-		{
+		if (nodePointer.next == null) {
 			return;
 		}
 
 		Node toDelete = null;
-		while (nodePointer.next != null)
-		{
+		while (nodePointer.next != null) {
 			while (nodePointer.next != null
-					&& nodePointer.data.equals(nodePointer.next.data))
-			{ // delete nodePointer.next
+					&& nodePointer.data.equals(nodePointer.next.data)) { // delete
+																			// nodePointer.next
 				toDelete = nodePointer.next;
 				nodePointer.next = nodePointer.next.next;
 				toDelete = null;
@@ -413,34 +349,27 @@ public class LinkedList implements List
 	 * @param min
 	 * @param max
 	 */
-	public void removeRange(int min, int max)
-	{
+	public void removeRange(int min, int max) {
 		Node nodePointer = head;
 		Node lastPointer = head;
-		if (nodePointer == null)
-		{
+		if (nodePointer == null) {
 			return;
 		}
 		while (nodePointer != null
-				&& ((Integer) nodePointer.data) <= (new Integer(min)))
-		{
+				&& ((Integer) nodePointer.data) <= (new Integer(min))) {
 			lastPointer = nodePointer;
 			nodePointer = nodePointer.next;
 		}
 		Node toDelete = null;
 		while (nodePointer != null
-				&& ((Integer) nodePointer.data) < (new Integer(max)))
-		{
-			if (nodePointer == head)
-			{
+				&& ((Integer) nodePointer.data) < (new Integer(max))) {
+			if (nodePointer == head) {
 				toDelete = head;
 				head = head.next;
 				toDelete = null;
 				nodePointer = head;
 				lastPointer = head;
-			}
-			else
-			{
+			} else {
 				toDelete = nodePointer;
 				lastPointer.next = nodePointer.next;
 				nodePointer = nodePointer.next;
@@ -455,39 +384,30 @@ public class LinkedList implements List
 	 * 
 	 * @param list
 	 */
-	public LinkedList intersection(LinkedList list)
-	{
+	public LinkedList intersection(LinkedList list) {
 		LinkedList linkedList = new LinkedList();
 		Iterator it1 = iterator();
 		Iterator it2 = list.iterator();
 		Object o1 = null;
 		Object o2 = null;
 
-		if (size() == 0 || list.size() == 0)
-		{
+		if (size() == 0 || list.size() == 0) {
 			return null;
 		}
 
 		o1 = it1.next();
 		o2 = it2.next();
 
-		while (o1 != null && o2 != null)
-		{
+		while (o1 != null && o2 != null) {
 			// System.out.println(o1 + " " + o2);
-			if (((Integer) o1) == ((Integer) o2))
-			{
+			if (((Integer) o1) == ((Integer) o2)) {
 				linkedList.add(o1);
 				o1 = it1.next();
 				o2 = it2.next();
-			}
-			else
-			{
-				if (((Integer) o1) > ((Integer) o2))
-				{
+			} else {
+				if (((Integer) o1) > ((Integer) o2)) {
 					o2 = it2.next();
-				}
-				else
-				{
+				} else {
 					o1 = it1.next();
 				}
 			}
