@@ -1,4 +1,4 @@
-package com.coderising.array;
+package com.coding.basic.array;
 
 /**
  * Created by yrs on 2017/3/4.
