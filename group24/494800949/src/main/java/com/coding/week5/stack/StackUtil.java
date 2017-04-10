@@ -71,38 +71,30 @@ public class StackUtil {
 	 */
 	public static boolean isValidPairs(String s){
 		Stack stack = new Stack();
-		Stack stack1 = new Stack();
 		char[] chars = s.toCharArray();
 		for (char c : chars) {
-			if ( c >= 'a' && c <= 'z') {
-				continue;
+			if (c == '(' || c == '{' || c == '[') {
+				stack.push(c);
+			} else if (c == ')' || c == '}' || c == ']'){
+				if (stack.isEmpty()) {
+					return false;
+				}
+				if (!isPair((char)stack.pop(), c)){
+					return false;
+				}
 			}
-			stack.push(c);
-			stack1.push(c);
 		}
-		reverse(stack);
-		while (!stack.isEmpty()) {
-			if (!isPair((char)stack1.pop(), (char)stack.pop())) {
-				return false;
-			}
-		}
-		return true;
+		return stack.isEmpty();
 	}
 
-	private static boolean isPair(char c1, char c2) {
-		switch (c1) {
+	private static boolean isPair(char left, char right) {
+		switch (left) {
 			case '{':
-				return c2 == '}';
-			case '}':
-				return c2 == '{';
+				return right == '}';
 			case '[':
-				return c2 == ']';
-			case ']':
-				return c2 == '[';
+				return right == ']';
 			case '(':
-				return c2 == ')';
-			case ')':
-				return c2 == '(';
+				return right == ')';
 			default:
 				return false;
 		}
