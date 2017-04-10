@@ -111,8 +111,9 @@ public class ClassFileParser {
 
 		}
 		
-		ClassIndex classIndex = parseClassIndex(iter);
 		AccessFlag accessFlag = parseAccessFlag(iter);
+		ClassIndex classIndex = parseClassIndex(iter);
+		
 		clzFile.setAccessFlag(accessFlag);
 		clzFile.setClassIndex(classIndex);
 
