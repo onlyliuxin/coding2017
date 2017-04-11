@@ -10,8 +10,21 @@ public class Stack {
 		l = new LRUPageFrame(capacity);
 	}
 	
+	public Stack(){
+		l = new LRUPageFrame();
+	}
+	
 	public void push(Object o){
-		l.addFirst(o);
+		//l.addFirst(o);
+		l.add(o);
+	}
+	
+	public Object pop(){
+		return l.remove();
+	}
+	
+	public Object popLow(){
+		return l.removeLow();
 	}
 	
 	public String toString(){
@@ -28,5 +41,9 @@ public class Stack {
 	
 	public Object getFirstNode(){
 		return l.getFirstNode();
+	}
+	
+	public int length(){
+		return l.getLength();
 	}
 }
