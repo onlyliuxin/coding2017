@@ -2,6 +2,7 @@ package com.coderising.jvm.attr;
 
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.constant.ConstantPool;
+import com.coderising.jvm.field.Field;
 import com.coderising.jvm.loader.ByteCodeIterator;
 
 
@@ -40,9 +41,25 @@ public class CodeAttr extends AttributeInfo {
 	}
 	
 	public static CodeAttr parse(ClassFile clzFile, ByteCodeIterator iter){
+		 int attrNameIndex = iter.nextU2ToInt();
+		 
+		 int attrLen = iter.nextU4ToInt();
+
+		 int maxStack = iter.nextU2ToInt();
+		 System.out.println("maxStack " + maxStack);
+		 int maxLocals = iter.nextU2ToInt();
+		 
+		 int codeLen = iter.nextU4ToInt();
+		 //System.out.println("Code is " + codeLen);
+		 CodeAttr codeAttr = new CodeAttr(attrNameIndex, attrLen, maxStack, maxLocals, codeLen, "Code");
+		 String code = iter.nextUxToHexString(codeLen);
 		
-		
-		return null;
+				 
+
+		 
+		 
+		 
+		 return null;
 	}
 	private void setStackMapTable(StackMapTable t) {
 		this.stackMapTable = t;

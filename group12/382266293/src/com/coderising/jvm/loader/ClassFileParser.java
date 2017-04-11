@@ -1,6 +1,8 @@
 package com.coderising.jvm.loader;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Assert;
 
@@ -15,6 +17,8 @@ import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.NullConstantInfo;
 import com.coderising.jvm.constant.StringInfo;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
 import com.coderising.jvm.util.Util;
 
 public class ClassFileParser {
@@ -64,7 +68,6 @@ public class ClassFileParser {
 				System.out.println("length is " + length);
 				utf8Info.setLength(length);
 				byte[] bytes = iter.nextNbytesToHexString(length);
-				System.out.println(bytes.length);
 				String value = "";
 				try {
 					value = new String(bytes, "UTF-8");
@@ -116,14 +119,34 @@ public class ClassFileParser {
 		
 		clzFile.setAccessFlag(accessFlag);
 		clzFile.setClassIndex(classIndex);
+		
+		int interfaceNum = iter.nextU2ToInt();
+		if (0 != interfaceNum) {
+			throw new RuntimeException("interface parser not finsihed yet, pls check!");
+		}
+		
+		int fieldNum = iter.nextU2ToInt();
+		List<Field> fields = new ArrayList<Field>();
+		for (int i = 0; i < fieldNum; i++) {
+			Field field = Field.parse(pool,iter);
+			fields.add(field);
+		}
+		clzFile.setFields(fields);
+		
+		int methodNum = iter.nextU2ToInt();
+		List<Method> methods = new ArrayList<Method>();
+		for (int i = 0; i < methodNum; i++) {
+			Method method = Method.parse(clzFile,iter);
+			methods.add(method);
+		}
+		clzFile.setMethods(methods);
 
 		return clzFile;
 	}
 
 	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
-		AccessFlag accessFlag = new AccessFlag(iter.nextU2ToInt());
-
-		return accessFlag;
+	
+		return AccessFlag.parseAccessFlag(iter);
 	}
 
 	private ClassIndex parseClassIndex(ByteCodeIterator iter) {

@@ -1,5 +1,7 @@
 package com.coderising.jvm.clz;
 
+import com.coderising.jvm.loader.ByteCodeIterator;
+
 public class AccessFlag {
 	private int flagValue;
 
@@ -23,4 +25,8 @@ public class AccessFlag {
 		return (this.flagValue & 0x0010) != 0;
 	}
 
+	public static AccessFlag parseAccessFlag(ByteCodeIterator iter) {
+		AccessFlag accessFlag = new AccessFlag(iter.nextU2ToInt());
+		return accessFlag;
+	}
 }

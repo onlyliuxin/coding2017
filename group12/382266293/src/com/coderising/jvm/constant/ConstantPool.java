@@ -18,7 +18,7 @@ public class ConstantPool {
 	}
 
 	public ConstantInfo getConstantInfo(int index) {
-		System.out.println("ok " + this.constantInfos.get(index));
+		//System.out.println(this.constantInfos.get(index));
 		return this.constantInfos.get(index);
 	}
 

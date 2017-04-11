@@ -5,7 +5,9 @@ import com.coderising.jvm.attr.AttributeInfo;
 import com.coderising.jvm.attr.CodeAttr;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.field.Field;
 import com.coderising.jvm.loader.ByteCodeIterator;
+import com.sun.org.apache.bcel.internal.classfile.Code;
 
 
 
@@ -46,12 +48,27 @@ public class Method {
 		this.descriptorIndex = descriptorIndex;
 	}
 
-	
-	
-	
-	
+
 	public static Method parse(ClassFile clzFile, ByteCodeIterator iter){
-		return null;
+		
+		int access_flags = iter.nextU2ToInt();
+		int name_index = iter.nextU2ToInt();
+		int descriptor_index = iter.nextU2ToInt();
+		int attrbutes_count = iter.nextU2ToInt();
+		System.out.println("count - = " + attrbutes_count);
+		Method method = new Method(clzFile, access_flags,name_index,descriptor_index);
+		
+		for (int i = 0; i < attrbutes_count; i++) {
+			int attr_name = iter.nextU2ToInt();
+			if (clzFile.getConstantPool().getUTF8String(attr_name).equals("Code")) {
+				CodeAttr code = CodeAttr.parse(clzFile, iter);
+			}
+
+		}
+		
+
+		
+		return method;
 		
 	}
 }

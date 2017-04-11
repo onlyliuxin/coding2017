@@ -34,7 +34,7 @@ public class ClassFileloaderTest {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		//clzFile.print();
+		clzFile.print();
 	}
 
 	@Before

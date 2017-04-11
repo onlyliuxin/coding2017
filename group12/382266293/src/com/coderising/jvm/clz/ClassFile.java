@@ -1,5 +1,6 @@
 package com.coderising.jvm.clz;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.coderising.jvm.constant.ClassInfo;
@@ -15,6 +16,8 @@ public class ClassFile {
 	private AccessFlag accessFlag;
 	private ClassIndex clzIndex;
 	private ConstantPool pool;
+	private List<Field> fields = new ArrayList<Field>();
+	private List<Method> methods = new ArrayList<Method>();
 
 	public ClassIndex getClzIndex() {
 		return clzIndex;
@@ -81,11 +84,23 @@ public class ClassFile {
 
 	public List<Field> getFields() {
 
-		return null;
+		return fields;
+	}
+	
+	public void setFields(List<Field> fields) {
+		
+		this.fields = fields;
+		
 	}
 
 	public List<Method> getMethods() {
 
-		return null;
+		return methods;
+	}
+	
+	public void setMethods(List<Method> methods) {
+		
+		this.methods = methods;
+		
 	}
 }
