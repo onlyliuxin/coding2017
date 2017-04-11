@@ -1,10 +1,11 @@
 package com.coderising.litestruts;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 
-
-
 public class Struts {
+	
+	private final static Configuration cfg = new Configuration("struts.xml"); 
 
     public static View runAction(String actionName, Map<String,String> parameters) {
 
@@ -28,6 +29,25 @@ public class Struts {
         
         */
     	
+    	String clzName = cfg.getClassName(actionName);
+    	if(clzName == null){
+    		return null;
+    	}
+    	
+    	try {
+    		System.out.println("clzName: "+clzName);
+			Class<?> clz = Class.forName(clzName);
+			Object action = clz.newInstance();
+			ReflectionUtil.setParameters(action, parameters);
+			
+			Method m = clz.getDeclaredMethod("execute");
+			String resultName = (String) m.invoke(action);
+			
+			Map<String, Object> params ;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     	return null;
     }    
 

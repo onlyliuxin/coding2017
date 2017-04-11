@@ -40,4 +40,14 @@ public class StrutsTest {
         Assert.assertEquals("/jsp/showLogin.jsp", view.getJsp());
         Assert.assertEquals("login failed,please check your user/pwd", view.getParameters().get("message"));
 	}
+	
+	@Test
+	public void configuration(){
+//		Struts st = new Struts();
+//		Configuration cfg = new Configuration("struts.xml");
+		Map<String,String> parameters = new HashMap<>();
+		parameters.put("name", "liuyu");
+		parameters.put("password", "123456");
+		Struts.runAction("login", parameters);
+	}
 }
