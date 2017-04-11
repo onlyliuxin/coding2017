@@ -42,10 +42,81 @@ public class ClassFileParser {
 		System.out.println("majorVersion is " + majorVersion);
 		clzFile.setMajorVersion(majorVersion);
 
+
+		ConstantPool pool = parseConstantPool(iter);
+		clzFile.setConstPool(pool);
+
+		
+		AccessFlag accessFlag = parseAccessFlag(iter);
+		clzFile.setAccessFlag(accessFlag);
+		
+		ClassIndex classIndex = parseClassIndex(iter);
+		clzFile.setClassIndex(classIndex);
+		
+		parseInterfaces(iter);
+
+		parseFields(clzFile, iter);
+
+		parseMethods(clzFile, iter);
+		
+		return clzFile;
+	}
+
+	private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
+		
+		int methodNum = iter.nextU2ToInt();
+
+		ConstantPool pool = clzFile.getConstantPool(); 
+		for (int i = 0; i < methodNum; i++) {
+			Method method = Method.parse(clzFile,iter);
+			clzFile.addMethod(method);
+		}
+		
+	}
+
+	private void parseFields(ClassFile clzFile, ByteCodeIterator iter) {
+		
+		int fieldNum = iter.nextU2ToInt();
+		
+		ConstantPool pool = clzFile.getConstantPool(); 
+		for (int i = 0; i < fieldNum; i++) {
+			Field field = Field.parse(pool,iter);
+			clzFile.addField(field);
+		}
+		
+	}
+
+	private void parseInterfaces(ByteCodeIterator iter) {
+		int interfaceNum = iter.nextU2ToInt();
+		
+		if (0 != interfaceNum) {
+			throw new RuntimeException("interface parser not finsihed yet, pls check!");
+		}
+		
+	}
+
+	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
+	
+		return AccessFlag.parseAccessFlag(iter);
+	}
+
+	private ClassIndex parseClassIndex(ByteCodeIterator iter) {
+
+		int thisClassIndex = iter.nextU2ToInt();
+		int superClassIndex = iter.nextU2ToInt();
+		ClassIndex classIndex = new ClassIndex();
+		classIndex.setThisClassIndex(thisClassIndex);
+		classIndex.setSuperClassIndex(superClassIndex);
+		return classIndex;
+
+	}
+
+	private ConstantPool parseConstantPool(ByteCodeIterator iter) {
+
 		int constantsNum = iter.nextU2ToInt();
 		System.out.println("constantsNum is " + constantsNum);
+		
 		ConstantPool pool = new ConstantPool();
-		clzFile.setConstPool(pool);
 
 		pool.addConstantInfo(new NullConstantInfo());
 
@@ -113,56 +184,6 @@ public class ClassFileParser {
 			}
 
 		}
-		
-		AccessFlag accessFlag = parseAccessFlag(iter);
-		ClassIndex classIndex = parseClassIndex(iter);
-		
-		clzFile.setAccessFlag(accessFlag);
-		clzFile.setClassIndex(classIndex);
-		
-		int interfaceNum = iter.nextU2ToInt();
-		if (0 != interfaceNum) {
-			throw new RuntimeException("interface parser not finsihed yet, pls check!");
-		}
-		
-		int fieldNum = iter.nextU2ToInt();
-		List<Field> fields = new ArrayList<Field>();
-		for (int i = 0; i < fieldNum; i++) {
-			Field field = Field.parse(pool,iter);
-			fields.add(field);
-		}
-		clzFile.setFields(fields);
-		
-		int methodNum = iter.nextU2ToInt();
-		List<Method> methods = new ArrayList<Method>();
-		for (int i = 0; i < methodNum; i++) {
-			Method method = Method.parse(clzFile,iter);
-			methods.add(method);
-		}
-		clzFile.setMethods(methods);
-
-		return clzFile;
-	}
-
-	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
-	
-		return AccessFlag.parseAccessFlag(iter);
-	}
-
-	private ClassIndex parseClassIndex(ByteCodeIterator iter) {
-
-		int thisClassIndex = iter.nextU2ToInt();
-		int superClassIndex = iter.nextU2ToInt();
-		ClassIndex classIndex = new ClassIndex();
-		classIndex.setThisClassIndex(thisClassIndex);
-		classIndex.setSuperClassIndex(superClassIndex);
-		return classIndex;
-
-	}
-
-	private ConstantPool parseConstantPool(ByteCodeIterator iter) {
-
-		ConstantPool pool = new ConstantPool();
 
 		return pool;
 	}

@@ -62,4 +62,8 @@ public class ByteCodeIterator {
 		return buffer.toString();
 	}
 
+	public void back(int i) {
+		currPos = currPos - 2;
+	}
+
 }

@@ -55,13 +55,20 @@ public class Method {
 		int name_index = iter.nextU2ToInt();
 		int descriptor_index = iter.nextU2ToInt();
 		int attrbutes_count = iter.nextU2ToInt();
-		System.out.println("count - = " + attrbutes_count);
+		System.out.println("count1 = " + attrbutes_count);
+		
 		Method method = new Method(clzFile, access_flags,name_index,descriptor_index);
 		
 		for (int i = 0; i < attrbutes_count; i++) {
-			int attr_name = iter.nextU2ToInt();
-			if (clzFile.getConstantPool().getUTF8String(attr_name).equals("Code")) {
-				CodeAttr code = CodeAttr.parse(clzFile, iter);
+			int attr_nameIndex = iter.nextU2ToInt();
+			String att_name = clzFile.getConstantPool().getUTF8String(attr_nameIndex);
+			iter.back(2);
+			
+			if (AttributeInfo.CODE.equalsIgnoreCase("Code")) {
+				CodeAttr codeAttr = CodeAttr.parse(clzFile, iter);
+				method.setCodeAttr(codeAttr);
+			} else {
+				throw new RuntimeException(att_name + "has not been implemented");
 			}
 
 		}

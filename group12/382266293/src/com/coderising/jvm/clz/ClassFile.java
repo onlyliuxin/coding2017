@@ -92,6 +92,12 @@ public class ClassFile {
 		this.fields = fields;
 		
 	}
+	
+	public void addField(Field field) {
+		
+		this.fields.add(field);
+		
+	}
 
 	public List<Method> getMethods() {
 
@@ -101,6 +107,12 @@ public class ClassFile {
 	public void setMethods(List<Method> methods) {
 		
 		this.methods = methods;
+		
+	}
+	
+	public void addMethod(Method method) {
+		
+		this.methods.add(method);
 		
 	}
 }
