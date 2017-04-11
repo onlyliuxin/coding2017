@@ -72,42 +72,37 @@ public class StackUtil {
 	 * @param s
 	 * @return
 	 */
-	public static boolean isValidPairs(String s){
+	public static boolean isValidPairs(String s) {
 		char[] c = s.toCharArray();
-		Stack headFirst = new Stack();
-		Stack tailFirst = new Stack();
-		int len=c.length;
-		for (int i = 0; i < len/2; i++) {
-			headFirst.push(c[i]);
-			tailFirst.push(c[len-1-i]);
+		Stack tag = new Stack();
+		for (int i = 0; i < c.length; i++) {
+			switch(c[i]) {
+				case '(':
+				case '[':
+				case '{':
+					tag.push(c[i]);
+					break;
+				case ')':
+					if (tag.isEmpty() || '(' != (char)tag.pop()) {
+						return false;
+					}
+					break;
+				case '}':
+					if (tag.isEmpty() || '{' != (char)tag.pop()) {
+						return false;
+					}
+					break;
+				case ']':
+					if (tag.isEmpty() || '[' != (char)tag.pop()) {
+						return false;
+					}
+					break;
+			}
 		}
-		return isValidPairsStack(headFirst, tailFirst);
-	}
-
-	private static boolean isValidPairsStack(Stack headFirst, Stack tailFirst) {
-		
-		while (!headFirst.isEmpty() && !tailFirst.isEmpty()) {
-			char h = getMatchedTag(headFirst);
-			char t = getMatchedTag(tailFirst);
-			if (h == 0 || t == 0) {
-				return true;
-			}
-			if (!isValidPairsTag(h,t)) {// 只有此一种情况返回不匹配
-				return false;
-			}
-			return isValidPairsStack(headFirst, tailFirst);
+		if (!tag.isEmpty()) {
+			return false;
 		}
 		return true;
 	}
-
-	private static boolean isValidPairsTag(char h, char t) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	private static char getMatchedTag(Stack tailFirst) {
-		return 0;
-	}
-	
 	
 }
