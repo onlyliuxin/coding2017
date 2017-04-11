@@ -1,4 +1,4 @@
-package com.coding.basic;
+package com.coding.basic.stack;
 
 import java.util.EmptyStackException;
 
@@ -13,12 +13,12 @@ public class Stack {
 
     public Object pop() {
         checkBound();
-        return elementData.get(size() - 1);
+        return elementData.remove(size() - 1);
     }
 
     public Object peek() {
         checkBound();
-        return elementData.remove(size() - 1);
+        return elementData.get(size() - 1);
     }
 
     public boolean isEmpty() {
@@ -33,5 +33,15 @@ public class Stack {
         if (isEmpty()) {
             throw new EmptyStackException();
         }
+    }
+    
+    public String toString(){
+    	StringBuilder sb = new StringBuilder();
+    	for(int i=0;i<elementData.size();i++){
+    		sb.append(elementData.get(i));
+    		if(i < elementData.size() - 1)
+    			sb.append(",");
+    	}
+    	return sb.toString();
     }
 }
