@@ -10,6 +10,7 @@ package com.ifengdzh.code2017.basic;
 public interface List {
     /**
      * 添加一个对象
+     *
      * @param o
      * @return
      */
@@ -17,15 +18,17 @@ public interface List {
 
     /**
      * 添加对象到指定位置
+     *
      * @param index
      * @param o
      * @return
      */
-    public Object add(int index,Object o);
+    public Object add(int index, Object o);
 
 
     /**
      * 移除某个元素
+     *
      * @param index
      * @return
      */
@@ -33,12 +36,14 @@ public interface List {
 
     /**
      * 判断List是否为空
+     *
      * @return
      */
     public boolean isEmpty();
 
     /**
      * 当前List 大小
+     *
      * @return
      */
     public int size();

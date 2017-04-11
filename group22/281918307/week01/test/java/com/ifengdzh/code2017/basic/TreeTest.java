@@ -1,7 +1,5 @@
 package com.ifengdzh.code2017.basic;
 
-import static org.junit.Assert.*;
-
 /**
  * 插入树节点.
  * Created by ajaxfeng on 2017/4/4.
@@ -10,7 +8,7 @@ public class TreeTest {
 
     @org.junit.Test
     public void testInsert() throws Exception {
-        Tree tree=new Tree();
+        Tree tree = new Tree();
         tree.insert(5);
         tree.insert(3);
         tree.insert(1);

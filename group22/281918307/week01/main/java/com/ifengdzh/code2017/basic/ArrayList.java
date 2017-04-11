@@ -29,10 +29,10 @@ public class ArrayList implements List {
 
     @Override
     public Object add(int index, Object o) {
-        ArrayIndexBoundUtil.checkIndex(index,size);
+        ArrayIndexBoundUtil.checkIndex(index, size);
         // 插入数组内
         if (size == dataArray.length) {
-             enlarge(enLargeLength);
+            enlarge(enLargeLength);
         }
         // 后面值依次后移一位,2.然后再插入
         moveBack1Step(index);
@@ -40,9 +40,10 @@ public class ArrayList implements List {
         size++;
         return o;
     }
+
     @Override
     public Object remove(int index) {
-        ArrayIndexBoundUtil.checkIndex(index,size);
+        ArrayIndexBoundUtil.checkIndex(index, size);
         Object o = null;
         //最后一个元素
         if (index == size - 1) {
@@ -68,7 +69,7 @@ public class ArrayList implements List {
 
     @Override
     public Object get(int index) {
-        ArrayIndexBoundUtil.checkIndex(index,size);
+        ArrayIndexBoundUtil.checkIndex(index, size);
         return dataArray[index];
     }
 
@@ -85,7 +86,7 @@ public class ArrayList implements List {
             }
         }
         //设置成空
-        dataArray[size-1]=null;
+        dataArray[size - 1] = null;
         return o;
     }
 

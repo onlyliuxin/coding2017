@@ -8,26 +8,27 @@ public class LinkedQueue implements Queue {
 
     private Node head;
     private Node tail;
-    private int size=0;
+    private int size = 0;
 
     public class Node {
         public Object data;
         public Node next;
-        public Node(Object data, Node next){
-            this.data=data;
-            this.next=next;
+
+        public Node(Object data, Node next) {
+            this.data = data;
+            this.next = next;
         }
     }
 
     @Override
     public Object enQueue(Object o) {
-        Node node =new Node(o,null);
-        if(head==null){
-            head= node;
-            tail=head;
-        }else{
-            tail.next= node;
-            tail= node;
+        Node node = new Node(o, null);
+        if (head == null) {
+            head = node;
+            tail = head;
+        } else {
+            tail.next = node;
+            tail = node;
         }
         size++;
         return o;
@@ -35,11 +36,11 @@ public class LinkedQueue implements Queue {
 
     @Override
     public Object deQueue() {
-        if(head==null){
+        if (head == null) {
             return null;
         }
-        Object o=head.data;
-        head=head.next;
+        Object o = head.data;
+        head = head.next;
         size--;
         return o;
     }
@@ -51,6 +52,6 @@ public class LinkedQueue implements Queue {
 
     @Override
     public boolean isEmpty() {
-        return size==0;
+        return size == 0;
     }
 }

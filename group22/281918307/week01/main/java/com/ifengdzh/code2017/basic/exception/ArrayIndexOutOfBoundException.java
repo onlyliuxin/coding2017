@@ -5,7 +5,7 @@ package com.ifengdzh.code2017.basic.exception;
  * Created by ajaxfeng on 2017/4/4.
  */
 public class ArrayIndexOutOfBoundException extends RuntimeException {
-    public ArrayIndexOutOfBoundException(String message){
+    public ArrayIndexOutOfBoundException(String message) {
         super(message);
     }
 

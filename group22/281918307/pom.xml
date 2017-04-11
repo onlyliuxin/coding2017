@@ -13,6 +13,9 @@
         <module>week02</module>
     </modules>
 
+    <build>
+
+    </build>
 
 
 </project>

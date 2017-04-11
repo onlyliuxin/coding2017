@@ -14,7 +14,7 @@ public class Tree {
      * @param data
      */
     public void insert(int data) {
-        insert(root,data);
+        insert(root, data);
     }
 
     /**
@@ -22,7 +22,7 @@ public class Tree {
      *
      * @param data
      */
-    private void insert(Node currentNode,int data) {
+    private void insert(Node currentNode, int data) {
         //如果不存在节点,就创建根节点.
         if (null == root) {
             currentNode = new Node(data);
@@ -33,22 +33,22 @@ public class Tree {
         int currentData = currentNode.getData();
         //如果数据比根节点大.则往右找
         Node nextNode = null;
-        boolean isLeft=false;
+        boolean isLeft = false;
         if (currentData < data) {
             nextNode = currentNode.getRight();
-        } else if ( currentData>data) {
+        } else if (currentData > data) {
             nextNode = currentNode.getLeft();
-            isLeft=true;
-        }else{
-            System.out.println(data+"已经存在了...");
+            isLeft = true;
+        } else {
+            System.out.println(data + "已经存在了...");
         }
-        if(nextNode!=null){
-            insert(nextNode,data);
-        }else{
-            nextNode=new Node(data);
-            if(isLeft){
+        if (nextNode != null) {
+            insert(nextNode, data);
+        } else {
+            nextNode = new Node(data);
+            if (isLeft) {
                 currentNode.setLeft(nextNode);
-            }else{
+            } else {
                 currentNode.setRight(nextNode);
             }
         }
@@ -56,45 +56,47 @@ public class Tree {
 
     /**
      * 查找在那个节点上面
+     *
      * @param data
      */
     public void trace(int data) {
-        trace(null,data);
+        trace(null, data);
     }
-    private void trace(Node currentNode,int data){
-        if(currentNode==null){
-            currentNode=root;
+
+    private void trace(Node currentNode, int data) {
+        if (currentNode == null) {
+            currentNode = root;
         }
         int currentNodeData = currentNode.getData();
-        System.out.println(" "+currentNodeData);
-        Node nextNode=null;
-        if(currentNodeData>data){
-            nextNode=currentNode.getLeft();
-        }else if(currentNodeData<data){
-            nextNode=currentNode.getRight();
-        }else{
+        System.out.println(" " + currentNodeData);
+        Node nextNode = null;
+        if (currentNodeData > data) {
+            nextNode = currentNode.getLeft();
+        } else if (currentNodeData < data) {
+            nextNode = currentNode.getRight();
+        } else {
             System.out.println("命中了....");
         }
-        if(null!=nextNode){
-            trace(nextNode,data);
+        if (null != nextNode) {
+            trace(nextNode, data);
         }
     }
 
-    public void traceAll(){
+    public void traceAll() {
         traceAll(root);
     }
 
-    private void traceAll(Node currentNode){
-        if(null==currentNode){
+    private void traceAll(Node currentNode) {
+        if (null == currentNode) {
             return;
         }
-        System.out.println(" "+currentNode.getData());
-        if(currentNode.getLeft()!=null){
+        System.out.println(" " + currentNode.getData());
+        if (currentNode.getLeft() != null) {
             System.out.print(" left: ");
             traceAll(currentNode.getLeft());
         }
 
-        if(currentNode.getRight()!=null){
+        if (currentNode.getRight() != null) {
             System.out.print(" right: ");
             traceAll(currentNode.getRight());
         }

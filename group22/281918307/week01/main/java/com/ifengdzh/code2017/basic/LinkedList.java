@@ -33,9 +33,9 @@ public class LinkedList implements List {
         if (head == null) {
             head = node;
         }
-        if(tail==null){
-            tail=head;
-        }else{
+        if (tail == null) {
+            tail = head;
+        } else {
             tail.next = node;
             tail = node;
         }
@@ -46,22 +46,22 @@ public class LinkedList implements List {
     @Override
     public Object add(int index, Object o) {
         Node thisNode = new Node(o);
-        if(index==0){
-            thisNode.next=head;
-            head= thisNode;
+        if (index == 0) {
+            thisNode.next = head;
+            head = thisNode;
             size++;
             return o;
         }
 
-        while(index > size) {
-             add(null);
+        while (index > size) {
+            add(null);
         }
-        if(index==size){
+        if (index == size) {
             return add(o);
         }
         if (index < size) {
             //当前
-            Node node = getNode(index-1);
+            Node node = getNode(index - 1);
             Node next = node.next;
             node.next = thisNode;
             thisNode.next = next;
@@ -97,7 +97,7 @@ public class LinkedList implements List {
         if (index == 0) {
             thisNode = head;
             head = head.next;
-        } else{
+        } else {
             //找到节点前一个节点
             Node frontNode = getNode(index - 1);
             thisNode = frontNode.next;

@@ -10,11 +10,12 @@ public class ArrayIndexBoundUtil {
 
     /**
      * 检查访问下标
+     *
      * @param index
      * @param maxIndex
      */
-    public static void checkIndex(int index,int maxIndex){
-        if(index<0 || index>maxIndex){
+    public static void checkIndex(int index, int maxIndex) {
+        if (index < 0 || index > maxIndex) {
             throw new ArrayIndexOutOfBoundException("index out of bound ...");
         }
     }
