@@ -44,8 +44,8 @@ public class ClassFileParser {
 		ClassIndex classIndex = new ClassIndex();
 		classIndex.setThisClassIndex(iter.nextU2toInt());
 		classIndex.setSuperClassIndex(iter.nextU2toInt());
+		
 		return classIndex;
-
 	}
 
 	private ConstantPool parseConstantPool(ByteCodeIterator iter) {
@@ -107,7 +107,7 @@ public class ClassFileParser {
 				pool.addConstantInfo(nameAndTypeInfo);
 			}
 			else {
-				throw new RuntimeException("The constant pool has not realized the tag:" + tag);
+				throw new RuntimeException("The constant pool has not realized at tag=" + tag);
 			}
 		}
 		return pool;
