@@ -16,9 +16,20 @@ public class ClassFileLoader {
 	private static final int BUFFER_SIZE=1024;
 	
 	public byte[] readBinaryCode(String className) {
-		className=className.replace(".","\\");
-		StringBuffer sb=new StringBuffer();
-		String absolutePath=sb.append(clzPaths.get(0)).append("\\").append(className).append(".class").toString();
+		className=className.replace(".","\\")+".class";
+		String absolutePath=null;
+		for(int i=0;i<clzPaths.size();i++){
+			absolutePath=clzPaths.get(i)+"\\"+className;
+			byte[]codes=loadClassFile(absolutePath);
+			if(codes!=null){
+				return codes;
+			}
+		}
+		return null;
+	}
+
+
+	private byte[] loadClassFile(String absolutePath) {
 		File file=new File(absolutePath);
 		FileInputStream fis = null;
 		ByteArrayOutputStream baos=new ByteArrayOutputStream();
@@ -50,6 +61,9 @@ public class ClassFileLoader {
 	
 	
 	public void addClassPath(String path) {
+		if(this.clzPaths.contains(path)){
+			return;
+		}
 		clzPaths.add(path);
 	}
 	
