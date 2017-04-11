@@ -235,7 +235,6 @@ hs_err_pid*
 .recommenders
 
 
-*.xml
 *.iml
 .idea
 *.iml
