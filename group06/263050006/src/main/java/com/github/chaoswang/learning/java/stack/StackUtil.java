@@ -1,21 +1,27 @@
 package com.github.chaoswang.learning.java.stack;
 
+import java.util.Stack;
 public class StackUtil {
 
 	/**
 	 * 假设栈中的元素是Integer, 从栈顶到栈底是 : 5,4,3,2,1 调用该方法后， 元素次序变为: 1,2,3,4,5
 	 * 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
 	 */
-	public static void reverse(Stack s) {
+	public static void reverse(Stack<Integer> s) {
 
 	}
+	
+	public static void addToBottom(Stack<Integer> s,  Integer value){
+		
+	}
+	
 
 	/**
 	 * 删除栈中的某个元素 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
 	 * 
 	 * @param o
 	 */
-	public static void remove(Stack s, Object o) {
+	public static void remove(Stack<Integer> s, Object o) {
 
 	}
 
@@ -26,7 +32,7 @@ public class StackUtil {
 	 * @param len
 	 * @return
 	 */
-	public static Object[] getTop(Stack s, int len) {
+	public static Object[] getTop(Stack<Integer> s, int len) {
 		return null;
 	}
 
