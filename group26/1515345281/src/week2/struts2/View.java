@@ -13,6 +13,7 @@ public class View {
 		this.jsp = jsp;
 		return this;
 	}
+	
 	public Map getParameters() {
 		return parameters;
 	}
