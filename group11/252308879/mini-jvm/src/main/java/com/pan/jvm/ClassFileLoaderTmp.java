@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassFileLoader {
+public class ClassFileLoaderTmp {
 	private List<String> clzPaths = new ArrayList<String>();
 	int countForClassPath = 0;
 	int countForReadBinaryCode = 0;
