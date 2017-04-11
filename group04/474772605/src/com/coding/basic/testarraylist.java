@@ -6,9 +6,10 @@ public class testarraylist {
 		String  i = "aaa";
 		String  y = "bbb";
 		Object o = new Object();
+		Testclassextends abcTestclassextends = new Testclassextends();
+		System.out.println(abcTestclassextends.delete());
 		
-		
-		abc.add(i);
+	/*	abc.add(i);
 		System.out.println(abc.get(0));
 	//	System.out.println(abc.get(1));
 		abc.add(y);
@@ -16,7 +17,7 @@ public class testarraylist {
 		System.out.println(abc.get(1));
 		abc.remove(1);
 		System.out.println(abc.get(0));
-		System.out.println(abc.get(1));
+		System.out.println(abc.get(1));*/
 	}
 
 }

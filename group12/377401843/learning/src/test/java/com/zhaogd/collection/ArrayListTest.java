@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.zhaogd.array.ArrayList;
+
 public class ArrayListTest {
 
 	ArrayList arrayList;
