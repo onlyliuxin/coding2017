@@ -2,9 +2,9 @@ package com.coding.basic;
 
 public class LinkedList implements List {
 	
-	private Node head = null;
-	private Node tail = null;
-	private int size = 0;
+	protected Node head = null;
+	protected Node tail = null;
+	protected int size = 0;
 	
 	public void add(Object o){
 		if(head == null){
@@ -109,7 +109,7 @@ public class LinkedList implements List {
 		return new LinkedListIterator(this);
 	}
 	
-	private  class Node{
+	protected  class Node{
 		public Object data = null;
 		public Node next = null;
 		public Node(Object o){

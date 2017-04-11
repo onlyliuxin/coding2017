@@ -9,23 +9,30 @@ public class ArrayList implements List {
 	private Object[] elementData = new Object[3];
 	
 	public void add(Object o){
-		add(size,o);
+		ensureCapacity(size + 1);
+		elementData[size] = o;
+		size++;
 	}
+
 	public void add(int index, Object o){
 		if (index > size){
 			throw new IndexOutOfBoundsException();
 		}
+
 		// 扩容
-		if (size == elementData.length || index + 1 > elementData.length) {
-			int newLength = index + 1 > size * 2 ? index + 1 :size * 2;
-			elementData = Arrays.copyOf(elementData, newLength);
-		}
+		ensureCapacity(size + 1);
+
 		// 移动元素
 		System.arraycopy(elementData,index,elementData,index + 1 ,size-index);
 		elementData[index] = o;
 		size ++ ;
 	}
-	
+
+	private void ensureCapacity(int minCapacity) {
+		int newLength = Math.max(minCapacity, size * 2);
+		elementData = Arrays.copyOf(elementData, newLength);
+	}
+
 	public Object get(int index){
 		checkIndex(index);
 		return elementData[index];
@@ -55,17 +62,17 @@ public class ArrayList implements List {
 
 	private class ArrayListIterator implements Iterator {
 
-		private int currentIndex = 0;
+		private int position = 0;
 
 		@Override
 		public boolean hasNext() {
-			return currentIndex < size();
+			return position < size();
 		}
 
 		@Override
 		public Object next() {
-			Object o = get(currentIndex);
-			currentIndex ++ ;
+			Object o = get(position);
+			position++ ;
 			return o;
 		}
 	}
