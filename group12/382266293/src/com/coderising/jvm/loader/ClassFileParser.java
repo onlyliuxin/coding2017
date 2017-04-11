@@ -25,20 +25,20 @@ public class ClassFileParser {
 
 		ByteCodeIterator iter = new ByteCodeIterator(codes);
 
-		String magicNumber = iter.nextU4toHexString();
+		String magicNumber = iter.nextU4ToHexString();
 		if ("cafebabe".equals(magicNumber) == false) {
 			throw new RuntimeException("invalide class file!" + magicNumber);
 		}
 
-		int minorVersion = iter.nextU2toInt();
+		int minorVersion = iter.nextU2ToInt();
 		System.out.println("minorVersion is " + minorVersion);
 		clzFile.setMinorVersion(minorVersion);
 
-		int majorVersion = iter.nextU2toInt();
+		int majorVersion = iter.nextU2ToInt();
 		System.out.println("majorVersion is " + majorVersion);
 		clzFile.setMajorVersion(majorVersion);
 
-		int constantsNum = iter.nextU2toInt();
+		int constantsNum = iter.nextU2ToInt();
 		System.out.println("constantsNum is " + constantsNum);
 		ConstantPool pool = new ConstantPool();
 		clzFile.setConstPool(pool);
@@ -47,12 +47,12 @@ public class ClassFileParser {
 
 		for (int i = 1; i < constantsNum; i++) {
 
-			int tag = iter.nextU1toInt();
+			int tag = iter.nextU1ToInt();
 
 			if (tag == 7) {
 				// Class info
 				ClassInfo classInfo = new ClassInfo(pool);
-				int utf8Index = iter.nextU2toInt();
+				int utf8Index = iter.nextU2ToInt();
 				classInfo.setUtf8Index(utf8Index);
 				
 
@@ -60,7 +60,7 @@ public class ClassFileParser {
 
 				// utf8-info
 				UTF8Info utf8Info = new UTF8Info(pool);
-				int length = iter.nextU2toInt();
+				int length = iter.nextU2ToInt();
 				System.out.println("length is " + length);
 				utf8Info.setLength(length);
 				byte[] bytes = iter.nextNbytesToHexString(length);
@@ -78,33 +78,33 @@ public class ClassFileParser {
 
 				// StringInfo
 				StringInfo stringInfo = new StringInfo(pool);
-				int stringIndex = iter.nextU2toInt();
+				int stringIndex = iter.nextU2ToInt();
 				stringInfo.setIndex(stringIndex);
 			} else if (tag == 9) {
 
 				// FieldRefInfo
 				FieldRefInfo fieldRefInfo = new FieldRefInfo(pool);
-				int classIndex = iter.nextU2toInt();
+				int classIndex = iter.nextU2ToInt();
 				fieldRefInfo.setClassInfoIndex(classIndex);
-				int nameAndTypeIndex = iter.nextU2toInt();
+				int nameAndTypeIndex = iter.nextU2ToInt();
 				fieldRefInfo.setNameAndTypeIndex(nameAndTypeIndex);
 
 			} else if (tag == 10) {
 
 				// MethodRefInfo
 				MethodRefInfo methodRefInfo = new MethodRefInfo(pool);
-				int classIndex = iter.nextU2toInt();
+				int classIndex = iter.nextU2ToInt();
 				methodRefInfo.setClassInfoIndex(classIndex);
-				int nameAndTypeIndex = iter.nextU2toInt();
+				int nameAndTypeIndex = iter.nextU2ToInt();
 				methodRefInfo.setNameAndTypeIndex(nameAndTypeIndex);
 
 			} else if (tag == 12) {
 
 				// NameAndTypeInfo
 				NameAndTypeInfo nameAndTypeInfo = new NameAndTypeInfo(pool);
-				int index1 = iter.nextU2toInt();
+				int index1 = iter.nextU2ToInt();
 				nameAndTypeInfo.setIndex1(index1);
-				int index2 = iter.nextU2toInt();
+				int index2 = iter.nextU2ToInt();
 				nameAndTypeInfo.setIndex2(index2);
 
 			}
@@ -121,15 +121,15 @@ public class ClassFileParser {
 	}
 
 	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
-		AccessFlag accessFlag = new AccessFlag(iter.nextU2toInt());
+		AccessFlag accessFlag = new AccessFlag(iter.nextU2ToInt());
 
 		return accessFlag;
 	}
 
 	private ClassIndex parseClassIndex(ByteCodeIterator iter) {
 
-		int thisClassIndex = iter.nextU2toInt();
-		int superClassIndex = iter.nextU2toInt();
+		int thisClassIndex = iter.nextU2ToInt();
+		int superClassIndex = iter.nextU2ToInt();
 		ClassIndex classIndex = new ClassIndex();
 		classIndex.setThisClassIndex(thisClassIndex);
 		classIndex.setSuperClassIndex(superClassIndex);
