@@ -5,9 +5,7 @@ import com.donaldy.jvm.clz.ClassFile;
 import com.donaldy.jvm.clz.ClassIndex;
 import com.donaldy.jvm.constant.*;
 
-import javax.lang.model.element.Name;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Method;
 
 
 public class ClassFileParser {
@@ -46,11 +44,13 @@ public class ClassFileParser {
 	private ClassIndex parseClassIndex(ByteCodeIterator iter) {
 
 		int thisClassIndex = iter.nextU2ToInt();
+
 		int superClassIndex = iter.nextU2ToInt();
 
 		ClassIndex clzIndex = new ClassIndex();
 
 		clzIndex.setThisClassIndex(thisClassIndex);
+
 		clzIndex.setSuperClassIndex(superClassIndex);
 
 		return clzIndex;
