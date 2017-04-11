@@ -17,6 +17,7 @@ public class StackUtilTest {
         Assert.assertEquals("1, 2, 3, 4", stack.toString());
         StackUtil.reverse(stack);
         Assert.assertEquals("4, 3, 2, 1", stack.toString());
+
     }
 
 
@@ -30,6 +31,11 @@ public class StackUtilTest {
         Assert.assertEquals("5, 6, 5, 4, 3, 2, 0", stack.toString());
         StackUtil.remove(stack, 5);
         Assert.assertEquals("6, 4, 3, 2, 0", stack.toString());
+        pushAll(stack, null, 7, null);
+        Assert.assertEquals("null, 7, null, 6, 4, 3, 2, 0", stack.toString());
+        StackUtil.remove(stack, null);
+        Assert.assertEquals("7, 6, 4, 3, 2, 0", stack.toString());
+
 
     }
 

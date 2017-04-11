@@ -2,6 +2,8 @@ package assignment0405;
 
 import assignment.Stack;
 
+import java.util.Objects;
+
 /**
  * Created by Administrator on 2017/4/6.
  */
@@ -35,7 +37,8 @@ public class StackUtil {
         Stack stack2 = new Stack();
         while (!s.isEmpty()) {
             Object top = s.pop();
-            if (!top.equals(o)) {
+            //Objects.equals(null, null) == true
+            if (!Objects.equals(top, o)) {
                 stack2.push(top);
             }
         }
