@@ -17,6 +17,8 @@ import com.github.ipk2015.coding2017.minijvm.constant.NameAndTypeInfo;
 import com.github.ipk2015.coding2017.minijvm.constant.NullConstantInfo;
 import com.github.ipk2015.coding2017.minijvm.constant.StringInfo;
 import com.github.ipk2015.coding2017.minijvm.constant.UTF8Info;
+import com.github.ipk2015.coding2017.minijvm.field.Field;
+import com.github.ipk2015.coding2017.minijvm.method.Method;
 import com.github.ipk2015.coding2017.minijvm.util.Util;
 
 
@@ -43,6 +45,12 @@ public class ClassFileParser {
 		
 		ClassIndex classIndex = parseClassInfex(iterator);
 		classFile.setClassIndex(classIndex);
+		
+		parseInterfaces(iterator);
+		
+		parseFields(classFile,constantPool,iterator);
+		
+		parseMethods(classFile,iterator);
 		
 		return classFile;
 	}
@@ -145,5 +153,26 @@ public class ClassFileParser {
 		pool.addConstantInfo(info);
 	}
 	
+	private void parseInterfaces(ByteCodeIterator iter) {
+		int interfaceCount = iter.nextUNToInt(2);
+
+		System.out.println("interfaceCount:" + interfaceCount);
+
+		// TODO : 如果实现了interface, 这里需要解析
+	}
+
+	private void parseFields(ClassFile classFile,ConstantPool pool,ByteCodeIterator iter){
+		int count = iter.nextUNToInt(2);
+		for(int i = 0;i < count;i++){
+			classFile.addField(Field.parse(pool, iter));
+		}
+	}
+	
+	private void parseMethods(ClassFile classFile,ByteCodeIterator iter){
+		int count = iter.nextUNToInt(2);
+		for(int i = 0;i < count;i++){
+			classFile.addMethod(Method.parse(classFile, iter));
+		}
+	}
 	
 }
