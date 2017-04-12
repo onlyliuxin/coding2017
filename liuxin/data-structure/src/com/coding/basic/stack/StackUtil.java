@@ -1,23 +1,94 @@
 package com.coding.basic.stack;
-
+import java.util.Stack;
 public class StackUtil {
 	
+	public static void bad_reverse(Stack<Integer> s) {
+		if(s == null || s.isEmpty()){
+			return;
+		}
+		Stack<Integer> tmpStack = new Stack();
+		while(!s.isEmpty()){
+			tmpStack.push(s.pop());
+		}
+		
+		s = tmpStack;
+		
+	}
+	
+	
+	public static void reverse_247565311(Stack<Integer> s){
+        if(s == null || s.isEmpty()) {
+        	return;
+        }
+        
+        int size = s.size();
+        Stack<Integer> tmpStack = new Stack<Integer>();        
+        
+        for(int i=0;i<size;i++){
+            Integer top = s.pop();
+            while(s.size()>i){
+                tmpStack.push(s.pop());
+            }
+            s.push(top);
+            while(tmpStack.size()>0){
+                s.push(tmpStack.pop());
+            }
+        }
+    }
+
+
 	
 	/**
 	 * 假设栈中的元素是Integer, 从栈顶到栈底是 : 5,4,3,2,1 调用该方法后， 元素次序变为: 1,2,3,4,5
 	 * 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
 	 */
-	public static void reverse(Stack s) {
-
+	public static void reverse(Stack<Integer> s) {
+		if(s == null || s.isEmpty()){
+			return;
+		}
+		
+		Stack<Integer> tmp = new Stack<Integer>();
+		while(!s.isEmpty()){
+			tmp.push(s.pop());
+		}
+		while(!tmp.isEmpty()){
+			Integer top = tmp.pop();
+			addToBottom(s,top);
+		}	
+		
+		
 	}
-
+	public static void addToBottom(Stack<Integer> s,  Integer value){
+		if(s.isEmpty()){
+			s.push(value);
+		} else{
+			Integer top = s.pop();
+			addToBottom(s,value);
+			s.push(top);
+		}
+		
+	}
 	/**
 	 * 删除栈中的某个元素 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
 	 * 
 	 * @param o
 	 */
 	public static void remove(Stack s,Object o) {
-
+		if(s == null || s.isEmpty()){
+			return;
+		}
+		Stack tmpStack = new Stack();
+		
+		while(!s.isEmpty()){
+			Object value = s.pop();
+			if(!value.equals(o)){
+				tmpStack.push(value);
+			} 			
+		}
+		
+		while(!tmpStack.isEmpty()){
+			s.push(tmpStack.pop());
+		}
 	}
 
 	/**
@@ -27,7 +98,24 @@ public class StackUtil {
 	 * @return
 	 */
 	public static Object[] getTop(Stack s,int len) {
-		return null;
+		
+		if(s == null || s.isEmpty() || s.size()<len || len <=0 ){
+			return null;
+		}
+		
+		Stack tmpStack = new Stack();
+		int i = 0;
+		Object[] result = new Object[len];
+		while(!s.isEmpty()){
+			Object value = s.pop();			
+			tmpStack.push(value);
+			result[i++] = value;
+			if(i == len){
+				break;
+			}
+		}
+		
+		return result;
 	}
 	/**
 	 * 字符串s 可能包含这些字符：  ( ) [ ] { }, a,b,c... x,yz
@@ -38,7 +126,39 @@ public class StackUtil {
 	 * @return
 	 */
 	public static boolean isValidPairs(String s){
-		return false;
+		
+		Stack<Character> stack = new Stack();
+		for(int i=0;i<s.length();i++){
+			char c = s.charAt(i);
+			
+			if(c == '(' || c =='[' || c == '{'){
+				
+				stack.push(c);
+				
+			} else if( c == ')'){
+				
+				char topChar = stack.pop();
+				if(topChar != '('){
+					return false;
+				}
+				
+			} else if( c == ']'){
+				
+				char topChar = stack.pop();
+				if(topChar != '['){
+					return false;
+				}
+					
+			} else if( c == '}'){
+				
+				char topChar = stack.pop();
+				if(topChar != '{'){
+					return false;
+				}
+				
+			}
+		}
+		return stack.size() == 0;
 	}
 	
 	

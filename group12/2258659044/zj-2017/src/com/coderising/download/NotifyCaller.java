@@ -65,7 +65,7 @@ public class NotifyCaller extends Thread{
         if(num==null||num.isEmpty()){
         	num = "0";
         }
-    	return num+"M/s";
+    	return num+"Mb/s";
     }
     
     /**

@@ -1,4 +1,4 @@
-package week1.test;
+package week1.collection.test;
 
 import static org.junit.Assert.*;
 
