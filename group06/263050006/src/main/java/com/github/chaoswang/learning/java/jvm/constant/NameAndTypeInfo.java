@@ -1,8 +1,14 @@
 package com.github.chaoswang.learning.java.jvm.constant;
-
+/**
+ * CONSTANT_NameAndType_info { 
+ * u1 tag; 
+ * u2 name_index; 
+ * u2 descriptor_index;
+ * }
+ */
 public class NameAndTypeInfo extends ConstantInfo {
+	
 	public int type = ConstantInfo.NAME_AND_TYPE_INFO;
-
 	private int index1;
 	private int index2;
 

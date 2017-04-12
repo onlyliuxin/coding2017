@@ -1,6 +1,14 @@
 package com.github.chaoswang.learning.java.jvm.constant;
 
+/**
+ * CONSTANT_Utf8_info { 
+ * u1 tag; 
+ * u2 length; 
+ * u1 bytes[length]; 
+ * }
+ */
 public class UTF8Info extends ConstantInfo {
+	
 	private int type = ConstantInfo.UTF8_INFO;
 	private int length;
 	private String value;

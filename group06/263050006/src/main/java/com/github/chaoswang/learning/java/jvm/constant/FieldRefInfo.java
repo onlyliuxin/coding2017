@@ -1,6 +1,13 @@
 package com.github.chaoswang.learning.java.jvm.constant;
-
+/**
+ * CONSTANT_Fieldref_info { 
+ * u1 tag; 
+ * u2 class_index; 
+ * u2 name_and_type_index;
+ * }
+ */
 public class FieldRefInfo extends ConstantInfo{
+	
 	private int type = ConstantInfo.FIELD_INFO;
 	private int classInfoIndex;
 	private int nameAndTypeIndex;

@@ -1,9 +1,14 @@
 package com.github.chaoswang.learning.java.jvm.constant;
-
+/**
+ * CONSTANT_Methodref_info { 
+ * u1 tag; 
+ * u2 class_index; 
+ * u2 name_and_type_index;
+ */
 public class MethodRefInfo extends ConstantInfo {
 
+	
 	private int type = ConstantInfo.METHOD_INFO;
-
 	private int classInfoIndex;
 	private int nameAndTypeIndex;
 

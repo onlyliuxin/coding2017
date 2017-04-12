@@ -21,18 +21,19 @@ import com.github.chaoswang.learning.java.jvm.method.Method;
 public class ClassFileloaderTest {
 
 	private static final String FULL_QUALIFIED_CLASS_NAME = "com/github/chaoswang/learning/java/jvm/EmployeeV1";
-	static String path1 = "E:\\workspace_jee\\coding2017\\target\\test-classes";
+//	static String path1 = "E:\\workspace_jee\\coding2017\\target\\test-classes";
+	static String path1 = "D:\\project\\workspace_1\\d-learning\\target\\test-classes";
 	static String path2 = "C:\temp";
 
 	static ClassFile clzFile = null;
-//	static {
-//		ClassFileLoader loader = new ClassFileLoader();
-//		loader.addClassPath(path1);
-//		String className = "com.github.chaoswang.learning.java.jvm.EmployeeV1";
-//
-//		clzFile = loader.loadClass(className);
-//		clzFile.print();
-//	}
+	static {
+		ClassFileLoader loader = new ClassFileLoader();
+		loader.addClassPath(path1);
+		String className = "com.github.chaoswang.learning.java.jvm.EmployeeV1";
+
+		clzFile = loader.loadClass(className);
+		clzFile.print();
+	}
 
 	@Before
 	public void setUp() throws Exception {
