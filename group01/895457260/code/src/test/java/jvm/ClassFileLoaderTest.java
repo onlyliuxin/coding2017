@@ -164,24 +164,24 @@ public class ClassFileLoaderTest {
 		Assert.assertEquals("java/lang/Object", superClassInfo.getClassName());
 	}
 
-//	/**
-//	 * 下面是第三次JVM课应实现的测试用例
-//	 */
-//	@Test
-//	public void testReadFields() {
-//
-//		List<Field> fields = clzFile.getFields();
-//		Assert.assertEquals(2, fields.size());
-//		{
-//			Field f = fields.get(0);
-//			Assert.assertEquals("name:Ljava/lang/String;", f.toString());
-//		}
-//		{
-//			Field f = fields.get(1);
-//			Assert.assertEquals("age:I", f.toString());
-//		}
-//	}
-//
+	/**
+	 * 下面是第三次JVM课应实现的测试用例
+	 */
+	@Test
+	public void testReadFields() {
+
+		List<Field> fields = clzFile.getFields();
+		Assert.assertEquals(2, fields.size());
+		{
+			Field f = fields.get(0);
+			Assert.assertEquals("name:Ljava/lang/String;", f.toString());
+		}
+		{
+			Field f = fields.get(1);
+			Assert.assertEquals("age:I", f.toString());
+		}
+	}
+
 //	@Test
 //	public void testMethods() {
 //

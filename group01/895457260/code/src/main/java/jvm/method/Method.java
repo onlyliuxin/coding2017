@@ -10,12 +10,9 @@ public class Method {
 	private int accessFlag;
 	private int nameIndex;
 	private int descriptorIndex;
-	
 	private CodeAttr codeAttr;
-	
 	private ClassFile clzFile;
-	
-	
+
 	public ClassFile getClzFile() {
 		return clzFile;
 	}
@@ -42,7 +39,10 @@ public class Method {
 		this.descriptorIndex = descriptorIndex;
 	}
 
-	public static Method parse(ClassFile clzFile, ByteCodeIterator iter){
-		return null;
+	public static Method parse(ClassFile clzFile, ByteCodeIterator iterator) {
+		int access = iterator.nextU2ToInt();
+		int name = iterator.nextU2ToInt();
+		int descriptor = iterator.nextU2ToInt();
+		return new Method(clzFile, access, name, descriptor);
 	}
 }

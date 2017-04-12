@@ -1,26 +1,25 @@
 package jvm.attr;
 
-import jvm.classfile.ClassFile;
+import jvm.classfile.ConstantPool;
 import jvm.util.ByteCodeIterator;
 
-public class CodeAttr extends AttributeInfo {
-	private int maxStack ;
-	private int maxLocals ;
-	private int codeLen ;
-	private String code;
-	public String getCode() {
-		return code;
-	}
+import java.util.ArrayList;
+import java.util.List;
 
+public class CodeAttr extends AttributeInfo {
+	private int maxStack;
+	private int maxLocals;
+	private int codeLen;
+	private String code;
+	private List<AttributeInfo> attributes = new ArrayList<>();
 	//private ByteCodeCommand[] cmds ;
+
 	//public ByteCodeCommand[] getCmds() {
 	//	return cmds;
 	//}
-	private LineNumberTable lineNumTable;
-	private LocalVariableTable localVarTable;
-	private StackMapTable stackMapTable;
-	
-	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code /*ByteCodeCommand[] cmds*/) {
+
+	private CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals,
+					int codeLen, String code /*ByteCodeCommand[] cmds*/) {
 		super(attrNameIndex, attrLen);
 		this.maxStack = maxStack;
 		this.maxLocals = maxLocals;
@@ -29,26 +28,30 @@ public class CodeAttr extends AttributeInfo {
 		//this.cmds = cmds;
 	}
 
-	public void setLineNumberTable(LineNumberTable t) {
-		this.lineNumTable = t;
+	public static CodeAttr parse(int attrNameIndex, int attrLen,
+								 ByteCodeIterator iterator, ConstantPool constantPool) {
+		int maxStack = iterator.nextU2ToInt();
+		int maxLocals = iterator.nextU2ToInt();
+		int codeLen = iterator.nextU4ToInt();
+		String code = new String(iterator.getBytes(codeLen));
+
+		int exceptionTableLen = iterator.nextU2ToInt();
+		iterator.skip(exceptionTableLen * 8);
+
+		CodeAttr result = new CodeAttr(attrNameIndex, attrLen, maxStack, maxLocals, codeLen, code);
+
+		int attrCount = iterator.nextU2ToInt();
+		for (int i = 0; i < attrCount; ++i) {
+			result.attributes.add(AttributeParser.parse(iterator, constantPool));
+		}
+		return result;
 	}
 
-	public void setLocalVariableTable(LocalVariableTable t) {
-		this.localVarTable = t;		
-	}
-	
-	public static CodeAttr parse(ClassFile clzFile, ByteCodeIterator iter){
-		
-		
-		return null;
-	}
-	private void setStackMapTable(StackMapTable t) {
-		this.stackMapTable = t;
-		
+	public String getCode() {
+		return code;
 	}
 
-	
-	
-	
-	
+	public List<AttributeInfo> getAttributes() {
+		return attributes;
+	}
 }

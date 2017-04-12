@@ -18,8 +18,8 @@ public class ClassFile {
     ConstantPool constantPool;
     int minorVersion;
     int majorVersion;
-    private List<Field> fields = new ArrayList<>();
-    private List<Method> methods = new ArrayList<>();
+    List<Field> fields = new ArrayList<>();
+    List<Method> methods = new ArrayList<>();
 
     public void addField(Field f){
         this.fields.add(f);

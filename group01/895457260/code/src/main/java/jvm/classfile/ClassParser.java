@@ -4,7 +4,11 @@ import jvm.classfile.constant.item.IReference;
 import jvm.classfile.constant.item.impl.CountConstant;
 import jvm.classfile.constant.parser.ConstantParser;
 import jvm.classfile.constant.parser.ConstantParserFactory;
+import jvm.field.Field;
+import jvm.method.Method;
 import jvm.util.ByteCodeIterator;
+
+import java.util.Collection;
 
 /**
  * Created by Haochen on 2017/4/9.
@@ -22,6 +26,9 @@ public class ClassParser {
         classFile.constantPool = parseConstantPool(iterator);
         classFile.accessFlag = parseAccessFlag(iterator);
         classFile.classIndex = parseClassIndex(iterator);
+        parseInterfaces(iterator);
+        parseFields(classFile, iterator);
+        parseMethods(classFile, iterator);
         linkConstantReferences(classFile);
         return classFile;
     }
@@ -60,6 +67,20 @@ public class ClassParser {
         classIndex.superClass = iterator.nextU2ToInt();
         return classIndex;
     }
+
+    private static void parseInterfaces(ByteCodeIterator iterator) {
+        int count = iterator.nextU2ToInt();
+        iterator.skip(count * 2);
+    }
+
+    private static void parseFields(ClassFile classFile, ByteCodeIterator iterator) {
+        int count = iterator.nextU2ToInt();
+        for (int i = 0; i < count; ++i) {
+            classFile.fields.add(Field.parse(classFile.constantPool, iterator));
+        }
+    }
+
+    private static void parseMethods(ClassFile classFile, ByteCodeIterator iterator) {}
 
     private static void linkConstantReferences(ClassFile classFile) {
         ConstantPool constantPool = classFile.constantPool;
