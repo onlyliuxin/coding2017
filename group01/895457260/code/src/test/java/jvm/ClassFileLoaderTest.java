@@ -1,5 +1,6 @@
 package jvm;
 
+import jvm.attr.CodeAttr;
 import jvm.classfile.ClassFile;
 import jvm.classfile.ClassIndex;
 import jvm.classfile.ConstantPool;
@@ -182,57 +183,57 @@ public class ClassFileLoaderTest {
 		}
 	}
 
-//	@Test
-//	public void testMethods() {
-//
-//		List<Method> methods = clzFile.getMethods();
-//		ConstantPool pool = clzFile.getConstantPool();
-//
-//		{
-//			Method m = methods.get(0);
-//			assertMethodEquals(pool,m,
-//					"<init>",
-//					"(Ljava/lang/String;I)V",
-//					"2ab7000c2a2bb5000f2a1cb50011b1");
-//
-//		}
-//		{
-//			Method m = methods.get(1);
-//			assertMethodEquals(pool,m,
-//					"setName",
-//					"(Ljava/lang/String;)V",
-//					"2a2bb5000fb1");
-//
-//		}
-//		{
-//			Method m = methods.get(2);
-//			assertMethodEquals(pool,m,
-//					"setAge",
-//					"(I)V",
-//					"2a1bb50011b1");
-//		}
-//		{
-//			Method m = methods.get(3);
-//			assertMethodEquals(pool,m,
-//					"sayHello",
-//					"()V",
-//					"b2001c1222b60024b1");
-//
-//		}
-//		{
-//			Method m = methods.get(4);
-//			assertMethodEquals(pool,m,
-//					"main",
-//					"([Ljava/lang/String;)V",
-//					"bb000159122b101db7002d4c2bb6002fb1");
-//		}
-//	}
+	@Test
+	public void testMethods() {
+
+		List<Method> methods = clzFile.getMethods();
+		ConstantPool pool = clzFile.getConstantPool();
+
+		{
+			Method m = methods.get(0);
+			assertMethodEquals(pool,m,
+					"<init>",
+					"(Ljava/lang/String;I)V",
+					"2ab7012a2bb5022a1cb503b1");
+
+		}
+		{
+			Method m = methods.get(1);
+			assertMethodEquals(pool,m,
+					"setName",
+					"(Ljava/lang/String;)V",
+					"2a2bb502b1");
+
+		}
+		{
+			Method m = methods.get(2);
+			assertMethodEquals(pool,m,
+					"setAge",
+					"(I)V",
+					"2a1bb503b1");
+		}
+		{
+			Method m = methods.get(3);
+			assertMethodEquals(pool,m,
+					"sayHello",
+					"()V",
+					"b204125b606b1");
+
+		}
+		{
+			Method m = methods.get(4);
+			assertMethodEquals(pool,m,
+					"main",
+					"([Ljava/lang/String;)V",
+					"bb0759128101db7094c2bb60ab1");
+		}
+	}
 
 	private void assertMethodEquals(ConstantPool pool, Method m,
 									String expectedName, String expectedDesc,String expectedCode) {
 		String methodName = ((UTF8Info) pool.getConstantInfo(m.getNameIndex())).getValue();
 		String methodDesc = ((UTF8Info) pool.getConstantInfo(m.getDescriptorIndex())).getValue();
-		String code = m.getCodeAttr().getCode();
+		String code = ((CodeAttr) m.getAttributes().get(0)).getCode();
 		Assert.assertEquals(expectedName, methodName);
 		Assert.assertEquals(expectedDesc, methodDesc);
 		Assert.assertEquals(expectedCode, code);
