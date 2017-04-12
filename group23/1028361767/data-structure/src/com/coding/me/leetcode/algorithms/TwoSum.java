@@ -1,6 +1,9 @@
 package com.coding.me.leetcode.algorithms;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -77,5 +80,23 @@ public class TwoSum {
 	        map.put(nums[i], i);
 	    }
 	    throw new IllegalArgumentException("No two sum solution");
+	}
+	
+	
+	public static void main(String[] args) throws InterruptedException {
+//		String s = new String("字符串在内存中");
+		List s = new ArrayList();
+		s.add(new Object());
+		WeakReference<Object> wr = new WeakReference<Object>(s.get(0));
+		
+//		Thread.sleep(500);
+		System.out.println(wr.get());
+		
+		s.remove(0);
+		System.gc();
+		
+		System.out.println(wr.get());
+//		Thread.sleep(500);
+//		System.out.println(wr.get());
 	}
 }
