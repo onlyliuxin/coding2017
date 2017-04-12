@@ -110,6 +110,6 @@ public class StackUtil {
                     return false;
             }
         }
-        return true;
+        return stack.size() == 0;//最后判断stack中没有元素了，可能有单个括号
     }
 }
