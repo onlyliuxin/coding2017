@@ -2,7 +2,6 @@ package com.pan.jvm;
 
 public class EmployeeV1 {
 
-
     private String name;
     private int age;
 

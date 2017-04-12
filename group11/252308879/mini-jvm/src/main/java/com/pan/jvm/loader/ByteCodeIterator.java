@@ -4,54 +4,49 @@ import java.util.Arrays;
 
 import com.pan.jvm.util.Util;
 
-public  class ByteCodeIterator {
-	byte[] codes;
-	int pos = 0;
+public class ByteCodeIterator {
+    byte[] codes;
+    int pos = 0;
 
-	ByteCodeIterator(byte[] codes) {
-		this.codes = codes;
-	}
+    ByteCodeIterator(byte[] codes) {
+        this.codes = codes;
+    }
 
-	
+    public byte[] getBytes(int len) {
+        if (pos + len >= codes.length) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        byte[] data = Arrays.copyOfRange(codes, pos, pos + len);
+        pos += len;
+        return data;
+    }
 
-	public byte[] getBytes(int len) {
-		if (pos + len >= codes.length) {
-			throw new ArrayIndexOutOfBoundsException();
-		}
+    public int nextU1toInt() {
+        return Util.byteToInt(new byte[]{codes[pos++]});
+    }
 
-		byte[] data = Arrays.copyOfRange(codes, pos, pos + len);
-		pos += len;
-		return data;
-	}
+    public int nextU2ToInt() {
+        return Util.byteToInt(new byte[]{codes[pos++], codes[pos++]});
+    }
 
-	public int nextU1toInt() {
+    public int nextU4ToInt() {
+        return Util.byteToInt(new byte[]{codes[pos++], codes[pos++], codes[pos++], codes[pos++]});
+    }
 
-		return Util.byteToInt(new byte[] { codes[pos++] });
-	}
+    public String nextU4ToHexString() {
+        return Util.byteToHexString((new byte[]{codes[pos++], codes[pos++], codes[pos++], codes[pos++]}));
+    }
 
-	public int nextU2ToInt() {
-		return Util.byteToInt(new byte[] { codes[pos++], codes[pos++] });
-	}
+    public String nextUxToHexString(int len) {
+        byte[] tmp = new byte[len];
 
-	public int nextU4ToInt() {
-		return Util.byteToInt(new byte[] { codes[pos++], codes[pos++], codes[pos++], codes[pos++] });
-	}
+        for (int i = 0; i < len; i++) {
+            tmp[i] = codes[pos++];
+        }
+        return Util.byteToHexString(tmp).toLowerCase();
+    }
 
-	public String nextU4ToHexString() {
-		return Util.byteToHexString((new byte[] { codes[pos++], codes[pos++], codes[pos++], codes[pos++] }));
-	}
-
-	public String nextUxToHexString(int len) {
-		byte[] tmp = new byte[len];
-
-		for (int i = 0; i < len; i++) {
-			tmp[i] = codes[pos++];
-		}
-		return Util.byteToHexString(tmp).toLowerCase();
-
-	}
-
-	public void back(int n) {
-		this.pos -= n;
-	}
+    public void back(int n) {
+        this.pos -= n;
+    }
 }
