@@ -31,12 +31,12 @@ public class ClassFileloaderTest {
 	public void testClassPath(){		
 		
 		ClassFileLoader loader = new ClassFileLoader();
-		loader.addClassPath(path1);
 		loader.addClassPath(path2);
+		loader.addClassPath(path1);
 		
 		String clzPath = loader.getClassPath();
 		
-		Assert.assertEquals(path1+";"+path2,clzPath);
+		Assert.assertEquals(path2+";"+path1,clzPath);
 		
 	}
 	
