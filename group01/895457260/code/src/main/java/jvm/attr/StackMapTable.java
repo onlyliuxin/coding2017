@@ -16,7 +16,7 @@ public class StackMapTable extends AttributeInfo{
 		StackMapTable t = new StackMapTable(index,len);
 		
 		//后面的StackMapTable太过复杂， 不再处理， 只把原始的代码读进来保存
-		String code = iter.nextUxToHexString(len);
+		String code = iter.nextHexString(len);
 		t.setOriginalCode(code);
 		
 		return t;

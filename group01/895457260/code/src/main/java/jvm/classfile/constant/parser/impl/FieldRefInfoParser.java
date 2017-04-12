@@ -3,6 +3,7 @@ package jvm.classfile.constant.parser.impl;
 import jvm.classfile.constant.item.Constant;
 import jvm.classfile.constant.item.impl.FieldRefInfo;
 import jvm.classfile.constant.parser.ConstantParser;
+import jvm.util.ByteCodeIterator;
 import jvm.util.ByteUtils;
 
 /**
@@ -11,16 +12,9 @@ import jvm.util.ByteUtils;
  */
 public class FieldRefInfoParser implements ConstantParser {
     @Override
-    public Constant parse(byte[] bytes, int startIndex) {
-        startIndex += TAG_LEN;
-        int classIndex = ByteUtils.toInt(bytes, startIndex, 2);
-        startIndex += 2;
-        int nameAndTypeIndex = ByteUtils.toInt(bytes, startIndex, 2);
+    public Constant parse(ByteCodeIterator iterator) {
+        int classIndex = iterator.nextU2ToInt();
+        int nameAndTypeIndex = iterator.nextU2ToInt();
         return new FieldRefInfo(classIndex, nameAndTypeIndex);
-    }
-
-    @Override
-    public int length() {
-        return 5;
     }
 }
