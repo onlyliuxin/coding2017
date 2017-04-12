@@ -76,11 +76,16 @@ public class ClassParser {
     private static void parseFields(ClassFile classFile, ByteCodeIterator iterator) {
         int count = iterator.nextU2ToInt();
         for (int i = 0; i < count; ++i) {
-            classFile.fields.add(Field.parse(classFile.constantPool, iterator));
+            classFile.fields.add(Field.parse(iterator, classFile.constantPool));
         }
     }
 
-    private static void parseMethods(ClassFile classFile, ByteCodeIterator iterator) {}
+    private static void parseMethods(ClassFile classFile, ByteCodeIterator iterator) {
+        int count = iterator.nextU2ToInt();
+        for (int i = 0; i < count; ++i) {
+            classFile.methods.add(Method.parse(iterator, classFile.constantPool));
+        }
+    }
 
     private static void linkConstantReferences(ClassFile classFile) {
         ConstantPool constantPool = classFile.constantPool;

@@ -33,7 +33,7 @@ public class CodeAttr extends AttributeInfo {
 		int maxStack = iterator.nextU2ToInt();
 		int maxLocals = iterator.nextU2ToInt();
 		int codeLen = iterator.nextU4ToInt();
-		String code = new String(iterator.getBytes(codeLen));
+		String code = iterator.nextHexString(codeLen);
 
 		int exceptionTableLen = iterator.nextU2ToInt();
 		iterator.skip(exceptionTableLen * 8);

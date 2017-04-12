@@ -1,4 +1,4 @@
-package com.coderising.jvm.test;
+package jvm;
 
 public class EmployeeV1 {
 	

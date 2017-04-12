@@ -20,7 +20,8 @@ public class AttributeParser {
         String className = AttributeParser.class.getPackage().getName() + '.' + name + "Attr";
         try {
             Class<?> clazz = Class.forName(className);
-            Method parse = clazz.getMethod("parse", ByteCodeIterator.class, ConstantPool.class);
+            Method parse = clazz.getMethod("parse",
+                    int.class, int.class, ByteCodeIterator.class, ConstantPool.class);
             byte[] bytes = iterator.getBytes(length);
             ByteCodeIterator subIterator = new ByteCodeIterator(bytes);
             return (AttributeInfo) parse.invoke(null, nameIndex, length, subIterator, constantPool);

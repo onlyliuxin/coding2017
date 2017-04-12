@@ -11,7 +11,7 @@ public  class ByteCodeIterator {
 	}
 
 	public byte[] getBytes(int len) {
-		if (pos + len >= codes.length) {
+		if (pos + len > codes.length) {
 			throw new ArrayIndexOutOfBoundsException();
 		}
 
