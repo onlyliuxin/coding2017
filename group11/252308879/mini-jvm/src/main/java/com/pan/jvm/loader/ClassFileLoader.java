@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ClassFileLoader {
 
-    private List<String> clzPaths = new ArrayList<String>();
+    private List<String> clzPaths = new ArrayList();
 
     public byte[] readBinaryCode(String className) {
 
