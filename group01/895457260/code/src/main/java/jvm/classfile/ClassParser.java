@@ -58,8 +58,7 @@ public class ClassParser {
 
     private static void linkConstantReferences(ClassFile classFile) {
         ConstantPool constantPool = classFile.constantPool;
-        Map<Integer, Constant> constantMap = constantPool.constantMap;
-        constantMap.forEach((i, c) -> {
+        constantPool.forEach((i, c) -> {
             if (c instanceof IReference) {
                 ((IReference) c).linkReference(constantPool);
             }
@@ -74,7 +73,7 @@ public class ClassParser {
 
         index.constantIndexMap.put(0, currentIndex);
         int count = ByteUtils.toInt(bytes, currentIndex, COUNT_LEN);
-        constantPool.constantMap.put(0, new CountConstant(count));
+        constantPool.putConstantInfo(0, new CountConstant(count));
         currentIndex += COUNT_LEN;
 
         Map<Integer, ConstantParser> parserMap = new HashMap<>();
@@ -89,7 +88,7 @@ public class ClassParser {
             ConstantParser parser = parserMap.get(i);
             int startIndex = index.constantIndexMap.get(i);
             Constant constant = parser.parse(bytes, startIndex);
-            constantPool.constantMap.put(i, constant);
+            constantPool.putConstantInfo(i, constant);
         }
 
         index.accessFlags = currentIndex;
@@ -108,7 +107,7 @@ public class ClassParser {
 
     private static AccessFlag parseAccessFlag(byte[] bytes, StartIndex index) {
         AccessFlag accessFlag = new AccessFlag();
-        accessFlag.flags = ByteUtils.toInt(bytes, index.accessFlags, 2);
+        accessFlag.flagValue = ByteUtils.toInt(bytes, index.accessFlags, 2);
         return accessFlag;
     }
 }

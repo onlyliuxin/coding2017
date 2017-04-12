@@ -77,7 +77,7 @@ public class ClassFileLoader {
 		return magicNumber.equals(str.toLowerCase());
 	}
 
-	ClassFile load(String className) throws ReadClassException {
+	public ClassFile load(String className) throws ReadClassException {
 		byte[] bytes = readBinaryCode(className);
 		if (checkMagicNumber(bytes)) {
 			return ClassParser.parse(bytes);
