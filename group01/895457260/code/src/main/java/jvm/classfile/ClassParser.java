@@ -1,15 +1,10 @@
 package jvm.classfile;
 
-import jvm.classfile.constant.item.Constant;
 import jvm.classfile.constant.item.IReference;
 import jvm.classfile.constant.item.impl.CountConstant;
 import jvm.classfile.constant.parser.ConstantParser;
 import jvm.classfile.constant.parser.ConstantParserFactory;
 import jvm.util.ByteCodeIterator;
-import jvm.util.ByteUtils;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Haochen on 2017/4/9.
@@ -43,12 +38,12 @@ public class ClassParser {
         ConstantPool constantPool = new ConstantPool();
 
         int count = iterator.nextU2ToInt();
-        constantPool.putConstantInfo(0, new CountConstant(count));
+        constantPool.addConstantInfo(new CountConstant(count));
 
         for (int i = 1; i < count; ++i) {
             int tag = iterator.nextU1ToInt();
             ConstantParser parser = ConstantParserFactory.get(tag);
-            constantPool.putConstantInfo(i, parser.parse(iterator));
+            constantPool.addConstantInfo(parser.parse(iterator));
         }
         return constantPool;
     }
@@ -68,7 +63,7 @@ public class ClassParser {
 
     private static void linkConstantReferences(ClassFile classFile) {
         ConstantPool constantPool = classFile.constantPool;
-        constantPool.forEach((i, c) -> {
+        constantPool.forEach(c -> {
             if (c instanceof IReference) {
                 ((IReference) c).linkReference(constantPool);
             }
