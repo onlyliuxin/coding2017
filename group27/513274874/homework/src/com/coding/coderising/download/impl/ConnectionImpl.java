@@ -1,6 +1,8 @@
 package com.coding.coderising.download.impl;
 
+
 import com.coding.coderising.download.api.Connection;
+
 
 import java.io.*;
 import java.net.URL;
@@ -9,11 +11,13 @@ import java.net.URLConnection;
 public class ConnectionImpl implements Connection {
     private URL url;
 
+
     // 定义字节数组（取水的竹筒）的长度
     private final int BUFF_LEN = 32;
 
     // 下载资源对应的输入流
     private InputStream is;
+
 
 
     ByteArrayOutputStream bos;
