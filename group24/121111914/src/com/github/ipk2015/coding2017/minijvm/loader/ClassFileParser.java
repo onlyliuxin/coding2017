@@ -3,7 +3,9 @@ package com.github.ipk2015.coding2017.minijvm.loader;
 
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.github.ipk2015.coding2017.minijvm.clz.AccessFlag;
 import com.github.ipk2015.coding2017.minijvm.clz.ClassFile;
@@ -48,9 +50,15 @@ public class ClassFileParser {
 		
 		parseInterfaces(iterator);
 		
-		parseFields(classFile,constantPool,iterator);
+		List<Field> parseFields = parseFields(constantPool,iterator);
+		for(Field f:parseFields){
+			classFile.addField(f);
+		}
 		
-		parseMethods(classFile,iterator);
+		List<Method> parseMethods = parseMethods(classFile,iterator);
+		for(Method m:parseMethods){
+			classFile.addMethod(m);
+		}
 		
 		return classFile;
 	}
@@ -161,18 +169,22 @@ public class ClassFileParser {
 		// TODO : 如果实现了interface, 这里需要解析
 	}
 
-	private void parseFields(ClassFile classFile,ConstantPool pool,ByteCodeIterator iter){
+	private List<Field> parseFields(ConstantPool pool,ByteCodeIterator iter){
+		List<Field> list = new ArrayList();
 		int count = iter.nextUNToInt(2);
 		for(int i = 0;i < count;i++){
-			classFile.addField(Field.parse(pool, iter));
+			list.add(Field.parse(pool, iter));
 		}
+		return list;
 	}
 	
-	private void parseMethods(ClassFile classFile,ByteCodeIterator iter){
+	private List<Method> parseMethods(ClassFile classFile,ByteCodeIterator iter){
+		List<Method> list = new ArrayList();
 		int count = iter.nextUNToInt(2);
 		for(int i = 0;i < count;i++){
-			classFile.addMethod(Method.parse(classFile, iter));
+			list.add(Method.parse(classFile, iter));
 		}
+		return list;
 	}
 	
 }
