@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ace.jvm.clz.ClassFile;
+
 
 
 public class ClassFileLoader {
@@ -55,7 +57,11 @@ public class ClassFileLoader {
 		return sb.toString();
 	}
 
-	
+	public ClassFile loadClass(String className){
+		byte[] codes = this.readBinaryCode(className);
+		ClassFileParser parser =  new ClassFileParser();
+		return parser.parse(codes);
+	}
 
 	
 
