@@ -1,6 +1,7 @@
 package test;
 
 import clz.ClassFile;
+import clz.ClassIndex;
 import constant.*;
 import jvm_1.ClassFileLoader;
 import org.junit.After;
@@ -14,9 +15,9 @@ import java.lang.reflect.Method;
  * Created by IBM on 2017/4/10.
  */
 public class ClassFileloaderTest {
-    private static final String FULL_QUALIFIED_CLASS_NAME = "com/coderising/jvm/test/EmployeeV1";
+    private static final String FULL_QUALIFIED_CLASS_NAME = "jvm_1/EmployeeV1";
 
-    static String path1 = "D:\\workspace\\IDEA\\homework\\coding2017\\group17\\785396327\\out\\production\\785396327";
+    static String path1 = "G:\\Git\\homework\\coding2017\\group17\\785396327\\3.12\\out\\production\\785396327";
     static String path2 = "C:\temp";
 
     static ClassFile clzFile = null;
@@ -106,7 +107,7 @@ public class ClassFileloaderTest {
     public void testVersion(){
 
         Assert.assertEquals(0, clzFile.getMinorVersion());
-        Assert.assertEquals(52, clzFile.getMajorVersion());
+        Assert.assertEquals(51, clzFile.getMajorVersion());
 
     }
 
@@ -116,78 +117,78 @@ public class ClassFileloaderTest {
 
         ConstantPool pool = clzFile.getConstantPool();
 
-//        Assert.assertEquals(53, pool.getSize());
+        Assert.assertEquals(53, pool.getSize());
 
         {
-            ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(1);
-            Assert.assertEquals(2, clzInfo.getUtf8Index());
+            ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(7);
+            Assert.assertEquals(44, clzInfo.getUtf8Index());
 
-//            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(2);
-//            Assert.assertEquals(FULL_QUALIFIED_CLASS_NAME, utf8Info.getValue());
+            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(44);
+            Assert.assertEquals(FULL_QUALIFIED_CLASS_NAME, utf8Info.getValue());
         }
-//        {
-//            ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(3);
-//            Assert.assertEquals(4, clzInfo.getUtf8Index());
-//
-//            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(4);
-//            Assert.assertEquals("java/lang/Object", utf8Info.getValue());
-//        }
-//        {
-//            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(5);
-//            Assert.assertEquals("name", utf8Info.getValue());
-//
-//            utf8Info = (UTF8Info) pool.getConstantInfo(6);
-//            Assert.assertEquals("Ljava/lang/String;", utf8Info.getValue());
-//
-//            utf8Info = (UTF8Info) pool.getConstantInfo(7);
-//            Assert.assertEquals("age", utf8Info.getValue());
-//
-//            utf8Info = (UTF8Info) pool.getConstantInfo(8);
-//            Assert.assertEquals("I", utf8Info.getValue());
-//
-//            utf8Info = (UTF8Info) pool.getConstantInfo(9);
-//            Assert.assertEquals("<init>", utf8Info.getValue());
-//
-//            utf8Info = (UTF8Info) pool.getConstantInfo(10);
-//            Assert.assertEquals("(Ljava/lang/String;I)V", utf8Info.getValue());
-//
-//            utf8Info = (UTF8Info) pool.getConstantInfo(11);
-//            Assert.assertEquals("Code", utf8Info.getValue());
-//        }
-//
-//        {
-//            MethodRefInfo methodRef = (MethodRefInfo)pool.getConstantInfo(12);
-//            Assert.assertEquals(3, methodRef.getClassInfoIndex());
-//            Assert.assertEquals(13, methodRef.getNameAndTypeIndex());
-//        }
-//
-//        {
-//            NameAndTypeInfo nameAndType = (NameAndTypeInfo) pool.getConstantInfo(13);
-//            Assert.assertEquals(9, nameAndType.getIndex1());
-//            Assert.assertEquals(14, nameAndType.getIndex2());
-//        }
-//        //抽查几个吧
-//        {
-//            MethodRefInfo methodRef = (MethodRefInfo)pool.getConstantInfo(45);
-//            Assert.assertEquals(1, methodRef.getClassInfoIndex());
-//            Assert.assertEquals(46, methodRef.getNameAndTypeIndex());
-//        }
-//
-//        {
-//            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(53);
-//            Assert.assertEquals("EmployeeV1.java", utf8Info.getValue());
-//        }
+        {
+            ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(11);
+            Assert.assertEquals(48, clzInfo.getUtf8Index());
+
+            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(48);
+            Assert.assertEquals("java/lang/Object", utf8Info.getValue());
+        }
+        {
+            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(12);
+            Assert.assertEquals("name", utf8Info.getValue());
+
+            utf8Info = (UTF8Info) pool.getConstantInfo(13);
+            Assert.assertEquals("Ljava/lang/String;", utf8Info.getValue());
+
+            utf8Info = (UTF8Info) pool.getConstantInfo(14);
+            Assert.assertEquals("age", utf8Info.getValue());
+
+            utf8Info = (UTF8Info) pool.getConstantInfo(15);
+            Assert.assertEquals("I", utf8Info.getValue());
+
+            utf8Info = (UTF8Info) pool.getConstantInfo(16);
+            Assert.assertEquals("<init>", utf8Info.getValue());
+
+            utf8Info = (UTF8Info) pool.getConstantInfo(17);
+            Assert.assertEquals("(Ljava/lang/String;I)V", utf8Info.getValue());
+
+            utf8Info = (UTF8Info) pool.getConstantInfo(18);
+            Assert.assertEquals("Code", utf8Info.getValue());
+        }
+
+        {
+            MethodRefInfo methodRef = (MethodRefInfo)pool.getConstantInfo(1);
+            Assert.assertEquals(11, methodRef.getClassInfoIndex());
+            Assert.assertEquals(36, methodRef.getNameAndTypeIndex());
+        }
+
+        {
+            NameAndTypeInfo nameAndType = (NameAndTypeInfo) pool.getConstantInfo(13);
+            Assert.assertEquals(9, nameAndType.getIndex1());
+            Assert.assertEquals(14, nameAndType.getIndex2());
+        }
+        //抽查几个吧
+        {
+            MethodRefInfo methodRef = (MethodRefInfo)pool.getConstantInfo(45);
+            Assert.assertEquals(1, methodRef.getClassInfoIndex());
+            Assert.assertEquals(46, methodRef.getNameAndTypeIndex());
+        }
+
+        {
+            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(53);
+            Assert.assertEquals("EmployeeV1.java", utf8Info.getValue());
+        }
     }
     @Test
     public void testClassIndex(){
 
-//        ClassIndex clzIndex = clzFile.getClzIndex();
-//        ClassInfo thisClassInfo = (ClassInfo)clzFile.getConstantPool().getConstantInfo(clzIndex.getThisClassIndex());
-//        ClassInfo superClassInfo = (ClassInfo)clzFile.getConstantPool().getConstantInfo(clzIndex.getSuperClassIndex());
-//
-//
-//        Assert.assertEquals(FULL_QUALIFIED_CLASS_NAME, thisClassInfo.getClassName());
-//        Assert.assertEquals("java/lang/Object", superClassInfo.getClassName());
+        ClassIndex clzIndex = clzFile.getClzIndex();
+        ClassInfo thisClassInfo = (ClassInfo)clzFile.getConstantPool().getConstantInfo(clzIndex.getThisClassIndex());
+        ClassInfo superClassInfo = (ClassInfo)clzFile.getConstantPool().getConstantInfo(clzIndex.getSuperClassIndex());
+
+
+        Assert.assertEquals(FULL_QUALIFIED_CLASS_NAME, thisClassInfo.getClassName());
+        Assert.assertEquals("java/lang/Object", superClassInfo.getClassName());
     }
 
     /**

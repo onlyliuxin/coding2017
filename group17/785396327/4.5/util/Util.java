@@ -1,7 +1,5 @@
 package util;
 
-import constant.ConstantPool;
-
 /**
  * Created by IBM on 2017/4/10.
  */

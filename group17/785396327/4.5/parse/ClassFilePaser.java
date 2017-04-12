@@ -1,11 +1,12 @@
 package parse;
 
+import clz.AccessFlag;
 import clz.ClassFile;
-import constant.ClassInfo;
-import constant.ConstantInfo;
-import constant.ConstantPool;
-import constant.NullConstantInfo;
+import clz.ClassIndex;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
+import constant.*;
 import iterator.ByteCodeIterator;
+import util.Util;
 
 /**
  * Created by IBM on 2017/4/11.
@@ -27,7 +28,24 @@ public class ClassFilePaser {
         ConstantPool constantPool = parseConstantPool(iterator);
         classFile.setConstPool(constantPool);
 
+        AccessFlag accessFlag = parseAccessFlag(iterator);
+        classFile.setAccessFlag(accessFlag);
+
+        ClassIndex classIndex = parseClassIndex(iterator);
+        classFile.setClassIndex(classIndex);
         return classFile;
+    }
+
+    private ClassIndex parseClassIndex(ByteCodeIterator iterator) {
+        ClassIndex classIndex = new ClassIndex();
+        classIndex.setThisClassIndex(iterator.nextU2ToInt());
+        classIndex.setSuperClassIndex(iterator.nextU2ToInt());
+        return classIndex;
+    }
+
+    private AccessFlag parseAccessFlag(ByteCodeIterator iterator) {
+        AccessFlag accessFlag = new AccessFlag(iterator.nextU2ToInt());
+        return accessFlag;
     }
 
     private ConstantPool parseConstantPool(ByteCodeIterator iterator) {
@@ -43,6 +61,33 @@ public class ClassFilePaser {
                 ClassInfo classInfo = new ClassInfo(constantPool);
                 classInfo.setUtf8Index(iterator.nextU2ToInt());
                 constantPool.addConstantInfo(classInfo);
+            } else if (tag == ConstantInfo.METHOD_INFO) {
+                MethodRefInfo methodRefInfo = new MethodRefInfo(constantPool);
+                methodRefInfo.setClassInfoIndex(iterator.nextU2ToInt());
+                methodRefInfo.setNameAndTypeIndex(iterator.nextU2ToInt());
+                constantPool.addConstantInfo(methodRefInfo);
+            } else if (tag == ConstantInfo.FIELD_INFO) {
+                FieldRefInfo fieldRefInfo = new FieldRefInfo(constantPool);
+                fieldRefInfo.setClassInfoIndex(iterator.nextU2ToInt());
+                fieldRefInfo.setNameAndTypeIndex(iterator.nextU2ToInt());
+                constantPool.addConstantInfo(fieldRefInfo);
+            } else if (tag == ConstantInfo.STRING_INFO) {
+                StringInfo stringInfo = new StringInfo(constantPool);
+                stringInfo.setIndex(iterator.nextU2ToInt());
+                constantPool.addConstantInfo(stringInfo);
+            } else if (tag == ConstantInfo.NAME_AND_TYPE_INFO) {
+                NameAndTypeInfo nameAndTypeInfo = new NameAndTypeInfo(constantPool);
+                nameAndTypeInfo.setIndex1(iterator.nextU2ToInt());
+                nameAndTypeInfo.setIndex2(iterator.nextU2ToInt());
+                constantPool.addConstantInfo(nameAndTypeInfo);
+            } else if (tag == ConstantInfo.UTF8_INFO) {
+                UTF8Info utf8Info = new UTF8Info(constantPool);
+                int length = iterator.nextU2ToInt();
+                utf8Info.setLength(length);
+                utf8Info.setValue(new String(iterator.nextLengthBytes(length)));
+                constantPool.addConstantInfo(utf8Info);
+            } else {
+                System.out.println("other class info ");
             }
         }
         return constantPool;
