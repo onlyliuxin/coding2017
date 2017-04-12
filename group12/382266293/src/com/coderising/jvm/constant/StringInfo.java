@@ -8,18 +8,20 @@ public class StringInfo extends ConstantInfo {
 		super(pool);
 	}
 
-	public int getType() {
-		return type;
-	}
-
 	public int getIndex() {
 		return index;
+	}
+
+	@Override
+	public int getType() {
+		return type;
 	}
 
 	public void setIndex(int index) {
 		this.index = index;
 	}
 
+	@Override
 	public String toString() {
 		return this.getConstantPool().getUTF8String(index);
 	}

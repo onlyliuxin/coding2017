@@ -8,21 +8,22 @@ public class ClassInfo extends ConstantInfo {
 		super(pool);
 	}
 
+	public String getClassName() {
+		int index = getUtf8Index();
+		UTF8Info utf8Info = (UTF8Info) constantPool.getConstantInfo(index);
+		return utf8Info.getValue();
+	}
+
+	@Override
+	public int getType() {
+		return type;
+	}
+
 	public int getUtf8Index() {
 		return utf8Index;
 	}
 
 	public void setUtf8Index(int utf8Index) {
 		this.utf8Index = utf8Index;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public String getClassName() {
-		int index = getUtf8Index();
-		UTF8Info utf8Info = (UTF8Info) constantPool.getConstantInfo(index);
-		return utf8Info.getValue();
 	}
 }

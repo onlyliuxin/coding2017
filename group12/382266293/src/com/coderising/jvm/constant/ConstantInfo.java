@@ -19,14 +19,14 @@ public abstract class ConstantInfo {
 		pool.addConstantInfo(this);
 	}
 
-	public abstract int getType();
+	public ConstantInfo getConstantInfo(int index) {
+		return this.constantPool.getConstantInfo(index);
+	}
 
 	public ConstantPool getConstantPool() {
 		return constantPool;
 	}
 
-	public ConstantInfo getConstantInfo(int index) {
-		return this.constantPool.getConstantInfo(index);
-	}
+	public abstract int getType();
 
 }

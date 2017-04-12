@@ -14,20 +14,8 @@ public class NameAndTypeInfo extends ConstantInfo {
 		return index1;
 	}
 
-	public void setIndex1(int index1) {
-		this.index1 = index1;
-	}
-
 	public int getIndex2() {
 		return index2;
-	}
-
-	public void setIndex2(int index2) {
-		this.index2 = index2;
-	}
-
-	public int getType() {
-		return type;
 	}
 
 	public String getName() {
@@ -36,12 +24,26 @@ public class NameAndTypeInfo extends ConstantInfo {
 		return utf8Info1.getValue();
 	}
 
+	@Override
+	public int getType() {
+		return type;
+	}
+
 	public String getTypeInfo() {
 		ConstantPool pool = this.getConstantPool();
 		UTF8Info utf8Info2 = (UTF8Info) pool.getConstantInfo(index2);
 		return utf8Info2.getValue();
 	}
 
+	public void setIndex1(int index1) {
+		this.index1 = index1;
+	}
+
+	public void setIndex2(int index2) {
+		this.index2 = index2;
+	}
+
+	@Override
 	public String toString() {
 		return "(" + getName() + "," + getTypeInfo() + ")";
 	}

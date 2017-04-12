@@ -13,25 +13,26 @@ public class UTF8Info extends ConstantInfo {
 		return length;
 	}
 
-	public void setLength(int length) {
-		this.length = length;
-	}
-
+	@Override
 	public int getType() {
 		return type;
-	}
-
-	@Override
-	public String toString() {
-		return "UTF8Info [type=" + type + ", length=" + length + ", value=" + value + ")]";
 	}
 
 	public String getValue() {
 		return value;
 	}
 
+	public void setLength(int length) {
+		this.length = length;
+	}
+
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	@Override
+	public String toString() {
+		return "UTF8Info [type=" + type + ", length=" + length + ", value=" + value + ")]";
 	}
 
 }

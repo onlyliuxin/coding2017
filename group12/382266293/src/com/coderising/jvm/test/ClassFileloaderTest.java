@@ -1,7 +1,6 @@
 package com.coderising.jvm.test;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.After;
@@ -11,7 +10,11 @@ import org.junit.Test;
 
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.clz.ClassIndex;
-import com.coderising.jvm.constant.*;
+import com.coderising.jvm.constant.ClassInfo;
+import com.coderising.jvm.constant.ConstantPool;
+import com.coderising.jvm.constant.MethodRefInfo;
+import com.coderising.jvm.constant.NameAndTypeInfo;
+import com.coderising.jvm.constant.UTF8Info;
 import com.coderising.jvm.field.Field;
 import com.coderising.jvm.loader.ClassFileLoader;
 import com.coderising.jvm.method.Method;
@@ -20,9 +23,8 @@ public class ClassFileloaderTest {
 
 	static String path1 = "C:\\Users\\steve\\workspace\\coding2017n\\group12\\382266293\\bin";
 	static String path2 = "C:\temp";
-	String FULL_QUALIFIED_CLASS_NAME = "com/coderising/jvm/test/EmployeeV1";
-
 	static ClassFile clzFile = null;
+
 	static {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
@@ -36,6 +38,30 @@ public class ClassFileloaderTest {
 		}
 		clzFile.print();
 	}
+	String FULL_QUALIFIED_CLASS_NAME = "com/coderising/jvm/test/EmployeeV1";
+
+	private void assertMethodEquals(ConstantPool pool,Method m , String expectedName, String expectedDesc,String expectedCode){
+    	String methodName = pool.getUTF8String(m.getNameIndex());
+		String methodDesc = pool.getUTF8String(m.getDescriptorIndex());    		
+		String code = m.getCodeAttr().getCode();
+		Assert.assertEquals(expectedName, methodName);
+		Assert.assertEquals(expectedDesc, methodDesc);
+		Assert.assertEquals(expectedCode, code);
+    }
+
+	private String byteToHexString(byte[] codes) {
+		StringBuffer buffer = new StringBuffer();
+		for (int i = 0; i < codes.length; i++) {
+			byte b = codes[i];
+			int value = b & 0xFF;
+			String strHex = Integer.toHexString(value);
+			if (strHex.length() < 2) {
+				strHex = "0" + strHex;
+			}
+			buffer.append(strHex);
+		}
+		return buffer.toString();
+	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -43,19 +69,6 @@ public class ClassFileloaderTest {
 
 	@After
 	public void tearDown() throws Exception {
-	}
-
-	@Test
-	public void testClassPath() {
-
-		ClassFileLoader loader = new ClassFileLoader();
-		loader.addClassPath(path1);
-		loader.addClassPath(path2);
-
-		String clzPath = loader.getClassPath();
-
-		Assert.assertEquals(path1 + ";" + path2, clzPath);
-
 	}
 
 	@Test
@@ -74,37 +87,26 @@ public class ClassFileloaderTest {
 	}
 
 	@Test
-	public void testMagicNumber() {
-		ClassFileLoader loader = new ClassFileLoader();
-		loader.addClassPath(path1);
-		String className = "com.coderising.jvm.test.EmployeeV1";
-		byte[] byteCodes = loader.readBinaryCode(className);
-		byte[] codes = new byte[] { byteCodes[0], byteCodes[1], byteCodes[2], byteCodes[3] };
+	public void testClassIndex() {
 
-		String acctualValue = this.byteToHexString(codes);
+		ClassIndex clzIndex = clzFile.getClzIndex();
+		ClassInfo thisClassInfo = (ClassInfo) clzFile.getConstantPool().getConstantInfo(clzIndex.getThisClassIndex());
+		ClassInfo superClassInfo = (ClassInfo) clzFile.getConstantPool().getConstantInfo(clzIndex.getSuperClassIndex());
 
-		Assert.assertEquals("cafebabe", acctualValue);
-	}
-
-	private String byteToHexString(byte[] codes) {
-		StringBuffer buffer = new StringBuffer();
-		for (int i = 0; i < codes.length; i++) {
-			byte b = codes[i];
-			int value = b & 0xFF;
-			String strHex = Integer.toHexString(value);
-			if (strHex.length() < 2) {
-				strHex = "0" + strHex;
-			}
-			buffer.append(strHex);
-		}
-		return buffer.toString();
+		Assert.assertEquals(FULL_QUALIFIED_CLASS_NAME, thisClassInfo.getClassName());
+		Assert.assertEquals("java/lang/Object", superClassInfo.getClassName());
 	}
 
 	@Test
-	public void testVersion() {
+	public void testClassPath() {
 
-		Assert.assertEquals(0, clzFile.getMinorVersion());
-		Assert.assertEquals(52, clzFile.getMajorVersion());
+		ClassFileLoader loader = new ClassFileLoader();
+		loader.addClassPath(path1);
+		loader.addClassPath(path2);
+
+		String clzPath = loader.getClassPath();
+
+		Assert.assertEquals(path1 + ";" + path2, clzPath);
 
 	}
 
@@ -177,31 +179,19 @@ public class ClassFileloaderTest {
 	}
 
 	@Test
-	public void testClassIndex() {
+	public void testMagicNumber() {
+		ClassFileLoader loader = new ClassFileLoader();
+		loader.addClassPath(path1);
+		String className = "com.coderising.jvm.test.EmployeeV1";
+		byte[] byteCodes = loader.readBinaryCode(className);
+		byte[] codes = new byte[] { byteCodes[0], byteCodes[1], byteCodes[2], byteCodes[3] };
 
-		ClassIndex clzIndex = clzFile.getClzIndex();
-		ClassInfo thisClassInfo = (ClassInfo) clzFile.getConstantPool().getConstantInfo(clzIndex.getThisClassIndex());
-		ClassInfo superClassInfo = (ClassInfo) clzFile.getConstantPool().getConstantInfo(clzIndex.getSuperClassIndex());
+		String acctualValue = this.byteToHexString(codes);
 
-		Assert.assertEquals(FULL_QUALIFIED_CLASS_NAME, thisClassInfo.getClassName());
-		Assert.assertEquals("java/lang/Object", superClassInfo.getClassName());
+		Assert.assertEquals("cafebabe", acctualValue);
 	}
 	
 	
-    @Test
-    public void testReadFields(){
-   
-    	List<Field> fields = clzFile.getFields();
-    	Assert.assertEquals(2, fields.size());
-    	{
-    		Field f = fields.get(0);
-    		Assert.assertEquals("name:Ljava/lang/String;", f.toString());
-    	}
-    	{
-    		Field f = fields.get(1);
-    		Assert.assertEquals("age:I", f.toString());
-    	}
-    }
     @Test
     public void testMethods(){
    
@@ -247,15 +237,28 @@ public class ClassFileloaderTest {
     				"bb000159122b101db7002d4c2bb6002fb1");
     	}
     }
-    
-    private void assertMethodEquals(ConstantPool pool,Method m , String expectedName, String expectedDesc,String expectedCode){
-    	String methodName = pool.getUTF8String(m.getNameIndex());
-		String methodDesc = pool.getUTF8String(m.getDescriptorIndex());    		
-		String code = m.getCodeAttr().getCode();
-		Assert.assertEquals(expectedName, methodName);
-		Assert.assertEquals(expectedDesc, methodDesc);
-		Assert.assertEquals(expectedCode, code);
+    @Test
+    public void testReadFields(){
+   
+    	List<Field> fields = clzFile.getFields();
+    	Assert.assertEquals(2, fields.size());
+    	{
+    		Field f = fields.get(0);
+    		Assert.assertEquals("name:Ljava/lang/String;", f.toString());
+    	}
+    	{
+    		Field f = fields.get(1);
+    		Assert.assertEquals("age:I", f.toString());
+    	}
     }
+    
+    @Test
+	public void testVersion() {
+
+		Assert.assertEquals(0, clzFile.getMinorVersion());
+		Assert.assertEquals(52, clzFile.getMajorVersion());
+
+	}
    
 
 }

@@ -12,8 +12,8 @@ import sun.net.www.protocol.http.HttpURLConnection;
 
 public class ConnectionImpl implements Connection {
 
-	private ConnectionManager cm;
 	private static int buffer_size = 1024;
+	private ConnectionManager cm;
 	private HttpURLConnection httpConn;
 	private URL url;
 	private boolean finished = false;
@@ -26,6 +26,31 @@ public class ConnectionImpl implements Connection {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void close() {
+		httpConn.disconnect();
+	}
+
+	@Override
+	public int getContentLength() {
+		int len = httpConn.getContentLength();
+
+		return len;
+
+	}
+
+	@Override
+	public String getFileName() {
+		String fileName = httpConn.getURL().getFile();
+		fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
+		return fileName;
+	}
+
+	@Override
+	public boolean isFinished() {
+		return finished;
 	}
 
 	@Override
@@ -61,33 +86,8 @@ public class ConnectionImpl implements Connection {
 	}
 
 	@Override
-	public int getContentLength() {
-		int len = httpConn.getContentLength();
-
-		return len;
-
-	}
-
-	@Override
-	public void close() {
-		httpConn.disconnect();
-	}
-
-	@Override
-	public String getFileName() {
-		String fileName = httpConn.getURL().getFile();
-		fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
-		return fileName;
-	}
-
-	@Override
 	public void setFinished() {
 		finished = true;
-	}
-
-	@Override
-	public boolean isFinished() {
-		return finished;
 	}
 
 }

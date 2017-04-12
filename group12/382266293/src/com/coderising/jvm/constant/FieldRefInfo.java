@@ -9,31 +9,8 @@ public class FieldRefInfo extends ConstantInfo {
 		super(pool);
 	}
 
-	public int getType() {
-		return type;
-	}
-
 	public int getClassInfoIndex() {
 		return classInfoIndex;
-	}
-
-	public void setClassInfoIndex(int classInfoIndex) {
-		this.classInfoIndex = classInfoIndex;
-	}
-
-	public int getNameAndTypeIndex() {
-		return nameAndTypeIndex;
-	}
-
-	public void setNameAndTypeIndex(int nameAndTypeIndex) {
-		this.nameAndTypeIndex = nameAndTypeIndex;
-	}
-
-	public String toString() {
-
-		NameAndTypeInfo typeInfo = (NameAndTypeInfo) this.getConstantInfo(this.getNameAndTypeIndex());
-
-		return getClassName() + " : " + typeInfo.getName() + ":" + typeInfo.getTypeInfo() + "]";
 	}
 
 	public String getClassName() {
@@ -54,5 +31,30 @@ public class FieldRefInfo extends ConstantInfo {
 	public String getFieldType() {
 		NameAndTypeInfo typeInfo = (NameAndTypeInfo) this.getConstantInfo(this.getNameAndTypeIndex());
 		return typeInfo.getTypeInfo();
+	}
+
+	public int getNameAndTypeIndex() {
+		return nameAndTypeIndex;
+	}
+
+	@Override
+	public int getType() {
+		return type;
+	}
+
+	public void setClassInfoIndex(int classInfoIndex) {
+		this.classInfoIndex = classInfoIndex;
+	}
+
+	public void setNameAndTypeIndex(int nameAndTypeIndex) {
+		this.nameAndTypeIndex = nameAndTypeIndex;
+	}
+
+	@Override
+	public String toString() {
+
+		NameAndTypeInfo typeInfo = (NameAndTypeInfo) this.getConstantInfo(this.getNameAndTypeIndex());
+
+		return getClassName() + " : " + typeInfo.getName() + ":" + typeInfo.getTypeInfo() + "]";
 	}
 }

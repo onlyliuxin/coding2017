@@ -1,51 +1,12 @@
 package com.coderising.jvm.attr;
 
-import java.io.UnsupportedEncodingException;
-
 import com.coderising.jvm.clz.ClassFile;
-import com.coderising.jvm.constant.ConstantPool;
-import com.coderising.jvm.field.Field;
 import com.coderising.jvm.loader.ByteCodeIterator;
 
 
 public class CodeAttr extends AttributeInfo {
-	private int maxStack ;
-	private int maxLocals ;
-	private int codeLen ;
-	private String code;
-	public String getCode() {
-		return code;
-	}
-
-	//private ByteCodeCommand[] cmds ;
-	//public ByteCodeCommand[] getCmds() {
-	//	return cmds;
-	//}
-	private LineNumberTable lineNumTable;
-	private LocalVariableTable localVarTable;
-	private StackMapTable stackMapTable;
-	
-	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code /*ByteCodeCommand[] cmds*/) {
-		super(attrNameIndex, attrLen);
-		this.maxStack = maxStack;
-		this.maxLocals = maxLocals;
-		this.codeLen = codeLen;
-		this.code = code;
-		//this.cmds = cmds;
-	}
-
-	public void setLineNumberTable(LineNumberTable t) {
-		this.lineNumTable = t;
-	}
-
-	public void setLocalVariableTable(LocalVariableTable t) {
-		this.localVarTable = t;		
-	}
-	
 	public static CodeAttr parse(ClassFile clzFile, ByteCodeIterator iter){
 		 int attrNameIndex = iter.nextU2ToInt();
-		 
-		 System.out.println("attrIndex " + attrNameIndex);
 		 
 		 int attrLen = iter.nextU4ToInt();
 
@@ -57,9 +18,9 @@ public class CodeAttr extends AttributeInfo {
 		 
 		 System.out.println("codeLen " + codeLen);
 		 
-		 CodeAttr codeAttr = new CodeAttr(attrNameIndex, attrLen, maxStack, maxLocals, codeLen, "Code");
-		 
 		 String code = iter.nextUxToHexString(codeLen);
+		 
+		 CodeAttr codeAttr = new CodeAttr(attrNameIndex, attrLen, maxStack, maxLocals, codeLen, code);
 
 		 System.out.println("Code is " + code);
 		 
@@ -103,6 +64,39 @@ public class CodeAttr extends AttributeInfo {
 		 }
 		 
 		 return codeAttr;
+	}
+	private int maxStack ;
+	private int maxLocals ;
+	private int codeLen ;
+	private String code;
+
+	//private ByteCodeCommand[] cmds ;
+	//public ByteCodeCommand[] getCmds() {
+	//	return cmds;
+	//}
+	private LineNumberTable lineNumTable;
+	private LocalVariableTable localVarTable;
+	private StackMapTable stackMapTable;
+	
+	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code /*ByteCodeCommand[] cmds*/) {
+		super(attrNameIndex, attrLen);
+		this.maxStack = maxStack;
+		this.maxLocals = maxLocals;
+		this.codeLen = codeLen;
+		this.code = code;
+		//this.cmds = cmds;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setLineNumberTable(LineNumberTable t) {
+		this.lineNumTable = t;
+	}
+	
+	public void setLocalVariableTable(LocalVariableTable t) {
+		this.localVarTable = t;		
 	}
 	
 	

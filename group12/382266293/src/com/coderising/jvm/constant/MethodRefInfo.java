@@ -11,29 +11,8 @@ public class MethodRefInfo extends ConstantInfo {
 		super(pool);
 	}
 
-	public int getType() {
-		return type;
-	}
-
 	public int getClassInfoIndex() {
 		return classInfoIndex;
-	}
-
-	public void setClassInfoIndex(int classInfoIndex) {
-		this.classInfoIndex = classInfoIndex;
-	}
-
-	public int getNameAndTypeIndex() {
-		return nameAndTypeIndex;
-	}
-
-	public void setNameAndTypeIndex(int nameAndTypeIndex) {
-		this.nameAndTypeIndex = nameAndTypeIndex;
-	}
-
-	public String toString() {
-
-		return getClassName() + " : " + this.getMethodName() + " : " + this.getParamAndReturnType();
 	}
 
 	public String getClassName() {
@@ -48,10 +27,33 @@ public class MethodRefInfo extends ConstantInfo {
 		return typeInfo.getName();
 	}
 
+	public int getNameAndTypeIndex() {
+		return nameAndTypeIndex;
+	}
+
 	public String getParamAndReturnType() {
 		ConstantPool pool = this.getConstantPool();
 		NameAndTypeInfo typeInfo = (NameAndTypeInfo) pool.getConstantInfo(this.getNameAndTypeIndex());
 		return typeInfo.getTypeInfo();
+	}
+
+	@Override
+	public int getType() {
+		return type;
+	}
+
+	public void setClassInfoIndex(int classInfoIndex) {
+		this.classInfoIndex = classInfoIndex;
+	}
+
+	public void setNameAndTypeIndex(int nameAndTypeIndex) {
+		this.nameAndTypeIndex = nameAndTypeIndex;
+	}
+
+	@Override
+	public String toString() {
+
+		return getClassName() + " : " + this.getMethodName() + " : " + this.getParamAndReturnType();
 	}
 
 }
