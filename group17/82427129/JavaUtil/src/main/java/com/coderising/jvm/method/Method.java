@@ -1,27 +1,45 @@
 package com.coderising.jvm.method;
 
+import com.coderising.jvm.attr.CodeAttr;
+import com.coderising.jvm.clz.ClassFile;
+
 public class Method {
-	private int access_flags;
-	private int name_index;
-	private int type_index;
+	private int accessFlag;
+	private int nameIndex;
+	private int descriptorIndex;
 	
+	private CodeAttr codeAttr;
 	
-	public int getAccess_flags() {
-		return access_flags;
+	private ClassFile clzFile;
+	/*
+	 * getter setter
+	 */
+	public int getAccessFlag() {
+		return accessFlag;
 	}
-	public void setAccess_flags(int access_flags) {
-		this.access_flags = access_flags;
+	public void setAccessFlag(int accessFlag) {
+		this.accessFlag = accessFlag;
 	}
-	public int getName_index() {
-		return name_index;
+	public int getNameIndex() {
+		return nameIndex;
 	}
-	public void setName_index(int name_index) {
-		this.name_index = name_index;
+	public void setNameIndex(int nameIndex) {
+		this.nameIndex = nameIndex;
 	}
-	public int getType_index() {
-		return type_index;
+	public int getDescriptorIndex() {
+		return descriptorIndex;
 	}
-	public void setType_index(int type_index) {
-		this.type_index = type_index;
+	public void setDescriptorIndex(int descriptorIndex) {
+		this.descriptorIndex = descriptorIndex;
 	}
+	public CodeAttr getCodeAttr() {
+		return codeAttr;
+	}
+	public void setCodeAttr(CodeAttr codeAttr) {
+		this.codeAttr = codeAttr;
+	}
+	public ClassFile getClzFile() {
+		return clzFile;
+	}
+	
 }

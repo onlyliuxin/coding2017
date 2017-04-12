@@ -5,16 +5,8 @@ import java.util.List;
 
 public class ConstantPool {
 	private List<ConstantInfo> cl = new ArrayList<ConstantInfo>();
-	private int constant_pool_size;
+	private int constantPoolSize;
 
-	public int getConstant_pool_size() {
-		return constant_pool_size;
-	}
-
-	public void setConstant_pool_size(int constant_pool_size) {
-		this.constant_pool_size = constant_pool_size;
-	}
-	
 	public void addConstantInfo(ConstantInfo e){
 		cl.add(e);
 	}
@@ -25,5 +17,19 @@ public class ConstantPool {
 
 	public int getSize() {
 		return cl.size() - 1;// 减去常量池的长度一项
+	}
+	/*
+	 * getter setter
+	 */
+	public int getConstantPoolSize() {
+		return constantPoolSize;
+	}
+	
+	public void setConstantPoolSize(int constantPoolSize) {
+		this.constantPoolSize = constantPoolSize;
+	}
+
+	public String getUTF8String(int nameIndex) {
+		return ((UTF8Info)getConstantInfo(nameIndex)).getValue();
 	}
 }

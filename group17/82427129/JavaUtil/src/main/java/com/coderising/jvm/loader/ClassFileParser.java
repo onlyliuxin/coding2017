@@ -12,6 +12,7 @@ import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.NullConstantInfo;
 import com.coderising.jvm.constant.StringInfo;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.field.Field;
 
 public class ClassFileParser {
 	/**
@@ -59,7 +60,7 @@ public class ClassFileParser {
 	public ConstantPool parseConstantPool(ByteCodeIterator itr) {
 		int count = itr.nextU2toInt();
 		ConstantPool pool = new ConstantPool();
-		pool.setConstant_pool_size(count);
+		pool.setConstantPoolSize(count);;
 		pool.addConstantInfo(new NullConstantInfo());// 占住常量池的第一个，常量池是的index从1开始
 
 		for (int i = 1; i < count; i++) {
@@ -67,7 +68,7 @@ public class ClassFileParser {
 			switch (tag) {
 			case ConstantInfo.CLASS_INFO:
 				ClassInfo classInfo = new ClassInfo();
-				classInfo.setName_index(itr.nextU2toInt());
+				classInfo.setUtf8Index(itr.nextU2toInt());
 				pool.addConstantInfo(classInfo);
 				break;
 
@@ -95,8 +96,8 @@ public class ClassFileParser {
 
 			case ConstantInfo.METHOD_INFO:
 				MethodRefInfo m = new MethodRefInfo();
-				m.setClass_index(itr.nextU2toInt());
-				m.setName_and_type_index(itr.nextU2toInt());
+				m.setClassInfoIndex(itr.nextU2toInt());
+				m.setNameAndTypeIndex(itr.nextU2toInt());
 				pool.addConstantInfo(m);
 				break;
 
@@ -126,5 +127,23 @@ public class ClassFileParser {
 			}
 		}
 		return pool;
+	}
+	/**
+	 * 读取字段
+	 * @param itr
+	 * @return
+	 */
+	public Field parseField(ByteCodeIterator itr){
+		
+		return null;
+	}
+	/**
+	 * 读取方法
+	 * @param itr
+	 * @return
+	 */
+	public Field parseMethod(ByteCodeIterator itr){
+		
+		return null;
 	}
 }

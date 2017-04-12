@@ -3,6 +3,7 @@ package com.coderising.jvm.clz;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.field.Field;
 import com.coderising.jvm.method.Method;
@@ -17,6 +18,31 @@ public class ClassFile {
 	private List<Field> fields = new ArrayList<Field>();
 	private List<Method> methods = new ArrayList<Method>();
 	
+	public void print(){
+		
+		if(this.accessFlag.isPublicClass()){
+			System.out.println("Access flag : public  ");
+		}
+		System.out.println("Class Name:"+ getClassName());
+		
+		System.out.println("Super Class Name:"+ getSuperClassName());
+		
+	}
+
+	public String getClassName(){
+		int index = this.clzIndex.getThisClassIndex();
+		ClassInfo c = (ClassInfo)pool.getConstantInfo(index);
+		return c.getClassName();
+	}
+	public String getSuperClassName(){
+		int index = this.clzIndex.getSuperClassIndex();
+		ClassInfo c = (ClassInfo)pool.getConstantInfo(index);
+		return c.getClassName();
+	}
+	/*
+	 * getter setter
+	 * 
+	 */
 	public int getMinorVersion() {
 		return minorVersion;
 	}
@@ -49,7 +75,7 @@ public class ClassFile {
 		this.clzIndex = clzIndex;
 	}
 
-	public ConstantPool getPool() {
+	public ConstantPool getConstantPool() {
 		return pool;
 	}
 
