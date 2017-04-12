@@ -1,6 +1,7 @@
 package com.github.chaoswang.learning.java.stack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +26,12 @@ public class StackUtil {
 	 */
 	public static void reverse(Stack<Integer> s) {
 		Stack<Integer> tmpStack = new Stack<Integer>();
-		
-		
+		while(!s.empty()){
+			tmpStack.push(s.pop());
+		}
+		while(!tmpStack.empty()){
+			StackUtil.addToBottom(s, tmpStack.pop());
+		}
 	}
 
 	/**
@@ -58,15 +63,15 @@ public class StackUtil {
 	 * @param len
 	 * @return
 	 */
-	public static Object[] getTop(Stack<Integer> s, int len) {
+	public static Object[] getTop(Stack s, int len) {
 		int stackSize = s.size();
 		if(len > stackSize || len <= 0){
 			throw new IllegalArgumentException("parameter len illegal");
 		}
 		List ret = new ArrayList();
-		Stack<Integer> tmpStack = new Stack<Integer>();
+		Stack tmpStack = new Stack();
 		for(int i=0;i<len;i++){
-			Integer poped = s.pop();
+			Object poped = s.pop();
 			ret.add(poped);
 			tmpStack.push(poped);
 		}
@@ -86,42 +91,34 @@ public class StackUtil {
 	 */
 	public static boolean isValidPairs(String s) {
 		Map<Character,Character> map = new HashMap<Character,Character>();
-		map.put('(', ')');
-		map.put('[', ']');
-		map.put('{', '}');
+		map.put(')', '(');
+		map.put(']', '[');
+		map.put('}', '{');
+		List bracketList = Arrays.asList('(', ')','[', ']','{', '}'); 
 		Stack<Character> tmpStack = new Stack<Character>();
 		for(char c : s.toCharArray()){
-			Character value = map.get(c);
-			if(value != null){
-				tmpStack.push(value);
+			if(bracketList.contains(c)){
+				tmpStack.push(c);
 			}
 		}
-		StringBuffer sb = new StringBuffer();
-		while(!tmpStack.empty()){
+		//括号的个数不是偶数，肯定不成对
+		if(tmpStack.size()%2 != 0){
+			return false;
+		}
+		Stack<Character> tmpStack2 = new Stack<Character>();
+		int tmpSize = tmpStack.size();
+		for(int i=0;i<tmpSize/2;i++){
 			Character poped = tmpStack.pop();
 			Character value = map.get(poped);
-			if(value != null)
-			sb.append(value);
+			tmpStack2.push(value);
 		}
 		
-		List<Character> ret = new ArrayList<Character>();
-		for(char c : s.toCharArray()){
-			Character value = map.get(c);
-			if(value != null){
-				ret.add(value);
+		for(int i=0;i<tmpSize/2;i++){
+			if(!tmpStack.pop().equals(tmpStack2.pop())){
+				return false;
 			}
 		}
-		StringBuffer sb2 = new StringBuffer();
-		for(Character c : ret){
-			Character value = map.get(c);
-			if(value != null)
-				sb2.append(c);
-		}
-		
-		if(sb.toString().equals(sb2.toString())){
-			return true;
-		}
-		return false;
+		return true;
 	}
 
 }
