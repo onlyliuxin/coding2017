@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.wsc.coderising.jvm.clz.ClassFile;
+
 public class ClassFileLoader {
 
 	private List<String> clzPaths = new ArrayList<String>();
@@ -16,19 +18,25 @@ public class ClassFileLoader {
 	DataInputStream dis;
 	private ByteArrayOutputStream baos;
 
-	public byte[] readBinaryCode(String className) throws ClassNotFoundException, IOException {
+	public byte[] readBinaryCode(String className) throws ClassNotFoundException {
 		byte[] buffer = null;
 		File file = null;
 		for (String clzPath : clzPaths) {
 			clzPath += "/" + className.replace(".", "/") + ".class";
 			file = new File(clzPath);
 			if (file.exists())
-				buffer = getFileToByte(new File(clzPath));
+				try {
+					buffer = getFileToByte(new File(clzPath));
+					if(buffer != null && buffer.length > 0)
+						break;
+				} catch (IOException e) {
+					throw new ClassNotFoundException();
+				}
 			close();
 		}
-		if (buffer == null) {
+		
+		if (buffer == null || buffer.length == 0)
 			throw new ClassNotFoundException();
-		}
 		return buffer;
 
 	}
@@ -57,6 +65,12 @@ public class ClassFileLoader {
 			baos.write(buffer, 0, lenth);
 		}
 		return baos.toByteArray();
+	}
+	
+	public ClassFile loadClass(String className) throws ClassNotFoundException {
+		byte[] codes = this.readBinaryCode(className);
+		ClassFileParser parser = new ClassFileParser();
+		return parser.parse(codes);
 	}
 
 	private void close() {
