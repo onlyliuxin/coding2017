@@ -1,5 +1,7 @@
 package com.coding.basic.homework_05.stack;
 
+import java.util.Stack;
+
 public class StackUtil {
 	
 	
@@ -7,12 +9,27 @@ public class StackUtil {
 	 * 假设栈中的元素是Integer, 从栈顶到栈底是 : 5,4,3,2,1 调用该方法后， 元素次序变为: 1,2,3,4,5
 	 * 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
 	 */
-	public static Stack  reverse(Stack s) {
-		Stack ss = new Stack();
-		while(!s.isEmpty()){
-			ss.push(s.pop());
+	public static void  reverse(Stack s) {
+		if(s.isEmpty()){
+			return;
 		}
-		return ss;
+		Object object = s.pop();
+		reverse(s);
+		addToBottom(s, object);
+	}
+	/**
+	 * 将Object放入到当前栈的底部
+	 * @param s
+	 * @param object
+	 */
+	public static void addToBottom(Stack s, Object object){
+		if(s.isEmpty()){
+			s.push(object);
+			return;
+		}
+		Object tem = s.pop();
+		addToBottom(s, object);
+		s.push(tem);
 	}
 
 	/**
@@ -20,7 +37,7 @@ public class StackUtil {
 	 * 
 	 * @param o
 	 */
-	public static Stack remove(Stack s,Object o) {
+	public static void remove(Stack s,Object o) {
 		Stack ss = new Stack();
 		while(!s.isEmpty()){
 			Object object = s.peek();
@@ -30,7 +47,9 @@ public class StackUtil {
 				ss.push(s.pop());
 			}
 		}
-		return reverse(ss);
+		while(!ss.isEmpty()){
+			s.push(ss.pop());
+		}
 	}
 
 	/**
@@ -57,7 +76,9 @@ public class StackUtil {
 				ss.push(s.pop());
 			}
 		}
-		result[result.length - 1] = reverse(ss);
+		while(!ss.isEmpty()){
+			s.push(ss.pop());
+		}
 		return result;
 	}
 	/**
@@ -70,47 +91,29 @@ public class StackUtil {
 	 */
 	public static boolean isValidPairs(String s){
 		Stack stack = new Stack();
-		boolean flag = true;
-		char[] chars = s.toCharArray();
-		for (char c : chars) {
-			if(c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}'){
-				System.out.println(c);
+		for(int i = 0; i<s.length(); i++ ){
+			char c = s.charAt(i);
+			if(c == '(' || c == '[' || c == '{'){
 				stack.push(c);
+			}else if(c == ')'){
+				char c2 = (char) stack.pop();
+				if(c2 != '('){
+					return false;
+				}
+			}else if(c == ']'){
+				char c2 = (char) stack.pop();
+				if(c2 != '['){
+					return false;
+				}
+			}else if(c == '}'){
+				char c2 = (char) stack.pop();
+				if(c2 != '{'){
+					return false;
+				}
 			}
 		}
-		Stack reStack = reverse(stack);
-		while(!stack.isEmpty()){
-			Integer i1 = (Integer) stack.pop();
-			Integer i2 = (Integer) reStack.pop();
-			
-			if(i1 != i2){
-				flag = false;
-				break;
-			}
-		}
-		return flag;
+		return stack.size() == 0;
 	}
 	
-	public static void main(String[] args) {
-		Stack stack = new Stack();
-		stack.push(1);
-		stack.push(2);
-		stack.push(3);
-		stack.push(4);
-		stack.push(5);
-//		String string = "([e{d}f])";
-		String string = "([b{x]y})";
-		System.out.println(isValidPairs(string));
-//		Object[] objects = getTop(stack, 3);
-//		for(int i=0; i<objects.length - 1; i++){
-//			System.out.println((Integer)objects[i]);
-//		}
-		stack = reverse(stack);
-		stack = remove(stack, 3);
-//		stack = (Stack) objects[objects.length - 1];
-		while(!stack.isEmpty()){
-			System.out.println(stack.pop());
-		}
-	}
 	
 }
