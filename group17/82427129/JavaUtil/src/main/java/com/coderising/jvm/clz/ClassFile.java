@@ -17,31 +17,38 @@ public class ClassFile {
 	private ConstantPool pool;
 	private List<Field> fields = new ArrayList<Field>();
 	private List<Method> methods = new ArrayList<Method>();
-	
-	public void print(){
-		
-		if(this.accessFlag.isPublicClass()){
+
+	public void print() {
+		if (this.accessFlag.isPublicClass()) {
 			System.out.println("Access flag : public  ");
 		}
-		System.out.println("Class Name:"+ getClassName());
-		
-		System.out.println("Super Class Name:"+ getSuperClassName());
-		
+		System.out.println("Class Name:" + getClassName());
+
+		System.out.println("Super Class Name:" + getSuperClassName());
 	}
 
-	public String getClassName(){
+	public String getClassName() {
 		int index = this.clzIndex.getThisClassIndex();
-		ClassInfo c = (ClassInfo)pool.getConstantInfo(index);
+		ClassInfo c = (ClassInfo) pool.getConstantInfo(index);
 		return c.getClassName();
 	}
-	public String getSuperClassName(){
+
+	public String getSuperClassName() {
 		int index = this.clzIndex.getSuperClassIndex();
-		ClassInfo c = (ClassInfo)pool.getConstantInfo(index);
+		ClassInfo c = (ClassInfo) pool.getConstantInfo(index);
 		return c.getClassName();
 	}
+
+	public void addFields(Field f) {
+		this.fields.add(f);
+	}
+
+	public void addMethods(Method m) {
+		this.methods.add(m);
+	}
+
 	/*
 	 * getter setter
-	 * 
 	 */
 	public int getMinorVersion() {
 		return minorVersion;
@@ -87,16 +94,16 @@ public class ClassFile {
 		return fields;
 	}
 
-	public void addFields(Field f){
-		this.fields.add(f);
+	public void setFields(List<Field> fl) {
+		this.fields = fl;
 	}
 
 	public List<Method> getMethods() {
 		return methods;
 	}
 
-	public void addMethods(Method m){
-		this.methods.add(m);
+	public void setMethods(List<Method> ml) {
+		this.methods = ml;
 	}
 
 }

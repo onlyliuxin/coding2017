@@ -7,4 +7,9 @@ public class FloatInfo extends ConstantInfo {
 	public int getType() {
 		return type;
 	}
+	@Override
+	public void print() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -81,7 +81,7 @@ public class ClassFileLoaderTest {
 	@Test
     public void testVersion(){    			
 		Assert.assertEquals(0, clzFile.getMinorVersion());
-		Assert.assertEquals(52, clzFile.getMajorVersion());
+		Assert.assertEquals(51, clzFile.getMajorVersion());
     }
 
 	@Test

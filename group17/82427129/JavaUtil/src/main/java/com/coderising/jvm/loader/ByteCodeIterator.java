@@ -38,4 +38,11 @@ public class ByteCodeIterator {
 		}
 		return Util.byteToHexString(bytes);
 	}
+	public String nextUxtoAscii(int len){
+		byte[] bytes = new byte[len];
+		for (int i = 0; i < len; i++) {
+			bytes[i] = codes[pos++];
+		}
+		return Util.byteToAscii(bytes);
+	}
 }

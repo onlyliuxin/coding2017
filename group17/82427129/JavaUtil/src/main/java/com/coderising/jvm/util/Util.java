@@ -18,4 +18,7 @@ public class Util {
 		}
 		return buffer.toString();
 	}
+	public static String byteToAscii(byte[] codes){
+		return new String(codes);
+	}
 }

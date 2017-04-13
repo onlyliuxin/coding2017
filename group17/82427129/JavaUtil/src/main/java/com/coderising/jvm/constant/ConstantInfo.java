@@ -22,6 +22,11 @@ public abstract class ConstantInfo {
 	
 	public abstract int getType();
 	
+	public abstract void print();
+	
+	/*
+	 * getter setter
+	 */
 	public ConstantPool getConstantPool(){
 		return this.constantPool;
 	}

@@ -7,4 +7,8 @@ public class DoubleInfo extends ConstantInfo {
 	public int getType() {
 		return type;
 	}
+	@Override
+	public void print() {
+		
+	}
 }

@@ -8,6 +8,11 @@ public class IntegerInfo extends ConstantInfo {
 	public int getType() {
 		return type;
 	}
+	@Override
+	public void print() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	public int getNum() {
 		return Num;

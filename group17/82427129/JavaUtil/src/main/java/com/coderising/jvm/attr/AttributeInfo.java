@@ -1,5 +1,8 @@
 package com.coderising.jvm.attr;
 
+import com.coderising.jvm.constant.ConstantPool;
+import com.coderising.jvm.loader.ByteCodeIterator;
+
 public abstract class AttributeInfo {
 	public static final String CODE = "Code";
 	public static final String CONST_VALUE = "ConstantValue";
@@ -14,5 +17,9 @@ public abstract class AttributeInfo {
 
 		this.attrNameIndex = attrNameIndex;
 		this.attrLen = attrLen;
+	}
+	
+	public static AttributeInfo parse(ConstantPool cp, ByteCodeIterator itr){
+		throw new RuntimeException("AttributeInfo parse hasn't implemented");
 	}
 }
