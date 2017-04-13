@@ -29,7 +29,7 @@ public class Method {
 				method.setCodeAttr(codeAttr);
 				
 			} else {
-				throw new RuntimeException(att_name + "has not been implemented");
+				throw new RuntimeException(att_name + " has not been implemented");
 			}
 
 		}
