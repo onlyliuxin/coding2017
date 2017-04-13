@@ -1,6 +1,7 @@
 package attr;
 
 import clz.ClassFile;
+import constant.ConstantInfo;
 import iterator.ByteCodeIterator;
 
 /**
@@ -42,9 +43,33 @@ public class CodeAttr extends AttributeInfo {
     }
 
     public static CodeAttr parse(ClassFile clzFile, ByteCodeIterator iter) {
-
-
-        return null;
+        //按照属性表格式读取
+        int attributeNameIndex = iter.nextU2ToInt();
+        int attributeLength = iter.nextU4ToInt();
+        int maxStack = iter.nextU2ToInt();
+        int maxLocals = iter.nextU2ToInt();
+        int codeLength = iter.nextU4ToInt();
+        byte[] code = iter.nextLengthBytes(codeLength);
+        int exceptionTableLength = iter.nextU2ToInt();//跳过异常表
+        System.out.println("Code属性表中的异常表元素大小：" + exceptionTableLength);
+        CodeAttr codeAttr = new CodeAttr(attributeNameIndex, attributeLength, maxStack, maxLocals, codeLength, new String(code));
+        int attributesCount = iter.nextU2ToInt();
+        //code属性表中又有属性
+        for (int i = 0; i < attributesCount; i++) {
+            int attrIndex = iter.nextU2ToInt();
+            String utf8String = clzFile.getConstantPool().getUTF8String(attrIndex);
+//            clzFile.getConstantPool().getConstantInfo(attrIndex).
+            if ("LineNumberTable".equals(utf8String)) {
+                codeAttr.setLineNumberTable(LineNumberTable.parse(iter));
+            } else if ("LocalVariableTable".equals(utf8String)) {
+                codeAttr.setLocalVariableTable(LocalVariableTable.parse(iter));
+            } else if ("stackMapTable".equals(utf8String)) {
+                codeAttr.setStackMapTable(StackMapTable.parse(iter));
+            } else {
+                throw new RuntimeException("other attribute in code table");
+            }
+        }
+        return codeAttr;
     }
 
     private void setStackMapTable(StackMapTable t) {

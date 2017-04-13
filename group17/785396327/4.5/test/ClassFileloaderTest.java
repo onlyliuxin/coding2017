@@ -19,7 +19,7 @@ import java.util.List;
 public class ClassFileloaderTest {
     private static final String FULL_QUALIFIED_CLASS_NAME = "jvm_1/EmployeeV1";
 
-    static String path1 = "G:\\Git\\homework\\coding2017\\group17\\785396327\\3.12\\out\\production\\785396327";
+    static String path1 = "G:\\Git\\homework\\coding2017\\group17\\785396327\\out\\production\\785396327";
     static String path2 = "C:\temp";
 
     static ClassFile clzFile = null;
@@ -29,7 +29,7 @@ public class ClassFileloaderTest {
         String className = "jvm_1.EmployeeV1";
 
         clzFile = loader.loadClass(className);
-//        clzFile.print();
+        clzFile.print();
     }
 
 

@@ -3,6 +3,7 @@ package method;
 import attr.CodeAttr;
 import clz.ClassFile;
 import iterator.ByteCodeIterator;
+import util.Util;
 
 /**
  * Created by IBM on 2017/4/12.
@@ -46,7 +47,16 @@ public class Method {
 
 
     public static Method parse(ClassFile clzFile, ByteCodeIterator iter) {
-        return null;
+        int accessFlags = iter.nextU2ToInt();
+        int nameIndex = iter.nextU2ToInt();
+        int descriptorIndex = iter.nextU2ToInt();
+        int attributesCount = iter.nextU2ToInt();//有几个属性
+        Method method = new Method(clzFile, accessFlags, nameIndex, descriptorIndex);
+        for (int i = 0; i < attributesCount; i++) {
+            CodeAttr codeAttr = CodeAttr.parse(clzFile, iter);
+            method.codeAttr = codeAttr;
+        }
+        return new Method(clzFile, accessFlags, nameIndex, descriptorIndex);
 
     }
 }

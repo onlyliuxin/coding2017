@@ -1,6 +1,5 @@
 package iterator;
 
-import org.junit.Test;
 import util.Util;
 
 import java.util.Arrays;
@@ -46,5 +45,11 @@ public class ByteCodeIterator {
         }
         codes = Arrays.copyOfRange(codes, length, codes.length);
         return result;
+    }
+
+    public int nextU4ToInt() {
+        byte[] buff = new byte[]{codes[0], codes[1], codes[2], codes[3]};
+        codes = Arrays.copyOfRange(codes, 4, codes.length);
+        return Util.byteToInt(buff);
     }
 }

@@ -5,11 +5,15 @@ import clz.ClassFile;
 import clz.ClassIndex;
 import com.sun.corba.se.impl.orbutil.closure.Constant;
 import constant.*;
+import field.Field;
 import iterator.ByteCodeIterator;
+import method.Method;
 import util.Util;
 
+import java.util.List;
+
 /**
- * Created by IBM on 2017/4/11.
+ * Created by william on 2017/4/11.
  */
 public class ClassFilePaser {
     private ClassFile classFile;
@@ -33,7 +37,29 @@ public class ClassFilePaser {
 
         ClassIndex classIndex = parseClassIndex(iterator);
         classFile.setClassIndex(classIndex);
+
+        iterator.nextU2ToInt();//没有接口直接读取两个字节
+
+        int fieldCount = iterator.nextU2ToInt();
+        for (int i = 0; i < fieldCount; i++) {
+            Field field = parseField(iterator, constantPool);
+            classFile.addField(field);
+        }
+
+        int methodCount = iterator.nextU2ToInt();
+        for (int i = 0; i < methodCount; i++) {
+            Method method = parseMethod(iterator, classFile);
+            classFile.addMethod(method);
+        }
         return classFile;
+    }
+
+    private Method parseMethod(ByteCodeIterator iterator, ClassFile classFile) {
+        return Method.parse(classFile,iterator);
+    }
+
+    private Field parseField(ByteCodeIterator iterator, ConstantPool constantPool) {
+        return Field.parse(constantPool, iterator);
     }
 
     private ClassIndex parseClassIndex(ByteCodeIterator iterator) {
