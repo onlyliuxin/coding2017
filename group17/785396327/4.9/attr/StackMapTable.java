@@ -3,7 +3,7 @@ package attr;
 import iterator.ByteCodeIterator;
 
 /**
- * Created by IBM on 2017/4/12.
+ * Created by william on 2017/4/12.
  */
 public class StackMapTable extends AttributeInfo {
     private String originalCode;
@@ -12,8 +12,7 @@ public class StackMapTable extends AttributeInfo {
         super(attrNameIndex, attrLen);
     }
 
-    public static StackMapTable parse(ByteCodeIterator iter){
-        int index = iter.nextU2ToInt();
+    public static StackMapTable parse(ByteCodeIterator iter,int index){
 //        int len = iter.nextU4ToInt();
 //        StackMapTable t = new StackMapTable(index,len);
 

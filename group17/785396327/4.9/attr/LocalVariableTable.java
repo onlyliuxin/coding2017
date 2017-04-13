@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by IBM on 2017/4/12.
+ * Created by william on 2017/4/12.
  */
 public class LocalVariableTable extends AttributeInfo {
     List<LocalVariableItem> items = new ArrayList<LocalVariableItem>();
@@ -15,8 +15,7 @@ public class LocalVariableTable extends AttributeInfo {
         super(attrNameIndex, attrLen);
     }
 
-    public static LocalVariableTable parse(ByteCodeIterator iter) {
-        int attributeNameIndex = iter.nextU2ToInt();
+    public static LocalVariableTable parse(ByteCodeIterator iter, int attributeNameIndex) {
         int attributeLength = iter.nextU4ToInt();
         int localVariableTableLength = iter.nextU2ToInt();
         LocalVariableTable localVariableTable = new LocalVariableTable(attributeNameIndex, attributeLength);

@@ -35,8 +35,7 @@ public class LineNumberTable extends AttributeInfo {
 
     }
 
-    public static LineNumberTable parse(ByteCodeIterator iter) {
-        int attributeNameIndex = iter.nextU2ToInt();
+    public static LineNumberTable parse(ByteCodeIterator iter,int attributeNameIndex) {
         int attributeLength = iter.nextU4ToInt();
         int lineNumberTableLength = iter.nextU2ToInt();
         LineNumberTable lineNumberTable = new LineNumberTable(attributeNameIndex,attributeLength);

@@ -60,11 +60,11 @@ public class CodeAttr extends AttributeInfo {
             String utf8String = clzFile.getConstantPool().getUTF8String(attrIndex);
 //            clzFile.getConstantPool().getConstantInfo(attrIndex).
             if ("LineNumberTable".equals(utf8String)) {
-                codeAttr.setLineNumberTable(LineNumberTable.parse(iter));
+                codeAttr.setLineNumberTable(LineNumberTable.parse(iter, attrIndex));
             } else if ("LocalVariableTable".equals(utf8String)) {
-                codeAttr.setLocalVariableTable(LocalVariableTable.parse(iter));
+                codeAttr.setLocalVariableTable(LocalVariableTable.parse(iter, attrIndex));
             } else if ("stackMapTable".equals(utf8String)) {
-                codeAttr.setStackMapTable(StackMapTable.parse(iter));
+                codeAttr.setStackMapTable(StackMapTable.parse(iter, attrIndex));
             } else {
                 throw new RuntimeException("other attribute in code table");
             }
