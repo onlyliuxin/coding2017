@@ -1,6 +1,5 @@
 package jvm.classfile.constant.item.impl;
 
-import jvm.classfile.ConstantPool;
 import jvm.classfile.constant.item.Constant;
 
 /**

@@ -1,4 +1,4 @@
-package jvm.attr;
+package jvm.classfile.attribute.item;
 
 public abstract class AttributeInfo {
 	public static final String CODE = "Code";
@@ -11,7 +11,7 @@ public abstract class AttributeInfo {
 	int attrNameIndex;				
 	int attrLen;
 
-	AttributeInfo(int attrNameIndex, int attrLen) {
+	public AttributeInfo(int attrNameIndex, int attrLen) {
 		this.attrNameIndex = attrNameIndex;
 		this.attrLen = attrLen;
 	}

@@ -1,8 +1,6 @@
 package jvm.classfile.constant.item.impl;
 
-import jvm.classfile.ConstantPool;
 import jvm.classfile.constant.item.Constant;
-import jvm.util.ByteUtils;
 
 /**
  * Created by Haochen on 2017/4/9.

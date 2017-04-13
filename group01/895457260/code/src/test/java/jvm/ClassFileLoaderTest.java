@@ -1,6 +1,6 @@
 package jvm;
 
-import jvm.attr.CodeAttr;
+import jvm.classfile.attribute.item.impl.CodeAttr;
 import jvm.classfile.ClassFile;
 import jvm.classfile.ClassIndex;
 import jvm.classfile.ConstantPool;
@@ -9,8 +9,8 @@ import jvm.classfile.constant.item.impl.MethodRefInfo;
 import jvm.classfile.constant.item.impl.NameAndTypeInfo;
 import jvm.classfile.constant.item.impl.UTF8Info;
 import jvm.exception.ReadClassException;
-import jvm.field.Field;
-import jvm.method.Method;
+import jvm.classfile.field.Field;
+import jvm.classfile.method.Method;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

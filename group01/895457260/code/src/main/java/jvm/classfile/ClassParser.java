@@ -1,14 +1,15 @@
 package jvm.classfile;
 
+import jvm.classfile.attribute.item.AttributeInfo;
+import jvm.classfile.attribute.parser.AttributeParser;
 import jvm.classfile.constant.item.IReference;
+import jvm.classfile.constant.item.impl.ClassInfo;
 import jvm.classfile.constant.item.impl.CountConstant;
 import jvm.classfile.constant.parser.ConstantParser;
 import jvm.classfile.constant.parser.ConstantParserFactory;
-import jvm.field.Field;
-import jvm.method.Method;
+import jvm.classfile.field.Field;
+import jvm.classfile.method.Method;
 import jvm.util.ByteCodeIterator;
-
-import java.util.Collection;
 
 /**
  * Created by Haochen on 2017/4/9.
@@ -26,11 +27,20 @@ public class ClassParser {
         classFile.constantPool = parseConstantPool(iterator);
         classFile.accessFlag = parseAccessFlag(iterator);
         classFile.classIndex = parseClassIndex(iterator);
-        parseInterfaces(iterator);
+        parseInterfaces(classFile, iterator);
         parseFields(classFile, iterator);
         parseMethods(classFile, iterator);
+        parseAttributes(classFile, iterator);
         linkConstantReferences(classFile);
         return classFile;
+    }
+
+    private static void parseAttributes(ClassFile classFile, ByteCodeIterator iterator) {
+        int count = iterator.nextU2ToInt();
+        for (int i = 0; i < count; ++i) {
+            AttributeInfo attribute = AttributeParser.parse(iterator, classFile.constantPool);
+            classFile.attributes.add(attribute);
+        }
     }
 
     private static int parseMinorVersion(ByteCodeIterator iterator) {
@@ -68,9 +78,14 @@ public class ClassParser {
         return classIndex;
     }
 
-    private static void parseInterfaces(ByteCodeIterator iterator) {
+    private static void parseInterfaces(ClassFile classFile, ByteCodeIterator iterator) {
         int count = iterator.nextU2ToInt();
-        iterator.skip(count * 2);
+        ConstantPool constantPool = classFile.constantPool;
+        for (int i = 0; i < count; ++i) {
+            int index = iterator.nextU2ToInt();
+            ClassInfo info = (ClassInfo) constantPool.getConstantInfo(index);
+            classFile.interfaces.add(info);
+        }
     }
 
     private static void parseFields(ClassFile classFile, ByteCodeIterator iterator) {

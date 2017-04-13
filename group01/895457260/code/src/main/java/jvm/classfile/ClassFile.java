@@ -1,9 +1,10 @@
 package jvm.classfile;
 
 
+import jvm.classfile.attribute.item.AttributeInfo;
 import jvm.classfile.constant.item.impl.ClassInfo;
-import jvm.field.Field;
-import jvm.method.Method;
+import jvm.classfile.field.Field;
+import jvm.classfile.method.Method;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,23 +19,25 @@ public class ClassFile {
     ConstantPool constantPool;
     int minorVersion;
     int majorVersion;
+    List<ClassInfo> interfaces = new ArrayList<>();
     List<Field> fields = new ArrayList<>();
     List<Method> methods = new ArrayList<>();
+    List<AttributeInfo> attributes = new ArrayList<>();
 
-    public void addField(Field f){
-        this.fields.add(f);
+    public List<ClassInfo> getInterfaces() {
+        return this.interfaces;
     }
-    public List<Field> getFields(){
+    public List<Field> getFields() {
         return this.fields;
-    }
-    public void addMethod(Method m){
-        this.methods.add(m);
     }
     public List<Method> getMethods() {
         return methods;
     }
+    public List<AttributeInfo> getAttributes() {
+        return attributes;
+    }
 
-    public void print(){
+    public void print() {
         if(this.accessFlag.isPublicClass()){
             System.out.println("Access flag : public  ");
         }
@@ -42,13 +45,13 @@ public class ClassFile {
         System.out.println("Super Class Name:"+ getSuperClassName());
     }
 
-    private String getClassName(){
+    private String getClassName() {
         int thisClassIndex = this.classIndex.getThisClassIndex();
         ClassInfo thisClass = (ClassInfo)this.getConstantPool().getConstantInfo(thisClassIndex);
         return thisClass.getClassName();
     }
 
-    private String getSuperClassName(){
+    private String getSuperClassName() {
         ClassInfo superClass = (ClassInfo)this.getConstantPool()
                 .getConstantInfo(this.classIndex.getSuperClassIndex());
         return superClass.getClassName();
