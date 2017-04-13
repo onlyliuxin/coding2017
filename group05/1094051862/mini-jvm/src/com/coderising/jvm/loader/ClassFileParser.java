@@ -13,6 +13,7 @@ import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.NullConstantInfo;
 import com.coderising.jvm.constant.StringInfo;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.field.Field;
 
 public class ClassFileParser {
 
@@ -30,9 +31,29 @@ public class ClassFileParser {
 		
 		ConstantPool pool = parseConstantPool(iter);
 		clzFile.setConstPool(pool);
+		
 		clzFile.setAccessFlag(parseAccessFlag(iter));
 		clzFile.setClassIndex(parseClassIndex(iter));
+		
+		parseInterfaces(iter);//如果实现接口，需要进一步解析
+		
+		parseFields(clzFile, iter);
+		
+		parrsMethods(clzFile, iter);
 		return clzFile;
+	}
+
+	private void parrsMethods(ClassFile clzFile, ByteCodeIterator iter) {
+		
+	}
+
+	private void parseFields(ClassFile clzFile, ByteCodeIterator iter) {
+		int fieldCount = iter.nextU2toInt();
+		System.out.println("fieldCount:" + fieldCount);
+		for (int i = 0; i < fieldCount; i++) {
+			Field f = Field.parse(clzFile.getConstantPool(), iter);
+			clzFile.addField(f);
+		}
 	}
 
 	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
@@ -111,6 +132,14 @@ public class ClassFileParser {
 			}
 		}
 		return pool;
+	}
+
+	private void parseInterfaces(ByteCodeIterator iter) {
+		int interfaceCount = iter.nextU2toInt();
+
+		System.out.println("interfaceCount:" + interfaceCount);
+
+		// TODO : 如果实现了interface, 这里需要解析
 	}
 
 	

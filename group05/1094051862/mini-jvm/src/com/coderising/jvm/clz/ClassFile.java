@@ -2,7 +2,9 @@ package com.coderising.jvm.clz;
 
 import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantPool;
-
+import com.coderising.jvm.field.Field;
+import com.coding.basic.ArrayList;
+import com.coding.basic.List;
 public class ClassFile {
 	
 	private int minorVersion;
@@ -12,7 +14,20 @@ public class ClassFile {
 	private ClassIndex clzIndex;
 	private ConstantPool pool;
 	
+	private List fields = new ArrayList();
 	
+	public void addField(Field f) {
+		fields.add(f);
+	}
+	
+	public List getFields() {
+		return fields;
+	}
+
+	public void setFields(List fields) {
+		this.fields = fields;
+	}
+
 	public ClassIndex getClzIndex() {
 		return clzIndex;
 	}

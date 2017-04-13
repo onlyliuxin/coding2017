@@ -32,8 +32,25 @@ public class ByteCodeIterator {
 		return Util.byteToInt(new byte[] { codes[pos++], codes[pos++] });
 	}
 	
+	public int nextU4toInt() {
+		return Util.byteToInt(new byte[] { codes[pos++], codes[pos++], codes[pos++], codes[pos++] });
+	}
+	
 	public String nextU4toHexString() {
 		return Util.byteToHexString(new byte[] { codes[pos++], codes[pos++], codes[pos++], codes[pos++] });
 	}
 	
+	public String nextUxToHexString(int len) {
+		byte[] tmp = new byte[len];
+
+		for (int i = 0; i < len; i++) {
+			tmp[i] = codes[pos++];
+		}
+		return Util.byteToHexString(tmp).toLowerCase();
+
+	}
+
+	public void back(int n) {
+		this.pos -= n;
+	}
 }
