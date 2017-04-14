@@ -23,8 +23,8 @@ public class InfixExprTest {
 			Assert.assertEquals(19.0, expr.evaluate(), 0.001f);
 		}
 		{
-			InfixExpr expr = new InfixExpr("3*20+12*5-40/2");
-			Assert.assertEquals(100.0, expr.evaluate(), 0.001f);
+			InfixExpr expr = new InfixExpr("3*20+12*5-40/2/2+5*2*2/2+1-10/2");
+			Assert.assertEquals(116.0, expr.evaluate(), 0.001f);
 		}
 
 		{

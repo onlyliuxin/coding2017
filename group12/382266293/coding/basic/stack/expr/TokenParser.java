@@ -26,13 +26,15 @@ public class TokenParser {
 
 		String[] tokens = expr.split("");
 		String number = "";
+		String sign = "";
 
 		for (int i = 0; i < tokens.length; i++) {
 
 			String c = tokens[i];
 
 			if (isSign(c)) {
-				signQ.add(c);
+				sign = c;
+				signQ.add(sign);
 				if (!number.equals("")) {
 					int num = Integer.parseInt(number);
 					intQ.add(num);
@@ -53,7 +55,7 @@ public class TokenParser {
 		if (intSize < 2 || intSize - signQ.size() > 1) {
 			throw new RuntimeException("Invalid input IntQ: " + intQ + " signQ " + signQ);
 		}
-
+		
 		intQ.add(0);
 		signQ.add("+");
 
