@@ -69,6 +69,7 @@ public class InfixExpr {
 		
 		}
 
+		System.out.println("we shall not reach here");
 		return (float) ints.peek();
 	}
 
