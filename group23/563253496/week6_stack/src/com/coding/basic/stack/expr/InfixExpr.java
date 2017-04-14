@@ -39,9 +39,8 @@ public class InfixExpr {
                     //TODO analyze
                     char op = (char) opStack.pop();
                     if (level.get(chars[pos]) <= level.get(op)) {
-                        int b = (int) numStack.pop();
-                        int a = (int) numStack.pop();
-                        int c = this.caculate(a, b, op);
+
+                        int c = this.caculate(op);
                         numStack.push(c);
                         opStack.push(chars[pos]);
                         pos++;
@@ -62,12 +61,10 @@ public class InfixExpr {
 
         while(!opStack.isEmpty()){
             char op = (char) opStack.pop();
-            int b = (int) numStack.pop();
-            int a = (int) numStack.pop();
-            int c = this.caculate(a, b, op);
-            numStack.push(c);
 
-        }
+            int c = this.caculate(op);
+            numStack.push(c);
+       }
 
         return (int)numStack.pop();
     }
@@ -96,7 +93,9 @@ public class InfixExpr {
         return num;
     }
 
-    private int caculate(int a, int b, char c) {
+    private int caculate(char c) {
+        int b = (int) numStack.pop();
+        int a = (int) numStack.pop();
         switch (c) {
             case '+':
                 return a + b;
@@ -106,9 +105,6 @@ public class InfixExpr {
                 return a * b;
             case '/':
                 return a / b;
-
-
-
         }
         return -1;
     }
