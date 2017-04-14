@@ -1,4 +1,6 @@
 target/
 .idea/
 src/main/java/train/
-src/main/resources/
+!src/main/resources/**/*.class
+!src/main/resources/**/*.xml
+src/main/resources/**/*.png

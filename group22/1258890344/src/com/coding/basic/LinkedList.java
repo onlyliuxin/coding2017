@@ -5,7 +5,7 @@ package com.coding.basic;
 public class LinkedList implements List {
 	
 	private Node head;
-	private int size=0;
+	private static int size=0;
 	
 	public void add(Object o){
 		if(size==0){
@@ -129,8 +129,14 @@ public class LinkedList implements List {
 	 * 把该链表逆置
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
-	public  void reverse(){		
-		
+	public  void reverse(){
+		for(int i=0;i<(size/2);i++){
+			Object data1=get(i);
+			Object data2=get(size-1);
+			Object object=data1;
+			data1=data2;
+			data2=object;
+		}
 	}
 	
 	/**
@@ -140,7 +146,9 @@ public class LinkedList implements List {
 
 	 */
 	public  void removeFirstHalf(){
-		
+		for(int i=0;i<(size/2);i++){
+			remove(i);
+		}
 	}
 	
 	/**
@@ -149,7 +157,9 @@ public class LinkedList implements List {
 	 * @param length
 	 */
 	public  void remove(int i, int length){
-		
+		for(int j=i;j<(i+length);j++){
+			remove(j);
+		}
 	}
 	/**
 	 * 假定当前链表和list均包含已升序排列的整数
@@ -159,7 +169,12 @@ public class LinkedList implements List {
 	 * 返回的结果应该是[101,301,401,601]  
 	 * @param list
 	 */
-	public static int[] getElements(LinkedList list){
+	public  int[] getElements(LinkedList list){
+		int[] array=new int[list.size];
+		int i=0;
+		for(Node head=list.head;head!=null;head=head.next){
+			array[i]=(int) this.get((int)head.data);
+		}
 		return null;
 	}
 	
@@ -171,7 +186,7 @@ public class LinkedList implements List {
 	 */
 	
 	public  void subtract(LinkedList list){
-		
+	
 	}
 	
 	/**
@@ -198,6 +213,7 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	public  LinkedList intersection( LinkedList list){
+		
 		return null;
 	}
 }
