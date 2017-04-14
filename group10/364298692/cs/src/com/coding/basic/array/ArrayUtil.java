@@ -1,5 +1,7 @@
 package com.coding.basic.array;
 
+import com.coding.basic.List;
+
 public class ArrayUtil {
 	
 	/**
@@ -10,7 +12,11 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public static void reverseArray(int[] origin){
-		int[] newArray = new int[origin.length];
+		//边界一定要检测
+		if(origin == null || origin.length == 0){
+			return;
+		}
+		
 		for(int i=0,j=origin.length-1; i<j; i++,j--){
 			int temp = origin[i];
 			origin[i] = origin[j];
@@ -34,6 +40,10 @@ public class ArrayUtil {
 	 */
 	
 	public static int[] removeZero(int[] oldArray){
+		if(oldArray == null){
+			return null;
+		}
+		
 		int[] newArray = new int[oldArray.length];
 		int size = 0;
 		for(int i : oldArray){
@@ -55,8 +65,44 @@ public class ArrayUtil {
 	 */
 	
 	public static int[] merge(int[] array1, int[] array2){
+		if(array1 == null){
+			return array2;
+		}
+		if(array2 == null){
+			return array1;
+		}
 		
-		return  null;
+		int[] newArray = new int[array1.length + array2.length];
+		
+		int i = 0;
+		int j = 0;
+		int t = 0;
+		while(i<array1.length && j<array2.length){
+			
+			newArray[t] = array1[i] < array2[j] ? array1[i] : array2[j];
+
+			if(array1[i] < array2[j]){
+				newArray[t++] = array1[i++];
+			}else if(array1[i] > array2[j]){
+				newArray[t++] = array2[j++];
+			}else{
+				newArray[t++] = array1[i++];
+				j++;
+			}
+		}
+
+		while(i<array1.length){
+			newArray[t++] = array1[i++];
+		}
+
+		while(j<array2.length){
+			newArray[t++] = array2[j++];
+		}
+		
+		int[] result = new int[t];
+		System.arraycopy(newArray, 0, result, 0, t);
+		
+		return  result;
 	}
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
@@ -84,8 +130,9 @@ public class ArrayUtil {
 		if(max <= 1){
 			return null;
 		}
-				
-		ArrayList<Integer> list = new ArrayList();
+		
+		//也可以用一个max长度的数组来做
+		List<Integer> list = new ArrayList<>();
 		list.add(1);
 		list.add(1);
 		int value = list.get(0) + list.get(1);		
@@ -95,11 +142,7 @@ public class ArrayUtil {
 			index = list.size();
 			value = list.get(index-1) + list.get(index-2);
 		}
-		
-		if(list == null){
-			return null;
-		}
-		
+				
 		int[] fibonacci = new int[list.size()];
 		for(int i=0; i<list.size(); i++){
 			fibonacci[i] = list.get(i);
@@ -118,30 +161,29 @@ public class ArrayUtil {
 			return null;
 		}
 		
-		ArrayList<Integer> list = new ArrayList();
+		ArrayList<Integer> list = new ArrayList<>();
 		list.add(2);
 		for(int num = 3; num < max; num++){
-			boolean isPrime = true;
-			for(int i = 2; i <= Math.sqrt(num); i++){
-				if(num % i == 0){
-					isPrime = false;
-					break;
-				}
-			}
-			if(isPrime){
+			if(isPrime(num)){
 				list.add(num);
 			}
 		}
-		
-		if(list == null){
-			return null;
-		}
-		
+				
 		int[] result = new int[list.size()];
 		for(int i=0; i<list.size(); i++){
 			result[i] = list.get(i);
 		}		
 		return result;
+	}
+	private static boolean isPrime(int num) {
+		boolean isPrime = true;
+		for(int i = 2; i <= Math.sqrt(num); i++){
+			if(num % i == 0){
+				isPrime = false;
+				break;
+			}
+		}
+		return isPrime;
 	}
 	
 	/**
@@ -184,11 +226,7 @@ public class ArrayUtil {
 				}
 			}
 		}
-		
-		if(perfectNumbers == null){
-			return null;
-		}
-		
+				
 		int[] result = new int[perfectNumbers.size()];
 		for(int i=0; i<perfectNumbers.size(); i++){
 			result[i] = perfectNumbers.get(i);
@@ -206,6 +244,11 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public static String join(int[] array, String seperator){
+		
+		if(array==null || array.length==0){
+			return null;
+		}
+		
 		int i = 0;
 		StringBuilder sb = new StringBuilder();
 		while(i < array.length-1){

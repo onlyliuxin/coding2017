@@ -21,7 +21,6 @@ public class ReflectionUtil {
 		
 		for(String name : parameters.keySet()){
 			String methodName = "set" + name;
-			System.out.println("methodName: "+methodName);
 			
 			for(Method m : methods){
 				if(m.getName().equalsIgnoreCase(methodName)){					
@@ -38,7 +37,7 @@ public class ReflectionUtil {
 	private static List<Method> getMethods(Class clz, String startWithName){
 		List<Method> methods = new ArrayList<>();
 		
-		for(Method m : clz.getDeclaredMethods()){
+		for(Method m : clz.getDeclaredMethods()){//获得当前这个类的所有方法
 			if(m.getName().startsWith(startWithName)){
 				methods.add(m);
 			}
@@ -50,6 +49,20 @@ public class ReflectionUtil {
 	public static Map<String, Object> getParamterMap(Object o){
 		Map<String, Object> params = new HashMap<>();
 		
-		return null;
+		List<Method> methods = getGetterMethods(o.getClass());
+		
+		for(Method m : methods){
+			String methodName = m.getName();
+			String name = methodName.replaceFirst("get", "").toLowerCase();
+			try {
+				Object value = m.invoke(o);
+				params.put(name, value);
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return params;
 	}
 }

@@ -33,7 +33,7 @@ public class Configuration {
 	
 		try {
 			Document doc = builder.build(is);
-			Element root = doc.getRootElement();
+			Element root = doc.getRootElement();//root就是<struts></struts>套装
 			for(Element actionElement : root.getChildren("action")){
 				String actionName = actionElement.getAttributeValue("name");
 				String clzName = actionElement.getAttributeValue("class");
@@ -64,6 +64,15 @@ public class Configuration {
 			return null;
 		}
 		return ac.getClassName();
+	}
+	
+	public String getResultView(String actionName, String resultName) {
+		ActionConfig ac = actions.get(actionName);
+		if(ac==null){
+			return null;
+		}
+		String resultView = ac.getViewName(resultName);
+		return resultView;
 	}
 	
 	private static class ActionConfig{
