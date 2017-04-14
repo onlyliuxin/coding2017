@@ -1,7 +1,5 @@
 package com.coderising.jvm.loader;
 
-import java.util.List;
-
 import com.coderising.jvm.clz.AccessFlag;
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.clz.ClassIndex;

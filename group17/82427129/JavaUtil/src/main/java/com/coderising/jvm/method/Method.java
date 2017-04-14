@@ -1,8 +1,10 @@
 package com.coderising.jvm.method;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.coderising.jvm.attr.AttributeInfo;
+import com.coderising.jvm.attr.CodeAttr;
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.loader.ByteCodeIterator;
@@ -11,8 +13,22 @@ public class Method {
 	private int accessFlag;// u2 access_flags
 	private int nameIndex;// u2 name_index
 	private int descriptorIndex;// u2 descriptor_index
-	private int attrCount;//u2 attributes_count
-	private List<AttributeInfo> attributeInfos;//attribute_info attributes[attributes_count];
+	private int attrCount;// u2 attributes_count
+	/*
+	 * attributes[attributes_count];
+	 */
+	private List<AttributeInfo> attributeInfos = new ArrayList<AttributeInfo>();
+
+	public Method() {}
+
+	public Method(int accessFlag, int nameIndex, int descriptorIndex,
+			int attrCount) {
+		super();
+		this.accessFlag = accessFlag;
+		this.nameIndex = nameIndex;
+		this.descriptorIndex = descriptorIndex;
+		this.attrCount = attrCount;
+	}
 
 	private ClassFile clzFile;
 
@@ -26,15 +42,33 @@ public class Method {
 	 * }
 	 * 
 	 * @param itr
-	 * @return
+	 * @return Method
 	 */
 	public static Method parse(ConstantPool cp, ByteCodeIterator itr) {
 		int accessFlag = itr.nextU2toInt();
-		int nameIndex= itr.nextU2toInt();
+		int nameIndex = itr.nextU2toInt();
 		int descriptorIndex = itr.nextU2toInt();
 		int attrCount = itr.nextU2toInt();
-		
+		Method method = new Method(accessFlag, nameIndex, descriptorIndex,
+				attrCount);
+		for (int i = 0; i < attrCount; i++) {
+			method.addAttributeInfo(AttributeInfo.parse(cp, itr));
+		}
+		return method;
+	}
+
+	/**
+	 * 专门用来获取code属性的方法
+	 * 
+	 * @return
+	 */
+	public CodeAttr getCodeAttr() {
+
 		return null;
+	}
+
+	public void addAttributeInfo(AttributeInfo a) {
+		this.attributeInfos.add(a);
 	}
 
 	/*

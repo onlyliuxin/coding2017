@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.coderising.jvm.attr.AttributeInfo;
 import com.coderising.jvm.constant.ConstantPool;
+import com.coderising.jvm.constant.UTF8Info;
 import com.coderising.jvm.loader.ByteCodeIterator;
 
 public class Field {
@@ -12,15 +13,19 @@ public class Field {
 	private int descriptorIndex;// u2 descriptor_index
 	private int attrCount;//u2 attributes_count
 	private List<AttributeInfo> attributeInfos;//attribute_info attributes[attributes_count];
+	
+	private ConstantPool cp;
 
 	public Field(){}
+
 	public Field(int accessFlag, int nameIndex, int descriptorIndex,
-			int attrCount) {
+			int attrCount, ConstantPool cp) {
 		super();
 		this.accessFlag = accessFlag;
 		this.nameIndex = nameIndex;
 		this.descriptorIndex = descriptorIndex;
 		this.attrCount = attrCount;
+		this.cp = cp;
 	}
 
 	/**
@@ -41,7 +46,7 @@ public class Field {
 		int nameIndex = itr.nextU2toInt();
 		int descriptorIndex = itr.nextU2toInt();
 		int attrCount = itr.nextU2toInt();
-		Field field = new Field(accessFlag, nameIndex, descriptorIndex, attrCount);
+		Field field = new Field(accessFlag, nameIndex, descriptorIndex, attrCount, pool);
 		for (int i = 0; i < attrCount; i++) {
 			field.addAttributeInfo(AttributeInfo.parse(pool, itr));
 		}
@@ -50,6 +55,12 @@ public class Field {
 	
 	public void addAttributeInfo(AttributeInfo a) {
 		this.attributeInfos.add(a);
+	}
+	@Override
+	public String toString() {
+		UTF8Info utf8Info1 = (UTF8Info)this.cp.getConstantInfo(this.nameIndex);
+		UTF8Info utf8Info2 = (UTF8Info)this.cp.getConstantInfo(this.descriptorIndex);
+		return utf8Info1.getValue()+":"+utf8Info2.getValue();
 	}
 
 	/*
@@ -93,6 +104,12 @@ public class Field {
 
 	public void setAttributeInfos(List<AttributeInfo> attributeInfos) {
 		this.attributeInfos = attributeInfos;
+	}
+	public ConstantPool getCp() {
+		return cp;
+	}
+	public void setCp(ConstantPool cp) {
+		this.cp = cp;
 	}
 
 }
