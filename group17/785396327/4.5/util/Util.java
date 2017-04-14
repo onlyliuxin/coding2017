@@ -1,7 +1,7 @@
 package util;
 
 /**
- * Created by IBM on 2017/4/10.
+ * Created by william on 2017/4/10.
  */
 public class Util {
     public static int byteToInt(byte[] codes){

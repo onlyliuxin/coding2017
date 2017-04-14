@@ -54,9 +54,9 @@ public class Method {
         Method method = new Method(clzFile, accessFlags, nameIndex, descriptorIndex);
         for (int i = 0; i < attributesCount; i++) {
             CodeAttr codeAttr = CodeAttr.parse(clzFile, iter);
-            method.codeAttr = codeAttr;
+            method.setCodeAttr(codeAttr);
         }
-        return new Method(clzFile, accessFlags, nameIndex, descriptorIndex);
+        return method;
 
     }
 }
