@@ -1,7 +1,6 @@
 package com.pan.jvm.field;
 
 
-import com.pan.jvm.constant.ConstantInfo;
 import com.pan.jvm.constant.ConstantPool;
 import com.pan.jvm.constant.UTF8Info;
 import com.pan.jvm.loader.ByteCodeIterator;

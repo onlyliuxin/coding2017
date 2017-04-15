@@ -4,8 +4,6 @@ package com.pan.jvm.attr;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.pan.jvm.constant.ConstantPool;
-
 import com.pan.jvm.loader.ByteCodeIterator;
 
 public class LocalVariableTable extends AttributeInfo{

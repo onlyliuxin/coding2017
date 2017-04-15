@@ -1,7 +1,6 @@
 package com.pan.jvm.attr;
 
 import com.pan.jvm.clz.ClassFile;
-import com.pan.jvm.constant.ConstantPool;
 import com.pan.jvm.loader.ByteCodeIterator;
 
 

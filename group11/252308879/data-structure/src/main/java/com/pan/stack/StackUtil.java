@@ -12,7 +12,7 @@ public class StackUtil {
         if(s == null || s.isEmpty()){
             return;
         }
-        Stack<Integer> tmpStack = new Stack();
+        Stack<Integer> tmpStack = new Stack<>();
         while(!s.isEmpty()){
             tmpStack.push(s.pop());
         }
@@ -104,7 +104,7 @@ public class StackUtil {
      */
     public static boolean isValidPairs(String s){
 
-        Stack<Character> stack = new Stack();
+        Stack<Character> stack = new Stack<>();
         for(int i=0;i<s.length();i++){
             char c = s.charAt(i);
 
