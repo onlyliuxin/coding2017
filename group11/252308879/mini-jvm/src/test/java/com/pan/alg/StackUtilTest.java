@@ -1,7 +1,5 @@
 package com.pan.alg;
 
-import static org.junit.Assert.fail;
-
 import java.util.Stack;
 
 import org.junit.After;
@@ -20,7 +18,7 @@ public class StackUtilTest {
 
 	@Test
 	public void testAddToBottom() {
-		Stack<Integer> s = new Stack();
+		Stack<Integer> s = new Stack<>();
 		s.push(1);
 		s.push(2);
 		s.push(3);
@@ -32,7 +30,7 @@ public class StackUtilTest {
 	}
 	@Test
 	public void testReverse() {
-		Stack<Integer> s = new Stack();
+		Stack<Integer> s = new Stack<>();
 		s.push(1);
 		s.push(2);
 		s.push(3);
@@ -45,7 +43,7 @@ public class StackUtilTest {
 
 	@Test
 	public void testRemove() {
-		Stack<Integer> s = new Stack();
+		Stack<Integer> s = new Stack<>();
 		s.push(1);
 		s.push(2);
 		s.push(3);
@@ -55,7 +53,7 @@ public class StackUtilTest {
 
 	@Test
 	public void testGetTop() {
-		Stack<Integer> s = new Stack();
+		Stack<Integer> s = new Stack<>();
 		s.push(1);
 		s.push(2);
 		s.push(3);
