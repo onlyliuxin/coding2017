@@ -201,47 +201,47 @@ public class ClassFileLoaderTest {
     }
     @Test
     public void testMethods(){
-
+   
     	List<Method> methods = clzFile.getMethods();
     	ConstantPool pool = clzFile.getConstantPool();
-
+    	
     	{
-    		Method m = methods.get(0);
+    		Method m = methods.get(0);    		
     		assertMethodEquals(pool,m,
     				"<init>",
     				"(Ljava/lang/String;I)V",
-    				"2ab700012a2bb500022a1cb50003b1");
-
+    				"2ab7000c2a2bb5000f2a1cb50011b1");
+    		
     	}
     	{
-    		Method m = methods.get(1);
+    		Method m = methods.get(1);    
     		assertMethodEquals(pool,m,
     				"setName",
     				"(Ljava/lang/String;)V",
-    				"2a2bb50002b1");
-
+    				"2a2bb5000fb1");
+    		
     	}
     	{
-    		Method m = methods.get(2);
+    		Method m = methods.get(2);    
     		assertMethodEquals(pool,m,
     				"setAge",
     				"(I)V",
-    				"2a1bb50003b1");
+    				"2a1bb50011b1");
     	}
     	{
-    		Method m = methods.get(3);
+    		Method m = methods.get(3); 
     		assertMethodEquals(pool,m,
     				"sayHello",
     				"()V",
-    				"b200041205b60006b1");
-
+    				"b2001c1222b60024b1");
+    		
     	}
     	{
-    		Method m = methods.get(4);
+    		Method m = methods.get(4);    
     		assertMethodEquals(pool,m,
     				"main",
     				"([Ljava/lang/String;)V",
-    				"bb0007591208101db700094c2bb6000ab1");
+    				"bb000159122b101db7002d4c2bb6002fb1");
     	}
     }
 
