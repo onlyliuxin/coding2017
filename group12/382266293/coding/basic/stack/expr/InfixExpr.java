@@ -50,7 +50,7 @@ public class InfixExpr {
 			}
 
 		}
-		
+
 		StackUtil.reverse(ints);
 		StackUtil.reverse(signs);
 
@@ -85,7 +85,7 @@ public class InfixExpr {
 		} else if (lowsign.equals("/")) {
 			result = firstInt / secInt;
 		} else {
-			throw new RuntimeException(lowsign + "has not been supported yet!");
+			throw new RuntimeException(lowsign + " has not been supported yet!");
 		}
 
 		return result;
