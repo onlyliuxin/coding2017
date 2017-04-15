@@ -1,6 +1,7 @@
 package com.pan.jvm.method;
 
 
+import com.pan.jvm.attr.AttributeInfo;
 import com.pan.jvm.attr.CodeAttr;
 import com.pan.jvm.clz.ClassFile;
 import com.pan.jvm.loader.ByteCodeIterator;
@@ -43,11 +44,28 @@ public class Method {
 	}
 
 	
-	
-	
-	
 	public static Method parse(ClassFile clzFile, ByteCodeIterator iter){
-		return null;
+		int accessFlags = iter.nextU2ToInt();
+		int nameIndex = iter.nextU2ToInt();
+		int descriptorIndex = iter.nextU2ToInt();
+		int attrCount = iter.nextU2ToInt();
+
+		System.out.println("Method Attributes Count: " + attrCount);
+		Method method = new Method(clzFile, accessFlags, nameIndex, descriptorIndex);
+		if (attrCount > 0){
+			for (int i = 1; i <= attrCount; i++) {
+				int attrNameIndex = iter.nextU2ToInt();
+				String attrName = clzFile.getConstantPool().getUTF8String(attrNameIndex);
+				iter.back(2); // 回退两个，便于Code 中读取属性
+				if (AttributeInfo.CODE.equalsIgnoreCase(attrName)){
+					CodeAttr codeAttr = CodeAttr.parse(clzFile, iter);
+					method.setCodeAttr(codeAttr);
+				}else {
+					throw new RuntimeException("Current Has CODE. Not Support Other");
+				}
+			}
+		}
+		return method;
 		
 	}
 }

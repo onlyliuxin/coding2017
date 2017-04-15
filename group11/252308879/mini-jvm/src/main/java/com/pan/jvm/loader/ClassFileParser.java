@@ -4,6 +4,8 @@ import com.pan.jvm.clz.AccessFlag;
 import com.pan.jvm.clz.ClassFile;
 import com.pan.jvm.clz.ClassIndex;
 import com.pan.jvm.constant.*;
+import com.pan.jvm.field.Field;
+import com.pan.jvm.method.Method;
 
 import java.io.UnsupportedEncodingException;
 
@@ -30,8 +32,36 @@ public class ClassFileParser {
         ClassIndex clzIndex = parseClassIndex(iterator);
         classFile.setClassIndex(clzIndex);
 
+        // interface
         parseInterfaces(iterator);
+
+        // field
+        parseFields(classFile, iterator);
+        
+        // method
+        parseMethods(classFile, iterator);
+
         return classFile;
+    }
+
+    private void parseMethods(ClassFile classFile, ByteCodeIterator iterator) {
+        int methodsCount = iterator.nextU2ToInt();
+        System.out.println("Methods Count: " + methodsCount);
+
+        for (int i = 1; i <= methodsCount; i++) {
+            Method method = Method.parse(classFile, iterator);
+            classFile.addMethod(method);
+        }
+    }
+
+
+    private void parseFields(ClassFile clzFile, ByteCodeIterator iterator) {
+        int fieldsCount = iterator.nextU2ToInt();
+        System.out.println("Field count:" + fieldsCount);
+        for (int i = 1; i <= fieldsCount; i++) {// 从第一个开始，因为不包含本身
+            Field field = Field.parse(clzFile.getConstantPool(), iterator);
+            clzFile.addField(field);
+        }
     }
 
     private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
