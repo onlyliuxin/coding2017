@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 /**
  * Created by IBM on 2017/4/13.
  */
@@ -44,5 +46,12 @@ public class InfixExprTest {
             Assert.assertEquals(30, expr.evaluate(), 0.001f);
         }
 
+    }
+
+    @Test
+    public void testExprParser() {
+        InfixExpr expr = new InfixExpr("300*20+12*5-20/4");
+        List<String> parse = ExprParser.parse(expr);
+        System.out.println(parse);
     }
 }
