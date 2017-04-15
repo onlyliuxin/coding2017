@@ -58,7 +58,9 @@ public class ByteCodeIterator {
 		return Util.byteToHexString(tmp).toLowerCase();
 
 	}
-	
+	public int getPos(){
+		return pos;
+	}
 	public void back(int n) {
 		this.pos -= n;
 	}

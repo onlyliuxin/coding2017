@@ -20,12 +20,9 @@ public class Field {
 		this.pool = pool;
 	}
 
-	
-	
-	
 	public static Field parse(ConstantPool pool,ByteCodeIterator iter){
 		
 		return null;
 	}
-
+	
 }

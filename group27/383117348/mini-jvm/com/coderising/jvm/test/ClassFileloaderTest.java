@@ -205,6 +205,7 @@ public class ClassFileloaderTest {
    
     	List<Field> fields = clzFile.getFields();
     	Assert.assertEquals(2, fields.size());
+    	System.out.println("field_size:"+fields.size());
     	{
     		Field f = fields.get(0);
     		Assert.assertEquals("name:Ljava/lang/String;", f.toString());
@@ -219,6 +220,7 @@ public class ClassFileloaderTest {
    
     	List<Method> methods = clzFile.getMethods();
     	ConstantPool pool = clzFile.getConstantPool();
+    	System.out.println("methods_size:"+methods.size());
     	
     	{
     		Method m = methods.get(0);    		
