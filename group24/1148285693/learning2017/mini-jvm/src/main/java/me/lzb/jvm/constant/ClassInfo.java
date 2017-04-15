@@ -4,7 +4,7 @@ package me.lzb.jvm.constant;
  * Created by LZB on 2017/4/14.
  */
 public class ClassInfo extends ConstantInfo{
-    private int type = JvmConstant.Class_info;
+    private int type = ConstantInfo.Class_info;
     private int utf8Index;
 
     public ClassInfo(ConstantPool pool) {

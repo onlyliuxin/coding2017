@@ -4,7 +4,7 @@ package me.lzb.jvm.constant;
  * Created by LZB on 2017/4/15.
  */
 public class MethodRefInfo extends ConstantInfo {
-    private int type = JvmConstant.Methodref_info;
+    private int type = ConstantInfo.Methodref_info;
 
     private int classInfoIndex;
     private int nameAndTypeIndex;

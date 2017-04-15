@@ -4,7 +4,7 @@ package me.lzb.jvm.constant;
  * Created by LZB on 2017/4/15.
  */
 public class UTF8Info extends ConstantInfo {
-    private int type = JvmConstant.Class_info;
+    private int type = ConstantInfo.Class_info;
 
     private String value;
 

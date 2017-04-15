@@ -4,7 +4,7 @@ package me.lzb.jvm.constant;
  * Created by LZB on 2017/4/15.
  */
 public class NameAndTypeInfo extends ConstantInfo {
-    private int type = JvmConstant.NameAndType_info;
+    private int type = ConstantInfo.NameAndType_info;
 
     private int index1;
     private int index2;

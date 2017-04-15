@@ -4,7 +4,7 @@ package me.lzb.jvm.constant;
  * Created by LZB on 2017/4/15.
  */
 public class FieldRefInfo extends ConstantInfo{
-    private int type = JvmConstant.Fieldref_info;
+    private int type = ConstantInfo.Fieldref_info;
 
     private int classInfoIndex;
     private int nameAndTypeIndex;

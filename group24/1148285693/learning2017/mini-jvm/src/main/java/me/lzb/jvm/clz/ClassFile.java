@@ -1,6 +1,11 @@
 package me.lzb.jvm.clz;
 
 import me.lzb.jvm.constant.ConstantPool;
+import me.lzb.jvm.field.Field;
+import me.lzb.jvm.method.Method;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by LZB on 2017/4/14.
@@ -17,9 +22,12 @@ public class ClassFile {
 
     private ClassIndex clzIndex;
 
-    private int constantPoolCount;
 
     private ConstantPool constantPool;
+
+    private List<Field> fields = new ArrayList<>();
+
+    private List<Method> methods = new ArrayList<>();
 
 
     public String getMagicNumber() {
@@ -64,13 +72,25 @@ public class ClassFile {
     }
 
 
-    public int getConstantPoolCount() {
-        return constantPoolCount;
+
+    public List<Field> getFields() {
+        return fields;
     }
 
-    public void setConstantPoolCount(int constantPoolCount) {
-        this.constantPoolCount = constantPoolCount;
+    public void setFields(List<Field> fields) {
+        this.fields = fields;
     }
+
+    public List<Method> getMethods() {
+        return methods;
+    }
+
+    public void setMethods(List<Method> methods) {
+        this.methods = methods;
+    }
+
+
+
 
 
     public ClassIndex getClzIndex() {
@@ -91,6 +111,21 @@ public class ClassFile {
 //
 //        System.out.println("Super Class Name:"+ getSuperClassName());
 
+    }
+
+
+
+
+    public int getConstantPoolCount() {
+        return constantPool.getSize();
+    }
+
+    public void addField(Field f){
+        this.fields.add(f);
+    }
+
+    public void addMethod(Method m){
+        this.methods.add(m);
     }
 
 }
