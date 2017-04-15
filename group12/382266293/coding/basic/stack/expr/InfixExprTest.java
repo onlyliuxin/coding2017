@@ -17,14 +17,14 @@ public class InfixExprTest {
 
 	@Test
 	public void testEvaluate() {
-		// InfixExpr expr = new InfixExpr("300*20+12*5-20/4");
+		 //InfixExpr expr = new InfixExpr("300*20+12*5-20/4");
 		{
 			InfixExpr expr = new InfixExpr("2+3*4+5");
 			Assert.assertEquals(19.0, expr.evaluate(), 0.001f);
 		}
 		{
-			InfixExpr expr = new InfixExpr("3*20+12*5-40/2/2+5*2*2/2+1-10/2");
-			Assert.assertEquals(116.0, expr.evaluate(), 0.001f);
+			InfixExpr expr = new InfixExpr("3*20+12*5-40/2/2+5*2*2/2+1-10/2*4+1");
+			Assert.assertEquals(102.0, expr.evaluate(), 0.001f);
 		}
 
 		{

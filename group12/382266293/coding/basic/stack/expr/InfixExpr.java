@@ -23,7 +23,7 @@ public class InfixExpr {
 		ints.push(i1);
 		signs.push(sign1);
 
-		while (tp.hasNextSign()) {
+		while (tp.hasNextInt()) {
 
 			int i2 = tp.nextInt();
 			String sign2 = tp.nextSign();
@@ -31,20 +31,23 @@ public class InfixExpr {
 
 			if (tp.hasNextInt()) {
 
-				if (highPrioritySign(sign1) || lowPrioritySign(sign2) ) {
-
+				if (highPrioritySign(sign1) || lowPrioritySign(sign2)) {
 					i1 = ints.pop();
 					sign1 = signs.pop();
 					int result = calculate(i1, i2, sign1);
 					ints.push(result);
 
 				} else {
-					
+
 					ints.push(i2);
 					
 				}
 				
-				signs.push(sign2);
+				if (tp.hasNextInt()) {
+					
+					signs.push(sign2);
+				}
+
 				sign1 = sign2;
 
 			}
