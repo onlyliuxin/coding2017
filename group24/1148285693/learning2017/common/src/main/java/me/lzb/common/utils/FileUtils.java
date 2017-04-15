@@ -1,4 +1,4 @@
-package me.lzb.utils;
+package me.lzb.common.utils;
 
 import java.io.*;
 
@@ -15,9 +15,14 @@ public class FileUtils {
      * @return true false
      */
     public static boolean isFileExist(String path, String name) {
-        File file = new File(path + "\\" + name);
+        return isFileExist(path + File.separator + name);
+    }
+
+    public static boolean isFileExist(String f) {
+        File file = new File(f);
         return file.exists();
     }
+
 
     /**
      * 读取文件为二进制数组
@@ -26,6 +31,9 @@ public class FileUtils {
      * @throws IOException
      */
     public static byte[] readByteCodes(String clzFileName) throws IOException {
+        if(!isFileExist(clzFileName)){
+            return null;
+        }
 
         File f = new File(clzFileName);
 

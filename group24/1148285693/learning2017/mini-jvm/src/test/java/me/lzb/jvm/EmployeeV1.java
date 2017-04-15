@@ -1,4 +1,4 @@
-package me.lzb.loader;
+package me.lzb.jvm;
 
 public class EmployeeV1 {
 
