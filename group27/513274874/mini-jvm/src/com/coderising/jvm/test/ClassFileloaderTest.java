@@ -19,14 +19,15 @@ public class ClassFileloaderTest {
 	
 	private static final String FULL_QUALIFIED_CLASS_NAME = "com/coderising/jvm/test/EmployeeV1";
 
-	static String path1 = "/Users/guodongchow/Desktop/coding2017/projects/mini-jvm/bin/";
-	static String path2 = "/Users/guodongchow/bin";
+//	static String path1 = "/Users/guodongchow/Desktop/coding2017/projects/mini-jvm/bin/";
+	static String path1 = "/Users/guodongchow/Desktop/coding2017/";
+	static String path2 = "/Users/guodongchow/bin/";
 	
 	static ClassFile clzFile = null;
 	static {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
-		String className = "com.coderising.jvm.test.EmployeeV1";
+		String className = "EmployeeV1";
 		
 		clzFile = loader.loadClass(className);
 		clzFile.print();
@@ -60,7 +61,7 @@ public class ClassFileloaderTest {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
 		
-		String className = "com.coderising.jvm.test.EmployeeV1";
+		String className = "EmployeeV1";
 
 		byte[] byteCodes = loader.readBinaryCode(className);
 

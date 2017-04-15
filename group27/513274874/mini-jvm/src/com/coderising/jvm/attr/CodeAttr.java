@@ -71,7 +71,7 @@ public class CodeAttr extends AttributeInfo {
                 LineNumberTable lineNumberTable = LineNumberTable.parse(iter);
                 codeAttr.setLineNumberTable(lineNumberTable);
 
-            } else if (null != subAttributeName && subAttributeName.equalsIgnoreCase(AttributeInfo.LINE_NUM_TABLE)) {
+            } else if (null != subAttributeName && subAttributeName.equalsIgnoreCase(AttributeInfo.LOCAL_VAR_TABLE)) {
 
                 LocalVariableTable localVariableTable = LocalVariableTable.parse(iter);
                 codeAttr.setLocalVariableTable(localVariableTable);

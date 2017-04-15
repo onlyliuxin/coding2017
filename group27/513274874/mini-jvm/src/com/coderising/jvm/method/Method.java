@@ -66,11 +66,11 @@ public class Method {
                 method.setCodeAttr(codeAttr);
 
             } else {
-                throw new RuntimeException("there's other method attribute to be implemented !!");
+                throw new RuntimeException("there's other method attribute to be implemented:attributeName = " + attributeName);
             }
         }
 
-        return null;
+        return method;
 
     }
 }

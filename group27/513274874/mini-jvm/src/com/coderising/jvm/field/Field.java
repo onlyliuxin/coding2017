@@ -23,12 +23,15 @@ public class Field {
 
     @Override
     public String toString() {
-        return super.toString();
+        String name = pool.getUTF8String(nameIndex);
+        String descr = pool.getUTF8String(descriptorIndex);
+
+        return name+":"+descr;
     }
 
     public static Field parse(ConstantPool pool, ByteCodeIterator iter) {
         int accessFlag = iter.nextU2Int();
-        int nameIndex = iter.nextU1Int();
+        int nameIndex = iter.nextU2Int();
         int descriptorIndex = iter.nextU2Int();
 
         int attributsCount = iter.nextU2Int();

@@ -26,6 +26,7 @@ public class LocalVariableTable extends AttributeInfo{
 			LocalVariableItem localVariableItem = new LocalVariableItem();
 			localVariableItem.setStartPC(iter.nextU2Int());
 			localVariableItem.setLength(iter.nextU2Int());
+			localVariableItem.setNameIndex(iter.nextU2Int());
 			localVariableItem.setDescIndex(iter.nextU2Int());
 			localVariableItem.setIndex(iter.nextU2Int());
 			localVariableTable.addLocalVariableItem(localVariableItem);
