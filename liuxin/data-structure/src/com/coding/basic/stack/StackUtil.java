@@ -15,6 +15,30 @@ public class StackUtil {
 		
 	}
 	
+	
+	
+	public static void reverse_247565311(Stack<Integer> s){
+        if(s == null || s.isEmpty()) {
+        	return;
+        }
+        
+        int size = s.size();
+        Stack<Integer> tmpStack = new Stack<Integer>();        
+        
+        for(int i=0;i<size;i++){
+            Integer top = s.pop();
+            while(s.size()>i){
+                tmpStack.push(s.pop());
+            }
+            s.push(top);
+            while(tmpStack.size()>0){
+                s.push(tmpStack.pop());
+            }
+        }
+    }
+
+
+	
 	/**
 	 * 假设栈中的元素是Integer, 从栈顶到栈底是 : 5,4,3,2,1 调用该方法后， 元素次序变为: 1,2,3,4,5
 	 * 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
@@ -23,9 +47,15 @@ public class StackUtil {
 		if(s == null || s.isEmpty()){
 			return;
 		}
-		Integer top = s.pop();
-		reverse(s);
-		addToBottom(s,top);
+		
+		Stack<Integer> tmp = new Stack<Integer>();
+		while(!s.isEmpty()){
+			tmp.push(s.pop());
+		}
+		while(!tmp.isEmpty()){
+			Integer top = tmp.pop();
+			addToBottom(s,top);
+		}	
 		
 		
 	}
@@ -85,7 +115,9 @@ public class StackUtil {
 				break;
 			}
 		}
-		
+		while(!tmpStack.isEmpty()){
+			s.push(tmpStack.pop());
+		}
 		return result;
 	}
 	/**
