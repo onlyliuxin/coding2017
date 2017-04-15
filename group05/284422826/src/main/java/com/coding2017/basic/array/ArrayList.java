@@ -86,7 +86,7 @@ public class ArrayList implements List {
 		@Override
 		public boolean hasNext() {
 			current++;
-			return current > arrayList.size() ? false : true;
+			return current <= arrayList.size();
 		}
 
 		@Override
