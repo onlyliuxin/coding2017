@@ -21,17 +21,29 @@
       <artifactId>dom4j</artifactId>
       <version>1.6</version>
     </dependency>
+
+
+    <!-- https://mvnrepository.com/artifact/org.jdom/jdom -->
+    <dependency>
+      <groupId>org.jdom</groupId>
+      <artifactId>jdom</artifactId>
+      <version>2.0.2</version>
+    </dependency>
+
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
+      <version>4.12</version>
     </dependency>
-      <dependency>
-          <groupId>org.junit.jupiter</groupId>
-          <artifactId>junit-jupiter-api</artifactId>
-          <version>RELEASE</version>
-      </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.netty/netty -->
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty</artifactId>
+      <version>4.0.0.Alpha8</version>
+    </dependency>
+
   </dependencies>
 
 
