@@ -1,12 +1,13 @@
 package com.github.wdn.coding2017.jvm.loader;
 
-import com.github.wdn.coding2017.jvm.clz.AccessFlag;
-import com.github.wdn.coding2017.jvm.clz.ClassFile;
-import com.github.wdn.coding2017.jvm.clz.ClassIndex;
+import com.github.wdn.coding2017.jvm.clz.*;
 import com.github.wdn.coding2017.jvm.constant.*;
 
-public class ClassFileParser {
+import java.util.ArrayList;
+import java.util.List;
 
+public class ClassFileParser {
+	ConstantPool pool = new ConstantPool();
 	public ClassFile parse(byte[] codes) {
 		ByteCodeIterator iter = new ByteCodeIterator(codes);
 		String magic = iter.readU4ToString();
@@ -19,22 +20,50 @@ public class ClassFileParser {
 		classFile.setConstantPool(parseConstantPool(iter));
 		classFile.setAccessFlag(parseAccessFlag(iter));
 		classFile.setClassIndex(parseClassIndex(iter));
+		parseInterface(iter);
+		classFile.setFields(parseField(iter));
+		classFile.setMethods(parseMethod(iter));
 		return classFile;
 	}
 
-	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
+	private List<Method> parseMethod(ByteCodeIterator iter) {
+		int methodCount = iter.readU2ToInt();
+		List<Method> methods = new ArrayList<>(methodCount);
+		for (int i = 0; i < methodCount; i++) {
+			Method method = Method.parse(pool, iter);
+			method.setPool(pool);
+			methods.add(method);
+		}
+		return methods;
+	}
 
-		return null;
+	private List<Field> parseField(ByteCodeIterator iter) {
+		int fieldsCount = iter.readU2ToInt();
+		List<Field> fields = new ArrayList<>(fieldsCount);
+		for (int i = 0; i < fieldsCount; i++) {
+			Field field = Field.parse(iter);
+			field.setPool(pool);
+			fields.add(field);
+		}
+		return fields;
+	}
+
+	private void parseInterface(ByteCodeIterator iter){
+		int interfaceNum = iter.readU2ToInt();
+		if (interfaceNum > 0) {
+			throw new RuntimeException("接口数量>0");
+		}
+	}
+	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
+		return new AccessFlag(iter.readU2ToInt());
 	}
 
 	private ClassIndex parseClassIndex(ByteCodeIterator iter) {
-
-		return null;
-
+		return new ClassIndex(iter.readU2ToInt(),iter.readU2ToInt());
 	}
 
 	public ConstantPool parseConstantPool(ByteCodeIterator iter) {
-		ConstantPool pool = new ConstantPool();
+
 		int constantPoolNum = iter.readU2ToInt();
 		for (int i = 0; i < constantPoolNum-1; i++) {
 			int type = iter.readToInt();
@@ -68,7 +97,7 @@ public class ClassFileParser {
 				nameAndTypeInfo.setDescriptorIndex(iter.readU2ToInt());
 				pool.put(nameAndTypeInfo);
 			}else{
-				System.out.println("未知类型"+type);
+				throw new RuntimeException("未知类型"+type);
 			}
 		}
 		return pool;

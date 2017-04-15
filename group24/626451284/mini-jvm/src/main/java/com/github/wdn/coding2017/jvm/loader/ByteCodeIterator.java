@@ -3,6 +3,8 @@ package com.github.wdn.coding2017.jvm.loader;
 
 import com.github.wdn.coding2017.jvm.util.Util;
 
+import java.nio.charset.Charset;
+
 public class ByteCodeIterator {
     private byte[] bytes;
     private int index;
@@ -35,5 +37,6 @@ public class ByteCodeIterator {
             b[i] = bytes[index++];
         }
         return new String(b);
+        //return Util.byteToHexString(b);
     }
 }
