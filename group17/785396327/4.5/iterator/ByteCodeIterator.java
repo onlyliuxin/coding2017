@@ -47,6 +47,15 @@ public class ByteCodeIterator {
         return result;
     }
 
+    public String nextLengthString(int length) {
+        byte[] result = new byte[length];
+        for (int i = 0; i < length; i++) {
+            result[i] = codes[i];
+        }
+        codes = Arrays.copyOfRange(codes, length, codes.length);
+        return Util.byteToHexString(result);
+    }
+
     public int nextU4ToInt() {
         byte[] buff = new byte[]{codes[0], codes[1], codes[2], codes[3]};
         codes = Arrays.copyOfRange(codes, 4, codes.length);

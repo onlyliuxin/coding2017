@@ -49,10 +49,10 @@ public class CodeAttr extends AttributeInfo {
         int maxStack = iter.nextU2ToInt();
         int maxLocals = iter.nextU2ToInt();
         int codeLength = iter.nextU4ToInt();
-        byte[] code = iter.nextLengthBytes(codeLength);
+        String code = iter.nextLengthString(codeLength);
         int exceptionTableLength = iter.nextU2ToInt();//跳过异常表
-        System.out.println("Code属性表中的异常表元素大小：" + exceptionTableLength);
-        CodeAttr codeAttr = new CodeAttr(attributeNameIndex, attributeLength, maxStack, maxLocals, codeLength, new String(code));
+//        System.out.println("Code属性表中的异常表元素大小：" + exceptionTableLength);
+        CodeAttr codeAttr = new CodeAttr(attributeNameIndex, attributeLength, maxStack, maxLocals, codeLength, code);
         int attributesCount = iter.nextU2ToInt();
         //code属性表中又有属性
         for (int i = 0; i < attributesCount; i++) {
