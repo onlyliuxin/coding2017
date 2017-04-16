@@ -1,8 +1,13 @@
 package org.xukai.jvm.clz;
 
-
 import org.xukai.jvm.constant.ClassInfo;
 import org.xukai.jvm.constant.ConstantPool;
+import org.xukai.jvm.field.Field;
+import org.xukai.jvm.method.Method;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ClassFile {
 	
@@ -12,7 +17,8 @@ public class ClassFile {
 	private AccessFlag accessFlag;
 	private ClassIndex clzIndex;
 	private ConstantPool pool;
-	
+	private List<Field> fields = new ArrayList<Field>();
+	private List<Method> methods = new ArrayList<Method>();
 	
 	public ClassIndex getClzIndex() {
 		return clzIndex;
@@ -49,7 +55,18 @@ public class ClassFile {
 		this.clzIndex = clzIndex;		
 	}
 	
-	
+	public void addField(Field f){
+		this.fields.add(f);
+	}
+	public List<Field> getFields(){
+		return this.fields;
+	}
+	public void addMethod(Method m){
+		this.methods.add(m);
+	}
+	public List<Method> getMethods() {
+		return methods;
+	}
 	
 	
 	public void print(){
