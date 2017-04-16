@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.coding.basic;
+package com.coderising.array;
 
 import static org.junit.Assert.*;
 
@@ -51,7 +51,7 @@ public class ArrayListTest {
 	}
 
 	/**
-	 * Test method for {@link com.coding.basic.ArrayList#add(java.lang.Object)}.
+	 * Test method for {@link com.coderising.array.ArrayList#add(java.lang.Object)}.
 	 */
 	@Test
 	public final void testAddObject() {
@@ -65,7 +65,7 @@ public class ArrayListTest {
 	}
 
 	/**
-	 * Test method for {@link com.coding.basic.ArrayList#add(int, java.lang.Object)}.
+	 * Test method for {@link com.coderising.array.ArrayList#add(int, java.lang.Object)}.
 	 */
 	@Test
 	public final void testAddIntObject() {
@@ -78,14 +78,14 @@ public class ArrayListTest {
 		assertEquals(3,al.size());
 	}
 	/**
-	 * Test method for {@link com.coding.basic.ArrayList#add(int, java.lang.Object)}.
+	 * Test method for {@link com.coderising.array.ArrayList#add(int, java.lang.Object)}.
 	 */
 	@Test(expected=IndexOutOfBoundsException.class)
 	public final void testAddIntObjectWithException1() {
 		al.add(-1, "aaa");
 	}
 	/**
-	 * Test method for {@link com.coding.basic.ArrayList#add(int, java.lang.Object)}.
+	 * Test method for {@link com.coderising.array.ArrayList#add(int, java.lang.Object)}.
 	 */
 	@Test(expected=IndexOutOfBoundsException.class)
 	public final void testAddIntObjectWithException2() {
@@ -94,21 +94,21 @@ public class ArrayListTest {
 	}
 
 	/**
-	 * Test method for {@link com.coding.basic.ArrayList#get(int)}.
+	 * Test method for {@link com.coderising.array.ArrayList#get(int)}.
 	 */
 	@Test
 	public final void testGet() {
 		fail("Not yet implemented"); // TODO
 	}
 	/**
-	 * Test method for {@link com.coding.basic.ArrayList#get(int)}.
+	 * Test method for {@link com.coderising.array.ArrayList#get(int)}.
 	 */
 	@Test
 	public final void testGetWithException1() {
 		fail("Not yet implemented"); // TODO
 	}
 	/**
-	 * Test method for {@link com.coding.basic.ArrayList#get(int)}.
+	 * Test method for {@link com.coderising.array.ArrayList#get(int)}.
 	 */
 	@Test
 	public final void testGetWithException2() {
@@ -116,7 +116,7 @@ public class ArrayListTest {
 	}
 
 	/**
-	 * Test method for {@link com.coding.basic.ArrayList#remove(int)}.
+	 * Test method for {@link com.coderising.array.ArrayList#remove(int)}.
 	 */
 	@Test
 	public final void testRemove() {
@@ -124,7 +124,7 @@ public class ArrayListTest {
 	}
 
 	/**
-	 * Test method for {@link com.coding.basic.ArrayList#size()}.
+	 * Test method for {@link com.coderising.array.ArrayList#size()}.
 	 */
 	@Test
 	public final void testSize() {
@@ -132,7 +132,7 @@ public class ArrayListTest {
 	}
 
 	/**
-	 * Test method for {@link com.coding.basic.ArrayList#iterator()}.
+	 * Test method for {@link com.coderising.array.ArrayList#iterator()}.
 	 */
 	@Test
 	public final void testIterator() {
