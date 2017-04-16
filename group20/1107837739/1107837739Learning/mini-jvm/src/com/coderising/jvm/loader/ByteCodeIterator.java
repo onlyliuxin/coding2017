@@ -4,24 +4,25 @@ import com.coderising.jvm.util.Util;
 import java.util.Arrays;
 
 public class ByteCodeIterator {
-    private byte[] codes;
-    private int pos;
+    byte[] codes;
+    int pos = 0;
 
-    public ByteCodeIterator(byte[] codes) {
+    ByteCodeIterator(byte[] codes) {
         this.codes = codes;
     }
 
     public byte[] getBytes(int len) {
         if (pos + len >= codes.length) {
-            throw new IndexOutOfBoundsException();
+            throw new ArrayIndexOutOfBoundsException();
         }
 
-        byte[] bytes = Arrays.copyOfRange(codes, pos, pos + len);
+        byte[] data = Arrays.copyOfRange(codes, pos, pos + len);
         pos += len;
-        return bytes;
+        return data;
     }
 
-    public int nextU1ToInt() {
+    public int nextU1toInt() {
+
         return Util.byteToInt(new byte[] {codes[pos++]});
     }
 
@@ -34,12 +35,19 @@ public class ByteCodeIterator {
     }
 
     public String nextU4ToHexString() {
-        return Util.byteToHexString(new byte[] {codes[pos++], codes[pos++], codes[pos++], codes[pos++]});
+        return Util.byteToHexString((new byte[] {codes[pos++], codes[pos++], codes[pos++], codes[pos++]}));
     }
 
-    public String newUxToHexString(int len) {
-        String hexString = Util.byteToHexString(Arrays.copyOfRange(codes, pos, pos + len));
-        pos += len;
-        return hexString;
+    public String nextUxToHexString(int len) {
+        byte[] tmp = new byte[len];
+
+        for (int i = 0; i < len; i++) {
+            tmp[i] = codes[pos++];
+        }
+        return Util.byteToHexString(tmp).toLowerCase();
+    }
+
+    public void back(int n) {
+        this.pos -= n;
     }
 }

@@ -12,6 +12,7 @@ public class ConstantPool {
     }
 
     public void addConstantInfo(ConstantInfo info) {
+
         this.constantInfos.add(info);
     }
 

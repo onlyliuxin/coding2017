@@ -1,11 +1,11 @@
 package com.coderising.download.impl;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class ConnectionManagerImpl implements ConnectionManager {
 

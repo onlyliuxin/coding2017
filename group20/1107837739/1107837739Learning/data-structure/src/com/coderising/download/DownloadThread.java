@@ -2,10 +2,10 @@ package com.coderising.download;
 
 import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionException;
+import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import com.coderising.download.api.ConnectionManager;
 
 public class DownloadThread extends Thread {
 

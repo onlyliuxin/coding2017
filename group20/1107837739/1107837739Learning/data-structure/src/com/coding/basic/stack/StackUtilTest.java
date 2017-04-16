@@ -77,6 +77,5 @@ public class StackUtilTest {
             String str = "([b{x]y})";
             Assert.assertFalse(StackUtil.isValidPairs(str));
         }
-
     }
 }

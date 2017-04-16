@@ -12,6 +12,8 @@ import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.NullConstantInfo;
 import com.coderising.jvm.constant.StringInfo;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
 import java.io.UnsupportedEncodingException;
 
 public class ClassFileParser {
@@ -32,6 +34,12 @@ public class ClassFileParser {
         classFile.setConstPool(parseConstantPool(iterator));
         classFile.setAccessFlag(parseAccessFlag(iterator));
         classFile.setClassIndex(parseClassInfex(iterator));
+
+        parseInterfaces(classFile, iterator);
+
+        parseFields(classFile, iterator);
+
+        parseMethods(classFile, iterator);
 
         return classFile;
     }
@@ -55,7 +63,7 @@ public class ClassFileParser {
         pool.addConstantInfo(new NullConstantInfo());
 
         for (int i = 1; i < constantPoolCount; i++) {
-            int type = iter.nextU1ToInt();
+            int type = iter.nextU1toInt();
 
             if (type == ConstantInfo.CLASS_INFO) {
                 int utf8Index = iter.nextU2ToInt();
@@ -108,5 +116,31 @@ public class ClassFileParser {
         }
 
         return pool;
+    }
+
+    private void parseInterfaces(ClassFile clzFile, ByteCodeIterator iter) {
+        int interfaceCount = iter.nextU2ToInt();
+
+        System.out.println("Interface Count: " + interfaceCount);
+    }
+
+    private void parseFields(ClassFile clzFile, ByteCodeIterator iter) {
+        int filedCount = iter.nextU2ToInt();
+        System.out.println("Field Count: " + filedCount);
+
+        for (int i = 0; i < filedCount; i++) {
+            Field field = Field.parse(clzFile.getConstantPool(), iter);
+            clzFile.addField(field);
+        }
+    }
+
+    private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
+        int methodCount = iter.nextU2ToInt();
+        System.out.println("Method Count: " + methodCount);
+
+        for (int i = 0; i < methodCount; i++) {
+            Method method = Method.parse(clzFile, iter);
+            clzFile.addMethod(method);
+        }
     }
 }
