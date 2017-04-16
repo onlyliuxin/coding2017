@@ -26,4 +26,12 @@ public class ConstantPool {
 	public int getSize() {		
 		return this.constantInfos.size() -1;
 	}
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i<constantInfos.size(); i++){
+			sb.append(constantInfos.get(i) + "\n");
+		}
+		return sb.toString();
+	}
 }

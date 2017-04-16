@@ -16,7 +16,7 @@ public class ConstantInfoFactory {
 	public void fillNextConstantInfo() throws InvalidConstantInfoTypeException, UnsupportedEncodingException{
 		int constantIdentifier = iter.getNextByte();
 		ConstantInfo var = null;
-		System.out.println("constant identifyer: " + constantIdentifier);
+		//System.out.println("constant identifyer: " + constantIdentifier);
 			var = classify(constantIdentifier);
 			pool.addConstantInfo(var);
 	}
@@ -27,7 +27,7 @@ public class ConstantInfoFactory {
 		case ConstantInfo.CLASS_INFO:
 			ClassInfo classInfo = new ClassInfo(pool);
 			byte[] utf8Index = iter.getNextNBytes(2);
-			System.out.println("constant classInfo: utf index: " + Util.byteToInt(utf8Index)); 
+			//System.out.println("constant classInfo: utf index: " + Util.byteToInt(utf8Index)); 
 			classInfo.setUtf8Index(Util.byteToInt(utf8Index));
 			ret = classInfo;
 			

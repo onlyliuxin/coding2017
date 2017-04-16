@@ -1,5 +1,7 @@
 package com.coderising.jvm.loader;
 
+import com.coderising.jvm.util.Util;
+
 public class ByteCodeIterator {
 	
 	byte[] source = null;
@@ -50,7 +52,26 @@ public class ByteCodeIterator {
 		
 		return sb.toString();
 	}
-
+	
+	public String peekNextNHex(int n){
+		String val =  getNextNHexString(n);
+		backOffNBytes(n);
+		return val;
+	}
+	
+	public void backOffNBytes(int n){
+		if(n < currentPos){
+		currentPos -=n;
+		}
+		else{
+			System.err.println("Don't have enough bytes.");
+		}
+	}
+	
+	public int getNextNBytesInteger(int n){
+		byte[] barray = getNextNBytes(n);
+		return Util.byteToInt(barray);
+	}
 	
 	
 	public static void printByteInNumber(byte b){
