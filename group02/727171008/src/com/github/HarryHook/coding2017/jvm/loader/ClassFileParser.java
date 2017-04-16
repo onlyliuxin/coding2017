@@ -2,6 +2,7 @@ package com.github.HarryHook.coding2017.jvm.loader;
 
 import java.io.UnsupportedEncodingException;
 
+
 import com.github.HarryHook.coding2017.jvm.clz.AccessFlag;
 import com.github.HarryHook.coding2017.jvm.clz.ClassFile;
 import com.github.HarryHook.coding2017.jvm.clz.ClassIndex;
@@ -13,6 +14,8 @@ import com.github.HarryHook.coding2017.jvm.constant.NameAndTypeInfo;
 import com.github.HarryHook.coding2017.jvm.constant.NullConstantInfo;
 import com.github.HarryHook.coding2017.jvm.constant.StringInfo;
 import com.github.HarryHook.coding2017.jvm.constant.UTF8Info;
+import com.github.HarryHook.coding2017.jvm.field.Field;
+import com.github.HarryHook.coding2017.jvm.method.Method;
 
 public class ClassFileParser {
 
@@ -37,15 +40,22 @@ public class ClassFileParser {
 	ClassIndex clzIndex = parseClassIndex(iter);
 	clzFile.setClzIndex(clzIndex);
 	
+	parseInterfaces(iter);
+	
+	parseField(clzFile, iter);
+	
+	parseMethod(clzFile, iter);
 	return clzFile;
     }
 
     private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
+	
 	AccessFlag flag = new AccessFlag(iter.nextU2ToInt());
 	return flag;
     }
 
     private ClassIndex parseClassIndex(ByteCodeIterator iter) {
+	
 	int thisClassIndex = iter.nextU2ToInt();
 	int superClassIndex = iter.nextU2ToInt();
 	ClassIndex clzIndex = new ClassIndex();
@@ -109,7 +119,33 @@ public class ClassFileParser {
 
 	}
 	System.out.println("Finished reading Constant Pool ");
+	
 	return pool;
     }
+    private void parseInterfaces(ByteCodeIterator iter) {
+	int interfaceCount = iter.nextU2ToInt();
+
+	System.out.println("interfaceCount:" + interfaceCount);
+
+	// TODO : 如果实现了interface, 这里需要解析
+    }
+    
+    private void parseField(ClassFile clzFile, ByteCodeIterator iter){
+	int fieldCount = iter.nextU2ToInt();
+	for(int i=1; i<=fieldCount; i++) {
+	    Field f = Field.parse(clzFile.getConstantPool(), iter);
+	    clzFile.addField(f);
+	    
+	}
+    }
+    
+    private void parseMethod(ClassFile clzFile, ByteCodeIterator iter){
+	int methodCount = iter.nextU2ToInt();
+	for(int i=1; i<=methodCount; i++) {
+	    Method m = Method.parse(clzFile, iter);
+	    clzFile.addMethod(m);
+	}
+    }
+
 
 }
