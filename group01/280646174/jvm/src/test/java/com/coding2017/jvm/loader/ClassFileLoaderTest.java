@@ -24,7 +24,7 @@ public class ClassFileLoaderTest {
     static {
         ClassFileLoader loader = new ClassFileLoader();
         loader.addClassPath(path1);
-        String className = "com.coderising.jvm.test.EmployeeV1";
+        String className = "EmployeeV1";
 
         clzFile = loader.loadClass(className);
         clzFile.print();
