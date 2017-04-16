@@ -35,22 +35,83 @@ public class StackUtilTest {
 	}
 	@Test
 	public void testReverse() {
+		Stack<Integer> s = new Stack<>();
+		s.push(1);
+		s.push(2);
+		s.push(3);
 		
+		System.out.println(s.toString());
+		
+		System.out.println("=================");
+		
+		StackUtil.reverse(s);
+		
+		System.out.println(s.toString());
 	}
 
 	@Test
 	public void testRemove() {
+		Stack<Object> s = new Stack<>();
+		s.push(1);
+		s.push(2);
+		s.push(3);
+		System.out.println(s.toString());
+		
+		System.out.println("=================");
+		
+		Object removeNum = new Integer(2);
+		StackUtil.remove(s, removeNum);
+		
+		System.out.println(s.toString());
+	}
+	
+	@Test
+	public void testGetTop() {
+		Stack<Object> s = new Stack<>();
+		s.push(1);
+		s.push(2);
+		s.push(3);
+		s.push(4);
+		s.push(5);
+		System.out.println(s.toString());
+		
+		System.out.println("=================");
+		
+		Object[] result = StackUtil.getTop(s, 4);
+		
+		System.out.println(s.toString());
+		for(int i=0; i<result.length; i++){
+			System.out.println(result[i]);
+		}
 		
 	}
 
 	@Test
-	public void testGetTop() {
+	public void testGetBottom() {
+		Stack<Object> s = new Stack<>();
+		s.push(1);
+		s.push(2);
+		s.push(3);
+		s.push(4);
+		s.push(5);
+		System.out.println(s.toString());
+		
+		System.out.println("=================");
+		
+		Object[] result = StackUtil.getBottom(s, 4);
+		
+		System.out.println(s.toString());
+		for(int i=0; i<result.length; i++){
+			System.out.println(result[i]);
+		}
 		
 	}
 
 	@Test
 	public void testIsValidPairs() {
-		
+		String s = "p[fe]wf{wawea}few";
+		boolean isValidPairs = StackUtil.isValidPairs(s);
+		System.out.println(isValidPairs);
 	}
 
 }

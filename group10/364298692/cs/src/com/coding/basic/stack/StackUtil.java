@@ -8,9 +8,12 @@ public class StackUtil {
 	 * 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
 	 */
 	public static void reverse(Stack<Integer> s) {
-		
-		
-		
+		if(s==null || s.isEmpty()){
+			return;
+		}
+		Integer top = s.pop();
+		reverse(s);
+		addToBottom(s, top);		
 	}
 	public static void addToBottom(Stack<Integer> s,  Integer value){
 		if(s.isEmpty()){
@@ -28,8 +31,23 @@ public class StackUtil {
 	 * 
 	 * @param o
 	 */
-	public static void remove(Stack s,Object o) {
+	public static void remove(Stack<Object> s,Object o) {
+		if(s==null || s.isEmpty()){
+			return;
+		}
 		
+		Stack<Object> tempStack = new Stack<>();
+		while(!s.isEmpty()){
+			Object obj = s.pop();
+			
+			if(!obj.equals(o)){
+				tempStack.push(obj);
+			}
+		}
+		
+		while(!tempStack.isEmpty()){
+			s.push(tempStack.pop());
+		}
 	}
 
 	/**
@@ -38,11 +56,53 @@ public class StackUtil {
 	 * @param len
 	 * @return
 	 */
-	public static Object[] getTop(Stack s,int len) {
+	public static Object[] getTop(Stack<Object> s,int len){
+		if(s==null || s.isEmpty()){
+			return null;
+		}
 		
+		if(len > s.size() || len <= 0){
+			throw new IndexOutOfBoundsException();
+		}
+		Stack<Object> stockStack = new Stack<>();
+		Object[] result = new Object[len];
+		for(int i=0; i<len; i++){
+			Object obj = s.pop();
+			result[i] = obj;
+			stockStack.push(obj);
+		}
+		while(!stockStack.isEmpty()){
+			s.push(stockStack.pop());
+		}
+		return result;
+	}
+	
+	//弄混了栈顶和栈底的概念，这个是从栈底取值
+	public static Object[] getBottom(Stack<Object> s,int len) {
+		if(s==null || s.isEmpty()){
+			return null;
+		}
 		
+		if(len > s.size() || len <= 0){
+			throw new IndexOutOfBoundsException();
+		}
 		
-		return null;
+		Stack<Object> stockStack = new Stack<>();
+		Object[] result = new Object[len];
+		
+		while(s.size() > len){
+			stockStack.push(s.pop());
+		}
+		while(!s.isEmpty()){
+			Object tempObj = s.pop();
+			stockStack.push(tempObj);
+			result[--len] = tempObj;
+		}
+		while(!stockStack.isEmpty()){
+			s.push(stockStack.pop());
+		}
+		
+		return result;
 	}
 	/**
 	 * 字符串s 可能包含这些字符：  ( ) [ ] { }, a,b,c... x,yz
@@ -53,10 +113,32 @@ public class StackUtil {
 	 * @return
 	 */
 	public static boolean isValidPairs(String s){
+		Stack<Character> stack = new Stack();
 		
-		
-		return false;
+		for(int i=0;i<s.length();i++){
+			char c = s.charAt(i);
+			
+			if(c == '(' || c =='[' || c == '{'){
+				stack.push(c);				
+			} else if(c == ')'){				
+				char topChar = stack.pop();
+				if(topChar != '('){
+					return false;
+				}				
+			} else if(c == ']'){				
+				char topChar = stack.pop();
+				if(topChar != '['){
+					return false;
+				}					
+			} else if( c == '}'){				
+				char topChar = stack.pop();
+				if(topChar != '{'){
+					return false;
+				}				
+			}
+		}
+		return stack.size() == 0;
 	}
-	
+
 	
 }
