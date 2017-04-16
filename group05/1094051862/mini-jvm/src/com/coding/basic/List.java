@@ -1,8 +1,8 @@
 package com.coding.basic;
 
-public interface List {
-	public void add(Object o);
-	public void add(int index, Object o);
+public interface List<T> {
+	public void add(T t);
+	public void add(int index, T t);
 	public Object get(int index);
 	public Object remove(int index);
 	public int size();
