@@ -5,7 +5,7 @@ private static class Node {
 		
 		Node prev;
 		Node next;
-		int pageNum=10000;
+		Object pageNum=10000;
 		String flag;
 
 		Node() {
@@ -56,19 +56,19 @@ private static class Node {
 		Node nodel = last;
 		
 		//判断要找的元素是否在第一个节点里
-		if (nodef.next.pageNum == pageNum){
+		if (nodef.next.pageNum.equals(pageNum)){
 			return true;
 		}
 		
 		//判断要找的元素是否在最后一个节点里
-		if (nodel.prev.pageNum == pageNum){
+		if (nodel.prev.pageNum.equals(pageNum)){
 			remove(pageNum);	//删除尾元素
 			addFirst(pageNum);	//把访问pageNum添加到第一个节点里
 			return true;
 		}
 		
-		while(nodef.next!=null&&nodef.next.pageNum != 999){
-			if (nodef.next.pageNum == pageNum){
+		while(nodef.next!=null&&!nodef.next.pageNum.equals(999)){
+			if (nodef.next.pageNum.equals(pageNum)){
 				nodef.next = nodef.next.next;	//先删除元素
 				nodef.next.prev = nodef;
 				addFirst(pageNum);	//再把访问添加元素
@@ -79,14 +79,30 @@ private static class Node {
 		return false;
 	}
 	
-	public void remove(int pageNum){
+	public Node getFirst() {
+		return first;
+	}
+
+	public void setFirst(Node first) {
+		this.first = first;
+	}
+
+	public Node getLast() {
+		return last;
+	}
+
+	public void setLast(Node last) {
+		this.last = last;
+	}
+
+	public void remove(Object pageNum){
 		length--;
 		Node n = last.prev;
 		last.prev = n.prev;
 		n.prev.next = last;
 	}
 	
-	public void addFirst(int pageNum){
+	public void addFirst(Object pageNum){
 		Node s = first.next;
 		Node n = new Node();
 		n.pageNum=pageNum;
@@ -95,7 +111,7 @@ private static class Node {
 		first.next=n;
 		length++;
 	}
-
+	
 	public String toString(){
 		StringBuilder buffer = new StringBuilder();
 		Node node = first;
@@ -129,5 +145,47 @@ private static class Node {
 			}
 		}
 		return buffer.toString();
+	}
+	
+	public Object getFirstNode(){
+		return first.next.pageNum;
+	}
+	
+	/**
+	 * StackUtil 使用
+	 * @param len
+	 * @return
+	 */
+	public Object[] getElements(int len){
+		Object[] obj = new Object[len];
+		int i=0;
+		Node node = first;
+		while(node.next.flag != "last"){
+			obj[i] = node.next.pageNum;
+			node = node.next;
+			if (i == len-1){
+				return obj;
+			}
+			i++;
+		}
+		return null;
+	}
+	
+	/**
+	 * StackUtil 使用
+	 * @param obj
+	 * @param o
+	 */
+	public void remove(Object obj,Object o){
+		Node nodef = first;
+		while(nodef.next!=null&&!nodef.next.pageNum.equals(999)){
+			if (nodef.next.pageNum.equals(obj)){
+				nodef.next = nodef.next.next;	//先删除元素
+				nodef.next.prev = nodef;
+				length--;
+				break;
+			}
+			nodef = nodef.next;
+		}
 	}
 }
