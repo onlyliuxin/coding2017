@@ -28,26 +28,18 @@ public class InfixExpr {
 			int i2 = tp.nextInt();
 			String sign2 = tp.nextSign();
 
-
 			if (tp.hasNextInt()) {
-
-				if (highPrioritySign(sign1) || lowPrioritySign(sign2)) {
+				
+				if (highPrioritySign(sign1)) {
+					
 					i1 = ints.pop();
 					sign1 = signs.pop();
-					int result = calculate(i1, i2, sign1);
-					ints.push(result);
-
-				} else {
-
-					ints.push(i2);
-					
+					i2 = calculate(i1, i2, sign1);
+			
 				}
-				
-				if (tp.hasNextInt()) {
-					
-					signs.push(sign2);
-				}
-
+			
+				ints.push(i2);
+				signs.push(sign2);
 				sign1 = sign2;
 
 			}
@@ -105,7 +97,7 @@ public class InfixExpr {
 
 		return false;
 	}
-	
+
 	private boolean highPrioritySign(String sign) {
 
 		if (sign.equals("*") || sign.equals("/")) {
