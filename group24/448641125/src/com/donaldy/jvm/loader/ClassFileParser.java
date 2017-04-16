@@ -4,6 +4,8 @@ import com.donaldy.jvm.clz.AccessFlag;
 import com.donaldy.jvm.clz.ClassFile;
 import com.donaldy.jvm.clz.ClassIndex;
 import com.donaldy.jvm.constant.*;
+import com.donaldy.jvm.field.Field;
+import com.donaldy.jvm.method.Method;
 
 import java.io.UnsupportedEncodingException;
 
@@ -32,6 +34,13 @@ public class ClassFileParser {
 
 		ClassIndex clzIndex = parseClassIndex(iter);
 		clzFile.setClassIndex(clzIndex);
+
+		////////////Third times JVM homework////////////
+		parseInterfaces(iter);	//本次作业无interface
+
+		parseFileds(clzFile, iter);
+
+		parseMethods(clzFile, iter);
 
 		return clzFile;
 	}
@@ -123,5 +132,35 @@ public class ClassFileParser {
 		return pool;
 	}
 
+	private void parseInterfaces(ByteCodeIterator iter) {
+		int interfaceCount = iter.nextU2ToInt();
+
+		System.out.println("interfaceCount:" + interfaceCount);
+
+		// TODO : 如果实现了interface, 这里需要解析
+	}
+
+	private void parseFileds(ClassFile clzFile, ByteCodeIterator iter) {
+		int fieldCount = iter.nextU2ToInt();
+
+		//System.out.println("fileCount : " + fieldCount);
+
+		for (int i = 1; i <= fieldCount; i++) {
+			Field f = Field.parse(clzFile.getConstantPool(), iter);
+			clzFile.addField(f);
+		}
+
+	}
+
+	private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
+
+		int methodCount = iter.nextU2ToInt();
+
+		for (int i = 1; i <= methodCount; i++) {
+			Method m = Method.parse(clzFile, iter);
+			clzFile.addMethod(m);
+		}
+
+	}
 	
 }

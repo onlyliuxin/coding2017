@@ -1,7 +1,12 @@
 package com.github.ipk2015.coding2017.minijvm.clz;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.github.ipk2015.coding2017.minijvm.constant.ClassInfo;
 import com.github.ipk2015.coding2017.minijvm.constant.ConstantPool;
+import com.github.ipk2015.coding2017.minijvm.field.Field;
+import com.github.ipk2015.coding2017.minijvm.method.Method;
 
 public class ClassFile {
 	
@@ -11,7 +16,8 @@ public class ClassFile {
 	private AccessFlag accessFlag;
 	private ClassIndex clzIndex;
 	private ConstantPool pool;
-	
+	private List<Field> fields = new ArrayList<Field>();
+	private List<Method> methods = new ArrayList<Method>();
 	
 	public ClassIndex getClzIndex() {
 		return clzIndex;
@@ -48,7 +54,18 @@ public class ClassFile {
 		this.clzIndex = clzIndex;		
 	}
 	
-	
+	public void addField(Field f){
+		this.fields.add(f);
+	}
+	public List<Field> getFields(){
+		return this.fields;
+	}
+	public void addMethod(Method m){
+		this.methods.add(m);
+	}
+	public List<Method> getMethods() {
+		return methods;
+	}
 	
 	
 	public void print(){
