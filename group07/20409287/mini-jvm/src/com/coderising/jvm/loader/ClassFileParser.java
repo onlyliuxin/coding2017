@@ -1,7 +1,8 @@
 package com.coderising.jvm.loader;
 
-import java.beans.MethodDescriptor;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.coderising.jvm.clz.AccessFlag;
 import com.coderising.jvm.clz.ClassFile;
@@ -14,6 +15,8 @@ import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.NullConstantInfo;
 import com.coderising.jvm.constant.StringInfo;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
 import org.junit.Assert;
 
 public class ClassFileParser {
@@ -36,6 +39,14 @@ public class ClassFileParser {
         // 设置访问标记
         classFile.setAccessFlag(parseAccessFlag(byteCodeIterator));
         classFile.setClassIndex(parseClassIndex(byteCodeIterator));
+
+        // 处理接口
+        parseInterfaces(classFile, byteCodeIterator);
+
+        parseField(classFile, byteCodeIterator);
+
+        parseMethod(classFile, byteCodeIterator);
+
         return classFile;
     }
 
@@ -120,5 +131,30 @@ public class ClassFileParser {
         return constantPool;
     }
 
+    private void parseInterfaces(ClassFile classFile, ByteCodeIterator iter) {
+
+        int interfaceCount = iter.nextU2toInt();
+
+        System.out.println("interfaceCount:" + interfaceCount);
+
+        // TODO : 如果实现了interface, 这里需要解析
+    }
+
+    private void parseField(ClassFile classFile, ByteCodeIterator iter) {
+        // 是时候处理字段了
+        int fieldCount = iter.nextU2toInt();
+        List<Field> fieldList = new ArrayList<>();
+        for (int i = 0; i < fieldCount; i++) {
+            classFile.addField(Field.parse(classFile.getConstantPool(), iter));
+        }
+    }
+
+    private void parseMethod(ClassFile classFile, ByteCodeIterator iter) {
+        // 是时候处理方法了
+        int methodCount = iter.nextU2toInt();
+        for (int i = 0; i < methodCount; i++) {
+            classFile.addMethod(Method.parse(classFile, iter));
+        }
+    }
 
 }

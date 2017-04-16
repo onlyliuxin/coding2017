@@ -1,5 +1,7 @@
 package com.coderising.jvm.test;
 
+import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
 import com.coderising.jvm.util.Util;
 import org.junit.After;
 import org.junit.Assert;
@@ -14,6 +16,8 @@ import com.coderising.jvm.constant.MethodRefInfo;
 import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.UTF8Info;
 import com.coderising.jvm.loader.ClassFileLoader;
+
+import java.util.List;
 
 
 public class ClassFileloaderTest {
@@ -101,7 +105,7 @@ public class ClassFileloaderTest {
     public void testVersion() {
 
         Assert.assertEquals(0, clzFile.getMinorVersion());
-        Assert.assertEquals(51, clzFile.getMajorVersion());
+        Assert.assertEquals(52, clzFile.getMajorVersion());
 
     }
 
@@ -114,62 +118,62 @@ public class ClassFileloaderTest {
         Assert.assertEquals(53, pool.getSize());
 
         {
-            ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(7);
-            Assert.assertEquals(44, clzInfo.getUtf8Index());
+            ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(1);
+            Assert.assertEquals(2, clzInfo.getUtf8Index());
 
-            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(44);
+            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(2);
             Assert.assertEquals(FULL_QUALIFIED_CLASS_NAME, utf8Info.getValue());
         }
         {
-            ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(11);
-            Assert.assertEquals(48, clzInfo.getUtf8Index());
+            ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(3);
+            Assert.assertEquals(4, clzInfo.getUtf8Index());
 
-            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(48);
+            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(4);
             Assert.assertEquals("java/lang/Object", utf8Info.getValue());
         }
         {
-            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(12);
+            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(5);
             Assert.assertEquals("name", utf8Info.getValue());
 
-            utf8Info = (UTF8Info) pool.getConstantInfo(13);
+            utf8Info = (UTF8Info) pool.getConstantInfo(6);
             Assert.assertEquals("Ljava/lang/String;", utf8Info.getValue());
 
-            utf8Info = (UTF8Info) pool.getConstantInfo(14);
+            utf8Info = (UTF8Info) pool.getConstantInfo(7);
             Assert.assertEquals("age", utf8Info.getValue());
 
-            utf8Info = (UTF8Info) pool.getConstantInfo(15);
+            utf8Info = (UTF8Info) pool.getConstantInfo(8);
             Assert.assertEquals("I", utf8Info.getValue());
 
-            utf8Info = (UTF8Info) pool.getConstantInfo(16);
+            utf8Info = (UTF8Info) pool.getConstantInfo(9);
             Assert.assertEquals("<init>", utf8Info.getValue());
 
-            utf8Info = (UTF8Info) pool.getConstantInfo(17);
+            utf8Info = (UTF8Info) pool.getConstantInfo(10);
             Assert.assertEquals("(Ljava/lang/String;I)V", utf8Info.getValue());
 
-            utf8Info = (UTF8Info) pool.getConstantInfo(18);
+            utf8Info = (UTF8Info) pool.getConstantInfo(11);
             Assert.assertEquals("Code", utf8Info.getValue());
         }
 
         {
-            MethodRefInfo methodRef = (MethodRefInfo) pool.getConstantInfo(6);
-            Assert.assertEquals(42, methodRef.getClassInfoIndex());
-            Assert.assertEquals(43, methodRef.getNameAndTypeIndex());
+            MethodRefInfo methodRef = (MethodRefInfo)pool.getConstantInfo(12);
+            Assert.assertEquals(3, methodRef.getClassInfoIndex());
+            Assert.assertEquals(13, methodRef.getNameAndTypeIndex());
         }
 
         {
-            NameAndTypeInfo nameAndType = (NameAndTypeInfo) pool.getConstantInfo(37);
-            Assert.assertEquals(12, nameAndType.getIndex1());
-            Assert.assertEquals(13, nameAndType.getIndex2());
+            NameAndTypeInfo nameAndType = (NameAndTypeInfo) pool.getConstantInfo(13);
+            Assert.assertEquals(9, nameAndType.getIndex1());
+            Assert.assertEquals(14, nameAndType.getIndex2());
         }
         //抽查几个吧
         {
-            MethodRefInfo methodRef = (MethodRefInfo) pool.getConstantInfo(10);
-            Assert.assertEquals(7, methodRef.getClassInfoIndex());
-            Assert.assertEquals(47, methodRef.getNameAndTypeIndex());
+            MethodRefInfo methodRef = (MethodRefInfo)pool.getConstantInfo(45);
+            Assert.assertEquals(1, methodRef.getClassInfoIndex());
+            Assert.assertEquals(46, methodRef.getNameAndTypeIndex());
         }
 
         {
-            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(35);
+            UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(53);
             Assert.assertEquals("EmployeeV1.java", utf8Info.getValue());
         }
     }
@@ -186,5 +190,76 @@ public class ClassFileloaderTest {
         Assert.assertEquals("java/lang/Object", superClassInfo.getClassName());
     }
 
+    /**
+     * 下面是第三次JVM课应实现的测试用例
+     */
+    @Test
+    public void testReadFields(){
+
+        List<Field> fields = clzFile.getFields();
+        Assert.assertEquals(2, fields.size());
+        {
+            Field f = fields.get(0);
+            Assert.assertEquals("name:Ljava/lang/String;", f.toString());
+        }
+        {
+            Field f = fields.get(1);
+            Assert.assertEquals("age:I", f.toString());
+        }
+    }
+    @Test
+    public void testMethods(){
+
+        List<Method> methods = clzFile.getMethods();
+        ConstantPool pool = clzFile.getConstantPool();
+
+        {
+            Method m = methods.get(0);
+            assertMethodEquals(pool,m,
+                    "<init>",
+                    "(Ljava/lang/String;I)V",
+                    "2ab7000c2a2bb5000f2a1cb50011b1");
+
+        }
+        {
+            Method m = methods.get(1);
+            assertMethodEquals(pool,m,
+                    "setName",
+                    "(Ljava/lang/String;)V",
+                    "2a2bb5000fb1");
+
+        }
+        {
+            Method m = methods.get(2);
+            assertMethodEquals(pool,m,
+                    "setAge",
+                    "(I)V",
+                    "2a1bb50011b1");
+        }
+        {
+            Method m = methods.get(3);
+            assertMethodEquals(pool,m,
+                    "sayHello",
+                    "()V",
+                    "b2001c1222b60024b1");
+
+        }
+        {
+            Method m = methods.get(4);
+            assertMethodEquals(pool,m,
+                    "main",
+                    "([Ljava/lang/String;)V",
+                    "bb000159122b101db7002d4c2bb6002fb1");
+        }
+    }
+
+    private void assertMethodEquals(ConstantPool pool,Method m , String expectedName, String expectedDesc,String expectedCode){
+        String methodName = pool.getUTF8String(m.getNameIndex());
+        String methodDesc = pool.getUTF8String(m.getDescriptorIndex());
+        String code = m.getCodeAttr().getCode();
+        Assert.assertEquals(expectedName, methodName);
+        Assert.assertEquals(expectedDesc, methodDesc);
+        Assert.assertEquals(expectedCode, code);
+    }
 
 }
