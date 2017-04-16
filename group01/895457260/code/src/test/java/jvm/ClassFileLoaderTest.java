@@ -1,5 +1,6 @@
 package jvm;
 
+import jvm.classfile.attribute.item.impl.CodeAttr;
 import jvm.classfile.ClassFile;
 import jvm.classfile.ClassIndex;
 import jvm.classfile.ConstantPool;
@@ -8,10 +9,14 @@ import jvm.classfile.constant.item.impl.MethodRefInfo;
 import jvm.classfile.constant.item.impl.NameAndTypeInfo;
 import jvm.classfile.constant.item.impl.UTF8Info;
 import jvm.exception.ReadClassException;
+import jvm.classfile.field.Field;
+import jvm.classfile.method.Method;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
 
 public class ClassFileLoaderTest {
 	private static final String FULL_QUALIFIED_CLASS_NAME = "jvm/EmployeeV1";
@@ -158,5 +163,79 @@ public class ClassFileLoaderTest {
 
 		Assert.assertEquals(FULL_QUALIFIED_CLASS_NAME, thisClassInfo.getClassName());
 		Assert.assertEquals("java/lang/Object", superClassInfo.getClassName());
+	}
+
+	/**
+	 * 下面是第三次JVM课应实现的测试用例
+	 */
+	@Test
+	public void testReadFields() {
+
+		List<Field> fields = clzFile.getFields();
+		Assert.assertEquals(2, fields.size());
+		{
+			Field f = fields.get(0);
+			Assert.assertEquals("name:Ljava/lang/String;", f.toString());
+		}
+		{
+			Field f = fields.get(1);
+			Assert.assertEquals("age:I", f.toString());
+		}
+	}
+
+	@Test
+	public void testMethods() {
+
+		List<Method> methods = clzFile.getMethods();
+		ConstantPool pool = clzFile.getConstantPool();
+
+		{
+			Method m = methods.get(0);
+			assertMethodEquals(pool,m,
+					"<init>",
+					"(Ljava/lang/String;I)V",
+					"2ab7012a2bb5022a1cb503b1");
+
+		}
+		{
+			Method m = methods.get(1);
+			assertMethodEquals(pool,m,
+					"setName",
+					"(Ljava/lang/String;)V",
+					"2a2bb502b1");
+
+		}
+		{
+			Method m = methods.get(2);
+			assertMethodEquals(pool,m,
+					"setAge",
+					"(I)V",
+					"2a1bb503b1");
+		}
+		{
+			Method m = methods.get(3);
+			assertMethodEquals(pool,m,
+					"sayHello",
+					"()V",
+					"b204125b606b1");
+
+		}
+		{
+			Method m = methods.get(4);
+			assertMethodEquals(pool,m,
+					"main",
+					"([Ljava/lang/String;)V",
+					"bb0759128101db7094c2bb60ab1");
+		}
+	}
+
+	private void assertMethodEquals(ConstantPool pool, Method m,
+									String expectedName, String expectedDesc,String expectedCode) {
+		String methodName = ((UTF8Info) pool.getConstantInfo(m.getNameIndex())).getValue();
+		String methodDesc = ((UTF8Info) pool.getConstantInfo(m.getDescriptorIndex())).getValue();
+		String code = ((CodeAttr) m.getAttributes().get(0)).getCode();
+		Assert.assertEquals(expectedName, methodName);
+		Assert.assertEquals(expectedDesc, methodDesc);
+		Assert.assertEquals(expectedCode, code);
 	}
 }

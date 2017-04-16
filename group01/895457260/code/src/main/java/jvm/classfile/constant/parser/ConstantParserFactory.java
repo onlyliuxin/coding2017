@@ -23,7 +23,7 @@ public class ConstantParserFactory {
     private static final int CONSTANT_METHOD_TYPE = 16;
     private static final int CONSTANT_INVOKE_DYNAMIC = 18;
 
-    public static ConstantParser get(int type, byte[] bytes, int startIndex) {
+    public static ConstantParser get(int type) {
         switch (type) {
             case CONSTANT_CLASS:
                 return new ClassInfoParser();
@@ -46,9 +46,7 @@ public class ConstantParserFactory {
             case CONSTANT_NAME_AND_TYPE:
                 return new NameAndTypeInfoParser();
             case CONSTANT_UTF8:
-                startIndex += ConstantParser.TAG_LEN;
-                int length = ByteUtils.toInt(bytes, startIndex, 2);
-                return new UTF8InfoParser(length);
+                return new UTF8InfoParser();
             case CONSTANT_METHOD_HANDLE:
                 return new MethodHandleInfoParser();
             case CONSTANT_METHOD_TYPE:

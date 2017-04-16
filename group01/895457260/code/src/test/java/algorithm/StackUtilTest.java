@@ -75,10 +75,15 @@ public class StackUtilTest {
     public void testGetTop() throws Exception {
 //TODO: Test goes here...
         Stack stack = build(1, 3, 5);
+        Object[] array = toArray(stack);
         Assert.assertArrayEquals(new Object[] {}, StackUtil.getTop(stack, 0));
+        Assert.assertArrayEquals(new Object[] {1, 3, 5}, array);
         Assert.assertArrayEquals(new Object[] {3, 5}, StackUtil.getTop(stack, 2));
+        Assert.assertArrayEquals(new Object[] {1, 3, 5}, array);
         Assert.assertArrayEquals(new Object[] {1, 3, 5}, StackUtil.getTop(stack, 3));
+        Assert.assertArrayEquals(new Object[] {1, 3, 5}, array);
         Assert.assertArrayEquals(new Object[] {1, 3, 5}, StackUtil.getTop(stack, 4));
+        Assert.assertArrayEquals(new Object[] {1, 3, 5}, array);
     }
 
     /**
