@@ -19,6 +19,11 @@ public class InfixExprTest {
 	public void testEvaluate() {
 
 		{
+			InfixExpr expr = new InfixExpr("1*2*2-1");
+			Assert.assertEquals(3.0, expr.evaluate(), 0.001f);
+		}
+		
+		{
 			InfixExpr expr = new InfixExpr("2+3*4+5");
 			Assert.assertEquals(19.0, expr.evaluate(), 0.001f);
 		}

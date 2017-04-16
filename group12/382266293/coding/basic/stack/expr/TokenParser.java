@@ -56,8 +56,7 @@ public class TokenParser {
 			throw new RuntimeException("Invalid input IntQ: " + intQ + " signQ " + signQ);
 		}
 
-		intQ.add(1);
-		signQ.add("*");
+		intQ.add(0);
 
 	}
 

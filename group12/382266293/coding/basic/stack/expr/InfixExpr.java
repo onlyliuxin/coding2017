@@ -46,6 +46,7 @@ public class InfixExpr {
 
 		}
 
+		signs.pop();
 		StackUtil.reverse(ints);
 		StackUtil.reverse(signs);
 
@@ -85,17 +86,6 @@ public class InfixExpr {
 
 		return result;
 
-	}
-	
-	private boolean lowPrioritySign(String sign) {
-
-		if (sign.equals("+") || sign.equals("-")) {
-
-			return true;
-
-		}
-
-		return false;
 	}
 
 	private boolean highPrioritySign(String sign) {
