@@ -14,6 +14,7 @@ public abstract class AttributeInfo {
 	int attrNameIndex;// u2 attribute_name_index
 	int attrLen;// u4 attribute_length
 
+	public abstract String getType();
 	public AttributeInfo(int attrNameIndex, int attrLen) {
 		this.attrNameIndex = attrNameIndex;
 		this.attrLen = attrLen;
@@ -30,7 +31,7 @@ public abstract class AttributeInfo {
 		case LINE_NUM_TABLE:
 			return LineNumberTable.parse(pool, itr);
 		case LOCAL_VAR_TABLE:
-			
+			return LocalVariableTable.parse(pool, itr);
 		default:
 			throw new RuntimeException(
 					"attributeInfo exclude CodeAttr hasn't implemented");

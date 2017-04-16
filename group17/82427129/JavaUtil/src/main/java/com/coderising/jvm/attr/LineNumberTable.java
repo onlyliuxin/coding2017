@@ -8,6 +8,7 @@ import com.coderising.jvm.loader.ByteCodeIterator;
 
 public class LineNumberTable extends AttributeInfo {
 
+	private static String TYPE = LINE_NUM_TABLE;
 	private int lineNumberTableLength;
 	private List<LineNumberItem> lineNumberTable = new ArrayList<LineNumberTable.LineNumberItem>();
 
@@ -21,6 +22,10 @@ public class LineNumberTable extends AttributeInfo {
 		this.lineNumberTable.add(e);
 	}
 
+	@Override
+	public String getType() {
+		return TYPE;
+	}
 	public static LineNumberTable parse(ConstantPool pool, ByteCodeIterator itr) {
 		int attrNameIndex = itr.nextU2toInt();
 		int attrLen = itr.nextU4toInt();
@@ -33,6 +38,11 @@ public class LineNumberTable extends AttributeInfo {
 		return lineNumberTable;
 	}
 
+	/**
+	 *  
+	 * @author Meng
+	 *
+	 */
 	private static class LineNumberItem {
 		@SuppressWarnings("unused")
 		private int startPc;

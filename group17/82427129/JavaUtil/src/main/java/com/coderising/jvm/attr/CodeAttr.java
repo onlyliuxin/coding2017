@@ -8,6 +8,7 @@ import com.coderising.jvm.loader.ByteCodeIterator;
 
 public class CodeAttr extends AttributeInfo {
 
+	private static String TYPE = CODE;
 	private int maxStack;//u2 max_stack
 	private int maxLocals;//u2 max_locals
 	private int codeLenth;//u4 code_length
@@ -41,6 +42,11 @@ public class CodeAttr extends AttributeInfo {
 	 */
 	public void addAttr(AttributeInfo a){
 		this.AttrList.add(a);
+	}
+	
+	@Override
+	public String getType() {
+		return TYPE;
 	}
 	
 	public static CodeAttr parse(ConstantPool pool, ByteCodeIterator itr) {
@@ -117,5 +123,7 @@ public class CodeAttr extends AttributeInfo {
 	public void setExceptionTableLength(int exceptionTableLength) {
 		this.exceptionTableLength = exceptionTableLength;
 	}
+
+	
 
 }

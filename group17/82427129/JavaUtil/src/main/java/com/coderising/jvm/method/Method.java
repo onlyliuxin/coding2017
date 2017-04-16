@@ -63,7 +63,12 @@ public class Method {
 	 * @return
 	 */
 	public CodeAttr getCodeAttr() {
-
+		for (int i = 0; i < attributeInfos.size(); i++) {
+			AttributeInfo attributeInfo = attributeInfos.get(i);
+			if(AttributeInfo.CODE.equals(attributeInfo.getType())){
+				return (CodeAttr)attributeInfo;
+			}
+		}
 		return null;
 	}
 

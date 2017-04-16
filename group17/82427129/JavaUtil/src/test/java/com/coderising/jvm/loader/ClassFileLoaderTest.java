@@ -19,11 +19,12 @@ import com.coderising.jvm.method.Method;
 
 public class ClassFileLoaderTest {
 	private static final String FULL_QUALIFIED_CLASS_NAME = "com/coderising/jvm/test/EmployeeV1";
-	static String path1 = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
+	static String path1 = "C:\\workPrograms\\GitRepo\\coding2017\\group17\\82427129\\JavaUtil\\target\\classes";
 	static String path2 = "D:\\workProgram\\GitRepo\\coding2017\\group17\\82427129\\JavaUtil\\target\\classes";
 	static ClassFile clzFile = null;
 	static {
 		ClassFileLoader loader = new ClassFileLoader();
+		loader.addClassPath(path1);
 		loader.addClassPath(path2);
 		String className = "com.coderising.jvm.test.EmployeeV1";
 		
@@ -42,6 +43,7 @@ public class ClassFileLoaderTest {
 	public void testClassFileLength() {		
 		
 		ClassFileLoader loader = new ClassFileLoader();
+		loader.addClassPath(path1);
 		loader.addClassPath(path2);
 		
 		String className = "com.coderising.jvm.test.EmployeeV1";
@@ -67,6 +69,7 @@ public class ClassFileLoaderTest {
 	@Test	
 	public void testMagicNumber(){
     	ClassFileLoader loader = new ClassFileLoader();
+		loader.addClassPath(path1);
 		loader.addClassPath(path2);
 		String className = "com.coderising.jvm.test.EmployeeV1";
 		byte[] byteCodes = loader.readBinaryCode(className);

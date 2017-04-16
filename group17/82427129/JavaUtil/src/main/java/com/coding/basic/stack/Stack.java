@@ -31,4 +31,16 @@ public class Stack<E> {
 	public int size(){
 		return elementData.size();
 	}
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		for (int i = 0; i < size(); i++) {
+			sb.append(elementData.get(i)).append(", ");
+		}
+		sb.deleteCharAt(sb.length()-1);
+		sb.deleteCharAt(sb.length()-1);
+		sb.append("]");
+		return sb.toString();
+	}
 }
