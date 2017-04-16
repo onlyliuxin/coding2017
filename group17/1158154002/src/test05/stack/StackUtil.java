@@ -71,43 +71,79 @@ public class StackUtil {
 	 * @param s
 	 * @return
 	 */
-	public static boolean isValidPairs(String s) {
-		Stack s1 = new Stack();
-		for (int i = 0; i < s.length(); i++) {
-			char c = s.charAt(i);
-			if (c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}') {
-				s1.push(c);
-			}
-		}
-
-		Stack s2 = new Stack();
-		for (int i = s.length() - 1; i >= 0; i--) {
-			char c = s.charAt(i);
-			if (c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}') {
-				s2.push(c);
-			}
-		}
-
-		for (int i = 0; i < s1.size() / 2; i++) {
-			char a = (char) s1.pop();
-			char b = (char) s2.pop();
-			if (a == '(' && b != ')') {
-				return false;
-			} else if (a == ')' && b != '(') {
-				return false;
-			} else if (a == '[' && b != ']') {
-				return false;
-			} else if (a == ']' && b != '[') {
-				return false;
-			} else if (a == '{' && b != '}') {
-				return false;
-			} else if (a == '}' && b != '{') {
-				return false;
-			}
-		}
-
-		return true;
-	}
+//	public static boolean isValidPairs(String s) {
+//		Stack s1 = new Stack();
+//		for (int i = 0; i < s.length(); i++) {
+//			char c = s.charAt(i);
+//			if (c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}') {
+//				s1.push(c);
+//			}
+//		}
+//
+//		Stack s2 = new Stack();
+//		for (int i = s.length() - 1; i >= 0; i--) {
+//			char c = s.charAt(i);
+//			if (c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}') {
+//				s2.push(c);
+//			}
+//		}
+//
+//		for (int i = 0; i < s1.size() / 2; i++) {
+//			char a = (char) s1.pop();
+//			char b = (char) s2.pop();
+//			if (a == '(' && b != ')') {
+//				return false;
+//			} else if (a == ')' && b != '(') {
+//				return false;
+//			} else if (a == '[' && b != ']') {
+//				return false;
+//			} else if (a == ']' && b != '[') {
+//				return false;
+//			} else if (a == '{' && b != '}') {
+//				return false;
+//			} else if (a == '}' && b != '{') {
+//				return false;
+//			}
+//		}
+//
+//		return true;
+//	}
 	
+public static boolean isValidPairs(String s){
+		
+		Stack<Character> stack = new Stack<Character>();
+		for(int i=0;i<s.length();i++){
+			char c = s.charAt(i);
+			
+			if(c == '(' || c =='[' || c == '{'){
+				
+				stack.push(c);
+				
+			} else if( c == ')'){
+				
+				char topChar = stack.pop();
+				if(topChar != '('){
+					return false;
+				}
+				
+			} else if( c == ']'){
+				
+				char topChar = stack.pop();
+				if(topChar != '['){
+					return false;
+				}
+					
+			} else if( c == '}'){
+				
+				char topChar = stack.pop();
+				if(topChar != '{'){
+					return false;
+				}
+				
+			}
+		}
+		return stack.size() == 0;
+	}
+
 
 }

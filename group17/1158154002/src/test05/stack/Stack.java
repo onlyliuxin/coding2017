@@ -2,18 +2,18 @@ package test05.stack;
 
 import java.util.ArrayList;
 
-public class Stack {
-	private ArrayList<Object> elementData = new ArrayList<Object>();
+public class Stack<T> {
+	private ArrayList<T> elementData = new ArrayList<T>();
 	
-	public void push(Object o){	
+	public void push(T o){	
 		elementData.add(o);
 	}
 	
-	public Object pop(){
+	public T pop(){
 		return elementData.remove(size()-1);
 	}
 	
-	public Object peek(){
+	public T peek(){
 		if (size()>0) {
 			return elementData.get(size()-1);		
 		} else {
