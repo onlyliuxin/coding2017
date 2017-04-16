@@ -1,6 +1,9 @@
-package com.coding.basic;
+package com.coderising.array;
 
 import java.util.Arrays;
+
+import com.coding.basic.Iterator;
+import com.coding.basic.List;
 
 public class ArrayList implements List {
 	
