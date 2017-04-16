@@ -29,6 +29,16 @@ public class ByteCodeIterator {
         return -1;
     }
 
+    public int preToInt(int length){
+        Preconditions.checkArgument(length > 0);
+        if ((offset - length) > 0) {
+            int i = Util.byteToInt(Arrays.copyOfRange(bytes, offset - length, offset));
+            offset = offset - length;
+            return i;
+        }
+        return -1;
+    }
+
     public String nextToString(int length){
         Preconditions.checkArgument(length > 0);
         if ((offset + length) < bytes.length) {

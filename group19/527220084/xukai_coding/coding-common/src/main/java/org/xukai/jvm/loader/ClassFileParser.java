@@ -1,6 +1,7 @@
 package org.xukai.jvm.loader;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import org.xukai.jvm.clz.AccessFlag;
 import org.xukai.jvm.clz.ClassFile;
 import org.xukai.jvm.clz.ClassIndex;
@@ -12,6 +13,11 @@ import org.xukai.jvm.constant.NameAndTypeInfo;
 import org.xukai.jvm.constant.NullConstantInfo;
 import org.xukai.jvm.constant.StringInfo;
 import org.xukai.jvm.constant.UTF8Info;
+import org.xukai.jvm.field.Field;
+import org.xukai.jvm.method.Method;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ClassFileParser {
@@ -31,11 +37,41 @@ public class ClassFileParser {
 		ConstantPool pool = parseConstantPool(iter);
 		AccessFlag accessFlag = parseAccessFlag(iter);
 		ClassIndex classIndex = parseClassInfex(iter);
+		parseInterfaces(iter);
 
 		classFile.setConstPool(pool);
 		classFile.setAccessFlag(accessFlag);
 		classFile.setClassIndex(classIndex);
+
+		parseFields(pool, iter, classFile);
+		parseMethod(pool, iter, classFile);
+
 		return classFile;
+	}
+
+	private List<Field> parseFields(ConstantPool pool, ByteCodeIterator iter, ClassFile classFile) {
+		int fieldsCount = iter.nextToInt(2);
+		ArrayList<Field> fields = new ArrayList<>(fieldsCount);
+		for (int i = 0; i < fieldsCount; i++) {
+			int flages = iter.nextToInt(2);
+			int nameIndex = iter.nextToInt(2);
+			int descriptorIndex = iter.nextToInt(2);
+			int attributeCount = iter.nextToInt(2);
+			if (attributeCount > 0) {
+				System.out.println("jeixi");
+			}
+			Field field = new Field(flages, nameIndex, descriptorIndex, pool);
+			classFile.addField(field);
+		}
+
+		return fields;
+	}
+
+	private void parseMethod(ConstantPool pool, ByteCodeIterator iter, ClassFile classFile) {
+		int methodsCount = iter.nextToInt(2);
+		for (int i = 0; i < methodsCount; i++) {
+			Method.parse(classFile,iter);
+		}
 	}
 
 	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
@@ -122,5 +158,12 @@ public class ClassFileParser {
 		return pool;
 	}
 
+	private void parseInterfaces(ByteCodeIterator iter) {
+		int interfaceCount = iter.nextToInt(2);
+
+		System.out.println("interfaceCount:" + interfaceCount);
+
+		// TODO : 如果实现了interface, 这里需要解析
+	}
 	
 }
