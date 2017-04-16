@@ -66,6 +66,7 @@ public class StackUtilTest {
 			Assert.assertEquals(4, values[1]);
 			Assert.assertEquals(3, values[2]);
 		}
+        Assert.assertEquals("[1, 2, 3, 4, 5]", s.toString());
 	}
 
 	@Test
