@@ -76,7 +76,7 @@ public class ArrayList implements List {
 		}
 		@Override
 		public boolean hasNext() {
-			pos ++;
+			pos++;
 			if(pos >= size){
 				return false;
 			}else{
