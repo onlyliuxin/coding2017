@@ -2,6 +2,8 @@ package com.coding.basic;
 
 import org.junit.Test;
 
+import com.coding.basic.linklist.LinkedList;
+
 public class Queue {
 	private int size = 0;
 	private LinkedList linkedList = new LinkedList();
