@@ -30,6 +30,8 @@ public class ClassFileParser {
         // this class and super class
         classFile.setClassIndex(parseClassInfex(iterator));
 
+        parseInterfaces(iterator);
+
         return classFile;
     }
 
@@ -94,6 +96,14 @@ public class ClassFileParser {
         } else {
             throw new RuntimeException("not support tag " + tag);
         }
+    }
+
+    private void parseInterfaces(ByteCodeIterator iter) {
+        int interfaceCount = iter.nextU2ToInt();
+
+        System.out.println("interfaceCount:" + interfaceCount);
+
+        // TODO : 如果实现了interface, 这里需要解析
     }
 
 }
