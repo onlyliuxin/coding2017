@@ -10,6 +10,7 @@ import org.junit.Test;
 import com.coding.basic.homework_04.jvm.clz.ClassFile;
 import com.coding.basic.homework_04.jvm.clz.ClassIndex;
 import com.coding.basic.homework_04.jvm.constant.ConstantPool;
+import com.coding.basic.homework_04.jvm.field.Field;
 import com.coding.basic.homework_04.jvm.info.ClassInfo;
 import com.coding.basic.homework_04.jvm.info.MethodRefInfo;
 import com.coding.basic.homework_04.jvm.info.NameAndTypeInfo;
@@ -22,7 +23,8 @@ public class ClassFileloaderTest {
 
 	private static final String FULL_QUALIFIED_CLASS_NAME = "com/coderising/jvm/test/EmployeeV1";
 	
-	static String path1 = "C:\\Users\\yanght\\Documents\\mygit\\coding2017-1\\group06\\1454385822\\bin";
+	static String path1 = "D:\\mygit\\coding2017-1\\group06\\1454385822\\bin";
+//	static String path1 = "C:\\Users\\yanght\\Documents\\mygit\\coding2017-1\\group06\\1454385822\\bin";
 	static String path2 = "D:\temp";
 	static ClassFile clzFile = null;
 	static {
@@ -202,21 +204,21 @@ public class ClassFileloaderTest {
     /**
      * 下面是第三次JVM课应实现的测试用例
      */
-    //@Test
-//    public void testReadFields(){
-//   
-//    	List<Field> fields = clzFile.getFields();
-//    	Assert.assertEquals(2, fields.size());
-//    	{
-//    		Field f = fields.get(0);
-//    		Assert.assertEquals("name:Ljava/lang/String;", f.toString());
-//    	}
-//    	{
-//    		Field f = fields.get(1);
-//    		Assert.assertEquals("age:I", f.toString());
-//    	}
-//    }
-//    //@Test
+    @Test
+    public void testReadFields(){
+   
+    	List<Field> fields = clzFile.getFields();
+    	Assert.assertEquals(2, fields.size());
+    	{
+    		Field f = fields.get(0);
+    		Assert.assertEquals("name:Ljava/lang/String;", f.toString());
+    	}
+    	{
+    		Field f = fields.get(1);
+    		Assert.assertEquals("age:I", f.toString());
+    	}
+    }
+//    @Test
 //    public void testMethods(){
 //   
 //    	List<Method> methods = clzFile.getMethods();
