@@ -2,7 +2,7 @@ package com.coding.basic;
 
 import java.util.Arrays;
 
-public class ArrayList implements List {
+public class ArrayList<T> implements List<T> {
 	
 	private int size = 0;
 	
@@ -13,7 +13,7 @@ public class ArrayList implements List {
 		Object[] newData = Arrays.copyOf(elementData, elementData.length + increaseSize);
 		elementData = newData;
 	}
-	public void add(Object o){
+	public void add(T o){
 		if (size == elementData.length) {
 			increaseArray();
 			elementData[size++] = o;
@@ -21,28 +21,28 @@ public class ArrayList implements List {
 			elementData[size++] = o;
 		}
 	}
-	public void add(int index, Object o){
+	public void add(int index, T o){
 		if (index < 0 || index > size) {
 			System.out.println("错误提示：index > size || index < 0");
 			return;
 		}
-		Object temp;
+		T temp;
 		for (int i = index; i < size; i++) {
-			temp = elementData[i];
+			temp = (T) elementData[i];
 			elementData[i] = o;
 			o = temp;
 		}
 		elementData[size ++] = o;
 	}
 	
-	public Object get(int index){
+	public T get(int index){
 		if (index < 0 || index > size ){
 			return null;
 		}
-		return elementData[index];
+		return (T) elementData[index];
 	}
 	
-	public Object remove(int index){
+	public T remove(int index){
 		if (index < 0 || index > size ){
 			return null;
 		}
@@ -52,7 +52,7 @@ public class ArrayList implements List {
 		}
 		elementData[size-1] = null;
 		size --;
-		return result;
+		return (T) result;
 	}
 	
 	public int size(){

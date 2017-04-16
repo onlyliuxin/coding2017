@@ -14,7 +14,10 @@ import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.constant.MethodRefInfo;
 import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.field.Field;
 import com.coderising.jvm.loader.ClassFileLoader;
+import com.coderising.jvm.method.Method;
+import com.coding.basic.List;
 
 
 
@@ -203,28 +206,28 @@ public class ClassFileloaderTest {
     /**
      * 下面是第三次JVM课应实现的测试用例
      */
-   /* @Test
+    @Test
     public void testReadFields(){
    
-    	List<Field> fields = clzFile.getFields();
+    	List fields = clzFile.getFields();
     	Assert.assertEquals(2, fields.size());
     	{
-    		Field f = fields.get(0);
+    		Field f = (Field) fields.get(0);
     		Assert.assertEquals("name:Ljava/lang/String;", f.toString());
     	}
     	{
-    		Field f = fields.get(1);
+    		Field f = (Field) fields.get(1);
     		Assert.assertEquals("age:I", f.toString());
     	}
     }
     @Test
     public void testMethods(){
    
-    	List<Method> methods = clzFile.getMethods();
+    	List methods = clzFile.getMethods();
     	ConstantPool pool = clzFile.getConstantPool();
     	
     	{
-    		Method m = methods.get(0);    		
+    		Method m = (Method) methods.get(0);    		
     		assertMethodEquals(pool,m,
     				"<init>",
     				"(Ljava/lang/String;I)V",
@@ -232,7 +235,7 @@ public class ClassFileloaderTest {
     		
     	}
     	{
-    		Method m = methods.get(1);    
+    		Method m = (Method) methods.get(1);    
     		assertMethodEquals(pool,m,
     				"setName",
     				"(Ljava/lang/String;)V",
@@ -240,14 +243,14 @@ public class ClassFileloaderTest {
     		
     	}
     	{
-    		Method m = methods.get(2);    
+    		Method m = (Method) methods.get(2);    
     		assertMethodEquals(pool,m,
     				"setAge",
     				"(I)V",
     				"2a1bb50011b1");
     	}
     	{
-    		Method m = methods.get(3); 
+    		Method m = (Method) methods.get(3); 
     		assertMethodEquals(pool,m,
     				"sayHello",
     				"()V",
@@ -255,7 +258,7 @@ public class ClassFileloaderTest {
     		
     	}
     	{
-    		Method m = methods.get(4);    
+    		Method m = (Method) methods.get(4);    
     		assertMethodEquals(pool,m,
     				"main",
     				"([Ljava/lang/String;)V",
@@ -270,5 +273,5 @@ public class ClassFileloaderTest {
 		Assert.assertEquals(expectedName, methodName);
 		Assert.assertEquals(expectedDesc, methodDesc);
 		Assert.assertEquals(expectedCode, code);
-    }*/
+    }
 }

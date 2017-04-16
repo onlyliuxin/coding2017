@@ -32,6 +32,7 @@ public class Field {
 		int nameIndex = iter.nextU2toInt();
 		int descriptorIndex = iter.nextU2toInt();
 		int attributesCount = iter.nextU2toInt();
+		System.out.println("Field AttributesCount: "+attributesCount);
 		
 		Field f = new Field(accessFlag, nameIndex, descriptorIndex, pool);
 		
@@ -40,6 +41,14 @@ public class Field {
 		}
 		
 		return f;
+	}
+	
+	public String toString() {
+		StringBuffer s = new StringBuffer();
+		s.append(pool.getUTF8String(nameIndex));
+		s.append(':');
+		s.append(pool.getUTF8String(descriptorIndex));
+		return s.toString();
 	}
 
 }

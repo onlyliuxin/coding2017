@@ -14,6 +14,7 @@ import com.coderising.jvm.constant.NullConstantInfo;
 import com.coderising.jvm.constant.StringInfo;
 import com.coderising.jvm.constant.UTF8Info;
 import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
 
 public class ClassFileParser {
 
@@ -39,12 +40,18 @@ public class ClassFileParser {
 		
 		parseFields(clzFile, iter);
 		
-		parrsMethods(clzFile, iter);
+		parseMethods(clzFile, iter);
 		return clzFile;
 	}
 
-	private void parrsMethods(ClassFile clzFile, ByteCodeIterator iter) {
-		
+	private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
+		int methodCount = iter.nextU2toInt();
+		System.out.println("methodCount:" + methodCount);
+		for (int i = 0; i < methodCount; i++) {
+			System.out.println("method :" + (i+1));
+			Method m = Method.parse(clzFile, iter);
+			clzFile.addMethod(m);
+		}
 	}
 
 	private void parseFields(ClassFile clzFile, ByteCodeIterator iter) {
