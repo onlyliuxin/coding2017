@@ -91,4 +91,14 @@ public class ClassFile {
         ClassInfo superClass = (ClassInfo)this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
         return superClass.getClassName();
     }
+
+    public Method getMethod(String methodName, String paramAndReturnType){
+
+
+        return null;
+    }
+    public Method getMainMethod(){
+
+        return null;
+    }
 }

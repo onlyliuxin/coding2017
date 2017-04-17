@@ -2,6 +2,7 @@ package method;
 
 import attr.CodeAttr;
 import clz.ClassFile;
+import cmd.ByteCodeCommand;
 import iterator.ByteCodeIterator;
 import util.Util;
 
@@ -58,5 +59,9 @@ public class Method {
         }
         return method;
 
+    }
+
+    public ByteCodeCommand[] getCmds() {
+        return this.getCodeAttr().getCmds();
     }
 }

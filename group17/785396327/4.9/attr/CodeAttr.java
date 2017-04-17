@@ -1,6 +1,8 @@
 package attr;
 
 import clz.ClassFile;
+import cmd.ByteCodeCommand;
+import cmd.CommandParser;
 import constant.ConstantInfo;
 import iterator.ByteCodeIterator;
 
@@ -17,21 +19,24 @@ public class CodeAttr extends AttributeInfo {
         return code;
     }
 
-    //private ByteCodeCommand[] cmds ;
-    //public ByteCodeCommand[] getCmds() {
-    //	return cmds;
-    //}
+    private ByteCodeCommand[] cmds;
+
+    public ByteCodeCommand[] getCmds() {
+        return cmds;
+    }
+
     private LineNumberTable lineNumTable;
     private LocalVariableTable localVarTable;
     private StackMapTable stackMapTable;
 
-    public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen, String code /*ByteCodeCommand[] cmds*/) {
+    public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen, String code,
+                    ByteCodeCommand[] cmds) {
         super(attrNameIndex, attrLen);
         this.maxStack = maxStack;
         this.maxLocals = maxLocals;
         this.codeLen = codeLen;
         this.code = code;
-        //this.cmds = cmds;
+        this.cmds = cmds;
     }
 
     public void setLineNumberTable(LineNumberTable t) {
@@ -50,9 +55,12 @@ public class CodeAttr extends AttributeInfo {
         int maxLocals = iter.nextU2ToInt();
         int codeLength = iter.nextU4ToInt();
         String code = iter.nextLengthString(codeLength);
+
+        ByteCodeCommand[] cmds = CommandParser.parse(clzFile, code);
+
         int exceptionTableLength = iter.nextU2ToInt();//跳过异常表
 //        System.out.println("Code属性表中的异常表元素大小：" + exceptionTableLength);
-        CodeAttr codeAttr = new CodeAttr(attributeNameIndex, attributeLength, maxStack, maxLocals, codeLength, code);
+        CodeAttr codeAttr = new CodeAttr(attributeNameIndex, attributeLength, maxStack, maxLocals, codeLength, code, cmds);
         int attributesCount = iter.nextU2ToInt();
         //code属性表中又有属性
         for (int i = 0; i < attributesCount; i++) {

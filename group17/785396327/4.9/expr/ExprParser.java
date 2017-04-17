@@ -16,7 +16,7 @@ public class ExprParser {
         StringBuilder numberBuffer = new StringBuilder();
         for (int i = 0; i < split.length; i++) {
             String ele = split[i];
-            if (ele.equals(OperEnum.ADD.getOperator()) || ele.equals(OperEnum.SUBSTRACT.getOperator()) || ele.equals(OperEnum.MINUS.getOperator()) || ele.equals(OperEnum.MULTIPLY.getOperator())) {
+            if (ele.equals(OperEnum.ADD.getOperator()) || ele.equals(OperEnum.SUBTRACT.getOperator()) || ele.equals(OperEnum.MINUS.getOperator()) || ele.equals(OperEnum.MULTIPLY.getOperator())) {
                 results.add(numberBuffer.toString());
                 numberBuffer.delete(0, numberBuffer.length());
                 results.add(ele);
@@ -32,6 +32,6 @@ public class ExprParser {
     }
 
     public static boolean belongsOperator(String operEle) {
-        return (operEle != null) && (operEle.trim().equals(OperEnum.ADD.getOperator()) || operEle.trim().equals(OperEnum.SUBSTRACT.getOperator()) || operEle.trim().equals(OperEnum.MULTIPLY.getOperator()) || operEle.trim().equals(OperEnum.MINUS.getOperator()));
+        return (operEle != null) && (operEle.trim().equals(OperEnum.ADD.getOperator()) || operEle.trim().equals(OperEnum.SUBTRACT.getOperator()) || operEle.trim().equals(OperEnum.MULTIPLY.getOperator()) || operEle.trim().equals(OperEnum.MINUS.getOperator()));
     }
 }
