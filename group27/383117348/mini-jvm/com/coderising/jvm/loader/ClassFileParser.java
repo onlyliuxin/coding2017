@@ -1,6 +1,8 @@
 package com.coderising.jvm.loader;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.coderising.jvm.clz.AccessFlag;
 import com.coderising.jvm.clz.ClassFile;
@@ -15,6 +17,8 @@ import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.NullConstantInfo;
 import com.coderising.jvm.constant.StringInfo;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
 
 public class ClassFileParser {
 	
@@ -33,12 +37,23 @@ public class ClassFileParser {
 		ConstantPool constant = parseConstantPool(by);
 		AccessFlag flag = parseAccessFlag(by);
 		ClassIndex index = parseClassIndex(by);
-		
+		parseInterfaces(by);
 		file.setMinorVersion(minVersion);
 		file.setMajorVersion(majorVersion);
 		file.setAccessFlag(flag);
 		file.setClassIndex(index);
 		file.setConstPool(constant);
+		List<Field> fields = parseField(by,constant);
+		List<Method> methods = parseMethod(by,file);
+		
+		
+		for(Field field:fields){
+			file.addField(field);
+		}
+		for(Method method:methods){
+			file.addMethod(method);
+		}
+
 		return file;
 	}
 
@@ -105,6 +120,32 @@ public class ClassFileParser {
 	        }
 	        return pool;
 	}
-
 	
+	private void parseInterfaces(ByteCodeIterator iter) {
+		int interfaceCount = iter.nextU2Int();
+		System.out.println("interfaceCount:" + interfaceCount);
+	}
+	
+	private List<Field> parseField(ByteCodeIterator by,ConstantPool pool) {
+		// TODO Auto-generated method stub
+		List<Field> result = new ArrayList<Field>();
+		int fieldCount = by.nextU2Int();
+		for(int i=0;i<fieldCount;i++){
+			Field field = Field.parse(pool, by);
+			result.add(field);
+		}
+		return result;
+	}
+
+	private List<Method> parseMethod(ByteCodeIterator by,ClassFile file) {
+		// TODO Auto-generated method stub
+		List<Method> result = new ArrayList<Method>();
+		int methodCount = by.nextU2Int();
+		for(int i=0;i<methodCount;i++){
+			Method method = Method.parse(file, by);
+			result.add(method);
+		}
+		return result;
+	}
+
 }
