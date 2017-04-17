@@ -2,8 +2,7 @@ package org.xukai.common;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.xukai.coderising.stack.Stack;
 
 /**
  * @author xukai
