@@ -1,10 +1,11 @@
 package com.github.miniyk2012.coding2017.coderising.jvm.clz;
 
 
-import assignments.jvm.field.Field;
-import assignments.jvm.method.Method;
+
 import com.github.miniyk2012.coding2017.coderising.jvm.constant.ClassInfo;
 import com.github.miniyk2012.coding2017.coderising.jvm.constant.ConstantPool;
+import com.github.miniyk2012.coding2017.coderising.jvm.field.Field;
+import com.github.miniyk2012.coding2017.coderising.jvm.method.Method;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,13 +1,12 @@
 package com.github.miniyk2012.coding2017.coderising.jvm.method;
 
-import assignments.jvm.clz.ClassFile;
-import assignments.jvm.attr.AttributeInfo;
-import assignments.jvm.attr.CodeAttr;
-import assignments.jvm.constant.ConstantPool;
-import assignments.jvm.constant.UTF8Info;
-import assignments.jvm.loader.ByteCodeIterator;
 
-
+import com.github.miniyk2012.coding2017.coderising.jvm.attr.AttributeInfo;
+import com.github.miniyk2012.coding2017.coderising.jvm.attr.CodeAttr;
+import com.github.miniyk2012.coding2017.coderising.jvm.clz.ClassFile;
+import com.github.miniyk2012.coding2017.coderising.jvm.constant.ConstantPool;
+import com.github.miniyk2012.coding2017.coderising.jvm.constant.UTF8Info;
+import com.github.miniyk2012.coding2017.coderising.jvm.loader.ByteCodeIterator;
 
 public class Method {
 	
@@ -67,19 +66,19 @@ public String toString() {
 	}
 	
 	public static Method parse(ClassFile clzFile, ByteCodeIterator iter){
-		int accessFlag = iter.nextU2ToInt();
-		int nameIndex = iter.nextU2ToInt();
-		int descIndex = iter.nextU2ToInt();
-		int attribCount = iter.nextU2ToInt();
+		int accessFlag = iter.nextU2toInt();
+		int nameIndex = iter.nextU2toInt();
+		int descIndex = iter.nextU2toInt();
+		int attribCount = iter.nextU2toInt();
 		
 		
 		Method m = new Method(clzFile, accessFlag, nameIndex, descIndex);
 		
 		for( int j=1; j<= attribCount; j++){
 			
-			int attrNameIndex = iter.nextU2ToInt();	
+			int attrNameIndex = iter.nextU2toInt();
 			String attrName = clzFile.getConstantPool().getUTF8String(attrNameIndex);
-			iter.back(2);
+			iter.skip(-2);
 			
 			if(AttributeInfo.CODE.equalsIgnoreCase(attrName)){
 				CodeAttr codeAttr = CodeAttr.parse(clzFile, iter);

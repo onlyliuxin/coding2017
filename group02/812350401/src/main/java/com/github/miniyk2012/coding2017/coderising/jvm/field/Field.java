@@ -1,9 +1,9 @@
 package com.github.miniyk2012.coding2017.coderising.jvm.field;
 
-import assignments.jvm.constant.ConstantPool;
-import assignments.jvm.constant.UTF8Info;
-import assignments.jvm.loader.ByteCodeIterator;
 
+import com.github.miniyk2012.coding2017.coderising.jvm.constant.ConstantPool;
+import com.github.miniyk2012.coding2017.coderising.jvm.constant.UTF8Info;
+import com.github.miniyk2012.coding2017.coderising.jvm.loader.ByteCodeIterator;
 
 public class Field {
 	private int accessFlag;
@@ -32,10 +32,10 @@ public class Field {
 	
 	public static Field parse(ConstantPool pool, ByteCodeIterator iter){
 		
-		int accessFlag = iter.nextU2ToInt();
-		int nameIndex = iter.nextU2ToInt();
-		int descIndex = iter.nextU2ToInt();
-		int attribCount = iter.nextU2ToInt();
+		int accessFlag = iter.nextU2toInt();
+		int nameIndex = iter.nextU2toInt();
+		int descIndex = iter.nextU2toInt();
+		int attribCount = iter.nextU2toInt();
 		//System.out.println("field attribute count:"+ attribCount);
 		
 		Field f = new Field(accessFlag, nameIndex, descIndex,pool);

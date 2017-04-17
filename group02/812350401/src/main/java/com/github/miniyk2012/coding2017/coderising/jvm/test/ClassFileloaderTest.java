@@ -1,11 +1,11 @@
 package com.github.miniyk2012.coding2017.coderising.jvm.test;
 
-import assignments.jvm.field.Field;
-import assignments.jvm.method.Method;
 import com.github.miniyk2012.coding2017.coderising.jvm.clz.ClassFile;
 import com.github.miniyk2012.coding2017.coderising.jvm.clz.ClassIndex;
 import com.github.miniyk2012.coding2017.coderising.jvm.constant.*;
+import com.github.miniyk2012.coding2017.coderising.jvm.field.Field;
 import com.github.miniyk2012.coding2017.coderising.jvm.loader.ClassFileLoader;
+import com.github.miniyk2012.coding2017.coderising.jvm.method.Method;
 import com.github.miniyk2012.coding2017.coderising.jvm.util.Util;
 import org.junit.After;
 import org.junit.Assert;
