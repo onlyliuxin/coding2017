@@ -1,5 +1,6 @@
 package com.coding.weak1;
 
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class Stack {
@@ -25,5 +26,18 @@ public class Stack {
 
 	public int size(){
 		return elementData.size();
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		if (isEmpty()) {
+			return "";
+		}
+		for (int i = elementData.size() - 1; i >= 0; i--) {
+			sb.append(elementData.get(i).toString());
+			sb.append(",");
+		}
+		return sb.substring(0, sb.lastIndexOf(","));
 	}
 }
