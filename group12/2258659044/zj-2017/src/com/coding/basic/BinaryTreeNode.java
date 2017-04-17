@@ -1,37 +1,37 @@
 package com.coding.basic;
-public class BinaryTreeNode {
+public class BinaryTreeNode<E> {
 	
-	private Object data;
+	private E data;
 	//父节点
-	private BinaryTreeNode parent;
-	private BinaryTreeNode left;
-	private BinaryTreeNode right;
+	private BinaryTreeNode<E> parent;
+	private BinaryTreeNode<E> left;
+	private BinaryTreeNode<E> right;
 	
-	public Object getData() {
+	public E getData() {
 		return data;
 	}
-	public void setData(Object data) {
+	public void setData(E data) {
 		this.data = data;
 	}
 	
-	public BinaryTreeNode getLeft() {
+	public BinaryTreeNode<E> getLeft() {
 		return left;
 	}
-	public void setLeft(BinaryTreeNode left) {
+	public void setLeft(BinaryTreeNode<E> left) {
 		this.left = left;
 	}
 	
-	public BinaryTreeNode getRight() {
+	public BinaryTreeNode<E> getRight() {
 		return right;
 	}
-	public void setRight(BinaryTreeNode right) {
+	public void setRight(BinaryTreeNode<E> right) {
 		this.right = right;
 	}
 	
-	public BinaryTreeNode getParent() {
+	public BinaryTreeNode<E> getParent() {
 		return parent;
 	}
-	public void setParent(BinaryTreeNode parent) {
+	public void setParent(BinaryTreeNode<E> parent) {
 		this.parent = parent;
 	}
 }
