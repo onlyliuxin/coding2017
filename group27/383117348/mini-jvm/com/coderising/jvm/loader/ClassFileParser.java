@@ -38,14 +38,15 @@ public class ClassFileParser {
 		AccessFlag flag = parseAccessFlag(by);
 		ClassIndex index = parseClassIndex(by);
 		parseInterfaces(by);
-		List<Field> fields = parseField(by,constant);
-		List<Method> methods = parseMethod(by,file);
-		
 		file.setMinorVersion(minVersion);
 		file.setMajorVersion(majorVersion);
 		file.setAccessFlag(flag);
 		file.setClassIndex(index);
 		file.setConstPool(constant);
+		List<Field> fields = parseField(by,constant);
+		List<Method> methods = parseMethod(by,file);
+		
+		
 		for(Field field:fields){
 			file.addField(field);
 		}
@@ -130,14 +131,7 @@ public class ClassFileParser {
 		List<Field> result = new ArrayList<Field>();
 		int fieldCount = by.nextU2Int();
 		for(int i=0;i<fieldCount;i++){
-			Field field = new Field(by.nextU2Int(), by.nextU2Int(), by.nextU2Int(),pool);
-			int attributeCount=by.nextU2Int();
-			System.out.println("attributeCount:"+attributeCount);
-			for(int j=0;j<attributeCount;j++){
-				int attribute_name_index = by.nextU2Int();
-				int attribute_length = by.nextU4Integer();
-				int attribute_value_index = by.nextU2Int();
-			}
+			Field field = Field.parse(pool, by);
 			result.add(field);
 		}
 		return result;
@@ -148,13 +142,7 @@ public class ClassFileParser {
 		List<Method> result = new ArrayList<Method>();
 		int methodCount = by.nextU2Int();
 		for(int i=0;i<methodCount;i++){
-			Method method = new Method(file,by.nextU2Int(),by.nextU2Int(),by.nextU2Int());
-			int attributeCount = by.nextU2Int();
-			for(int j=0;j<attributeCount;j++){
-				int attribute_name_index = by.nextU2Int();
-				int attribute_length = by.nextU4Integer();
-				int attribute_value = by.getByteByLength(attribute_length).length;
-			}
+			Method method = Method.parse(file, by);
 			result.add(method);
 		}
 		return result;

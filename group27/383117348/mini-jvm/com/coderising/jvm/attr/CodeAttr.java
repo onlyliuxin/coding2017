@@ -3,30 +3,32 @@ package com.coderising.jvm.attr;
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.loader.ByteCodeIterator;
 
-public class CodeAttr extends AttributeInfo{
-	private int maxStack ;
-	private int maxLocals ;
-	private int codeLen ;
+public class CodeAttr extends AttributeInfo {
+	private int maxStack;
+	private int maxLocals;
+	private int codeLen;
 	private String code;
+
 	public String getCode() {
 		return code;
 	}
 
-	//private ByteCodeCommand[] cmds ;
-	//public ByteCodeCommand[] getCmds() {
-	//	return cmds;
-	//}
+	// private ByteCodeCommand[] cmds ;
+	// public ByteCodeCommand[] getCmds() {
+	// return cmds;
+	// }
 	private LineNumberTable lineNumTable;
 	private LocalVariableTable localVarTable;
 	private StackMapTable stackMapTable;
-	
-	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code /*ByteCodeCommand[] cmds*/) {
+
+	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,
+			String code /* ByteCodeCommand[] cmds */) {
 		super(attrNameIndex, attrLen);
 		this.maxStack = maxStack;
 		this.maxLocals = maxLocals;
 		this.codeLen = codeLen;
 		this.code = code;
-		//this.cmds = cmds;
+		// this.cmds = cmds;
 	}
 
 	public void setLineNumberTable(LineNumberTable t) {
@@ -34,16 +36,54 @@ public class CodeAttr extends AttributeInfo{
 	}
 
 	public void setLocalVariableTable(LocalVariableTable t) {
-		this.localVarTable = t;		
+		this.localVarTable = t;
 	}
-	
+
 	public static CodeAttr parse(ClassFile clzFile, ByteCodeIterator iter){
-		
-		
-		return null;
+		int attributeNameIndex = iter.nextU2Int();
+		         int attributeLength = iter.nextU4Integer();
+		         int maxStack = iter.nextU2Int();
+		         int maxLocals = iter.nextU2Int();
+		 
+		         int length = iter.nextU4Integer();
+		         String code = iter.nextUxToHexString(length);
+		 
+		         CodeAttr codeAttr = new CodeAttr(attributeNameIndex, attributeLength, maxStack, maxLocals, length, code);
+		         
+		         int exceptionTableLength = iter.nextU2Int();
+		         if (exceptionTableLength > 0) {
+		             String exceptionTable = iter.nextUxToHexString(exceptionTableLength);
+		             throw new RuntimeException("解析异常表异常:"+exceptionTable);
+		         }
+		         
+		         int attributesCount = iter.nextU2Int();
+		         for (int i = 0; i < attributesCount; i++) {
+		             int subAttributeNameIndex = iter.nextU2Int();
+		             iter.back(2);
+		 
+		             String subAttributeName = clzFile.getConstantPool().getUTF8String(subAttributeNameIndex);
+		 
+		             if (null != subAttributeName && subAttributeName.equalsIgnoreCase(AttributeInfo.LINE_NUM_TABLE)) {
+		 
+		                 LineNumberTable lineNumberTable = LineNumberTable.parse(iter);
+		                 codeAttr.setLineNumberTable(lineNumberTable);
+		 
+		             } else if (null != subAttributeName && subAttributeName.equalsIgnoreCase(AttributeInfo.LOCAL_VAR_TABLE)) {
+		 
+		                 LocalVariableTable localVariableTable = LocalVariableTable.parse(iter);
+		                 codeAttr.setLocalVariableTable(localVariableTable);
+		 
+		             } else {
+		                 throw new RuntimeException("解析subAttribute异常-subAttributeName:"+subAttributeName);
+		             }
+		 
+		         }
+		 
+		         return codeAttr;
 	}
+
 	private void setStackMapTable(StackMapTable t) {
 		this.stackMapTable = t;
-		
+
 	}
 }

@@ -21,8 +21,22 @@ public class Field {
 	}
 
 	public static Field parse(ConstantPool pool,ByteCodeIterator iter){
-		
-		return null;
+		Field field = new Field(iter.nextU2Int(), iter.nextU2Int(), iter.nextU2Int(),pool);
+		int attributeCount=iter.nextU2Int();
+		System.out.println("attributeCount:"+attributeCount);
+		for(int j=0;j<attributeCount;j++){
+			int attribute_name_index = iter.nextU2Int();
+			int attribute_length = iter.nextU4Integer();
+			int attribute_value_index = iter.nextU2Int();
+		}
+		return field;
+	}
+	
+	@Override
+	public String toString() {
+		String name = pool.getUTF8String(nameIndex);
+		String descr = pool.getUTF8String(descriptorIndex);
+		return name+":"+descr;
 	}
 	
 }

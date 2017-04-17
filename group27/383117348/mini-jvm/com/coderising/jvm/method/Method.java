@@ -1,7 +1,9 @@
 package com.coderising.jvm.method;
 
+import com.coderising.jvm.attr.AttributeInfo;
 import com.coderising.jvm.attr.CodeAttr;
 import com.coderising.jvm.clz.ClassFile;
+import com.coderising.jvm.constant.UTF8Info;
 import com.coderising.jvm.loader.ByteCodeIterator;
 
 public class Method {
@@ -9,12 +11,11 @@ public class Method {
 	private int accessFlag;
 	private int nameIndex;
 	private int descriptorIndex;
-	
+
 	private CodeAttr codeAttr;
-	
+
 	private ClassFile clzFile;
-	
-	
+
 	public ClassFile getClzFile() {
 		return clzFile;
 	}
@@ -22,10 +23,11 @@ public class Method {
 	public int getNameIndex() {
 		return nameIndex;
 	}
+
 	public int getDescriptorIndex() {
 		return descriptorIndex;
 	}
-	
+
 	public CodeAttr getCodeAttr() {
 		return codeAttr;
 	}
@@ -34,19 +36,37 @@ public class Method {
 		this.codeAttr = code;
 	}
 
-	public Method(ClassFile clzFile,int accessFlag, int nameIndex, int descriptorIndex) {
+	public Method(ClassFile clzFile, int accessFlag, int nameIndex, int descriptorIndex) {
 		this.clzFile = clzFile;
 		this.accessFlag = accessFlag;
 		this.nameIndex = nameIndex;
 		this.descriptorIndex = descriptorIndex;
 	}
 
-	
-	
-	
-	
-	public static Method parse(ClassFile clzFile, ByteCodeIterator iter){
-		return null;
+	public static Method parse(ClassFile clzFile, ByteCodeIterator iter) {
+
+		int accessFlag = iter.nextU2Int();
+		int nameIndex = iter.nextU2Int();
+		int descriptorIndex = iter.nextU2Int();
+
+		Method method = new Method(clzFile, accessFlag, nameIndex, descriptorIndex);
+
+		int attirbutesCount = iter.nextU2Int();
 		
+		for (int i = 0; i < attirbutesCount; i++) {
+			int attributeNameIndex = iter.nextU2Int();
+			iter.back(2);
+			String attributeName = ((UTF8Info) clzFile.getConstantPool().getConstantInfo(attributeNameIndex))
+					.getValue();
+			
+			if (null != attributeName && attributeName.equalsIgnoreCase(AttributeInfo.CODE)) {
+				CodeAttr codeAttr = CodeAttr.parse(clzFile, iter);
+				method.setCodeAttr(codeAttr);
+
+			} else {
+				throw new RuntimeException("解析属性异常-属性名:"+attributeName);
+			}
+		}
+		return method;
 	}
 }

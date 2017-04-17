@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.coderising.jvm.loader.ByteCodeIterator;
 
-public class LineNumberTable extends AttributeInfo{
+public class LineNumberTable extends AttributeInfo {
 	List<LineNumberItem> items = new ArrayList<LineNumberItem>();
 
 	private static class LineNumberItem {
@@ -39,8 +39,19 @@ public class LineNumberTable extends AttributeInfo{
 	}
 
 	public static LineNumberTable parse(ByteCodeIterator iter) {
+		int attributeNameIndex = iter.nextU2Int();
+		int attributeLength = iter.nextU4Integer();
+		LineNumberTable lineNumberTable = new LineNumberTable(attributeNameIndex, attributeLength);
+		
+		int lineNumberTableLength = iter.nextU2Int();
+		for (int i = 0; i < lineNumberTableLength; i++) {
+			LineNumberItem lineNumberItem = new LineNumberItem();
+			lineNumberItem.setStartPC(iter.nextU2Int());
+			lineNumberItem.setLineNum(iter.nextU2Int());
+			lineNumberTable.addLineNumberItem(lineNumberItem);
+		}
 
-		return null;
+		return lineNumberTable;
 	}
 
 }
