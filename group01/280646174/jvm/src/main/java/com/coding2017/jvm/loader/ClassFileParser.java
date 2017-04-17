@@ -4,6 +4,8 @@ import com.coding2017.jvm.clz.AccessFlag;
 import com.coding2017.jvm.clz.ClassFile;
 import com.coding2017.jvm.clz.ClassIndex;
 import com.coding2017.jvm.constant.*;
+import com.coding2017.jvm.field.Field;
+import com.coding2017.jvm.method.Method;
 
 public class ClassFileParser {
 
@@ -31,6 +33,10 @@ public class ClassFileParser {
         classFile.setClassIndex(parseClassInfex(iterator));
 
         parseInterfaces(iterator);
+
+        Field.parse(classFile.getConstantPool(), iterator);
+
+        Method.parse(classFile, iterator);
 
         return classFile;
     }
@@ -102,6 +108,10 @@ public class ClassFileParser {
         int interfaceCount = iter.nextU2ToInt();
 
         System.out.println("interfaceCount:" + interfaceCount);
+
+        if (interfaceCount != 0) {
+            throw new RuntimeException("not parse interface");
+        }
 
         // TODO : 如果实现了interface, 这里需要解析
     }

@@ -1,5 +1,6 @@
 package com.coding2017.jvm.attr;
 
+import com.coding2017.jvm.clz.ClassFile;
 import com.coding2017.jvm.loader.ByteCodeIterator;
 
 public class StackMapTable extends AttributeInfo {
@@ -10,7 +11,7 @@ public class StackMapTable extends AttributeInfo {
         super(attrNameIndex, attrLen);
     }
 
-    public static StackMapTable parse(ByteCodeIterator iter) {
+    public static StackMapTable parse(ClassFile clzFile, ByteCodeIterator iter, int nameIndex, int length) {
         int index = iter.nextU2ToInt();
         int len = iter.nextU4ToInt();
         StackMapTable t = new StackMapTable(index, len);

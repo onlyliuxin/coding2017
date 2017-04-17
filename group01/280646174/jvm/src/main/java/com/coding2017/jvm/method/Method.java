@@ -1,5 +1,6 @@
 package com.coding2017.jvm.method;
 
+import com.coding2017.jvm.attr.AttributeInfo;
 import com.coding2017.jvm.attr.CodeAttr;
 import com.coding2017.jvm.clz.ClassFile;
 import com.coding2017.jvm.loader.ByteCodeIterator;
@@ -42,7 +43,23 @@ public class Method {
     }
 
     public static Method parse(ClassFile clzFile, ByteCodeIterator iter) {
+        int accessFlag = iter.nextU2ToInt();
+        int nameIndex = iter.nextU2ToInt();
+        int descriptorIndex = iter.nextU2ToInt();
+        Method method = new Method(clzFile, accessFlag, nameIndex, descriptorIndex);
+
+        method.parseAttributes(iter);
         return null;
 
+    }
+
+    private void parseAttributes(ByteCodeIterator iter) {
+        int methodAttributeCount = iter.nextU2ToInt();
+        for (int i = 0; i < methodAttributeCount; i++) {
+            AttributeInfo attributeInfo = AttributeInfo.parse(this.clzFile, iter);
+            if (attributeInfo instanceof CodeAttr) {
+                this.setCodeAttr((CodeAttr) attributeInfo);
+            }
+        }
     }
 }

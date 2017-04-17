@@ -1,5 +1,6 @@
 package com.coding2017.jvm.attr;
 
+import com.coding2017.jvm.clz.ClassFile;
 import com.coding2017.jvm.loader.ByteCodeIterator;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class LineNumberTable extends AttributeInfo {
 
     }
 
-    public static LineNumberTable parse(ByteCodeIterator iter) {
+    public static LineNumberTable parse(ClassFile clzFile, ByteCodeIterator iter, int nameIndex, int length) {
 
         return null;
     }

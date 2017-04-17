@@ -1,5 +1,6 @@
 package com.coding2017.jvm.attr;
 
+import com.coding2017.jvm.clz.ClassFile;
 import com.coding2017.jvm.loader.ByteCodeIterator;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class LocalVariableTable extends AttributeInfo {
         super(attrNameIndex, attrLen);
     }
 
-    public static LocalVariableTable parse(ByteCodeIterator iter) {
+    public static LocalVariableTable parse(ClassFile clzFile, ByteCodeIterator iter, int nameIndex, int length) {
 
         return null;
     }

@@ -39,9 +39,24 @@ public class CodeAttr extends AttributeInfo {
         this.localVarTable = t;
     }
 
-    public static CodeAttr parse(ClassFile clzFile, ByteCodeIterator iter) {
-
-        return null;
+    public static CodeAttr parse(ClassFile clzFile, ByteCodeIterator iter, int nameIndex, int length) {
+        int maxStack = iter.nextU2ToInt();
+        int maxLocals = iter.nextU2ToInt();
+        int codeLength = iter.nextU4ToInt();
+        String code = iter.nextUxToHexString(codeLength);
+        CodeAttr codeAttr = new CodeAttr(nameIndex, length, maxStack, maxLocals, codeLength, code);
+        int codeAttributeCount = iter.nextU2ToInt();
+        for (int j = 0; j < codeAttributeCount; j++) {
+            AttributeInfo attributeInfo = AttributeInfo.parse(clzFile, iter);
+            if (attributeInfo instanceof LineNumberTable) {
+                codeAttr.setLineNumberTable((LineNumberTable) attributeInfo);
+            } else if (attributeInfo instanceof LocalVariableTable) {
+                codeAttr.setLocalVariableTable((LocalVariableTable) attributeInfo);
+            } else if (attributeInfo instanceof StackMapTable) {
+                codeAttr.setStackMapTable((StackMapTable) attributeInfo);
+            }
+        }
+        return codeAttr;
     }
 
     private void setStackMapTable(StackMapTable t) {
