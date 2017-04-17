@@ -27,5 +27,8 @@ public abstract class ConstantInfo {
     public ConstantInfo getConstantInfo(int index) {
 	return this.constantPool.getConstantInfo(index);
     }
+    
+    
+
 
 }
