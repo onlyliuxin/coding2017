@@ -46,6 +46,10 @@ public class InfixExprTest {
 			InfixExpr expr = new InfixExpr("10-30+50");
 			Assert.assertEquals(30, expr.evaluate(), 0.001f);
 		}
+		{
+			InfixExpr expr = new InfixExpr("10-30+50-20/10/2*4");
+			Assert.assertEquals(26, expr.evaluate(), 0.001f);
+		}
 		
 	}
 
