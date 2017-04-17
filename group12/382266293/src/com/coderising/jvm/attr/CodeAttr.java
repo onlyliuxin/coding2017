@@ -1,6 +1,9 @@
 package com.coderising.jvm.attr;
 
 import com.coderising.jvm.clz.ClassFile;
+import com.coderising.jvm.cmd.ByteCodeCommand;
+import com.coderising.jvm.cmd.CommandParser;
+import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.loader.ByteCodeIterator;
 
 
@@ -20,7 +23,8 @@ public class CodeAttr extends AttributeInfo {
 		 
 		 String code = iter.nextUxToHexString(codeLen);
 		 
-		 CodeAttr codeAttr = new CodeAttr(attrNameIndex, attrLen, maxStack, maxLocals, codeLen, code);
+		 ByteCodeCommand[] cmds = CommandParser.parse(clzFile, code);
+		 CodeAttr codeAttr = new CodeAttr(attrNameIndex, attrLen, maxStack, maxLocals, codeLen, code, cmds);
 
 		 System.out.println("Code is " + code);
 		 
@@ -70,21 +74,17 @@ public class CodeAttr extends AttributeInfo {
 	private int codeLen ;
 	private String code;
 
-	//private ByteCodeCommand[] cmds ;
-	//public ByteCodeCommand[] getCmds() {
-	//	return cmds;
-	//}
 	private LineNumberTable lineNumTable;
 	private LocalVariableTable localVarTable;
 	private StackMapTable stackMapTable;
 	
-	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code /*ByteCodeCommand[] cmds*/) {
+	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code ,ByteCodeCommand[] cmds) {
 		super(attrNameIndex, attrLen);
 		this.maxStack = maxStack;
 		this.maxLocals = maxLocals;
 		this.codeLen = codeLen;
 		this.code = code;
-		//this.cmds = cmds;
+		this.cmds = cmds;
 	}
 
 	public String getCode() {
@@ -105,8 +105,21 @@ public class CodeAttr extends AttributeInfo {
 		
 	}
 
-	
-	
+	private ByteCodeCommand[] cmds ;
+	public ByteCodeCommand[] getCmds() {		
+		return cmds;
+	}
+	public String toString(ConstantPool pool){
+		StringBuilder buffer = new StringBuilder();
+		//buffer.append("Code:").append(code).append("\n");
+		for(int i=0;i<cmds.length;i++){
+			buffer.append(cmds[i].toString(pool)).append("\n");
+		}
+		buffer.append("\n");
+		buffer.append(this.lineNumTable.toString());
+		buffer.append(this.localVarTable.toString(pool));
+		return buffer.toString();
+	}
 	
 	
 }

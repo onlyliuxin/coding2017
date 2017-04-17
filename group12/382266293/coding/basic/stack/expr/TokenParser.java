@@ -2,85 +2,56 @@ package stack.expr;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingDeque;
 
 public class TokenParser {
+	
+	
+	public  List<Token> parse(String expr) {
+		List<Token> tokens = new ArrayList<>();
 
-	Queue<Integer> intQ;
-	Queue<String> signQ;
-	static final List<String> signs = new ArrayList<String>();
-	{
-		signs.add("+");
-		signs.add("-");
-		signs.add("*");
-		signs.add("/");
-	}
+		int i = 0;
 
-	public TokenParser() {
-		intQ = new LinkedBlockingDeque<Integer>();
-		signQ = new LinkedBlockingDeque<String>();
-	}
+		while (i < expr.length()) {
 
-	public void parse(String expr) {
+			char c = expr.charAt(i);
 
-		String[] tokens = expr.split("");
-		String number = "";
-		String sign = "";
+			if (isOperator(c)) {
 
-		for (int i = 0; i < tokens.length; i++) {
+				Token t = new Token(Token.OPERATOR, String.valueOf(c));
+				tokens.add(t);
+				i++;
 
-			String c = tokens[i];
+			} else if (Character.isDigit(c)) {
 
-			if (isSign(c)) {
-				sign = c;
-				signQ.add(sign);
-				if (!number.equals("")) {
-					int num = Integer.parseInt(number);
-					intQ.add(num);
-					number = "";
-				}
-			} else {
-				number += tokens[i];
+				int nextOperatorIndex = indexOfNextOperator(i, expr);
+				String value = expr.substring(i, nextOperatorIndex);
+				Token t = new Token(Token.NUMBER, value);
+				tokens.add(t);
+				i = nextOperatorIndex;
+
+			} else{
+				System.out.println("char :["+c+"] is not number or operator,ignore");
+				i++;
 			}
 
 		}
+		return tokens;
+	}
 
-		if (!number.equals("")) {
-			int num = Integer.parseInt(number);
-			intQ.add(num);
+	private  int indexOfNextOperator(int i, String expr) {
+
+		while (Character.isDigit(expr.charAt(i))) {
+			i++;
+			if (i == expr.length()) {
+				break;
+			}
 		}
-		
-		int intSize = intQ.size();
-		if (intSize < 2 || intSize - signQ.size() > 1) {
-			throw new RuntimeException("Invalid input IntQ: " + intQ + " signQ " + signQ);
-		}
-
-		intQ.add(0);
+		return i;
 
 	}
 
-	private boolean isSign(String c) {
-		if (signs.contains(c)) {
-			return true;
-		}
-		return false;
+	private  boolean isOperator(char c) {
+		String sc = String.valueOf(c);
+		return Token.OPERATORS.contains(sc);
 	}
-
-	public int nextInt() {
-		return intQ.poll();
-	}
-
-	public String nextSign() {
-		return signQ.poll();
-	}
-
-	public boolean hasNextInt() {
-		return !intQ.isEmpty();
-	}
-
-	public boolean hasNextSign() {
-		return !signQ.isEmpty();
-	}
-
 }

@@ -174,8 +174,6 @@ public class ClassFileParser {
 	private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
 		
 		int methodNum = iter.nextU2ToInt();
-
-		ConstantPool pool = clzFile.getConstantPool(); 
 		for (int i = 0; i < methodNum; i++) {
 			Method method = Method.parse(clzFile,iter);
 			clzFile.addMethod(method);

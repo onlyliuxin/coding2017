@@ -12,7 +12,7 @@ public class InfixExpr {
 
 	public float evaluate() {
 
-		TokenParser tp = new TokenParser();
+		TParser tp = new TParser();
 		tp.parse(expr);
 		Stack<Integer> ints = new Stack<Integer>();
 		Stack<String> signs = new Stack<String>();

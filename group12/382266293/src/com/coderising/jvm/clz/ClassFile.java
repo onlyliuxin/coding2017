@@ -115,4 +115,15 @@ public class ClassFile {
 	public void setMinorVersion(int minorVersion) {
 		this.minorVersion = minorVersion;
 	}
+	
+	
+	public Method getMethod(String methodName, String paramAndReturnType){
+		
+		
+		return null;
+	}
+	public Method getMainMethod(){
+		
+		return null;
+	}
 }
