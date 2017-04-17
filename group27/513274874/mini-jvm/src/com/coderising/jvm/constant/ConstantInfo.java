@@ -18,11 +18,6 @@ public abstract class ConstantInfo {
 		this.constantPool = pool;
 	}
 	public abstract int getType();
-
-	@Override
-	public String toString(){
-		return super.toString();
-	}
 	
 	public ConstantPool getConstantPool() {
 		return constantPool;
