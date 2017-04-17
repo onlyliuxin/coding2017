@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/1511_714512544.iml" filepath="$PROJECT_DIR$/1511_714512544.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/com/coderising/miniJVM.iml" filepath="$PROJECT_DIR$/src/com/coderising/miniJVM.iml" />
     </modules>
   </component>
 </project>
