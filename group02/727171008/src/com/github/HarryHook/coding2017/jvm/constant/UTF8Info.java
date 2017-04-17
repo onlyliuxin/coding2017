@@ -26,12 +26,11 @@ public class UTF8Info extends ConstantInfo {
 	return "UTF8Info [type=" + type + ", length=" + length + ", value=" + value + ")]";
     }
 
-    public String getValue() {
-	return value;
-    }
-
     public void setValue(String value) {
 	this.value = value;
+    }
+    public String getValue(){
+	return value;
     }
 
 }

@@ -18,12 +18,19 @@ private static class Node {
 	
 	private Node first;// 链表头
 	private Node last;// 链表尾
-
+	
+	public LRUPageFrame(){
+		init();
+	}
 	
 	public LRUPageFrame(int capacity) {
 		
 		this.capacity = capacity;
 		
+		init();
+	}
+	
+	public void init(){
 		first = new Node();
 		last = new Node();
 		last.flag = "last";		//用来标识最后一个节点是链表尾，在这里链表尾并不算做内存页
@@ -112,6 +119,21 @@ private static class Node {
 		length++;
 	}
 	
+	public void add(Object pageNum){
+		Node node = first.next;
+		while (node.next!=null){
+			node = node.next;
+		}
+		Node e = new Node();
+		e.pageNum = pageNum;
+		Node prev = node.prev;
+		prev.next = e;
+		e.prev = prev;
+		e.next = node;
+		node.prev = e;
+		length++;
+	}
+	
 	public String toString(){
 		StringBuilder buffer = new StringBuilder();
 		Node node = first;
@@ -187,5 +209,37 @@ private static class Node {
 			}
 			nodef = nodef.next;
 		}
+	}
+	
+	/**
+	 * Stack 使用
+	 * @return
+	 */
+	public int getLength(){
+		return length;
+	}
+	
+	/**
+	 * Stack 使用 pop
+	 * @return
+	 */
+	public Object remove(){		
+		length--;
+		Node n = last.prev;
+		last.prev = n.prev;
+		n.prev.next = last;
+		return n.pageNum;
+	}
+	
+	/**
+	 * Stack 使用 pop
+	 * @return
+	 */
+	public Object removeLow(){
+		length--;
+		Node n = first.next;
+		first.next = n.next;
+		n.next.prev = first;
+		return n.pageNum;
 	}
 }

@@ -11,6 +11,8 @@ import com.github.orajavac.coding2017.jvm.constant.NameAndTypeInfo;
 import com.github.orajavac.coding2017.jvm.constant.NullConstantInfo;
 import com.github.orajavac.coding2017.jvm.constant.StringInfo;
 import com.github.orajavac.coding2017.jvm.constant.UTF8Info;
+import com.github.orajavac.coding2017.jvm.field.Field;
+import com.github.orajavac.coding2017.jvm.method.Method;
 
 public class ClassFileParser {
 	
@@ -22,18 +24,39 @@ public class ClassFileParser {
 		clzFile.setMinorVersion(iter.nextU2ToInt());
 		clzFile.setMajorVersion(iter.nextU2ToInt());
 		
-		clzFile.setConstPool(parseConstantPool(iter));
+		ConstantPool pool = parseConstantPool(iter);
+		clzFile.setConstPool(pool);
+
+		AccessFlag flag = parseAccessFlag(iter);
+		clzFile.setAccessFlag(flag);
+
+		ClassIndex clzIndex = parseClassInfex(iter);
+		clzFile.setClassIndex(clzIndex);
+
+		parseInterfaces(iter);
+		
+		parseFileds(clzFile,iter);
+		
+		parseMethods(clzFile,iter);
 		return clzFile;
 	}
 
 	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
-
-		return null;
+		AccessFlag flag = new AccessFlag(iter.nextU2ToInt());
+		return flag;
 	}
 
 	private ClassIndex parseClassInfex(ByteCodeIterator iter) {
 
-		return null;
+		int thisClassIndex = iter.nextU2ToInt();
+		int superClassIndex = iter.nextU2ToInt();
+
+		ClassIndex clzIndex = new ClassIndex();
+
+		clzIndex.setThisClassIndex(thisClassIndex);
+		clzIndex.setSuperClassIndex(superClassIndex);
+
+		return clzIndex;
 
 	}
 
@@ -82,9 +105,35 @@ public class ClassFileParser {
 				nameType.setIndex2(iter.nextU2ToInt());
 				pool.addConstantInfo(nameType);
 			}else{
-				throw new RuntimeException("the constant pool tag "+tag+" has not found");
+				throw new RuntimeException("the constant pool tag " + tag + " has not been implemented yet.");
 			}
 		}
+		System.out.println("Finished reading Constant pool ");
 		return pool;
+	}
+	
+	private void parseInterfaces(ByteCodeIterator iter) {
+		int interfaceCount = iter.nextU2ToInt();
+
+		System.out.println("interfaceCount:" + interfaceCount);
+
+		// TODO : 如果实现了interface, 这里需要解析
+	}
+	
+	private void parseFileds(ClassFile clzFile,ByteCodeIterator iter){
+		int filedCount = iter.nextU2ToInt();
+		System.out.println("Field count:" + filedCount);
+		for (int i=1;i<=filedCount;i++){
+			Field f = Field.parse(clzFile.getConstantPool(), iter);
+			clzFile.addField(f);
+		}
+	}
+	
+	private void parseMethods(ClassFile clzFile,ByteCodeIterator iter){
+		int methodCount = iter.nextU2ToInt();
+		for (int i=1;i<=methodCount;i++){
+			Method m = Method.parse(clzFile, iter);
+			clzFile.addMethod(m);
+		}
 	}
 }
