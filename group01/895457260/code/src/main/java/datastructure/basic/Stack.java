@@ -29,4 +29,8 @@ public class Stack {
 	public int size() {
 		return elementData.size();
 	}
+
+	public void clear() {
+		elementData = new ArrayList();
+	}
 }

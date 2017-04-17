@@ -1,6 +1,5 @@
 package week3;
-
-import java.io.FileNotFoundException;
+import java.util.concurrent.CyclicBarrier;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -11,6 +10,7 @@ import week3.api.DownloadListener;
 import week3.impl.ConnectionManagerImpl;
 
 public class FileDownloader {
+	private int MaxThreadNum = 4;
 	private String url = null,path=null;
 	DownloadListener listener = null;
 	private ConnectionManager cm = new ConnectionManagerImpl();
@@ -20,7 +20,7 @@ public class FileDownloader {
 		this.path = localpath;
 	}
 	
-	public void execute(){
+	public void execute() throws InterruptedException{
 		// 在这里实现你的代码， 注意： 需要用多线程实现下载
 		// 这个类依赖于其他几个接口, 你需要写这几个接口的实现代码
 		// (1) ConnectionManager , 可以打开一个连接，通过Connection可以读取其中的一段（用startPos, endPos来指定）
@@ -35,6 +35,11 @@ public class FileDownloader {
 		
 		// 下面的代码是示例代码， 也就是说只有一个线程， 你需要改造成多线程的。
 		Connection conn = null;
+		CyclicBarrier barr= new CyclicBarrier(MaxThreadNum,new Runnable(){
+			public void run(){
+				listener.notifyFinished();
+			}
+		});
 		try {
 			conn = cm.open(this.url);
 			int length = conn.getContentLength();	
@@ -43,18 +48,13 @@ public class FileDownloader {
 			tarfile.setLength(length);
 			tarfile.close();
 			Thread[] threads = new Thread[4];
-			threads[0] = new DownloadThread(cm.open(this.url),0,length/4,path);
-			threads[1] = new DownloadThread(cm.open(this.url),length/4,length/2,path);
-		    threads[2] = new DownloadThread(cm.open(this.url),length/2,3*length/4,path);
-		    threads[3] = new DownloadThread(cm.open(this.url),3*length/4,length,path);
+			threads[0] = new DownloadThread(barr,cm.open(this.url),0,length/4,path);
+			threads[1] = new DownloadThread(barr,cm.open(this.url),length/4,length/2,path);
+		    threads[2] = new DownloadThread(barr,cm.open(this.url),length/2,3*length/4,path);
+		    threads[3] = new DownloadThread(barr,cm.open(this.url),3*length/4,length,path);
 			for(int i=0;i<4;i++)
 			    threads[i].start();
-			threads[0].join();
-			threads[1].join();
-			threads[2].join();
-			threads[3].join();
-			this.getListener().notifyFinished();
-		} catch (ConnectionException | IOException | InterruptedException e) {
+		} catch (ConnectionException | IOException e) {
 			e.printStackTrace();
 		}finally{
 			if(conn != null){
@@ -70,5 +70,8 @@ public class FileDownloader {
 	}
 	public DownloadListener getListener(){
 		return this.listener;
+	}
+	public double getDownPercent(){
+		return 0.0;
 	}
 }

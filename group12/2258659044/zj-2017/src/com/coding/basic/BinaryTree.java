@@ -1,5 +1,7 @@
 package com.coding.basic;
 
+import com.coding.basic.array.ArrayList;
+
 public class BinaryTree {
 	
 	//根节点
