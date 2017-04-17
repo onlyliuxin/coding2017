@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/2931408816.iml" filepath="$PROJECT_DIR$/.idea/modules/2931408816.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson3/2931408816-lesson3.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson3/2931408816-lesson3.iml" group="lesson3" />
+      <module fileurl="file://D:\src\java\study\coding2017\group13\2931408816\.idea\modules\lesson3\2931408816-lesson3.iml" filepath="D:\src\java\study\coding2017\group13\2931408816\.idea\modules\lesson3\2931408816-lesson3.iml" group="lesson3" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/2931408816_main.iml" filepath="$PROJECT_DIR$/.idea/modules/2931408816_main.iml" group="2931408816" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/2931408816_test.iml" filepath="$PROJECT_DIR$/.idea/modules/2931408816_test.iml" group="2931408816" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson1/lesson1.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson1/lesson1.iml" group="lesson1" />
@@ -12,9 +12,16 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson2/lesson2.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson2/lesson2.iml" group="lesson2" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson2/lesson2_main.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson2/lesson2_main.iml" group="lesson2" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson2/lesson2_test.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson2/lesson2_test.iml" group="lesson2" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson3.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson3/lesson3.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson3/lesson3.iml" group="lesson3" />
+      <module fileurl="file://D:\src\java\study\coding2017\group13\2931408816\.idea\modules\lesson3.iml" filepath="D:\src\java\study\coding2017\group13\2931408816\.idea\modules\lesson3.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson3/lesson3_main.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson3/lesson3_main.iml" group="lesson3" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson3/lesson3_test.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson3/lesson3_test.iml" group="lesson3" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson4.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson4.iml" group="lesson4" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson4/lesson4_main.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson4/lesson4_main.iml" group="lesson4" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson4/lesson4_test.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson4/lesson4_test.iml" group="lesson4" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson5.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson5.iml" group="lesson5" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson5/lesson5_main.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson5/lesson5_main.iml" group="lesson5" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lesson5/lesson5_test.iml" filepath="$PROJECT_DIR$/.idea/modules/lesson5/lesson5_test.iml" group="lesson5" />
     </modules>
   </component>
 </project>

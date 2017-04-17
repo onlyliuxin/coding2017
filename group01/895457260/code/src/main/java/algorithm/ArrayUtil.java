@@ -96,7 +96,7 @@ public class ArrayUtil {
 		return newArray;
 	}
 	/**
-	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
+	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.size + size
 	 * 注意，老数组的元素在新数组中需要保持
 	 * 例如 oldArray = [2,3,6] , size = 3,则返回的新数组为
 	 * [2,3,6,0,0,0]

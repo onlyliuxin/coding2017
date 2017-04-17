@@ -3,6 +3,8 @@ package com.coding.basic;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 /**
  * Created by luoziyihao on 3/23/17.
  */
@@ -83,9 +85,12 @@ public class LinkedListTest {
     }
 
     private LinkedList createAndFillLinkedList(int length) {
+        return createAndFillLinkedList(1, length);
+    }
 
+    private LinkedList createAndFillLinkedList(int start, int length) {
         LinkedList linkedList = new LinkedList();
-        for (int i = 1; i <= length; i++) {
+        for (int i = start; i <= length; i++) {
             linkedList.add(i);
         }
         return linkedList;
@@ -136,6 +141,9 @@ public class LinkedListTest {
 
     @Test
     public void getElements() throws Exception {
+        LinkedList listA= createAndFillLinkedList(0,8);
+        LinkedList listB = createAndFillLinkedList(4, 4);
+        Assert.assertEquals("[4,5,6,7]", Arrays.toString(listA.getElements(listB)));
 
     }
 
