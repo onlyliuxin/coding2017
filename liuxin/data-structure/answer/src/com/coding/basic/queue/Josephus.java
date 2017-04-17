@@ -13,21 +13,7 @@ public class Josephus {
 	
 	public static List<Integer> execute(int n, int m){
 		
-		Queue<Integer> queue = new Queue<Integer>();
-        for (int i = 0; i < n; i++){
-        	queue.enQueue(i);
-        }
-        
-        List<Integer> result = new ArrayList<Integer>();
-
-        while (!queue.isEmpty()) {
-            for (int i = 0; i < m-1; i++){
-                queue.enQueue(queue.deQueue());
-            }
-            result.add(queue.deQueue());
-            
-        } 
-        return result;
+		return null;
 	}
 	
 }

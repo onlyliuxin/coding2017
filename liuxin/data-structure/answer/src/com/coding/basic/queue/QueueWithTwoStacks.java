@@ -1,6 +1,5 @@
 package com.coding.basic.queue;
 
-import java.util.NoSuchElementException;
 import java.util.Stack;
 
 public class QueueWithTwoStacks<E> {
@@ -14,39 +13,27 @@ public class QueueWithTwoStacks<E> {
     }
 
    
-    private void moveStack1ToStack2() {
-        while (!stack1.isEmpty()){
-        	stack2.push(stack1.pop());
-        }
-            
-    }
+    
 
 
     public boolean isEmpty() {
-        return stack1.isEmpty() && stack2.isEmpty();
+        return false;
     }
 
 
     
     public int size() {
-        return stack1.size() + stack2.size();     
+        return -1;   
     }
 
 
 
     public void enQueue(E item) {
-        stack1.push(item);
+        
     }
 
     public E deQueue() {
-        if (isEmpty()) {
-        	throw new NoSuchElementException("Queue is empty");
-        }
-        if (stack2.isEmpty()) {
-        	moveStack1ToStack2();
-        }
-        
-        return stack2.pop();
+        return null;
     }
 
 
