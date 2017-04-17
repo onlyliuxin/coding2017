@@ -1,7 +1,12 @@
 package com.coderising.jvm.clz;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantPool;
+import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
 
 public class ClassFile {
 	
@@ -12,7 +17,25 @@ public class ClassFile {
 	private ClassIndex clzIndex;
 	private ConstantPool pool;
 	
+	private List<Field> fields = new ArrayList<>();
+	private List<Method> methods = new ArrayList<>();
 	
+	
+	public ConstantPool getPool() {
+		return pool;
+	}
+	public void setPool(ConstantPool pool) {
+		this.pool = pool;
+	}
+	public List<Method> getMethods() {
+		return methods;
+	}
+	public void setMethods(List<Method> methods) {
+		this.methods = methods;
+	}
+	public void setClzIndex(ClassIndex clzIndex) {
+		this.clzIndex = clzIndex;
+	}
 	public ClassIndex getClzIndex() {
 		return clzIndex;
 	}
@@ -71,5 +94,11 @@ public class ClassFile {
 	private String getSuperClassName(){
 		ClassInfo superClass = (ClassInfo)this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
 		return superClass.getClassName();
+	}
+	public List<Field> getFields() {
+		return fields;
+	}
+	public void setFields(List<Field> fields) {
+		this.fields = fields;
 	}
 }

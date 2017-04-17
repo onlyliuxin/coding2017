@@ -1,5 +1,7 @@
 package com.coderising.jvm.loader;
 
+import java.io.UnsupportedEncodingException;
+
 public class ByteCodeIterator {
 	
 	private byte[] codes;
@@ -45,7 +47,16 @@ public class ByteCodeIterator {
 		for(int i=0;i<len;i++){
 			tmp[i] = codes[pos++];
 		}
-		return new String(tmp);
+		try {
+			return new String(tmp, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return "";
+		}
+	}
+	
+	public void back(int len){
+		this.pos-=len;
 	}
 	
 	public static void main(String[] args) {

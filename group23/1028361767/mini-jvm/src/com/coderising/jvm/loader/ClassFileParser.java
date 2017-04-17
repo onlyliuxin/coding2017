@@ -1,5 +1,8 @@
 package com.coderising.jvm.loader;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.coderising.jvm.clz.AccessFlag;
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.clz.ClassIndex;
@@ -11,6 +14,8 @@ import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.NullConstantInfo;
 import com.coderising.jvm.constant.StringInfo;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
 
 public class ClassFileParser {
 	
@@ -24,12 +29,36 @@ public class ClassFileParser {
 		classFile.setMinorVersion(iter.nextU2ToInt());
 		classFile.setMajorVersion(iter.nextU2ToInt());
 		
-		classFile.setConstPool(parseConstantPool(iter));
+		ConstantPool pool = parseConstantPool(iter);
+		classFile.setConstPool(pool);
 		
 		classFile.setAccessFlag(parseAccessFlag(iter));
 		
 		classFile.setClassIndex(parseClassInfex(iter));
+		
+		parseInterfaces(iter);
+		
+		classFile.setFields(prarseField(iter, pool));
+		classFile.setMethods(parseMethod(iter, classFile));
 		return classFile;
+	}
+
+	private List<Method> parseMethod(ByteCodeIterator iter, ClassFile classFile) {
+		List<Method> methods = new ArrayList<>();
+		int mthodsCount = iter.nextU2ToInt();
+		for(int i=0;i<mthodsCount;i++) {
+			methods.add(Method.parse(classFile, iter));
+		}
+		return methods;
+	}
+
+	private List<Field> prarseField(ByteCodeIterator iter, ConstantPool pool) {
+		List<Field> fields = new ArrayList<>();
+		int fieldsCount = iter.nextU2ToInt();
+		for(int i=0;i<fieldsCount;i++) {
+			fields.add(Field.parse(pool, iter));
+		}
+		return fields;
 	}
 
 	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
@@ -95,4 +124,11 @@ public class ClassFileParser {
 		return pool;
 	}
 	
+	private void parseInterfaces(ByteCodeIterator iter) {
+		int interfaceCount = iter.nextU2ToInt();
+
+		System.out.println("interfaceCount:" + interfaceCount);
+
+		// TODO : 如果实现了interface, 这里需要解析
+	}
 }

@@ -9,13 +9,27 @@ public class StackUtil {
 	 */
 	public static void reverse(Stack s) {
 		Stack tmp = new Stack();
-		Stack tmp1 = new Stack();
-		while(!s.isEmpty())
-			tmp.push(s.pop());
-		while(!tmp.isEmpty())
-			tmp1.push(tmp.pop());
-		while(!tmp1.isEmpty())
-			s.push(tmp1.pop());
+//		Stack tmp1 = new Stack();
+//		while(!s.isEmpty())
+//			tmp.push(s.pop());
+//		while(!tmp.isEmpty())
+//			tmp1.push(tmp.pop());
+//		while(!tmp1.isEmpty())
+//			s.push(tmp1.pop());
+		/**
+		 * 改正
+		 */
+		int len = s.size();
+		for(int i=0;i<len;i++){
+			Integer top = (Integer)s.pop();
+			while(s.size() > i) {
+				tmp.push(s.pop());
+			}
+			s.push(top);
+			while(tmp.size() > 0){
+				s.push(tmp.pop());
+			}
+		}
 	}
 
 	/**
@@ -90,9 +104,7 @@ public class StackUtil {
 				}
 			}
 		}
-		System.out.println(stack.size());
-		if(!stack.isEmpty()) return false;
-		return true;
+		return stack.size() == 0;
 	}
 	
 	
