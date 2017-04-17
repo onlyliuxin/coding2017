@@ -30,7 +30,12 @@ public class TestArrayUtil {
 	
 	@Test
 	public void testMerge(){
-		
+		int[] a1 = {3, 5, 7,8};
+		int[] a2 = {4, 5, 6,7};
+		int[] result = ArrayUtil.merge(a1, a2);
+		for(int i : result){
+			System.out.println(i);
+		}
 	}
 	
 	@Test

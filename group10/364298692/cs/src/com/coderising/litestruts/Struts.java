@@ -1,16 +1,22 @@
 package com.coderising.litestruts;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 
-
-
 public class Struts {
-
+	
+	private final static Configuration cfg = new Configuration("struts.xml"); 
+	/**
+	 * 
+	 * @param actionName
+	 * @param parameters 模拟的是从浏览器发送过来的数据
+	 * @return
+	 */
     public static View runAction(String actionName, Map<String,String> parameters) {
 
         /*
          
-		0. 读取配置文件struts.xml
+		0. 读取配置文件struts.xml --> 对象
  		
  		1. 根据actionName找到相对应的class ， 例如LoginAction,   通过反射实例化（创建对象）
 		据parameters中的数据，调用对象的setter方法， 例如parameters中的数据是 
@@ -27,6 +33,38 @@ public class Struts {
 		放到View对象的jsp字段中。
         
         */
+    	
+    	String clzName = cfg.getClassName(actionName);
+    	if(clzName == null){
+    		return null;
+    	}
+    	
+    	try {
+    		// 1.实例化LoginAction，将参数设置好
+			Class<?> clz = Class.forName(clzName);
+			Object action = clz.newInstance();
+			ReflectionUtil.setParameters(action, parameters);
+			
+			// 2.拿到execute方法，并触发，得到程序运行的结果（即success或者fail）
+			Method executeMethod = clz.getDeclaredMethod("execute");
+			String resultName = (String) executeMethod.invoke(action);
+			
+			// 3.进而拿到运行结果对应的即将跳转的jsp
+			String viewName = cfg.getResultView(actionName, resultName);
+			
+			// 4.拿参数
+			Map<String, Object> params = ReflectionUtil.getParamterMap(action);
+			
+			// 5.组View
+			View view = new View();
+			view.setJsp(resultName);
+			view.setParameters(params);
+			
+			return view;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     	
     	return null;
     }    
