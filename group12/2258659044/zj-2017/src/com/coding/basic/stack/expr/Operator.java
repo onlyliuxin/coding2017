@@ -37,6 +37,19 @@ public enum Operator {
     	return null;
 	}
     
+    public static boolean contains(String flag){
+    	
+    	if(ADD.flag.equals(flag)){
+    		return true;
+    	}else if(SUB.flag.equals(flag)){
+    		return true;
+    	}else if(MULTY.flag.equals(flag)){
+    		return true;
+    	}else if(DIVIDE.flag.equals(flag)){
+    		return true;
+    	}
+    	return false;
+    }
 	public String getFlag() {
 		return flag;
 	}

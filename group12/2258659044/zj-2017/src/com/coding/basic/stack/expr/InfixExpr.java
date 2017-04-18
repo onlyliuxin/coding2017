@@ -1,19 +1,14 @@
 package com.coding.basic.stack.expr;
 
-import com.coding.basic.Iterator;
 import com.coding.basic.stack.Stack;
 import com.coding.basic.stack.StackUtil;
 
 public class InfixExpr {
 
 	String expr = null;
-	char[] data = null;
 	
-	private static final String operatorsStr = "+-*/";
-
 	public InfixExpr(String expr) {
 		this.expr = expr;
-		this.data = expr.toCharArray();	
 	}
 
 	public float evaluate() {
@@ -23,7 +18,7 @@ public class InfixExpr {
 		//操作栈
 		Stack<Operator> operStack = new Stack<>();
 		
-		splitInfixExpr(dataStack,operStack);
+		parseExpr(dataStack,operStack);
 		
 		return summary(dataStack,operStack);
 	}
@@ -34,12 +29,12 @@ public class InfixExpr {
 	 * 
 	 * @return
 	 */
-	private void splitInfixExpr(Stack<Float> dataStack,Stack<Operator> operStack) {
+	private void parseExpr(Stack<Float> dataStack,Stack<Operator> operStack) {
 
-		Itr it = new Itr();
+		ExprIterator it = new ExprIterator(expr);
 		while(it.hasNext()){
 			String element = it.next();
-			if (operatorsStr.contains(element)) {
+			if (Operator.contains(element)) {
 				putOpersToStack(dataStack,operStack, element);
 			} else {
 				dataStack.push(Float.parseFloat(element));
@@ -79,30 +74,6 @@ public class InfixExpr {
 		}
 		operStack.push(thisOper);
 	}
-
-	/**
-	 * 运算
-	 * @param a 数字
-	 * @param oper 运算符
-	 * @param b 数字
-	 * @return
-	 */
-	private float calculate(float a,Operator oper,float b) {
-
-		String operFlag = oper.getFlag();
-
-		float res = 0f;
-		if (Operator.ADD.getFlag().equals(operFlag)) {
-			res = a + b;
-		} else if (Operator.SUB.getFlag().equals(operFlag)) {
-			res = a - b;
-		} else if (Operator.MULTY.getFlag().equals(operFlag)) {
-			res = a * b;
-		} else if (Operator.DIVIDE.getFlag().equals(operFlag)) {
-			res = a / b;
-		}
-		return res;
-	}
 	
 	/**
 	 * 运算距栈顶最近两个元素的值并压回原栈
@@ -123,7 +94,7 @@ public class InfixExpr {
 		}
 				
 		Operator oper = operStack.pop();
-		float res = calculate(a,oper,b);
+		float res = FixExprUtil.calculate(a,oper,b);
 		dataStack.push(res);
 	}
 
@@ -142,33 +113,5 @@ public class InfixExpr {
 		}
 		return dataStack.pop();
 	}
-
-	private class Itr implements Iterator {
-
-		int cursor;
-
-		@Override
-		public boolean hasNext() {
-			return cursor != (expr.length());
-		}
-
-		@Override
-		public String next() {
-
-		StringBuilder val = new StringBuilder();
-			for (int i = cursor; i < data.length; i++) {
-				if (operatorsStr.contains(data[i] + "")) {
-					if ("".equals(val.toString())) {
-						val.append(data[i]);
-						this.cursor = (i + 1);
-					}
-					break;
-				} else {
-					val.append(data[i]);
-					this.cursor = (i + 1);
-				}
-			}
-			return val.toString();
-		}
-	}	
+	
 }
