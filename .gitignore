@@ -215,7 +215,7 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-.gitignore
+#.gitignore
 =======
 
 
@@ -257,7 +257,7 @@ tmp
 
 .metadata
 RemoteSystemsTempFiles
-.gitignore
+#.gitignore
 
 .recommenders
 .idea/
