@@ -6,12 +6,6 @@ import com.coding.basic.List;
 public class LinkedList implements List {
 	
 	private Node head;
-
-	private static  class Node{
-		Object data;
-		Node next;
-		
-	}
 	
 	public void add(Object o){
 		
@@ -47,7 +41,11 @@ public class LinkedList implements List {
 	}
 	
 	
-
+	private static  class Node{
+		Object data;
+		Node next;
+		
+	}
 	
 	/**
 	 * 把该链表逆置
