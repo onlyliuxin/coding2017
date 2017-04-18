@@ -1,5 +1,8 @@
 package org.coding.one;
 
+/**
+ *  双链表/双向链表
+ */
 public class LinkedList implements List {
 
 	private Node first;
