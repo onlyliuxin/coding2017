@@ -185,16 +185,21 @@ public class LinkedList implements List {
      * @param length
      */
     public void remove(int i, int length) {
-        if (i == 0 ) {removeFirstSize(length); return;}
-        if (i >= size || length == 0) {return;}
+        if (i == 0) {
+            removeFirstSize(length);
+            return;
+        }
+        if (i >= size || length == 0) {
+            return;
+        }
 
         int lastLenth = size - i;
-        length = length <= lastLenth? length : lastLenth;
-        Node pre = node(i-1);
+        length = length <= lastLenth ? length : lastLenth;
+        Node pre = node(i - 1);
         int j = 0;
 
         Node next = pre;
-        while (j++ < length){
+        while (j++ < length) {
             next = next.next;
         }
         pre.next = next.next;
@@ -213,8 +218,43 @@ public class LinkedList implements List {
      * @param list
      */
     public int[] getElements(LinkedList list) {
-        return null;
+        if (size() == 0) {
+            return new int[0];
+        }
+        Iterator iterator = list.iterator();
+        Node fromNode = iterator().nextNode();
+        int fromIndex = 0;
+
+        int[] retArray = new int[list.size()];
+        int retIndex = 0;
+        while (iterator.hasNext()) {
+            int index = (int) iterator.next();
+            Node node = node(fromNode, fromIndex, index);
+            fromIndex = index;
+            fromNode = node;
+            if (node == null) {
+                return retArray;
+            } else {
+                retArray[retIndex++] = (int)node.data;
+            }
+        }
+        return retArray;
     }
+
+    private Node node(Node fromNode, int fromIndex, int index) {
+        Node next = fromNode;
+        int nextIndex = fromIndex;
+        while (next != null && nextIndex < index) {
+            next = next.next;
+            nextIndex++;
+        }
+        if (nextIndex == index) {
+            return next;
+        } else {
+            return null;
+        }
+    }
+
 
     /**
      * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。

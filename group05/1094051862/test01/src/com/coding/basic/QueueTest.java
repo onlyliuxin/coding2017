@@ -5,8 +5,6 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import sun.org.mozilla.javascript.internal.ast.NewExpression;
-
 public class QueueTest {
 
 	@Test
