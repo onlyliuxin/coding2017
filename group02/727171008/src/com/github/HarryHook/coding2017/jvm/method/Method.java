@@ -2,6 +2,7 @@
 package com.github.HarryHook.coding2017.jvm.method;
 
 import com.github.HarryHook.coding2017.jvm.clz.ClassFile;
+import com.github.HarryHook.coding2017.jvm.cmd.ByteCodeCommand;
 
 import javax.management.RuntimeErrorException;
 
@@ -80,4 +81,7 @@ public class Method {
 	buffer.append(desc);
 	return buffer.toString();
     }
+    public ByteCodeCommand[] getCmds() {		
+	return this.getCodeAttr().getCmds();
+}
 }

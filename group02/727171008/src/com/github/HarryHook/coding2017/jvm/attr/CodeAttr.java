@@ -1,6 +1,7 @@
 package com.github.HarryHook.coding2017.jvm.attr;
 
 import com.github.HarryHook.coding2017.jvm.clz.ClassFile;
+import com.github.HarryHook.coding2017.jvm.cmd.ByteCodeCommand;
 import com.github.HarryHook.coding2017.jvm.constant.ConstantPool;
 import com.github.HarryHook.coding2017.jvm.loader.ByteCodeIterator;
 import com.sun.org.apache.bcel.internal.generic.NEW;
@@ -15,10 +16,10 @@ public class CodeAttr extends AttributeInfo {
 	return code;
     }
 
-    // private ByteCodeCommand[] cmds ;
-    // public ByteCodeCommand[] getCmds() {
-    // return cmds;
-    // }
+     private ByteCodeCommand[] cmds ;
+     public ByteCodeCommand[] getCmds() {
+	 return cmds;
+     }
     private LineNumberTable lineNumTable;
     private LocalVariableTable localVarTable;
     private StackMapTable stackMapTable;
@@ -30,7 +31,7 @@ public class CodeAttr extends AttributeInfo {
 	this.maxLocals = maxLocals;
 	this.codeLen = codeLen;
 	this.code = code;
-	// this.cmds = cmds;
+	this.cmds = cmds;
     }
 
     public void setLineNumberTable(LineNumberTable t) {
@@ -92,9 +93,9 @@ public class CodeAttr extends AttributeInfo {
 	buffer.append("Code:").append(code).append("\n");
 	buffer.append("\n");
 	buffer.append(this.lineNumTable.toString());
-	//buffer.append(this.localVarTable.toString(pool));
+	buffer.append(this.localVarTable.toString(pool));
 	return buffer.toString();
     }
-
+    
 
 }

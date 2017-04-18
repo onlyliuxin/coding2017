@@ -18,7 +18,7 @@ public class ClassFile {
     private ClassIndex clzIndex;
     private ConstantPool pool;
     private List<Field> fields = new ArrayList<Field>();
-    private List<Method> methods  = new ArrayList<Method>();;
+    private List<Method> methods  = new ArrayList<Method>();
 
     public ClassIndex getClzIndex() {
 	return clzIndex;
@@ -72,13 +72,13 @@ public class ClassFile {
 
     }
 
-    private String getClassName() {
+    public String getClassName() {
 	int thisClassIndex = clzIndex.getThisClassIndex();
 	ClassInfo thisClass = (ClassInfo) this.getConstantPool().getConstantInfo(thisClassIndex);
 	return thisClass.getClassName();
     }
 
-    private String getSuperClassName() {
+    public String getSuperClassName() {
 	ClassInfo superClass = (ClassInfo) this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
 	return superClass.getClassName();
     }
@@ -97,6 +97,15 @@ public class ClassFile {
     }
     public List<Method> getMethods() {
 	return methods;
+    }
+    public Method getMethod(String methodName, String paramAndReturnType){
+	
+	
+	return null;
+    }
+    public Method getMainMethod(){
+	
+	return null;
     }
 
 
