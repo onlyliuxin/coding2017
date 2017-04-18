@@ -1,5 +1,9 @@
 package com.coderising.jvm.test;
 
+import com.coderising.jvm.cmd.BiPushCmd;
+import com.coderising.jvm.cmd.ByteCodeCommand;
+import com.coderising.jvm.cmd.OneOperandCmd;
+import com.coderising.jvm.cmd.TwoOperandCmd;
 import com.coderising.jvm.field.Field;
 import com.coderising.jvm.method.Method;
 import com.coderising.jvm.util.Util;
@@ -35,7 +39,7 @@ public class ClassFileloaderTest {
         loader.addClassPath(path1);
         String className = "com.coderising.jvm.test.EmployeeV1";
 
-		clzFile = loader.loadClass(className);
+        clzFile = loader.loadClass(className);
         clzFile.print();
     }
 
@@ -155,7 +159,7 @@ public class ClassFileloaderTest {
         }
 
         {
-            MethodRefInfo methodRef = (MethodRefInfo)pool.getConstantInfo(12);
+            MethodRefInfo methodRef = (MethodRefInfo) pool.getConstantInfo(12);
             Assert.assertEquals(3, methodRef.getClassInfoIndex());
             Assert.assertEquals(13, methodRef.getNameAndTypeIndex());
         }
@@ -167,7 +171,7 @@ public class ClassFileloaderTest {
         }
         //抽查几个吧
         {
-            MethodRefInfo methodRef = (MethodRefInfo)pool.getConstantInfo(45);
+            MethodRefInfo methodRef = (MethodRefInfo) pool.getConstantInfo(45);
             Assert.assertEquals(1, methodRef.getClassInfoIndex());
             Assert.assertEquals(46, methodRef.getNameAndTypeIndex());
         }
@@ -194,7 +198,7 @@ public class ClassFileloaderTest {
      * 下面是第三次JVM课应实现的测试用例
      */
     @Test
-    public void testReadFields(){
+    public void testReadFields() {
 
         List<Field> fields = clzFile.getFields();
         Assert.assertEquals(2, fields.size());
@@ -207,15 +211,16 @@ public class ClassFileloaderTest {
             Assert.assertEquals("age:I", f.toString());
         }
     }
+
     @Test
-    public void testMethods(){
+    public void testMethods() {
 
         List<Method> methods = clzFile.getMethods();
         ConstantPool pool = clzFile.getConstantPool();
 
         {
             Method m = methods.get(0);
-            assertMethodEquals(pool,m,
+            assertMethodEquals(pool, m,
                     "<init>",
                     "(Ljava/lang/String;I)V",
                     "2ab7000c2a2bb5000f2a1cb50011b1");
@@ -223,7 +228,7 @@ public class ClassFileloaderTest {
         }
         {
             Method m = methods.get(1);
-            assertMethodEquals(pool,m,
+            assertMethodEquals(pool, m,
                     "setName",
                     "(Ljava/lang/String;)V",
                     "2a2bb5000fb1");
@@ -231,14 +236,14 @@ public class ClassFileloaderTest {
         }
         {
             Method m = methods.get(2);
-            assertMethodEquals(pool,m,
+            assertMethodEquals(pool, m,
                     "setAge",
                     "(I)V",
                     "2a1bb50011b1");
         }
         {
             Method m = methods.get(3);
-            assertMethodEquals(pool,m,
+            assertMethodEquals(pool, m,
                     "sayHello",
                     "()V",
                     "b2001c1222b60024b1");
@@ -246,20 +251,95 @@ public class ClassFileloaderTest {
         }
         {
             Method m = methods.get(4);
-            assertMethodEquals(pool,m,
+            assertMethodEquals(pool, m,
                     "main",
                     "([Ljava/lang/String;)V",
                     "bb000159122b101db7002d4c2bb6002fb1");
         }
     }
 
-    private void assertMethodEquals(ConstantPool pool,Method m , String expectedName, String expectedDesc,String expectedCode){
+    private void assertMethodEquals(ConstantPool pool, Method m, String expectedName, String expectedDesc, String expectedCode) {
         String methodName = pool.getUTF8String(m.getNameIndex());
         String methodDesc = pool.getUTF8String(m.getDescriptorIndex());
         String code = m.getCodeAttr().getCode();
         Assert.assertEquals(expectedName, methodName);
         Assert.assertEquals(expectedDesc, methodDesc);
         Assert.assertEquals(expectedCode, code);
+    }
+
+
+    @Test
+    public void testByteCodeCommand() {
+        {
+            Method initMethod = this.clzFile.getMethod("<init>", "(Ljava/lang/String;I)V");
+            ByteCodeCommand[] cmds = initMethod.getCmds();
+
+            assertOpCodeEquals("0: aload_0", cmds[0]);
+            assertOpCodeEquals("1: invokespecial #12", cmds[1]);
+            assertOpCodeEquals("4: aload_0", cmds[2]);
+            assertOpCodeEquals("5: aload_1", cmds[3]);
+            assertOpCodeEquals("6: putfield #15", cmds[4]);
+            assertOpCodeEquals("9: aload_0", cmds[5]);
+            assertOpCodeEquals("10: iload_2", cmds[6]);
+            assertOpCodeEquals("11: putfield #17", cmds[7]);
+            assertOpCodeEquals("14: return", cmds[8]);
+        }
+
+        {
+            Method setNameMethod = this.clzFile.getMethod("setName", "(Ljava/lang/String;)V");
+            ByteCodeCommand[] cmds = setNameMethod.getCmds();
+
+            assertOpCodeEquals("0: aload_0", cmds[0]);
+            assertOpCodeEquals("1: aload_1", cmds[1]);
+            assertOpCodeEquals("2: putfield #15", cmds[2]);
+            assertOpCodeEquals("5: return", cmds[3]);
+
+        }
+
+        {
+            Method sayHelloMethod = this.clzFile.getMethod("sayHello", "()V");
+            ByteCodeCommand[] cmds = sayHelloMethod.getCmds();
+
+            assertOpCodeEquals("0: getstatic #28", cmds[0]);
+            assertOpCodeEquals("3: ldc #34", cmds[1]);
+            assertOpCodeEquals("5: invokevirtual #36", cmds[2]);
+            assertOpCodeEquals("8: return", cmds[3]);
+
+        }
+
+        {
+            Method mainMethod = this.clzFile.getMainMethod();
+
+            ByteCodeCommand[] cmds = mainMethod.getCmds();
+
+            assertOpCodeEquals("0: new #1", cmds[0]);
+            assertOpCodeEquals("3: dup", cmds[1]);
+            assertOpCodeEquals("4: ldc #43", cmds[2]);
+            assertOpCodeEquals("6: bipush 29", cmds[3]);
+            assertOpCodeEquals("8: invokespecial #45", cmds[4]);
+            assertOpCodeEquals("11: astore_1", cmds[5]);
+            assertOpCodeEquals("12: aload_1", cmds[6]);
+            assertOpCodeEquals("13: invokevirtual #47", cmds[7]);
+            assertOpCodeEquals("16: return", cmds[8]);
+        }
+
+    }
+
+    private void assertOpCodeEquals(String expected, ByteCodeCommand cmd) {
+
+        String acctual = cmd.getOffset() + ": " + cmd.getReadableCodeText();
+
+        if (cmd instanceof OneOperandCmd) {
+            if (cmd instanceof BiPushCmd) {
+                acctual += " " + ((OneOperandCmd) cmd).getOperand();
+            } else {
+                acctual += " #" + ((OneOperandCmd) cmd).getOperand();
+            }
+        }
+        if (cmd instanceof TwoOperandCmd) {
+            acctual += " #" + ((TwoOperandCmd) cmd).getIndex();
+        }
+        Assert.assertEquals(expected, acctual);
     }
 
 }

@@ -4,6 +4,9 @@ package com.coderising.jvm.method;
 import com.coderising.jvm.attr.AttributeInfo;
 import com.coderising.jvm.attr.CodeAttr;
 import com.coderising.jvm.clz.ClassFile;
+import com.coderising.jvm.cmd.ByteCodeCommand;
+import com.coderising.jvm.constant.ConstantPool;
+import com.coderising.jvm.constant.UTF8Info;
 import com.coderising.jvm.loader.ByteCodeIterator;
 
 public class Method {
@@ -68,4 +71,26 @@ public class Method {
         return method;
 
     }
+
+    public String toString() {
+
+        ConstantPool pool = this.clzFile.getConstantPool();
+
+        StringBuilder buffer = new StringBuilder();
+
+        String name = ((UTF8Info)pool.getConstantInfo(this.nameIndex)).getValue();
+
+        String desc = ((UTF8Info)pool.getConstantInfo(this.descriptorIndex)).getValue();
+
+        buffer.append(name).append(":").append(desc).append("\n");
+
+        buffer.append(this.codeAttr.toString(pool));
+
+        return buffer.toString();
+    }
+
+    public ByteCodeCommand[] getCmds() {
+        return this.getCodeAttr().getCmds();
+    }
+
 }

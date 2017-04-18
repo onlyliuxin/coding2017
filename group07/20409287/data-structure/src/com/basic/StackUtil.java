@@ -9,10 +9,10 @@ public class StackUtil {
 	 * 假设栈中的元素是Integer, 从栈顶到栈底是 : 5,4,3,2,1 调用该方法后， 元素次序变为: 1,2,3,4,5
 	 * 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
 	 */
-	public static void reverse(Stack<Integer> s) {
+	public static void reverse(Stack s) {
 
 		if (s.isEmpty()) return;
-		int top = s.pop();
+		Object top = s.pop();
 		reverse(s); //递归处理子栈
 		moveTopToButtom(s, top);
 	}
@@ -20,12 +20,12 @@ public class StackUtil {
 	/**
 	 * 将栈顶元素移至栈底
 	 */
-	private static void moveTopToButtom(Stack<Integer> stack, Integer element) {
+	private static void moveTopToButtom(Stack stack, Object element) {
 
 		if (stack.isEmpty()) {
 			stack.push(element);
 		} else {
-			Integer top = stack.pop();
+			Object top = stack.pop();
 			moveTopToButtom(stack, element);
 			stack.push(top);
 		}
