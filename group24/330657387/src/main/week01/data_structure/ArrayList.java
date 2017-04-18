@@ -2,6 +2,9 @@ package main.week01.data_structure;
 
 import java.util.Arrays;
 
+import main.week01.data_structure.api.Iterator;
+import main.week01.data_structure.api.List;
+
 public class ArrayList implements List {
 
 	private int size = 0;
@@ -48,7 +51,7 @@ public class ArrayList implements List {
 		Object dest = elementData[index];
 		System.arraycopy(elementData, index + 1, elementData, index, size
 				- index - 1);
-		elementData[size---1]=null;//��ֹ�ڴ�й©
+		elementData[size---1]=null;//��ֹ�ڴ�й©
 		return dest;
 	}
 
