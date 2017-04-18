@@ -42,4 +42,9 @@ public class Util {
 		}*/
 		return l.toArray();
 	}
+	
+	public static String[] parseOperatorToArray(String str){
+		String[] array = str.split(" ");
+		return array;
+	}
 }
