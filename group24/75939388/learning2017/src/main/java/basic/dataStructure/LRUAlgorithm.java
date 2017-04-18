@@ -9,6 +9,7 @@ public class LRUAlgorithm {
     public Node last;
     public Object data;
 
+    private static final int MAX_SIZE = 5;
 
 
     public LRUAlgorithm(){
@@ -17,13 +18,28 @@ public class LRUAlgorithm {
     }
 
     public LRUAlgorithm(Object data){
+        this.data = data;
         this.first = new Node(data, new Node());
         this.last = this.first;
     }
 
+    public int size(){
+        Node temp = first;
+        int index = 0;
+        while (temp.next != null){
+            index ++;
+            temp = temp.next;
+        }
 
+        return index;
+    }
 
+    public void add(Object obj){
+        if(this.size() < MAX_SIZE){
+            Node temp = first;
 
+        }
+    }
 
 
 
