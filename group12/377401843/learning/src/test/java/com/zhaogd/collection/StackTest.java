@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.zhaogd.collection.stack.Stack;
+
 public class StackTest {
 
 	private Stack stack;

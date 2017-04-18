@@ -1,7 +1,13 @@
 package com.github.HarryHook.coding2017.jvm.clz;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 import com.github.HarryHook.coding2017.jvm.constant.ClassInfo;
 import com.github.HarryHook.coding2017.jvm.constant.ConstantPool;
+import com.github.HarryHook.coding2017.jvm.field.Field;
+import com.github.HarryHook.coding2017.jvm.method.Method;
 
 public class ClassFile {
 
@@ -11,6 +17,8 @@ public class ClassFile {
     private AccessFlag accessFlag;
     private ClassIndex clzIndex;
     private ConstantPool pool;
+    private List<Field> fields = new ArrayList<Field>();
+    private List<Method> methods  = new ArrayList<Method>();;
 
     public ClassIndex getClzIndex() {
 	return clzIndex;
@@ -48,7 +56,6 @@ public class ClassFile {
 
     public void setConstantPool(ConstantPool pool) {
 	this.pool = pool;
-
     }
 
     public void setClassIndex(ClassIndex clzIndex) {
@@ -75,5 +82,22 @@ public class ClassFile {
 	ClassInfo superClass = (ClassInfo) this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
 	return superClass.getClassName();
     }
+    
+    public void addField(Field f) {
+	fields.add(f);
+    }
+    
+    public List<Field> getFields() {
+	return fields;
+    }
+    
+    public void addMethod(Method m) {
+	methods.add(m);
+	
+    }
+    public List<Method> getMethods() {
+	return methods;
+    }
+
 
 }
