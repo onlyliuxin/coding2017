@@ -10,7 +10,11 @@ public class ArrayList implements List {
 	 */
 	public void add(Object o){
 		if(size+1>elementData.length)this.grow(elementData);
-		else elementData[size++]=o;
+		else{
+			elementData[size]=o;
+			size++;
+		}
+			
 	}
 	/**
 	 * 在index处添加元素，index+1到size-1元素向后移动
