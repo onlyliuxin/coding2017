@@ -1,11 +1,12 @@
 package cmd;
 
 import clz.ClassFile;
+import constant.ClassInfo;
 
 import java.util.List;
 
 /**
- * Created by IBM on 2017/4/17.
+ * Created by william on 2017/4/17.
  */
 public class CommandParser {
     public static final String aconst_null = "01";
@@ -44,8 +45,81 @@ public class CommandParser {
     public static final String iinc = "84";
 
     public static ByteCodeCommand[] parse(ClassFile clzFile, String codes) {
+        CommandIterator commandIterator = new CommandIterator(codes);
+        String command = commandIterator.next2CharAsString().toUpperCase();
+        if (command.equals(aconst_null)) {
+            NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
+            noOperandCmd.setOffset(1);
+        } else if (command.equals(new_object)) {
+            NewObjectCmd newObjectCmd = new NewObjectCmd(clzFile, command);
+            int oprand1 = commandIterator.next2CharAsInt();
+            int oprand2 = commandIterator.next2CharAsInt();
+            newObjectCmd.setOprand1(oprand1);
+            newObjectCmd.setOprand2(oprand2);
 
+        } else if (command.equals(lstore)) {
 
+        } else if (command.equals(invokespecial)) {
+
+        } else if (command.equals(invokevirtual)) {
+
+        } else if (command.equals(getfield)) {
+            GetFieldCmd getFieldCmd = new GetFieldCmd(clzFile, command);
+        } else if (command.equals(putfield)) {
+            PutFieldCmd putFieldCmd = new PutFieldCmd(clzFile, command);
+        } else if (command.equals(getstatic)) {
+            GetStaticFieldCmd getStaticFieldCmd = new GetStaticFieldCmd(clzFile, command);
+        } else if (command.equals(ldc)) {
+            LdcCmd ldcCmd = new LdcCmd(clzFile, command);
+        } else if (command.equals(dup)) {
+
+        } else if (command.equals(bipush)) {
+            BiPushCmd biPushCmd = new BiPushCmd(clzFile, command);
+        } else if (command.equals(aload_0)) {
+            NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
+        } else if (command.equals(aload_1)) {
+            NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
+        } else if (command.equals(aload_2)) {
+            NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
+        } else if (command.equals(iload)) {
+
+        } else if (command.equals(iload_2)) {
+
+        } else if (command.equals(iload_1)) {
+
+        } else if (command.equals(iload_3)) {
+
+        } else if (command.equals(fload_3)) {
+
+        } else if (command.equals(voidreturn)) {
+
+        } else if (command.equals(ireturn)) {
+
+        } else if (command.equals(freturn)) {
+
+        } else if (command.equals(astore_1)) {
+
+        } else if (command.equals(if_icmp_ge)) {
+
+        } else if (command.equals(if_icmple)) {
+
+        } else if (command.equals(goto_no_condition)) {
+
+        } else if (command.equals(iconst_0)) {
+
+        } else if (command.equals(iconst_1)) {
+
+        } else if (command.equals(istore_1)) {
+
+        } else if (command.equals(istore_2)) {
+
+        } else if (command.equals(iadd)) {
+
+        } else if (command.equals(iinc)) {
+
+        } else {
+            throw new RuntimeException("wrong command : " + command);
+        }
         return null;
     }
 
@@ -71,6 +145,11 @@ public class CommandParser {
             return pos < this.codes.length();
         }
 
+        /**
+         * 从字符串中截取前两个字符
+         *
+         * @return
+         */
         public String next2CharAsString() {
             String result = codes.substring(pos, pos + 2);
             pos += 2;

@@ -4,7 +4,7 @@ import clz.ClassFile;
 import constant.ConstantPool;
 
 /**
- * Created by IBM on 2017/4/17.
+ * Created by william on 2017/4/17.
  */
 public class BiPushCmd extends OneOperandCmd {
     public BiPushCmd(ClassFile clzFile, String opCode) {

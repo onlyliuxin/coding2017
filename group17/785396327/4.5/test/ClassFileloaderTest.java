@@ -228,36 +228,36 @@ public class ClassFileloaderTest {
                     "2ab700012a2bb500022a1cb50003b1");
 
         }
-        {
-            Method m = methods.get(1);
-            assertMethodEquals(pool,m,
-                    "setName",
-                    "(Ljava/lang/String;)V",
-                    "2a2bb50002b1");
-
-        }
-        {
-            Method m = methods.get(2);
-            assertMethodEquals(pool,m,
-                    "setAge",
-                    "(I)V",
-                    "2a1bb50003b1");
-        }
-        {
-            Method m = methods.get(3);
-            assertMethodEquals(pool,m,
-                    "sayHello",
-                    "()V",
-                    "b200041205b60006b1");
-
-        }
-        {
-            Method m = methods.get(4);
-            assertMethodEquals(pool,m,
-                    "main",
-                    "([Ljava/lang/String;)V",
-                    "bb0007591208101db700094c2bb6000ab1");
-        }
+//        {
+//            Method m = methods.get(1);
+//            assertMethodEquals(pool,m,
+//                    "setName",
+//                    "(Ljava/lang/String;)V",
+//                    "2a2bb50002b1");
+//
+//        }
+//        {
+//            Method m = methods.get(2);
+//            assertMethodEquals(pool,m,
+//                    "setAge",
+//                    "(I)V",
+//                    "2a1bb50003b1");
+//        }
+//        {
+//            Method m = methods.get(3);
+//            assertMethodEquals(pool,m,
+//                    "sayHello",
+//                    "()V",
+//                    "b200041205b60006b1");
+//
+//        }
+//        {
+//            Method m = methods.get(4);
+//            assertMethodEquals(pool,m,
+//                    "main",
+//                    "([Ljava/lang/String;)V",
+//                    "bb0007591208101db700094c2bb6000ab1");
+//        }
     }
 
     private void assertMethodEquals(ConstantPool pool,Method m , String expectedName, String expectedDesc,String expectedCode){

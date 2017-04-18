@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by IBM on 2017/4/17.
+ * Created by william on 2017/4/17.
  */
 public abstract class ByteCodeCommand {
     String opCode;
