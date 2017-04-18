@@ -22,7 +22,6 @@ public class FileDownloaderTest {
 	public static String qq = "http://sw.bos.baidu.com/sw-search-sp/software/89179b0b248b1/QQ_8.9.20026.0_setup.exe";
 	public static String picture = "http://image.beekka.com/blog/201304/bg2013042401.jpg";
 	public static String foxmail = "http://sw.bos.baidu.com/sw-search-sp/software/6c7bb8b6674d0/fm728chb379_7.2.8.379_setup.exe";
-	
 
 	@Test
 	public void testDownload() {

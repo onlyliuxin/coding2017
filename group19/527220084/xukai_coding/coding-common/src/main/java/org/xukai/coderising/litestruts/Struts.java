@@ -55,7 +55,7 @@ public class Struts {
                                 //根据映射关系将值放入
                                 view.setJsp(mapping.get(result));
                                 List<Method> gets = ReflectUtil.getMethodBeginWith(cls, "get");
-                                HashMap<String, String> models = new HashMap<>();
+                                HashMap<String, String> models = new HashMap<String,String>();
                                 for(Method getMethod : gets){
                                     //调用所有getter方法
                                     Object getFieldResult = ReflectUtil.invokeMethod(obj, getMethod);
@@ -87,7 +87,7 @@ public class Struts {
         Document doc = sr.read(strutsPath);
         XmlParseHelper helper = new XmlParseHelper(doc);
         List<Element> actions = helper.getNodeByPath("//action");
-        ArrayList<Action> actionsList = new ArrayList<>();
+        ArrayList<Action> actionsList = new ArrayList<Action>();
         for (Element action : actions){
             Action obj = new Action();
             String nameAttr = helper.getNodeAttrValue(action, "name");
@@ -95,7 +95,7 @@ public class Struts {
             obj.setName(nameAttr);
             obj.setaClass(Class.forName(classAttr));
             List<Element> results = helper.getChildNodeByName(action, "result");
-            HashMap<String, String> map = new HashMap<>();
+            HashMap<String, String> map = new HashMap<String,String>();
             for (Element result : results){
                 String resultNameAttr = helper.getNodeAttrValue(result, "name");
                 String resultValue = helper.getNodeValue(result);

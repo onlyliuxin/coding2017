@@ -42,6 +42,7 @@ public class DownloadThread extends Thread{
 			os.write(bytes, startPos, endPos-startPos+1);
 			cyclicBarrier.await();//等待其他线程
 			*/			
+			System.out.println("开始读["+startPos+","+endPos+"]");
 			byte[] buffer = conn.read(startPos , endPos);
 			RandomAccessFile file = new RandomAccessFile(descFilePath, "rw");
 			file.seek(startPos);
@@ -56,7 +57,7 @@ public class DownloadThread extends Thread{
 		} catch (BrokenBarrierException e) {
 			e.printStackTrace();
 		}
-		System.out.println("所有线程都下载完成");
+		//System.out.println("所有线程都下载完成");
 		//通知 FileDownloader ，自己已经做完
 		
 	}
