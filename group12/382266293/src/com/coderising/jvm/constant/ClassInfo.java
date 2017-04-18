@@ -1,5 +1,7 @@
 package com.coderising.jvm.constant;
 
+import com.coderising.jvm.print.PrintVisitor;
+
 public class ClassInfo extends ConstantInfo {
 	private int type = ConstantInfo.CLASS_INFO;
 	private int utf8Index;
@@ -26,4 +28,10 @@ public class ClassInfo extends ConstantInfo {
 	public void setUtf8Index(int utf8Index) {
 		this.utf8Index = utf8Index;
 	}
+
+	@Override
+	public void accept(PrintVisitor visitor) {
+		visitor.visit(this);		
+	}
+
 }

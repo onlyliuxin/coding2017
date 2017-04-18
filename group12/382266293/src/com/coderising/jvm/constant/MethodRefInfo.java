@@ -1,5 +1,7 @@
 package com.coderising.jvm.constant;
 
+import com.coderising.jvm.print.PrintVisitor;
+
 public class MethodRefInfo extends ConstantInfo {
 
 	private int type = ConstantInfo.METHOD_INFO;
@@ -54,6 +56,11 @@ public class MethodRefInfo extends ConstantInfo {
 	public String toString() {
 
 		return getClassName() + " : " + this.getMethodName() + " : " + this.getParamAndReturnType();
+	}
+	
+	@Override
+	public void accept(PrintVisitor visitor) {
+		visitor.visit(this);		
 	}
 
 }

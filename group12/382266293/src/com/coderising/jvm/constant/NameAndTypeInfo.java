@@ -1,5 +1,7 @@
 package com.coderising.jvm.constant;
 
+import com.coderising.jvm.print.PrintVisitor;
+
 public class NameAndTypeInfo extends ConstantInfo {
 	public int type = ConstantInfo.NAME_AND_TYPE_INFO;
 
@@ -46,5 +48,10 @@ public class NameAndTypeInfo extends ConstantInfo {
 	@Override
 	public String toString() {
 		return "(" + getName() + "," + getTypeInfo() + ")";
+	}
+	
+	@Override
+	public void accept(PrintVisitor visitor) {
+		visitor.visit(this);		
 	}
 }

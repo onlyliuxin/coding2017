@@ -21,8 +21,13 @@ public class ConstantPool {
 		//System.out.println(this.constantInfos.get(index));
 		return this.constantInfos.get(index);
 	}
+	
+	public List<ConstantInfo> getConstantInfos() {
 
-	public Object getSize() {
+		return constantInfos;
+	}
+
+	public int getSize() {
 		return this.constantInfos.size() - 1;
 	}
 

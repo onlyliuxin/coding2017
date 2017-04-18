@@ -37,7 +37,6 @@ public class ClassFileParser {
 		System.out.println("majorVersion is " + majorVersion);
 		clzFile.setMajorVersion(majorVersion);
 
-
 		ConstantPool pool = parseConstantPool(iter);
 		clzFile.setConstPool(pool);
 
@@ -98,7 +97,7 @@ public class ClassFileParser {
 				// utf8-info
 				UTF8Info utf8Info = new UTF8Info(pool);
 				int length = iter.nextU2ToInt();
-				System.out.println("length is " + length);
+				//System.out.println("length is " + length);
 				utf8Info.setLength(length);
 				byte[] bytes = iter.nextNbytesToHexString(length);
 				String value = "";
@@ -107,7 +106,7 @@ public class ClassFileParser {
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
-				System.out.println("value is " + value);
+				//System.out.println("value is " + value);
 				utf8Info.setValue(value);
 
 			} else if (tag == 8) {

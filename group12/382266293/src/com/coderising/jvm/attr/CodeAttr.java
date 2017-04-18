@@ -1,5 +1,7 @@
 package com.coderising.jvm.attr;
 
+import java.util.Arrays;
+
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.cmd.ByteCodeCommand;
 import com.coderising.jvm.cmd.CommandParser;
@@ -22,11 +24,12 @@ public class CodeAttr extends AttributeInfo {
 		 System.out.println("codeLen " + codeLen);
 		 
 		 String code = iter.nextUxToHexString(codeLen);
-		 
+
 		 ByteCodeCommand[] cmds = CommandParser.parse(clzFile, code);
 		 CodeAttr codeAttr = new CodeAttr(attrNameIndex, attrLen, maxStack, maxLocals, codeLen, code, cmds);
 
-		 System.out.println("Code is " + code);
+		System.out.println("Code is " + code);
+		System.out.println(Arrays.toString(cmds));
 		 
 		 int exceptionTableLen = iter.nextU2ToInt();
 		 
@@ -109,6 +112,7 @@ public class CodeAttr extends AttributeInfo {
 	public ByteCodeCommand[] getCmds() {		
 		return cmds;
 	}
+
 	public String toString(ConstantPool pool){
 		StringBuilder buffer = new StringBuilder();
 		//buffer.append("Code:").append(code).append("\n");
