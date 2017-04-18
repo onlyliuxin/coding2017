@@ -4,5 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.5.jar" sourcepath="D:/官网下载/commons-io-2.5-src.zip"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.5.jar" sourcepath="D:/官网下载/commons-lang3-3.5-bin/commons-lang3-3.5/commons-lang3-3.5-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
