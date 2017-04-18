@@ -194,7 +194,7 @@ public class LinkedList implements List {
 	 */
 	public void remove(int i, int length) {
 		rangeCheck(i);
-		rangeCheck(i + length - 1);
+		rangeCheck(i + length - 1);//或者当length超出长度，直接认为删除i后面的所有部分。
 		if (i == 0) {
 			head = getNode(length);
 			size -= length;
@@ -216,8 +216,13 @@ public class LinkedList implements List {
 		if (list == null) {
 			throw new Exception("传入链表为空？");
 		}
+		
 		int[] res = new int[list.size];
 		for (int i = 0; i < list.size; i++) {
+			//这个list里的值不一定合法的。可以跳过那些不合法的值。
+			if(i > size - 1){
+				continue;
+			}
 			res[i] = Integer.parseInt(get(
 					Integer.parseInt(list.get(i).toString()) - 1).toString());
 		}
@@ -298,6 +303,7 @@ public class LinkedList implements List {
 			 lastRemove = iter.position - 1;
 			}
 		}
+		//移动指针的时候，注意不要留下指空的指针。不然相关node会无法被gc
 		if(hasmin && firstRemove == 0){
 			head = getNode(lastRemove);
 			size -= lastRemove-firstRemove+1;
@@ -318,44 +324,28 @@ public class LinkedList implements List {
 	 * @param list
 	 */
 	public LinkedList intersection(LinkedList list) {
-		if(0 == list.size){
-			return this;
+		if(0 == list.size || 0 == size){
+			return new LinkedList();
 		}
-		if(0 == size){
-			return list;
-		}
+		
 		LinkedList res = new LinkedList();
-		Node a = head, b = list.head;
-		while(null != a && null != b){
-			if(a.equals(b)){
-				res.add(a.data);
-				a = a.next;
-				b = b.next;
-				continue;
+		Node node1 = this.head;
+		Node node2 = list.head;
+		while(node1 != null && node2 != null){
+			if((int)node1.data<(int)node2.data){
+				node1 = node1.next;
+			}else if((int)node1.data>(int)node2.data){
+				node2 = node2.next;
+			}else{
+				res.add(node1.data);
+				node1 = node1.next;
+				node2 = node2.next;
 			}
-			if(Integer.parseInt(a.data.toString()) > Integer.parseInt(b.data.toString())){
-				res.add(b.data);
-				b = b.next;
-				continue;
-			}
-			if(Integer.parseInt(a.data.toString()) < Integer.parseInt(b.data.toString())){
-				res.add(a.data);
-				a = a.next;
-				continue;
-			}
-		}
-		while(null != a){
-			res.add(a.data);
-			a = a.next;
-		}
-		while(null != b){
-			res.add(b.data);
-			b = b.next;
 		}
 		return res;
 	}
 
-	public String ToString() {
+	public String toString() {
 		LinkedListIterator iter = this.iterator();
 		StringBuilder sb = new StringBuilder();
 		while (iter.hasNext()) {
