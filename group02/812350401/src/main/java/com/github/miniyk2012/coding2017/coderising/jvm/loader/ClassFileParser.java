@@ -34,6 +34,8 @@ public class ClassFileParser {
         clzFile.setClassIndex(classIndex);
 
         parseInterfaces(byteCodeIterator);
+        parseFileds(clzFile, byteCodeIterator);
+        parseMethods(clzFile, byteCodeIterator);
         return clzFile;
 	}
 

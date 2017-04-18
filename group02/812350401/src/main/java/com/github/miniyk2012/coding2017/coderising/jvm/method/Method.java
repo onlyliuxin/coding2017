@@ -9,7 +9,7 @@ import com.github.miniyk2012.coding2017.coderising.jvm.constant.UTF8Info;
 import com.github.miniyk2012.coding2017.coderising.jvm.loader.ByteCodeIterator;
 
 public class Method {
-	
+
 	private int accessFlag;
 	private int nameIndex;
 	private int descriptorIndex;
@@ -45,11 +45,9 @@ public class Method {
 		this.descriptorIndex = descriptorIndex;
 	}
 
+
 	
-	
-	
-	
-public String toString() {
+	public String toString() {
 		
 		ConstantPool pool = this.clzFile.getConstantPool();
 		StringBuilder buffer = new StringBuilder();
