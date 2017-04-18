@@ -3,28 +3,50 @@ package com.coding.mini_jvm.src.com.coderising.jvm.clz;
 
 import com.coding.mini_jvm.src.com.coderising.jvm.constant.ClassInfo;
 import com.coding.mini_jvm.src.com.coderising.jvm.constant.ConstantPool;
+import com.coding.mini_jvm.src.com.coderising.jvm.field.Field;
+import com.coding.mini_jvm.src.com.coderising.jvm.method.Method;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClassFile {
-	
+
 	private int minorVersion;
 	private int majorVersion;
-	
+
 	private AccessFlag   accessFlag;
 	private ClassIndex   clzIndex;
 	private ConstantPool pool;
-	
-	
+	private List<Field>  fields  = new ArrayList<Field>();
+	private List<Method> methods = new ArrayList<Method>();
+
 	public ClassIndex getClzIndex() {
 		return clzIndex;
 	}
+
 	public AccessFlag getAccessFlag() {
 		return accessFlag;
 	}
+
 	public void setAccessFlag(AccessFlag accessFlag) {
 		this.accessFlag = accessFlag;
 	}
-	
-	
+
+	public void addField(Field f) {
+		this.fields.add(f);
+	}
+
+	public List<Field> getFields() {
+		return this.fields;
+	}
+
+	public void addMethod(Method m) {
+		this.methods.add(m);
+	}
+
+	public List<Method> getMethods() {
+		return methods;
+	}
 	
 	public ConstantPool getConstantPool() {		
 		return pool;
@@ -49,19 +71,12 @@ public class ClassFile {
 		this.clzIndex = clzIndex;		
 	}
 	
-	
-	
-	
 	public void print(){
-		
 		if(this.accessFlag.isPublicClass()){
 			System.out.println("Access flag : public  ");
 		}
 		System.out.println("Class Name:"+ getClassName());
-		
 		System.out.println("Super Class Name:"+ getSuperClassName());
-		
-		
 	}
 	
 	private String getClassName(){
