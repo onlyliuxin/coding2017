@@ -27,7 +27,7 @@ public class ArrayList implements List {
 
     private void ensureCupacity(int capacitySize){
         if (capacitySize >= MAXNSIZE)
-            throw new RuntimeException();
+            throw new RuntimeException("capacitySize : " + capacitySize);
     }
 
     public void clear() {
