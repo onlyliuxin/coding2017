@@ -1,6 +1,7 @@
 package com.coderising.jvm.loader;
 
 import java.util.Arrays;
+
 import com.coderising.jvm.util.Util;
 
 
@@ -46,6 +47,11 @@ public class ByteCodeIterator {
 		int i=cursor;
 		cursor=cursor+length;
 		return Arrays.copyOfRange(codes,i, cursor);
+	}
+	public String getString(int codeLen) {
+		int i=cursor;
+		cursor=cursor+codeLen;
+		return Arrays.copyOfRange(codes,i, cursor).toString();
 	}
 
 }
