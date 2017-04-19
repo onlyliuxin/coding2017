@@ -228,36 +228,36 @@ public class ClassFileloaderTest {
                     "2ab700012a2bb500022a1cb50003b1");
 
         }
-//        {
-//            Method m = methods.get(1);
-//            assertMethodEquals(pool,m,
-//                    "setName",
-//                    "(Ljava/lang/String;)V",
-//                    "2a2bb50002b1");
-//
-//        }
-//        {
-//            Method m = methods.get(2);
-//            assertMethodEquals(pool,m,
-//                    "setAge",
-//                    "(I)V",
-//                    "2a1bb50003b1");
-//        }
-//        {
-//            Method m = methods.get(3);
-//            assertMethodEquals(pool,m,
-//                    "sayHello",
-//                    "()V",
-//                    "b200041205b60006b1");
-//
-//        }
-//        {
-//            Method m = methods.get(4);
-//            assertMethodEquals(pool,m,
-//                    "main",
-//                    "([Ljava/lang/String;)V",
-//                    "bb0007591208101db700094c2bb6000ab1");
-//        }
+        {
+            Method m = methods.get(1);
+            assertMethodEquals(pool,m,
+                    "setName",
+                    "(Ljava/lang/String;)V",
+                    "2a2bb50002b1");
+
+        }
+        {
+            Method m = methods.get(2);
+            assertMethodEquals(pool,m,
+                    "setAge",
+                    "(I)V",
+                    "2a1bb50003b1");
+        }
+        {
+            Method m = methods.get(3);
+            assertMethodEquals(pool,m,
+                    "sayHello",
+                    "()V",
+                    "b200041205b60006b1");
+
+        }
+        {
+            Method m = methods.get(4);
+            assertMethodEquals(pool,m,
+                    "main",
+                    "([Ljava/lang/String;)V",
+                    "bb0007591208101db700094c2bb6000ab1");
+        }
     }
 
     private void assertMethodEquals(ConstantPool pool,Method m , String expectedName, String expectedDesc,String expectedCode){
@@ -277,13 +277,13 @@ public class ClassFileloaderTest {
             ByteCodeCommand [] cmds = initMethod.getCmds();
 
             assertOpCodeEquals("0: aload_0", cmds[0]);
-            assertOpCodeEquals("1: invokespecial #12", cmds[1]);
+            assertOpCodeEquals("1: invokespecial #1", cmds[1]);
             assertOpCodeEquals("4: aload_0", cmds[2]);
             assertOpCodeEquals("5: aload_1", cmds[3]);
-            assertOpCodeEquals("6: putfield #15", cmds[4]);
+            assertOpCodeEquals("6: putfield #2", cmds[4]);
             assertOpCodeEquals("9: aload_0", cmds[5]);
             assertOpCodeEquals("10: iload_2", cmds[6]);
-            assertOpCodeEquals("11: putfield #17", cmds[7]);
+            assertOpCodeEquals("11: putfield #3", cmds[7]);
             assertOpCodeEquals("14: return", cmds[8]);
         }
 
@@ -293,7 +293,7 @@ public class ClassFileloaderTest {
 
             assertOpCodeEquals("0: aload_0", cmds[0]);
             assertOpCodeEquals("1: aload_1", cmds[1]);
-            assertOpCodeEquals("2: putfield #15", cmds[2]);
+            assertOpCodeEquals("2: putfield #2", cmds[2]);
             assertOpCodeEquals("5: return", cmds[3]);
 
         }
@@ -302,9 +302,9 @@ public class ClassFileloaderTest {
             Method sayHelloMethod = this.clzFile.getMethod("sayHello", "()V");
             ByteCodeCommand [] cmds = sayHelloMethod.getCmds();
 
-            assertOpCodeEquals("0: getstatic #28", cmds[0]);
-            assertOpCodeEquals("3: ldc #34", cmds[1]);
-            assertOpCodeEquals("5: invokevirtual #36", cmds[2]);
+            assertOpCodeEquals("0: getstatic #4", cmds[0]);
+            assertOpCodeEquals("3: ldc #5", cmds[1]);
+            assertOpCodeEquals("5: invokevirtual #6", cmds[2]);
             assertOpCodeEquals("8: return", cmds[3]);
 
         }
@@ -314,14 +314,14 @@ public class ClassFileloaderTest {
 
             ByteCodeCommand [] cmds = mainMethod.getCmds();
 
-            assertOpCodeEquals("0: new #1", cmds[0]);
+            assertOpCodeEquals("0: new #7", cmds[0]);
             assertOpCodeEquals("3: dup", cmds[1]);
-            assertOpCodeEquals("4: ldc #43", cmds[2]);
+            assertOpCodeEquals("4: ldc #8", cmds[2]);
             assertOpCodeEquals("6: bipush 29", cmds[3]);
-            assertOpCodeEquals("8: invokespecial #45", cmds[4]);
+            assertOpCodeEquals("8: invokespecial #9", cmds[4]);
             assertOpCodeEquals("11: astore_1", cmds[5]);
             assertOpCodeEquals("12: aload_1", cmds[6]);
-            assertOpCodeEquals("13: invokevirtual #47", cmds[7]);
+            assertOpCodeEquals("13: invokevirtual #10", cmds[7]);
             assertOpCodeEquals("16: return", cmds[8]);
         }
 

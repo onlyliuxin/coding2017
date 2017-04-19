@@ -92,13 +92,26 @@ public class ClassFile {
         return superClass.getClassName();
     }
 
-    public Method getMethod(String methodName, String paramAndReturnType){
-
-
+    public Method getMethod(String methodName, String paramAndReturnType) {
+        if (methods != null) {
+            for (Method method : methods) {
+                String name = getConstantPool().getUTF8String(method.getNameIndex());
+                String desc = getConstantPool().getUTF8String(method.getDescriptorIndex());
+                if(name.equals(methodName)&&desc.equals(paramAndReturnType))
+                    return method;
+            }
+        }
         return null;
     }
     public Method getMainMethod(){
-
+        if (methods != null) {
+            for (Method method : methods) {
+                String name = getConstantPool().getUTF8String(method.getNameIndex());
+                String desc = getConstantPool().getUTF8String(method.getDescriptorIndex());
+                if(name.equals("main")&&desc.equals("([Ljava/lang/String;)V"))
+                    return method;
+            }
+        }
         return null;
     }
 }

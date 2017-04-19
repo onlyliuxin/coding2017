@@ -3,6 +3,7 @@ package cmd;
 import clz.ClassFile;
 import constant.ClassInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,81 +47,125 @@ public class CommandParser {
 
     public static ByteCodeCommand[] parse(ClassFile clzFile, String codes) {
         CommandIterator commandIterator = new CommandIterator(codes);
-        String command = commandIterator.next2CharAsString().toUpperCase();
-        if (command.equals(aconst_null)) {
-            NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
-            noOperandCmd.setOffset(1);
-        } else if (command.equals(new_object)) {
-            NewObjectCmd newObjectCmd = new NewObjectCmd(clzFile, command);
-            int oprand1 = commandIterator.next2CharAsInt();
-            int oprand2 = commandIterator.next2CharAsInt();
-            newObjectCmd.setOprand1(oprand1);
-            newObjectCmd.setOprand2(oprand2);
+        List<ByteCodeCommand> commandList = new ArrayList<ByteCodeCommand>();
+        while (commandIterator.hasNext()) {
+            String command = commandIterator.next2CharAsString().toUpperCase();
+            if (command.equals(aconst_null)) {
+                NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
+                noOperandCmd.setOffset(noOperandCmd.getLength());
+                commandList.add(noOperandCmd);
+            } else if (command.equals(new_object)) {
+                NewObjectCmd newObjectCmd = new NewObjectCmd(clzFile, command);
+                newObjectCmd.setOprand1(commandIterator.next2CharAsInt());
+                newObjectCmd.setOprand2(commandIterator.next2CharAsInt());
+                newObjectCmd.setOffset(newObjectCmd.getLength());
+                commandList.add(newObjectCmd);
+            } else if (command.equals(lstore)) {
 
-        } else if (command.equals(lstore)) {
+            } else if (command.equals(invokespecial)) {
+                InvokeSpecialCmd invokeSpecialCmd = new InvokeSpecialCmd(clzFile, command);
+                invokeSpecialCmd.setOprand1(commandIterator.next2CharAsInt());
+                invokeSpecialCmd.setOprand2(commandIterator.next2CharAsInt());
+                invokeSpecialCmd.setOffset(invokeSpecialCmd.getLength());
+                commandList.add(invokeSpecialCmd);
+            } else if (command.equals(invokevirtual)) {
+                InvokeVirtualCmd invokeVirtualCmd = new InvokeVirtualCmd(clzFile, command);
+                invokeVirtualCmd.setOprand1(commandIterator.next2CharAsInt());
+                invokeVirtualCmd.setOprand2(commandIterator.next2CharAsInt());
+                invokeVirtualCmd.setOffset(invokeVirtualCmd.getLength());
+                commandList.add(invokeVirtualCmd);
+            } else if (command.equals(getfield)) {
+                GetFieldCmd getFieldCmd = new GetFieldCmd(clzFile, command);
+            } else if (command.equals(putfield)) {
+                PutFieldCmd putFieldCmd = new PutFieldCmd(clzFile, command);
+                putFieldCmd.setOprand1(commandIterator.next2CharAsInt());
+                putFieldCmd.setOprand2(commandIterator.next2CharAsInt());
+                putFieldCmd.setOffset(putFieldCmd.getLength());
+                commandList.add(putFieldCmd);
+            } else if (command.equals(getstatic)) {
+                GetStaticFieldCmd getStaticFieldCmd = new GetStaticFieldCmd(clzFile, command);
+                getStaticFieldCmd.setOprand1(commandIterator.next2CharAsInt());
+                getStaticFieldCmd.setOprand2(commandIterator.next2CharAsInt());
+                getStaticFieldCmd.setOffset(getStaticFieldCmd.getLength());
+                commandList.add(getStaticFieldCmd);
+            } else if (command.equals(ldc)) {
+                LdcCmd ldcCmd = new LdcCmd(clzFile, command);
+                ldcCmd.setOperand(commandIterator.next2CharAsInt());
+                ldcCmd.setOffset(ldcCmd.getLength());
+                commandList.add(ldcCmd);
+            } else if (command.equals(dup)) {
+                NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
+                noOperandCmd.setOffset(noOperandCmd.getLength());
+                commandList.add(noOperandCmd);
+            } else if (command.equals(bipush)) {
+                BiPushCmd biPushCmd = new BiPushCmd(clzFile, command);
+                biPushCmd.setOperand(commandIterator.next2CharAsInt());
+                biPushCmd.setOffset(biPushCmd.getLength());
+                commandList.add(biPushCmd);
+            } else if (command.equals(aload_0)) {
+                NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
+                noOperandCmd.setOffset(noOperandCmd.getLength());
+                commandList.add(noOperandCmd);
+            } else if (command.equals(aload_1)) {
+                NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
+                noOperandCmd.setOffset(noOperandCmd.getLength());
+                commandList.add(noOperandCmd);
+            } else if (command.equals(aload_2)) {
+                NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
+                noOperandCmd.setOffset(noOperandCmd.getLength());
+                commandList.add(noOperandCmd);
+            } else if (command.equals(iload)) {
 
-        } else if (command.equals(invokespecial)) {
+            } else if (command.equals(iload_2)) {
+                NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
+                noOperandCmd.setOffset(noOperandCmd.getLength());
+                commandList.add(noOperandCmd);
+            } else if (command.equals(iload_1)) {
+                NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
+                noOperandCmd.setOffset(noOperandCmd.getLength());
+                commandList.add(noOperandCmd);
+            } else if (command.equals(iload_3)) {
+                NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
+                noOperandCmd.setOffset(noOperandCmd.getLength());
+                commandList.add(noOperandCmd);
+            } else if (command.equals(fload_3)) {
 
-        } else if (command.equals(invokevirtual)) {
+            } else if (command.equals(voidreturn)) {
+                NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
+                noOperandCmd.setOffset(noOperandCmd.getLength());
+                commandList.add(noOperandCmd);
+            } else if (command.equals(ireturn)) {
 
-        } else if (command.equals(getfield)) {
-            GetFieldCmd getFieldCmd = new GetFieldCmd(clzFile, command);
-        } else if (command.equals(putfield)) {
-            PutFieldCmd putFieldCmd = new PutFieldCmd(clzFile, command);
-        } else if (command.equals(getstatic)) {
-            GetStaticFieldCmd getStaticFieldCmd = new GetStaticFieldCmd(clzFile, command);
-        } else if (command.equals(ldc)) {
-            LdcCmd ldcCmd = new LdcCmd(clzFile, command);
-        } else if (command.equals(dup)) {
+            } else if (command.equals(freturn)) {
 
-        } else if (command.equals(bipush)) {
-            BiPushCmd biPushCmd = new BiPushCmd(clzFile, command);
-        } else if (command.equals(aload_0)) {
-            NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
-        } else if (command.equals(aload_1)) {
-            NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
-        } else if (command.equals(aload_2)) {
-            NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
-        } else if (command.equals(iload)) {
+            } else if (command.equals(astore_1)) {
+                NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, command);
+                noOperandCmd.setOffset(noOperandCmd.getLength());
+                commandList.add(noOperandCmd);
+            } else if (command.equals(if_icmp_ge)) {
 
-        } else if (command.equals(iload_2)) {
+            } else if (command.equals(if_icmple)) {
 
-        } else if (command.equals(iload_1)) {
+            } else if (command.equals(goto_no_condition)) {
 
-        } else if (command.equals(iload_3)) {
+            } else if (command.equals(iconst_0)) {
 
-        } else if (command.equals(fload_3)) {
+            } else if (command.equals(iconst_1)) {
 
-        } else if (command.equals(voidreturn)) {
+            } else if (command.equals(istore_1)) {
 
-        } else if (command.equals(ireturn)) {
+            } else if (command.equals(istore_2)) {
 
-        } else if (command.equals(freturn)) {
+            } else if (command.equals(iadd)) {
 
-        } else if (command.equals(astore_1)) {
+            } else if (command.equals(iinc)) {
 
-        } else if (command.equals(if_icmp_ge)) {
-
-        } else if (command.equals(if_icmple)) {
-
-        } else if (command.equals(goto_no_condition)) {
-
-        } else if (command.equals(iconst_0)) {
-
-        } else if (command.equals(iconst_1)) {
-
-        } else if (command.equals(istore_1)) {
-
-        } else if (command.equals(istore_2)) {
-
-        } else if (command.equals(iadd)) {
-
-        } else if (command.equals(iinc)) {
-
-        } else {
-            throw new RuntimeException("wrong command : " + command);
+            } else {
+                throw new RuntimeException("wrong command : " + command);
+            }
         }
-        return null;
+        calcuateOffset(commandList);
+        return commandList.toArray(new ByteCodeCommand[commandList.size()]);
     }
 
     private static void calcuateOffset(List<ByteCodeCommand> cmds) {
