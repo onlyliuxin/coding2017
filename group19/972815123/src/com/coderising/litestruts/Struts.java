@@ -52,7 +52,7 @@ public class Struts {
 
     public static View runAction(String actionName, Map<String,String> parameters) {
     	HashMap<String, HashMap<String, String>> xml = parseStrutsXml(url);
-    	HashMap<String, String> login = xml.get("login");
+    	HashMap<String, String> login = xml.get(actionName);
     	String loginClassName = login.get("class");
     	System.out.println(loginClassName);
     	

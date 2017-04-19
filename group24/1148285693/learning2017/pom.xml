@@ -22,7 +22,10 @@
     </developers>
 
     <modules>
+        <module>common</module>
         <module>learning-basic</module>
+        <module>mini-jvm</module>
+        <module>other</module>
     </modules>
 
     <properties>
@@ -100,6 +103,11 @@
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.1</version>
         </dependency>
 
         <!--http client-->

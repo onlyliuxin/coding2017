@@ -64,7 +64,7 @@ public class ArrayUtilTest {
 	public void testGetPrimes() {
 		int[] primes = {2,3,5,7,11,13,17,19};
 		int max = 23;
-		Assert.assertArrayEquals(primes, ArrayUtil.getPrimes(max));
+		Assert.assertArrayEquals(primes, ArrayUtil.getPrimes(27));
 	}
 
 	@Test
