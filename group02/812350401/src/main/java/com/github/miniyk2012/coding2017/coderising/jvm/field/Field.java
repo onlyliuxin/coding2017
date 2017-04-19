@@ -9,9 +9,6 @@ public class Field {
 	private int accessFlag;
 	private int nameIndex;
 	private int descriptorIndex;
-	
-	
-	
 	private ConstantPool pool;
 	
 	public Field(int accessFlag, int nameIndex, int descriptorIndex, ConstantPool pool) {
