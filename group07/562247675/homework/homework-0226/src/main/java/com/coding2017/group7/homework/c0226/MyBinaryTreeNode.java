@@ -2,15 +2,15 @@ package com.coding2017.group7.homework.c0226;
 
 public class MyBinaryTreeNode {
 
-    private Object data;
+    private Comparable data;
     private MyBinaryTreeNode left;
     private MyBinaryTreeNode right;
 
-    public Object getData() {
+    public Comparable getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(Comparable data) {
         this.data = data;
     }
 
@@ -30,8 +30,23 @@ public class MyBinaryTreeNode {
         this.right = right;
     }
 
-    public MyBinaryTreeNode insert(Object o) {
-        return null;
+    public MyBinaryTreeNode insert(Comparable o) {
+        if (data == null) {
+            data = o;
+        }
+        int compare = o.compareTo(data);
+        if (compare < 0) {
+            if (left == null) {
+                left = new MyBinaryTreeNode();
+            }
+            left.insert(o);
+        } else if (compare > 0) {
+            if (right == null) {
+                right = new MyBinaryTreeNode();
+            }
+            right.insert(o);
+        }
+        return this;
     }
 
 }
