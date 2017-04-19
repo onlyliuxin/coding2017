@@ -1,4 +1,4 @@
-package main.java.com.coding.basic;
+package com.coding.basic;
 
 import org.junit.Test;
 

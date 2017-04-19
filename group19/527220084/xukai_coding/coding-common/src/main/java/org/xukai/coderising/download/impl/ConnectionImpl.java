@@ -21,7 +21,6 @@ public class ConnectionImpl implements Connection {
 		BufferedInputStream inputStream = null;
 		try {
 			urlConnection.setRequestProperty("Range","bytes=" + startPos + "-" + (endPos));
-			System.out.println(urlConnection.getResponseCode());
 			inputStream = new BufferedInputStream(urlConnection.getInputStream());
 			buff = new byte[endPos-startPos];
 			int len = 0;
