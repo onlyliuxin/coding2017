@@ -1,6 +1,8 @@
 package com.github.ipk2015.coding2017.minijvm.attr;
 
 import com.github.ipk2015.coding2017.minijvm.clz.ClassFile;
+import com.github.ipk2015.coding2017.minijvm.cmd.ByteCodeCommand;
+import com.github.ipk2015.coding2017.minijvm.constant.ConstantPool;
 import com.github.ipk2015.coding2017.minijvm.loader.ByteCodeIterator;
 
 public class CodeAttr extends AttributeInfo {
@@ -12,10 +14,10 @@ public class CodeAttr extends AttributeInfo {
 		return code;
 	}
 
-	//private ByteCodeCommand[] cmds ;
-	//public ByteCodeCommand[] getCmds() {
-	//	return cmds;
-	//}
+	private ByteCodeCommand[] cmds ;
+	public ByteCodeCommand[] getCmds() {
+		return cmds;
+	}
 	private LineNumberTable lineNumTable;
 	private LocalVariableTable localVarTable;
 	private StackMapTable stackMapTable;
@@ -26,7 +28,7 @@ public class CodeAttr extends AttributeInfo {
 		this.maxLocals = maxLocals;
 		this.codeLen = codeLen;
 		this.code = code;
-		//this.cmds = cmds;
+		this.cmds = cmds;
 	}
 
 	public void setLineNumberTable(LineNumberTable t) {
@@ -78,7 +80,17 @@ public class CodeAttr extends AttributeInfo {
 		}
 	}
 
-	
+	public String toString(ConstantPool pool){
+		StringBuilder buffer = new StringBuilder();
+		//buffer.append("Code:").append(code).append("\n");
+		for(int i=0;i<cmds.length;i++){
+			buffer.append(cmds[i].toString(pool)).append("\n");
+		}
+		buffer.append("\n");
+		buffer.append(this.lineNumTable.toString());
+		buffer.append(this.localVarTable.toString(pool));
+		return buffer.toString();
+	}
 	
 	
 	

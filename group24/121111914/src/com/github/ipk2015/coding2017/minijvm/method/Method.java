@@ -3,6 +3,7 @@ package com.github.ipk2015.coding2017.minijvm.method;
 import com.github.ipk2015.coding2017.minijvm.attr.AttributeInfo;
 import com.github.ipk2015.coding2017.minijvm.attr.CodeAttr;
 import com.github.ipk2015.coding2017.minijvm.clz.ClassFile;
+import com.github.ipk2015.coding2017.minijvm.cmd.ByteCodeCommand;
 import com.github.ipk2015.coding2017.minijvm.loader.ByteCodeIterator;
 
 public class Method {
@@ -66,5 +67,8 @@ public class Method {
 		}else{
 			throw new RuntimeException("方法的此属性不存在："+attrName);
 		}
+	}
+	public ByteCodeCommand[] getCmds() {		
+		return this.getCodeAttr().getCmds();
 	}
 }
