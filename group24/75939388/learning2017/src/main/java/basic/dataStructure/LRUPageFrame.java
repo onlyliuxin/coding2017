@@ -80,6 +80,7 @@ public class LRUPageFrame {
         Node node = new Node(last, null, pageNum);
         last.next = node;
         this.last = node;
+        this.currentSize++;
     }
 
     /**
@@ -90,6 +91,7 @@ public class LRUPageFrame {
         Node node = new Node(null, first, pageNum);
         first.prev = node;
         this.first = node;
+        this.currentSize++;
     }
 
     /**
@@ -99,6 +101,7 @@ public class LRUPageFrame {
         Node node = last.prev;
         node.next = null;
         this.last = node;
+        this.currentSize--;
     }
 
     /**
