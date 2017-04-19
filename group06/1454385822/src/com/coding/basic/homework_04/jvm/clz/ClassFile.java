@@ -1,21 +1,27 @@
 package com.coding.basic.homework_04.jvm.clz;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.coding.basic.homework_04.jvm.attr.AccessFlag;
 import com.coding.basic.homework_04.jvm.constant.ConstantPool;
+import com.coding.basic.homework_04.jvm.field.Field;
 
 public class ClassFile {
 
-	private String MagicNumber;
-	
+	private String MagicNumber;	
 	private int minorVersion;
 	private int majorVersion;
-	private ConstantPool constantPool;
 	private int ConstantNum;
+	
+	private ConstantPool constantPool;
 	private ClassIndex clzIndex;
-	
 	private AccessFlag accessFlag;
+	private List<Field> fields = new ArrayList<Field>();
 	
-	
+	public void addField(Field field){
+		fields.add(field);
+	}
 	
 	public AccessFlag getAccessFlag() {
 		return accessFlag;
@@ -101,6 +107,12 @@ public class ClassFile {
 
 	public void setConstantPool(ConstantPool constantPool) {
 		this.constantPool = constantPool;
+	}
+
+
+
+	public List<Field> getFields() {
+		return fields;
 	}
 
 	

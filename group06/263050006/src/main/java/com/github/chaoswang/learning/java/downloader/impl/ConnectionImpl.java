@@ -40,7 +40,8 @@ public class ConnectionImpl implements Connection{
         ByteArrayOutputStream bos = new ByteArrayOutputStream();    
 		int len = 0;    
 		int hasRead = 0;
-        while((len < currentSectionLength) && ((hasRead = is.read(buffer)) != -1)) {    
+        while((len < currentSectionLength) && ((hasRead = is.read(buffer)) != -1)) { 
+        	System.out.println(buffer.length);
             bos.write(buffer, 0, hasRead);  
             len += hasRead;
         }    

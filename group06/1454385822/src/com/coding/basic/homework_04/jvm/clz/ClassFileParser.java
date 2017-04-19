@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 import com.coding.basic.homework_04.jvm.attr.AccessFlag;
 import com.coding.basic.homework_04.jvm.constant.ConstantPool;
+import com.coding.basic.homework_04.jvm.field.Field;
 import com.coding.basic.homework_04.jvm.info.ClassInfo;
 import com.coding.basic.homework_04.jvm.info.FieldRefInfo;
 import com.coding.basic.homework_04.jvm.info.MethodRefInfo;
@@ -43,8 +44,25 @@ public class ClassFileParser {
 		clzIndex.setSuperClassIndex(iterator.nextU2ToInt());
 		
 		classFile.setClzIndex(clzIndex);
+		parseInterface(iterator);
+		
+		parseField(classFile, iterator);
 		
 		return classFile;
+	}
+
+	private void parseField(ClassFile clzFile, ByteCodeIterator iterator) {
+		int fieldCount = iterator.nextU2ToInt();
+		for(int i=0; i<fieldCount; i++){
+			Field field = Field.parse(clzFile.getConstantPool(), iterator);
+			clzFile.addField(field);
+		}
+	}
+
+	private void parseInterface(ByteCodeIterator iterator) {
+		int count = iterator.nextU2ToInt();
+		System.out.println("interface count:" + count);
+		//TODO 如果类中有接口，这里需要解析
 	}
 
 	private ConstantPool parserConstantPool(ByteCodeIterator iterator) throws UnsupportedEncodingException{

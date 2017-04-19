@@ -74,7 +74,7 @@ public class FileDownloader {
 			
 		} catch (Exception e) {			
 			e.printStackTrace();
-		}finally{
+		} finally {
 			if(conn != null){
 				conn.close();
 			}
@@ -104,7 +104,7 @@ public class FileDownloader {
 
 	private void createPlaceHolderFile(String fileName, int contentLen) throws IOException {
 		
-		RandomAccessFile file = new RandomAccessFile(fileName, "rw");//以读写方式
+		RandomAccessFile file = new RandomAccessFile(fileName, "rw");
 		
 		for(int i = 0; i < contentLen; i++){
 			file.write(0);
@@ -118,7 +118,6 @@ public class FileDownloader {
 		this.listener = listener;
 	}
 
-	
 	
 	public void setConnectionManager(ConnectionManager ucm){
 		this.cm = ucm;
