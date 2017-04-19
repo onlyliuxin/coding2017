@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.coderising.jvm.attr.AttributeInfo;
+import com.coderising.jvm.attr.CodeAttr;
+import com.coderising.jvm.cmd.ByteCodeCommand;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.loader.ByteCodeIterator;
 
@@ -35,7 +37,16 @@ public class Method {
 		return method;		
 	}
 	
+	public ByteCodeCommand[] getCmds() {
 		
+		for (AttributeInfo attributeInfo : attributeInfos) {
+			if(attributeInfo instanceof CodeAttr){
+				return ((CodeAttr) attributeInfo).getCmds();
+			}
+		}
+		return null;
+	}
+	
 	public int getAccessFlag() {
 		return accessFlag;
 	}

@@ -49,6 +49,12 @@ public class MethodRefInfo extends ConstantInfo {
 		NameAndTypeInfo  typeInfo = (NameAndTypeInfo)pool.getConstantInfo(this.getNameAndTypeIndex());
 		return typeInfo.getTypeInfo();
 	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		
+		visitor.visitMethodRef(this);
+	}
 	
 	
 	

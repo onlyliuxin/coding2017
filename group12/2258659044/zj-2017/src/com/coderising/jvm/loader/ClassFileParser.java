@@ -32,7 +32,7 @@ public class ClassFileParser {
 
 		clazzFile.setMajorVersion(iterator.nextU2ToInt());
 
-		clazzFile.setConstPool(parseConstantPool(iterator));
+		clazzFile.setConstPool(parseConstantPool(iterator,clazzFile));
 		
 		clazzFile.setAccessFlag(parseAccessFlag(iterator));
 		
@@ -67,9 +67,9 @@ public class ClassFileParser {
 		return classIndex;
 	}
 
-	private ConstantPool parseConstantPool(ByteCodeIterator iter){
+	private ConstantPool parseConstantPool(ByteCodeIterator iter,ClassFile clazzFile){
 			
-		ConstantPool pool = new ConstantPool();
+		ConstantPool pool = new ConstantPool(clazzFile);
 		pool.addConstantInfo(new NullConstantInfo());
 		
 		try {
@@ -129,8 +129,9 @@ public class ClassFileParser {
 	
 	private void parseInterfaces(ByteCodeIterator iter){
 		
+		@SuppressWarnings("unused")
 		int interfaceCount = iter.nextU2ToInt();
-		System.out.println("接口数量为："+interfaceCount);
+		//System.out.println("接口数量为："+interfaceCount);
 		// TODO
 	}
 	
