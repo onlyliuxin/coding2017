@@ -76,6 +76,10 @@ public class CommandParser {
                 commandList.add(invokeVirtualCmd);
             } else if (command.equals(getfield)) {
                 GetFieldCmd getFieldCmd = new GetFieldCmd(clzFile, command);
+                getFieldCmd.setOprand1(commandIterator.next2CharAsInt());
+                getFieldCmd.setOprand2(commandIterator.next2CharAsInt());
+                getFieldCmd.setOffset(getFieldCmd.getLength());
+                commandList.add(getFieldCmd);
             } else if (command.equals(putfield)) {
                 PutFieldCmd putFieldCmd = new PutFieldCmd(clzFile, command);
                 putFieldCmd.setOprand1(commandIterator.next2CharAsInt());
