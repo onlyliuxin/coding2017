@@ -1,9 +1,7 @@
 package com.coding.basic.stack.expr;
 
 import java.util.List;
-
-import com.coding.basic.stack.Stack;
-import com.coding.basic.stack.StackUtil;
+import java.util.Stack;
 
 public class InfixExpr {
 	String expr = null;
@@ -25,7 +23,7 @@ public class InfixExpr {
 				if (opStack.isEmpty()) {
 					opStack.push(t);
 				} else {
-					Token topOperator = (Token) opStack.peek();
+					/*Token topOperator = (Token) opStack.peek();
 					if (t.comparePriority(topOperator) >= 0) {
 						opStack.push(t);
 					} else {
@@ -34,21 +32,31 @@ public class InfixExpr {
 						numStack.push(calculate(topOperator.getValue(), f2, f1));
 						opStack.pop();
 						opStack.push(t);
+					}*/
+					while(!opStack.isEmpty() 
+							&& !t.hasHigherPriority(opStack.peek())) {
+						Token prevOperator = opStack.pop();
+						Float f2 = numStack.pop();
+						Float f1 = numStack.pop();
+						Float result = calculate(prevOperator.toString(), f1, f2);
+						
+						numStack.push(result);
 					}
+					opStack.push(t);
+					
 				}
-			} else if (t.isDigit()) {
-				numStack.push(Float.valueOf(t.getValue()));
+			}
+			if (t.isDigit()) {
+				numStack.push(new Float(t.getIntValue()));
 			}
 		}
-		/*StackUtil.reverse(numStack);
-		StackUtil.reverse(opStack);*/
 		while (!opStack.isEmpty()) {
-			Float f1 = (Float) numStack.pop();
-			Float f2 = (Float) numStack.pop();
-			Token opr = (Token) opStack.pop();
+			Float f1 = numStack.pop();
+			Float f2 = numStack.pop();
+			Token opr = opStack.pop();
 			numStack.push(calculate(opr.getValue(), f2, f1));
 		}
-		return (Float) numStack.pop();
+		return numStack.pop();
 		//return 0.0f;
 	}
 
@@ -68,7 +76,7 @@ public class InfixExpr {
 			System.out.println("-");
 			return f1 - f2;
 		}
-		return 0.0f;
+		throw new RuntimeException(op + " is not supported");
 	}
 
 }

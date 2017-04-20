@@ -1,6 +1,7 @@
 package com.coderising.jvm.test;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.After;
 import  org.junit.Assert;
@@ -9,7 +10,10 @@ import org.junit.Test;
 
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.clz.ClassIndex;
+import com.coderising.jvm.cmd.BiPushCmd;
 import com.coderising.jvm.cmd.ByteCodeCommand;
+import com.coderising.jvm.cmd.OneOperandCmd;
+import com.coderising.jvm.cmd.TwoOperandCmd;
 import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.constant.MethodRefInfo;
@@ -18,7 +22,6 @@ import com.coderising.jvm.constant.UTF8Info;
 import com.coderising.jvm.field.Field;
 import com.coderising.jvm.loader.ClassFileLoader;
 import com.coderising.jvm.method.Method;
-import com.coding.basic.List;
 
 
 

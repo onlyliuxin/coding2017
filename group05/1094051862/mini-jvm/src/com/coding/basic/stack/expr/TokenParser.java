@@ -41,12 +41,13 @@ public class TokenParser {
 	}
 
 	private boolean charIsDigit(char c) {
+		//return Character.isDigit(c);
 		return c>='0' && c<='9';
 	}
 
 	private boolean charIsOperator(char c) {
-		
-		return c=='+' || c=='-' || c=='*' || c=='/';
+		String sc = String.valueOf(c);
+		return Token.OPERATORS.contains(sc);
 	}
 	
 }

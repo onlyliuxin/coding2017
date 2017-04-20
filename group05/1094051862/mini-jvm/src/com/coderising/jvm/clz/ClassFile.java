@@ -1,11 +1,12 @@
 package com.coderising.jvm.clz;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.field.Field;
 import com.coderising.jvm.method.Method;
-import com.coding.basic.ArrayList;
-import com.coding.basic.List;
 public class ClassFile {
 	
 	private int minorVersion;
@@ -15,17 +16,17 @@ public class ClassFile {
 	private ClassIndex clzIndex;
 	private ConstantPool pool;
 	
-	private List fields = new ArrayList();
-	private List methods = new ArrayList();
+	private List<Field> fields = new ArrayList<Field>();
+	private List<Method> methods = new ArrayList<Method>();
 	public void addField(Field f) {
 		fields.add(f);
 	}
 	
-	public List getFields() {
+	public List<Field> getFields() {
 		return fields;
 	}
 
-	public List getMethods() {
+	public List<Method> getMethods() {
 		return methods;
 	}
 	public ClassIndex getClzIndex() {
@@ -94,11 +95,31 @@ public class ClassFile {
 	
 	public Method getMethod(String methodName, String paramAndReturnType){
 		
+		for(Method m : methods) {
+			
+			int nameIndex = m.getNameIndex();
+			int descriptionIndex = m.getDescriptorIndex();
+			
+			String name = this.getConstantPool().getUTF8String(nameIndex);
+			String desc = this.getConstantPool().getUTF8String(descriptionIndex);
+			
+			if (name.equals(methodName) && desc.equals(paramAndReturnType)) {
+				return m;
+			}
+		}
 		
 		return null;
 	}
 	public Method getMainMethod(){
-		
+		for(Method m :methods){
+			int nameIndex = m.getNameIndex();
+			int descIndex = m.getDescriptorIndex();
+			String name = this.getConstantPool().getUTF8String(nameIndex);
+			String desc = this.getConstantPool().getUTF8String(descIndex);
+			if(name.equals("main")  && desc.equals("([Ljava/lang/String;)V")){
+				return m;
+			}
+		}
 		return null;
 	}
 }
