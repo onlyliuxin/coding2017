@@ -17,6 +17,7 @@ public class Operator {
         }
     }
 
+
     private float perform(String fix, String operator, float p, float q) {
         float result = 0.0f;
         if (operator.equals("+")) {
@@ -24,7 +25,7 @@ public class Operator {
         } else if (operator.equals("-")) {
             if (fix.equals("postfix")) {
                 result = q - p;
-            } else if (fix.equals("prefix")){
+            } else if (fix.equals("prefix")) {
                 result = p - q;
             }
         } else if (operator.equals("*")) {
@@ -32,7 +33,7 @@ public class Operator {
         } else if (operator.equals("/")) {
             if (fix.equals("postfix")) {
                 result = q / p;
-            } else if (fix.equals("prefix")){
+            } else if (fix.equals("prefix")) {
                 result = p / q;
             }
         }
