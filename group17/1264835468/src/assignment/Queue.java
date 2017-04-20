@@ -1,6 +1,6 @@
 package assignment;
 
-public class MyQueue<T> {
+public class Queue<T> {
 	private MyLinkedList<T> elementData = new MyLinkedList<>();
 
 	public void enQueue(T o) {
