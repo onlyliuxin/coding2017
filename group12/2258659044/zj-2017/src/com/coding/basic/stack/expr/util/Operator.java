@@ -1,8 +1,9 @@
-package com.coding.basic.stack.expr;
+package com.coding.basic.stack.expr.util;
 
 public enum Operator {
 	
-	ADD("+",1),SUB("-",1),MULTY("*",2),DIVIDE("/",2);
+	ADD("+",1),SUB("-",1),MULTY("*",2),DIVIDE("/",2)
+	,LEFTBRACKRT("(",3),RIGHTBRACKET(")",3);
 	
 	private String flag;
 	private int level;
@@ -33,6 +34,10 @@ public enum Operator {
     		return MULTY;
     	}else if(DIVIDE.flag.equals(flag)){
     		return DIVIDE;
+    	}else if(LEFTBRACKRT.flag.equals(flag)){
+    		return LEFTBRACKRT;
+    	}else if(RIGHTBRACKET.flag.equals(flag)){
+    		return RIGHTBRACKET;
     	}
     	return null;
 	}
@@ -46,6 +51,10 @@ public enum Operator {
     	}else if(MULTY.flag.equals(flag)){
     		return true;
     	}else if(DIVIDE.flag.equals(flag)){
+    		return true;
+    	}else if(LEFTBRACKRT.flag.equals(flag)){
+    		return true;
+    	}else if(RIGHTBRACKET.flag.equals(flag)){
     		return true;
     	}
     	return false;

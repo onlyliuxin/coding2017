@@ -2,7 +2,6 @@ package com.coderising.jvm.cmd;
 
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.constant.ClassInfo;
-import com.coderising.jvm.constant.ConstantInfo;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.constant.FieldRefInfo;
 import com.coderising.jvm.constant.MethodRefInfo;
@@ -49,7 +48,6 @@ public abstract class TwoOperandCmd extends ByteCodeCommand{
 	protected String getOperandAsMethod(ConstantPool pool){
 		int index = getIndex();
 		String codeTxt = getReadableCodeText();
-		ConstantInfo constInfo = this.getConstantInfo(index);
 		MethodRefInfo info = (MethodRefInfo)this.getConstantInfo(index);
 		return this.getOffset()+":"+this.getOpCode()+" " + codeTxt +"  "+ info.toString();
 	}

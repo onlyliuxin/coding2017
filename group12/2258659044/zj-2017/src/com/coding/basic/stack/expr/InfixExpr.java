@@ -2,6 +2,9 @@ package com.coding.basic.stack.expr;
 
 import com.coding.basic.stack.Stack;
 import com.coding.basic.stack.StackUtil;
+import com.coding.basic.stack.expr.util.ExprIterator;
+import com.coding.basic.stack.expr.util.FixExprUtil;
+import com.coding.basic.stack.expr.util.Operator;
 
 public class InfixExpr {
 
