@@ -4,6 +4,8 @@ import com.github.ipk2015.coding2017.minijvm.attr.AttributeInfo;
 import com.github.ipk2015.coding2017.minijvm.attr.CodeAttr;
 import com.github.ipk2015.coding2017.minijvm.clz.ClassFile;
 import com.github.ipk2015.coding2017.minijvm.cmd.ByteCodeCommand;
+import com.github.ipk2015.coding2017.minijvm.constant.ConstantPool;
+import com.github.ipk2015.coding2017.minijvm.constant.UTF8Info;
 import com.github.ipk2015.coding2017.minijvm.loader.ByteCodeIterator;
 
 public class Method {
@@ -71,4 +73,15 @@ public class Method {
 	public ByteCodeCommand[] getCmds() {		
 		return this.getCodeAttr().getCmds();
 	}
+	
+	public String toString() {
+			
+			ConstantPool pool = this.clzFile.getConstantPool();
+			StringBuilder buffer = new StringBuilder();
+			String name = ((UTF8Info)pool.getConstantInfo(this.nameIndex)).getValue();
+			String desc = ((UTF8Info)pool.getConstantInfo(this.descriptorIndex)).getValue();
+			buffer.append(name).append(":").append(desc).append("\n");
+			buffer.append(this.codeAttr.toString(pool));
+			return buffer.toString();
+		}
 }

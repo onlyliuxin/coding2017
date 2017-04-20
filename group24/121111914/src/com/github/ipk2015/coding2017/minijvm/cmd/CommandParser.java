@@ -1,5 +1,6 @@
 package com.github.ipk2015.coding2017.minijvm.cmd;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.github.ipk2015.coding2017.minijvm.clz.ClassFile;
@@ -42,9 +43,67 @@ public class CommandParser {
 	public static final String iinc = "84";
 
 	public static ByteCodeCommand[] parse(ClassFile clzFile, String codes) {
-
-		
-		return null;
+		if(null == codes || codes.length() == 0){
+			throw new RuntimeException("字节码不存在");
+		}
+		codes = codes.toUpperCase();
+		CommandIterator iterator = new CommandIterator(codes);
+		List<ByteCodeCommand> commands = new ArrayList<ByteCodeCommand>();
+		while(iterator.hasNext()){
+			String operatorCode = iterator.next2CharAsString(); 
+			if(ldc.equals(operatorCode)){
+				LdcCmd cmd = new LdcCmd(clzFile,operatorCode);
+				cmd.setOperand(iterator.next2CharAsInt());
+				commands.add(cmd);
+			}else if(bipush.equals(operatorCode)){
+				BiPushCmd cmd = new BiPushCmd(clzFile,operatorCode);
+				cmd.setOperand(iterator.next2CharAsInt());
+				commands.add(cmd);
+			}else if(new_object.equals(operatorCode)){
+				NewObjectCmd cmd = new NewObjectCmd(clzFile,operatorCode);
+				cmd.setOprand1(iterator.next2CharAsInt());
+				cmd.setOprand2(iterator.next2CharAsInt());
+				commands.add(cmd);
+			}else if(invokespecial.equals(operatorCode)){
+				InvokeSpecialCmd cmd = new InvokeSpecialCmd(clzFile,operatorCode);
+				cmd.setOprand1(iterator.next2CharAsInt());
+				cmd.setOprand2(iterator.next2CharAsInt());
+				commands.add(cmd);
+			}else if(invokevirtual.equals(operatorCode)){
+				InvokeVirtualCmd cmd = new InvokeVirtualCmd(clzFile,operatorCode);
+				cmd.setOprand1(iterator.next2CharAsInt());
+				cmd.setOprand2(iterator.next2CharAsInt());
+				commands.add(cmd);
+			}else if(putfield.equals(operatorCode)){
+				PutFieldCmd cmd = new PutFieldCmd(clzFile,operatorCode);
+				cmd.setOprand1(iterator.next2CharAsInt());
+				cmd.setOprand2(iterator.next2CharAsInt());
+				commands.add(cmd);
+			}else if(getfield.equals(operatorCode)){
+				GetFieldCmd cmd = new GetFieldCmd(clzFile,operatorCode);
+				cmd.setOprand1(iterator.next2CharAsInt());
+				cmd.setOprand2(iterator.next2CharAsInt());
+				commands.add(cmd);
+			}else if(getstatic.equals(operatorCode)){
+				GetStaticFieldCmd cmd = new GetStaticFieldCmd(clzFile,operatorCode);
+				cmd.setOprand1(iterator.next2CharAsInt());
+				cmd.setOprand2(iterator.next2CharAsInt());
+				commands.add(cmd);
+			}else if(dup.equals(operatorCode) || aload_0.equals(operatorCode) || aload_1.equals(operatorCode) || 
+					aload_2.equals(operatorCode) || astore_1.equals(operatorCode) || voidreturn.equals(operatorCode)
+					|| iload.equals(operatorCode) || iload_1.equals(operatorCode) || iload_2.equals(operatorCode)
+					|| iload_3.equals(operatorCode) || fload_3.equals(operatorCode) || iconst_0.equals(operatorCode)
+					|| iconst_1.equals(operatorCode) || istore_1.equals(operatorCode) || istore_2.equals(operatorCode)
+					|| iadd.equals(operatorCode)|| iinc.equals(operatorCode)){
+				NoOperandCmd command = new NoOperandCmd(clzFile,operatorCode);
+				commands.add(command);
+			}else{
+				throw new RuntimeException("this operator code not includes yet:"+operatorCode);
+			}
+		}
+		calcuateOffset(commands);
+		ByteCodeCommand[] result = new ByteCodeCommand[commands.size()];
+		return commands.toArray(result);
 	}
 
 	private static void calcuateOffset(List<ByteCodeCommand> cmds) {
