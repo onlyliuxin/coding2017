@@ -24,7 +24,7 @@ public class ConstantPoolPrinter {
 			@Override
 			public void visitString(StringInfo info) {
 				StringBuilder buffer = new StringBuilder();
-				buffer.append("String    #").append(info.getIndex());
+				buffer.append(printConsName("string")).append("#"+info.getIndex());
 				System.out.println(buffer);
 				
 			}
@@ -32,7 +32,7 @@ public class ConstantPoolPrinter {
 			@Override
 			public void visitNameAndType(NameAndTypeInfo info) {
 				StringBuilder buffer = new StringBuilder();
-				buffer.append("NameAndType    #").append(info.getIndex1()).append(":#")
+				buffer.append(printConsName("NameAndType")).append("#"+info.getIndex1()).append(":#")
 				.append(info.getIndex2());
 				System.out.println(buffer);
 				
@@ -41,7 +41,7 @@ public class ConstantPoolPrinter {
 			@Override
 			public void visitMethodRef(MethodRefInfo info) {
 				StringBuilder buffer = new StringBuilder();
-				buffer.append("MethodRef    #").append(info.getClassInfoIndex()).append(".#")
+				buffer.append(printConsName("MethodRef")).append("#"+info.getClassInfoIndex()).append(".#")
 				.append(info.getNameAndTypeIndex());
 				System.out.println(buffer);
 				
@@ -50,7 +50,7 @@ public class ConstantPoolPrinter {
 			@Override
 			public void visitFieldRef(FieldRefInfo info) {
 				StringBuilder buffer = new StringBuilder();
-				buffer.append("FieldRef    #").append(info.getClassInfoIndex()).append(".#")
+				buffer.append(printConsName("FieldRef")).append("#"+info.getClassInfoIndex()).append(".#")
 				.append(info.getNameAndTypeIndex());
 				System.out.println(buffer);
 				
@@ -59,7 +59,7 @@ public class ConstantPoolPrinter {
 			@Override
 			public void visitClassInfo(ClassInfo info) {
 				StringBuilder buffer = new StringBuilder();
-				buffer.append("Class    #").append(info.getUtf8Index())
+				buffer.append(printConsName("Class")).append("#"+info.getUtf8Index())
 				.append("  ").append(info.getClassName());
 				
 				System.out.println(buffer);
@@ -69,23 +69,44 @@ public class ConstantPoolPrinter {
 			@Override
 			public void visistUTF8(UTF8Info info) {
 				StringBuilder buffer = new StringBuilder();
-				buffer.append("UTF8    ").append(info.getValue());
+				buffer.append(printConsName("UTF8")).append(info.getValue());
 				System.out.println(buffer);
 				
 			}
 		};
 		
-		for(int i=1; i<=pool.getSize(); i++){
+		int size = pool.getSize();		
+		for(int i=1; i<=size; i++){
 			ConstantInfo constantInfo = pool.getConstantInfo(i);
-			System.out.print("#"+i+"=");
+			String space = genaralSpace(size,i);
+			System.out.print(space+"#"+i+"=");
 			constantInfo.accept(visitor);			
 		}
 	}
 	
-	private void printSpaceAfterConsName(String consBeforStr){
+	private String genaralSpace(int size,int i){
 		
-		String bashStr = (pool.getSize()+1)+"="+"NameAndType    ";
+		int s1 = String.valueOf(size).length();//数字的位数
+		int s2 = String.valueOf(i).length();//数字的位数
+		StringBuffer str = new StringBuffer();
+		for (int j = 0; j < s1-s2; j++) {
+			str.append(" ");
+		}
+		return str.toString();
+	}
+	
+	/**
+	 * 输出常量名称后面的空格
+	 * @param consBeforStr
+	 */
+	private String printConsName(String consName){
+		
+		String bashStr = "NameAndType";		
 		int bashLen = bashStr.length();
-		int offset = bashLen-consBeforStr.length();
+		int offset = bashLen-consName.length();
+		for (int i = 0; i < offset; i++) {
+			consName+= " ";
+		}
+		return consName+"     ";
 	}
 }

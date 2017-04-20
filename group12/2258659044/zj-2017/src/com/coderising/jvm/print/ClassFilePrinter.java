@@ -14,11 +14,11 @@ public class ClassFilePrinter {
 	public void print(){
 		
 		if(clzFile.getAccessFlag().isPublicClass()){
-			System.out.println("Access flag : public  ");
+			System.out.println("Access flag:public  ");
 		}
 		System.out.println("Class Name:"+ clzFile.getClassName());
 		
-		System.out.println("Super Class Name:"+ clzFile.getSuperClassName());
+		System.out.println("Super ClassName:"+ clzFile.getSuperClassName());
 		
 		System.out.println("minor version:" + clzFile.getMinorVersion());
 		
