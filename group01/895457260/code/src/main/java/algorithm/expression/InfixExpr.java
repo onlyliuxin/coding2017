@@ -1,4 +1,4 @@
-package algorithm;
+package algorithm.expression;
 
 import datastructure.basic.Stack;
 
