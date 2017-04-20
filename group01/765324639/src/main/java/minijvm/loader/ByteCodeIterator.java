@@ -21,9 +21,21 @@ public class ByteCodeIterator {
     public int nextU2ToInt() {
         return Util.byteToInt(new byte[]{codes[pos++], codes[pos++]});
     }
+    
+    public int nextU4ToInt() {
+        return Util.byteToInt(new byte[]{codes[pos++], codes[pos++], codes[pos++], codes[pos++]});
+    }
 
     public String nextU4ToHexString() {
         return Util.byteToHexString(new byte[]{codes[pos++], codes[pos++], codes[pos++], codes[pos++]});
+    }
+    
+    public String nextUxToHexString(int length) {
+        byte[] src = new byte[length];
+        for (int i = 0; i < length; i++) {
+            src[i] = codes[pos++];
+        }
+        return Util.byteToHexString(src);
     }
 
     public String nextLengthToString(int length) {
@@ -34,6 +46,12 @@ public class ByteCodeIterator {
             e.printStackTrace();
         }
         return dest;
+    }
+    
+    public void back(int length) {
+        for (int i = 0; i < length; i++) {
+            pos--;
+        }
     }
     
     private byte[] getBytes(int length) {
