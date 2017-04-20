@@ -8,7 +8,9 @@ public class ByteUtils {
     public static String toHexString(byte[] bytes, int off, int len) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < len; ++i) {
-            builder.append(Integer.toHexString(Byte.toUnsignedInt(bytes[off + i])));
+            int uInt = Byte.toUnsignedInt(bytes[off + i]);
+            String hex = Integer.toHexString(uInt);
+            builder.append(hex.length() < 2 ? '0' + hex : hex);
         }
         return builder.toString();
     }

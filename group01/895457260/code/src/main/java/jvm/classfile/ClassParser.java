@@ -98,7 +98,7 @@ public class ClassParser {
     private static void parseMethods(ClassFile classFile, ByteCodeIterator iterator) {
         int count = iterator.nextU2ToInt();
         for (int i = 0; i < count; ++i) {
-            classFile.methods.add(Method.parse(iterator, classFile.constantPool));
+            classFile.methods.add(Method.parse(iterator, classFile));
         }
     }
 
