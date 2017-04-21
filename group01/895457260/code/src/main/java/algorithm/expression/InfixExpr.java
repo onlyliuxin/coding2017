@@ -10,10 +10,10 @@ public class InfixExpr {
 	private Stack numbers = new Stack();
 	private Stack operators = new Stack();
 
-	private String expr = null;
-	
+	private String expr;
+
 	public InfixExpr(String expr) {
-		this.expr = expr;
+		this.expr = expr.replaceAll("\\s", "");
 		operators.push("#");
 	}
 
