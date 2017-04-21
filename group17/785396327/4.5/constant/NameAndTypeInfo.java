@@ -29,6 +29,11 @@ public class NameAndTypeInfo extends ConstantInfo {
         return type;
     }
 
+    @Override
+    public void accept(Visitor visitor) {
+
+    }
+
 
     public String getName(){
         ConstantPool pool = this.getConstantPool();

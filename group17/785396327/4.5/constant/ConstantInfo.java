@@ -13,19 +13,38 @@ public abstract class ConstantInfo {
     public static final int NAME_AND_TYPE_INFO = 12;
     protected ConstantPool constantPool;
 
-    public ConstantInfo(){
+    public ConstantInfo() {
 
     }
 
     public ConstantInfo(ConstantPool pool) {
         this.constantPool = pool;
     }
+
     public abstract int getType();
 
     public ConstantPool getConstantPool() {
         return constantPool;
     }
-    public ConstantInfo getConstantInfo(int index){
+
+    public ConstantInfo getConstantInfo(int index) {
         return this.constantPool.getConstantInfo(index);
+    }
+
+    public abstract void accept(Visitor visitor);
+
+    public interface Visitor {
+        void visitClassInfo(ClassInfo info);
+
+        void visitFieldRef(FieldRefInfo info);
+
+        void visitMethodRef(MethodRefInfo info);
+
+        void visitNameAndType(NameAndTypeInfo info);
+
+        void visitString(StringInfo info);
+
+        void visistUTF8(UTF8Info info);
+
     }
 }

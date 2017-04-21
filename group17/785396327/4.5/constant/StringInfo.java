@@ -14,6 +14,11 @@ public class StringInfo extends ConstantInfo {
         return type;
     }
 
+    @Override
+    public void accept(Visitor visitor) {
+
+    }
+
     public int getIndex() {
         return index;
     }
