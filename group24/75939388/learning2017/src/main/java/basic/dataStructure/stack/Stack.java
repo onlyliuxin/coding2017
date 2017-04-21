@@ -9,6 +9,14 @@ public class Stack {
 
     private ArrayList elementData = new ArrayList();
 
+    public Stack(){}
+
+    public Stack(Object...objs){
+        for(int i = 0; i < objs.length; i++){
+            this.push(objs[i]);
+        }
+    }
+
     public void push(Object o){
         this.elementData.add(o);
     }

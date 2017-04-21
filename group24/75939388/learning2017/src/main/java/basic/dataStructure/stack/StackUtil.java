@@ -1,5 +1,5 @@
 package basic.dataStructure.stack;
-import java.util.Stack;
+
 public class StackUtil {
 	
 	
@@ -8,10 +8,13 @@ public class StackUtil {
 	 * 假设栈中的元素是Integer, 从栈顶到栈底是 : 5,4,3,2,1 调用该方法后， 元素次序变为: 1,2,3,4,5
 	 * 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
 	 */
-	public static void reverse(Stack<Integer> s) {
-		
-		
-		
+	public static Stack reverse(Stack s) {
+		Stack st = new Stack();
+		int size = s.size();
+		for(int i = 0; i < size; i++){
+			st.push(s.pop());
+		}
+		return st;
 	}
 	
 	/**
@@ -19,8 +22,19 @@ public class StackUtil {
 	 * 
 	 * @param o
 	 */
-	public static void remove(Stack s,Object o) {
-		
+	public static Stack remove(Stack s,Object o) {
+		Stack tmp = new Stack();
+		int size = s.size();
+		for(int i = 0; i < size; i++){
+			Object obj = s.peek();
+			if(obj != o && !obj.equals(o)){
+				tmp.push(s.pop());
+			}else{
+				s.pop();
+			}
+		}
+
+		return tmp;
 	}
 
 	/**
@@ -30,7 +44,22 @@ public class StackUtil {
 	 * @return
 	 */
 	public static Object[] getTop(Stack s,int len) {
-		return null;
+		Stack temp = new Stack();
+		int size = s.size();
+		Object[] objs = new Object[len];
+		for(int i = 0; i < size; i++){
+			Object obj = s.pop();
+			if(i < len){
+				objs[i] = obj;
+			}
+			temp.push(obj);
+		}
+
+		for(int i = 0 ; i < size; i ++){
+			s.push(temp.pop());
+		}
+
+		return objs;
 	}
 	/**
 	 * 字符串s 可能包含这些字符：  ( ) [ ] { }, a,b,c... x,yz
@@ -41,7 +70,19 @@ public class StackUtil {
 	 * @return
 	 */
 	public static boolean isValidPairs(String s){
-		return false;
+		//圆括号
+		Stack bracket = new Stack("(", ")");
+
+		//方括号
+		Stack brackets = new Stack("[", "]");
+
+		//花括号
+		Stack braces = new Stack("{", "}");
+
+		//String转化为Stack
+		char[] arr = s.toCharArray();
+		Stack strSt = new Stack(arr);
+
 	}
 	
 	
