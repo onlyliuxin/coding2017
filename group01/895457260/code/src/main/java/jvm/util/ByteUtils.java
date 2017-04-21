@@ -5,6 +5,10 @@ package jvm.util;
  * TODO:
  */
 public class ByteUtils {
+    public static String toHexString(byte[] bytes) {
+        return toHexString(bytes, 0, bytes.length);
+    }
+
     public static String toHexString(byte[] bytes, int off, int len) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < len; ++i) {
