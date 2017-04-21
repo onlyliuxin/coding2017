@@ -1,6 +1,7 @@
 package clz;
 
 import constant.ClassInfo;
+import constant.ConstantInfo;
 import constant.ConstantPool;
 import field.Field;
 import method.Method;
@@ -79,15 +80,17 @@ public class ClassFile {
 
         System.out.println("Super Class Name:"+ getSuperClassName());
 
+        System.out.println("Constant pool:");
+
 
     }
 
-    private String getClassName(){
+    public String getClassName(){
         int thisClassIndex = this.clzIndex.getThisClassIndex();
         ClassInfo thisClass = (ClassInfo)this.getConstantPool().getConstantInfo(thisClassIndex);
         return thisClass.getClassName();
     }
-    private String getSuperClassName(){
+    public String getSuperClassName(){
         ClassInfo superClass = (ClassInfo)this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
         return superClass.getClassName();
     }

@@ -16,4 +16,5 @@ public class NullConstantInfo extends ConstantInfo {
     public void accept(Visitor visitor) {
 
     }
+
 }

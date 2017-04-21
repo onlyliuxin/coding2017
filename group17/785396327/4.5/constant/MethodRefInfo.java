@@ -3,7 +3,7 @@ package constant;
 /**
  * Created by IBM on 2017/4/10.
  */
-public class MethodRefInfo extends ConstantInfo implements ConstantInfo.Visitor {
+public class MethodRefInfo extends ConstantInfo{
     private int type = ConstantInfo.METHOD_INFO;
 
     private int classInfoIndex;
@@ -55,43 +55,4 @@ public class MethodRefInfo extends ConstantInfo implements ConstantInfo.Visitor 
         return typeInfo.getName();
     }
 
-    @Override
-    public void visitClassInfo(ClassInfo info) {
-
-    }
-
-    @Override
-    public void visitFieldRef(FieldRefInfo info) {
-
-    }
-
-    @Override
-    public void visitMethodRef(MethodRefInfo info) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\t# =   Methodref\t\t\t#")
-                .append(classInfoIndex)
-                .append(".#")
-                .append(nameAndTypeIndex)
-                .append("\t\t// ")
-                .append(getClassName() + ".")
-                .append(((NameAndTypeInfo) getConstantInfo(nameAndTypeIndex)).getName())
-                .append(".")
-                .append(((NameAndTypeInfo) getConstantInfo(nameAndTypeIndex)).getTypeInfo());
-        System.out.println(sb.toString());
-    }
-
-    @Override
-    public void visitNameAndType(NameAndTypeInfo info) {
-
-    }
-
-    @Override
-    public void visitString(StringInfo info) {
-
-    }
-
-    @Override
-    public void visistUTF8(UTF8Info info) {
-
-    }
 }

@@ -16,7 +16,7 @@ public class StringInfo extends ConstantInfo {
 
     @Override
     public void accept(Visitor visitor) {
-
+        visitor.visitString(this);
     }
 
     public int getIndex() {
