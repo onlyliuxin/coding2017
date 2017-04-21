@@ -15,8 +15,18 @@ public class LocalVariableTable extends AttributeInfo {
     }
 
     public static LocalVariableTable parse(ClassFile clzFile, ByteCodeIterator iter, int nameIndex, int length) {
-
-        return null;
+        int tableLength = iter.nextU2ToInt();
+        LocalVariableTable localVariableTable = new LocalVariableTable(nameIndex, length);
+        for (int i = 0; i < tableLength; i++) {
+            LocalVariableItem item = new LocalVariableItem();
+            item.setStartPC(iter.nextU2ToInt());
+            item.setLength(iter.nextU2ToInt());
+            item.setNameIndex(iter.nextU2ToInt());
+            item.setDescIndex(iter.nextU2ToInt());
+            item.setIndex(iter.nextU2ToInt());
+            localVariableTable.addLocalVariableItem(item);
+        }
+        return localVariableTable;
     }
 
     private void addLocalVariableItem(LocalVariableItem item) {

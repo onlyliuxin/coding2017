@@ -49,7 +49,7 @@ public class Method {
         Method method = new Method(clzFile, accessFlag, nameIndex, descriptorIndex);
 
         method.parseAttributes(iter);
-        return null;
+        return method;
 
     }
 
@@ -59,6 +59,8 @@ public class Method {
             AttributeInfo attributeInfo = AttributeInfo.parse(this.clzFile, iter);
             if (attributeInfo instanceof CodeAttr) {
                 this.setCodeAttr((CodeAttr) attributeInfo);
+            } else {
+                throw new RuntimeException("unknown method attribute");
             }
         }
     }

@@ -12,12 +12,10 @@ public class StackMapTable extends AttributeInfo {
     }
 
     public static StackMapTable parse(ClassFile clzFile, ByteCodeIterator iter, int nameIndex, int length) {
-        int index = iter.nextU2ToInt();
-        int len = iter.nextU4ToInt();
-        StackMapTable t = new StackMapTable(index, len);
+        StackMapTable t = new StackMapTable(nameIndex, length);
 
         // 后面的StackMapTable太过复杂， 不再处理， 只把原始的代码读进来保存
-        String code = iter.nextUxToHexString(len);
+        String code = iter.nextUxToHexString(length);
         t.setOriginalCode(code);
 
         return t;
@@ -25,6 +23,5 @@ public class StackMapTable extends AttributeInfo {
 
     private void setOriginalCode(String code) {
         this.originalCode = code;
-
     }
 }

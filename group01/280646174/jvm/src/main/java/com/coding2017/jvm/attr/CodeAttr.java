@@ -45,6 +45,12 @@ public class CodeAttr extends AttributeInfo {
         int codeLength = iter.nextU4ToInt();
         String code = iter.nextUxToHexString(codeLength);
         CodeAttr codeAttr = new CodeAttr(nameIndex, length, maxStack, maxLocals, codeLength, code);
+        int exceptionTableLength = iter.nextU2ToInt();
+        if(exceptionTableLength > 0){
+            String exTable = iter.nextUxToHexString(exceptionTableLength * 8);
+            System.out.println("Encountered exception table , just ignore it :" + exTable);
+
+        }
         int codeAttributeCount = iter.nextU2ToInt();
         for (int j = 0; j < codeAttributeCount; j++) {
             AttributeInfo attributeInfo = AttributeInfo.parse(clzFile, iter);

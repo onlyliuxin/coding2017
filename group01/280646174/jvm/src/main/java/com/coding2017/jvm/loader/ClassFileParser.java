@@ -34,11 +34,25 @@ public class ClassFileParser {
 
         parseInterfaces(iterator);
 
-        Field.parse(classFile.getConstantPool(), iterator);
+        parseFields(classFile, iterator);
 
-        Method.parse(classFile, iterator);
+        parseMethods(classFile, iterator);
 
         return classFile;
+    }
+
+    private void parseMethods(ClassFile clzFile, ByteCodeIterator iterator) {
+        int methodCount = iterator.nextU2ToInt();
+        for (int i = 0; i < methodCount; i++) {
+            clzFile.getMethods().add(Method.parse(clzFile, iterator));
+        }
+    }
+
+    private void parseFields(ClassFile clzFile, ByteCodeIterator iterator) {
+        int fieldCount = iterator.nextU2ToInt();
+        for (int i = 0; i < fieldCount; i++) {
+            clzFile.getFields().add(Field.parse(clzFile.getConstantPool(), iterator));
+        }
     }
 
     private boolean checkMagicNumber(ByteCodeIterator iterator) {

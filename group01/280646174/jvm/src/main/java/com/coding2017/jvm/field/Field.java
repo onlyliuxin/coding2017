@@ -29,4 +29,8 @@ public class Field {
         return new Field(accessFlag, nameIndex, descriptorIndex, pool);
     }
 
+    @Override
+    public String toString() {
+        return pool.getUTF8String(nameIndex) + ":" + pool.getUTF8String(descriptorIndex);
+    }
 }
