@@ -59,7 +59,7 @@ public class ReflectUtil {
     }
 
     public static List<Method> getMethodBeginWith(Class<?> cls, String methodName){
-        ArrayList<Method> methodsList = new ArrayList<>();
+        ArrayList<Method> methodsList = new ArrayList<Method>();
         try {
             Method[] methods = cls.getDeclaredMethods();
             for(Method method : methods){

@@ -70,6 +70,7 @@ public class ArrayList<E> extends AbstractList<E> {
 	}
 
 	public E removeLast() {
+		checkIndex(size);
 		return elements[--size];
 	}
 
