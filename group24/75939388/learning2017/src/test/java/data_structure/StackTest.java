@@ -1,49 +1,36 @@
 package data_structure;
 
+import basic.dataStructure.stack.Stack;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import basic.dataStructure.Stack;
 
 /**
  * Created by macvi on 2017/4/4.
  */
 public class StackTest {
 
-    private Stack getStack(){
-        Stack s = new Stack();
+    private Stack s;
+
+    @Before
+    public void init(){
+        s = new Stack();
         for(int i = 0; i < 14; i ++){
             s.push(i + "");
         }
-
-        return s;
     }
 
     @Test
-    public void pushTest(){
-        Stack s = getStack();
-
-        System.out.println("stack-->" + s.toString());
-    }
-
-    @Test
-    public void testSize(){
-        Stack s = getStack();
-
-        Assert.assertEquals(14, s.size());
-    }
-
-    @Test
-    public void testPeek(){
-        Stack s = getStack();
-
-        Assert.assertEquals("13", s.peek());
-    }
-
-    @Test
-    public void testPop(){
-        Stack s = getStack();
-
+    public void test1(){
+        Assert.assertEquals("13,12,11,10,9,8,7,6,5,4,3,2,1,0", s.toString());
         Assert.assertEquals("13", s.pop());
         Assert.assertEquals(13, s.size());
+        Assert.assertEquals("12", s.peek());
     }
+
+    @Test
+    public void test2(){
+
+    }
+
 }

@@ -1,4 +1,4 @@
-package basic.dataStructure;
+package basic.dataStructure.stack;
 
 import basic.dataStructure.array.ArrayList;
 
@@ -35,7 +35,11 @@ public class Stack {
     public String toString() {
         StringBuffer sb = new StringBuffer();
         for(int i = this.size() - 1; i >= 0; i--){
-            sb.append(elementData.get(i).toString()).append(",");
+            if(i != 0){
+                sb.append(elementData.get(i).toString()).append(",");
+            }else{
+                sb.append(elementData.get(i).toString());
+            }
         }
 
         return sb.toString();
