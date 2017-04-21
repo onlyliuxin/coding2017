@@ -104,10 +104,12 @@ public class ClassParser {
 
     private static void linkConstantReferences(ClassFile classFile) {
         ConstantPool constantPool = classFile.constantPool;
-        constantPool.forEach(c -> {
-            if (c instanceof IReference) {
-                ((IReference) c).linkReference(constantPool);
-            }
-        });
+        for (int i = 0; i < constantPool.getSize(); ++i) {
+            constantPool.forEach(c -> {
+                if (c instanceof IReference) {
+                    ((IReference) c).linkReference(constantPool);
+                }
+            });
+        }
     }
 }

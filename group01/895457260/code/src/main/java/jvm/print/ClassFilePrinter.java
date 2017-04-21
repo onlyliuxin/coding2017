@@ -4,6 +4,9 @@ import jvm.ClassFileLoader;
 import jvm.classfile.ClassFile;
 import jvm.exception.ReadClassException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ClassFilePrinter {
     ClassFile clzFile;
 
