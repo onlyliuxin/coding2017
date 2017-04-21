@@ -1,4 +1,4 @@
-package basic.dataStructure;
+package basic.dataStructure.linkedList;
 
 /**
  * @author : 温友朝

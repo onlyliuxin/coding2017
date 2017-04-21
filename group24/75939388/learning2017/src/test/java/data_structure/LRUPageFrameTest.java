@@ -1,6 +1,6 @@
 package data_structure;
 
-import basic.dataStructure.LRUPageFrame;
+import basic.dataStructure.linkedList.LRUPageFrame;
 import org.junit.Assert;
 import org.junit.Test;
 

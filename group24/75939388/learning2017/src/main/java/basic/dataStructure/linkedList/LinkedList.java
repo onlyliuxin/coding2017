@@ -1,4 +1,8 @@
-package basic.dataStructure;
+package basic.dataStructure.linkedList;
+
+import basic.dataStructure.ArrayUtil;
+import basic.dataStructure.List;
+import basic.dataStructure.array.ArrayList;
 
 /**
  * Created by macvi on 2017/4/3.
@@ -169,7 +173,7 @@ public class LinkedList implements List {
 
     /**
      * 删除一个单链表的前半部分
-     * 例如：list = 2->5->7->8 , 删除以后的值为 7->8
+     * 例如：array = 2->5->7->8 , 删除以后的值为 7->8
      * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
 
      */

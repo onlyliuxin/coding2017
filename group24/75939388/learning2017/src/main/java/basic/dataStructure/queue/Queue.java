@@ -1,4 +1,4 @@
-package basic.dataStructure;
+package basic.dataStructure.queue;
 
 /**
  * Created by macvi on 2017/4/4.
