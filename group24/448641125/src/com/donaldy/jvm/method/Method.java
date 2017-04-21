@@ -2,6 +2,7 @@ package com.donaldy.jvm.method;
 
 import com.donaldy.jvm.attr.*;
 import com.donaldy.jvm.clz.ClassFile;
+import com.donaldy.jvm.cmd.ByteCodeCommand;
 import com.donaldy.jvm.constant.ConstantPool;
 import com.donaldy.jvm.constant.UTF8Info;
 import com.donaldy.jvm.loader.ByteCodeIterator;
@@ -85,5 +86,25 @@ public class Method {
 		method.setCodeAttr(codeAttr);
 		return method;
 		
+	}
+
+	public String toString() {
+
+		ConstantPool pool = this.clzFile.getConstantPool();
+		StringBuilder buffer = new StringBuilder();
+
+		String name = ((UTF8Info)pool.getConstantInfo(this.nameIndex)).getValue();
+
+		String desc = ((UTF8Info)pool.getConstantInfo(this.descriptorIndex)).getValue();
+
+		buffer.append(name).append(":").append(desc).append("\n");
+
+		buffer.append(this.codeAttr.toString(pool));
+
+		return buffer.toString();
+	}
+
+	public ByteCodeCommand[] getCmds() {
+		return this.getCodeAttr().getCmds();
 	}
 }
