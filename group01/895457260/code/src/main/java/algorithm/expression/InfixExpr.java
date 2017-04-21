@@ -14,34 +14,33 @@ public class InfixExpr {
 
 	public InfixExpr(String expr) {
 		this.expr = expr.replaceAll("\\s", "");
-		operators.push("#");
 	}
 
 	public float evaluate() {
 		numbers.clear();
 		operators.clear();
-		operators.push("#");
+		operators.push(Token.SCOPE);
 
 		List<Token> tokens = TokenParser.parse(expr);
-		tokens.add(new Token(Token.OPERATOR, "#"));
+		tokens.add(Token.SCOPE);
 
-		for (int i = 0; !operators.isEmpty() && i < tokens.size(); ++i) {
+		for (int i = 0; i < tokens.size() && !operators.isEmpty(); ++i) {
 			Token token = tokens.get(i);
 			if (token.isNumber()) {
-				putNumber(token.getFloatValue());
+				putNumber(token);
 			} else {
-				putOperator(token.toString());
+				putOperator(token);
 			}
 		}
-		return numbers.isEmpty() ? 0 : (float) numbers.peek();
+		return numbers.isEmpty() ? 0 : ((Token) numbers.peek()).getFloatValue();
 	}
 
-	private void putNumber(float num) {
+	private void putNumber(Token num) {
 		numbers.push(num);
 	}
 
-	private void putOperator(String op) {
-		int compare = Token.compare(op, (String) operators.peek());
+	private void putOperator(Token op) {
+		int compare = Token.compare(op, (Token) operators.peek());
 		switch (compare) {
 			case 1:
 				operators.push(op);
@@ -50,29 +49,13 @@ public class InfixExpr {
 				operators.pop();
 				break;
 			case -1:
-				float num1 = (float) numbers.pop();
-				float num2 = (float) numbers.pop();
-				String operator = (String) operators.pop();
-				float result = calculate(num2, operator, num1);
+				Token num1 = (Token) numbers.pop();
+				Token num2 = (Token) numbers.pop();
+				Token operator = (Token) operators.pop();
+				Token result = Token.calculate(num2, operator, num1);
 				numbers.push(result);
 				putOperator(op);
 				break;
 		}
-	}
-
-	private float calculate(float num2, String op, float num1) {
-		switch (op) {
-			case "+":
-				return num2 + num1;
-			case "-":
-				return num2 - num1;
-			case "*":
-				return num2 * num1;
-			case "/":
-				if (num1 != 0) {
-					return num2 / num1;
-				}
-		}
-		throw new RuntimeException("Divide by 0");
 	}
 }
