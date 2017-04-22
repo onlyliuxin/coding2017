@@ -1,4 +1,4 @@
-package algorithm;
+package algorithm.expression;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -17,8 +17,7 @@ public class InfixExprTest {
 	}
 
 	@Test
-	public void testEvaluate() throws InfixExpr.CalculateException {
-		//InfixExpr expr = new InfixExpr("300*20+12*5-20/4");
+	public void testEvaluate() throws Exception {
 		{
 			InfixExpr expr = new InfixExpr("2+3*4+5");
 			Assert.assertEquals(19.0, expr.evaluate(), 0.001f);

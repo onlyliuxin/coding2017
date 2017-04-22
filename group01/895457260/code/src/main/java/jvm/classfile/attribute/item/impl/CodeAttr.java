@@ -13,7 +13,7 @@ public class CodeAttr extends AttributeInfo {
 	private List<AttributeInfo> attributes = new ArrayList<>();
 	//private ByteCodeCommand[] cmds ;
 
-	//public ByteCodeCommand[] getCmds() {
+	//public ByteCodeCommand[] getCommands() {
 	//	return cmds;
 	//}
 

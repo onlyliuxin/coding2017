@@ -11,20 +11,20 @@ import java.util.function.Consumer;
  * TODO:
  */
 public class ConstantPool {
-    private List<Constant> constantMap = new ArrayList<>();
+    private List<Constant> constants = new ArrayList<>();
 
     public void forEach(Consumer<? super Constant> action) {
-        constantMap.forEach(action);
+        constants.forEach(action);
     }
 
     public int getSize() {
-        return constantMap.size() - 1;
+        return constants.size() - 1;
     }
 
     boolean addConstantInfo(Constant c) {
-        return constantMap.add(c);
+        return constants.add(c);
     }
     public Constant getConstantInfo(int index) {
-        return constantMap.get(index);
+        return constants.get(index);
     }
 }
