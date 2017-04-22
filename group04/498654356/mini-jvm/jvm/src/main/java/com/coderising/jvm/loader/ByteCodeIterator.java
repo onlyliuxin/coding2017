@@ -19,13 +19,17 @@ public class ByteCodeIterator {
 
 
 	public int next2ByteToInt() {
-		return converToInt(codes[index++],codes[index++]);
+		return converToInt(codes[index++], codes[index++]);
 	}
 
 	public int next1ByteToInt() {
 		return converToInt(codes[index++]);
 	}
 
+	public int next4ByteToInt() {
+		return converToInt(codes[index++], codes[index++], codes[index++], codes[index++]);
+	}
+	
 	/**
 	 * big-endian
 	 */
@@ -53,5 +57,27 @@ public class ByteCodeIterator {
 		}
 		return str;
 	}
+
+	public String nextXByteToHexStr(int length) {
+		byte[] bytes = Arrays.copyOfRange(codes, index, index + length);
+		StringBuffer buffer = new StringBuffer();
+		for(int i=0;i<bytes.length;i++){
+			byte b = bytes[i];
+			int value = b & 0xFF;
+			String strHex = Integer.toHexString(value);
+			if(strHex.length()< 2){
+				strHex = "0" + strHex;
+			}		
+			buffer.append(strHex);
+		}
+		index += length;
+		return buffer.toString();
+	}
+
+	public void back(int i) {
+		this.index -= i;
+	}
+
+
 	
 }

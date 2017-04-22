@@ -1,5 +1,9 @@
 package com.coderising.jvm.loader;
 
+import org.junit.Assert;
+
+import com.coderising.jvm.attr.AttributeInfo;
+import com.coderising.jvm.attr.CodeAttr;
 import com.coderising.jvm.clz.AccessFlag;
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.clz.ClassIndex;
@@ -11,6 +15,9 @@ import com.coderising.jvm.constant.NULLConstantInfo;
 import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.StringInfo;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
+
 
 public class ClassFileParser {
 
@@ -20,7 +27,7 @@ public class ClassFileParser {
 		}
 		ByteCodeIterator it = new ByteCodeIterator(codes);
 		ClassFile clzFile = new ClassFile();
-		it.skip(4);
+		it.skip(4);	//CAFE BABE
 		clzFile.setMinorVersion(it.next2ByteToInt());
 		clzFile.setMajorVersion(it.next2ByteToInt());
 		
@@ -33,7 +40,64 @@ public class ClassFileParser {
 		//classIndex
 		clzFile.setClassIndex(parseClassInfex(it));
 		
+		//interfaces TODO 
+		int interfaceCount = it.next2ByteToInt();
+		Assert.assertEquals("no have ", 0, interfaceCount);
+		
+		//fields
+		parseField(it, clzFile);
+		
+		//methods
+		parseMethod(it, clzFile);
+		
 		return clzFile;
+	}
+
+	private void parseMethod(ByteCodeIterator it, ClassFile clzFile) {
+		int methodCount = it.next2ByteToInt();
+		while(methodCount > 0) {
+			Method method = new Method();
+			int accessFlag = it.next2ByteToInt();
+			int nameIndex = it.next2ByteToInt();
+			int descIndex = it.next2ByteToInt();
+			int attrCount = it.next2ByteToInt();
+			method.setAccessFlag(accessFlag);
+			method.setNameIndex(nameIndex);
+			method.setDescIndex(descIndex);
+			method.setConstantPool(clzFile.getConstantPool());
+			while(attrCount > 0) {
+				int attrNameIndex = it.next2ByteToInt();
+				String attrName = clzFile.getConstantPool().getUTF8String(attrNameIndex);
+				if(AttributeInfo.ATTR_CODE.equals(attrName)) {	//code
+					it.back(2);
+					CodeAttr codeAttr = CodeAttr.parse(it, clzFile.getConstantPool());
+					method.setCodeAttr(codeAttr);
+				} else {
+					throw new RuntimeException("no implements attributeName: " + attrName);
+				}
+				attrCount--;
+			}
+			clzFile.addMethod(method);
+			methodCount--;
+		}
+	}
+
+	private void parseField(ByteCodeIterator it, ClassFile clzFile) {
+		int fieldCount = it.next2ByteToInt();
+		while(fieldCount > 0) {
+			Field field = new Field();
+			int accessFlag = it.next2ByteToInt();
+			int nameIndex = it.next2ByteToInt();
+			int descIndex = it.next2ByteToInt();
+			int attrCount = it.next2ByteToInt();
+			Assert.assertEquals("no have ", 0, attrCount);	//TODO
+			field.setAccessFlag(accessFlag);
+			field.setNameIndex(nameIndex);
+			field.setDescIndex(descIndex);
+			field.setConstantPool(clzFile.getConstantPool());
+			clzFile.addFiled(field);
+			fieldCount--;
+		}
 	}
 
 	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {

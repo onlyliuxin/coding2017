@@ -27,4 +27,7 @@ public class ConstantPool {
 	public void addConstantInfo(ConstantInfo constantInfo) {
 		this.constantInfosList.add(constantInfo);
 	}
+	public String getUTF8String(int index) {
+		return ((UTF8Info)getConstantInfo(index)).getValue();
+	}
 }

@@ -1,6 +1,11 @@
 package com.coderising.jvm.clz;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.coderising.jvm.constant.ConstantPool;
+import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
 
 public class ClassFile {
 
@@ -9,6 +14,8 @@ public class ClassFile {
 	private ConstantPool constantPool;
 	private ClassIndex classIndex;
 	private AccessFlag accessFlag;
+	private List<Field> fields = new ArrayList<Field> ();
+	private List<Method> methods = new ArrayList<Method> ();
 	
 	public int getMinorVersion() {
 		return minorVersion;
@@ -53,6 +60,22 @@ public class ClassFile {
 
 	public void setAccessFlag(AccessFlag accessFlag) {
 		this.accessFlag = accessFlag;
+	}
+
+	public List<Field> getFields() {
+		return this.fields;
+	}
+	
+	public void addFiled(Field field) {
+		this.fields.add(field);
+	}
+
+	public List<Method> getMethods() {
+		return this.methods;
+	}
+	
+	public void addMethod(Method method) {
+		this.methods.add(method);
 	}
 	
 }

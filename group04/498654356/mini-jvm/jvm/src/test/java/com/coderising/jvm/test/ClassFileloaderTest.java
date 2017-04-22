@@ -1,5 +1,7 @@
 package com.coderising.jvm.test;
 
+import java.util.List;
+
 import org.junit.After;
 import  org.junit.Assert;
 import org.junit.Before;
@@ -13,7 +15,9 @@ import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.constant.MethodRefInfo;
 import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.field.Field;
 import com.coderising.jvm.loader.ClassFileLoader;
+import com.coderising.jvm.method.Method;
 
 public class ClassFileloaderTest {
 
@@ -198,6 +202,80 @@ public class ClassFileloaderTest {
     	AccessFlag accessFlag = clzFile.getAccessFlag();
     	Assert.assertEquals(true, accessFlag.isPublicClass());
     	Assert.assertEquals(false, accessFlag.isFinalClass());
+    }
+    
+    /***
+     *  third ------------------------------------------------------------------------------------------------------------
+     */
+    
+    @Test
+    public void testReadFields(){
+   
+    	List<Field> fields = clzFile.getFields();
+    	Assert.assertEquals(2, fields.size());
+    	{
+    		Field f = fields.get(0);
+    		Assert.assertEquals("name:Ljava/lang/String;", f.toString());
+    	}
+    	{
+    		Field f = fields.get(1);
+    		Assert.assertEquals("age:I", f.toString());
+    	}
+    }
+    
+    @Test
+    public void testMethods(){
+   
+    	List<Method> methods = clzFile.getMethods();
+    	ConstantPool pool = clzFile.getConstantPool();
+    	
+    	{
+    		Method m = methods.get(0);    		
+    		assertMethodEquals(pool,m,
+    				"<init>",
+    				"(Ljava/lang/String;I)V",
+    				"2ab7000c2a2bb5000f2a1cb50011b1");
+    		
+    	}
+    	{
+    		Method m = methods.get(1);    
+    		assertMethodEquals(pool,m,
+    				"setName",
+    				"(Ljava/lang/String;)V",
+    				"2a2bb5000fb1");
+    		
+    	}
+    	{
+    		Method m = methods.get(2);    
+    		assertMethodEquals(pool,m,
+    				"setAge",
+    				"(I)V",
+    				"2a1bb50011b1");
+    	}
+    	{
+    		Method m = methods.get(3); 
+    		assertMethodEquals(pool,m,
+    				"sayHello",
+    				"()V",
+    				"b2001c1222b60024b1");
+    		
+    	}
+    	{
+    		Method m = methods.get(4);    
+    		assertMethodEquals(pool,m,
+    				"main",
+    				"([Ljava/lang/String;)V",
+    				"bb000159122b101db7002d4c2bb6002fb1");
+    	}
+    }
+    
+    private void assertMethodEquals(ConstantPool pool,Method m , String expectedName, String expectedDesc,String expectedCode){
+    	String methodName = pool.getUTF8String(m.getNameIndex());
+		String methodDesc = pool.getUTF8String(m.getDescIndex());    		
+		String code = m.getCodeAttr().getCode();
+		Assert.assertEquals(expectedName, methodName);
+		Assert.assertEquals(expectedDesc, methodDesc);
+		Assert.assertEquals(expectedCode, code);
     }
 
 }
