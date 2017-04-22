@@ -21,7 +21,7 @@ public class ClassInfo extends ConstantInfo {
 
     @Override
     public void accept(Visitor visitor) {
-
+        visitor.visitClassInfo(this);
     }
 
     public String getClassName() {

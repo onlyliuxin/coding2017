@@ -27,17 +27,13 @@ public class ClassFilePrinter {
 
         ConstantPoolPrinter cnstPoolPrinter = new ConstantPoolPrinter(clzFile.getConstantPool());
         cnstPoolPrinter.print();
-
-
-
-
     }
 
     public static void main(String[] args){
-        String path = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
+        String path = "G:\\Git\\homework\\coding2017\\group17\\785396327\\out\\production\\785396327";
         ClassFileLoader loader = new ClassFileLoader();
         loader.addClassPath(path);
-        String className = "com.coderising.jvm.test.EmployeeV1";
+        String className = "jvm_1.EmployeeV1";
 
         ClassFile clzFile = loader.loadClass(className);
 

@@ -34,7 +34,7 @@ public class NameAndTypeInfo extends ConstantInfo {
 
     @Override
     public void accept(Visitor visitor) {
-
+        visitor.visitNameAndType(this);
     }
 
 

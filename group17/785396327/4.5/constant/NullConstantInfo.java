@@ -14,7 +14,7 @@ public class NullConstantInfo extends ConstantInfo {
 
     @Override
     public void accept(Visitor visitor) {
-
+        System.out.println("null Constant info");
     }
 
 }
