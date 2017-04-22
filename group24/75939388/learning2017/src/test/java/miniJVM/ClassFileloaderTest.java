@@ -11,19 +11,19 @@ import org.junit.Test;
 public class ClassFileloaderTest {
 
 	
-	private static final String FULL_QUALIFIED_CLASS_NAME = "com/coderising/jvm/test/EmployeeV1";
+	private static final String FULL_QUALIFIED_CLASS_NAME = "miniJVM.EmployeeV1";
 	
-	static String path1 = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
-	static String path2 = "C:\temp";
+	static String path1 = "resources/classes";
+	static String path2 = "resources/classes";
 	
 	static ClassFile clzFile = null;
 	static {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
-		String className = "com.coderising.jvm.test.EmployeeV1";
-		
+//		String className = "com.coderising.jvm.test.EmployeeV1";
+//		String path = "resources/classes/EmployeeV1.class";
+		String className = "miniJVM.EmployeeV1";
 		clzFile = loader.loadClass(className);
-		
 	}
 	
 	
@@ -54,12 +54,12 @@ public class ClassFileloaderTest {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
 		
-		String className = "com.coderising.jvm.test.EmployeeV1";
+//		String className = "miniJVM.EmployeeV1";
 		
-		byte[] byteCodes = loader.readBinaryCode(className);
+		byte[] byteCodes = loader.readBinaryCode(FULL_QUALIFIED_CLASS_NAME);
 		
 		// 注意：这个字节数可能和你的JVM版本有关系， 你可以看看编译好的类到底有多大
-		Assert.assertEquals(1056, byteCodes.length);
+		Assert.assertEquals(1024, byteCodes.length);
 		
 	}
 	
@@ -68,8 +68,8 @@ public class ClassFileloaderTest {
 	public void testMagicNumber(){
     	ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
-		String className = "com.coderising.jvm.test.EmployeeV1";
-		byte[] byteCodes = loader.readBinaryCode(className);
+//		String className = "com.coderising.jvm.test.EmployeeV1";
+		byte[] byteCodes = loader.readBinaryCode(FULL_QUALIFIED_CLASS_NAME);
 		byte[] codes = new byte[]{byteCodes[0],byteCodes[1],byteCodes[2],byteCodes[3]};
 		
 		
@@ -175,6 +175,7 @@ public class ClassFileloaderTest {
 			Assert.assertEquals("EmployeeV1.java", utf8Info.getValue());
 		}
     }
+
 //    @Test
 //    public void testClassIndex(){
 //

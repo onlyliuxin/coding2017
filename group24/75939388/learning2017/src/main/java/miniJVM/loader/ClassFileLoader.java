@@ -67,7 +67,6 @@ public class ClassFileLoader {
 		byte[] codes = this.readBinaryCode(className);
 		ClassFileParser parser = new ClassFileParser();
 		return parser.parse(codes);
-		
 	}
 	
 	
