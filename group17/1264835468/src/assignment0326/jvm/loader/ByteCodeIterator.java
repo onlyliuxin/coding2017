@@ -21,13 +21,16 @@ public class ByteCodeIterator {
         return Byte.toUnsignedInt(nextByte());
     }
 
-    public int next2BytesToInt() {
+    public int nextU2ToInt() {
         int hi = Byte.toUnsignedInt(nextByte());
         int lo = Byte.toUnsignedInt(nextByte());
         int i = hi << 8 | lo;
         return i;
     }
 
+    public int nextU4ToInt(){
+        return 0;
+    }
     public byte[] nextNBytes(int n) {
         byte[] bytes = new byte[n];
         for (int i = 0; i < n; i++) {
@@ -38,5 +41,13 @@ public class ByteCodeIterator {
 
     public void skip(int n) {
         curPos += n;
+    }
+
+    public void back(int n) {
+        curPos -= n;
+    }
+
+    public String nextUxToHexString(int len) {
+        return null;
     }
 }

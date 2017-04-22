@@ -4,6 +4,8 @@ import assignment0326.jvm.clz.AccessFlag;
 import assignment0326.jvm.clz.ClassFile;
 import assignment0326.jvm.clz.ClassIndex;
 import assignment0326.jvm.constant.*;
+import assignment0326.jvm.field.Field;
+import assignment0326.jvm.method.Method;
 
 
 public class ClassFileParser {
@@ -15,14 +17,19 @@ public class ClassFileParser {
         ByteCodeIterator iterator = new ByteCodeIterator(codes);
         magicNumberVerify(iterator);
 
-        classFile.setMinorVersion(iterator.next2BytesToInt());
-        classFile.setMajorVersion(iterator.next2BytesToInt());
+        classFile.setMinorVersion(iterator.nextU2ToInt());
+        classFile.setMajorVersion(iterator.nextU2ToInt());
 
         classFile.setConstPool(parseConstantPool(iterator));
 
         classFile.setAccessFlag(parseAccessFlag(iterator));
 
         classFile.setClassIndex(parseClassIndex(iterator));
+        parseInterfaces(iterator);
+
+        parseFileds(classFile, iterator);
+
+        //parseMethods(classFile, iterator);
         return classFile;
     }
 
@@ -37,21 +44,21 @@ public class ClassFileParser {
     }
 
     private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
-        AccessFlag flag = new AccessFlag(iter.next2BytesToInt());
+        AccessFlag flag = new AccessFlag(iter.nextU2ToInt());
         return flag;
     }
 
     private ClassIndex parseClassIndex(ByteCodeIterator iter) {
         ClassIndex classIndex = new ClassIndex();
-        classIndex.setThisClassIndex(iter.next2BytesToInt());
-        classIndex.setSuperClassIndex(iter.next2BytesToInt());
+        classIndex.setThisClassIndex(iter.nextU2ToInt());
+        classIndex.setSuperClassIndex(iter.nextU2ToInt());
         return classIndex;
 
     }
 
     private ConstantPool parseConstantPool(ByteCodeIterator iter) {
         constantPool = new ConstantPool();
-        int size = iter.next2BytesToInt();
+        int size = iter.nextU2ToInt();
         constantPool.addConstantInfo(new NullConstantInfo());
         for (int i = 0; i < size - 1; i++) {
             parseConstant(iter);
@@ -89,7 +96,7 @@ public class ClassFileParser {
 
     private ConstantInfo parseUTF8Info(ByteCodeIterator iter) {
         UTF8Info utf8Info = new UTF8Info(constantPool);
-        int length = iter.next2BytesToInt();
+        int length = iter.nextU2ToInt();
         String value = new String(iter.nextNBytes(length));
         utf8Info.setLength(length);
         utf8Info.setValue(value);
@@ -98,36 +105,64 @@ public class ClassFileParser {
 
     private ConstantInfo parseClassInfo(ByteCodeIterator iter) {
         ClassInfo classInfo = new ClassInfo(constantPool);
-        classInfo.setUtf8Index(iter.next2BytesToInt());
+        classInfo.setUtf8Index(iter.nextU2ToInt());
         return classInfo;
     }
 
     private ConstantInfo parseStringInfo(ByteCodeIterator iter) {
         StringInfo stringInfo = new StringInfo(constantPool);
-        stringInfo.setIndex(iter.next2BytesToInt());
+        stringInfo.setIndex(iter.nextU2ToInt());
         return stringInfo;
     }
 
     private ConstantInfo parseFieldInfo(ByteCodeIterator iter) {
         FieldRefInfo fieldRefInfo = new FieldRefInfo(constantPool);
-        fieldRefInfo.setClassInfoIndex(iter.next2BytesToInt());
-        fieldRefInfo.setNameAndTypeIndex(iter.next2BytesToInt());
+        fieldRefInfo.setClassInfoIndex(iter.nextU2ToInt());
+        fieldRefInfo.setNameAndTypeIndex(iter.nextU2ToInt());
         return fieldRefInfo;
     }
 
     private ConstantInfo parseMethodInfo(ByteCodeIterator iter) {
         MethodRefInfo methodRefInfo = new MethodRefInfo(constantPool);
-        methodRefInfo.setClassInfoIndex(iter.next2BytesToInt());
-        methodRefInfo.setNameAndTypeIndex(iter.next2BytesToInt());
+        methodRefInfo.setClassInfoIndex(iter.nextU2ToInt());
+        methodRefInfo.setNameAndTypeIndex(iter.nextU2ToInt());
         return methodRefInfo;
     }
 
     private ConstantInfo parseNameAndTypeInfo(ByteCodeIterator iter) {
         NameAndTypeInfo nameAndTypeInfo = new NameAndTypeInfo(constantPool);
-        nameAndTypeInfo.setIndex1(iter.next2BytesToInt());
-        nameAndTypeInfo.setIndex2(iter.next2BytesToInt());
+        nameAndTypeInfo.setIndex1(iter.nextU2ToInt());
+        nameAndTypeInfo.setIndex2(iter.nextU2ToInt());
         return nameAndTypeInfo;
     }
 
+    private void parseInterfaces(ByteCodeIterator iter) {
+        int interfaceCount = iter.nextU2ToInt();
+
+        System.out.println("interfaceCount:" + interfaceCount);
+
+        // TODO : 如果实现了interface, 这里需要解析
+    }
+
+    private void parseFileds(ClassFile clzFile, ByteCodeIterator iter) {
+        int fieldCount = iter.nextU2ToInt();
+
+        for (int i = 1; i <= fieldCount; i++) {
+            Field f = Field.parse(clzFile.getConstantPool(), iter);
+            clzFile.addField(f);
+        }
+
+    }
+
+    private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
+
+        int methodCount = iter.nextU2ToInt();
+
+        for (int i = 1; i <= methodCount; i++) {
+            Method m = Method.parse(clzFile, iter);
+            clzFile.addMethod(m);
+        }
+
+    }
 
 }

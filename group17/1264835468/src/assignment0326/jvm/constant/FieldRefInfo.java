@@ -11,7 +11,17 @@ public class FieldRefInfo extends ConstantInfo{
 	public int getType() {
 		return type;
 	}
-	
+
+	@Override
+	public String typeDescription() {
+		return "Fieldref";
+	}
+
+	@Override
+	public String contentDescription() {
+		return "#"+classInfoIndex+".#"+nameAndTypeIndex;
+	}
+
 	public int getClassInfoIndex() {
 		return classInfoIndex;
 	}

@@ -9,5 +9,15 @@ public class NullConstantInfo extends ConstantInfo {
 	public int getType() {		
 		return -1;
 	}
-	
+
+	@Override
+	public String typeDescription() {
+		return "NullConstant";
+	}
+
+	@Override
+	public String contentDescription() {
+		return "null";
+	}
+
 }

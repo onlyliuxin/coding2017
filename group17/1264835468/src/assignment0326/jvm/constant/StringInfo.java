@@ -10,7 +10,17 @@ public class StringInfo extends ConstantInfo{
 	public int getType() {
 		return type;
 	}
-	
+
+	@Override
+	public String typeDescription() {
+		return "String";
+	}
+
+	@Override
+	public String contentDescription() {
+		return "#" + index;
+	}
+
 	public int getIndex() {
 		return index;
 	}

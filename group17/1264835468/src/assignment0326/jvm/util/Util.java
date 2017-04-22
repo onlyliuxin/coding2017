@@ -21,4 +21,8 @@ public class Util {
 		}
 		return buffer.toString();
 	}
+
+	public static void main(String[] args) {
+		System.out.println(byteToInt(new byte[]{(byte)0xca,(byte)0xfe,(byte)0xba,(byte)0xbe}));
+	}
 }

@@ -25,8 +25,18 @@ public class NameAndTypeInfo extends ConstantInfo{
 	public int getType() {
 		return type;
 	}
-	
-	
+
+	@Override
+	public String typeDescription() {
+		return "NameAndType";
+	}
+
+	@Override
+	public String contentDescription() {
+		return "#" + index1 + ".#" + index2;
+	}
+
+
 	public String getName(){
 		ConstantPool pool = this.getConstantPool();
 		UTF8Info utf8Info1 = (UTF8Info)pool.getConstantInfo(index1);
