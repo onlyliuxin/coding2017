@@ -1,6 +1,7 @@
 package com.coderising.jvm.method;
 
 import com.coderising.jvm.attr.CodeAttr;
+import com.coderising.jvm.cmd.ByteCodeCommand;
 import com.coderising.jvm.constant.ConstantPool;
 
 public class Method {
@@ -38,6 +39,9 @@ public class Method {
 	}
 	public void setCodeAttr(CodeAttr codeAttr) {
 		this.codeAttr = codeAttr;
+	}
+	public ByteCodeCommand[] getCmds() {
+		return this.getCodeAttr().getCmds();
 	}
 
 }

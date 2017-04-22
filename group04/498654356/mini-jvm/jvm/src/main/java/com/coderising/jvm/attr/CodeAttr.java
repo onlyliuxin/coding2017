@@ -2,6 +2,8 @@ package com.coderising.jvm.attr;
 
 import org.junit.Assert;
 
+import com.coderising.jvm.cmd.ByteCodeCommand;
+import com.coderising.jvm.cmd.CommandParser;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.loader.ByteCodeIterator;
 
@@ -13,6 +15,10 @@ public class CodeAttr extends AttributeInfo{
 	private String code;
 	private LineNumberTable lineNumTable;
 	private LocalVariableTable localVariableTable;
+	private ByteCodeCommand[] cmds;
+	public void setCmds(ByteCodeCommand[] cmds) {
+		this.cmds = cmds;
+	}
 	public LocalVariableTable getLocalVariableTable() {
 		return localVariableTable;
 	}
@@ -59,6 +65,8 @@ public class CodeAttr extends AttributeInfo{
 		int maxLocals = it.next2ByteToInt();
 		int codeLength = it.next4ByteToInt();
 		String code = it.nextXByteToHexStr(codeLength);
+		ByteCodeCommand[] cmds = CommandParser.parse(constantPool, code);
+		
 		int exceptionTableLength = it.next2ByteToInt();
 		Assert.assertEquals(0, exceptionTableLength);
 		
@@ -67,6 +75,7 @@ public class CodeAttr extends AttributeInfo{
 		codeAttr.setMaxLocals(maxLocals);
 		codeAttr.setCodeLength(codeLength);
 		codeAttr.setCode(code);
+		codeAttr.setCmds(cmds);
 		
 		int subAttrCount = it.next2ByteToInt();
 		while(subAttrCount > 0) {
@@ -84,6 +93,10 @@ public class CodeAttr extends AttributeInfo{
 			subAttrCount--;
 		}
 		return codeAttr;
+	}
+	
+	public ByteCodeCommand[] getCmds() {
+		return this.cmds;
 	}
 
 }

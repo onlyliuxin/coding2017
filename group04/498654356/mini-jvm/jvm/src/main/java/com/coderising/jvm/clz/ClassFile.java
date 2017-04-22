@@ -77,5 +77,19 @@ public class ClassFile {
 	public void addMethod(Method method) {
 		this.methods.add(method);
 	}
+
+	public Method getMethod(String methodName, String paramterType) {
+		for (Method method: this.methods) {
+			if(getConstantPool().getUTF8String(method.getNameIndex()).equals(methodName) 
+				&& getConstantPool().getUTF8String(method.getDescIndex()).equals(paramterType)) {
+				return method;
+			}
+		}
+		return null;
+	}
+
+	public Method getMainMethod() {
+		return this.getMethod("main", "([Ljava/lang/String;)V");
+	}
 	
 }
