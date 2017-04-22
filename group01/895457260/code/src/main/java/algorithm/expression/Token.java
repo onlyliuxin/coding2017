@@ -1,22 +1,24 @@
 package algorithm.expression;
 
-import java.util.Arrays;
-import java.util.List;
-
 class Token {
-	public static final String ADD = "+";
-	public static final String SUB = "-";
-	public static final String MUL = "*";
-	public static final String DIV = "/";
-	public static final String L_BRACKET = "(";
-	public static final String R_BRACKET = ")";
+	public static final String OP_ADD = "+";
+	public static final String OP_SUB = "-";
+	public static final String OP_MUL = "*";
+	public static final String OP_DIV = "/";
+	public static final String OP_L_BRACKET = "(";
+	public static final String OP_R_BRACKET = ")";
+	public static final String OP_SCOPE = "#";
 
-	public static final List<String> OPERATORS = Arrays.asList(ADD, SUB, MUL, DIV, L_BRACKET, R_BRACKET);
 	public static final int OPERATOR = 1;
 	public static final int NUMBER = 2;
 
-	public static final String SCOPE_STR = "#";
-	public static final Token SCOPE = new Token(OPERATOR, SCOPE_STR);
+	public static final Token ADD = new Token(OPERATOR, OP_ADD);
+	public static final Token SUB = new Token(OPERATOR, OP_SUB);
+	public static final Token MUL = new Token(OPERATOR, OP_MUL);
+	public static final Token DIV = new Token(OPERATOR, OP_DIV);
+	public static final Token L_BRACKET = new Token(OPERATOR, OP_L_BRACKET);
+	public static final Token R_BRACKET = new Token(OPERATOR, OP_R_BRACKET);
+	public static final Token SCOPE = new Token(OPERATOR, OP_SCOPE);
 
 	//优先级表
 	private static int[][] priorities = {
@@ -56,19 +58,19 @@ class Token {
 
 	private static int indexOf(String op) {
 		switch (op) {
-			case ADD:
+			case OP_ADD:
 				return 0;
-			case SUB:
+			case OP_SUB:
 				return 1;
-			case MUL:
+			case OP_MUL:
 				return 2;
-			case DIV:
+			case OP_DIV:
 				return 3;
-			case L_BRACKET:
+			case OP_L_BRACKET:
 				return 4;
-			case R_BRACKET:
+			case OP_R_BRACKET:
 				return 5;
-			case SCOPE_STR:
+			case OP_SCOPE:
 				return 6;
 		}
 		return 0;
@@ -102,5 +104,22 @@ class Token {
 				break;
 		}
 		return new Token(NUMBER, result + "");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Token token = (Token) o;
+
+		return type == token.type && (value != null ? value.equals(token.value) : token.value == null);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = value != null ? value.hashCode() : 0;
+		result = 31 * result + type;
+		return result;
 	}
 }

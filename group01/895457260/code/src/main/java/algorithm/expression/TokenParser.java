@@ -1,9 +1,14 @@
 package algorithm.expression;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TokenParser {
+    public static final List<String> OPERATORS =
+            Arrays.asList(Token.OP_ADD, Token.OP_SUB, Token.OP_MUL,
+                    Token.OP_DIV, Token.OP_L_BRACKET, Token.OP_R_BRACKET);
+
     public static List<Token> parse(String expression) {
         return parse(expression, null);
     }
@@ -48,6 +53,6 @@ public class TokenParser {
 
     private static boolean isOperator(char c) {
         String sc = String.valueOf(c);
-        return Token.OPERATORS.contains(sc);
+        return OPERATORS.contains(sc);
     }
 }
