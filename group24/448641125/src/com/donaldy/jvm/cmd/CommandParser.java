@@ -44,8 +44,81 @@ public class CommandParser {
 
 	public static ByteCodeCommand[] parse(ClassFile clzFile, String codes) {
 
-		
-		return null;
+		if ((codes == null) || (codes.length() == 0)) {
+			throw new RuntimeException("the orignal code is not correct!");
+		}
+
+		codes = codes.toUpperCase();
+
+		CommandIterator iter = new CommandIterator(codes);
+		List<ByteCodeCommand> cmds = new ArrayList<ByteCodeCommand>();
+
+		while (iter.hasNext()) {
+			String opCode = iter.next2CharAsString();
+
+			if (new_object.equals(opCode)) {
+				NewObjectCmd cmd = new NewObjectCmd(clzFile, opCode);
+
+				cmd.setOprand1(iter.next2CharAsInt());
+				cmd.setOprand2(iter.next2CharAsInt());
+
+				cmds.add(cmd);
+			} else if (invokespecial.equals(opCode)) {
+				InvokeSpecialCmd cmd = new InvokeSpecialCmd(clzFile, opCode);
+
+				cmd.setOprand1(iter.next2CharAsInt());
+				cmd.setOprand2(iter.next2CharAsInt());
+
+				cmds.add(cmd);
+			} else if (invokevirtual.equals(opCode)) {
+				InvokeSpecialCmd cmd = new InvokeSpecialCmd(clzFile, opCode);
+
+				cmd.setOprand1(iter.next2CharAsInt());
+				cmd.setOprand2(iter.next2CharAsInt());
+
+				cmds.add(cmd);
+			} else if (getfield.equals(opCode)) {
+				GetFieldCmd cmd = new GetFieldCmd(clzFile, opCode);
+				cmd.setOprand1(iter.next2CharAsInt());
+				cmd.setOprand2(iter.next2CharAsInt());
+
+				cmds.add(cmd);
+			} else if (getstatic.equals(opCode)) {
+				GetStaticFieldCmd cmd = new GetStaticFieldCmd(clzFile, opCode);
+
+				cmd.setOprand1(iter.next2CharAsInt());
+				cmd.setOprand2(iter.next2CharAsInt());
+
+				cmds.add(cmd);
+			} else if (putfield.equals(opCode)) {
+				PutFieldCmd cmd = new PutFieldCmd(clzFile, opCode);
+				cmd.setOprand1(iter.next2CharAsInt());
+				cmd.setOprand2(iter.next2CharAsInt());
+				cmds.add(cmd);
+			} else if (ldc.equals(opCode)) {
+				LdcCmd cmd = new LdcCmd(clzFile, opCode);
+				cmd.setOperand(iter.next2CharAsInt());
+				cmds.add(cmd);
+			} else if (bipush.equals(opCode)) {
+				BiPushCmd cmd = new BiPushCmd(clzFile, opCode);
+				cmd.setOperand(iter.next2CharAsInt());
+				cmds.add(cmd);
+			} else if (dup.equals(opCode) || aload_0.equals(opCode) || aload_1.equals(opCode) || aload_2.equals(opCode)
+					|| iload_1.equals(opCode) || iload_2.equals(opCode) || iload_3.equals(opCode)
+					|| fload_3.equals(opCode) || voidreturn.equals(opCode) || astore_1.equals(opCode)) {
+
+				NoOperandCmd cmd = new NoOperandCmd(clzFile, opCode);
+				cmds.add(cmd);
+			} else {
+				throw new RuntimeException("Sorry, the java instruction " + opCode + "has not been implement.");
+			}
+		}
+
+		calcuateOffset(cmds);
+
+		ByteCodeCommand[] result = new ByteCodeCommand[cmds.size()];
+		cmds.toArray(result);
+		return result;
 	}
 
 	private static void calcuateOffset(List<ByteCodeCommand> cmds) {

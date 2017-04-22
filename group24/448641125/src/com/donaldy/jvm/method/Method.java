@@ -49,7 +49,41 @@ public class Method {
 	
 	public static Method parse(ClassFile clzFile, ByteCodeIterator iter){
 
+
 		int accessFlag = iter.nextU2ToInt();
+		int nameIndex = iter.nextU2ToInt();
+		int descIndex = iter.nextU2ToInt();
+		int attribCount = iter.nextU2ToInt();
+
+
+		/*System.out.println("name = " + clzFile.getConstantPool().getUTF8String(nameIndex)
+						+ ", desc = " + clzFile.getConstantPool().getUTF8String(descIndex));*/
+
+		Method m = new Method(clzFile, accessFlag, nameIndex, descIndex);
+
+		//attribCount == 1
+		for( int j = 1; j <= attribCount; j++){
+
+			int attrNameIndex = iter.nextU2ToInt();
+			/*System.out.println("attrNameIndex : " + attrNameIndex);*/
+			String attrName = clzFile.getConstantPool().getUTF8String(attrNameIndex);
+			/*System.out.println("attrName : " + attrName);*/
+			iter.back(2);
+
+			if(AttributeInfo.CODE.equalsIgnoreCase(attrName)){
+				/*System.out.println("j : " + j );*/
+				CodeAttr codeAttr = CodeAttr.parse(clzFile, iter);
+				m.setCodeAttr(codeAttr);
+			} else{
+				throw new RuntimeException("only CODE attribute is implemented , please implement the "+ attrName);
+			}
+
+		}
+
+		return m ;
+
+		//////////////////////Backup///////////////////////
+		/*int accessFlag = iter.nextU2ToInt();
 		int nameIndex = iter.nextU2ToInt();
 		int descriptorIndex = iter.nextU2ToInt();
 
@@ -60,6 +94,7 @@ public class Method {
 		if (!"Code".equals(clzFile.getConstantPool().getUTF8String(attrNameIndex)))
 			throw new RuntimeException("attributeInfo : " + attrNameIndex);
 
+		//CodeAttr.parse
 		int attrLen = iter.nextU4ToInt();
 		int maxStack = iter.nextU2ToInt();
 		int maxLocals = iter.nextU2ToInt();
@@ -84,7 +119,7 @@ public class Method {
 		Method method = new Method(clzFile, accessFlag, nameIndex, descriptorIndex);
 
 		method.setCodeAttr(codeAttr);
-		return method;
+		return method;*/
 		
 	}
 
@@ -105,6 +140,8 @@ public class Method {
 	}
 
 	public ByteCodeCommand[] getCmds() {
+
 		return this.getCodeAttr().getCmds();
+
 	}
 }
