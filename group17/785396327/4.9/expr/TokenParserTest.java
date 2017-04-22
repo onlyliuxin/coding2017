@@ -37,4 +37,11 @@ public class TokenParserTest {
         Assert.assertEquals("/", tokens.get(9).toString());
         Assert.assertEquals(4, tokens.get(10).getIntValue());
     }
+
+    @Test
+    public void testPostfixExprParser() {
+        TokenParser tokenParser = new TokenParser();
+        List<Token> tokens = tokenParser.parse("6 5 2 3 + 8 * + 3 + *");
+        System.out.println(tokens);
+    }
 }

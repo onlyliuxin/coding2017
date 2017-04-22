@@ -31,7 +31,7 @@ public class TokenParser {
                 i = nextOperatorIndex;
 
             } else{
-                System.out.println("char :["+c+"] is not number or operator,ignore");
+//                System.out.println("char :["+c+"] is not number or operator,ignore");
                 i++;
             }
 
