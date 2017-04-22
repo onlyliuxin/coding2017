@@ -2,17 +2,23 @@ package com.donaldy.jvm.clz;
 
 import com.donaldy.jvm.constant.ClassInfo;
 import com.donaldy.jvm.constant.ConstantPool;
+import com.donaldy.jvm.field.Field;
+import com.donaldy.jvm.method.Method;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClassFile {
-	
+
 	private int minorVersion;
 	private int majorVersion;
-	
+
 	private AccessFlag accessFlag;
 	private ClassIndex clzIndex;
 	private ConstantPool pool;
-	
-	
+	private List<Field> fields = new ArrayList<Field>();
+	private List<Method> methods = new ArrayList<Method>();
+
 	public ClassIndex getClzIndex() {
 		return clzIndex;
 	}
@@ -22,10 +28,10 @@ public class ClassFile {
 	public void setAccessFlag(AccessFlag accessFlag) {
 		this.accessFlag = accessFlag;
 	}
-	
-	
-	
-	public ConstantPool getConstantPool() {		
+
+
+
+	public ConstantPool getConstantPool() {
 		return pool;
 	}
 	public int getMinorVersion() {
@@ -42,34 +48,55 @@ public class ClassFile {
 	}
 	public void setConstPool(ConstantPool pool) {
 		this.pool = pool;
-		
+
 	}
 	public void setClassIndex(ClassIndex clzIndex) {
-		this.clzIndex = clzIndex;		
+		this.clzIndex = clzIndex;
 	}
-	
-	
-	
-	
+
+	public void addField(Field f){
+		this.fields.add(f);
+	}
+	public List<Field> getFields(){
+		return this.fields;
+	}
+	public void addMethod(Method m){
+		this.methods.add(m);
+	}
+	public List<Method> getMethods() {
+		return methods;
+	}
+
+
 	public void print(){
-		
+
 		if(this.accessFlag.isPublicClass()){
 			System.out.println("Access flag : public  ");
 		}
 		System.out.println("Class Name:"+ getClassName());
-		
+
 		System.out.println("Super Class Name:"+ getSuperClassName());
-		
-		
+
+
 	}
-	
-	private String getClassName(){
+
+	public String getClassName(){
 		int thisClassIndex = this.clzIndex.getThisClassIndex();
 		ClassInfo thisClass = (ClassInfo)this.getConstantPool().getConstantInfo(thisClassIndex);
 		return thisClass.getClassName();
 	}
-	private String getSuperClassName(){
+	public String getSuperClassName(){
 		ClassInfo superClass = (ClassInfo)this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
 		return superClass.getClassName();
+	}
+
+	public Method getMethod(String methodName, String paramAndReturnType){
+
+
+		return null;
+	}
+	public Method getMainMethod(){
+
+		return null;
 	}
 }

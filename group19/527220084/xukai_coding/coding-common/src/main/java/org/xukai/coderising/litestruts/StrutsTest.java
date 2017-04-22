@@ -55,7 +55,7 @@ public class StrutsTest {
             Document doc = sr.read(strutsPath);
             XmlParseHelper helper = new XmlParseHelper(doc);
             List<Element> actions = helper.getNodeByPath("//action");
-            ArrayList<Action> actionsList = new ArrayList<>();
+            ArrayList<Action> actionsList = new ArrayList<Action>();
             for (Element action : actions){
                 Action obj = new Action();
                 String nameAttr = helper.getNodeAttrValue(action, "name");
@@ -66,7 +66,7 @@ public class StrutsTest {
                 for (Element result : results){
                     String resultNameAttr = helper.getNodeAttrValue(result, "name");
                     String resultValue = helper.getNodeValue(result);
-                    HashMap<String, String> map = new HashMap<>();
+                    HashMap<String, String> map = new HashMap<String,String>();
                     map.put("name",resultNameAttr);
                     map.put("viewPath",resultValue);
                     obj.setResultMapping(map);

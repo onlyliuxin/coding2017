@@ -10,13 +10,32 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import com.coderising.jvm.clz.ClassFile;
+
+
 public class ClassFileLoader {
 
 	private List<String> clzPaths = new ArrayList<String>();
 
-	public byte[] readBinaryCode(String className) throws ClassNotFoundException, IOException {
+	public byte[] readBinaryCode(String className)  {
+		
+		className = className.replace('.', File.separatorChar) + ".class";
+		
+		for (String path : this.clzPaths) {
+			
+			String clzFileName = path + File.separatorChar +className;
+			byte[] codes = loadClassFile(clzFileName);
+			if (codes != null) {
+				return codes;
+			}
+		}
+		return null;
+		/*
 		if (clzPaths.size() == 0) {
-			return new byte[0];
+			throw new ClassNotFoundException(className);
 		}
 		String actualPath = getActualPath(className);
 		
@@ -46,31 +65,41 @@ public class ClassFileLoader {
         } finally {  
             is.close();
             bos.close();  
-        }  
+        } */ 
 	}
 
-	private String getActualPath(String className) {
+	private byte[] loadClassFile(String clzFileName) {
+		File f = new File(clzFileName);
+		try {
+			return IOUtils.toByteArray(new FileInputStream(f));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/*private String getActualPath(String className) {
 		
 		String fileName = className.substring(className.lastIndexOf(".") + 1) + ".class";
 		String dirPath = className.substring(0, className.lastIndexOf(".")).replace(".", "\\");
 		
 		return clzPaths.get(clzPaths.size() - 1) + "\\" + dirPath + "\\" + fileName;   //classPath  取最近添加的一个
 		
-	}
+	}*/
 
 	public void addClassPath(String path) {
 
-		if (path == null) {
+		if (this.clzPaths.contains(path)) {
 			return;
 		}
 
-		clzPaths.add(path);
+		this.clzPaths.add(path);
 
 	}
 
 	public String getClassPath() {
 
-		if (clzPaths.size() == 0) {
+		/*if (clzPaths.size() == 0) {
 			return "";
 		}
 
@@ -81,8 +110,18 @@ public class ClassFileLoader {
 			buffer.append(";");
 		}
 
-		return buffer.substring(0, buffer.length() - 1);// 去除最后一个分号
+		return buffer.substring(0, buffer.length() - 1);*/// 去除最后一个分号
+		return StringUtils.join(clzPaths, ";");
 
 	}
+	
+	public ClassFile loadClass(String className) {
+		
+		byte[] codes = this.readBinaryCode(className);
+		ClassFileParser parser = new ClassFileParser();
+		return parser.parse(codes);
+		
+	}
+	
 
 }

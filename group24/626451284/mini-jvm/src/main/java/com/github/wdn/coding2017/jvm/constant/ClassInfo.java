@@ -26,7 +26,7 @@ public class ClassInfo extends ConstantInfo{
     }
 
     public int getUtf8Index() {
-        return 0;
+        return nameIndex;
     }
 
     public String getClassName() {

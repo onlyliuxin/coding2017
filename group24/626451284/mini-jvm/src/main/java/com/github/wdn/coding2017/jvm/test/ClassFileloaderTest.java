@@ -22,7 +22,7 @@ public class ClassFileloaderTest {
 	static String path2 = "E:\\temp";
 
 	static ClassFile clzFile = null;
-	static final String FULL_QUALIFIED_CLASS_NAME="";
+	static final String FULL_QUALIFIED_CLASS_NAME="com/coderising/jvm/test/EmployeeV1";
 	static {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);

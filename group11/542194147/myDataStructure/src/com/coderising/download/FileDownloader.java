@@ -44,7 +44,6 @@ public class FileDownloader {
 			int length = conn.getContentLength();	
 			int downloadBlock=length/3;
 			int appendBlock=length%3;
-			RandomAccessFile rdaFile=new RandomAccessFile("downloadFile","wr");
 			for(int i=0;i<downloadThreadNum;i++){
 				if(i<downloadThreadNum-1){
 					new DownloadThread(cm.open(this.url),i*downloadBlock,(i+1)*downloadBlock).start();
