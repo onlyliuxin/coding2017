@@ -6,8 +6,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-
 /**
  * Created by macvi on 2017/4/4.
  */
@@ -35,7 +33,10 @@ public class StackTest {
     public void test2(){
 //        Assert.assertEquals("0,1,2,3,4", StackUtil.reverse(s).toString());
 //        Assert.assertEquals("0,1,3,4", StackUtil.remove(s, "2").toString());
-        Assert.assertEquals("[4, 3]", Arrays.toString(StackUtil.getTop(s, 2)));
+//        Assert.assertEquals("[4, 3]", Arrays.toString(StackUtil.getTop(s, 2)));
+//        Assert.assertEquals(true, StackUtil.isValidPairs("([e{d}f])"));
+        Assert.assertEquals(false, StackUtil.isValidPairs("([b{x]y})"));
+
     }
 
 }

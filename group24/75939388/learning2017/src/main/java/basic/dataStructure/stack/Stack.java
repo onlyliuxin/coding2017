@@ -30,7 +30,7 @@ public class Stack {
 
     public Object peek(){
         int index = elementData.size() - 1;
-        return elementData.get(index);
+        return index == -1 ? null : elementData.get(index);
     }
     public boolean isEmpty(){
         return peek() == null;

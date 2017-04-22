@@ -33,7 +33,6 @@ public class StackUtil {
 				s.pop();
 			}
 		}
-
 		return tmp;
 	}
 
@@ -70,19 +69,36 @@ public class StackUtil {
 	 * @return
 	 */
 	public static boolean isValidPairs(String s){
-		//圆括号
-		Stack bracket = new Stack("(", ")");
+		//括号
+		Stack bracket = new Stack(")", "(");
 
 		//方括号
-		Stack brackets = new Stack("[", "]");
+		Stack brackets = new Stack("]", "[");
 
 		//花括号
-		Stack braces = new Stack("{", "}");
+		Stack braces = new Stack("}", "{");
 
-		//String转化为Stack
-		char[] arr = s.toCharArray();
-		Stack strSt = new Stack(arr);
+		char[] symArr = s.toCharArray();
+		int length = symArr.length;
+		for(int i = 0; i < length/2; i++){
+			String sym = String.valueOf(symArr[i]);
+			String endSym = String.valueOf(symArr[length - i -1]);
+			if(sym.equals(bracket.peek())){
+				bracket = remove(bracket, sym);
+				bracket = remove(bracket, endSym);
+			}
 
+			if(sym.equals(brackets.peek())){
+				brackets = remove(brackets, sym);
+				brackets = remove(brackets, endSym);
+			}
+
+			if(sym.equals(braces.peek())){
+				braces = remove(braces, sym);
+				braces = remove(braces, endSym);
+			}
+		}
+		return bracket.isEmpty() && brackets.isEmpty() && braces.isEmpty();
 	}
 	
 	
