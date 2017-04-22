@@ -8,11 +8,15 @@ import miniJVM.constant.ConstantPool;
 
 public class ClassFileParser {
 
+	private ClassFile clzFile = new ClassFile();
+
 	public ClassFile parse(byte[] codes) {
-		
-		
-		
-		return null;
+		int minorVersion = (codes[4] & 0xFF) + (codes[5] & 0xFF);
+		clzFile.setMinorVersion(minorVersion);
+
+		int majorVersion = (codes[6] & 0xFF) + (codes[7] & 0xFF);
+		clzFile.setMajorVersion(majorVersion);
+		return clzFile;
 	}
 
 	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
