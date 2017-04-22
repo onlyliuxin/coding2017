@@ -1,5 +1,7 @@
 package com.coderising.jvm.print;
 
+import java.util.Formatter;
+
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantInfo;
@@ -29,7 +31,7 @@ public class ClassFilePrinter {
 		
 		System.out.println("minor version:" + clzFile.getMinorVersion());
 		
-		System.out.println("major version:" + clzFile.getMinorVersion());
+		System.out.println("major version:" + clzFile.getMajorVersion());
 		
 		ConstantPoolPrinter cnstPoolPrinter = new ConstantPoolPrinter(clzFile.getConstantPool());
 		cnstPoolPrinter.print();
@@ -40,7 +42,7 @@ public class ClassFilePrinter {
 	}
 	
 	public static void main(String[] args){
-		String path = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
+		String path =  "E:\\practise\\group05\\1094051862\\mini-jvm\\bin";
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path);
 		String className = "com.coderising.jvm.test.EmployeeV1";
@@ -50,5 +52,6 @@ public class ClassFilePrinter {
 		ClassFilePrinter printer  = new ClassFilePrinter(clzFile);
 		
 		printer.print();
+		
 	}
 }
