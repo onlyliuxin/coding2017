@@ -20,7 +20,7 @@ public class ClassFilePrinter {
 		
 		System.out.println("minor version:" + clzFile.getMinorVersion());
 		
-		System.out.println("major version:" + clzFile.getMinorVersion());
+		System.out.println("major version:" + clzFile.getMajorVersion());
 		
 		ConstantPoolPrinter cnstPoolPrinter = new ConstantPoolPrinter(clzFile.getConstantPool());
 		cnstPoolPrinter.print();
@@ -31,10 +31,12 @@ public class ClassFilePrinter {
 	}
 	
 	public static void main(String[] args){
-		String path = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
+//		String path = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
+		String path = "E:\\javaImprove\\git\\group24\\121111914\\src\\com\\github\\ipk2015\\coding2017\\minijvm\\bin";
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path);
-		String className = "com.coderising.jvm.test.EmployeeV1";
+//		String className = "com.coderising.jvm.test.EmployeeV1";
+		String className = "EmployeeV1";
 		
 		ClassFile clzFile = loader.loadClass(className);
 		
