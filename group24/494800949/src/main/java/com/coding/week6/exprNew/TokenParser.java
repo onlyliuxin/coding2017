@@ -25,10 +25,19 @@ public class TokenParser {
                 token = new Token(Token.OPERATOR, c+"");
                 tokens.add(token);
                 i++;
+            } else if (String.valueOf(c).matches("\\s")){
+                i++;
+            } else if (c == '(') {
+                token = new Token(Token.LEFT_BRACKET, String.valueOf(c));
+                tokens.add(token);
+                i++;
+            } else if (c == ')') {
+                token = new Token(Token.RIGHT_BRACKET, String.valueOf(c));
+                tokens.add(token);
+                i++;
             } else {
                 throw new RuntimeException(c +" is not number or support operator");
             }
-
         }
         return tokens;
     }

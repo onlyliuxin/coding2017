@@ -31,21 +31,20 @@ public class InfixExpr {
 		List<Token> tokens = tokenParser.parse(expr);
 		for (Token token : tokens) {
 			if (token.isNumber()) {
-				numberStack.push((float)token.getIntValue());
-				continue;
+				numberStack.push(token.getFloatValue());
 			}
-			if (token.isOperator()) {
+			else if (token.isOperator()) {
 				Operator o = token.getOperator();
 				if (operatorStack.isEmpty()) {
 					operatorStack.push(o);
 				}else {
-					Operator topO = (Operator)operatorStack.peek();
-					if (o.hasHigherPriority(topO)) {
+					Operator top = (Operator)operatorStack.peek();
+					if (o.hasHigherPriority(top)) {
 						operatorStack.push(o);
 					} else {
 						float operTop1 = (float) numberStack.pop();
 						float operTop2 = (float) numberStack.pop();
-						numberStack.push(topO.apply(operTop2, operTop1));
+						numberStack.push(top.apply(operTop2, operTop1));
 						operatorStack.pop();
 						operatorStack.push(o);
 					}

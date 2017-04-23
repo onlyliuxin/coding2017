@@ -10,28 +10,28 @@ import java.util.Map;
  */
 public enum Operator {
     ADD("+", 1) {
-        float apply(float x, float y){
+        public float apply(float x, float y){
             return x + y;
         }
     },
 
     SUB("-", 1) {
         @Override
-        float apply(float x, float y) {
+        public float apply(float x, float y) {
             return x - y;
         }
     },
 
     MULT("*", 2) {
         @Override
-        float apply(float x, float y) {
+        public float apply(float x, float y) {
             return x * y;
         }
     },
 
     DIVI("/", 2) {
         @Override
-        float apply(float x, float y) {
+        public float apply(float x, float y) {
             return x / y;
         }
     };
@@ -59,7 +59,7 @@ public enum Operator {
         return symbos;
     }
 
-    abstract float apply(float x, float y);
+    public abstract float apply(float x, float y);
 
     private static final Map<String, Operator> map = new HashMap<String, Operator>();
 

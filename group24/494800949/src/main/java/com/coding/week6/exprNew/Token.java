@@ -5,11 +5,13 @@ package com.coding.week6.exprNew;
  */
 public class Token {
 
-    private int type;
+    private int    type;
     private String value;
 
-    static final int NUMBER = 1;
+    static final int NUMBER   = 1;
     static final int OPERATOR = 2;
+    static final int LEFT_BRACKET  = 3;
+    static final int RIGHT_BRACKET  = 4;
     public Token(int type, String value) {
         this.type = type;
         this.value = value;
@@ -24,7 +26,15 @@ public class Token {
         return type == OPERATOR;
     }
 
-    public int getIntValue() {
+    public boolean isLeftBracket() {
+        return type == LEFT_BRACKET;
+    }
+
+    public boolean isRightBracket() {
+        return type == RIGHT_BRACKET;
+    }
+
+    public float getFloatValue() {
         if (isNumber())
             return Integer.valueOf(value);
         else
@@ -32,7 +42,7 @@ public class Token {
     }
 
     public String toString() {
-        return type+":"+value;
+        return value;
     }
 
 
@@ -42,6 +52,11 @@ public class Token {
         } else {
             throw new RuntimeException("not a operator");
         }
+    }
+
+
+    public String getValue() {
+        return value;
     }
 
 
