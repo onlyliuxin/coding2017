@@ -12,7 +12,7 @@ public class TokenParserTest {
     @Test
     public void testParse() throws Exception {
         TokenParser tokenParser = new TokenParser();
-        List<Token> tokens = tokenParser.parse("3*20+12*5-40/2");
+        List<Token> tokens = tokenParser.parse("3* 20+1 2*5-40/2");
         System.out.println(tokens);
     }
 }
