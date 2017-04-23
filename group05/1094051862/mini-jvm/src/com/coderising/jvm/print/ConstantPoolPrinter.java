@@ -85,7 +85,5 @@ public class ConstantPoolPrinter {
 			System.out.printf("%8s", "#" + i + " = ");//左对齐，8个空格
 			constantInfo.accept(visitor);
 		}
-		System.out.println("\n"+"\t"+"FORMATTED BY KANDDE.");
-		formatter.close();
 	}
 }

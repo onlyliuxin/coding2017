@@ -23,16 +23,6 @@ public class InfixExpr {
 				if (opStack.isEmpty()) {
 					opStack.push(t);
 				} else {
-					/*Token topOperator = (Token) opStack.peek();
-					if (t.comparePriority(topOperator) >= 0) {
-						opStack.push(t);
-					} else {
-						Float f1 = (Float) numStack.pop();
-						Float f2 = (Float) numStack.pop();
-						numStack.push(calculate(topOperator.getValue(), f2, f1));
-						opStack.pop();
-						opStack.push(t);
-					}*/
 					while(!opStack.isEmpty() 
 							&& !t.hasHigherPriority(opStack.peek())) {
 						Token prevOperator = opStack.pop();
@@ -57,7 +47,6 @@ public class InfixExpr {
 			numStack.push(calculate(opr.getValue(), f2, f1));
 		}
 		return numStack.pop();
-		//return 0.0f;
 	}
 
 	private Float calculate(String op, Float f1, Float f2) {
