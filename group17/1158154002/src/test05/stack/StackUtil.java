@@ -1,16 +1,19 @@
 package test05.stack;
 
+
+
 public class StackUtil {
 	/**
-	 * 假设栈中的元素是Integer, 从栈顶到栈底是 : 5,4,3,2,1 调用该方法后， 元素次序变为: 1,2,3,4,5
+	 * 假设栈中的元素是T, 从栈顶到栈底是 : 5,4,3,2,1 调用该方法后， 元素次序变为: 1,2,3,4,5
 	 * 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
+	 * @param <T>
 	 */
-	public static void reverse(Stack s) {
-			Stack temp=new Stack();
+	public static <T> void reverse(Stack<T> s) {
+			Stack<T> temp=new Stack<T>();
 			while (s.peek()!=null) {
 				temp.push(s.pop());
 			}
-			Stack temp2=new Stack();
+			Stack<T> temp2=new Stack<T>();
 			while (temp.peek()!=null) {
 				temp2.push(temp.pop());
 			}
@@ -144,6 +147,5 @@ public static boolean isValidPairs(String s){
 		}
 		return stack.size() == 0;
 	}
-
 
 }
