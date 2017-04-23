@@ -27,6 +27,15 @@ public class ByteCodeIterator {
     }
 
 
+    public String readBytesToHexString(int len) {
+        byte[] bs = new byte[len];
+        System.arraycopy(bytes, cursor, bs, 0, len);
+        String ret = Util.byteToHexString(bs);
+        cursor += len;
+        return ret;
+    }
+
+
     public int readTwoBytesToInt() {
         int ret = Util.bytes2Int(bytes, cursor, U2);
         cursor += U2;

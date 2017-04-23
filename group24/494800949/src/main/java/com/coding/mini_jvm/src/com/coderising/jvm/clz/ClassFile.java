@@ -11,6 +11,7 @@ import java.util.List;
 
 public class ClassFile {
 
+	private static final String MAIN_METHOD_NAME = "main";
 	private int minorVersion;
 	private int majorVersion;
 
@@ -79,13 +80,33 @@ public class ClassFile {
 		System.out.println("Super Class Name:"+ getSuperClassName());
 	}
 	
-	private String getClassName(){
+	public String getClassName(){
 		int thisClassIndex = this.clzIndex.getThisClassIndex();
 		ClassInfo thisClass = (ClassInfo)this.getConstantPool().getConstantInfo(thisClassIndex);
 		return thisClass.getClassName();
 	}
-	private String getSuperClassName(){
+	public String getSuperClassName(){
 		ClassInfo superClass = (ClassInfo)this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
 		return superClass.getClassName();
+	}
+
+	public Method getMethod(String methodName, String paramAndReturnType){
+		for (Method method : methods) {
+			String name = method.getClzFile().getConstantPool().getUTF8String(method.getNameIndex());
+			if (methodName.equals(name)) {
+				return method;
+			}
+		}
+
+		return null;
+	}
+	public Method getMainMethod(){
+		for (Method method : methods) {
+			String name = method.getClzFile().getConstantPool().getUTF8String(method.getNameIndex());
+			if (MAIN_METHOD_NAME.equals(name)) {
+				return method;
+			}
+		}
+		return null;
 	}
 }

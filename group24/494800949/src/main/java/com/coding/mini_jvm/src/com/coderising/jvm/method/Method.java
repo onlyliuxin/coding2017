@@ -3,6 +3,7 @@ package com.coding.mini_jvm.src.com.coderising.jvm.method;
 
 import com.coding.mini_jvm.src.com.coderising.jvm.attr.CodeAttr;
 import com.coding.mini_jvm.src.com.coderising.jvm.clz.ClassFile;
+import com.coding.mini_jvm.src.com.coderising.jvm.cmd.ByteCodeCommand;
 import com.coding.mini_jvm.src.com.coderising.jvm.loader.ByteCodeIterator;
 
 public class Method {
@@ -48,7 +49,6 @@ public class Method {
 		int nameIndex = iter.readTwoBytesToInt();
 		int descIndex = iter.readTwoBytesToInt();
 		Method method = new Method(clzFile, accessFlag, nameIndex, descIndex);
-		System.out.println(clzFile.getConstantPool().getUTF8String(descIndex));
 		int attrCount = iter.readTwoBytesToInt();
 		if (attrCount > 1)
 			throw new RuntimeException("other attrbute not impl yet");
@@ -58,9 +58,12 @@ public class Method {
 				CodeAttr codeAttr = CodeAttr.parse(clzFile, iter);
 				method.setCodeAttr(codeAttr);
 			} else
-				throw new RuntimeException("not impl yet");
+				throw new RuntimeException(" attribute[ " + attrNameIndex + " ] not impl yet");
 		}
 		return method;
 	}
 
+	public ByteCodeCommand[] getCmds() {
+		return this.getCodeAttr().getCmds();
+	}
 }
