@@ -22,5 +22,19 @@ public class StringInfo extends ConstantInfo{
 	public String toString(){
 		return this.getConstantPool().getUTF8String(index);
 	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitString(this);
+		
+	}
+
+	@Override
+	public void print() {
+		// TODO Auto-generated method stub
+		String value=constantPool.getUTF8String(index);
+		String index="#"+this.index;
+		System.out.printf("%-20s%-15s// %s\n","String",index,value);
+	}
 	
 }
