@@ -1,11 +1,11 @@
-package test.com.coderising.jvm.loader;
+package test.com.coderising.jvm;
 
+@SuppressWarnings("unused")
 public class EmployeeV1 {
-	
-	
+		
 	private String name;
-    private int age;
-    
+    private int age ;
+        
     public EmployeeV1(String name, int age) {
         this.name = name;
         this.age = age;        
