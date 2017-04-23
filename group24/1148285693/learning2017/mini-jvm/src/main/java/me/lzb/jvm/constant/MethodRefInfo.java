@@ -1,5 +1,7 @@
 package me.lzb.jvm.constant;
 
+import me.lzb.jvm.print.PrintVisitor;
+
 /**
  * Created by LZB on 2017/4/15.
  */
@@ -16,6 +18,11 @@ public class MethodRefInfo extends ConstantInfo {
     @Override
     public int getType() {
         return type;
+    }
+
+    @Override
+    public void print(PrintVisitor visitor) {
+        visitor.visitMethodRef(this);
     }
 
     public int getClassInfoIndex() {

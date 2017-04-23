@@ -1,4 +1,4 @@
-package me.lzb.basic;
+package me.lzb.basic.expr;
 
 import org.junit.After;
 import org.junit.Assert;
