@@ -57,6 +57,7 @@ public class LineNumberTable extends AttributeInfo {
         }*/
 
 
+
         for (int i = 0; i <line_number_table_len ; i++) {
             LineNumberItem item = new LineNumberItem();
             item.setStartPC(iter.nextU2ToInt());
@@ -64,6 +65,18 @@ public class LineNumberTable extends AttributeInfo {
             table.addLineNumberItem(item);
         }
         return table;
+    }
+
+    public String toString(){
+        StringBuilder buffer = new StringBuilder();
+        buffer.append("Line Number Table:\n");
+        for(LineNumberItem item : items){
+            buffer.append("startPC:"+item.getStartPC()).append(",");
+            buffer.append("lineNum:"+item.getLineNum()).append("\n");
+        }
+        buffer.append("\n");
+        return buffer.toString();
+
     }
 
 
