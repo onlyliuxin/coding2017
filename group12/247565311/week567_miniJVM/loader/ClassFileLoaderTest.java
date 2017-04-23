@@ -1,7 +1,7 @@
-package week567_miniJVM.test;
+package week567_miniJVM.loader;
+
 
 import structure.week1.ArrayList;
-import structure.week1.List;
 import week567_miniJVM.clz.ClassFile;
 import week567_miniJVM.clz.ClassIndex;
 import week567_miniJVM.constant.ClassInfo;
@@ -19,23 +19,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ClassFileLoaderTest {
-	private static final String FULL_QUALIFIED_CLASS_NAME = "com/coderising/jvm/test/EmployeeV1";
-	static String path1 = "F:\\code_language\\demo\\Homework\\bin\\week567_miniJVM\\test";
+	private static final String FULL_QUALIFIED_CLASS_NAME = "EmployeeV1.class";
+	static String path1 = "F:\\code_language\\demo\\Homework\\bin\\week567_miniJVM\\test\\";
 	static String path2 = "C:\temp";
 	
-	static ClassFile clzFile = null;
-	static {
-		ClassFileLoader loader = new ClassFileLoader();
-		loader.addClassPath(path1);
-		String className = "com.coderising.jvm.test.EmployeeV1";
-		
-		clzFile = loader.loadClass(className);
-		clzFile.print();
-	}
-	
-	
 	@Before
-	public void setUp() throws Exception {		 
+	public void setUp() throws Exception {
+		int °¡ = 1;
+		°¡ += 1;
+		System.out.print(°¡);
 	}
 	@After
 	public void tearDown() throws Exception {
@@ -59,7 +51,8 @@ public class ClassFileLoaderTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// è¿™é‡Œæ–­è¨€.classæ–‡ä»¶çš„å­—èŠ‚æ•°
+		// ÕâÀï¶ÏÑÔ.classÎÄ¼şµÄ×Ö½ÚÊı
+		System.out.print(byteCodes.length);
 		Assert.assertEquals(267, byteCodes.length);
 	}
     @Test	
@@ -91,8 +84,17 @@ public class ClassFileLoaderTest {
 		return buffer.toString();
 	}
     /**
-    * miniJVMç¬¬äºŒæ¬¡ä½œä¸šæµ‹è¯•ç”¨ä¾‹
+    * miniJVMµÚ¶ş´Î×÷Òµ²âÊÔÓÃÀı
     */
+    static ClassFile clzFile = null;
+	static {
+		ClassFileLoader loader = new ClassFileLoader();
+		loader.addClassPath(path1);
+		String className = "week567_miniJVM.test.EmployeeV1";
+		
+		clzFile = loader.loadClass(className);
+		clzFile.print();
+	}
     @Test
     public void testVersion(){
 		Assert.assertEquals(0, clzFile.getMinorVersion());
@@ -140,7 +142,7 @@ public class ClassFileLoaderTest {
 			Assert.assertEquals(9, nameAndType.getIndex1());
 			Assert.assertEquals(14, nameAndType.getIndex2());
 		}
-		// éšæœºæŠ½æŸ¥ä¸€ä¸ª
+		// Ëæ»ú³é²éÒ»¸ö
 		{
 			MethodRefInfo methodRef = (MethodRefInfo)pool.getConstantInfo(45);
 			Assert.assertEquals(1, methodRef.getClassInfoIndex());
@@ -160,7 +162,7 @@ public class ClassFileLoaderTest {
     	Assert.assertEquals("java/lang/Object", superClassInfo.getClassName());
     }
     /**
-     * miniJVMç¬¬ä¸‰æ¬¡ä½œä¸šæµ‹è¯•ç”¨ä¾‹
+     * miniJVMµÚÈı´Î×÷Òµ²âÊÔÓÃÀı
      */
     @Test
     public void testReadFields(){
