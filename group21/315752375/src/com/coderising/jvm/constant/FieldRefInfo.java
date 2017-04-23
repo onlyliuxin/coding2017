@@ -51,4 +51,17 @@ public class FieldRefInfo extends ConstantInfo{
 		NameAndTypeInfo  typeInfo = (NameAndTypeInfo)this.getConstantInfo(this.getNameAndTypeIndex());
 		return typeInfo.getTypeInfo();	
 	}
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitFieldRef(this);		
+	}
+	@Override
+	public void print() {
+		// TODO Auto-generated method stub
+		String classname=((ClassInfo)constantPool.getConstantInfo(classInfoIndex)).getClassName();
+		String index="#"+classInfoIndex+".#"+nameAndTypeIndex;
+		String name=((NameAndTypeInfo)constantPool.getConstantInfo(nameAndTypeIndex)).getName();
+		String type=((NameAndTypeInfo)constantPool.getConstantInfo(nameAndTypeIndex)).getTypeInfo();
+		System.out.printf("%-20s%-15s// %s.%s:%s\n","FieldRef",index,classname,name,type);
+	}
 }

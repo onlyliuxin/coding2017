@@ -1,6 +1,7 @@
 package com.coderising.jvm.method;
 
 import com.coderising.jvm.clz.ClassFile;
+import com.coderising.jvm.cmd.ByteCodeCommand;
 import com.coderising.jvm.attr.AttributeInfo;
 import com.coderising.jvm.attr.CodeAttr;
 import com.coderising.jvm.constant.ConstantPool;
@@ -50,20 +51,44 @@ public class Method {
 		int nameIndex = iter.nextU2ToInt();
 		int descriptorIndex = iter.nextU2ToInt();
 		int attributesCount = iter.nextU2ToInt();
-		Method method = new Method(clzFile, accessFlag, nameIndex,descriptorIndex);
-		for (int i = 0;i<attributesCount;i++) {
+		Method method = new Method(clzFile, accessFlag, nameIndex,
+				descriptorIndex);
+		for (int i = 0; i < attributesCount; i++) {
 			int attrNameIndex = iter.nextU2ToInt();
-			String attrName = clzFile.getConstantPool().getUTF8String(attrNameIndex);
+			String attrName = clzFile.getConstantPool().getUTF8String(
+					attrNameIndex);
 			iter.back(2);
 			if (AttributeInfo.CODE.equals(attrName)) {
 				CodeAttr codeAttr = CodeAttr.parse(clzFile, iter);
 				method.setCodeAttr(codeAttr);
-			}else {
+			} else {
 				throw new RuntimeException("attribute has not implemented yet");
 			}
 		}
 
 		return method;
 
+	}
+
+	public ByteCodeCommand[] getCmds() {
+		return this.getCodeAttr().getCmds();
+	}
+
+	public String toString() {
+
+		ConstantPool pool = this.clzFile.getConstantPool();
+		StringBuilder buffer = new StringBuilder();
+
+		String name = ((UTF8Info) pool.getConstantInfo(this.nameIndex))
+				.getValue();
+
+		String desc = ((UTF8Info) pool.getConstantInfo(this.descriptorIndex))
+				.getValue();
+
+		buffer.append(name).append(":").append(desc).append("\n");
+
+		buffer.append(this.codeAttr.toString(pool));
+
+		return buffer.toString();
 	}
 }

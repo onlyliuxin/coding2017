@@ -21,4 +21,15 @@ public class ClassInfo extends ConstantInfo {
 		UTF8Info utf8Info = (UTF8Info)constantPool.getConstantInfo(index);
 		return utf8Info.getValue();		
 	}
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitClassInfo(this);		
+	}
+	@Override
+	public void print() {
+		// TODO Auto-generated method stub
+		String utf8=constantPool.getUTF8String(utf8Index);
+		String index="#"+utf8Index;
+		System.out.printf("%-20s%-15s// %s\n", "class",index,utf8);
+	}
 }

@@ -49,6 +49,21 @@ public class MethodRefInfo extends ConstantInfo {
 		NameAndTypeInfo  typeInfo = (NameAndTypeInfo)pool.getConstantInfo(this.getNameAndTypeIndex());
 		return typeInfo.getTypeInfo();
 	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitMethodRef(this);		
+	}
+
+	@Override
+	public void print() {
+		// TODO Auto-generated method stub
+		String classname=((ClassInfo)constantPool.getConstantInfo(classInfoIndex)).getClassName();
+		String index="#"+classInfoIndex+".#"+nameAndTypeIndex;
+		String name=((NameAndTypeInfo)constantPool.getConstantInfo(nameAndTypeIndex)).getName();
+		String type=((NameAndTypeInfo)constantPool.getConstantInfo(nameAndTypeIndex)).getTypeInfo();
+		System.out.printf("%-20s%-15s// %s.%s:%s\n", "MethodRef",index,classname,name,type);
+	}
 	
 	
 	
