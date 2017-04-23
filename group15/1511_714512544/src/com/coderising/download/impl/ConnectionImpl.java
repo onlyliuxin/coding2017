@@ -4,14 +4,22 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Arrays;
 
 import com.coderising.download.api.Connection;
 
 public class ConnectionImpl implements Connection{
-	private HttpURLConnection  connection;
+	URL url = null;
+	private static final int BUFFER_SIZE = 1024;
 
-	public ConnectionImpl(HttpURLConnection connection) {
-		this.connection = connection;
+	public ConnectionImpl(String _url) {
+		try {
+			this.url = new URL(_url);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -23,23 +31,28 @@ public class ConnectionImpl implements Connection{
 	@Override
 
 	public byte[] read(int startPos, int endPos) throws IOException {
-		byte[] buffer = new byte[endPos-startPos+1];
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestProperty("Range",  "bytes="+startPos+"-"+endPos);  //重要
+
+		InputStream is=  conn.getInputStream();
+
+		byte[] buffer = new byte[BUFFER_SIZE];
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		int targetLen = endPos-startPos+1;
 
-		connection.setRequestProperty("Range",  "bytes="+startPos+"-"+endPos);
-		int res = connection.getResponseCode();
-		if(res == 206){ //下载部分内容请求成功
-			InputStream in = connection.getInputStream();
-
-			int len = 0;
-			byte[] b = new byte[1024];
-			while ((len = in.read(b)) != -1) {
-				bos.write(b, 0, len);
+		while (bos.size() < targetLen){
+			int len = is.read(buffer);
+			if(len < 0){
+				break;
 			}
-			buffer = bos.toByteArray();
+			bos.write(buffer, 0, len);
 		}
 
-		return buffer;
+		if(bos.size() > targetLen){
+			byte[] result = bos.toByteArray();
+			return Arrays.copyOf(result, targetLen);
+		}
+		return bos.toByteArray();
 	}
 	/**
 	 * 得到数据内容的长度
@@ -47,22 +60,23 @@ public class ConnectionImpl implements Connection{
 	 */
 	@Override
 	public int getContentLength() {
-		return connection.getContentLength();
+		HttpURLConnection conn;
+
+		try {
+			conn = (HttpURLConnection) url.openConnection();
+			return conn.getContentLength();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return -1;
+
 	}
 	/**
 	 * 关闭连接
 	 */
 	@Override
 	public void close() {
-		InputStream in;
-		try {
-			in = connection.getInputStream();
-			if(in != null){
-				in.close();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 	}
 
 }
