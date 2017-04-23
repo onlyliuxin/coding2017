@@ -1,102 +1,78 @@
 package stack.expr;
 
+import java.util.List;
 import java.util.Stack;
-import stack.StackUtil;
+
 
 public class InfixExpr {
 	String expr = null;
-
+	
 	public InfixExpr(String expr) {
 		this.expr = expr;
 	}
 
 	public float evaluate() {
-
-		TParser tp = new TParser();
-		tp.parse(expr);
-		Stack<Integer> ints = new Stack<Integer>();
-		Stack<String> signs = new Stack<String>();
-
-		int i1 = tp.nextInt();
-		String sign1 = tp.nextSign();
 		
-		ints.push(i1);
-		signs.push(sign1);
-
-		while (tp.hasNextInt()) {
-
-			int i2 = tp.nextInt();
-			String sign2 = tp.nextSign();
-
-			if (tp.hasNextInt()) {
+		
+		TokenParser parser = new TokenParser();
+		List<Token> tokens = parser.parse(this.expr);
+		
+		
+		Stack<Token> opStack = new Stack<>();
+		Stack<Float> numStack = new Stack<>();
+		
+		for(Token token : tokens){
+			
+			if (token.isOperator()){
 				
-				if (highPrioritySign(sign1)) {
+				if(opStack.isEmpty()){
 					
-					i1 = ints.pop();
-					sign1 = signs.pop();
-					i2 = calculate(i1, i2, sign1);
-			
+					opStack.push(token);
+				} else{
+					
+					while(!opStack.isEmpty() 
+							&& !token.hasHigherPriority(opStack.peek())){
+						Token prevOperator = opStack.pop();
+						Float f2 = numStack.pop();
+						Float f1 = numStack.pop();
+						Float result = calculate(prevOperator.toString(), f1,f2);
+						numStack.push(result);						
+						
+					}
+					opStack.push(token);
 				}
-			
-				ints.push(i2);
-				signs.push(sign2);
-				sign1 = sign2;
-
-			}
-
-		}
-
-		signs.pop();
-		StackUtil.reverse(ints);
-		StackUtil.reverse(signs);
-
-		while (!ints.isEmpty()) {
-			
-			int firstInt = ints.pop();
-
-			if (ints.isEmpty()) {
-				return (float) firstInt;
 			} 
-				
-			int secInt = ints.pop();
-			String sign = signs.pop();
-			int result = calculate(firstInt, secInt, sign);
-			ints.push(result);
+			if(token.isNumber()){
+				numStack.push(new Float(token.getIntValue()));
+			}
+		}
 		
+		while(!opStack.isEmpty()){
+			Token token = opStack.pop();
+			Float f2 = numStack.pop();
+			Float f1 = numStack.pop();
+			numStack.push(calculate(token.toString(), f1,f2));
 		}
-
-		System.out.println("we shall not reach here");
-		return (float) ints.peek();
+		
+		
+		return numStack.pop().floatValue();
+	}
+	private Float calculate(String op, Float f1, Float f2){
+		if(op.equals("+")){
+			return f1+f2;
+		}
+		if(op.equals("-")){
+			return f1-f2;
+		}
+		if(op.equals("*")){
+			return f1*f2;
+		}
+		if(op.equals("/")){
+			return f1/f2;
+		}
+		throw new RuntimeException(op + " is not supported");
 	}
 
-	private int calculate(int firstInt, int secInt, String lowsign) {
-
-		int result;
-		if (lowsign.equals("+")) {
-			result = firstInt + secInt;
-		} else if (lowsign.equals("-")) {
-			result = firstInt - secInt;
-		} else if (lowsign.equals("*")) {
-			result = firstInt * secInt;
-		} else if (lowsign.equals("/")) {
-			result = firstInt / secInt;
-		} else {
-			throw new RuntimeException(lowsign + " has not been supported yet!");
-		}
-
-		return result;
-
-	}
-
-	private boolean highPrioritySign(String sign) {
-
-		if (sign.equals("*") || sign.equals("/")) {
-
-			return true;
-
-		}
-
-		return false;
-	}
-
+	
+	
 }

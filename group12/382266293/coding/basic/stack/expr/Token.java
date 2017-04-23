@@ -6,13 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 class Token {
-	public static final List<String> OPERATORS = Arrays.asList("+", "-", "*", "/");
+	public static final List<String> OPERATORS = Arrays.asList("+", "-", "*", "/", "(", ")");
 	private static final Map<String,Integer> priorities = new HashMap<>();
 	static {
 		priorities.put("+", 1);
 		priorities.put("-", 1);
 		priorities.put("*", 2);
 		priorities.put("/", 2);
+		priorities.put("(", 0);
+		priorities.put(")", 3);
 	}
 	static final int OPERATOR = 1;
 	static final int NUMBER = 2;
@@ -30,6 +32,22 @@ class Token {
 	public boolean isOperator() {
 		return type == OPERATOR;
 	}
+	
+	public boolean isLeftSquare() {
+		if (!isOperator()) {
+			return false;
+		}
+
+		return priorities.get(this.value) == 0;
+	}
+	
+	public boolean isRightSquare() {
+		if (!isOperator()) {
+			return false;
+		}
+
+		return priorities.get(this.value) == 3;
+	}
 
 	public int getIntValue() {
 		return Integer.valueOf(value).intValue();
@@ -38,12 +56,21 @@ class Token {
 		return value;
 	}
 	
+	
+	
 	public boolean hasHigherPriority(Token t){
 		if(!this.isOperator() && !t.isOperator()){
 			throw new RuntimeException("numbers can't compare priority");
 		}
 		return priorities.get(this.value) - priorities.get(t.value) > 0;
 	}
+
+	public boolean isSquare() {
+		
+		return isLeftSquare() || isRightSquare();
+	}
+
+
 	
 	
 

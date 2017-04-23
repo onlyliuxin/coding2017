@@ -37,5 +37,30 @@ public class TokenParserTest {
 		Assert.assertEquals("/", tokens.get(9).toString());
 		Assert.assertEquals(4, tokens.get(10).getIntValue());
 	}
+	
+	@Test
+	public void test1() {
+		
+		TokenParser parser = new TokenParser();
+		List<Token> tokens  = parser.parse("9+(3-1)*3+10/2");
+		System.out.println(tokens);
+//		//9+(3-1)*3+10/2
+//		PostfixExpr expr = new PostfixExpr("9 3 1-3*+ 10 2/+");
+//		Assert.assertEquals(20, expr.evaluate(),0.0f);  [9, 3, 1, -, 3, *, +, 10, 2, /, +]
+		
+//		Assert.assertEquals(300, tokens.get(0).getIntValue());
+//		Assert.assertEquals("*", tokens.get(1).toString());
+//		Assert.assertEquals(20, tokens.get(2).getIntValue());
+//		Assert.assertEquals("+", tokens.get(3).toString());
+//		Assert.assertEquals(12, tokens.get(4).getIntValue());
+//		Assert.assertEquals("*", tokens.get(5).toString());
+//		Assert.assertEquals(5, tokens.get(6).getIntValue());
+//		Assert.assertEquals("-", tokens.get(7).toString());
+//		Assert.assertEquals(20, tokens.get(8).getIntValue());
+//		Assert.assertEquals("/", tokens.get(9).toString());
+//		Assert.assertEquals(4, tokens.get(10).getIntValue());
+	}
+	
+	
 
 }

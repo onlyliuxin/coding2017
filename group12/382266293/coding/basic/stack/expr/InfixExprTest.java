@@ -34,8 +34,8 @@ public class InfixExprTest {
 		}
 		
 		{
-			InfixExpr expr = new InfixExpr("2+3*4/2");
-			Assert.assertEquals(8.0, expr.evaluate(), 0.001f);
+			InfixExpr expr = new InfixExpr("2+3*4/2+1");
+			Assert.assertEquals(9, expr.evaluate(), 0.001f);
 		}
 		
 		{

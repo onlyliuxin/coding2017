@@ -25,7 +25,7 @@ public class ConstantPoolPrinter implements PrintVisitor {
 
 		for (int i = 1; i <= size; i++) {
 			ConstantInfo info = pool.getConstantInfo(i);
-			System.out.print("#" + i + " =");
+			System.out.print("#" + i + " = ");
 			info.accept(this);
 		}
 
