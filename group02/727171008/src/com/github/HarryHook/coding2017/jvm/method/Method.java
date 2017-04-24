@@ -77,8 +77,8 @@ public class Method {
 	StringBuffer buffer = new StringBuffer();
 	String name = ((UTF8Info) pool.getConstantInfo(this.nameIndex)).getValue();
 	String desc = ((UTF8Info) pool.getConstantInfo(this.descriptorIndex)).getValue();
-	buffer.append(name);
-	buffer.append(desc);
+	buffer.append(name).append(":").append(desc).append("\n");
+	buffer.append(this.codeAttr.toString(pool));
 	return buffer.toString();
     }
     public ByteCodeCommand[] getCmds() {		

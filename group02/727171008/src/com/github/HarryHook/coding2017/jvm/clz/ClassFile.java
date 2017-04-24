@@ -1,6 +1,5 @@
 package com.github.HarryHook.coding2017.jvm.clz;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +17,16 @@ public class ClassFile {
     private ClassIndex clzIndex;
     private ConstantPool pool;
     private List<Field> fields = new ArrayList<Field>();
-    private List<Method> methods  = new ArrayList<Method>();
+    private List<Method> methods = new ArrayList<Method>();
 
     public ClassIndex getClzIndex() {
 	return clzIndex;
     }
+
     public void setClzIndex(ClassIndex clzIndex) {
 	this.clzIndex = clzIndex;
     }
+
     public AccessFlag getAccessFlag() {
 	return accessFlag;
     }
@@ -82,31 +83,51 @@ public class ClassFile {
 	ClassInfo superClass = (ClassInfo) this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
 	return superClass.getClassName();
     }
-    
+
     public void addField(Field f) {
 	fields.add(f);
     }
-    
+
     public List<Field> getFields() {
 	return fields;
     }
-    
+
     public void addMethod(Method m) {
 	methods.add(m);
-	
+
     }
+
     public List<Method> getMethods() {
 	return methods;
     }
-    public Method getMethod(String methodName, String paramAndReturnType){
-	
-	
-	return null;
-    }
-    public Method getMainMethod(){
-	
+
+    public Method getMethod(String methodName, String paramAndReturnType) {
+
+	for (Method m : methods) {
+
+	    int nameIndex = m.getNameIndex();
+	    int descriptionIndex = m.getDescriptorIndex();
+
+	    String name = this.getConstantPool().getUTF8String(nameIndex);
+	    String desc = this.getConstantPool().getUTF8String(descriptionIndex);
+	    if (name.equals(methodName) && desc.equals(paramAndReturnType)) {
+		return m;
+	    }
+	}
 	return null;
     }
 
+    public Method getMainMethod() {
+	for (Method m : methods) {
+	    int nameIndex = m.getNameIndex();
+	    int descIndex = m.getDescriptorIndex();
+	    String name = this.getConstantPool().getUTF8String(nameIndex);
+	    String desc = this.getConstantPool().getUTF8String(descIndex);
+	    if (name.equals("main") && desc.equals("([Ljava/lang/String;)V")) {
+		return m;
+	    }
+	}
+	return null;
+    }
 
 }
