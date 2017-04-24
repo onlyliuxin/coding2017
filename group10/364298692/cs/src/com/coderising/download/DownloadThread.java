@@ -43,6 +43,7 @@ public class DownloadThread extends Thread{
 		try {
 			byte[] data = conn.read(startPos, endPos);
 			
+			//在最底层newRandomAccessFile对象，也防止了数据读写冲突。如果是通过参数传进来的，则有冲突的风险，需要用synchronized关键字
 			RandomAccessFile asf = new RandomAccessFile(file, "rw");
 			
 			asf.seek(startPos);

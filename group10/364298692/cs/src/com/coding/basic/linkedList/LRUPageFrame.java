@@ -2,7 +2,7 @@ package com.coding.basic.linkedList;
 
 /**
  * 用双向链表实现LRU算法
- * @author liuxin
+ * @author 
  *
  */
 public class LRUPageFrame {
