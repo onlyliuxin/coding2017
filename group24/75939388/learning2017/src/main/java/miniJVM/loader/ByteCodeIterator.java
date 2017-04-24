@@ -24,7 +24,7 @@ public  class ByteCodeIterator {
 		return data;
 	}
 
-	public int nextU1toInt() {
+	public int nextU1ToInt() {
 
 		return Util.byteToInt(new byte[] { codes[pos++] });
 	}

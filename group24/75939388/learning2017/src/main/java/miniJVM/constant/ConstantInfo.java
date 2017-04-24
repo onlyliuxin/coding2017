@@ -28,13 +28,12 @@ public abstract class ConstantInfo {
 	
 	public abstract void accept(Visitor visitor);
 	
-	public static interface Visitor{
-		public void visitClassInfo(ClassInfo info);
-		public void visitFieldRef(FieldRefInfo info);
-		public void visitMethodRef(MethodRefInfo info);
-		public void visitNameAndType(NameAndTypeInfo info);
-		public void visitString(StringInfo info);
-		public void visistUTF8(UTF8Info info);
-		
+	public interface Visitor{
+		void visitClassInfo(ClassInfo info);
+		void visitFieldRef(FieldRefInfo info);
+		void visitMethodRef(MethodRefInfo info);
+		void visitNameAndType(NameAndTypeInfo info);
+		void visitString(StringInfo info);
+		void visitUTF8(UTF8Info info);
 	}
 }
