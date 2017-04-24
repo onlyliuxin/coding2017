@@ -12,9 +12,7 @@ public class ConstantPool {
 		
 	}
 	public void addConstantInfo(ConstantInfo info){
-		
 		this.constantInfos.add(info);
-		
 	}
 	
 	public ConstantInfo getConstantInfo(int index){
@@ -24,7 +22,7 @@ public class ConstantPool {
 		return ((UTF8Info)this.constantInfos.get(index)).getValue();
 	}
 	public int getSize() {		
-		return this.constantInfos.size() -1;
+		return this.constantInfos.size() - 1;
 	}
 	
 	
