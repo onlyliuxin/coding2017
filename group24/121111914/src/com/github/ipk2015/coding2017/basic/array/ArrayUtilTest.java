@@ -1,4 +1,4 @@
-package com.github.ipk2015.coding2017.coderising.array;
+package com.github.ipk2015.coding2017.basic.array;
 
 import static org.junit.Assert.*;
 

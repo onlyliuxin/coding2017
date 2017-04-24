@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.ipk2015.coding2017.basic.Queue;
+import com.github.ipk2015.coding2017.basic.queue.Queue;
 
 public class QueueTest {
 	Queue queue;
