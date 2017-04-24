@@ -45,7 +45,6 @@ public class FileDownloader {
 			Connection conn = cm.open(this.url);
 			int length = conn.getContentLength();
 
-
 			System.out.println("file length:" + length);
 			setLocation("C:\\");
 
@@ -53,7 +52,7 @@ public class FileDownloader {
 			setFileName(name);
 			setTempName(name);
 			checkLength(length, conn);
-			
+
 			DownloadUtil.createTempFile(tempName, length);
 
 			int connNumbers = DownloadUtil.calculateConnects(length);
@@ -153,7 +152,6 @@ public class FileDownloader {
 			}
 			threadPool[i] = new DownloadThread(con, beginPos, endPos);
 			setAndStartThread(threadPool[i], tempName);
-			
 
 		}
 	}
