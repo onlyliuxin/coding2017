@@ -64,6 +64,16 @@ public class ArrayList<E> implements List<E> {
 		return objArr;
 	}
 	
+	@Override
+	public String toString() {
+		
+		StringBuilder str = new StringBuilder();
+    	str.append("[");
+		for (int i = 0; i < size; i++) {
+			str.append(elementData[i].toString()+",");
+		}		
+		return str.toString().substring(0, str.length()-1)+"]";
+	}
 	/**
 	 * 扩容，扩容因子为10
 	 */
