@@ -6,14 +6,19 @@ import com.coderising.jvm.clz.ClassIndex;
 import com.coderising.jvm.constant.ConstantInfo;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.constant.NullConstantInfo;
+import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
 import com.coderising.jvm.parser.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ClassFileParser {
 
 	private static final Map<Integer, ConstantInfoParser> constantPoolParserMap = new HashMap<Integer, ConstantInfoParser>();
+
 	static {
 		constantPoolParserMap.put(ConstantInfo.UTF8_INFO, new UTF8InfoParser());
 //		constantPoolParserMap.put(ConstantInfo.INTEGER_INFO, new IntegerInfoParser());
@@ -47,6 +52,11 @@ public class ClassFileParser {
 		clzFile.setConstPool(parseConstantPool(iterator));
 		clzFile.setAccessFlag(parseAccessFlag(iterator));
 		clzFile.setClassIndex(parseClassInfex(iterator));
+
+		parseInterfaces(iterator);
+
+		parseFileds(clzFile, iterator);
+		parseMethods(clzFile, iterator);
 
 		return clzFile;
 	}
@@ -90,17 +100,26 @@ public class ClassFileParser {
 
 		System.out.println("interfaceCount:" + interfaceCount);
 
+//		throw new RuntimeException("interfaceParse has not been implemented");
+
 		// TODO : 如果实现了interface, 这里需要解析
 	}
 
 	private void parseFileds(ClassFile clzFile, ByteCodeIterator iter) {
 
-
+		int fieldCount = iter.nextU2ToInt();
+		for (int i = 0; i < fieldCount; i++) {
+			clzFile.addField(Field.parse(clzFile.getConstantPool(), iter));
+		}
 	}
 
 	private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
 
+		int methodCount = iter.nextU2ToInt();
 
+		for (int i = 0; i < methodCount; i++) {
+			clzFile.addMethod(Method.parse(clzFile, iter));
+		}
 	}
 
 }

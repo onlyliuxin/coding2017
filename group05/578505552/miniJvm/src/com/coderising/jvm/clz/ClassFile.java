@@ -2,6 +2,11 @@ package com.coderising.jvm.clz;
 
 import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantPool;
+import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClassFile {
 	
@@ -11,7 +16,8 @@ public class ClassFile {
 	private AccessFlag accessFlag;
 	private ClassIndex clzIndex;
 	private ConstantPool pool;
-	
+	private List<Field> fields = new ArrayList<Field>();
+	private List<Method> methods = new ArrayList<Method>();
 	
 	public ClassIndex getClzIndex() {
 		return clzIndex;
@@ -22,8 +28,6 @@ public class ClassFile {
 	public void setAccessFlag(AccessFlag accessFlag) {
 		this.accessFlag = accessFlag;
 	}
-	
-	
 	
 	public ConstantPool getConstantPool() {
 		return pool;
@@ -48,7 +52,18 @@ public class ClassFile {
 		this.clzIndex = clzIndex;		
 	}
 	
-	
+	public void addField(Field f){
+		this.fields.add(f);
+	}
+	public List<Field> getFields(){
+		return this.fields;
+	}
+	public void addMethod(Method m){
+		this.methods.add(m);
+	}
+	public List<Method> getMethods() {
+		return methods;
+	}
 	
 	
 	public void print(){
@@ -63,13 +78,23 @@ public class ClassFile {
 		
 	}
 	
-	private String getClassName(){
+	public String getClassName(){
 		int thisClassIndex = this.clzIndex.getThisClassIndex();
 		ClassInfo thisClass = (ClassInfo)this.getConstantPool().getConstantInfo(thisClassIndex);
 		return thisClass.getClassName();
 	}
-	private String getSuperClassName(){
+	public String getSuperClassName(){
 		ClassInfo superClass = (ClassInfo)this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
 		return superClass.getClassName();
+	}
+	
+	public Method getMethod(String methodName, String paramAndReturnType){
+		
+		
+		return null;
+	}
+	public Method getMainMethod(){
+		
+		return null;
 	}
 }
