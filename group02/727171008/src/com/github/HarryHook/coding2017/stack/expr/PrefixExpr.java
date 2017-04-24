@@ -20,16 +20,15 @@ public class PrefixExpr {
 	for (Token token : tokens) {
 	    exprStack.push(token);
 	}
-
+	System.out.println(tokens);
 	while (!exprStack.isEmpty()) {
 	    Token t = exprStack.pop();
 	    if (t.isNumber()) {
 		numStack.push(new Float(t.getIntValue()));
-	    } else {
+	    } else if(t.isOperator()){
 		Float f1 = numStack.pop();
 		Float f2 = numStack.pop();
 		numStack.push(calculate(t.toString(), f1, f2));
-
 	    }
 	}
 	return numStack.pop().floatValue();
@@ -52,9 +51,8 @@ public class PrefixExpr {
     }
 
     public static void main(String[] args) {
-
-	PrefixExpr prefixExpr = new PrefixExpr("-++6/*2 9 3 * 4 2 8");
-	System.out.println(prefixExpr.evaluate());
+	PrefixExpr expr = new PrefixExpr("-++6/*2 9 3 * 4 2 8");
+	System.out.println("The result of the expression: " + expr.evaluate());
     }
 
 }

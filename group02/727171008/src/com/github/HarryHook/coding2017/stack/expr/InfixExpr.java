@@ -23,7 +23,7 @@ public class InfixExpr {
 		while (i < ch.length - 1 && Character.isDigit(ch[++i])) {
 		    tmp = tmp * 10 + Float.parseFloat("" + ch[i]);
 		}
-	
+
 		stackOfNumber.push(tmp);
 
 	    }
@@ -31,7 +31,7 @@ public class InfixExpr {
 		stackOfOperator.push(ch[i]);
 	    }
 
-	    char operator = (char)stackOfOperator.peek();
+	    char operator = (char) stackOfOperator.peek();
 	    if (operator == '*' || operator == '/') {
 		float tmp = Float.parseFloat("" + ch[++i]);
 		while (i < ch.length - 1 && Character.isDigit(ch[++i])) {
@@ -44,15 +44,15 @@ public class InfixExpr {
 
 		float tmp1 = Float.parseFloat("" + stackOfNumber.pop());
 		float tmp2 = Float.parseFloat("" + stackOfNumber.pop());
-		if(operator == '*') {
+		if (operator == '*') {
 		    stackOfNumber.push(tmp1 * tmp2);
-		} else {		
-		    stackOfNumber.push(tmp2 / tmp1);  
+		} else {
+		    stackOfNumber.push(tmp2 / tmp1);
 		}
-		
+
 		stackOfOperator.pop();
 	    }
-	   
+
 	}
 	// 将栈中的数字和运算符逆置，从左往右结合
 	reverse(stackOfNumber);
@@ -63,10 +63,10 @@ public class InfixExpr {
 	    if (operator == '+' || operator == '-') {
 		float tmp1 = Float.parseFloat("" + stackOfNumber.pop());
 		float tmp2 = Float.parseFloat("" + stackOfNumber.pop());
-		if(operator == '+') {
+		if (operator == '+') {
 		    stackOfNumber.push(tmp1 + tmp2);
 		} else {
-		    stackOfNumber.push(tmp1 - tmp2); 
+		    stackOfNumber.push(tmp1 - tmp2);
 		}
 	    }
 
@@ -95,6 +95,7 @@ public class InfixExpr {
 	s.push(temp2);
 
     }
+
     public static void main(String[] args) {
 	InfixExpr expr = new InfixExpr("2+3*4+5");
 	System.out.println(expr.evaluate());
