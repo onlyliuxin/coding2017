@@ -114,50 +114,50 @@ public class ClassFileloaderTest {
 		ConstantPool pool = clzFile.getConstantPool();
 		
 		Assert.assertEquals(53, pool.getSize());
-	
+
 		{
 			ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(1);
 			Assert.assertEquals(2, clzInfo.getUtf8Index());
-			
+
 			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(2);
-			Assert.assertEquals(FULL_QUALIFIED_CLASS_NAME, utf8Info.getValue());
+			Assert.assertEquals("com/coderising/jvm/test/EmployeeV1", utf8Info.getValue());
 		}
 		{
 			ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(3);
 			Assert.assertEquals(4, clzInfo.getUtf8Index());
-			
+
 			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(4);
 			Assert.assertEquals("java/lang/Object", utf8Info.getValue());
 		}
 		{
 			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(5);
 			Assert.assertEquals("name", utf8Info.getValue());
-			
+
 			utf8Info = (UTF8Info) pool.getConstantInfo(6);
 			Assert.assertEquals("Ljava/lang/String;", utf8Info.getValue());
-			
+
 			utf8Info = (UTF8Info) pool.getConstantInfo(7);
 			Assert.assertEquals("age", utf8Info.getValue());
-			
+
 			utf8Info = (UTF8Info) pool.getConstantInfo(8);
 			Assert.assertEquals("I", utf8Info.getValue());
-			
+
 			utf8Info = (UTF8Info) pool.getConstantInfo(9);
 			Assert.assertEquals("<init>", utf8Info.getValue());
-			
+
 			utf8Info = (UTF8Info) pool.getConstantInfo(10);
 			Assert.assertEquals("(Ljava/lang/String;I)V", utf8Info.getValue());
-			
+
 			utf8Info = (UTF8Info) pool.getConstantInfo(11);
 			Assert.assertEquals("Code", utf8Info.getValue());
 		}
-		
+
 		{
 			MethodRefInfo methodRef = (MethodRefInfo)pool.getConstantInfo(12);
 			Assert.assertEquals(3, methodRef.getClassInfoIndex());
 			Assert.assertEquals(13, methodRef.getNameAndTypeIndex());
 		}
-		
+
 		{
 			NameAndTypeInfo nameAndType = (NameAndTypeInfo) pool.getConstantInfo(13);
 			Assert.assertEquals(9, nameAndType.getIndex1());
@@ -169,7 +169,7 @@ public class ClassFileloaderTest {
 			Assert.assertEquals(1, methodRef.getClassInfoIndex());
 			Assert.assertEquals(46, methodRef.getNameAndTypeIndex());
 		}
-		
+
 		{
 			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(53);
 			Assert.assertEquals("EmployeeV1.java", utf8Info.getValue());

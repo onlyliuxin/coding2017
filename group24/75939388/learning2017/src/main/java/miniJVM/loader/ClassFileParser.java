@@ -52,14 +52,16 @@ public class ClassFileParser {
             int cnstSize = iter.nextU2ToInt();
             System.out.println("常量个数：" + (cnstSize - 1));
             for (int i = 0; i < cnstSize; i++) {
-                int index = 0;
+                int index = -1;
 
                 if(i == 0){
-                    continue;
-                } else {
-                    index = iter.nextU1ToInt();
-                }
+                	pool.addConstantInfo(null);
+                	continue;
+				}else{
+                	index = iter.nextU1ToInt();
+				}
 
+//				System.out.println("i -> " + i + ", index -> " + index);
                 if (index == ConstantInfo.CLASS_INFO) {
                     ClassInfo classInfo = new ClassInfo(pool);
                     classInfo.setUtf8Index(iter.nextU2ToInt());
@@ -68,7 +70,7 @@ public class ClassFileParser {
                     UTF8Info utf8Info = new UTF8Info(pool);
                     int length = iter.nextU2ToInt();
                     utf8Info.setLength(length);
-                    utf8Info.setValue(iter.nextUxToHexString(length));
+                    utf8Info.setValue(new String(iter.getBytes(length), "utf8"));
                     pool.addConstantInfo(utf8Info);
                 } else if (index == ConstantInfo.METHOD_INFO) {
                     MethodRefInfo methodRefInfo = new MethodRefInfo(pool);
@@ -89,7 +91,9 @@ public class ClassFileParser {
                     StringInfo stringInfo = new StringInfo(pool);
                     stringInfo.setIndex(iter.nextU2ToInt());
                     pool.addConstantInfo(stringInfo);
-                } else {
+                } else if(index == 0){
+					pool.addConstantInfo(null);
+				} else {
                     throw new Exception("没有针对index=" + index + "没有处理");
                 }
             }
