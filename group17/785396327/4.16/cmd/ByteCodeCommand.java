@@ -3,6 +3,8 @@ package cmd;
 import clz.ClassFile;
 import constant.ConstantInfo;
 import constant.ConstantPool;
+import engine.FrameResult;
+import engine.StackFrame;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -125,5 +127,5 @@ public abstract class ByteCodeCommand {
         return txt;
     }
 
-    //public abstract void execute(StackFrame frame,FrameResult result);
+    public abstract void execute(StackFrame frame, FrameResult result);
 }

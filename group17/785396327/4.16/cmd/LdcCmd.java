@@ -4,6 +4,8 @@ import clz.ClassFile;
 import constant.ConstantInfo;
 import constant.ConstantPool;
 import constant.StringInfo;
+import engine.FrameResult;
+import engine.StackFrame;
 
 /**
  * Created by IBM on 2017/4/17.
@@ -25,6 +27,11 @@ public class LdcCmd extends OneOperandCmd {
         }
 
         return this.getOffset() + ":" + this.getOpCode() + " " + this.getReadableCodeText() + " " + value;
+
+    }
+
+    @Override
+    public void execute(StackFrame frame, FrameResult result) {
 
     }
 }
