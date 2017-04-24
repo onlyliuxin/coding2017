@@ -1,6 +1,8 @@
 package com.github.orajavac.coding2017.jvm.attr;
 
 import com.github.orajavac.coding2017.jvm.clz.ClassFile;
+import com.github.orajavac.coding2017.jvm.cmd.ByteCodeCommand;
+import com.github.orajavac.coding2017.jvm.constant.ConstantPool;
 import com.github.orajavac.coding2017.jvm.loader.ByteCodeIterator;
 
 public class CodeAttr extends AttributeInfo{
@@ -13,10 +15,10 @@ public class CodeAttr extends AttributeInfo{
 		return code;
 	}
 
-	//private ByteCodeCommand[] cmds ;
-	//public ByteCodeCommand[] getCmds() {
-	//	return cmds;
-	//}
+	private ByteCodeCommand[] cmds ;
+	public ByteCodeCommand[] getCmds() {
+		return cmds;
+	}
 	private LineNumberTable lineNumTable;
 	private LocalVariableTable localVarTable;
 	private StackMapTable stackMapTable;
@@ -70,6 +72,19 @@ public class CodeAttr extends AttributeInfo{
 		}
 		return null;
 	}
+	
+	public String toString(ConstantPool pool){
+		StringBuilder buffer = new StringBuilder();
+		//buffer.append("Code:").append(code).append("\n");
+		for(int i=0;i<cmds.length;i++){
+			buffer.append(cmds[i].toString(pool)).append("\n");
+		}
+		buffer.append("\n");
+		buffer.append(this.lineNumTable.toString());
+		buffer.append(this.localVarTable.toString(pool));
+		return buffer.toString();
+	}
+	
 	private void setStackMapTable(StackMapTable t) {
 		this.stackMapTable = t;
 		

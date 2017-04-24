@@ -3,6 +3,8 @@ package com.github.orajavac.coding2017.jvm.method;
 import com.github.orajavac.coding2017.jvm.attr.AttributeInfo;
 import com.github.orajavac.coding2017.jvm.attr.CodeAttr;
 import com.github.orajavac.coding2017.jvm.clz.ClassFile;
+import com.github.orajavac.coding2017.jvm.constant.ConstantPool;
+import com.github.orajavac.coding2017.jvm.constant.UTF8Info;
 import com.github.orajavac.coding2017.jvm.field.Field;
 import com.github.orajavac.coding2017.jvm.loader.ByteCodeIterator;
 
@@ -42,7 +44,21 @@ public class Method {
 		this.descriptorIndex = descriptorIndex;
 	}
 
-	
+	public String toString() {
+		
+		ConstantPool pool = this.clzFile.getConstantPool();
+		StringBuilder buffer = new StringBuilder();
+		
+		String name = ((UTF8Info)pool.getConstantInfo(this.nameIndex)).getValue();
+		
+		String desc = ((UTF8Info)pool.getConstantInfo(this.descriptorIndex)).getValue();
+		
+		buffer.append(name).append(":").append(desc).append("\n");
+		
+		buffer.append(this.codeAttr.toString(pool));
+		
+		return buffer.toString();
+	}
 	
 	
 	

@@ -3,6 +3,7 @@ package com.github.orajavac.coding2017.jvm.attr;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.orajavac.coding2017.jvm.constant.ConstantPool;
 import com.github.orajavac.coding2017.jvm.loader.ByteCodeIterator;
 
 public class LocalVariableTable extends AttributeInfo{
@@ -28,6 +29,20 @@ public class LocalVariableTable extends AttributeInfo{
 		}
 		return table;
 	}
+	
+	public String toString(ConstantPool pool){
+		StringBuilder buffer = new StringBuilder();
+		buffer.append("Local Variable Table:\n");
+		for(LocalVariableItem item : items){
+			buffer.append("startPC:"+item.getStartPC()).append(",");
+			buffer.append("name:"+pool.getUTF8String(item.getNameIndex())).append(",");
+			buffer.append("desc:"+pool.getUTF8String(item.getDescIndex())).append(",");
+			buffer.append("slotIndex:"+ item.getIndex()).append("\n");
+		}
+		buffer.append("\n");
+		return buffer.toString();
+	}
+	
 	private void addLocalVariableItem(LocalVariableItem item) {
 		this.items.add(item);		
 	}
