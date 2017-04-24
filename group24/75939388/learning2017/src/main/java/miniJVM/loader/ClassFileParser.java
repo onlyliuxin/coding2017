@@ -94,7 +94,7 @@ public class ClassFileParser {
                 } else if(index == 0){
 					pool.addConstantInfo(null);
 				} else {
-                    throw new Exception("没有针对index=" + index + "没有处理");
+                    throw new Exception("没有针对tag=" + index + "的数据进行处理");
                 }
             }
             clzFile.setConstPool(pool);
