@@ -1,5 +1,11 @@
 package com.coding.basic.queue;
 
+/**
+ * 用数组实现循环队列
+ * @author liuxin
+ *
+ * @param <E>
+ */
 public class CircleQueue <E> {
 	
 	private final static int DEFAULT_SIZE = 10;
