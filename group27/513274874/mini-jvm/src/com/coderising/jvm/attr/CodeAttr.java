@@ -1,6 +1,8 @@
 package com.coderising.jvm.attr;
 
 import com.coderising.jvm.clz.ClassFile;
+import com.coderising.jvm.cmd.ByteCodeCommand;
+import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.loader.ByteCodeIterator;
 
 
@@ -14,10 +16,10 @@ public class CodeAttr extends AttributeInfo {
         return code;
     }
 
-    //private ByteCodeCommand[] cmds ;
-    //public ByteCodeCommand[] getCmds() {
-    //	return cmds;
-    //}
+    private ByteCodeCommand[] cmds ;
+    public ByteCodeCommand[] getCmds() {
+    	return cmds;
+    }
     private LineNumberTable lineNumTable;
     private LocalVariableTable localVarTable;
     private StackMapTable stackMapTable;
@@ -84,6 +86,18 @@ public class CodeAttr extends AttributeInfo {
 
         return codeAttr;
     }
+	
+	public String toString(ConstantPool pool){
+		StringBuilder buffer = new StringBuilder();
+		//buffer.append("Code:").append(code).append("\n");
+		for(int i=0;i<cmds.length;i++){
+			buffer.append(cmds[i].toString(pool)).append("\n");
+		}
+		buffer.append("\n");
+		buffer.append(this.lineNumTable.toString());
+		buffer.append(this.localVarTable.toString(pool));
+		return buffer.toString();
+	}
 
     private void setStackMapTable(StackMapTable t) {
         this.stackMapTable = t;

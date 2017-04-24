@@ -42,7 +42,16 @@ public class InfixExprTest {
 			InfixExpr expr = new InfixExpr("10-30+50");
 			Assert.assertEquals(30, expr.evaluate(), 0.001f);
 		}
+		{
+			InfixExpr expr = new InfixExpr("10-2*3+50");
+			Assert.assertEquals(54, expr.evaluate(), 0.001f);
+		}
 		
+	}
+
+	@Test
+	public void testConert(){
+		new InfixToPostfix().convert("2*3*4+5");
 	}
 
 }
