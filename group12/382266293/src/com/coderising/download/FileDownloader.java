@@ -71,7 +71,7 @@ public class FileDownloader {
 			int length = conn.getContentLength();
 
 			System.out.println("file length:" + length);
-			setLocation("C:\\");
+			setLocation("d:\\");
 
 			String name = conn.getFileName();
 			setFileName(name);
