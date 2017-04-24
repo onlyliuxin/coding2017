@@ -56,7 +56,7 @@ public class Struts {
 						String key = entry.getKey();
 						if(pd.getName().equals(key)){
 							Method setMethod = pd.getWriteMethod();//获得set方法
-							setMethod .invoke(obj, entry.getValue());//调用
+							setMethod.invoke(obj, entry.getValue());//调用
 							break;
 						}
 					}
@@ -65,23 +65,14 @@ public class Struts {
 		        Method method = clazz.getMethod("execute", null);
 		        Object result = method.invoke(obj);
 		        Map<String, String> map = new HashMap<String, String>();
-		        if("success".equals(result)){
-		        	map.put("message", "login successful");
-		        }else{
-		        	map.put("message", "login failed,please check your user/pwd");
-		        }
 		        // 3. 通过反射找到对象的所有getter方法（例如 getMessage）,
 				// 通过反射来调用， 把值和属性形成一个HashMap , 例如 {"message": "登录成功"} ,
 				// 放到View对象的parameters
 		        for(PropertyDescriptor pd : pds){
-					for (Entry<String, String> entry : parameters.entrySet()) {
-						String key = entry.getKey();
-						if(pd.getName().equals(key)){
-							Method getMethod = pd.getReadMethod();//获得get方法
-							Object getresult = getMethod .invoke(obj);//调用
-							map.put(pd.getName(), getresult.toString());
-							break;
-						}
+					Method getMethod = pd.getReadMethod();//获得get方法
+					Object getresult = getMethod.invoke(obj);//调用
+					if(!"class".equals(pd.getName())){
+						map.put(pd.getName(), getresult.toString());
 					}
 				}
 		        view.setParameters(map);
