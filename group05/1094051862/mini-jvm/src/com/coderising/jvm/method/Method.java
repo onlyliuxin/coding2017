@@ -1,6 +1,7 @@
 package com.coderising.jvm.method;
 
 import com.coderising.jvm.clz.ClassFile;
+import com.coderising.jvm.cmd.ByteCodeCommand;
 
 import javax.management.RuntimeErrorException;
 
@@ -77,4 +78,10 @@ public class Method {
 		return m;
 		
 	}
+	
+	public ByteCodeCommand[] getCmds() {		
+		return this.getCodeAttr().getCmds();
+	}
+	
+	
 }
