@@ -2,6 +2,8 @@ package com.coding.mini_jvm.src.com.coderising.jvm.attr;
 
 
 import com.coding.mini_jvm.src.com.coderising.jvm.clz.ClassFile;
+import com.coding.mini_jvm.src.com.coderising.jvm.cmd.ByteCodeCommand;
+import com.coding.mini_jvm.src.com.coderising.jvm.cmd.CommandParser;
 import com.coding.mini_jvm.src.com.coderising.jvm.loader.ByteCodeIterator;
 
 public class CodeAttr extends AttributeInfo {
@@ -13,21 +15,23 @@ public class CodeAttr extends AttributeInfo {
 		return code;
 	}
 
-	//private ByteCodeCommand[] cmds ;
-	//public ByteCodeCommand[] getCmds() {
-	//	return cmds;
-	//}
-	private LineNumberTable lineNumTable;
+	private ByteCodeCommand[] cmds;
+
+	public ByteCodeCommand[] getCmds() {
+		return cmds;
+	}
+
+	private LineNumberTable    lineNumTable;
 	private LocalVariableTable localVarTable;
-	private StackMapTable stackMapTable;
-	
-	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code /*ByteCodeCommand[] cmds*/) {
+	private StackMapTable      stackMapTable;
+
+	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen, String code ,ByteCodeCommand[] cmds) {
 		super(attrNameIndex, attrLen);
 		this.maxStack = maxStack;
 		this.maxLocals = maxLocals;
 		this.codeLen = codeLen;
 		this.code = code;
-		//this.cmds = cmds;
+		this.cmds = cmds;
 	}
 
 	public void setLineNumberTable(LineNumberTable t) {
@@ -47,9 +51,9 @@ public class CodeAttr extends AttributeInfo {
 		int maxStack = iter.readTwoBytesToInt();
 		int maxLocal = iter.readTwoBytesToInt();
 		int codeLen = iter.readFourBytesToInt();
-		String code = iter.readBytesToString(codeLen);
-		CodeAttr codeAttr = new CodeAttr(attrNameIndex, attrLen, maxStack, maxLocal, codeLen, code);
-
+		String code = iter.readBytesToHexString(codeLen);
+		ByteCodeCommand[] cmds = CommandParser.parse(clzFile, code);
+		CodeAttr codeAttr = new CodeAttr(attrNameIndex, attrLen, maxStack, maxLocal, codeLen, code, cmds);
 		//异常表长度
 		int exceptionTableLen = iter.readTwoBytesToInt();
 		if (exceptionTableLen > 0) {
