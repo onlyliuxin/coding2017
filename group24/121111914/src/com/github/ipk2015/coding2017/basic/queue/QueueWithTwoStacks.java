@@ -22,6 +22,7 @@ public class QueueWithTwoStacks<E> {
     
 
     public boolean isEmpty() {
+    	
         return false;
     }
 
