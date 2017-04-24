@@ -208,7 +208,7 @@ public class ClassFileParser {
             int attributesCount = nextBytesToInt(2);
 
 
-            Method method = new Method(accessFlags, nameIndex, descriptorIndex);
+            Method method = new Method(classFile, accessFlags, nameIndex, descriptorIndex);
 
 
             for (int j = 1; j <= attributesCount; j++) {
@@ -239,7 +239,11 @@ public class ClassFileParser {
         int codeLength = nextBytesToInt(4);
 
         String code = nextBytesToString(codeLength);
-        CodeAttr codeAttr = new CodeAttr(attributeNameIndex, attributeLength, maxStack, maxLocals, codeLength, code);
+
+        //处理cmd
+        CommandParser commandParser = new CommandParser(code);
+
+        CodeAttr codeAttr = new CodeAttr(attributeNameIndex, attributeLength, maxStack, maxLocals, codeLength, code, commandParser.parse(classFile));
 
         int exceptionTableLength = nextBytesToInt(2);
         if (exceptionTableLength > 0) {
