@@ -1,4 +1,4 @@
-package com.coding.basic;
+package com.coding.basic.queue;
 
 import com.coding.basic.linklist.LinkedList;
 
