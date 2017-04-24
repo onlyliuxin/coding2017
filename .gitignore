@@ -235,7 +235,7 @@ hs_err_pid*
 .recommenders
 
 
-*.xml
+#*.xml
 *.iml
 .idea
 *.iml
@@ -248,7 +248,7 @@ rebel-remote.xml
 .metadata
 
 target
-*.class
+#*.class
 
 log
 *.log
