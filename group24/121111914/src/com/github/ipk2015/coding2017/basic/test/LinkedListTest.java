@@ -8,7 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.ipk2015.coding2017.basic.Iterator;
-import com.github.ipk2015.coding2017.basic.LinkedList;
+import com.github.ipk2015.coding2017.basic.linkedlist.LinkedList;
+
 
 public class LinkedListTest {
 	LinkedList list;

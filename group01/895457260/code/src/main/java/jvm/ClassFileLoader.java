@@ -1,9 +1,12 @@
 package jvm;
 
+import jvm.classfile.ClassFile;
+import jvm.classfile.ClassParser;
 import jvm.exception.ClassDuplicateException;
 import jvm.exception.ClassNotExistsException;
 import jvm.exception.ReadClassException;
 import jvm.util.ArrayUtils;
+import jvm.util.ByteUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -69,12 +72,16 @@ public class ClassFileLoader {
 	}
 
 	boolean checkMagicNumber(byte[] bytes) {
-		String magicNumber = "CAFEBABE";
-		String str = "";
-		int byteNum = 4;
-		for (int i = 0; i < byteNum; ++i) {
-			str += Integer.toHexString(Byte.toUnsignedInt(bytes[i]));
+		String magicNumber = "cafebabe";
+		String str = ByteUtils.toHexString(bytes, 0, 4);
+		return magicNumber.equals(str.toLowerCase());
+	}
+
+	public ClassFile load(String className) throws ReadClassException {
+		byte[] bytes = readBinaryCode(className);
+		if (checkMagicNumber(bytes)) {
+			return ClassParser.parse(bytes);
 		}
-		return magicNumber.equals(str.toUpperCase());
+		return null;
 	}
 }
