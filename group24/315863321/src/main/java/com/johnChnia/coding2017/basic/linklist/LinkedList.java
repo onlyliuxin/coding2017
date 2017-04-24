@@ -2,12 +2,13 @@ package com.johnChnia.coding2017.basic.linklist;
 
 import com.johnChnia.coding2017.basic.List;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
  * Created by john on 2017/3/9.
  *
- * @// TODO: 2017/4/1 支持Iterator
+ * @// TODO: 学会多线程后，实现Iterator 的 remove 方法
  */
 
 public class LinkedList<E> implements List<E> {
@@ -221,6 +222,11 @@ public class LinkedList<E> implements List<E> {
      */
     public int size() {
         return size;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return null;
     }
 
     private void checkElementIndex(int index) {
