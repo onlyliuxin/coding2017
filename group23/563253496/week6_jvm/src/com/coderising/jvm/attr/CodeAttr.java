@@ -4,6 +4,7 @@ import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.loader.ByteCodeIterator;
 import com.coderising.jvm.loader.ClassFileLoader;
+import com.coderising.jvm.cmd.*;
 import sun.text.CodePointIterator;
 
 import java.io.UnsupportedEncodingException;
@@ -19,21 +20,21 @@ public class CodeAttr extends AttributeInfo {
         return code;
     }
 
-    //private ByteCodeCommand[] cmds ;
-    //public ByteCodeCommand[] getCmds() {
-    //	return cmds;
-    //}
+    private ByteCodeCommand[] cmds ;
+    public ByteCodeCommand[] getCmds() {
+    	return cmds;
+    }
     private LineNumberTable lineNumTable;
     private LocalVariableTable localVarTable;
     private StackMapTable stackMapTable;
 
-    public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen, String code /*ByteCodeCommand[] cmds*/) {
+    public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen, String code ,ByteCodeCommand[] cmds) {
         super(attrNameIndex, attrLen);
         this.maxStack = maxStack;
         this.maxLocals = maxLocals;
         this.codeLen = codeLen;
         this.code = code;
-        //this.cmds = cmds;
+        this.cmds = cmds;
     }
 
     public void setLineNumberTable(LineNumberTable t) {
@@ -68,8 +69,12 @@ public class CodeAttr extends AttributeInfo {
             e.printStackTrace();
         }
 */
+
         String code = codeIter.nextUxToHexString(code_len);
-        CodeAttr codeAttr = new CodeAttr(attribute_name_index, attribute_len, max_stack, max_locals, code_len, code);
+
+        ByteCodeCommand[] cmds = CommandParser.parse(clzFile, code);
+
+        CodeAttr codeAttr = new CodeAttr(attribute_name_index, attribute_len, max_stack, max_locals, code_len, code, cmds);
 
         int exception_table_len = codeIter.nextU2ToInt();
         if (exception_table_len > 0) {
@@ -122,5 +127,16 @@ public class CodeAttr extends AttributeInfo {
 
     }
 
+    public String toString(ConstantPool pool){
+        StringBuilder buffer = new StringBuilder();
+        //buffer.append("Code:").append(code).append("\n");
+        for(int i=0;i<cmds.length;i++){
+            buffer.append(cmds[i].toString(pool)).append("\n");
+        }
+        buffer.append("\n");
+        buffer.append(this.lineNumTable.toString());
+        buffer.append(this.localVarTable.toString(pool));
+        return buffer.toString();
+    }
 
 }
