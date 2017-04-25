@@ -5,6 +5,7 @@ import miniJVM.clz.AccessFlag;
 import miniJVM.clz.ClassFile;
 import miniJVM.clz.ClassIndex;
 import miniJVM.constant.*;
+import miniJVM.field.Field;
 
 public class ClassFileParser {
 
@@ -19,9 +20,22 @@ public class ClassFileParser {
     public ClassFile parse(byte[] codes) {
         iter = new ByteCodeIterator(codes);
         iter.pos = MAGIC_NUMBER_LENGTH;
+        //1. 版本信息
         parseVersions(iter);
+        //2. 常量池
         pool = new ConstantPool();
         parseConstantPool(iter);
+        //TODO 3. 访问标记
+        parseAccessFlag(iter);
+        //TODO 4. classIndex superClassIndex
+        parseClassIndex(iter);
+        //TODO 5. 接口，即便没有也要调用，因为字节码里是固定有的
+        parseInterfaces(iter);
+        //TODO 6. 字段
+        parseFields(iter);
+        //TODO 7. 方法
+        parseMethods(iter);
+
         return clzFile;
     }
 
@@ -34,14 +48,15 @@ public class ClassFileParser {
     }
 
     private void parseAccessFlag(ByteCodeIterator iter) {
-        AccessFlag accessFlag = null;
-
+        int accessValue = iter.nextU2ToInt();
+        AccessFlag accessFlag = new AccessFlag(accessValue);
         clzFile.setAccessFlag(accessFlag);
     }
 
     private void parseClassIndex(ByteCodeIterator iter) {
-        ClassIndex classInfo = null;
-
+        int thisClass = iter.nextU2ToInt();
+        int superClass = iter.nextU2ToInt();
+        ClassIndex classInfo = new ClassIndex(thisClass, superClass);
         clzFile.setClassIndex(classInfo);
     }
 
@@ -102,20 +117,55 @@ public class ClassFileParser {
             e.printStackTrace();
         }
     }
-//	private void parseInterfaces(ByteCodeIterator iter) {
-//		int interfaceCount = iter.nextU2ToInt();
-//
-//		System.out.println("interfaceCount:" + interfaceCount);
-//
-//		// TODO : 如果实现了interface, 这里需要解析
-//	}
-//
-//	private void parseFileds(ClassFile clzFile, ByteCodeIterator iter) {
-//
-//
-//	}
-//
-//	private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
-//
-//	}
+
+	private void parseInterfaces(ByteCodeIterator iter) {
+		int interfaceCount = iter.nextU2ToInt();
+
+		System.out.println("interfaceCount:" + interfaceCount);
+
+		// TODO : 如果实现了interface, 这里需要解析
+	}
+
+	private void parseFields(ByteCodeIterator iter) {
+        int fieldsCount = iter.nextU2ToInt();
+
+        for(int i = 0 ; i < fieldsCount; i++){
+            int accessFlag = iter.nextU2ToInt();
+            int nameIndex = iter.nextU2ToInt();
+            int descriptorIndex = iter.nextU2ToInt();
+            int attributeCount = iter.nextU2ToInt();
+
+            Field field = new Field(accessFlag, nameIndex, descriptorIndex, attributeCount, pool);
+            clzFile.addField(field);
+        }
+	}
+
+	private void parseMethods(ByteCodeIterator iter) {
+        int methodCount = iter.nextU2ToInt();
+
+        for(int i = 0; i < methodCount; i++){
+            int accessFlag = iter.nextU2ToInt();
+            int nameIndex = iter.nextU2ToInt();
+            int descriptorIndex = iter.nextU2ToInt();
+            int attributeCount = iter.nextU2ToInt();
+            int attributeCountTemp = attributeCount;
+            while(attributeCountTemp > 0){
+                int attributeNameIndex = iter.nextU2ToInt();
+                UTF8Info attributeName = (UTF8Info) pool.getConstantInfo(attributeNameIndex);
+                if(attributeName.getValue().equalsIgnoreCase("code")){
+                    int attributeLength = iter.nextU4ToInt();
+                    int maxStack = iter.nextU2ToInt();
+                    int maxLocals = iter.nextU2ToInt();
+                    int codeLength = iter.nextU4ToInt();
+                    int codeLengthTemp = codeLength;
+                    while(codeLengthTemp > 0){
+
+                        codeLengthTemp--;
+                    }
+                }
+
+                attributeCountTemp--;
+            }
+        }
+	}
 }

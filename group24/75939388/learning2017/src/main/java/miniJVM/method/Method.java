@@ -5,7 +5,6 @@ import miniJVM.clz.ClassFile;
 import miniJVM.cmd.ByteCodeCommand;
 import miniJVM.constant.ConstantPool;
 import miniJVM.constant.UTF8Info;
-import miniJVM.loader.ByteCodeIterator;
 
 public class Method {
 	
@@ -66,10 +65,9 @@ public class Method {
 		return buffer.toString();
 	}
 	
-	public static Method parse(ClassFile clzFile, ByteCodeIterator iter){
-		return null;
-		
-	}
+//	public static Method parse(ClassFile clzFile, ByteCodeIterator iter){
+//		return null;
+//	}
 
 	public ByteCodeCommand[] getCmds() {
 		return this.getCodeAttr().getCmds();

@@ -3,7 +3,12 @@ package miniJVM.clz;
 public class ClassIndex {
 	private int thisClassIndex;
 	private int superClassIndex;
-	
+
+	public ClassIndex(int thisClassIndex, int superClassIndex){
+		this.thisClassIndex = thisClassIndex;
+		this.superClassIndex = superClassIndex;
+	}
+
 	public int getThisClassIndex() {
 		return thisClassIndex;
 	}
