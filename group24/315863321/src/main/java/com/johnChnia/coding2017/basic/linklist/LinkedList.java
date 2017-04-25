@@ -226,7 +226,31 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new Itr();
+    }
+
+    private class Itr implements Iterator<E> {
+        /**
+         * Index of element to be returned by subsequent call to next.
+         */
+        int cursor = 0;
+
+
+        @Override
+        public boolean hasNext() {
+            return cursor != size();
+        }
+
+        @Override
+        public E next() {
+            int i = cursor;
+            if (i >= size) {
+                throw new NoSuchElementException();
+            }
+            E next = get(i);
+            cursor = i + 1;
+            return next;
+        }
     }
 
     private void checkElementIndex(int index) {
