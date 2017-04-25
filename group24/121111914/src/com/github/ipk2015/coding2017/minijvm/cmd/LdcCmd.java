@@ -4,6 +4,8 @@ import com.github.ipk2015.coding2017.minijvm.clz.ClassFile;
 import com.github.ipk2015.coding2017.minijvm.constant.ConstantInfo;
 import com.github.ipk2015.coding2017.minijvm.constant.ConstantPool;
 import com.github.ipk2015.coding2017.minijvm.constant.StringInfo;
+import com.github.ipk2015.coding2017.minijvm.engine.ExecutionResult;
+import com.github.ipk2015.coding2017.minijvm.engine.StackFrame;
 
 public class LdcCmd extends OneOperandCmd {
 
@@ -23,6 +25,12 @@ public class LdcCmd extends OneOperandCmd {
 		}
 		
 		return this.getOffset()+":"+this.getOpCode()+" " + this.getReadableCodeText() + " "+  value;
+		
+	}
+
+	@Override
+	public void execute(StackFrame frame, ExecutionResult result) {
+		// TODO Auto-generated method stub
 		
 	}
 	

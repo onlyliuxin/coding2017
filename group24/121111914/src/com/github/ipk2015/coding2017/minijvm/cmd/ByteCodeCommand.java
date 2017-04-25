@@ -8,6 +8,8 @@ import java.util.Map;
 import com.github.ipk2015.coding2017.minijvm.clz.ClassFile;
 import com.github.ipk2015.coding2017.minijvm.constant.ConstantInfo;
 import com.github.ipk2015.coding2017.minijvm.constant.ConstantPool;
+import com.github.ipk2015.coding2017.minijvm.engine.ExecutionResult;
+import com.github.ipk2015.coding2017.minijvm.engine.StackFrame;
 
 
 
@@ -128,5 +130,5 @@ public abstract class ByteCodeCommand {
 		return txt;
 	}
 	
-	//public abstract void execute(StackFrame frame,FrameResult result);
+	public abstract void execute(StackFrame frame,ExecutionResult result);
 }
