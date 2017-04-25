@@ -44,7 +44,7 @@ public class InfixExpr {
                     Token sNum = (Token) numbers.pop();
                     numbers.push(new Token(Token.NUMBER, calculate(numbers, sOper) + ""));
                     numbers.push(new Token(Token.NUMBER, sNum + ""));
-                    
+
                     operators.push(new Token(Token.OPERATOR, tmp.toString()));
                 }
             }
