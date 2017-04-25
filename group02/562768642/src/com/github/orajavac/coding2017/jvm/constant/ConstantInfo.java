@@ -26,4 +26,15 @@ public abstract class ConstantInfo {
 	public ConstantInfo getConstantInfo(int index){
 		return this.constantPool.getConstantInfo(index);
 	}
+	
+	public abstract void accept(Visistor visistor);
+	
+	public static interface Visistor{
+		public void visitClassInfo(ClassInfo info);
+		public void visitFieldRef(FieldRefInfo info);
+		public void visitMethodRef(MethodRefInfo info);
+		public void visitNameAndType(NameAndTypeInfo info);
+		public void visitString(StringInfo info);
+		public void visitUTF8(UTF8Info info);
+	}
 }
