@@ -4,6 +4,8 @@ import com.donaldy.jvm.clz.ClassFile;
 import com.donaldy.jvm.constant.ConstantInfo;
 import com.donaldy.jvm.constant.ConstantPool;
 import com.donaldy.jvm.constant.StringInfo;
+import com.donaldy.jvm.engine.ExecutionResult;
+import com.donaldy.jvm.engine.StackFrame;
 
 public class LdcCmd extends OneOperandCmd {
 
@@ -24,6 +26,12 @@ public class LdcCmd extends OneOperandCmd {
 		
 		return this.getOffset()+":"+this.getOpCode()+" " + this.getReadableCodeText() + " "+  value;
 		
+	}
+
+	@Override
+	public void execute(StackFrame frame, ExecutionResult result) {
+
+
 	}
 	
 }
