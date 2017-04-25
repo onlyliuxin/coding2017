@@ -1,6 +1,5 @@
 package com.coding.basic.homework_04.jvm.util;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
 public  class ByteCodeIterator {
@@ -37,16 +36,16 @@ public  class ByteCodeIterator {
 	}
 
 	public String nextU4ToHexString() {
-		return Util.byteToHexString(new byte[] { codes[pos++], codes[pos++], codes[pos++], codes[pos++] });
+		return Util.byteToHexString((new byte[] { codes[pos++], codes[pos++], codes[pos++], codes[pos++] }));
 	}
 
-	public String nextUxToHexString(int len) throws UnsupportedEncodingException {
+	public String nextUxToHexString(int len) {
 		byte[] tmp = new byte[len];
 
 		for (int i = 0; i < len; i++) {
 			tmp[i] = codes[pos++];
 		}
-		return new String(tmp, "utf8");
+		return Util.byteToHexString(tmp).toLowerCase();
 
 	}
 

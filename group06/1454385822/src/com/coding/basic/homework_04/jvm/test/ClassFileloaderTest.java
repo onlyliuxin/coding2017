@@ -16,6 +16,7 @@ import com.coding.basic.homework_04.jvm.info.MethodRefInfo;
 import com.coding.basic.homework_04.jvm.info.NameAndTypeInfo;
 import com.coding.basic.homework_04.jvm.info.UTF8Info;
 import com.coding.basic.homework_04.jvm.loader.ClassFileLoader;
+import com.coding.basic.homework_04.jvm.method.Method;
 
 
 
@@ -23,8 +24,8 @@ public class ClassFileloaderTest {
 
 	private static final String FULL_QUALIFIED_CLASS_NAME = "com/coderising/jvm/test/EmployeeV1";
 	
-	static String path1 = "D:\\mygit\\coding2017-1\\group06\\1454385822\\bin";
-//	static String path1 = "C:\\Users\\yanght\\Documents\\mygit\\coding2017-1\\group06\\1454385822\\bin";
+//	static String path1 = "D:\\mygit\\coding2017-1\\group06\\1454385822\\bin";
+	static String path1 = "C:\\Users\\yanght\\Documents\\mygit\\coding2017-1\\group06\\1454385822\\bin";
 	static String path2 = "D:\temp";
 	static ClassFile clzFile = null;
 	static {
@@ -218,60 +219,61 @@ public class ClassFileloaderTest {
     		Assert.assertEquals("age:I", f.toString());
     	}
     }
-//    @Test
-//    public void testMethods(){
-//   
-//    	List<Method> methods = clzFile.getMethods();
-//    	ConstantPool pool = clzFile.getConstantPool();
-//    	
-//    	{
-//    		Method m = methods.get(0);    		
-//    		assertMethodEquals(pool,m,
-//    				"<init>",
-//    				"(Ljava/lang/String;I)V",
-//    				"2ab7000c2a2bb5000f2a1cb50011b1");
-//    		
-//    	}
-//    	{
-//    		Method m = methods.get(1);    
-//    		assertMethodEquals(pool,m,
-//    				"setName",
-//    				"(Ljava/lang/String;)V",
-//    				"2a2bb5000fb1");
-//    		
-//    	}
-//    	{
-//    		Method m = methods.get(2);    
-//    		assertMethodEquals(pool,m,
-//    				"setAge",
-//    				"(I)V",
-//    				"2a1bb50011b1");
-//    	}
-//    	{
-//    		Method m = methods.get(3); 
-//    		assertMethodEquals(pool,m,
-//    				"sayHello",
-//    				"()V",
-//    				"b2001c1222b60024b1");
-//    		
-//    	}
-//    	{
-//    		Method m = methods.get(4);    
-//    		assertMethodEquals(pool,m,
-//    				"main",
-//    				"([Ljava/lang/String;)V",
-//    				"bb000159122b101db7002d4c2bb6002fb1");
-//    	}
-//    }
-//    
-//    private void assertMethodEquals(ConstantPool pool,Method m , String expectedName, String expectedDesc,String expectedCode){
-//    	String methodName = pool.getUTF8String(m.getNameIndex());
-//		String methodDesc = pool.getUTF8String(m.getDescriptorIndex());    		
-//		String code = m.getCodeAttr().getCode();
-//		Assert.assertEquals(expectedName, methodName);
-//		Assert.assertEquals(expectedDesc, methodDesc);
-//		Assert.assertEquals(expectedCode, code);
-//    }
+    @Test
+    public void testMethods(){
+   
+    	List<Method> methods = clzFile.getMethods();
+    	ConstantPool pool = clzFile.getConstantPool();
+    	
+    	{
+    		Method m = methods.get(0);    		
+    		assertMethodEquals(pool,m,
+    				"<init>",
+    				"(Ljava/lang/String;I)V",
+    				"2ab7000c2a2bb5000f2a1cb50011b1");
+    		
+    	}
+    	{
+    		Method m = methods.get(1);    
+    		assertMethodEquals(pool,m,
+    				"setName",
+    				"(Ljava/lang/String;)V",
+    				"2a2bb5000fb1");
+    		
+    	}
+    	{
+    		Method m = methods.get(2);    
+    		assertMethodEquals(pool,m,
+    				"setAge",
+    				"(I)V",
+    				"2a1bb50011b1");
+    	}
+    	{
+    		Method m = methods.get(3); 
+    		assertMethodEquals(pool,m,
+    				"sayHello",
+    				"()V",
+    				"b2001c1222b60024b1");
+    		
+    	}
+    	{
+    		Method m = methods.get(4);    
+    		assertMethodEquals(pool,m,
+    				"main",
+    				"([Ljava/lang/String;)V",
+    				"bb000159122b101db7002d4c2bb6002fb1");
+    	}
+    }
+    
+    private void assertMethodEquals(ConstantPool pool,Method m , String expectedName, String expectedDesc,String expectedCode){
+    	String methodName = pool.getUTF8String(m.getNameIndex());
+		String methodDesc = pool.getUTF8String(m.getDescriptorIndex());    		
+		String code = m.getCodeAttr().getCode();
+//		System.out.println("code : " + code);
+		Assert.assertEquals(expectedName, methodName);
+		Assert.assertEquals(expectedDesc, methodDesc);
+		Assert.assertEquals(expectedCode, code);
+    }
    
 
 }
