@@ -42,7 +42,7 @@ public class InfixExpr {
                     //先保存数字和运算符
                     Token sNum = (Token) numbers.pop();
                     Token sOper = tmp;
-                    
+
                     //需要进行计算的运算符
                     Token oper = (Token) operators.pop();
                     numbers.push(new Token(Token.NUMBER, calculate(numbers, oper) + ""));
