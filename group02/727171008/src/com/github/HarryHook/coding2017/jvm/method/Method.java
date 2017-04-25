@@ -2,6 +2,7 @@
 package com.github.HarryHook.coding2017.jvm.method;
 
 import com.github.HarryHook.coding2017.jvm.clz.ClassFile;
+import com.github.HarryHook.coding2017.jvm.cmd.ByteCodeCommand;
 
 import javax.management.RuntimeErrorException;
 
@@ -76,8 +77,11 @@ public class Method {
 	StringBuffer buffer = new StringBuffer();
 	String name = ((UTF8Info) pool.getConstantInfo(this.nameIndex)).getValue();
 	String desc = ((UTF8Info) pool.getConstantInfo(this.descriptorIndex)).getValue();
-	buffer.append(name);
-	buffer.append(desc);
+	buffer.append(name).append(":").append(desc).append("\n");
+	buffer.append(this.codeAttr.toString(pool));
 	return buffer.toString();
     }
+    public ByteCodeCommand[] getCmds() {		
+	return this.getCodeAttr().getCmds();
+}
 }

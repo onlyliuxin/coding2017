@@ -25,7 +25,7 @@ public class ConstantPool {
 	return ((UTF8Info) this.constantInfos.get(index)).getValue();
     }
 
-    public Object getSize() {
+    public int getSize() {
 	return this.constantInfos.size() - 1;
     }
 }

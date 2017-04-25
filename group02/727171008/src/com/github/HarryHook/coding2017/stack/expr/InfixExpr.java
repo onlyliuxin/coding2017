@@ -13,73 +13,64 @@ public class InfixExpr {
     public float evaluate() {
 
 	char[] ch = expr.toCharArray();
-	MyStack stackOfTocken = new MyStack();
+	MyStack stackOfOperator = new MyStack();
 	MyStack stackOfNumber = new MyStack();
 
 	for (int i = 0; i < ch.length; i++) {
 
 	    if (Character.isDigit(ch[i])) {
-		int tmp = Integer.parseInt("" + ch[i]);
+		float tmp = Float.parseFloat("" + ch[i]);
 		while (i < ch.length - 1 && Character.isDigit(ch[++i])) {
-		    tmp = tmp * 10 + Integer.parseInt("" + ch[i]);
+		    tmp = tmp * 10 + Float.parseFloat("" + ch[i]);
 		}
-	
+
 		stackOfNumber.push(tmp);
 
 	    }
 	    if (ch[i] == '+' || ch[i] == '-' || ch[i] == '*' || ch[i] == '/') {
-		stackOfTocken.push(ch[i]);
+		stackOfOperator.push(ch[i]);
 	    }
 
-	    if (!(stackOfTocken.isEmpty()) && (char) stackOfTocken.peek() == '*') {
-		int tmp = Integer.parseInt("" + ch[++i]);
+	    char operator = (char) stackOfOperator.peek();
+	    if (operator == '*' || operator == '/') {
+		float tmp = Float.parseFloat("" + ch[++i]);
 		while (i < ch.length - 1 && Character.isDigit(ch[++i])) {
-		    tmp = tmp * 10 + Integer.parseInt("" + ch[i]);
+		    tmp = tmp * 10 + Float.parseFloat("" + ch[i]);
 		}
 		if (i != ch.length - 1) {
 		    i--;
 		}
 		stackOfNumber.push(tmp);
 
-		int tmp1 = Integer.parseInt("" + stackOfNumber.pop());
-		int tmp2 = Integer.parseInt("" + stackOfNumber.pop());
-		stackOfNumber.push(tmp1 * tmp2);
-		stackOfTocken.pop();
-
-	    }
-	    if (!(stackOfTocken.isEmpty()) && (char) stackOfTocken.peek() == '/') {
-		int tmp = Integer.parseInt("" + ch[++i]);
-		while (i < ch.length - 1 && Character.isDigit(ch[++i])) {
-		    tmp = tmp * 10 + Integer.parseInt("" + ch[i]);
+		float tmp1 = Float.parseFloat("" + stackOfNumber.pop());
+		float tmp2 = Float.parseFloat("" + stackOfNumber.pop());
+		if (operator == '*') {
+		    stackOfNumber.push(tmp1 * tmp2);
+		} else {
+		    stackOfNumber.push(tmp2 / tmp1);
 		}
-		if (i != ch.length - 1) {
-		    i--;
-		}
-		stackOfNumber.push(tmp);
 
-		int tmp1 = Integer.parseInt("" + stackOfNumber.pop());
-		int tmp2 = Integer.parseInt("" + stackOfNumber.pop());
-		stackOfNumber.push(tmp2 / tmp1);
-		stackOfTocken.pop();
+		stackOfOperator.pop();
 	    }
+
 	}
-	// 将栈中的数字和运算法逆置，便于计算
+	// 将栈中的数字和运算符逆置，从左往右结合
 	reverse(stackOfNumber);
-	reverse(stackOfTocken);
+	reverse(stackOfOperator);
 
-	while (!(stackOfTocken.isEmpty())) {
-	    if ((char) stackOfTocken.peek() == '+') {
-		int tmp1 = Integer.parseInt("" + stackOfNumber.pop());
-		int tmp2 = Integer.parseInt("" + stackOfNumber.pop());
-		stackOfNumber.push(tmp1 + tmp2);
+	while (!(stackOfOperator.isEmpty())) {
+	    char operator = (char) stackOfOperator.peek();
+	    if (operator == '+' || operator == '-') {
+		float tmp1 = Float.parseFloat("" + stackOfNumber.pop());
+		float tmp2 = Float.parseFloat("" + stackOfNumber.pop());
+		if (operator == '+') {
+		    stackOfNumber.push(tmp1 + tmp2);
+		} else {
+		    stackOfNumber.push(tmp1 - tmp2);
+		}
 	    }
-	    
-	    if ((char) stackOfTocken.peek() == '-') {
-		int tmp1 = Integer.parseInt("" + stackOfNumber.pop());
-		int tmp2 = Integer.parseInt("" + stackOfNumber.pop());
-		stackOfNumber.push(tmp1 - tmp2);
-	    }
-	    stackOfTocken.pop();
+
+	    stackOfOperator.pop();
 	}
 
 	return Float.parseFloat("" + stackOfNumber.pop());
@@ -103,5 +94,10 @@ public class InfixExpr {
 	reverse(s);
 	s.push(temp2);
 
+    }
+
+    public static void main(String[] args) {
+	InfixExpr expr = new InfixExpr("2+3*4+5");
+	System.out.println(expr.evaluate());
     }
 }
