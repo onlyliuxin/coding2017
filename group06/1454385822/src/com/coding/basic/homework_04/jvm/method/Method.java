@@ -3,7 +3,7 @@ package com.coding.basic.homework_04.jvm.method;
 import com.coding.basic.homework_04.jvm.attr.AttributeInfo;
 import com.coding.basic.homework_04.jvm.attr.CodeAttr;
 import com.coding.basic.homework_04.jvm.clz.ClassFile;
-import com.coding.basic.homework_04.jvm.constant.ConstantPool;
+import com.coding.basic.homework_04.jvm.cmd.ByteCodeCommand;
 import com.coding.basic.homework_04.jvm.util.ByteCodeIterator;
 
 public class Method {
@@ -69,7 +69,6 @@ public class Method {
 		int descriptorIndex = iterator.nextU2ToInt();
 		Method method = new Method(accessFlag, nameIndex, descriptorIndex, clzFile);
 		int attributeCount = iterator.nextU2ToInt();
-		System.out.println("attributeCount : "+attributeCount);
 		if(attributeCount > 0){
 			int attrNameIndex = iterator.nextU2ToInt();
 			String attrName = clzFile.getConstantPool().getUTF8String(attrNameIndex);
@@ -83,6 +82,8 @@ public class Method {
 		return method;
 	}
 
-	
+	public ByteCodeCommand[] getCmds() {		
+		return this.getCodeAttr().getCmds();
+	}
 	
 }

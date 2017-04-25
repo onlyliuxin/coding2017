@@ -32,6 +32,14 @@ public class UTF8Info extends ConstantInfo{
 	public void setValue(String value) {
 		this.value = value;
 	}
+	@Override
+	public int getType() {
+		return tag;
+	}
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visistUTF8(this);
+	}
 	
 	
 }

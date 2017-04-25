@@ -15,11 +15,18 @@ public class TokenParser {
 				tokens.add(t);
 				i++;
 			} else if(Character.isDigit(c)){
-				int nextOperatorIndex = indexOfNextOperator(i, expr);
-				String value = expr.substring(i, nextOperatorIndex);	
+				int nextOperatorIndex = indexOfNextOperatorSpace(i, expr);
+				if(nextOperatorIndex == i){
+					nextOperatorIndex = i + 1;
+				}
+				String value = expr.substring(i, nextOperatorIndex);
+				System.out.println(value);
 				Token token = new Token(Token.NUMBER, value);
 				tokens.add(token);
 				i = nextOperatorIndex;
+			}else if(Character.isSpaceChar(c)){
+				i++;
+				continue;
 			}else{
 				System.out.println("char :["+c+"] is not number or operator,ignore");
 				i++;
@@ -28,7 +35,8 @@ public class TokenParser {
 		return tokens;
 	}
 	
-	private int indexOfNextOperator (int i, String expr){
+	
+	private int indexOfNextOperatorSpace (int i, String expr){
 		while(Character.isDigit(expr.charAt(i))){
 			i++;
 			if (i == expr.length()) {

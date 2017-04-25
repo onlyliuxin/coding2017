@@ -31,6 +31,14 @@ public class MethodRefInfo extends ConstantInfo {
 	public int getTag() {
 		return tag;
 	}
+	@Override
+	public int getType() {
+		return tag;
+	}
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitMethodRef(this);
+	}
 	
 	
 	

@@ -6,6 +6,7 @@ import java.util.List;
 import com.coding.basic.homework_04.jvm.attr.AccessFlag;
 import com.coding.basic.homework_04.jvm.constant.ConstantPool;
 import com.coding.basic.homework_04.jvm.field.Field;
+import com.coding.basic.homework_04.jvm.info.ClassInfo;
 import com.coding.basic.homework_04.jvm.method.Method;
 
 public class ClassFile {
@@ -20,6 +21,29 @@ public class ClassFile {
 	private AccessFlag accessFlag;
 	private List<Field> fields = new ArrayList<Field>();
 	private List<Method> methods = new ArrayList<Method>();
+	
+	
+	public Method getMethod(String methodName, String paramAndReturnType){
+		for(Method method : methods){
+			String name = constantPool.getUTF8String(method.getNameIndex());
+			String descriptor = constantPool.getUTF8String(method.getDescriptorIndex());
+			if(name.equals(methodName) && descriptor.equals(paramAndReturnType)){
+				return method;
+			}
+		}
+		
+		return null;
+	}
+	public Method getMainMethod(){
+		for(Method method : methods){
+			String name = constantPool.getUTF8String(method.getNameIndex());
+			String descriptor = constantPool.getUTF8String(method.getDescriptorIndex());
+			if(name.equals("main") && descriptor.equals("([Ljava/lang/String;)V")){
+				return method;
+			}
+		}
+		return null;
+	}
 	
 	public void addMethod(Method method){
 		methods.add(method);
@@ -123,6 +147,17 @@ public class ClassFile {
 
 	public List<Field> getFields() {
 		return fields;
+	}
+	
+	public String getClassName() {
+		ClassInfo clzInfo = (ClassInfo)constantPool.getConstantInfo(1);
+		String clzName = clzInfo.getClassName();
+		return clzName;
+	}
+	public String getSuperClassName() {
+		ClassInfo clzInfo = (ClassInfo)constantPool.getConstantInfo(3);
+		String clzName = clzInfo.getClassName();
+		return clzName;
 	}
 
 	

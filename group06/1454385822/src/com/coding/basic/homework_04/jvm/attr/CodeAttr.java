@@ -1,8 +1,8 @@
 package com.coding.basic.homework_04.jvm.attr;
 
-import java.io.UnsupportedEncodingException;
-
 import com.coding.basic.homework_04.jvm.clz.ClassFile;
+import com.coding.basic.homework_04.jvm.cmd.ByteCodeCommand;
+import com.coding.basic.homework_04.jvm.cmd.CommandParser;
 import com.coding.basic.homework_04.jvm.constant.ConstantPool;
 import com.coding.basic.homework_04.jvm.util.ByteCodeIterator;
 
@@ -12,25 +12,34 @@ public class CodeAttr extends AttributeInfo{
 	private int attrLength;
 	private int maxStack;
 	private int maxLocals;
+	private int codeLen;
 	private String code;
+	private ByteCodeCommand[] cmds ;
+	
+	
+	
 	private ClassFile clzFile;
 	private LineNumberTable lineNumberTable;
 	private LocalVariableTable localVariableTable;
 	
+	public ByteCodeCommand[] getCmds() {		
+		return cmds;
+	}
 	
-	public CodeAttr(int attrNameIndex, int attrLength, int maxStack, int maxLocals, String code, ClassFile clzFile){
-		super(attrNameIndex, attrLength);
+	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code ,ByteCodeCommand[] cmds) {
+		super(attrNameIndex, attrLen);
 		this.maxStack = maxStack;
 		this.maxLocals = maxLocals;
+		this.codeLen = codeLen;
 		this.code = code;
-		this.clzFile = clzFile;
+		this.cmds = cmds;
 	}
 	public String toString(ConstantPool pool){
 		StringBuilder buffer = new StringBuilder();
-		//buffer.append("Code:").append(code).append("\n");
-		/*for(int i=0;i<cmds.length;i++){
+//		buffer.append("Code:").append(code).append("\n");
+		for(int i=0;i<cmds.length;i++){
 			buffer.append(cmds[i].toString(pool)).append("\n");
-		}*/
+		}
 		buffer.append("\n");
 		buffer.append(this.lineNumberTable.toString());
 		buffer.append(this.localVariableTable.toString(pool));
@@ -40,17 +49,16 @@ public class CodeAttr extends AttributeInfo{
 	public static CodeAttr parse(ClassFile clzFile, ByteCodeIterator iterator) {
 		CodeAttr codeAttr = null;
 		int attrNameIndex = iterator.nextU2ToInt();
-//			String attrName = clzFile.getConstantPool().getUTF8String(attrNameIndex);
-//			System.out.println("attrName : " +attrName);
 		int attrLength = iterator.nextU4ToInt();
 		int maxStack = iterator.nextU2ToInt();
 		int maxLocals = iterator.nextU2ToInt();
 		int codeLength = iterator.nextU4ToInt();
 		String code = iterator.nextUxToHexString(codeLength);
-		System.out.println("codeLength : " + codeLength);
-		codeAttr = new CodeAttr(attrNameIndex, attrLength, maxStack, maxLocals, code, clzFile);
+		ByteCodeCommand[] cmds = CommandParser.parse(clzFile, code);
+		
+		codeAttr = new CodeAttr(attrNameIndex, attrLength, maxStack, maxLocals, codeLength, code, cmds);
+		
 		int exceptionTableLength = iterator.nextU2ToInt();
-//			System.out.println("exceptionTableLength: " + exceptionTableLength);
 		if(exceptionTableLength > 0){
 			throw new RuntimeException("ExceptionTable  has not been implemented");
 		}
@@ -63,7 +71,6 @@ public class CodeAttr extends AttributeInfo{
 		for(int i=0; i<attributeCount; i++){
 			int subAttrNameIndex = iterator.nextU2ToInt();
 			String subAttrName = clzFile.getConstantPool().getUTF8String(subAttrNameIndex);
-			System.out.println("subAttrName :" +subAttrName);
 			iterator.back(2);
 			if(AttributeInfo.LINE_NUM_TABLE.equals(subAttrName)){
 				LineNumberTable lineNumberTable = LineNumberTable.parse(iterator);

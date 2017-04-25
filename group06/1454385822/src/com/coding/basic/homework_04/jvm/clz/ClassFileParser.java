@@ -29,7 +29,6 @@ public class ClassFileParser {
 		clzFile.setMajorVersion(iterator.nextU2ToInt());
 		clzFile.setConstantNum(iterator.nextU2ToInt());
 		
-		System.out.println("Constant Pool Count :" + clzFile.getConstantNum());
 		
 
 		clzFile.setConstantPool(parserConstantPool(iterator));
@@ -59,7 +58,6 @@ public class ClassFileParser {
 
 	private void parseMethod(ClassFile clzFile, ByteCodeIterator iterator) {
 		int methodCount = iterator.nextU2ToInt();
-		System.out.println("methodCount : " + methodCount);
 		for(int i=0; i<methodCount; i++){
 			Method method = Method.parse(clzFile, iterator);
 			clzFile.addMethod(method);
@@ -76,7 +74,6 @@ public class ClassFileParser {
 
 	private void parseInterface(ByteCodeIterator iterator) {
 		int count = iterator.nextU2ToInt();
-		System.out.println("interface count:" + count);
 		//TODO 如果类中有接口，这里需要解析
 	}
 
@@ -122,14 +119,13 @@ public class ClassFileParser {
 				pool.addConstantInfo(methodRefInfo);
 			}else if(tag == 12){ //NameAndType info
 				NameAndTypeInfo nameAndTypeInfo = new NameAndTypeInfo(pool);
-				nameAndTypeInfo.setClz_index(iterator.nextU2ToInt());
-				nameAndTypeInfo.setDescriptor_index(iterator.nextU2ToInt());
+				nameAndTypeInfo.setIndex1(iterator.nextU2ToInt());
+				nameAndTypeInfo.setIndex2(iterator.nextU2ToInt());
 				pool.addConstantInfo(nameAndTypeInfo);
 			}else{
 				throw new RuntimeException("this tag" + tag+"has no already implement yet!!");
 			}
 		}
-		System.out.println("pool size:" +pool.getSize());
 		
 		System.out.println("finished parser constantPool!!");
 		return pool;
