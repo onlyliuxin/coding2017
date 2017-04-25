@@ -39,13 +39,15 @@ public class InfixExpr {
                     numbers.push(new Token(Token.NUMBER, calculate(numbers, tmp) + ""));
                 } else {
                     //如果1*2+3，先计算numbers栈前两位
-                    //先保存
-                    Token sOper = (Token) operators.pop();
+                    //先保存数字和运算符
                     Token sNum = (Token) numbers.pop();
-                    numbers.push(new Token(Token.NUMBER, calculate(numbers, sOper) + ""));
+                    Token sOper = tmp;
+                    
+                    //需要进行计算的运算符
+                    Token oper = (Token) operators.pop();
+                    numbers.push(new Token(Token.NUMBER, calculate(numbers, oper) + ""));
                     numbers.push(new Token(Token.NUMBER, sNum + ""));
-
-                    operators.push(new Token(Token.OPERATOR, tmp.toString()));
+                    operators.push(new Token(Token.OPERATOR, sOper.toString()));
                 }
             }
         }
