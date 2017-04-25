@@ -2,6 +2,8 @@ package com.coderising.jvm.cmd;
 
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.constant.ConstantPool;
+import com.coderising.jvm.engine.ExecutionResult;
+import com.coderising.jvm.engine.StackFrame;
 
 public class NoOperandCmd extends ByteCodeCommand{
 
@@ -18,6 +20,12 @@ public class NoOperandCmd extends ByteCodeCommand{
 	
 	public  int getLength(){
 		return 1;
+	}
+
+	@Override
+	public void execute(StackFrame frame, ExecutionResult result) {
+		
+		
 	}
 
 }
