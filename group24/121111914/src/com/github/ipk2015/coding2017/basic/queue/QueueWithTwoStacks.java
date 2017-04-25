@@ -23,23 +23,31 @@ public class QueueWithTwoStacks<E> {
 
     public boolean isEmpty() {
     	
-        return false;
+        return stack1.isEmpty() && stack2.isEmpty();
     }
 
 
     
     public int size() {
-        return -1;   
+        return stack1.size()+stack2.size();   
     }
 
 
 
     public void enQueue(E item) {
-        
+        stack1.push(item);
     }
 
     public E deQueue() {
-        return null;
+    	if(size() == 0){
+    		throw new RuntimeException("queue size is 0");
+    	}
+    	if(stack2.isEmpty()){
+    		while(!stack1.isEmpty()){
+    			stack2.push(stack1.pop());
+    		}
+    	}
+        return stack2.pop();
     }
 
 

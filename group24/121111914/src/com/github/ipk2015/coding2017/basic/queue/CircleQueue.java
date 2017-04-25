@@ -19,23 +19,35 @@ public class CircleQueue <E> {
 	private int front = 0;  
 	//队尾  
 	private int rear = 0;
-	
+	private int size = 0;
 	public boolean isEmpty() {
-		return false;
+		return size == 0;
         
     }
 
     public int size() {
-        return -1;
+        return size;
     }
 
     
 
     public void enQueue(E data) {
-        
+        if(size == DEFAULT_SIZE){
+        	throw new RuntimeException("queue size is max");
+        }
+        elementData[rear] = data;
+        rear = (rear+1)%DEFAULT_SIZE;
+        size++;
     }
 
     public E deQueue() {
-        return null;
+    	if(size == 0){
+        	throw new RuntimeException("queue size is 0");
+        }
+    	E e = (E)elementData[front];
+    	elementData[front] = null;
+    	front = (front+1)%DEFAULT_SIZE;
+    	size--;
+        return e;
     }
 }
