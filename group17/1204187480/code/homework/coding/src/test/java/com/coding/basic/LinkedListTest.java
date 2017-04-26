@@ -61,18 +61,21 @@ public class LinkedListTest {
         linkedList.removeFirstHalf();
         Assert.assertEquals("[]", linkedList.toString());
     }
+
     @Test
     public void removeFirstHalf1() throws Exception {
         LinkedList linkedList = createAndFillLinkedList(1);
         linkedList.removeFirstHalf();
         Assert.assertEquals("[1]", linkedList.toString());
     }
+
     @Test
     public void removeFirstHalf2() throws Exception {
         LinkedList linkedList = createAndFillLinkedList(2);
         linkedList.removeFirstHalf();
         Assert.assertEquals("[2]", linkedList.toString());
     }
+
     @Test
     public void removeFirstHalf3() throws Exception {
         LinkedList linkedList = createAndFillLinkedList(3);
@@ -102,37 +105,43 @@ public class LinkedListTest {
         list.remove(0, 0);
         Assert.assertEquals("[1,2,3,4]", list.toString());
     }
- @Test
+
+    @Test
     public void remove2() throws Exception {
         LinkedList list = createAndFillLinkedList(4);
         list.remove(0, 1);
         Assert.assertEquals("[2,3,4]", list.toString());
     }
- @Test
+
+    @Test
     public void remove3() throws Exception {
         LinkedList list = createAndFillLinkedList(4);
         list.remove(1, 0);
         Assert.assertEquals("[1,2,3,4]", list.toString());
     }
- @Test
+
+    @Test
     public void remove4() throws Exception {
         LinkedList list = createAndFillLinkedList(4);
         list.remove(1, 1);
         Assert.assertEquals("[1,3,4]", list.toString());
     }
-@Test
+
+    @Test
     public void remove5() throws Exception {
         LinkedList list = createAndFillLinkedList(4);
         list.remove(1, 3);
         Assert.assertEquals("[1]", list.toString());
     }
-@Test
+
+    @Test
     public void remove6() throws Exception {
         LinkedList list = createAndFillLinkedList(4);
         list.remove(1, 4);
         Assert.assertEquals("[1]", list.toString());
     }
-@Test
+
+    @Test
     public void remove7() throws Exception {
         LinkedList list = createAndFillLinkedList(4);
         list.remove(1, 5);
@@ -141,7 +150,7 @@ public class LinkedListTest {
 
     @Test
     public void getElements() throws Exception {
-        LinkedList listA= createAndFillLinkedList(0,8);
+        LinkedList listA = createAndFillLinkedList(0, 8);
         LinkedList listB = createAndFillLinkedList(4, 4);
         Assert.assertEquals("[4,5,6,7]", Arrays.toString(listA.getElements(listB)));
 
