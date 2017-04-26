@@ -66,7 +66,29 @@ public class StackFrame {
 	}
 	
 	public ExecutionResult execute(){
-		return null;
+		ByteCodeCommand[] cmds = m.getCmds();
+		
+		while(index < cmds.length){
+			ExecutionResult result = new ExecutionResult();
+			result.setNextAction(ExecutionResult.RUN_NEXT_CMD);
+			System.out.println(cmds[index].toString());
+			cmds[index].execute(this, result);
+			if(result.isRunNextCmd()){
+				index++;
+			}else if(result.isExitCurrentFrame()){
+				return result;
+			}else if(result.isPauseAndRunNewFrame()){
+				index++;
+				return result;
+			}else if(result.isJump()){
+				index = getNextCommandIndex(result.getNextCmdOffset());
+			}else{
+				index++;
+			}
+		}
+		ExecutionResult exitResult = new ExecutionResult();
+		exitResult.setNextAction(ExecutionResult.EXIT_CURRENT_FRAME);
+		return exitResult;
 		
 	}
 

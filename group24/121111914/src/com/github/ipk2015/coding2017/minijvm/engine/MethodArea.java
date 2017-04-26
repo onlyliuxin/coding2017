@@ -57,14 +57,25 @@ public class MethodArea {
 	
 	
 	public Method getMethod(String className, String methodName, String paramAndReturnType){
-		
-		return null;
+		ClassFile clz = this.findClassFile(className);
+		Method method = clz.getMethod(methodName, paramAndReturnType);
+		if(null == method){
+			throw new RuntimeException("method can't be found : \n" 
+					+ "class: " + className
+					+ "method: " + methodName
+					+ "paramAndReturnType: " + paramAndReturnType);
+		}
+		return method;
 	}
 	
 	
 	public Method getMethod(MethodRefInfo methodRef){		
-		
-		return null;
+		ClassFile classFile = this.findClassFile(methodRef.getClassName());
+		Method method = classFile.getMethod(methodRef.getMethodName(), methodRef.getParamAndReturnType());
+		if(null == method){
+			throw new RuntimeException("method can't be found : " + methodRef.toString());
+		}
+		return method;
 			
 	}
 }
