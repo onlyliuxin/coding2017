@@ -16,27 +16,39 @@ public class QueueWithTwoStacks<E> {
     }
 
 
-
-
     public boolean isEmpty() {
-        return false;
+        return stack1.size() == 0;
     }
-
 
 
     public int size() {
-        return -1;
+        return stack1.size();
     }
-
 
 
     public void enQueue(E item) {
-
+        Stack<E> temp = new Stack<E>();
+        stack1.push(item);
+        while (!stack2.isEmpty())
+            temp.push(stack2.pop());
+        temp.push(item);
+        while (!temp.isEmpty())
+            stack2.push(temp.pop());
     }
 
     public E deQueue() {
-        return null;
+        Stack<E> temp = new Stack<E>();
+        E ele = stack2.pop();
+        while (!stack1.isEmpty())
+            temp.push(stack1.pop());
+        temp.pop();
+        while (!temp.isEmpty())
+            stack1.push(temp.pop());
+        return ele;
     }
 
-
+    @Override
+    public String toString() {
+        return stack1.toString() + "\n" + stack2.toString();
+    }
 }
