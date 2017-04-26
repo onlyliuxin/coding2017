@@ -90,14 +90,37 @@ public class ClassFile {
 
     }
 
-    private String getClassName() {
+    public String getClassName() {
         int thisClassIndex = this.clzIndex.getThisClassIndex();
         ClassInfo thisClass = (ClassInfo) this.getConstantPool().getConstantInfo(thisClassIndex);
         return thisClass.getClassName();
     }
 
-    private String getSuperClassName() {
+    public String getSuperClassName() {
         ClassInfo superClass = (ClassInfo) this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
         return superClass.getClassName();
+    }
+
+    public Method getMethod(String methodName, String paramAndReturnType){
+
+        for (Method method : methods) {
+            String name = getConstantPool().getUTF8String(method.getNameIndex());
+            String desc = getConstantPool().getUTF8String(method.getDescriptorIndex());
+            if (methodName.equals(name) && paramAndReturnType.equals(desc)) {
+                return method;
+            }
+        }
+        return null;
+    }
+    public Method getMainMethod(){
+
+        for (Method method : methods) {
+            String name = getConstantPool().getUTF8String(method.getNameIndex());
+            String desc = getConstantPool().getUTF8String(method.getDescriptorIndex());
+            if ("main".equals(name) && "([Ljava/lang/String;)V".equals(desc)) {
+                return method;
+            }
+        }
+        return null;
     }
 }
