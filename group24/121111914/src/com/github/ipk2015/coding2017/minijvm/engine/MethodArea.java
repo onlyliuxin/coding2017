@@ -1,5 +1,6 @@
 package com.github.ipk2015.coding2017.minijvm.engine;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,7 +43,7 @@ public class MethodArea {
 	
 	
 	public  ClassFile findClassFile(String className){
-		
+		className = className.replace('.', File.separatorChar);
 		if(map.get(className) != null){
 			return map.get(className);
 		}

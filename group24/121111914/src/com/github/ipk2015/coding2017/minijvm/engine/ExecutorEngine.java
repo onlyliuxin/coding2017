@@ -30,6 +30,8 @@ public class ExecutorEngine {
 				nextFrame.setCallerFrame(frame);
 				setupFunctionCallParams(frame,nextFrame);
 				stack.push(nextFrame);
+			}else{
+				stack.pop();
 			}
 		}
 	}

@@ -41,7 +41,7 @@ public class InvokeVirtualCmd extends TwoOperandCmd {
 		String currentClassName = javaObject.getClassName();
 		while(null != currentClassName){
 			ClassFile currentClassFile = methodArea.findClassFile(currentClassName);
-			m = currentClassFile.getMethod(methodRefInfo.getClassName(), methodRefInfo.getParamAndReturnType());
+			m = currentClassFile.getMethod(methodRefInfo.getMethodName(), methodRefInfo.getParamAndReturnType());
 			if(null != m){
 				break;
 			}else{

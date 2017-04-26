@@ -47,7 +47,7 @@ public class ClassFileloaderTest {
 //		String className = "com.coderising.jvm.test.EmployeeV1";
 		String className = "EmployeeV1";//老师的class文件单独放在这里，只有类名
 		
-		clzFile = loader.loadClass(className);
+		clzFile = loader.loadClass(FULL_QUALIFIED_CLASS_NAME);
 		clzFile.print();
 	}
 	
@@ -79,9 +79,7 @@ public class ClassFileloaderTest {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path3);
 		
-		String className = "EmployeeV1";
-		
-		byte[] byteCodes = loader.readBinaryCode(className);
+		byte[] byteCodes = loader.readBinaryCode(FULL_QUALIFIED_CLASS_NAME);
 		
 		// 注意：这个字节数可能和你的JVM版本有关系， 你可以看看编译好的类到底有多大
 		Assert.assertEquals(1056, byteCodes.length);
@@ -93,8 +91,7 @@ public class ClassFileloaderTest {
 	public void testMagicNumber(){
     	ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path3);
-		String className = "EmployeeV1";
-		byte[] byteCodes = loader.readBinaryCode(className);
+		byte[] byteCodes = loader.readBinaryCode(FULL_QUALIFIED_CLASS_NAME);
 		byte[] codes = new byte[]{byteCodes[0],byteCodes[1],byteCodes[2],byteCodes[3]};
 		
 		
@@ -137,7 +134,7 @@ public class ClassFileloaderTest {
     	
 
 		ConstantPool pool = clzFile.getConstantPool();
-		System.out.println(""+pool.getSize());
+		System.out.println("pool size:"+pool.getSize());
 		Assert.assertEquals(53, pool.getSize());
 	
 		{
