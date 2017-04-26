@@ -1,13 +1,16 @@
 package miniJVM.loader;
 
 
+import miniJVM.attr.CodeAttr;
+import miniJVM.attr.LineNumberTable;
+import miniJVM.attr.LocalVariableTable;
+import miniJVM.attr.StackMapTable;
 import miniJVM.clz.AccessFlag;
 import miniJVM.clz.ClassFile;
 import miniJVM.clz.ClassIndex;
-import miniJVM.cmd.ByteCodeCommand;
-import miniJVM.cmd.CommandParser;
 import miniJVM.constant.*;
 import miniJVM.field.Field;
+import miniJVM.method.Method;
 
 public class ClassFileParser {
 
@@ -27,17 +30,18 @@ public class ClassFileParser {
         //2. 常量池
         pool = new ConstantPool();
         parseConstantPool(iter);
-        //TODO 3. 访问标记
+        //3. 访问标记
         parseAccessFlag(iter);
-        //TODO 4. classIndex superClassIndex
+        //4. classIndex superClassIndex
         parseClassIndex(iter);
-        //TODO 5. 接口，即便没有也要调用，因为字节码里是固定有的
+        //5. 接口，即便没有也要调用，因为字节码里是固定有的
         parseInterfaces(iter);
-        //TODO 6. 字段
+        //6. 字段
         parseFields(iter);
-        //TODO 7. 方法
+        //7. 方法
         parseMethods(iter);
-
+        //8. class文件结尾的stackMapTable, 只读取，不处理
+        parseStackMapTable(iter);
         return clzFile;
     }
 
@@ -67,16 +71,15 @@ public class ClassFileParser {
         try {
             //常量池个数
             int cnstSize = iter.nextU2ToInt();
-            System.out.println("常量个数：" + (cnstSize - 1));
             for (int i = 0; i < cnstSize; i++) {
                 int index = -1;
 
-                if(i == 0){
-                	pool.addConstantInfo(null);
-                	continue;
-				}else{
-                	index = iter.nextU1ToInt();
-				}
+                if (i == 0) {
+                    pool.addConstantInfo(null);
+                    continue;
+                } else {
+                    index = iter.nextU1ToInt();
+                }
 
 //				System.out.println("i -> " + i + ", index -> " + index);
                 if (index == ConstantInfo.CLASS_INFO) {
@@ -108,9 +111,9 @@ public class ClassFileParser {
                     StringInfo stringInfo = new StringInfo(pool);
                     stringInfo.setIndex(iter.nextU2ToInt());
                     pool.addConstantInfo(stringInfo);
-                } else if(index == 0){
-					pool.addConstantInfo(null);
-				} else {
+                } else if (index == 0) {
+                    pool.addConstantInfo(null);
+                } else {
                     throw new Exception("没有针对tag=" + index + "的数据进行处理");
                 }
             }
@@ -120,18 +123,16 @@ public class ClassFileParser {
         }
     }
 
-	private void parseInterfaces(ByteCodeIterator iter) {
-		int interfaceCount = iter.nextU2ToInt();
+    private void parseInterfaces(ByteCodeIterator iter) {
+        int interfaceCount = iter.nextU2ToInt();
+//        System.out.println("interfaceCount:" + interfaceCount);
+        // TODO : 如果实现了interface, 这里需要解析
+    }
 
-		System.out.println("interfaceCount:" + interfaceCount);
-
-		// TODO : 如果实现了interface, 这里需要解析
-	}
-
-	private void parseFields(ByteCodeIterator iter) {
+    private void parseFields(ByteCodeIterator iter) {
         int fieldsCount = iter.nextU2ToInt();
 
-        for(int i = 0 ; i < fieldsCount; i++){
+        for (int i = 0; i < fieldsCount; i++) {
             int accessFlag = iter.nextU2ToInt();
             int nameIndex = iter.nextU2ToInt();
             int descriptorIndex = iter.nextU2ToInt();
@@ -140,31 +141,41 @@ public class ClassFileParser {
             Field field = new Field(accessFlag, nameIndex, descriptorIndex, attributeCount, pool);
             clzFile.addField(field);
         }
-	}
+    }
 
-	private void parseMethods(ByteCodeIterator iter) {
+    private void parseMethods(ByteCodeIterator iter) {
         int methodCount = iter.nextU2ToInt();
 
-        for(int i = 0; i < methodCount; i++){
+        for (int i = 0; i < methodCount; i++) {
             int accessFlag = iter.nextU2ToInt();
             int nameIndex = iter.nextU2ToInt();
             int descriptorIndex = iter.nextU2ToInt();
-            int attributeCount = iter.nextU2ToInt();
-            int attributeCountTemp = attributeCount;
-            while(attributeCountTemp > 0){
-                int attributeNameIndex = iter.nextU2ToInt();
-                UTF8Info attributeName = (UTF8Info) pool.getConstantInfo(attributeNameIndex);
-                if(attributeName.getValue().equalsIgnoreCase("code")){
-                    int attributeLength = iter.nextU4ToInt();
-                    int maxStack = iter.nextU2ToInt();
-                    int maxLocals = iter.nextU2ToInt();
-                    int codeLength = iter.nextU4ToInt();
-                    String cmdCodes = iter.nextUxToHexString(codeLength);
-                    ByteCodeCommand[] cmds = CommandParser.parse(clzFile, cmdCodes);
-                }
+            Method method = new Method(clzFile, accessFlag, nameIndex, descriptorIndex);
+            int attributeCount = iter.nextU2ToInt();//=1
+            while(attributeCount > 0){
+                CodeAttr codeAttr = CodeAttr.parse(clzFile, iter);
+                int exceptionTableLength = iter.nextU2ToInt();
+                //异常先不处理
+                String exceptionTable = iter.nextUxToHexString(exceptionTableLength);
 
-                attributeCountTemp--;
+                int subAttributeCount = iter.nextU2ToInt();
+                while(subAttributeCount > 0){
+                    LineNumberTable lineNumberTable = LineNumberTable.parse(iter);
+                    codeAttr.setLineNumberTable(lineNumberTable);
+                    subAttributeCount--;
+                    LocalVariableTable localVariableTable = LocalVariableTable.parse(iter);
+                    codeAttr.setLocalVariableTable(localVariableTable);
+                    subAttributeCount--;
+                }
+                method.setCodeAttr(codeAttr);
+                attributeCount--;
             }
+            clzFile.addMethod(method);
         }
-	}
+    }
+
+    private void parseStackMapTable(ByteCodeIterator iter){
+        int stackMapCount = iter.nextU2ToInt();
+        StackMapTable table = StackMapTable.parse(iter);
+    }
 }

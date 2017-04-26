@@ -12,6 +12,11 @@ public class LineNumberTable extends AttributeInfo {
 	private static class LineNumberItem{
 		int startPC;
 		int lineNum;
+		public LineNumberItem(int startPC, int lineNum){
+			this.startPC = startPC;
+			this.lineNum = lineNum;
+		}
+
 		public int getStartPC() {
 			return startPC;
 		}
@@ -34,8 +39,17 @@ public class LineNumberTable extends AttributeInfo {
 	}
 	
 	public static LineNumberTable parse(ByteCodeIterator iter){
-		
-		return null;
+		int attributeNameIndex = iter.nextU2ToInt();
+		int attributeLength = iter.nextU4ToInt();
+		int lineNumberTableLength = iter.nextU2ToInt();
+		LineNumberTable table = new LineNumberTable(attributeNameIndex, attributeLength);
+		for(int i = 0; i < lineNumberTableLength; i ++){
+			int startPC = iter.nextU2ToInt();
+			int lineNum = iter.nextU2ToInt();
+			LineNumberItem item = new LineNumberItem(startPC, lineNum);
+			table.addLineNumberItem(item);
+		}
+		return table;
 	}
 	
 	public String toString(){

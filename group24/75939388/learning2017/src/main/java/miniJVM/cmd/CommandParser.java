@@ -4,9 +4,7 @@ package miniJVM.cmd;
 import miniJVM.clz.ClassFile;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CommandParser {
 	
@@ -45,26 +43,71 @@ public class CommandParser {
 	public static final String iadd = "60";
 	public static final String iinc = "84";
 
-	public static final Map<String, Integer> operandMap = new HashMap<String, Integer>(){{
-		put(aload_0, 0);
-		put(invokespecial, 2);
-		put(aload_1, 0);
-		put(putfield, 2);
-		put(iload_2, 0);
-		put(voidreturn, 0);
-	}};
-
 
 	public static ByteCodeCommand[] parse(ClassFile clzFile, String codes) {
 		CommandIterator ci = new CommandIterator(codes);
 		List<ByteCodeCommand> cmds = new ArrayList<ByteCodeCommand>();
 		while (ci.hasNext()){
-			String command = ci.next2CharAsString().toUpperCase();
-			switch (command){
-
+			String command = ci.next2CharAsString();
+			if(command.equalsIgnoreCase(new_object)){
+				NewObjectCmd cmd = new NewObjectCmd(clzFile, command);
+				cmd.setOprand1(ci.next2CharAsInt());
+				cmd.setOprand2(ci.next2CharAsInt());
+				cmds.add(cmd);
+			}else if(command.equalsIgnoreCase(invokespecial)){
+				InvokeSpecialCmd cmd = new InvokeSpecialCmd(clzFile, command);
+				cmd.setOprand1(ci.next2CharAsInt());
+				cmd.setOprand2(ci.next2CharAsInt());
+				cmds.add(cmd);
+			}else if(command.equalsIgnoreCase(invokevirtual)){
+				InvokeVirtualCmd cmd = new InvokeVirtualCmd(clzFile, command);
+				cmd.setOprand1(ci.next2CharAsInt());
+				cmd.setOprand2(ci.next2CharAsInt());
+				cmds.add(cmd);
+			}else if(command.equalsIgnoreCase(getfield)){
+				GetFieldCmd cmd = new GetFieldCmd(clzFile, command);
+				cmd.setOprand1(ci.next2CharAsInt());
+				cmd.setOprand2(ci.next2CharAsInt());
+				cmds.add(cmd);
+			}else if(command.equalsIgnoreCase(getstatic)){
+				GetStaticFieldCmd cmd = new GetStaticFieldCmd(clzFile, command);
+				cmd.setOprand1(ci.next2CharAsInt());
+				cmd.setOprand2(ci.next2CharAsInt());
+				cmds.add(cmd);
+			}else if(command.equalsIgnoreCase(putfield)){
+				PutFieldCmd cmd = new PutFieldCmd(clzFile, command);
+				cmd.setOprand1(ci.next2CharAsInt());
+				cmd.setOprand2(ci.next2CharAsInt());
+				cmds.add(cmd);
+			}else if(command.equalsIgnoreCase(ldc)){
+				LdcCmd cmd = new LdcCmd(clzFile, command);
+				cmd.setOperand(ci.next2CharAsInt());
+				cmds.add(cmd);
+			}else if(command.equalsIgnoreCase(bipush)){
+				BiPushCmd cmd = new BiPushCmd(clzFile, command);
+				cmd.setOperand(ci.next2CharAsInt());
+				cmds.add(cmd);
+			}else if (command.equalsIgnoreCase(dup) ||
+					command.equalsIgnoreCase(aload_0) ||
+					command.equalsIgnoreCase(aload_1) ||
+					command.equalsIgnoreCase(aload_2) ||
+					command.equalsIgnoreCase(iload_1) ||
+					command.equalsIgnoreCase(iload_2) ||
+					command.equalsIgnoreCase(iload_3) ||
+					command.equalsIgnoreCase(fload_3) ||
+					command.equalsIgnoreCase(voidreturn) ||
+					command.equalsIgnoreCase(astore_1)) {
+				NoOperandCmd cmd = new NoOperandCmd(clzFile, command);
+				cmds.add(cmd);
+			}else{
+				throw new RuntimeException("没有对指令=" + command + "进行处理");
 			}
 		}
-		return null;
+		calculateOffset(cmds);
+
+		ByteCodeCommand[] cmdArr = new ByteCodeCommand[cmds.size()];
+		cmds.toArray(cmdArr);
+		return cmdArr;
 	}
 
 	private static void calculateOffset(List<ByteCodeCommand> cmds) {

@@ -2,6 +2,7 @@ package miniJVM.attr;
 
 import miniJVM.clz.ClassFile;
 import miniJVM.cmd.ByteCodeCommand;
+import miniJVM.cmd.CommandParser;
 import miniJVM.constant.ConstantPool;
 import miniJVM.loader.ByteCodeIterator;
 
@@ -40,10 +41,16 @@ public class CodeAttr extends AttributeInfo {
 	}
 
 	public static CodeAttr parse(ClassFile clzFile, ByteCodeIterator iter){
+		int attributeNameIndex = iter.nextU2ToInt();
+		int attributeLength = iter.nextU4ToInt();
+		int maxStack = iter.nextU2ToInt();
+		int maxLocals = iter.nextU2ToInt();
+		int codeLength = iter.nextU4ToInt();
+		String cmdCodes = iter.nextUxToHexString(codeLength);
+		ByteCodeCommand[] cmds = CommandParser.parse(clzFile, cmdCodes);
 
-		return null;
+		return new CodeAttr(attributeNameIndex, attributeLength, maxStack, maxLocals, codeLength, cmdCodes, cmds);
 	}
-
 
 	public String toString(ConstantPool pool){
 		StringBuilder buffer = new StringBuilder();
@@ -56,11 +63,9 @@ public class CodeAttr extends AttributeInfo {
 		buffer.append(this.localVarTable.toString(pool));
 		return buffer.toString();
 	}
+
 	private void setStackMapTable(StackMapTable t) {
 		this.stackMapTable = t;
 
 	}
-
-
-
 }

@@ -22,8 +22,21 @@ public class LocalVariableTable extends AttributeInfo{
 	}
 	
 	public static LocalVariableTable parse(ByteCodeIterator iter){
-		
-		return null;
+		int attributeNameIndex = iter.nextU2ToInt();
+		int attributeLength = iter.nextU4ToInt();
+		LocalVariableTable table = new LocalVariableTable(attributeNameIndex, attributeLength);
+		int localVariableTableLength = iter.nextU2ToInt();
+		for(int i = 0; i < localVariableTableLength; i++){
+			int startPC = iter.nextU2ToInt();
+			int length = iter.nextU2ToInt();
+			int nameIndex = iter.nextU2ToInt();
+			int descriptorIndex = iter.nextU2ToInt();
+			int index = iter.nextU2ToInt();
+			LocalVariableItem item = new LocalVariableItem();
+			table.addLocalVariableItem(item);
+		}
+
+		return table;
 	}
 	
 	
