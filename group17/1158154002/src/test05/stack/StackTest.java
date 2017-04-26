@@ -7,7 +7,7 @@ import org.junit.Test;
 public class StackTest {
 	@Test
 	public void testReverse(){
-		Stack stack=new Stack();
+		Stack<Integer> stack=new Stack<Integer>();
 		stack.push(1);
 		stack.push(2);
 		stack.push(3);
