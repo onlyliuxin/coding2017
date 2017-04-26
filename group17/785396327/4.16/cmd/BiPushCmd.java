@@ -2,6 +2,9 @@ package cmd;
 
 import clz.ClassFile;
 import constant.ConstantPool;
+import engine.ExecutionResult;
+import engine.FrameResult;
+import engine.StackFrame;
 
 /**
  * Created by william on 2017/4/17.
@@ -17,4 +20,10 @@ public class BiPushCmd extends OneOperandCmd {
 
         return this.getOffset() + ": " + this.getOpCode() + " " + this.getReadableCodeText() + " " + this.getOperand();
     }
+
+    @Override
+    public void execute(StackFrame frame, FrameResult result) {
+
+    }
+
 }
