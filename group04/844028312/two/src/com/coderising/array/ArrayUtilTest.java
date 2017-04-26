@@ -30,8 +30,8 @@ public class ArrayUtilTest {
 	}
 	@Test
 	public void testMerge() {
-		int []array1={2,4,2,5,9};
-		int []array2={6,3,1,10,8};
+		int []array1={2,4,5,6,7};
+		int []array2={6,7,8,9,10};
 		int []newArray=arrayUtil.merge(array1, array2);
 		System.out.println(newArray);
 	}
@@ -53,7 +53,7 @@ public class ArrayUtilTest {
 	}
 	@Test
 	public void testGetPerfectNumbers() {
-		int []newArray=arrayUtil.getPerfectNumbers(10000000);
+		int []newArray=arrayUtil.getPerfectNumbers(500);
 		System.out.println(newArray);
 	}
 	@Test
