@@ -29,9 +29,9 @@ public class ClassFilePrinter {
 
         System.out.println("Super Class Name:" + clzFile.getSuperClassName());
 
-        System.out.println("minor version:" + clzFile.getMinorVersion());
+        System.out.println("minor version: " + clzFile.getMinorVersion());
 
-        System.out.println("major version:" + clzFile.getMinorVersion());
+        System.out.println("major version: " + clzFile.getMinorVersion());
 
         ConstantPoolPrinter cnstPoolPrinter = new ConstantPoolPrinter(clzFile.getConstantPool());
         cnstPoolPrinter.print();
@@ -40,7 +40,8 @@ public class ClassFilePrinter {
     }
 
     public static void main(String[] args) {
-        String path = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
+
+        String path = "/Users/xudanxia/Documents/xdx/out/production/xdx/";
         ClassFileLoader loader = new ClassFileLoader();
         loader.addClassPath(path);
         String className = "com.coderising.jvm.test.EmployeeV1";

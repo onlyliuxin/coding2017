@@ -29,4 +29,8 @@ public class ConstantPool {
     public Object getSize() {
         return this.constantInfos.size() - 1;
     }
+
+    public List<ConstantInfo> getConstantInfos() {
+        return constantInfos;
+    }
 }

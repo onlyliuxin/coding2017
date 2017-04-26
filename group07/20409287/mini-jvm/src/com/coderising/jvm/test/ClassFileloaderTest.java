@@ -21,6 +21,8 @@ import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.UTF8Info;
 import com.coderising.jvm.loader.ClassFileLoader;
 
+import java.text.MessageFormat;
+import java.util.Formatter;
 import java.util.List;
 
 
@@ -340,6 +342,14 @@ public class ClassFileloaderTest {
             acctual += " #" + ((TwoOperandCmd) cmd).getIndex();
         }
         Assert.assertEquals(expected, acctual);
+    }
+
+    static Formatter formatter = new Formatter(System.out);
+
+    public static void main(String[] args) {
+        formatter.format("%15s %-20s %-10s\n", "huhx", "linux", "liuli");
+        formatter.format("%15s %-20s %-10s\n", "zhangkun", "yanzi", "zhangcong");
+        formatter.format("%15s %-20s %-10s\n", "zhangkun", "yanzhou", "zhangcong");
     }
 
 }
