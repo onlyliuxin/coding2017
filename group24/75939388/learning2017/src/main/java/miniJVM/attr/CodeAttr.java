@@ -22,7 +22,7 @@ public class CodeAttr extends AttributeInfo {
 	private LocalVariableTable localVarTable;
 	private StackMapTable stackMapTable;
 
-	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code ,ByteCodeCommand[] cmds) {
+	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code, ByteCodeCommand[] cmds) {
 		super(attrNameIndex, attrLen);
 		this.maxStack = maxStack;
 		this.maxLocals = maxLocals;

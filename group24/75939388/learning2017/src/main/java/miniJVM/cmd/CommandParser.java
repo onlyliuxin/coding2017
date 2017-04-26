@@ -3,7 +3,10 @@ package miniJVM.cmd;
 
 import miniJVM.clz.ClassFile;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CommandParser {
 	
@@ -42,13 +45,29 @@ public class CommandParser {
 	public static final String iadd = "60";
 	public static final String iinc = "84";
 
-	public static ByteCodeCommand[] parse(ClassFile clzFile, String codes) {
+	public static final Map<String, Integer> operandMap = new HashMap<String, Integer>(){{
+		put(aload_0, 0);
+		put(invokespecial, 2);
+		put(aload_1, 0);
+		put(putfield, 2);
+		put(iload_2, 0);
+		put(voidreturn, 0);
+	}};
 
-		
+
+	public static ByteCodeCommand[] parse(ClassFile clzFile, String codes) {
+		CommandIterator ci = new CommandIterator(codes);
+		List<ByteCodeCommand> cmds = new ArrayList<ByteCodeCommand>();
+		while (ci.hasNext()){
+			String command = ci.next2CharAsString().toUpperCase();
+			switch (command){
+
+			}
+		}
 		return null;
 	}
 
-	private static void calcuateOffset(List<ByteCodeCommand> cmds) {
+	private static void calculateOffset(List<ByteCodeCommand> cmds) {
 
 		int offset = 0;
 		for (ByteCodeCommand cmd : cmds) {

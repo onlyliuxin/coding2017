@@ -7,9 +7,7 @@ import miniJVM.constant.ConstantPool;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
-public abstract class ByteCodeCommand {	
+public abstract class ByteCodeCommand {
 	
 	String opCode;
 	ClassFile clzFile;
@@ -69,10 +67,6 @@ public abstract class ByteCodeCommand {
 		codeMap.put("12", "ldc");
 	}
 	
-	
-
-	
-
 	protected ByteCodeCommand(ClassFile clzFile, String opCode){
 		this.clzFile = clzFile;
 		this.opCode = opCode;
@@ -96,23 +90,16 @@ public abstract class ByteCodeCommand {
 	protected ConstantPool getConstantPool(){
 		return this.getClassFile().getConstantPool();
 	}
-	
-	
-	
+
 	public String getOpCode() {
 		return opCode;
 	}
 
 	public abstract int getLength();
-	
-	
-	
-	
+
 	public String toString(){
-		
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(this.opCode);
-		
 		return buffer.toString();
 	}
 	public abstract String toString(ConstantPool pool);

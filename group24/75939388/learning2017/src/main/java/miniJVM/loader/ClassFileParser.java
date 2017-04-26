@@ -4,6 +4,8 @@ package miniJVM.loader;
 import miniJVM.clz.AccessFlag;
 import miniJVM.clz.ClassFile;
 import miniJVM.clz.ClassIndex;
+import miniJVM.cmd.ByteCodeCommand;
+import miniJVM.cmd.CommandParser;
 import miniJVM.constant.*;
 import miniJVM.field.Field;
 
@@ -157,11 +159,8 @@ public class ClassFileParser {
                     int maxStack = iter.nextU2ToInt();
                     int maxLocals = iter.nextU2ToInt();
                     int codeLength = iter.nextU4ToInt();
-                    int codeLengthTemp = codeLength;
-                    while(codeLengthTemp > 0){
-
-                        codeLengthTemp--;
-                    }
+                    String cmdCodes = iter.nextUxToHexString(codeLength);
+                    ByteCodeCommand[] cmds = CommandParser.parse(clzFile, cmdCodes);
                 }
 
                 attributeCountTemp--;
