@@ -18,5 +18,6 @@ public interface List<E> extends Iterable<E>{
 
     Iterator<E> iterator();
 
+    boolean contains(Object o);
 
 }

@@ -174,6 +174,25 @@ public class ArrayList<E> implements List<E> {
                 2 * elementData.length);
     }
 
+    public boolean contains(Object o) {
+        Itr itr = new Itr();
+        if (o == null) {
+            while (itr.hasNext()) {
+                if (itr.next() == null) {
+                    return true;
+                }
+            }
+
+        } else {
+            while (itr.hasNext()) {
+                if (itr.next().equals(o)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");

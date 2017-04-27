@@ -229,6 +229,11 @@ public class LinkedList<E> implements List<E> {
         return new Itr();
     }
 
+    @Override
+    public boolean contains(Object o) {
+        return false;
+    }
+
     private class Itr implements Iterator<E> {
         /**
          * Index of element to be returned by subsequent call to next.
