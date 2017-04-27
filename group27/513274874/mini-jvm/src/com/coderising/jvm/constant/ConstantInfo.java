@@ -18,11 +18,6 @@ public abstract class ConstantInfo {
 		this.constantPool = pool;
 	}
 	public abstract int getType();
-
-	@Override
-	public String toString(){
-		return super.toString();
-	}
 	
 	public ConstantPool getConstantPool() {
 		return constantPool;
@@ -31,4 +26,15 @@ public abstract class ConstantInfo {
 		return this.constantPool.getConstantInfo(index);
 	}
 	
+	public abstract void accept(Visitor visitor);
+	
+	public static interface Visitor{
+		public void visitClassInfo(ClassInfo info);
+		public void visitFieldRef(FieldRefInfo info);
+		public void visitMethodRef(MethodRefInfo info);
+		public void visitNameAndType(NameAndTypeInfo info);
+		public void visitString(StringInfo info);
+		public void visistUTF8(UTF8Info info);
+		
+	}
 }
