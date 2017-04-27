@@ -1,24 +1,46 @@
 package litestruts;
 
+import static util.Print.println;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
-import static util.Print.*;
 
 public class Configuration {
 
-	Map<String, ActionCfg> actions = new HashMap<>();
+	private static class ActionCfg {
 
-	private static Configuration cfg = new Configuration();
+		String name;
+		String clz;
+		Map<String, String> viewResult = new HashMap<>();
 
-	private Configuration() {
+		public ActionCfg(String name, String clz) {
+			this.name = name;
+			this.clz = clz;
+		}
+
+		public void addViewResult(String result, String jsp) {
+			viewResult.put(result, jsp);
+
+		}
+
+		public String getClassName() {
+			return clz;
+		}
+
+		public Map<String, String> getViewResult() {
+			return viewResult;
+		}
 
 	}
+
+	private static Configuration cfg = new Configuration();
 
 	public static Configuration getNewInstance() {
 
@@ -26,6 +48,36 @@ public class Configuration {
 			cfg = new Configuration();
 		}
 		return cfg;
+	}
+
+	public static void main(String[] args) {
+		Configuration cfg = new Configuration();
+		cfg.parse("struts.xml");
+		String clz = cfg.getClassName("login");
+		println(clz);
+
+	}
+
+	Map<String, ActionCfg> actions = new HashMap<>();
+
+	private Configuration() {
+
+	}
+
+	public String getClassName(String action) {
+		ActionCfg cfg = this.actions.get(action);
+		if (cfg == null) {
+			return null;
+		}
+		return cfg.getClassName();
+	}
+
+	public String getResultView(String action, String resultName) {
+		ActionCfg cfg = this.actions.get(action);
+		if (cfg == null) {
+			return null;
+		}
+		return cfg.getViewResult().get(resultName);
 	}
 
 	public void parse(String fileName) {
@@ -71,56 +123,6 @@ public class Configuration {
 		} catch (JDOMException | IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public String getClassName(String action) {
-		ActionCfg cfg = this.actions.get(action);
-		if (cfg == null) {
-			return null;
-		}
-		return cfg.getClassName();
-	}
-
-	public String getResultView(String action, String resultName) {
-		ActionCfg cfg = this.actions.get(action);
-		if (cfg == null) {
-			return null;
-		}
-		return cfg.getViewResult().get(resultName);
-	}
-
-	public static void main(String[] args) {
-		Configuration cfg = new Configuration();
-		cfg.parse("struts.xml");
-		String clz = cfg.getClassName("login");
-		println(clz);
-
-	}
-
-	private static class ActionCfg {
-
-		String name;
-		String clz;
-		Map<String, String> viewResult = new HashMap<>();
-
-		public Map<String, String> getViewResult() {
-			return viewResult;
-		}
-
-		public ActionCfg(String name, String clz) {
-			this.name = name;
-			this.clz = clz;
-		}
-
-		public void addViewResult(String result, String jsp) {
-			viewResult.put(result, jsp);
-
-		}
-
-		public String getClassName() {
-			return clz;
-		}
-
 	}
 
 }
