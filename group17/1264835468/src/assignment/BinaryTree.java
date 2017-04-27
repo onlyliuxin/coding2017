@@ -53,10 +53,10 @@ public class BinaryTree<T extends Comparable<? super T>> implements Iterable<Bin
 	 *
 	 */
 	private class BFSNodeQueue {
-		private Queue<BinaryTreeNode<T>> nodeQueue;
+		private MyQueue<BinaryTreeNode<T>> nodeQueue;
 
 		public BFSNodeQueue() {
-			nodeQueue = new Queue<>();
+			nodeQueue = new MyQueue<>();
 		}
 
 		public boolean isEmpty() {
@@ -79,9 +79,9 @@ public class BinaryTree<T extends Comparable<? super T>> implements Iterable<Bin
 		}
 
 		// 把所有出队节点放进另一个队列中
-		public Queue<BinaryTreeNode<T>> getResult() {
+		public MyQueue<BinaryTreeNode<T>> getResult() {
 			prepare();
-			Queue<BinaryTreeNode<T>> result = new Queue<>();
+			MyQueue<BinaryTreeNode<T>> result = new MyQueue<>();
 			while (!isEmpty()) {
 				result.enQueue(deQueue());
 			}
@@ -121,7 +121,7 @@ public class BinaryTree<T extends Comparable<? super T>> implements Iterable<Bin
 		Iterator<BinaryTreeNode<T>> iterator;
 
 		public BFSIterator() {
-			Queue<BinaryTreeNode<T>> BFSQueue = new BFSNodeQueue().getResult();
+			MyQueue<BinaryTreeNode<T>> BFSQueue = new BFSNodeQueue().getResult();
 			list = new MyArrayList<>();
 			while (!BFSQueue.isEmpty()) {
 				list.add(BFSQueue.deQueue());

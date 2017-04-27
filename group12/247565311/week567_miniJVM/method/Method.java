@@ -1,51 +1,58 @@
 package week567_miniJVM.method;
+
 import week567_miniJVM.clz.ClassFile;
-import week567_miniJVM.constant.ConstantInfo;
-import week567_miniJVM.constant.UTF8Info;
-import week567_miniJVM.loader.ByteCodeIterator;
-import week567_miniJVM.attr.AttrFactory;
 import week567_miniJVM.attr.AttributeInfo;
 import week567_miniJVM.attr.CodeAttr;
+import week567_miniJVM.constant.ConstantPool;
+import week567_miniJVM.constant.UTF8Info;
+import week567_miniJVM.loader.ByteCodeIterator;
+
+
 
 public class Method {
-	private int accessFlag,nameIndex,descIndex;
+	
+	private int accessFlag;
+	private int nameIndex;
+	private int descriptorIndex;
+	
 	private CodeAttr codeAttr;
+	
 	private ClassFile clzFile;
+	
 	
 	public ClassFile getClzFile() {
 		return clzFile;
 	}
-    public int getAccessFlag(){
-    	return accessFlag;
-    }
+
 	public int getNameIndex() {
 		return nameIndex;
 	}
 	public int getDescriptorIndex() {
-		return descIndex;
+		return descriptorIndex;
 	}
+	
 	public CodeAttr getCodeAttr() {
 		return codeAttr;
 	}
+
 	public void setCodeAttr(CodeAttr code) {
 		this.codeAttr = code;
 	}
-	public Method(ClassFile clzFile,int accessFlag, int nameIndex, int descIndex) {
+
+	public Method(ClassFile clzFile,int accessFlag, int nameIndex, int descriptorIndex) {
 		this.clzFile = clzFile;
 		this.accessFlag = accessFlag;
 		this.nameIndex = nameIndex;
-		this.descIndex = descIndex;
+		this.descriptorIndex = descriptorIndex;
 	}
-	
-	public void parse(ClassFile clzFile, ByteCodeIterator iter){
-        int attributeNum = iter.nextU2ToInt();
-        while(attributeNum>0){
-        	attributeNum -= 1;
-        	AttributeInfo attrinfo = AttrFactory.Instance().parse(clzFile, iter);
-        	if(attrinfo == null) continue;
 
-            
-        }
+	
+	
+	
+	
+	public static Method parse(ClassFile clzFile, ByteCodeIterator iter){
+		return null;
+		
 	}
 }
 

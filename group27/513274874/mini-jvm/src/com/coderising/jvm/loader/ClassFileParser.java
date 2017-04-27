@@ -4,8 +4,6 @@ import com.coderising.jvm.clz.AccessFlag;
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.clz.ClassIndex;
 import com.coderising.jvm.constant.*;
-import com.coderising.jvm.field.Field;
-import com.coderising.jvm.method.Method;
 
 import java.io.UnsupportedEncodingException;
 
@@ -27,10 +25,6 @@ public class ClassFileParser {
         clzFile.setConstPool(parseConstantPool(iterator));
         clzFile.setAccessFlag(parseAccessFlag(iterator));
         clzFile.setClassIndex(parseClassIndex(iterator));
-
-        parseInterfaces(iterator);
-        parseFields(clzFile,iterator);
-        parseMethods(clzFile,iterator);
 
         return clzFile;
     }
@@ -108,33 +102,7 @@ public class ClassFileParser {
             }
 
         }
-		System.out.println("Finished reading Constant pool ");
         return pool;
-    }
-	private void parseInterfaces(ByteCodeIterator iter) {
-		int interfaceCount = iter.nextU2Int();
-
-		System.out.println("interfaceCount:" + interfaceCount);
-
-		// TODO : 如果实现了interface, 这里需要解析
-	}
-
-    private void parseFields(ClassFile clazzFile,ByteCodeIterator iterator){
-        int fieldCount = iterator.nextU2Int();
-        for (int i = 0 ;i<fieldCount;i++){
-            Field field = Field.parse(clazzFile.getConstantPool(),iterator);
-            clazzFile.addField(field);
-        }
-
-    }
-
-    private void parseMethods(ClassFile clazzFile,ByteCodeIterator iterator){
-        int methodCount = iterator.nextU2Int();
-        for(int i = 0;i<methodCount;i++){
-            Method method = Method.parse(clazzFile,iterator);
-            clazzFile.addMethod(method);
-        }
-
     }
 
 

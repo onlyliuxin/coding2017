@@ -14,40 +14,10 @@ public class ClassFileLoader {
 
 	private List<String> clzPaths = new ArrayList<String>();
 
-	public void addClassPath(String path) {
-		clzPaths.add(path);
-	}
+	public byte[] readBinaryCode(String className) {
 
-	private File getClassFile(String clzFileName) {
-
-		for (String path : clzPaths) {
-			File file = new File(path + "//" + clzFileName);
-			if (file.exists()) {
-				return file;
-			}
-		}
-		return null;
-
-	}
-
-	public String getClassPath() {
-
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < clzPaths.size(); i++) {
-
-			sb.append(clzPaths.get(i));
-			if (i < clzPaths.size() - 1) {
-				sb.append(";");
-			}
-
-		}
-
-		return sb.toString();
-	}
-
-	public String getClassPath_V1() {
-
-		return null;
+		String clzFileName = "//" + className.replaceAll("\\.", "//") + ".class";
+		return loadClassFile(clzFileName);
 	}
 
 	public ClassFile loadClass(String className) throws UnsupportedEncodingException {
@@ -95,10 +65,40 @@ public class ClassFileLoader {
 
 	}
 
-	public byte[] readBinaryCode(String className) {
+	private File getClassFile(String clzFileName) {
 
-		String clzFileName = "//" + className.replaceAll("\\.", "//") + ".class";
-		return loadClassFile(clzFileName);
+		for (String path : clzPaths) {
+			File file = new File(path + "//" + clzFileName);
+			if (file.exists()) {
+				return file;
+			}
+		}
+		return null;
+
+	}
+
+	public void addClassPath(String path) {
+		clzPaths.add(path);
+	}
+
+	public String getClassPath_V1() {
+
+		return null;
+	}
+
+	public String getClassPath() {
+
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < clzPaths.size(); i++) {
+
+			sb.append(clzPaths.get(i));
+			if (i < clzPaths.size() - 1) {
+				sb.append(";");
+			}
+
+		}
+
+		return sb.toString();
 	}
 
 }

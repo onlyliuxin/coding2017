@@ -1,8 +1,6 @@
 package me.lzb.jvm.method;
 
 import me.lzb.jvm.attr.CodeAttr;
-import me.lzb.jvm.clz.ClassFile;
-import me.lzb.jvm.cmd.ByteCodeCommand;
 
 /**
  * Created by LZB on 2017/4/15.
@@ -14,11 +12,11 @@ public class Method {
 
     private CodeAttr codeAttr;
 
-    private ClassFile clzFile;
+//    private ClassFile clzFile;
 
 
-    public Method(ClassFile clzFile, int accessFlag, int nameIndex, int descriptorIndex) {
-        this.clzFile = clzFile;
+    public Method(/*ClassFile clzFile,*/ int accessFlag, int nameIndex, int descriptorIndex) {
+//        this.clzFile = clzFile;
         this.accessFlag = accessFlag;
         this.nameIndex = nameIndex;
         this.descriptorIndex = descriptorIndex;
@@ -57,15 +55,11 @@ public class Method {
         this.codeAttr = codeAttr;
     }
 
-    public ClassFile getClzFile() {
-        return clzFile;
-    }
-
-    public void setClzFile(ClassFile clzFile) {
-        this.clzFile = clzFile;
-    }
-
-    public ByteCodeCommand[] getCmds() {
-        return this.getCodeAttr().getCmds();
-    }
+//    public ClassFile getClzFile() {
+//        return clzFile;
+//    }
+//
+//    public void setClzFile(ClassFile clzFile) {
+//        this.clzFile = clzFile;
+//    }
 }

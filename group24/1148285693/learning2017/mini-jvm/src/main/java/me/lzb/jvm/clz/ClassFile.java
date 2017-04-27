@@ -1,11 +1,8 @@
 package me.lzb.jvm.clz;
 
-import me.lzb.jvm.constant.ClassInfo;
 import me.lzb.jvm.constant.ConstantPool;
 import me.lzb.jvm.field.Field;
 import me.lzb.jvm.method.Method;
-import me.lzb.jvm.print.Print;
-import me.lzb.jvm.print.PrintVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +10,7 @@ import java.util.List;
 /**
  * Created by LZB on 2017/4/14.
  */
-public class ClassFile implements Print{
+public class ClassFile {
 
     private String magicNumber;
 
@@ -75,6 +72,7 @@ public class ClassFile implements Print{
     }
 
 
+
     public List<Field> getFields() {
         return fields;
     }
@@ -92,6 +90,9 @@ public class ClassFile implements Print{
     }
 
 
+
+
+
     public ClassIndex getClzIndex() {
         return clzIndex;
     }
@@ -101,62 +102,30 @@ public class ClassFile implements Print{
     }
 
 
-    public void print() {
+    public void print(){
 
-//        if (this.accessFlag.isPublicClass()) {
-//            System.out.println("Access flag : public  ");
-//        }
-//        System.out.println("Class Name:" + getClassName());
+        if(this.accessFlag.isPublicClass()){
+            System.out.println("Access flag : public  ");
+        }
+//        System.out.println("Class Name:"+ getClassName());
 //
-//        System.out.println("Super Class Name:" + getSuperClassName());
+//        System.out.println("Super Class Name:"+ getSuperClassName());
 
     }
 
-    public String getClassName() {
-        int thisClassIndex = this.clzIndex.getThisClassIndex();
-        ClassInfo thisClass = (ClassInfo) this.getConstantPool().getConstantInfo(thisClassIndex);
-        return thisClass.getClassName();
-    }
 
-    public String getSuperClassName() {
-        ClassInfo superClass = (ClassInfo) this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
-        return superClass.getClassName();
-    }
+
 
     public int getConstantPoolCount() {
         return constantPool.getSize();
     }
 
-    public void addField(Field f) {
+    public void addField(Field f){
         this.fields.add(f);
     }
 
-    public void addMethod(Method m) {
+    public void addMethod(Method m){
         this.methods.add(m);
     }
 
-    public Method getMethod(String methodName, String paramAndReturnType) {
-        for (Method m : methods) {
-            int nameIndex = m.getNameIndex();
-            int descIndex = m.getDescriptorIndex();
-
-            String name = this.getConstantPool().getUTF8String(nameIndex);
-            String desc = this.getConstantPool().getUTF8String(descIndex);
-
-            if (name.equals(methodName) && desc.equals(paramAndReturnType)) {
-                return m;
-            }
-        }
-
-        return null;
-    }
-
-    public Method getMainMethod() {
-        return getMethod("main", "([Ljava/lang/String;)V");
-    }
-
-    @Override
-    public void print(PrintVisitor visitor) {
-        visitor.visitBasicMsg(this);
-    }
 }

@@ -7,48 +7,65 @@ import week567_miniJVM.method.Method;
 import structure.week1.ArrayList;
 
 public class ClassFile {
-    public int minorVersion,majorVersion;
-	private AccessFlag accessFlag = null;
-	private ClassIndex clzIndex = null;
-    private ConstantPool constPool = null;
-    private ArrayList<Method> methods = null;
-    private ArrayList<Field> fields = null;
-    
+	
+	private int minorVersion;
+	private int majorVersion;
+	
+	private AccessFlag accessFlag;
+	private ClassIndex clzIndex;
+	private ConstantPool pool;
+	
+	
 	public ClassIndex getClzIndex() {
 		return clzIndex;
 	}
-    public void setClzIndex(ClassIndex clz){
-        clzIndex = clz;
-    }
 	public AccessFlag getAccessFlag() {
 		return accessFlag;
 	}
-    public void setAccessFlag(AccessFlag acsFlag){
-        accessFlag = acsFlag;
-    }
-	public ConstantPool getConstantPool() {
-		return constPool;
+	public void setAccessFlag(AccessFlag accessFlag) {
+		this.accessFlag = accessFlag;
 	}
-    public void setConstantPool(ConstantPool pool){
-        constPool = pool;
-    }
+	
+	
+	
+	public ConstantPool getConstantPool() {		
+		return pool;
+	}
 	public int getMinorVersion() {
 		return minorVersion;
+	}
+	public void setMinorVersion(int minorVersion) {
+		this.minorVersion = minorVersion;
 	}
 	public int getMajorVersion() {
 		return majorVersion;
 	}
-    public void setVersion(int minor,int major){
-        minorVersion = minor;
-        majorVersion = major;
-    }
+	public void setMajorVersion(int majorVersion) {
+		this.majorVersion = majorVersion;
+	}
+	public void setConstPool(ConstantPool pool) {
+		this.pool = pool;
+		
+	}
+	public void setClassIndex(ClassIndex clzIndex) {
+		this.clzIndex = clzIndex;		
+	}
+	
+	
+	
+	
 	public void print(){
+		
 		if(this.accessFlag.isPublicClass()){
-			System.out.println("Access flag:public");
+			System.out.println("Access flag : public  ");
 		}
 		System.out.println("Class Name:"+ getClassName());
+		
 		System.out.println("Super Class Name:"+ getSuperClassName());
+		
+		
 	}
+	
 	private String getClassName(){
 		int thisClassIndex = this.clzIndex.getThisClassIndex();
 		ClassInfo thisClass = (ClassInfo)this.getConstantPool().getConstantInfo(thisClassIndex);
@@ -59,18 +76,9 @@ public class ClassFile {
 		return superClass.getClassName();
 	}
 	public ArrayList<Method> getMethods() {
-		return methods;
+		return null;
 	}
 	public ArrayList<Field> getFields() {
-		return fields;
-	}
-	public void setClassIndex(ClassIndex parseClassIndex) {
-		clzIndex = parseClassIndex;
-	}
-	public void setFields(ArrayList<Field> parseFields) {
-		fields = parseFields;
-	}
-	public void setMethods(ArrayList<Method> parseMethods) {
-        methods = parseMethods;
+		return null;
 	}
 }

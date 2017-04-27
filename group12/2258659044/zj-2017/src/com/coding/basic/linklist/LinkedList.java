@@ -4,57 +4,57 @@ import java.util.NoSuchElementException;
 
 import com.coding.basic.Iterator;
 import com.coding.basic.List;
-import com.coding.basic.stack.Stack;
+import com.coding.basic.Stack;
 
-public class LinkedList<E> implements List<E> {
+public class LinkedList implements List {
 	
-	private Node<E> head;
+	private Node head;
 	
 	private int size = 0;
 	
-	public void add(E o){
+	public void add(Object o){
 		
-		Node<E> addNode = new Node<>();
+		Node addNode = new Node();
 		addNode.data = o;
 	    if(size==0){	    	
 	    	head = addNode;
 	    }else{
 	    	//获取最后一个节点
-	    	Node<E> lastNode = getPointNode(size-1);
+	    	Node lastNode = getPointNode(size-1);
 	    	lastNode.next = addNode;	    		    	
 	    }
 	    size++;
 	}
-	public void add(int index , E o){
+	public void add(int index , Object o){
 		
-		Node<E> addNode = new Node<>();
+		Node addNode = new Node();
 		addNode.data = o;
 		if(index == 0){	//添加头结点		
 			addFirst(o);	
 	    }else if(index == size){//添加尾节点
         	addLast(o);
 		}else{//在投节点与尾部添加节点			
-			Node<E>  prePointNode = getPointNode(index-1);
-			Node<E>  pointNode = prePointNode.next;
+			Node prePointNode = getPointNode(index-1);
+			Node pointNode = prePointNode.next;
 			prePointNode.next = addNode;
 			addNode.next = pointNode;	
 			size ++;
 		}			
 	}
-	public E get(int index){
+	public Object get(int index){
 
-		Node<E> node = getPointNode(index);
+		Node node = getPointNode(index);
 		return node.data;
 	}
 	
-	public E remove(int index){
+	public Object remove(int index){
 		
-		Node<E> pointNode = getPointNode(index);
-		Node<E> nextPointNode = pointNode.next;
+		Node pointNode = getPointNode(index);
+		Node nextPointNode = pointNode.next;
 		if(index ==0){
 			head = nextPointNode;			 
 		}else{
-			Node<E> prePointNode = getPointNode(index-1);			
+			Node prePointNode = getPointNode(index-1);			
 			prePointNode.next = nextPointNode;
 		}						
 		size --;
@@ -65,10 +65,10 @@ public class LinkedList<E> implements List<E> {
 		return size;
 	}
 	
-	public void addFirst(E o){	
+	public void addFirst(Object o){	
 		
-		Node<E> secondNode = head;	
-		head = new Node<>();
+		Node secondNode = head;	
+		head = new Node();
 		head.data = o;
 		if(size>0){		
 			head.next = secondNode;
@@ -76,16 +76,16 @@ public class LinkedList<E> implements List<E> {
 		size ++;
 	}
 	
-	public void addLast(E o){
+	public void addLast(Object o){
 		add(o);
 	}
 	
-	public E removeFirst(){
+	public Object removeFirst(){
 
 		return remove(0);
 	}
 	
-	public E removeLast(){
+	public Object removeLast(){
 		
 		return remove(size-1);
 	}
@@ -118,21 +118,21 @@ public class LinkedList<E> implements List<E> {
 	 * 获取指定的节点
 	 * @return
 	 */
-	private Node<E> getPointNode(int index){
+	private Node getPointNode(int index){
 
 		if(index<0||index>size){
 			throw new IndexOutOfBoundsException("Index: "+index+",Size:"+size+"");	
 		}
-		Node<E> node = head;
+		Node node = head;
 		for (int i = 0; i < index; i++) {
 			node = node.next;
 		}
 		return node;
 	}
 		
-	private static  class Node<E>{
-		E data;
-		Node<E> next;
+	private static  class Node{
+		Object data;
+		Node next;
 		
 	}	
 	
@@ -142,8 +142,8 @@ public class LinkedList<E> implements List<E> {
 	 */
 	public  void reverse(){	
 		
-		Stack<E> stack = new Stack<E>();
-		Node<E> node;
+		Stack stack = new Stack();
+		Node node;
 		//缓存原链表数据
 		for (node = head; node!=null;node = node.next) {
 			stack.push(node.data);
@@ -198,10 +198,10 @@ public class LinkedList<E> implements List<E> {
 	 * 返回的结果应该是[101,301,401,601]  
 	 * @param list
 	 */
-	public int[] getElements(LinkedList<Integer> list){
+	public int[] getElements(LinkedList list){
 		int[] array = new int[list.size()];
 		for (int i = 0; i < array.length; i++) {
-			array[i] = (int) get(list.get(i));
+			array[i] = (int) get((int)list.get(i));
 		}
 		return array;
 	}
@@ -212,11 +212,12 @@ public class LinkedList<E> implements List<E> {
 	 * @param list
 	 */
 	
-	public  void subtract(LinkedList<E> list){		
+	public  void subtract(LinkedList list){		
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < list.size(); j++) {
 				if(get(i).equals(list.get(j))){
 					remove(i);
+					i--;
 				}
 			}
 		}
@@ -258,13 +259,13 @@ public class LinkedList<E> implements List<E> {
 	 * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
 	 * @param list
 	 */
-	public  LinkedList<E> intersection( LinkedList<E> list){
+	public  LinkedList intersection( LinkedList list){
 		
-		LinkedList<E> newList = new LinkedList<>();
+		LinkedList newList = new LinkedList();
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < list.size(); j++) {
 				if(get(i).equals(list.get(j))){
-					newList.add((E)get(i));
+					newList.add(get(i));
 				}
 			}
 		}

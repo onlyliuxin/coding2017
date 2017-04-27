@@ -2,6 +2,7 @@ package com.coderising.download;
 
 import java.io.File;
 import java.io.IOException;
+
 import java.io.RandomAccessFile;
 
 import com.coderising.download.api.Connection;
@@ -19,15 +20,6 @@ public class DownloadThread extends Thread {
 		this.conn = conn;
 		this.startPos = startPos;
 		this.endPos = endPos;
-	}
-
-	public void close() {
-		this.conn.close();
-
-	}
-
-	public void notifyFinished() {
-		fileDownloader.setThreadFinished();
 	}
 
 	@Override
@@ -57,12 +49,21 @@ public class DownloadThread extends Thread {
 		}
 	}
 
+	public void setFileDownloader(FileDownloader fileDownloader) {
+		this.fileDownloader = fileDownloader;
+	}
+
+	public void notifyFinished() {
+		fileDownloader.setThreadFinished();
+	}
+
 	public void setDest(String dest) {
 		this.dest = dest;
 	}
 
-	public void setFileDownloader(FileDownloader fileDownloader) {
-		this.fileDownloader = fileDownloader;
+	public void close() {
+		this.conn.close();
+
 	}
 
 }

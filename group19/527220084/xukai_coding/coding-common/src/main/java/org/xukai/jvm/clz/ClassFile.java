@@ -81,41 +81,13 @@ public class ClassFile {
 		
 	}
 	
-	public String getClassName(){
+	private String getClassName(){
 		int thisClassIndex = this.clzIndex.getThisClassIndex();
 		ClassInfo thisClass = (ClassInfo)this.getConstantPool().getConstantInfo(thisClassIndex);
 		return thisClass.getClassName();
 	}
-	public String getSuperClassName(){
+	private String getSuperClassName(){
 		ClassInfo superClass = (ClassInfo)this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
 		return superClass.getClassName();
-	}
-
-	public Method getMethod(String methodName, String paramAndReturnType){
-
-		for(Method m :methods){
-
-			int nameIndex = m.getNameIndex();
-			int descriptionIndex = m.getDescriptorIndex();
-
-			String name = this.getConstantPool().getUTF8String(nameIndex);
-			String desc = this.getConstantPool().getUTF8String(descriptionIndex);
-			if(name.equals(methodName) && desc.equals(paramAndReturnType)){
-				return m;
-			}
-		}
-		return null;
-	}
-	public Method getMainMethod(){
-		for(Method m :methods){
-			int nameIndex = m.getNameIndex();
-			int descIndex = m.getDescriptorIndex();
-			String name = this.getConstantPool().getUTF8String(nameIndex);
-			String desc = this.getConstantPool().getUTF8String(descIndex);
-			if(name.equals("main")  && desc.equals("([Ljava/lang/String;)V")){
-				return m;
-			}
-		}
-		return null;
 	}
 }

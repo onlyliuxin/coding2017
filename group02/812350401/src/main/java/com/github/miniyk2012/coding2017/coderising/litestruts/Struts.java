@@ -1,7 +1,5 @@
 package com.github.miniyk2012.coding2017.coderising.litestruts;
 
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -27,7 +25,7 @@ public class Struts {
 	private static View view;
 	private static final Logger logger = Logger.getLogger(Struts.class.getName());
 	
-    public static View runAction(String actionName, Map<String,String> parameters) throws Exception {
+    public static View runAction(String actionName, Map<String,String> parameters) throws DocumentException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, IntrospectionException {
 
         /*
          
@@ -95,9 +93,10 @@ public class Struts {
 		return map;
 	}
 
-	private static void readXml() throws DocumentException, URISyntaxException {
-        URL url = Struts.class.getClassLoader().getResource("struts/struts.xml");
-    	File aFile = new File(url.toURI());
+	private static void readXml() throws DocumentException {
+    	String fileName = Thread.currentThread().getContextClassLoader().getResource("").getPath()
+    			+ "com/github/miniyk2012/coding2017/coderising/litestruts/struts.xml"; 
+    	File aFile = new File(fileName);
     	SAXReader xmlReader = new SAXReader();
     	doc = xmlReader.read(aFile);
     }
@@ -162,16 +161,13 @@ public class Struts {
 	}
     
     
-    public static void main(String args[]) throws Exception
+    public static void main(String args[]) throws DocumentException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, IntrospectionException
     {
-//    	Map<String,String> params = new HashMap<String,String>();
-//        params.put("name","test");
-//        params.put("password","1234");
-//    	View view = runAction("login", params);
-//    	logger.info(view.toString());
-        System.out.println(Struts.class.getResource(""));
-        System.out.println(Struts.class.getResource("/"));
-        System.out.println(Struts.class.getClassLoader().getResource(""));
+    	Map<String,String> params = new HashMap<String,String>();
+        params.put("name","test");
+        params.put("password","1234");
+    	View view = runAction("login", params);
+    	logger.info(view.toString());
     }
     
 }

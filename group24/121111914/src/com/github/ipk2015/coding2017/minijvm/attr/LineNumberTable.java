@@ -48,16 +48,6 @@ public class LineNumberTable extends AttributeInfo {
 		return lineNumberTable;
 	}
 	
-	public String toString(){
-		StringBuilder buffer = new StringBuilder();
-		buffer.append("Line Number Table:\n");
-		for(LineNumberItem item : items){
-			buffer.append("startPC:"+item.getStartPC()).append(",");
-			buffer.append("lineNum:"+item.getLineNum()).append("\n");
-		}
-		buffer.append("\n");
-		return buffer.toString();
-		
-	}
+	
 
 }

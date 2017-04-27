@@ -1,12 +1,13 @@
 package structure.week6;
 
+import static org.junit.Assert.fail;
+
 import java.util.Stack;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 public class StackUtilTest {
 
 	@Before
@@ -23,8 +24,11 @@ public class StackUtilTest {
 		s.push(1);
 		s.push(2);
 		s.push(3);
+		
 		StackUtil.addToBottom(s, 0);
+		
 		Assert.assertEquals("[0, 1, 2, 3]", s.toString());
+		
 	}
 	@Test
 	public void testReverse() {
@@ -70,4 +74,5 @@ public class StackUtilTest {
 		Assert.assertTrue(StackUtil.isValidPairs("([e{d}f])"));
 		Assert.assertFalse(StackUtil.isValidPairs("([b{x]y})"));
 	}
+
 }

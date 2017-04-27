@@ -33,7 +33,7 @@ public class InfixExpr {
 					preElement = (Float)numStack.pop();
 					i++;
 					nextElement = Float.valueOf(elements[i]);
-					numStack.push(Token.doBaseOper(preElement,nextElement,elements[i-1]));
+					numStack.push(doBaseOper(preElement,nextElement,elements[i-1]));
 				}
 			}
 		}
@@ -42,10 +42,25 @@ public class InfixExpr {
 	private float manageAddAndMinusOper(Stack numStack,Stack operStack){
 		float result = 0f;;
 		while(!operStack.isEmpty()){
-			result = Token.doBaseOper(result,(Float)numStack.pop(),(String)operStack.pop());
+			result = doBaseOper(result,(Float)numStack.pop(),(String)operStack.pop());
 		}
 		result += (Float)numStack.pop();
 		return result;
+	}
+	
+	private float doBaseOper(float preData,float nextData,String oper){
+		switch(oper){
+			case "+":
+				return preData+nextData;
+			case "-":
+				return preData-nextData;
+			case "*":
+				return preData*nextData;
+			case "/":
+				return preData/nextData;
+			default:
+				throw new RuntimeException("could not recognise oper:"+oper);
+		}
 	}
 	
 	public String[] getElementArray(String expression){

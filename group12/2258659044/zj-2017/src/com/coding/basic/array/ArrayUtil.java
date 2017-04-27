@@ -112,7 +112,7 @@ public class ArrayUtil {
 			bitmap[array2[i]]=true;		
 		}
 
-		ArrayList<Integer> ls = new ArrayList<>();
+		ArrayList ls = new ArrayList();
 		for (int i = 0; i < bitmap.length; i++) {
 			if(bitmap[i]==true){
 				ls.add(i);
@@ -149,7 +149,7 @@ public class ArrayUtil {
 		int[] array = {};
 		if(max <= 1)return array;	
 		//生成 斐波那契数列的ArrayList集合
-	    ArrayList<Integer> ls = new ArrayList<>();
+	    ArrayList ls = new ArrayList();
 	    ls.add(1);ls.add(1);	    
 		int next;int i = 1;				
 		while(true){
@@ -171,7 +171,7 @@ public class ArrayUtil {
 	 */
 	public int[] getPrimes(int max){
 
-		ArrayList<Integer> primesList = new ArrayList<>();
+		ArrayList primesList = new ArrayList();
 		boolean flag;
 		for (int i = 2; i < max; i++) {
 			flag = false;
@@ -197,7 +197,7 @@ public class ArrayUtil {
 	public int[] getPerfectNumbers(int max){
 		
 		int temp;
-		ArrayList<Integer> perfectList = new ArrayList<Integer>();
+		ArrayList perfectList = new ArrayList();
 		for (int i = 6; i <= max; i++) {
 			temp = 0;
 			for (int j = 1; j <= (i/2); j++) {
@@ -234,7 +234,7 @@ public class ArrayUtil {
 	 * @param ls
 	 * @return
 	 */
-	public int[] objList2int(ArrayList<Integer> ls){
+	public int[] objList2int(ArrayList ls){
 		
 		Object[] objArr = ls.toArray();
 		int[] array = new int[ls.size()];

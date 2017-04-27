@@ -16,15 +16,6 @@ public class ConnectionManagerImpl implements ConnectionManager {
 		this.connections = 0;
 	}
 
-	private void checkConnectionSize() {
-		if (connections > MAX_CONNECTION_SIZE)
-			try {
-				throw new NoFreeSourceException("No free connections available.");
-			} catch (NoFreeSourceException e) {
-				e.printStackTrace();
-			}
-	}
-
 	@Override
 	public Connection open(String url) throws ConnectionException {
 		this.url = url;
@@ -40,6 +31,15 @@ public class ConnectionManagerImpl implements ConnectionManager {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	private void checkConnectionSize() {
+		if (connections > MAX_CONNECTION_SIZE)
+			try {
+				throw new NoFreeSourceException("No free connections available.");
+			} catch (NoFreeSourceException e) {
+				e.printStackTrace();
+			}
 	}
 
 }

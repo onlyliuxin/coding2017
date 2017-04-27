@@ -6,6 +6,10 @@ import java.io.IOException;
 
 public class DownloadUtil {
 
+	public static long getCurrentTime() {
+		return System.currentTimeMillis();
+	}
+
 	public static void createTempFile(String tempName, int len) {
 		File file = new File(tempName);
 		if (file.exists()) {
@@ -35,10 +39,6 @@ public class DownloadUtil {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public static long getCurrentTime() {
-		return System.currentTimeMillis();
 	}
 
 }
