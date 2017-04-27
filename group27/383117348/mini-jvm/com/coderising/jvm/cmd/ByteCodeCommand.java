@@ -6,6 +6,8 @@ import java.util.Map;
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.constant.ConstantInfo;
 import com.coderising.jvm.constant.ConstantPool;
+import com.coderising.jvm.engine.ExecutionResult;
+import com.coderising.jvm.engine.StackFrame;
 
 
 public abstract class ByteCodeCommand {	
@@ -124,5 +126,5 @@ public abstract class ByteCodeCommand {
 		return txt;
 	}
 	
-	//public abstract void execute(StackFrame frame,FrameResult result);
+	public abstract void execute(StackFrame frame,ExecutionResult result);
 }

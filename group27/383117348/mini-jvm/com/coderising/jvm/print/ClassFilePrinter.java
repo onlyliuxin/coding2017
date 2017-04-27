@@ -40,7 +40,7 @@ public class ClassFilePrinter {
 	}
 	
 	public static void main(String[] args){
-		String path = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
+		String path = "E:\\MyGit\\coding2017\\group27\\383117348\\bin";
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path);
 		String className = "com.coderising.jvm.test.EmployeeV1";

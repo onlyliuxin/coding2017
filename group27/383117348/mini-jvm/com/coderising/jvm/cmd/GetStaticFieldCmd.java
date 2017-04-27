@@ -5,6 +5,8 @@ import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.constant.FieldRefInfo;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.engine.ExecutionResult;
+import com.coderising.jvm.engine.StackFrame;
 
 
 public class GetStaticFieldCmd extends TwoOperandCmd {
@@ -19,5 +21,10 @@ public class GetStaticFieldCmd extends TwoOperandCmd {
 		
 		return super.getOperandAsField(pool);
 	}
-
+	
+	@Override
+	public void execute(StackFrame frame, ExecutionResult result) {
+		
+		
+	}
 }
