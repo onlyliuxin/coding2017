@@ -6,7 +6,7 @@ import java.util.List;
 public class TokenParser {
 	
 	
-	public  List<Token> parse(String expr) {
+	public static List<Token> parse(String expr) {
 		List<Token> tokens = new ArrayList<Token>();
 
 		int i = 0;
@@ -38,7 +38,7 @@ public class TokenParser {
 		return tokens;
 	}
 
-	private  int indexOfNextOperator(int i, String expr) {
+	private static int indexOfNextOperator(int i, String expr) {
 
 		while (Character.isDigit(expr.charAt(i))) {
 			i++;
@@ -50,7 +50,7 @@ public class TokenParser {
 
 	}
 
-	private  boolean isOperator(char c) {
+	private static boolean isOperator(char c) {
 		String sc = String.valueOf(c);
 		return Token.OPERATORS.contains(sc);
 	}
