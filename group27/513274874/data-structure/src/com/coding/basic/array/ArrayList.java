@@ -1,5 +1,7 @@
 
-package com.coding.basic;
+package com.coding.basic.array;
+
+import com.coding.basic.Iterator;
 
 import java.util.Arrays;
 
@@ -78,7 +80,7 @@ public class ArrayList implements List {
     }
 
     public int size() {
-        return this.size + 1;
+        return this.size;
     }
 
     public Iterator iterator() {

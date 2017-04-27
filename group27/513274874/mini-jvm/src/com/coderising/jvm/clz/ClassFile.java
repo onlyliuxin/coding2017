@@ -1,12 +1,12 @@
 package com.coderising.jvm.clz;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.field.Field;
 import com.coderising.jvm.method.Method;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClassFile {
 	
@@ -80,13 +80,23 @@ public class ClassFile {
 		
 	}
 	
-	private String getClassName(){
+	public String getClassName(){
 		int thisClassIndex = this.clzIndex.getThisClassIndex();
 		ClassInfo thisClass = (ClassInfo)this.getConstantPool().getConstantInfo(thisClassIndex);
 		return thisClass.getClassName();
 	}
-	private String getSuperClassName(){
+	public String getSuperClassName(){
 		ClassInfo superClass = (ClassInfo)this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
 		return superClass.getClassName();
+	}
+	
+	public Method getMethod(String methodName, String paramAndReturnType){
+		
+		
+		return null;
+	}
+	public Method getMainMethod(){
+		
+		return null;
 	}
 }
