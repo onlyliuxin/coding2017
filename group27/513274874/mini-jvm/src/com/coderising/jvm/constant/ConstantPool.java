@@ -1,11 +1,11 @@
 package com.coderising.jvm.constant;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConstantPool {
 	
-	private List<ConstantInfo> constantInfos = new LinkedList<ConstantInfo>();
+	private List<ConstantInfo> constantInfos = new ArrayList<ConstantInfo>();
 	
 	
 	public ConstantPool(){
