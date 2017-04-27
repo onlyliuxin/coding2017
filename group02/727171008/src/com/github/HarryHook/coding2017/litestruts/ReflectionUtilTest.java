@@ -14,100 +14,99 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-
 public class ReflectionUtilTest {
 
-	@Before
-	public void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
+
+    @Test
+    public void testGetSetterMethod() throws Exception {
+
+	String name = "com.github.HarryHook.coding2017.litestruts.LoginAction";
+	Class<?> clz = Class.forName(name);
+	List<Method> methods = ReflectionUtil.getSetterMethods(clz);
+
+	Assert.assertEquals(2, methods.size());
+
+	List<String> expectedNames = new ArrayList<>();
+	expectedNames.add("setName");
+	expectedNames.add("setPassword");
+
+	Set<String> acctualNames = new HashSet<>();
+	for (Method m : methods) {
+
+	    acctualNames.add(m.getName());
 	}
 
-	@After
-	public void tearDown() throws Exception {
+	Assert.assertTrue(acctualNames.containsAll(expectedNames));
+    }
+
+    @Test
+    public void testSetParameters() throws Exception {
+
+	String name = "com.github.HarryHook.coding2017.litestruts.LoginAction";
+	Class<?> clz = Class.forName(name);
+	Object o = clz.newInstance();
+
+	Map<String, String> params = new HashMap<String, String>();
+	params.put("name", "test");
+	params.put("password", "1234");
+
+	ReflectionUtil.setParameters(o, params);
+
+	Field f = clz.getDeclaredField("name");
+
+	f.setAccessible(true);
+	Assert.assertEquals("test", f.get(o));
+
+	f = clz.getDeclaredField("password");
+	f.setAccessible(true);
+	Assert.assertEquals("1234", f.get(o));
+    }
+
+    @Test
+    public void testGetGetterMethod() throws Exception {
+
+	String name = "com.github.HarryHook.coding2017.litestruts.LoginAction";
+	Class<?> clz = Class.forName(name);
+	List<Method> methods = ReflectionUtil.getGetterMethods(clz);
+
+	Assert.assertEquals(3, methods.size());
+
+	List<String> expectedNames = new ArrayList<>();
+	expectedNames.add("getMessage");
+	expectedNames.add("getName");
+	expectedNames.add("getPassword");
+
+	Set<String> acctualNames = new HashSet<>();
+	for (Method m : methods) {
+
+	    acctualNames.add(m.getName());
 	}
 
-	@Test
-	public void testGetSetterMethod() throws Exception {
-		
-	    String name = "com.github.HarryHook.coding2017.litestruts.LoginAction";
-	    Class<?> clz = Class.forName(name);
-	    List<Method> methods = ReflectionUtil.getSetterMethods(clz);
-		
-	    Assert.assertEquals(2, methods.size());
-		
-	    List<String> expectedNames = new ArrayList<>();
-	    expectedNames.add("setName");
-	    expectedNames.add("setPassword");
-		
-	    Set<String> acctualNames = new HashSet<>();
-	    for(Method m : methods) {
-			
-		acctualNames.add(m.getName());
-	    }
-		
-	    Assert.assertTrue(acctualNames.containsAll(expectedNames));
-	}
-	
-	@Test
-	public void testSetParameters() throws Exception {
-		
-	    String name = "com.github.HarryHook.coding2017.litestruts.LoginAction";
-	    Class<?> clz = 	Class.forName(name);
-	    Object o = clz.newInstance();
-		
-	    Map<String, String> params = new HashMap<String, String>();
-	    params.put("name", "test");
-	    params.put("password", "1234");
-		
-	    ReflectionUtil.setParameters(o, params);
-		
-	    Field f = clz.getDeclaredField("name");
-		
-	    f.setAccessible(true);
-	    Assert.assertEquals("test", f.get(o));
-		
-	    f = clz.getDeclaredField("password");
-	    f.setAccessible(true);
-	    Assert.assertEquals("1234", f.get(o));
-	}
-	
-	@Test
-	public void testGetGetterMethod() throws Exception {
-		
-	    String name = "com.github.HarryHook.coding2017.litestruts.LoginAction";
-	    Class<?> clz = 	Class.forName(name);
-	    List<Method> methods = ReflectionUtil.getGetterMethods(clz);
-		
-	    Assert.assertEquals(3, methods.size());
-		
-	    List<String> expectedNames = new ArrayList<>();
-	    expectedNames.add("getMessage");
-	    expectedNames.add("getName");
-	    expectedNames.add("getPassword");
-		
-	    Set<String> acctualNames = new HashSet<>();
-	    for(Method m : methods) {
-			
-		acctualNames.add(m.getName());
-	    }
-		
-	    Assert.assertTrue(acctualNames.containsAll(expectedNames));
-		
-	}
-	
-	@Test
-	public void testGetParameters() throws Exception {
-		
-	    String name = "com.github.HarryHook.coding2017.litestruts.LoginAction";
-	    Class<?> clz = 	Class.forName(name);
-	    LoginAction action = (LoginAction)clz.newInstance();
-	    action.setName("test");
-	    action.setPassword("1234");
-		
-	    Map<String, Object> params = ReflectionUtil.getParameterMap(action);
-	    Assert.assertEquals(3, params.size());
-	    Assert.assertEquals(null, params.get("message"));
-	    Assert.assertEquals("test", params.get("name"));
-	    Assert.assertEquals("1234", params.get("password"));
-	}
+	Assert.assertTrue(acctualNames.containsAll(expectedNames));
+
+    }
+
+    @Test
+    public void testGetParameters() throws Exception {
+
+	String name = "com.github.HarryHook.coding2017.litestruts.LoginAction";
+	Class<?> clz = Class.forName(name);
+	LoginAction action = (LoginAction) clz.newInstance();
+	action.setName("test");
+	action.setPassword("1234");
+
+	Map<String, Object> params = ReflectionUtil.getParameterMap(action);
+	Assert.assertEquals(3, params.size());
+	Assert.assertEquals(null, params.get("message"));
+	Assert.assertEquals("test", params.get("name"));
+	Assert.assertEquals("1234", params.get("password"));
+    }
 
 }

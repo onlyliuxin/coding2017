@@ -11,7 +11,12 @@ public class FieldRefInfo extends ConstantInfo{
 	public int getType() {
 		return type;
 	}
-	
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitFieldRef(this);
+	}
+
 	public int getClassInfoIndex() {
 		return classInfoIndex;
 	}
