@@ -25,16 +25,22 @@ public class InfixExpr {
 			
 			if (token.isOperator()){
 				
-				while(!opStack.isEmpty() 
-						&& !token.hasHigherPriority(opStack.peek())){
-					Token prevOperator = opStack.pop();
-					Float f2 = numStack.pop();
-					Float f1 = numStack.pop();
-					Float result = calculate(prevOperator.toString(), f1,f2);
-					numStack.push(result);						
+				if(opStack.isEmpty()){
 					
+					opStack.push(token);
+				} else{
+					
+					while(!opStack.isEmpty() 
+							&& !token.hasHigherPriority(opStack.peek())){
+						Token prevOperator = opStack.pop();
+						Float f2 = numStack.pop();
+						Float f1 = numStack.pop();
+						Float result = calculate(prevOperator.toString(), f1,f2);
+						numStack.push(result);						
+						
+					}
+					opStack.push(token);
 				}
-				opStack.push(token);
 			} 
 			if(token.isNumber()){
 				numStack.push(new Float(token.getIntValue()));

@@ -3,15 +3,10 @@ package me.lzb.jvm;
 import me.lzb.common.utils.ByteUtils;
 import me.lzb.jvm.clz.ClassFile;
 import me.lzb.jvm.clz.ClassIndex;
-import me.lzb.jvm.cmd.BiPushCmd;
-import me.lzb.jvm.cmd.ByteCodeCommand;
-import me.lzb.jvm.cmd.OneOperandCmd;
-import me.lzb.jvm.cmd.TwoOperandCmd;
 import me.lzb.jvm.constant.*;
 import me.lzb.jvm.field.Field;
 import me.lzb.jvm.loader.ClassFileLoader;
 import me.lzb.jvm.method.Method;
-import me.lzb.jvm.print.ClassPrinter;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -25,11 +20,13 @@ public class ClassFileloaderTest {
 
 
     static String path1 = EmployeeV1.class.getResource("/").getPath();
+//    static String path1 = "D:\\code\\learning\\coding2017\\group24\\1148285693\\learning2017\\mini-jvm\\target\\test-classes\\";
     static String path2 = "C:\\temp";
 
     static String className = "me.lzb.jvm.EmployeeV1";
 
     private static final String FULL_QUALIFIED_CLASS_NAME = "me/lzb/jvm/EmployeeV1";
+//    private static final String FULL_QUALIFIED_CLASS_NAME = "com/coderising/jvm/test/EmployeeV1";
 
 
     @Before
@@ -46,8 +43,8 @@ public class ClassFileloaderTest {
 
         String s = EmployeeV1.class.getResource("/").getPath();
         String s2 = EmployeeV1.class.getResource("").getPath();
-//        System.out.println(s);
-//        System.out.println(s2);
+        System.out.println(s);
+        System.out.println(s2);
 
     }
 
@@ -269,88 +266,4 @@ public class ClassFileloaderTest {
         Assert.assertEquals(expectedCode, code);
     }
 
-    /**
-     * 第四次JVM
-     */
-
-
-    @Test
-    public void testByteCodeCommand() {
-        {
-            Method initMethod = this.clzFile.getMethod("<init>", "(Ljava/lang/String;I)V");
-            ByteCodeCommand[] cmds = initMethod.getCmds();
-
-            assertOpCodeEquals("0: aload_0", cmds[0]);
-            assertOpCodeEquals("1: invokespecial #1", cmds[1]);
-            assertOpCodeEquals("4: aload_0", cmds[2]);
-            assertOpCodeEquals("5: aload_1", cmds[3]);
-            assertOpCodeEquals("6: putfield #2", cmds[4]);
-            assertOpCodeEquals("9: aload_0", cmds[5]);
-            assertOpCodeEquals("10: iload_2", cmds[6]);
-            assertOpCodeEquals("11: putfield #3", cmds[7]);
-            assertOpCodeEquals("14: return", cmds[8]);
-        }
-
-        {
-            Method setNameMethod = this.clzFile.getMethod("setName", "(Ljava/lang/String;)V");
-            ByteCodeCommand[] cmds = setNameMethod.getCmds();
-
-            assertOpCodeEquals("0: aload_0", cmds[0]);
-            assertOpCodeEquals("1: aload_1", cmds[1]);
-            assertOpCodeEquals("2: putfield #2", cmds[2]);
-            assertOpCodeEquals("5: return", cmds[3]);
-
-        }
-
-        {
-            Method sayHelloMethod = this.clzFile.getMethod("sayHello", "()V");
-            ByteCodeCommand[] cmds = sayHelloMethod.getCmds();
-
-            assertOpCodeEquals("0: getstatic #4", cmds[0]);
-            assertOpCodeEquals("3: ldc #5", cmds[1]);
-            assertOpCodeEquals("5: invokevirtual #6", cmds[2]);
-            assertOpCodeEquals("8: return", cmds[3]);
-
-        }
-
-        {
-            Method mainMethod = this.clzFile.getMainMethod();
-
-            ByteCodeCommand[] cmds = mainMethod.getCmds();
-
-            assertOpCodeEquals("0: new #7", cmds[0]);
-            assertOpCodeEquals("3: dup", cmds[1]);
-            assertOpCodeEquals("4: ldc #8", cmds[2]);
-            assertOpCodeEquals("6: bipush 29", cmds[3]);
-            assertOpCodeEquals("8: invokespecial #9", cmds[4]);
-            assertOpCodeEquals("11: astore_1", cmds[5]);
-            assertOpCodeEquals("12: aload_1", cmds[6]);
-            assertOpCodeEquals("13: invokevirtual #10", cmds[7]);
-            assertOpCodeEquals("16: return", cmds[8]);
-        }
-
-    }
-
-    private void assertOpCodeEquals(String expected, ByteCodeCommand cmd) {
-
-        String acctual = cmd.getOffset() + ": " + cmd.getReadableCodeText();
-
-        if (cmd instanceof OneOperandCmd) {
-            if (cmd instanceof BiPushCmd) {
-                acctual += " " + ((OneOperandCmd) cmd).getOperand();
-            } else {
-                acctual += " #" + ((OneOperandCmd) cmd).getOperand();
-            }
-        }
-        if (cmd instanceof TwoOperandCmd) {
-            acctual += " #" + ((TwoOperandCmd) cmd).getIndex();
-        }
-        Assert.assertEquals(expected, acctual);
-    }
-
-    @Test
-    public void testPrint() {
-        ClassPrinter classPrinter = new ClassPrinter(clzFile);
-        classPrinter.print();
-    }
 }

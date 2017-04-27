@@ -1,6 +1,11 @@
 package com.coderising.jvm.util;
 
 public class Util {
+	public static int byteToInt(byte[] codes) {
+		String s1 = byteToHexString(codes);
+		return Integer.valueOf(s1, 16).intValue();
+	}
+
 	public static String byteToHexString(byte[] codes) {
 		StringBuffer buffer = new StringBuffer();
 		for (int i = 0; i < codes.length; i++) {
@@ -13,10 +18,5 @@ public class Util {
 			buffer.append(strHex);
 		}
 		return buffer.toString();
-	}
-
-	public static int byteToInt(byte[] codes) {
-		String s1 = byteToHexString(codes);
-		return Integer.valueOf(s1, 16).intValue();
 	}
 }

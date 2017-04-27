@@ -1,7 +1,5 @@
 package me.lzb.jvm.constant;
 
-import me.lzb.jvm.print.PrintVisitor;
-
 /**
  * Created by LZB on 2017/4/15.
  */
@@ -20,11 +18,6 @@ public class UTF8Info extends ConstantInfo {
     @Override
     public int getType() {
         return type;
-    }
-
-    @Override
-    public void print(PrintVisitor visitor) {
-        visitor.visistUTF8(this);
     }
 
     public String getValue() {

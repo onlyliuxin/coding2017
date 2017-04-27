@@ -1,7 +1,5 @@
 package com.coderising.jvm.constant;
 
-import com.coderising.jvm.print.PrintVisitor;
-
 public class UTF8Info extends ConstantInfo {
 	private int type = ConstantInfo.UTF8_INFO;
 	private int length;
@@ -15,21 +13,12 @@ public class UTF8Info extends ConstantInfo {
 		return length;
 	}
 
-	@Override
-	public int getType() {
-		return type;
-	}
-
-	public String getValue() {
-		return value;
-	}
-
 	public void setLength(int length) {
 		this.length = length;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public int getType() {
+		return type;
 	}
 
 	@Override
@@ -37,11 +26,12 @@ public class UTF8Info extends ConstantInfo {
 		return "UTF8Info [type=" + type + ", length=" + length + ", value=" + value + ")]";
 	}
 
-	@Override
-	public void accept(PrintVisitor visitor) {
-		visitor.visit(this);
-		
+	public String getValue() {
+		return value;
 	}
 
+	public void setValue(String value) {
+		this.value = value;
+	}
 
 }

@@ -4,23 +4,6 @@ import java.io.IOException;
 
 public interface Connection {
 	/**
-	 * 关闭连接
-	 */
-
-	public void close();
-
-	/**
-	 * 得到数据内容的长度
-	 * 
-	 * @return
-	 */
-	public int getContentLength();
-
-	public String getFileName();
-
-	public boolean isFinished();
-
-	/**
 	 * 给定开始和结束位置， 读取数据， 返回值是字节数组
 	 * 
 	 * @param startPos
@@ -31,5 +14,22 @@ public interface Connection {
 	 */
 	public byte[] read(int startPos, int endPos) throws IOException;
 
+	/**
+	 * 得到数据内容的长度
+	 * 
+	 * @return
+	 */
+	public int getContentLength();
+
+	/**
+	 * 关闭连接
+	 */
+
+	public void close();
+
+	public String getFileName();
+
 	public void setFinished();
+
+	public boolean isFinished();
 }

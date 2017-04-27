@@ -4,8 +4,6 @@ import com.coding.mini_jvm.src.com.coderising.jvm.clz.AccessFlag;
 import com.coding.mini_jvm.src.com.coderising.jvm.clz.ClassFile;
 import com.coding.mini_jvm.src.com.coderising.jvm.clz.ClassIndex;
 import com.coding.mini_jvm.src.com.coderising.jvm.constant.*;
-import com.coding.mini_jvm.src.com.coderising.jvm.field.Field;
-import com.coding.mini_jvm.src.com.coderising.jvm.method.Method;
 
 
 public class ClassFileParser {
@@ -20,22 +18,11 @@ public class ClassFileParser {
 		//主版本号
 		classFile.setMajorVersion(iterator.readTwoBytesToInt());
 		//解析常量池
-		ConstantPool constantPool = parseConstantPool(iterator);
-		classFile.setConstPool(constantPool);
+		classFile.setConstPool(parseConstantPool(iterator));
 		//访问限制符
 		classFile.setAccessFlag(parseAccessFlag(iterator));
 		//当前类/父类
 		classFile.setClassIndex(parseClassIndex(iterator));
-
-		//接口数量暂时不实现
-		int intefaceCount = iterator.readTwoBytesToInt();
-		if (intefaceCount > 0) {
-			throw new RuntimeException();
-		}
-		//解析字段
-		parseFields(classFile,iterator, constantPool);
-		//解析方法
-		parseMethod(classFile, iterator, constantPool);
 		return classFile;
 	}
 
@@ -112,19 +99,5 @@ public class ClassFileParser {
 		return constantPool;
 	}
 
-
-	private void parseFields(ClassFile classFile, ByteCodeIterator iterator, ConstantPool constantPool) {
-		int fieldCount = iterator.readTwoBytesToInt();
-		for (int i = 0; i < fieldCount; i++)
-			classFile.addField(Field.parse(constantPool, iterator));
-	}
-
-
-	private void parseMethod(ClassFile clzFile, ByteCodeIterator iter, ConstantPool pool) {
-		int methodCount = iter.readTwoBytesToInt();
-		for (int i = 0; i < methodCount; i++) {
-			clzFile.addMethod(Method.parse(clzFile, iter));
-		}
-	}
-
+	
 }

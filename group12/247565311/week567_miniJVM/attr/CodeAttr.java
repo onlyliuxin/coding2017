@@ -1,9 +1,12 @@
 
+
+
 package week567_miniJVM.attr;
 
 import week567_miniJVM.clz.ClassFile;
 import week567_miniJVM.constant.ConstantPool;
 import week567_miniJVM.loader.ByteCodeIterator;
+
 
 public class CodeAttr extends AttributeInfo {
 	private int maxStack ;
@@ -13,40 +16,46 @@ public class CodeAttr extends AttributeInfo {
 	public String getCode() {
 		return code;
 	}
+
+	//private ByteCodeCommand[] cmds ;
+	//public ByteCodeCommand[] getCmds() {
+	//	return cmds;
+	//}
+	private LineNumberTable lineNumTable;
+	private LocalVariableTable localVarTable;
+	private StackMapTable stackMapTable;
 	
 	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code /*ByteCodeCommand[] cmds*/) {
-		super(attrNameIndex, attrLen,AttributeInfo.CODE);
+		super(attrNameIndex, attrLen);
 		this.maxStack = maxStack;
 		this.maxLocals = maxLocals;
 		this.codeLen = codeLen;
 		this.code = code;
+		//this.cmds = cmds;
 	}
 
-	public LineNumberTable getLineNumberTable() {
-		for(int i=0;i<attrs.size();i++){
-			if(attrs.get(i).getAttrName().equals(AttributeInfo.LINE_NUM_TABLE)){
-				return (LineNumberTable)(attrs.get(i));
-			}
-		}
-        return null;
+	public void setLineNumberTable(LineNumberTable t) {
+		this.lineNumTable = t;
 	}
 
-	public LocalVariableTable getLocalVariableTable() {
-		for(int i=0;i<attrs.size();i++){
-			if(attrs.get(i).getAttrName().equals(AttributeInfo.LOCAL_VAR_TABLE)){
-				return (LocalVariableTable)(attrs.get(i));
-			}
-		}
-        return null;
+	public void setLocalVariableTable(LocalVariableTable t) {
+		this.localVarTable = t;		
 	}
-	public StackMapTable getStackMapTable() {
-		for(int i=0;i<attrs.size();i++){
-			if(attrs.get(i).getAttrName().equals(AttributeInfo.STACK_MAP_TABLE)){
-				return (StackMapTable)(attrs.get(i));
-			}
-		}
-        return null;
+	
+	public static CodeAttr parse(ClassFile clzFile, ByteCodeIterator iter){
+		
+		
+		return null;
 	}
+	private void setStackMapTable(StackMapTable t) {
+		this.stackMapTable = t;
+		
+	}
+
+	
+	
+	
+	
 }
 
 

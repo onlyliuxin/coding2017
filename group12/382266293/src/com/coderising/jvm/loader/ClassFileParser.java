@@ -1,6 +1,10 @@
 package com.coderising.jvm.loader;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Assert;
 
 import com.coderising.jvm.clz.AccessFlag;
 import com.coderising.jvm.clz.ClassFile;
@@ -15,6 +19,7 @@ import com.coderising.jvm.constant.StringInfo;
 import com.coderising.jvm.constant.UTF8Info;
 import com.coderising.jvm.field.Field;
 import com.coderising.jvm.method.Method;
+import com.coderising.jvm.util.Util;
 
 public class ClassFileParser {
 
@@ -37,6 +42,7 @@ public class ClassFileParser {
 		System.out.println("majorVersion is " + majorVersion);
 		clzFile.setMajorVersion(majorVersion);
 
+
 		ConstantPool pool = parseConstantPool(iter);
 		clzFile.setConstPool(pool);
 
@@ -54,6 +60,39 @@ public class ClassFileParser {
 		parseMethods(clzFile, iter);
 		
 		return clzFile;
+	}
+
+	private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
+		
+		int methodNum = iter.nextU2ToInt();
+
+		ConstantPool pool = clzFile.getConstantPool(); 
+		for (int i = 0; i < methodNum; i++) {
+			Method method = Method.parse(clzFile,iter);
+			clzFile.addMethod(method);
+		}
+		
+	}
+
+	private void parseFields(ClassFile clzFile, ByteCodeIterator iter) {
+		
+		int fieldNum = iter.nextU2ToInt();
+		
+		ConstantPool pool = clzFile.getConstantPool(); 
+		for (int i = 0; i < fieldNum; i++) {
+			Field field = Field.parse(pool,iter);
+			clzFile.addField(field);
+		}
+		
+	}
+
+	private void parseInterfaces(ByteCodeIterator iter) {
+		int interfaceNum = iter.nextU2ToInt();
+		
+		if (0 != interfaceNum) {
+			throw new RuntimeException("interface parser not finsihed yet, pls check!");
+		}
+		
 	}
 
 	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
@@ -97,7 +136,7 @@ public class ClassFileParser {
 				// utf8-info
 				UTF8Info utf8Info = new UTF8Info(pool);
 				int length = iter.nextU2ToInt();
-				//System.out.println("length is " + length);
+				System.out.println("length is " + length);
 				utf8Info.setLength(length);
 				byte[] bytes = iter.nextNbytesToHexString(length);
 				String value = "";
@@ -106,7 +145,7 @@ public class ClassFileParser {
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
-				//System.out.println("value is " + value);
+				System.out.println("value is " + value);
 				utf8Info.setValue(value);
 
 			} else if (tag == 8) {
@@ -147,37 +186,6 @@ public class ClassFileParser {
 		}
 
 		return pool;
-	}
-
-	private void parseFields(ClassFile clzFile, ByteCodeIterator iter) {
-		
-		int fieldNum = iter.nextU2ToInt();
-		
-		ConstantPool pool = clzFile.getConstantPool(); 
-		for (int i = 0; i < fieldNum; i++) {
-			Field field = Field.parse(pool,iter);
-			clzFile.addField(field);
-		}
-		
-	}
-
-	private void parseInterfaces(ByteCodeIterator iter) {
-		int interfaceNum = iter.nextU2ToInt();
-		
-		if (0 != interfaceNum) {
-			throw new RuntimeException("interface parser not finsihed yet, pls check!");
-		}
-		
-	}
-
-	private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
-		
-		int methodNum = iter.nextU2ToInt();
-		for (int i = 0; i < methodNum; i++) {
-			Method method = Method.parse(clzFile,iter);
-			clzFile.addMethod(method);
-		}
-		
 	}
 
 }

@@ -7,13 +7,6 @@ public class LocalVariableItem {
 	private int nameIndex;
 	private int descIndex;
 	private int index;
-	public LocalVariableItem(int startpc,int len,int nameindex,int descindex,int index){
-		startPC = startpc;
-		length = len;
-		nameIndex = nameindex;
-		descIndex = descindex;
-		this.index = index;
-	}
 	public int getStartPC() {
 		return startPC;
 	}

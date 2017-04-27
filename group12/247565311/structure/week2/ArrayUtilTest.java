@@ -8,6 +8,7 @@ public class ArrayUtilTest {
     ArrayUtil u = null;
 	@Before
 	public void setUp() throws Exception {
+		System.out.println("开始一个新的测试");
 		u = new ArrayUtil();
 	}
 

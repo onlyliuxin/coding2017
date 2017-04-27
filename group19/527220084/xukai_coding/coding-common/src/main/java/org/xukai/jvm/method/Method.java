@@ -4,7 +4,6 @@ package org.xukai.jvm.method;
 import org.xukai.jvm.attr.AttributeInfo;
 import org.xukai.jvm.attr.CodeAttr;
 import org.xukai.jvm.clz.ClassFile;
-import org.xukai.jvm.cmd.ByteCodeCommand;
 import org.xukai.jvm.constant.UTF8Info;
 import org.xukai.jvm.loader.ByteCodeIterator;
 
@@ -26,7 +25,6 @@ public class Method {
 	public int getNameIndex() {
 		return nameIndex;
 	}
-
 	public int getDescriptorIndex() {
 		return descriptorIndex;
 	}
@@ -57,10 +55,6 @@ public class Method {
 	public String getMethodDescription(){
 		return ((UTF8Info)clzFile.getConstantPool().getConstantInfo(this.descriptorIndex)).getValue();
 	}
-
-	public ByteCodeCommand[] getCmds() {
-		return this.getCodeAttr().getCmds();
-	}
 	
 	
 	
@@ -81,6 +75,13 @@ public class Method {
 		clzFile.addMethod(method);
 		return method;
 		
+	}
+
+	public static void main(String[] args) {
+		CodeAttr codeAttr = new CodeAttr(1, 1, 1, 1, 1, "");
+		System.out.println(codeAttr instanceof AttributeInfo);
+		AttributeInfo codeAttr2 = new CodeAttr(1, 1, 1, 1, 1, "");
+		System.out.println(codeAttr2 instanceof CodeAttr);
 	}
 
 
