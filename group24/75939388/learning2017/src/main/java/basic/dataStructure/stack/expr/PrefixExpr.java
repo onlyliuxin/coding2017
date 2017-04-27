@@ -1,8 +1,8 @@
 package basic.dataStructure.stack.expr;
 
-import java.util.List;
-import java.util.Stack;
-
+/**
+ * 前序表达式
+ */
 public class PrefixExpr {
 	String expr = null;
 	

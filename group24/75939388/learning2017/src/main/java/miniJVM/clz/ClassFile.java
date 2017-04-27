@@ -92,12 +92,16 @@ public class ClassFile {
 	}
 	
 	public Method getMethod(String methodName, String paramAndReturnType){
-		
-		
-		return null;
+		for(Method me : methods){
+			String meName = pool.getUTF8String(me.getNameIndex());
+			String meParamReturnType = pool.getUTF8String(me.getDescriptorIndex());
+			if (meName.equals(methodName) && meParamReturnType.equals(paramAndReturnType)){
+				return me;
+			}
+		}
+		throw new RuntimeException("methodName = " + methodName +  " and paramAndReturnType=" + paramAndReturnType + "'s method not found");
 	}
 	public Method getMainMethod(){
-		
-		return null;
+		return getMethod("main", "([Ljava/lang/String;)V");
 	}
 }

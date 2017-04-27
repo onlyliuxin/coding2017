@@ -70,6 +70,8 @@ public class Method {
 //	}
 
 	public ByteCodeCommand[] getCmds() {
-		return this.getCodeAttr().getCmds();
+		ByteCodeCommand[] cmds = this.getCodeAttr().getCmds();
+
+		return cmds;
 	}
 }

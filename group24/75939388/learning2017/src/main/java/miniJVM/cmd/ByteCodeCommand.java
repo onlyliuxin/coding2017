@@ -99,15 +99,17 @@ public abstract class ByteCodeCommand {
 
 	public String toString(){
 		StringBuffer buffer = new StringBuffer();
-		buffer.append(this.opCode);
+
+		buffer.append(this.offset).append(": ").append(getReadableCodeText());
+
 		return buffer.toString();
 	}
 	public abstract String toString(ConstantPool pool);
 	
 	public String getReadableCodeText(){
-		String txt = codeMap.get(opCode);
+		String txt = codeMap.get(opCode.toUpperCase());
 		if(txt == null){
-			return opCode;
+			return this.opCode;
 		}
 		return txt;
 	}

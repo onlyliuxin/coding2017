@@ -55,7 +55,7 @@ public class InfixExpr {
         if (numbers.size() == 2 && operators.size() == 1) {
             return calculate(numbers, (Token) operators.pop());
         } else {
-            throw new RuntimeException("最后计算出错, numbers.size=" + numbers.size() + ", operators.size=" + operators.size());
+            throw new RuntimeException("last calculation exception, numbers.size=" + numbers.size() + ", operators.size=" + operators.size());
         }
     }
 
@@ -75,7 +75,7 @@ public class InfixExpr {
         } else if (oper.equals("-")) {
             res = val1 - val2;
         } else {
-            if (val2 == 0) throw new RuntimeException("不能除以0，计算取消");
+            if (val2 == 0) throw new RuntimeException("cannot divide 0, calculation canceled");
             res = val1 / val2;
         }
 //        System.out.println("计算结果: " + val1 + oper + val2 + "=" + res);
