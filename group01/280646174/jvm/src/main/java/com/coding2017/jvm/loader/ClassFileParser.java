@@ -4,6 +4,8 @@ import com.coding2017.jvm.clz.AccessFlag;
 import com.coding2017.jvm.clz.ClassFile;
 import com.coding2017.jvm.clz.ClassIndex;
 import com.coding2017.jvm.constant.*;
+import com.coding2017.jvm.field.Field;
+import com.coding2017.jvm.method.Method;
 
 public class ClassFileParser {
 
@@ -30,7 +32,27 @@ public class ClassFileParser {
         // this class and super class
         classFile.setClassIndex(parseClassInfex(iterator));
 
+        parseInterfaces(iterator);
+
+        parseFields(classFile, iterator);
+
+        parseMethods(classFile, iterator);
+
         return classFile;
+    }
+
+    private void parseMethods(ClassFile clzFile, ByteCodeIterator iterator) {
+        int methodCount = iterator.nextU2ToInt();
+        for (int i = 0; i < methodCount; i++) {
+            clzFile.getMethods().add(Method.parse(clzFile, iterator));
+        }
+    }
+
+    private void parseFields(ClassFile clzFile, ByteCodeIterator iterator) {
+        int fieldCount = iterator.nextU2ToInt();
+        for (int i = 0; i < fieldCount; i++) {
+            clzFile.getFields().add(Field.parse(clzFile.getConstantPool(), iterator));
+        }
     }
 
     private boolean checkMagicNumber(ByteCodeIterator iterator) {
@@ -94,6 +116,18 @@ public class ClassFileParser {
         } else {
             throw new RuntimeException("not support tag " + tag);
         }
+    }
+
+    private void parseInterfaces(ByteCodeIterator iter) {
+        int interfaceCount = iter.nextU2ToInt();
+
+        System.out.println("interfaceCount:" + interfaceCount);
+
+        if (interfaceCount != 0) {
+            throw new RuntimeException("not parse interface");
+        }
+
+        // TODO : 如果实现了interface, 这里需要解析
     }
 
 }

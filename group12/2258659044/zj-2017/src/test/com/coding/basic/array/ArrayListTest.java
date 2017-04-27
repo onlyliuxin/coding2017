@@ -9,10 +9,10 @@ import com.coding.basic.array.ArrayList;
 
 public class ArrayListTest {
 
-	ArrayList ls ;
+	ArrayList<Object> ls ;
 	@Before
     public void setup() {
-        ls = new ArrayList();       
+        ls = new ArrayList<>();       
     }
 	
 	/**

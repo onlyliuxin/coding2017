@@ -4,6 +4,9 @@ import jvm.classfile.ConstantPool;
 import jvm.classfile.constant.item.Constant;
 import jvm.classfile.constant.item.IReference;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Haochen on 2017/4/9.
  * TODO:
@@ -19,6 +22,15 @@ public class ClassInfo implements Constant, IReference {
     @Override
     public int size() {
         return 3;
+    }
+
+    @Override
+    public Map<Integer, String> printableMap() {
+        Map<Integer, String> map = new HashMap<>();
+        map.put(PRINT_TYPE, "Class");
+        map.put(PRINT_PARAM, "#" + nameIndex);
+        map.put(PRINT_COMMENT, "// " + className);
+        return map;
     }
 
     @Override

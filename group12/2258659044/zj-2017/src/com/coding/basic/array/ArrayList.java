@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 import com.coding.basic.Iterator;
 import com.coding.basic.List;
 
-public class ArrayList implements List {
+public class ArrayList<E> implements List<E> {
 	
 	private int size = 0;	
 	/*扩容因子*/
@@ -15,12 +15,12 @@ public class ArrayList implements List {
 	/*扩容引用*/
 	private Object[] newElementData;
 	
-	public void add(Object o){
+	public void add(E o){
 		grow();
 		elementData[size] = o;		
 		size ++;
 	}
-	public void add(int index, Object o){
+	public void add(int index, E o){
 		
 		if(index<0||index>size){
 			throw new IndexOutOfBoundsException("Index: "+index+",Size:"+size);
@@ -36,19 +36,21 @@ public class ArrayList implements List {
 		size ++;
 	}
 	
-	public Object get(int index){
+	public E get(int index){
 		
-		if(index<0||index>size){
-			throw new IndexOutOfBoundsException("Index: "+index+",Size:"+size);
-		}
-		return elementData[index];
+		rangeCheck(index);
+		return elementData(index);
 	}
 	
-	public Object remove(int index){
+	public E remove(int index){
 		
-		Object o = elementData[index];
-		System.arraycopy(elementData, index+1, elementData, index, size-(index+1));		
-		size --;
+		rangeCheck(index);
+		E o = elementData(index);
+		int i = this.size - index - 1;
+		if (i > 0) {
+		    System.arraycopy(this.elementData, index + 1, this.elementData, index, i);
+		}
+		this.elementData[(--this.size)] = null;	
 		return o;
 	}
 	
@@ -74,6 +76,17 @@ public class ArrayList implements List {
 		}		
 	}
 	
+	private void rangeCheck(int index) {
+		
+		if (index >= this.size) {
+			throw new IndexOutOfBoundsException("Index: "+index+",Size:"+size);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	E elementData(int index) {  
+	    return (E) elementData[index];  
+	}
 	
     public Iterator iterator(){
 		

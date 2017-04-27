@@ -1,5 +1,7 @@
 package com.coderising.jvm.constant;
 
+import com.coderising.jvm.print.PrintVisitor;
+
 public abstract class ConstantInfo {
 	public static final int UTF8_INFO = 1;
 	public static final int FLOAT_INFO = 4;
@@ -19,14 +21,16 @@ public abstract class ConstantInfo {
 		pool.addConstantInfo(this);
 	}
 
-	public abstract int getType();
+	public ConstantInfo getConstantInfo(int index) {
+		return this.constantPool.getConstantInfo(index);
+	}
 
 	public ConstantPool getConstantPool() {
 		return constantPool;
 	}
 
-	public ConstantInfo getConstantInfo(int index) {
-		return this.constantPool.getConstantInfo(index);
-	}
+	public abstract int getType();
+
+	public abstract void accept(PrintVisitor visitor);
 
 }
