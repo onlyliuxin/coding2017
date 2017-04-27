@@ -1,6 +1,5 @@
 package com.coderising.download.impl;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -16,13 +15,10 @@ public class ConnectionManagerImpl implements ConnectionManager {
 		ConnectionImpl connection = null;
 		try {
 			urlObj = new URL(url);
-			connection = new ConnectionImpl();
-			connection.setConnection(urlObj.openConnection());
+			connection = new ConnectionImpl(urlObj);
 		} catch (MalformedURLException e) {
-			throw new ConnectionException("URL格式错误");
-		}catch (IOException e) {
-			throw new ConnectionException("IO异常");
-		}
+			throw new ConnectionException("URL格式错误:"+e.getMessage());
+		}	
 
 		return connection;
 	}

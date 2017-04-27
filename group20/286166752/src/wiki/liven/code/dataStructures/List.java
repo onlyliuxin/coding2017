@@ -1,7 +1,7 @@
 package wiki.liven.code.dataStructures;
 
 /**
- * Created by leven on 2017/2/26.
+ * Created by leven on 2017/2/21.
  */
 public interface List {
 
@@ -10,6 +10,5 @@ public interface List {
     public Object get(int index);
     public Object remove(int index);
     public int size();
-
 
 }

@@ -1,6 +1,9 @@
 package com.coding.basic;
 
+<<<<<<< HEAD
+=======
 import java.util.Queue;
+>>>>>>> 49a788573ab3a4bb727a69add35f35b1017028a3
 import java.util.Stack;
 
 import java.util.LinkedList;
@@ -46,19 +49,15 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
                 if(current.getLeft() != null){
                     current = current.getLeft();
                 }else {
-                    BinarySearchTreeNode<T> child = new BinarySearchTreeNode<T>(data);
-                    current.setLeft(child);
-                    child.setParent(current);
-                    return child;
+                    current.setLeft(new BinarySearchTreeNode<T>(data));
+                    return current.getLeft();
                 }
             }else {//当前节点数据大于root
                 if(current.getRight() != null){
                     current = current.getRight();
                 }else {
-                    BinarySearchTreeNode<T> child = new BinarySearchTreeNode<T>(data);
-                    current.setRight(child );
-                    child.setParent(current);
-                    return child;
+                    current.setRight(new BinarySearchTreeNode<T>(data));
+                    return current.getRight();
                 }
             }
         }
@@ -237,6 +236,10 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         }
     }
 
+<<<<<<< HEAD
+    //按层遍历，每层从左到右输出
+    /*public void  TraversalByLayer(){
+=======
     /**
      * 层次遍历
         1.先根结点入队列
@@ -352,5 +355,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 
 
 
+>>>>>>> 49a788573ab3a4bb727a69add35f35b1017028a3
 
+    }*/
+    
 }

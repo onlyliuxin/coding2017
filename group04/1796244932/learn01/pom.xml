@@ -15,6 +15,8 @@
   </properties>
 
   <dependencies>
+<<<<<<< HEAD
+=======
 
     <dependency>
       <groupId>dom4j</groupId>
@@ -31,11 +33,14 @@
     </dependency>
 
 
+>>>>>>> 49a788573ab3a4bb727a69add35f35b1017028a3
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
     </dependency>
+<<<<<<< HEAD
+=======
 
     <!-- https://mvnrepository.com/artifact/io.netty/netty -->
     <dependency>
@@ -44,6 +49,7 @@
       <version>4.0.0.Alpha8</version>
     </dependency>
 
+>>>>>>> 49a788573ab3a4bb727a69add35f35b1017028a3
   </dependencies>
 
 

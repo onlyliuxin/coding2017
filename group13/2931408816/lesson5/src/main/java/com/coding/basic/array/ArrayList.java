@@ -1,7 +1,11 @@
+<<<<<<< HEAD:liuxin/src/com/coding/basic/ArrayList.java
+package com.coding.basic;
+=======
 package com.coding.basic.array;
 
 import com.coding.basic.Iterator;
 import com.coding.basic.List;
+>>>>>>> 84029fa594e51b27e59bc19da51039304b374b03:liuxin/data-structure/src/com/coding/basic/array/ArrayList.java
 
 public class ArrayList implements List {
 	

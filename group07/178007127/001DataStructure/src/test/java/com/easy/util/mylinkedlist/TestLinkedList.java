@@ -1,5 +1,6 @@
 package com.easy.util.mylinkedlist;
 
+
 import org.junit.Assert;
 import org.junit.Test;
 import com.easy.util.mylinkedlist.LinkedList;
@@ -104,5 +105,64 @@ public class TestLinkedList {
 		Assert.assertEquals("bb", list.get(1));
 		Assert.assertEquals("[aa,bb]", list.toString());
 	}
+	
+	@Test
+	public void test_reverse(){
+		LinkedList list =new LinkedList();
+		list.add("aa");
+		list.add("bb");
+		list.add("cc");
+		list.reverse();
+		Assert.assertEquals("[cc,bb,aa]", list.toString());
+	}
+	
+	@Test
+	public void test_removeFirstHalf(){
+		LinkedList list =new LinkedList();
+		list.add("aa");
+		list.add("bb");
+		list.add("cc");
+		list.add("dd");
+		list.add("ee");
+		list.removeFirstHalf();
+		Assert.assertEquals("[cc,dd,ee]", list.toString());
+	}
+	
+	@Test
+	public void test_remove(){
+		LinkedList list =new LinkedList();
+		list.add("aa");
+		list.add("bb");
+		list.add("cc");
+		list.add("dd");
+		list.add("ee");
+		list.remove(1, 2);;
+		Assert.assertEquals("[aa,dd,ee]", list.toString());
+	}
+	
+	@Test
+	public void test_getElements(){
+		LinkedList list =new LinkedList();
+		list.add("aa");
+		list.add("bb");
+		list.add("cc");
+		list.add("dd");
+		list.add("ee");
+		
+		LinkedList list2 =new LinkedList();
+		list2.add(1);
+		list2.add(3);
+		list2.add(4);
+		
+		String[] strArr = list.getElements(list2);
+		
+		Assert.assertEquals(strArr, new String[]{"bb","dd","ee"});
+	}
+	
+	public void test_subtract(){
+		
+	}
+	
+	
 
 }

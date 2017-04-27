@@ -2,7 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+<<<<<<< HEAD
+=======
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/jdom-2.0.6.jar"/>
+>>>>>>> af825262bae1fc9054b6c5b71461d5a3213f6cf4
 	<classpathentry kind="output" path="bin"/>
 </classpath>

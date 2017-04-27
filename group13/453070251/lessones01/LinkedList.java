@@ -1,5 +1,11 @@
+<<<<<<< HEAD
+=======
 package lessones01;
 import lessones01.Node;
+<<<<<<< HEAD
+>>>>>>> 3b68226a35b37a691f64bcd4a1e219efba00a479
+public class LinkedList<T>{
+=======
 import others.Range;
 import java.util.Iterator;
 public class LinkedList<T> implements Iterable<T>{
@@ -18,6 +24,7 @@ public class LinkedList<T> implements Iterable<T>{
 			return node.value;
 		}
 	}
+>>>>>>> 84029fa594e51b27e59bc19da51039304b374b03
 	public static void main(String[] args){
 		LinkedList<String> arr = new LinkedList<String>();
 		arr.add("0");

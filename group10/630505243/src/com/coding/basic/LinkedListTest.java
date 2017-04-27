@@ -94,10 +94,7 @@ public class LinkedListTest {
 
 	@Test
 	public void testIterator() {
-		Iterator i = lkLst.iterator();
-		while(i.hasNext()){
-			System.out.println(i.next());
-		}
+		fail("Not yet implemented");
 	}
 
 }
