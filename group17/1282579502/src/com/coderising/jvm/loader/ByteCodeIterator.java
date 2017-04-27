@@ -73,6 +73,18 @@ public class ByteCodeIterator {
 		return Util.byteToInt(barray);
 	}
 	
+	public int nextU2ToInt(){
+		return this.getNextNBytesInteger(2);
+	}
+	
+	public int nextU4ToInt(){
+		return getNextNBytesInteger(4);
+	}
+	
+	public String nextUxToHexString(int n){
+		return getNextNHexString(n);
+	}
+	
 	
 	public static void printByteInNumber(byte b){
 		int tmp = b;
