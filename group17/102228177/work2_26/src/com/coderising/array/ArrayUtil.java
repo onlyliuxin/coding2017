@@ -34,7 +34,7 @@ public class ArrayUtil {
 //		System.out.println(Arrays.toString(util.merge(a1, a2)));
 		System.out.println(Arrays.toString(util.fibonacci(15)));
 		
-		System.out.println(Arrays.toString(util.getPrimes(23)));
+//		System.out.println(Arrays.toString(util.getPrimes(23)));
 	}
 	
 	/**
@@ -115,14 +115,15 @@ public class ArrayUtil {
 	 */
 	public int[] fibonacci(int max){
 		List<Integer> list = new ArrayList<Integer>();
-		int f1 = 1, f2 = 1, f = 0;
-		list.add(f1);
-		list.add(f2);
-		while(f < max){
-			f = f1+f2;
-			f1 = f2;
-			f2 = f;
-			list.add(f);
+		if (max <= 1) {
+	        return new int[]{};
+        }
+		int lo = 0;
+		int hi = 1;
+		while(hi<max){
+			list.add(hi);
+			hi = lo + hi;
+			lo = hi - lo;
 		}
 		int[] arr = new int[list.size()];
 		for (int i = 0; i < list.size(); i++) {
