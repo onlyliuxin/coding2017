@@ -1,4 +1,4 @@
-package com.coderising.jvm.loader;
+package com.coderising.jvm.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -7,8 +7,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class ClassFileLoaderUtil {
-
+public class Util {
+	
+	public static int byteToInt(byte[] codes){
+    	String s1 = byteToHexString(codes);
+    	return Integer.valueOf(s1, 16).intValue();
+    }
+       
+	public static String byteToHexString(byte[] codes ){
+		StringBuffer buffer = new StringBuffer();
+		for(int i=0;i<codes.length;i++){
+			byte b = codes[i];
+			int value = b & 0xFF;
+			String strHex = Integer.toHexString(value);
+			if(strHex.length()< 2){
+				strHex = "0" + strHex;
+			}		
+			buffer.append(strHex);
+		}
+		return buffer.toString();
+	}
+	
 	/**
 	 * 根据类完整包名与classPath获取类class文件
 	 * @return
@@ -68,4 +87,5 @@ public class ClassFileLoaderUtil {
 		}
 		return data;
 	}
+	
 }
