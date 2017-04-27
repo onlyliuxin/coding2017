@@ -13,7 +13,7 @@ import org.junit.Test;
 public class StrutsTest {
 
 	@Test
-	public void testLoginActionSuccess() throws DocumentException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, IntrospectionException {
+	public void testLoginActionSuccess() throws Exception {
 		
 		String actionName = "login";
         
@@ -29,7 +29,7 @@ public class StrutsTest {
 	}
 
 	@Test
-	public void testLoginActionFailed() throws DocumentException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, IntrospectionException {
+	public void testLoginActionFailed() throws Exception {
 		String actionName = "login";
 		Map<String,String> params = new HashMap<String,String>();
         params.put("name","test");
@@ -42,7 +42,7 @@ public class StrutsTest {
 	}
 	
 	@Test
-	public void testLogoutActionSuccess() throws DocumentException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, IntrospectionException {
+	public void testLogoutActionSuccess() throws Exception {
 		
 		String actionName = "logout";
         
@@ -58,7 +58,7 @@ public class StrutsTest {
 	}
 	
 	@Test
-	public void testLogoutActionFailed() throws DocumentException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, IntrospectionException {
+	public void testLogoutActionFailed() throws Exception {
 		String actionName = "logout";
 		Map<String,String> params = new HashMap<String,String>();
         params.put("name","test");

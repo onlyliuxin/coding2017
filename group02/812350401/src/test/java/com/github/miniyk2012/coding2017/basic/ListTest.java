@@ -14,6 +14,7 @@ public class ListTest {
 	
 	@Test
 	public void testFunctional() {
+		if (getClass() == ListTest.class) return;
 		aList.add(1);
 		aList.add(2);
 		assertEquals(1, aList.get(0));
@@ -38,6 +39,7 @@ public class ListTest {
 	
 	@Test
 	public void testAdd() {
+		if (getClass() == ListTest.class) return;
 		for (int i=0; i<100; i++)
 			aList.add(i);
 		assertEquals(0, aList.get(0));
@@ -47,6 +49,7 @@ public class ListTest {
 	
 	@Test
 	public void testRemove() {
+		if (getClass() == ListTest.class) return;
 		aList.add(1);
 		aList.add(2);
 		aList.add(3);
@@ -70,6 +73,7 @@ public class ListTest {
 	
 	@Test
 	public void testSize() {
+		if (getClass() == ListTest.class) return;
 		for (int i=0; i<10; i++)
 			aList.add(i*2);
 		assertEquals(10, aList.size());
@@ -80,6 +84,7 @@ public class ListTest {
 	
 	@Test
 	public void testException() {
+		if (getClass() == ListTest.class) return;
 		expectedEx.expect(Exception.class);
 		
 		aList.remove(1);
@@ -89,6 +94,7 @@ public class ListTest {
 	
 	@Test
 	public void testIterator() {
+		if (getClass() == ListTest.class) return;
 		Iterator it = aList.iterator();
 		assertEquals(false, it.hasNext());
 		

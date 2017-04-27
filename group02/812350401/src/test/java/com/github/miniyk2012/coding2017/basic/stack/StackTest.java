@@ -1,11 +1,9 @@
-package com.github.miniyk2012.coding2017.basic;
+package com.github.miniyk2012.coding2017.basic.stack;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import com.github.miniyk2012.coding2017.basic.Stack;
 
 public class StackTest {
 
