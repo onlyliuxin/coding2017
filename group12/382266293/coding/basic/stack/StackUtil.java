@@ -1,7 +1,5 @@
 package stack;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Objects;
 import java.util.Stack;
 
@@ -10,22 +8,24 @@ public class StackUtil {
 	/**
 	 * 假设栈中的元素是Integer, 从栈顶到栈底是 : 5,4,3,2,1 调用该方法后， 元素次序变为: 1,2,3,4,5
 	 * 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
+	 * @param <E>
 	 */
-	public static void reverse(Stack<Integer> stack) {
+	public static <E> void reverse(Stack<E> stack) {
 		if (stack.isEmpty()) {
 			return;
 		}
-		int i = getAndRemoveLastElement(stack);
+		E i = getAndRemoveLastElement(stack);
 		reverse(stack);
 		stack.push(i);
 	}
 
-	public static int getAndRemoveLastElement(Stack<Integer> stack) {
-		int result = stack.pop();
+
+	public static <E> E getAndRemoveLastElement(Stack<E> stack) {
+		E result = stack.pop();
 		if (stack.isEmpty()) {
 			return result;
 		} else {
-			int last = getAndRemoveLastElement(stack);
+			E last = getAndRemoveLastElement(stack);
 			stack.push(result);
 			return last;
 		}

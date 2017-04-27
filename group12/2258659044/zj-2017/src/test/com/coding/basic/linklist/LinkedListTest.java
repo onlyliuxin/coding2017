@@ -9,10 +9,10 @@ import com.coding.basic.linklist.LinkedList;
 
 public class LinkedListTest {
 
-	LinkedList ls ;
+	LinkedList<Object> ls ;
 	@Before
     public void setup() {
-        ls = new LinkedList();       
+        ls = new LinkedList<>();       
     }
 	
 	/**
@@ -169,7 +169,7 @@ public class LinkedListTest {
 		ls.add(201);ls.add(301);
 		ls.add(401);ls.add(501);
 		ls.add(601);ls.add(701);
-		LinkedList list = new LinkedList();
+		LinkedList<Integer> list = new LinkedList<>();
 		list.add(1);list.add(3);
 		list.add(4);list.add(6);
 		int[] exceptArr = {101,301,401,601};
@@ -189,7 +189,7 @@ public class LinkedListTest {
 		ls.add(8);
 		ls.add(10);
 		
-		LinkedList list = new LinkedList();
+		LinkedList<Object> list = new LinkedList<>();
 		list.add(2);
 		list.add(5);
 		
@@ -236,19 +236,19 @@ public class LinkedListTest {
 		ls.add(3);
 		ls.add(5);
 		
-		LinkedList list = new LinkedList();
+		LinkedList<Object> list = new LinkedList<>();
 		list.add(-1);
 		list.add(0);
 		list.add(5);
 		list.add(9);
 		
-		LinkedList newList = ls.intersection(list);
+		LinkedList<Object> newList = ls.intersection(list);
 		
 		int[] exceptArr = {-1,0,5};
 		exceptResult(newList,exceptArr);
 	}
 	
-    private void exceptResult(LinkedList ls,int[] exceptArr){
+    private void exceptResult(LinkedList<Object> ls,int[] exceptArr){
 		
 		Assert.assertEquals(ls.size(), exceptArr.length);
 		for (int i = 0; i < exceptArr.length; i++) {
