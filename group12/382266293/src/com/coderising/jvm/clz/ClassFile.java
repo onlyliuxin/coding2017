@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantPool;
+import com.coderising.jvm.constant.UTF8Info;
 import com.coderising.jvm.field.Field;
 import com.coderising.jvm.method.Method;
 
@@ -19,45 +20,57 @@ public class ClassFile {
 	private List<Field> fields = new ArrayList<Field>();
 	private List<Method> methods = new ArrayList<Method>();
 
-	public ClassIndex getClzIndex() {
-		return clzIndex;
+	public void addField(Field field) {
+		
+		this.fields.add(field);
+		
+	}
+
+	public void addMethod(Method method) {
+		
+		this.methods.add(method);
+		
 	}
 
 	public AccessFlag getAccessFlag() {
 		return accessFlag;
 	}
 
-	public void setAccessFlag(AccessFlag accessFlag) {
-		this.accessFlag = accessFlag;
+	public String getClassName() {
+		int thisClassIndex = this.clzIndex.getThisClassIndex();
+		ClassInfo thisClass = (ClassInfo) this.getConstantPool().getConstantInfo(thisClassIndex);
+		return thisClass.getClassName();
+	}
+
+	public ClassIndex getClzIndex() {
+		return clzIndex;
 	}
 
 	public ConstantPool getConstantPool() {
 		return pool;
 	}
 
-	public int getMinorVersion() {
-		return minorVersion;
-	}
+	public List<Field> getFields() {
 
-	public void setMinorVersion(int minorVersion) {
-		this.minorVersion = minorVersion;
+		return fields;
 	}
 
 	public int getMajorVersion() {
 		return majorVersion;
 	}
 
-	public void setMajorVersion(int majorVersion) {
-		this.majorVersion = majorVersion;
+	public List<Method> getMethods() {
+
+		return methods;
 	}
 
-	public void setConstPool(ConstantPool pool) {
-		this.pool = pool;
-
+	public int getMinorVersion() {
+		return minorVersion;
 	}
 
-	public void setClassIndex(ClassIndex clzIndex) {
-		this.clzIndex = clzIndex;
+	public String getSuperClassName() {
+		ClassInfo superClass = (ClassInfo) this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
+		return superClass.getClassName();
 	}
 
 	public void print() {
@@ -71,20 +84,17 @@ public class ClassFile {
 
 	}
 
-	private String getClassName() {
-		int thisClassIndex = this.clzIndex.getThisClassIndex();
-		ClassInfo thisClass = (ClassInfo) this.getConstantPool().getConstantInfo(thisClassIndex);
-		return thisClass.getClassName();
+	public void setAccessFlag(AccessFlag accessFlag) {
+		this.accessFlag = accessFlag;
 	}
 
-	private String getSuperClassName() {
-		ClassInfo superClass = (ClassInfo) this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
-		return superClass.getClassName();
+	public void setClassIndex(ClassIndex clzIndex) {
+		this.clzIndex = clzIndex;
 	}
+	
+	public void setConstPool(ConstantPool pool) {
+		this.pool = pool;
 
-	public List<Field> getFields() {
-
-		return fields;
 	}
 	
 	public void setFields(List<Field> fields) {
@@ -92,16 +102,9 @@ public class ClassFile {
 		this.fields = fields;
 		
 	}
-	
-	public void addField(Field field) {
-		
-		this.fields.add(field);
-		
-	}
 
-	public List<Method> getMethods() {
-
-		return methods;
+	public void setMajorVersion(int majorVersion) {
+		this.majorVersion = majorVersion;
 	}
 	
 	public void setMethods(List<Method> methods) {
@@ -110,9 +113,40 @@ public class ClassFile {
 		
 	}
 	
-	public void addMethod(Method method) {
+	public void setMinorVersion(int minorVersion) {
+		this.minorVersion = minorVersion;
+	}
+	
+	
+	public Method getMethod(String methodName, String paramAndReturnType){
+
 		
-		this.methods.add(method);
+		for (Method m : methods) {
+			
+			int nameIndex = m.getNameIndex();
+			int descriptorIndex= m.getDescriptorIndex();
+			String name = ((UTF8Info)pool.getConstantInfo(nameIndex)).getValue();
+			String desc = ((UTF8Info)pool.getConstantInfo(descriptorIndex)).getValue();
+			if (name.equals(methodName) && desc.equals(paramAndReturnType)) {
+				return m;
+			}		
+		}
 		
+		return null;
+	}
+	public Method getMainMethod(){
+		
+		for (Method m : methods) {
+			
+			int nameIndex = m.getNameIndex();
+			int descriptorIndex= m.getDescriptorIndex();
+			String name = ((UTF8Info)pool.getConstantInfo(nameIndex)).getValue();
+			String desc = ((UTF8Info)pool.getConstantInfo(descriptorIndex)).getValue();
+			if (name.equals("main") && desc.equals("([Ljava/lang/String;)V")) {
+				return m;
+			}		
+		}
+		
+		return null;
 	}
 }

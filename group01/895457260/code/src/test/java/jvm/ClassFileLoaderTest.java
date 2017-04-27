@@ -8,6 +8,10 @@ import jvm.classfile.constant.item.impl.ClassInfo;
 import jvm.classfile.constant.item.impl.MethodRefInfo;
 import jvm.classfile.constant.item.impl.NameAndTypeInfo;
 import jvm.classfile.constant.item.impl.UTF8Info;
+import jvm.command.item.impl.BiPushCmd;
+import jvm.command.item.ByteCodeCommand;
+import jvm.command.item.OneOperandCmd;
+import jvm.command.item.TwoOperandCmd;
 import jvm.exception.ReadClassException;
 import jvm.classfile.field.Field;
 import jvm.classfile.method.Method;
@@ -63,23 +67,6 @@ public class ClassFileLoaderTest {
 		boolean check = loader.checkMagicNumber(codes);
 		Assert.assertTrue(check);
 	}
-
-	private String byteToHexString(byte[] codes) {
-		StringBuilder buffer = new StringBuilder();
-		for (byte b : codes) {
-			int value = b & 0xFF;
-			String strHex = Integer.toHexString(value);
-			if (strHex.length() < 2) {
-				strHex = "0" + strHex;
-			}
-			buffer.append(strHex);
-		}
-		return buffer.toString();
-	}
-
-
-
-
 
 	@Test
 	public void testVersion() {
@@ -194,7 +181,7 @@ public class ClassFileLoaderTest {
 			assertMethodEquals(pool,m,
 					"<init>",
 					"(Ljava/lang/String;I)V",
-					"2ab7012a2bb5022a1cb503b1");
+					"2ab700012a2bb500022a1cb50003b1");
 
 		}
 		{
@@ -202,7 +189,7 @@ public class ClassFileLoaderTest {
 			assertMethodEquals(pool,m,
 					"setName",
 					"(Ljava/lang/String;)V",
-					"2a2bb502b1");
+					"2a2bb50002b1");
 
 		}
 		{
@@ -210,14 +197,14 @@ public class ClassFileLoaderTest {
 			assertMethodEquals(pool,m,
 					"setAge",
 					"(I)V",
-					"2a1bb503b1");
+					"2a1bb50003b1");
 		}
 		{
 			Method m = methods.get(3);
 			assertMethodEquals(pool,m,
 					"sayHello",
 					"()V",
-					"b204125b606b1");
+					"b200041205b60006b1");
 
 		}
 		{
@@ -225,7 +212,7 @@ public class ClassFileLoaderTest {
 			assertMethodEquals(pool,m,
 					"main",
 					"([Ljava/lang/String;)V",
-					"bb0759128101db7094c2bb60ab1");
+					"bb0007591208101db700094c2bb6000ab1");
 		}
 	}
 
@@ -237,5 +224,81 @@ public class ClassFileLoaderTest {
 		Assert.assertEquals(expectedName, methodName);
 		Assert.assertEquals(expectedDesc, methodDesc);
 		Assert.assertEquals(expectedCode, code);
+	}
+	@Test
+	public void testByteCodeCommand(){
+		{
+			Method initMethod = clzFile.getMethod("<init>",
+					"(Ljava/lang/String;I)V");
+			ByteCodeCommand [] cmds = initMethod.getCommands();
+
+			assertOpCodeEquals("0: aload_0", cmds[0]);
+			assertOpCodeEquals("1: invokespecial #1", cmds[1]);
+			assertOpCodeEquals("4: aload_0", cmds[2]);
+			assertOpCodeEquals("5: aload_1", cmds[3]);
+			assertOpCodeEquals("6: putfield #2", cmds[4]);
+			assertOpCodeEquals("9: aload_0", cmds[5]);
+			assertOpCodeEquals("10: iload_2", cmds[6]);
+			assertOpCodeEquals("11: putfield #3", cmds[7]);
+			assertOpCodeEquals("14: return", cmds[8]);
+		}
+
+		{
+			Method setNameMethod = clzFile.getMethod("setName",
+					"(Ljava/lang/String;)V");
+			ByteCodeCommand [] cmds = setNameMethod.getCommands();
+
+			assertOpCodeEquals("0: aload_0", cmds[0]);
+			assertOpCodeEquals("1: aload_1", cmds[1]);
+			assertOpCodeEquals("2: putfield #2", cmds[2]);
+			assertOpCodeEquals("5: return", cmds[3]);
+
+		}
+
+		{
+			Method sayHelloMethod = clzFile.getMethod("sayHello",
+					"()V");
+			ByteCodeCommand [] cmds = sayHelloMethod.getCommands();
+
+			assertOpCodeEquals("0: getstatic #4", cmds[0]);
+			assertOpCodeEquals("3: ldc #5", cmds[1]);
+			assertOpCodeEquals("5: invokevirtual #6", cmds[2]);
+			assertOpCodeEquals("8: return", cmds[3]);
+
+		}
+
+		{
+			Method mainMethod = clzFile.getMainMethod();
+
+			ByteCodeCommand [] cmds = mainMethod.getCommands();
+
+			assertOpCodeEquals("0: new #7", cmds[0]);
+			assertOpCodeEquals("3: dup", cmds[1]);
+			assertOpCodeEquals("4: ldc #8", cmds[2]);
+			assertOpCodeEquals("6: bipush 29", cmds[3]);
+			assertOpCodeEquals("8: invokespecial #9", cmds[4]);
+			assertOpCodeEquals("11: astore_1", cmds[5]);
+			assertOpCodeEquals("12: aload_1", cmds[6]);
+			assertOpCodeEquals("13: invokevirtual #10", cmds[7]);
+			assertOpCodeEquals("16: return", cmds[8]);
+		}
+
+	}
+
+	private void assertOpCodeEquals(String expected, ByteCodeCommand cmd){
+
+		String acctual = cmd.getOffset()+": "+cmd.getReadableCodeText();
+
+		if(cmd instanceof OneOperandCmd){
+			if(cmd instanceof BiPushCmd){
+				acctual += " " + ((OneOperandCmd)cmd).getOperand();
+			} else{
+				acctual += " #" + ((OneOperandCmd)cmd).getOperand();
+			}
+		}
+		if(cmd instanceof TwoOperandCmd){
+			acctual += " #" + ((TwoOperandCmd)cmd).getIndex();
+		}
+		Assert.assertEquals(expected, acctual);
 	}
 }
