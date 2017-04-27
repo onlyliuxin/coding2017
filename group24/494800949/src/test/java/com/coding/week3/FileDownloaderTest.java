@@ -1,15 +1,16 @@
 package com.coding.week3;
 
-import com.coding.week3.download.FileDownloader;
-import com.coding.week3.download.api.ConnectionManager;
-import com.coding.week3.download.api.DownloadListener;
-import com.coding.week3.download.impl.ConnectionManagerImpl;
+import com.coding.week3.download1.api.ConnectionManager;
+import com.coding.week3.download1.api.DownloadListener;
+import com.coding.week3.download1.impl.ConnectionManagerImpl;
+import com.coding.week3.download1.FileDownloader;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 
 
 public class FileDownloaderTest {
@@ -27,10 +28,12 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() throws IOException {
 
-//		String url =  "http://101.95.48.97:8005/res/upload/interface/apptutorials/manualstypeico/6f83ce8f-0da5-49b3-bac8-fd5fc67d2725.png";
+		String url =  "http://101.95.48.97:8005/res/upload/interface/apptutorials/manualstypeico/6f83ce8f-0da5-49b3-bac8-fd5fc67d2725.png";
 //		String url =  "http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-arm32-vfp-hflt.tar.gz";
 //		String url =  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1490808670106&di=48aa6fb7af641f0cb6f9e19120b60c7c&imgtype=0&src=http%3A%2F%2Fwww.ntjoy.com%2Fliv_loadfile%2Fhealth%2Fdzcs%2Fnvr%2Ffold1%2F1360480639_97304600.jpg";
-		String url =  "https://download.jetbrains.com/idea/ideaIU-2017.1.exe";
+//		String url =  "https://download.jetbrains.com/idea/ideaIU-2017.1.exe";
+//		String url =  "https://nodejs.org/dist/v6.10.1/node-v6.10.1-win-x64.zip";
+//		String url =  "http://download.oracle.com/otn-pub/java/jdk/8u121-b13-demos/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-windows-x64-demos.zip";
 		String path = new File("").getAbsolutePath();
 		String filename = url.substring(url.lastIndexOf("/"), url.length());
 		 filename = path +File.separator + filename;
@@ -49,17 +52,17 @@ public class FileDownloaderTest {
 		
 		downloader.execute();
 		
-		// 等待多线程下载程序执行完毕
-		while (!downloadFinished) {
-			try {
-				System.out.println("还没有下载完成，休眠五秒");
-				//休眠5秒
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {				
-				e.printStackTrace();
-			}
-		}
-		System.out.println("下载完成！");
+//		// 等待多线程下载程序执行完毕
+//		while (!downloadFinished) {
+//			try {
+//				System.out.println("还没有下载完成，休眠五秒");
+//				//休眠5秒
+//				Thread.sleep(5000);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		System.out.println("下载完成！");
 		
 		
 

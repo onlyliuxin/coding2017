@@ -45,7 +45,7 @@ public class DownloadUtil {
 	}
 
 	public static int calculateConnects(int length) {
-		int conns = length / 1024 / 1024 / 25;
+		int conns = length / 1024 / 1024 / 10;
 		if (conns < MIN_CONNECTIONS) {
 			return MIN_CONNECTIONS;
 		} else if (conns > MAX_CONNECTIONS) {
@@ -66,8 +66,8 @@ public class DownloadUtil {
 
 	public static void printDownloadReport(int length, long start, long end) {
 		int time = (int) ((end - start) / 1000);
-		float speed = (float)length / 1024 / 1024 / time;
-		System.out.println("共耗时：" + time + "s，下载速度： " + (float)(Math.round(speed*100))/100 + "Mb/s");
+		float speed = (float) length / 1024 / 1024 / time;
+		System.out.println("共耗时：" + time + "s，下载速度： " + (float) (Math.round(speed * 100)) / 100 + "Mb/s");
 	}
 
 }
