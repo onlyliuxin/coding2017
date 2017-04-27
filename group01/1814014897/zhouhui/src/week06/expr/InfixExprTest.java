@@ -1,4 +1,4 @@
-package algorithm;
+package week06.expr;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -17,7 +17,7 @@ public class InfixExprTest {
 	}
 
 	@Test
-	public void testEvaluate() throws InfixExpr.CalculateException {
+	public void testEvaluate() {
 		//InfixExpr expr = new InfixExpr("300*20+12*5-20/4");
 		{
 			InfixExpr expr = new InfixExpr("2+3*4+5");

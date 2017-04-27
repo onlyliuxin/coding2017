@@ -35,4 +35,12 @@ public class ByteCodeIterator {
         }
         return bytes;
     }
+
+    public int nextU4ToInt() {
+        return ByteUtil.bytesToInt(nextByteN(4));
+    }
+
+    public String nextUxToHexString(int len) {
+        return ByteUtil.byteToHexString(nextByteN(len));
+    }
 }
