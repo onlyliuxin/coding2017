@@ -1,5 +1,6 @@
 package com.coding.basic;
 
+import com.coding.basic.array.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;

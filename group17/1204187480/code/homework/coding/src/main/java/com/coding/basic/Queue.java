@@ -1,6 +1,6 @@
 package com.coding.basic;
 
-import java.util.Arrays;
+import com.coding.basic.linklist.LinkedList;
 
 public class Queue {
 
