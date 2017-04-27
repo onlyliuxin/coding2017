@@ -9,18 +9,43 @@ public class FileDownloader {
 
 	private final static String EXT = "lyj";
 	private static DownloadThread[] threadPool;
+	private static String fileName;
+	private static String tempName;
+
 	private int finishedCount;
 	public String downloadLocation;
-
 	String url;
 	ConnectionManager cm;
 	DownloadListener listener;
-	private static String fileName;
-	private static String tempName;
 
 	public FileDownloader(String _url) {
 		this.url = _url;
 		this.finishedCount = 0;
+	}
+
+	private boolean checkFinish(int links) {
+
+		while (finishedCount != links) {
+			try {
+				Thread.sleep(5000);
+				System.out.println("Unfinshed threads number: " + (links - finishedCount));
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		return true;
+	}
+
+	private void checkLength(int length, Connection conn) {
+		if (length <= 0) {
+			try {
+				throw new ConnectionException("file does not exist");
+			} catch (ConnectionException e) {
+				e.printStackTrace();
+			} finally {
+				conn.close();
+			}
+		}
 	}
 
 	public void execute() {
@@ -45,7 +70,6 @@ public class FileDownloader {
 			Connection conn = cm.open(this.url);
 			int length = conn.getContentLength();
 
-
 			System.out.println("file length:" + length);
 			setLocation("C:\\");
 
@@ -53,7 +77,7 @@ public class FileDownloader {
 			setFileName(name);
 			setTempName(name);
 			checkLength(length, conn);
-			
+
 			DownloadUtil.createTempFile(tempName, length);
 
 			int connNumbers = DownloadUtil.calculateConnects(length);
@@ -74,44 +98,6 @@ public class FileDownloader {
 		} finally {
 			freeDownloadThread();
 		}
-	}
-
-	private void checkLength(int length, Connection conn) {
-		if (length <= 0) {
-			try {
-				throw new ConnectionException("file does not exist");
-			} catch (ConnectionException e) {
-				e.printStackTrace();
-			} finally {
-				conn.close();
-			}
-		}
-	}
-
-	private void setTempName(String name) {
-		String temp = name.substring(0, name.lastIndexOf(".") + 1) + EXT;
-		FileDownloader.tempName = downloadLocation + temp;
-	}
-
-	private void setFileName(String name) {
-		FileDownloader.fileName = downloadLocation + name;
-	}
-
-	private void setLocation(String downloadLocation) {
-		this.downloadLocation = downloadLocation;
-	}
-
-	private boolean checkFinish(int links) {
-
-		while (finishedCount != links) {
-			try {
-				Thread.sleep(5000);
-				System.out.println("Unfinshed threads number: " + (links - finishedCount));
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		return true;
 	}
 
 	private void freeDownloadThread() {
@@ -135,6 +121,12 @@ public class FileDownloader {
 		return this.listener;
 	}
 
+	private void setAndStartThread(DownloadThread downloadThread, String dest) {
+		downloadThread.setDest(dest);
+		downloadThread.setFileDownloader(this);
+		downloadThread.start();
+	}
+
 	private void setAndStartThreadPool(Connection conn, DownloadThread[] threadPool, int length)
 			throws ConnectionException {
 		int connectionNumbers = threadPool.length;
@@ -153,27 +145,33 @@ public class FileDownloader {
 			}
 			threadPool[i] = new DownloadThread(con, beginPos, endPos);
 			setAndStartThread(threadPool[i], tempName);
-			
 
 		}
-	}
-
-	private void setAndStartThread(DownloadThread downloadThread, String dest) {
-		downloadThread.setDest(dest);
-		downloadThread.setFileDownloader(this);
-		downloadThread.start();
 	}
 
 	public void setConnectionManager(ConnectionManager ucm) {
 		this.cm = ucm;
 	}
 
-	public void setThreadFinished() {
-		finishedCount++;
+	private void setFileName(String name) {
+		FileDownloader.fileName = downloadLocation + name;
 	}
 
 	public void setListener(DownloadListener listener) {
 		this.listener = listener;
+	}
+
+	private void setLocation(String downloadLocation) {
+		this.downloadLocation = downloadLocation;
+	}
+
+	private void setTempName(String name) {
+		String temp = name.substring(0, name.lastIndexOf(".") + 1) + EXT;
+		FileDownloader.tempName = downloadLocation + temp;
+	}
+
+	public void setThreadFinished() {
+		finishedCount++;
 	}
 
 }
