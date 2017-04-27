@@ -23,7 +23,7 @@ public class FileDownloaderTest {
 		
 		String url = "http://localhost:8080/test.jpg";
 		
-		FileDownloader downloader = new FileDownloader(url);
+		FileDownloader downloader = new FileDownloader(url, "c:");
 
 	
 		ConnectionManager cm = new ConnectionManagerImpl();
