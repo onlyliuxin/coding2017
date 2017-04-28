@@ -1,4 +1,4 @@
-package com.coderising.array;
+package com.coding.basic.array;
 
 import org.junit.Assert;
 import org.junit.Test;

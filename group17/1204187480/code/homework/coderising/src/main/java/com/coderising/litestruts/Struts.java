@@ -4,9 +4,8 @@ import com.coderising.litestruts.parser.ActionConfig;
 import com.coderising.litestruts.parser.DefaultStrutsParser;
 import com.coderising.litestruts.parser.StrutsConfig;
 import com.coderising.litestruts.parser.StrutsParser;
-import com.coderising.litestruts.util.BeanUtils;
+import com.coding.common.util.BeanUtils;
 
-import java.util.HashMap;
 import java.util.Map;
 
 

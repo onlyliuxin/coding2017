@@ -1,4 +1,4 @@
-package com.coderising.litestruts.util;
+package com.coding.common.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

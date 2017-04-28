@@ -1,4 +1,4 @@
-package com.coderising.litestruts.util;
+package com.coding.common.util;
 
 /**
  * Created by luoziyihao on 3/5/17.
