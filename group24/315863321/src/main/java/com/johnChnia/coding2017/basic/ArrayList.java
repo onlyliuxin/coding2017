@@ -4,23 +4,33 @@ import java.util.Arrays;
 
 /**
  * Created by john on 2017/3/8.
- * @// TODO: 2017/3/15 支持泛型
+ *
+ * @// TODO: 2017/4/1  实现Iterator 接口
  */
 
-public class ArrayList {
-    private int[] elementData;
+public class ArrayList<E> implements List<E> {
+    private Object[] elementData;
     private int size = 0;
+    private static final int DEFAULTCAPACITY = 10;
+
+
+    /**
+     * Constructs an list with the default capacity.
+     */
+    public ArrayList() {
+        elementData = new Object[DEFAULTCAPACITY];
+    }
 
     /**
      * Constructs an list with the specified initial capacity.
      *
-     * @param initialCapacity
+     * @param initialCapacity capacity of arrayList.
      * @throws IllegalArgumentException if the specified initial capacity
      *                                  is negative or zero
      */
     public ArrayList(int initialCapacity) {
         if (initialCapacity > 0) {
-            elementData = new int[initialCapacity];
+            elementData = new Object[initialCapacity];
         } else {
             throw new IllegalArgumentException("Illegal Capacity: " +
                     initialCapacity);
@@ -34,10 +44,9 @@ public class ArrayList {
      * @return the element at the specified position in this list
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public int get(int index) {
+    public E get(int index) {
         rangeCheck(index);
-        rangeCheckForAdd(index);
-        return elementData[index];
+        return (E) elementData[index];
     }
 
 
@@ -46,7 +55,7 @@ public class ArrayList {
      *
      * @param element element to be appended to this list
      */
-    public void add(int element) {
+    public void add(E element) {
         ensureCapacityInternal(size + 1);
         elementData[size++] = element;
     }
@@ -61,8 +70,8 @@ public class ArrayList {
      * @param index   index at which the specified element is to be inserted
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public void add(int element, int index) {
-        rangeCheckForAdd(index);
+    public void add(int index, E element) {
+        rangeCheck(index);
         ensureCapacityInternal(size + 1);
         System.arraycopy(elementData, index, elementData, index + 1,
                 size - index);
@@ -77,18 +86,38 @@ public class ArrayList {
      *
      * @param index the index of the element to be removed
      * @return the element that was removed from the list
-     * @throws IndexOutOfBoundsException {@inheritDoc}
+     * @throws IndexOutOfBoundsException {@inheritDoc} index out of B
      */
-    public int remove(int index) {
-        rangeCheckForAdd(index);
-        int oldValue = elementData[index];
+    public E remove(int index) {
+        rangeCheck(index);
+        Object oldValue = elementData[index];
         int numMoved = size() - index - 1;
         if (numMoved > 0) {
             System.arraycopy(elementData, index + 1, elementData, index,
                     numMoved);
         }
-        elementData[--size] = 0; // let jc to clear
-        return oldValue;
+        elementData[--size] = null; // let jc to clear
+        return (E) oldValue;
+    }
+
+    /**
+     * Returns the index of the first occurrence of the specified element
+     * in this list, or -1 if this list does not contain the element.
+     * More formally, returns the lowest index <tt>i</tt> such that
+     * <tt>(o==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;o.equals(get(i)))</tt>,
+     * or -1 if there is no such index.
+     */
+    public int indexOf(Object o) {
+        if (o == null) {
+            for (int i = 0; i < size; i++)
+                if (elementData[i] == null)
+                    return i;
+        } else {
+            for (int i = 0; i < size; i++)
+                if (o.equals(elementData[i]))
+                    return i;
+        }
+        return -1;
     }
 
     /**
@@ -115,7 +144,8 @@ public class ArrayList {
      * number of elements specified by the double length of list.
      */
     private void grow() {
-        elementData = Arrays.copyOf(elementData, 2 * elementData.length);
+        elementData = Arrays.copyOf(elementData,
+                2 * elementData.length);
     }
 
     public String toString() {
@@ -134,14 +164,10 @@ public class ArrayList {
             grow();
     }
 
-    /**
-     * A version of rangeCheck used by add and addAll.
-     */
-    private void rangeCheckForAdd(int index) {
-        if (index > elementData.length - 1 || index < 0) {
-            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
-        }
+    public Object[] toArray() {
+        return Arrays.copyOf(elementData, size());
     }
+
 
     /**
      * Constructs an IndexOutOfBoundsException detail message.
@@ -159,7 +185,7 @@ public class ArrayList {
      * which throws an ArrayIndexOutOfBoundsException if index is negative.
      */
     private void rangeCheck(int index) {
-        if (index >= size) {
+        if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
         }
     }

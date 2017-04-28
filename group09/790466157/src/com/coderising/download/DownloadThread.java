@@ -1,42 +1,46 @@
 package com.coderising.download;
 
-
-import java.io.RandomAccessFile;
-import java.util.concurrent.CyclicBarrier;
-
-
-//import org.omg.CORBA.portable.InputStream;
-
 import com.coderising.download.api.Connection;
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 
 public class DownloadThread extends Thread{
 
 	Connection conn;
 	int startPos;
 	int endPos;
-	CyclicBarrier barrier ;
-	String filePath;
+	String fileName;
+    CyclicBarrier barrier;
 
-	public DownloadThread(CyclicBarrier barrier , Connection conn, int startPos, int endPos , String filePath){
-		
-		this.barrier = barrier;
+	public DownloadThread(String name, Connection conn, int startPos, int endPos, String fileName, CyclicBarrier barrier){
+		super(name);
 		this.conn = conn;		
 		this.startPos = startPos;
 		this.endPos = endPos;
-		this.filePath = filePath;
+		this.fileName = fileName;
+		this.barrier = barrier;
 	}
-	public void run(){	
-		try{
-			System.out.println("begin download startPos="+startPos+",endPos="+endPos);
-			byte[] buffer = conn.read(startPos , endPos);
-			RandomAccessFile file = new RandomAccessFile(filePath, "rw");
-			file.seek(startPos);
-			file.write(buffer, 0, buffer.length);
-			file.close();
-			barrier.await();
-		}catch(Exception e){
-			System.out.println("download error:startPos="+startPos+",endPos="+endPos);
-		}
-	}
-	
+	public void run(){
+        try (RandomAccessFile raf = new RandomAccessFile(new File(fileName), "rwd")) {
+            raf.seek(startPos);
+            byte[] buf = conn.read(startPos, endPos);
+//            String desc = Thread.currentThread().getName()+"startPos:"+startPos+",length:"+length + "buf size:"+buf.length;
+//            System.out.println(desc);
+            raf.write(buf, 0, buf.length);
+            if (null != barrier) {
+                barrier.await();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (BrokenBarrierException e) {
+            e.printStackTrace();
+        } finally {
+            conn.close();
+        }
+    }
 }
