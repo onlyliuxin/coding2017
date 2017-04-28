@@ -16,6 +16,8 @@ public class Token {
 	}
 	static final int OPERATOR = 1;
 	static final int NUMBER = 2;
+	static final int LBRACKET = -1;
+	static final int RBRACKET = -2;
 	String value;
 	int type;
 	public Token(int type, String value) {
@@ -29,6 +31,18 @@ public class Token {
 
 	public boolean isOperator() {
 		return type == OPERATOR;
+	}
+
+	public boolean isLBracket(){
+		return type == LBRACKET;
+	}
+
+	public boolean isRBracket(){
+		return type == RBRACKET;
+	}
+
+	public boolean isBracket(){
+		return type == LBRACKET || type == RBRACKET;
 	}
 
 	public int getIntValue() {

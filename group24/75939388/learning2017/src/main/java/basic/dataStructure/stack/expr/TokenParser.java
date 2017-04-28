@@ -4,54 +4,71 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TokenParser {
-	
-	
-	public static List<Token> parse(String expr) {
-		List<Token> tokens = new ArrayList<Token>();
 
-		int i = 0;
 
-		while (i < expr.length()) {
+    public static List<Token> parse(String expr) {
+        List<Token> tokens = new ArrayList<Token>();
 
-			char c = expr.charAt(i);
+        int i = 0;
 
-			if (isOperator(c)) {
+        while (i < expr.length()) {
 
-				Token t = new Token(Token.OPERATOR, String.valueOf(c));
-				tokens.add(t);
-				i++;
+            char c = expr.charAt(i);
 
-			} else if (Character.isDigit(c)) {
+            if (isOperator(c)) {
 
-				int nextOperatorIndex = indexOfNextOperator(i, expr);
-				String value = expr.substring(i, nextOperatorIndex);
-				Token t = new Token(Token.NUMBER, value);
-				tokens.add(t);
-				i = nextOperatorIndex;
+                Token t = new Token(Token.OPERATOR, String.valueOf(c));
+                tokens.add(t);
+                i++;
 
-			} else{
-				System.out.println("char :["+c+"] is not number or operator,ignore");
-				i++;
-			}
+            } else if (Character.isDigit(c)) {
 
-		}
-		return tokens;
-	}
+                int nextOperatorIndex = indexOfNextOperator(i, expr);
+                String value = expr.substring(i, nextOperatorIndex);
+                Token t = new Token(Token.NUMBER, value);
+                tokens.add(t);
+                i = nextOperatorIndex;
 
-	private static int indexOfNextOperator(int i, String expr) {
+            } else if (isLeftBracket(String.valueOf(c))) {
+                Token t = new Token(Token.LBRACKET, String.valueOf(c));
+                tokens.add(t);
+                i++;
+            } else if (isRightBracket(String.valueOf(c))) {
+                Token t = new Token(Token.RBRACKET, String.valueOf(c));
+                tokens.add(t);
+                i++;
+            } else {
+                System.out.println("char :[" + c + "] is not number or operator,ignore");
+                i++;
+            }
 
-		while (Character.isDigit(expr.charAt(i))) {
-			i++;
-			if (i == expr.length()) {
-				break;
-			}
-		}
-		return i;
+        }
+        return tokens;
+    }
 
-	}
+    private static int indexOfNextOperator(int i, String expr) {
 
-	private static boolean isOperator(char c) {
-		String sc = String.valueOf(c);
-		return Token.OPERATORS.contains(sc);
-	}
+        while (Character.isDigit(expr.charAt(i))) {
+            i++;
+            if (i == expr.length()) {
+                break;
+            }
+        }
+        return i;
+
+    }
+
+    private static boolean isOperator(char c) {
+        String sc = String.valueOf(c);
+        return Token.OPERATORS.contains(sc);
+    }
+
+    private static boolean isLeftBracket(String s) {
+        return s.equals("(");
+    }
+
+    private static boolean isRightBracket(String s) {
+        return s.equals(")");
+    }
+
 }
