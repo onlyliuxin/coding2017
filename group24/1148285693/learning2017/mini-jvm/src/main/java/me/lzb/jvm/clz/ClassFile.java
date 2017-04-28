@@ -103,12 +103,12 @@ public class ClassFile implements Print{
 
     public void print() {
 
-//        if (this.accessFlag.isPublicClass()) {
-//            System.out.println("Access flag : public  ");
-//        }
-//        System.out.println("Class Name:" + getClassName());
-//
-//        System.out.println("Super Class Name:" + getSuperClassName());
+        if (this.accessFlag.isPublicClass()) {
+            System.out.println("Access flag : public  ");
+        }
+        System.out.println("Class Name:" + getClassName());
+
+        System.out.println("Super Class Name:" + getSuperClassName());
 
     }
 

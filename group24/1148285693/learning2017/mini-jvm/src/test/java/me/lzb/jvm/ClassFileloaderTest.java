@@ -17,7 +17,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.List;
 
 
@@ -98,21 +97,15 @@ public class ClassFileloaderTest {
         ClassFileLoader loader = new ClassFileLoader();
         loader.addClassPath(path1);
 
-        try {
-            clzFile = loader.loadClass(className);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        clzFile = loader.loadClass(className);
         clzFile.print();
     }
 
 
     @Test
     public void testVersion() {
-
         Assert.assertEquals(0, clzFile.getMinorVersion());
         Assert.assertEquals(52, clzFile.getMajorVersion());
-
     }
 
     @Test

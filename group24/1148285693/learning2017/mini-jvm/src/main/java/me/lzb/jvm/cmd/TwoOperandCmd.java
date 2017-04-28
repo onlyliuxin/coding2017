@@ -39,7 +39,7 @@ public abstract class TwoOperandCmd extends ByteCodeCommand {
         int index = getIndex();
         String codeTxt = getReadableCodeText();
         ClassInfo info = (ClassInfo) pool.getConstantInfo(index);
-        return this.getOffset() + ":" + this.getOpCode() + " " + codeTxt + "  " + info.getClassName();
+        return this.getOffset() + ":" + this.getOpCode() + " " + codeTxt + " #" + index + "  " + info.getClassName();
     }
 
     protected String getOperandAsMethod(ConstantPool pool) {
