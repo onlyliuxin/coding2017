@@ -8,10 +8,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.coderising.jvm.clz.ClassFile;
+
 public class ClassFileLoader {
 	private static final int BUFFERSIZE = 1024;
 	private List<String> clzPaths = new ArrayList<String>();
 
+	/**
+	 * 装载class文件
+	 * 读取二进制字节流，并解析成ClassFile对象
+	 * @param className
+	 * @return ClassFile
+	 */
+	public ClassFile loadClass(String className) {
+		byte[] codes = this.readBinaryCode(className);
+		ClassFileParser parser = new ClassFileParser();
+		return parser.parse(codes);
+	}
+	
+	/**
+	 * 从.class文件读取二进制字节流
+	 * @param className
+	 * @return
+	 */
 	public byte[] readBinaryCode(String className) {
 		if (clzPaths.size()<=0){
 			return null;
@@ -36,7 +55,7 @@ public class ClassFileLoader {
 	/**
 	 * 文件读取二进制字节流
 	 * @param f
-	 * @return
+	 * @return byte[]
 	 * @throws FileNotFoundException
 	 */
 	private byte[] readFile(File f) throws FileNotFoundException {
@@ -63,10 +82,18 @@ public class ClassFileLoader {
 		return baos.toByteArray();
 	}
 
+	/**
+	 * 增加类加载路径，加载时按增加时的先后顺序加载
+	 * @param path
+	 */
 	public void addClassPath(String path) {
 		clzPaths.add(path);
 	}
 
+	/**
+	 * 获取类加载路径
+	 * @return
+	 */
 	public String getClassPath() {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < clzPaths.size(); i++) {
@@ -96,9 +123,4 @@ public class ClassFileLoader {
 		return sb.toString();
 	}
 
-	public static void main(String[] args) {
-		String d = "com.taiji.array.Load";
-		ClassFileLoader cc = new ClassFileLoader();
-		System.out.print(cc.convertName(d));
-	}
 }
