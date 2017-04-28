@@ -17,16 +17,15 @@ public class InfixExpr {
 		Stack<Token> oStack = new Stack<>();
 		Stack<Float> nStack = new Stack<>();
 		
-		TokenParser tp = new TokenParser(expr);
-		List<Token> array = tp.getParserList();
+		TokenParser tp = new TokenParser();
+		List<Token> array = tp.parse(expr);
 		
 		for (int i = 0; i < array.size(); i++) {
 			Token t = array.get(i);
-			String type = t.getType();
 			
-			if(type.equals(Token.NUMBER)){
+			if(t.isNumber()){
 				nStack.push(Float.valueOf(t.getValue()));
-			}else if(type.equals(Token.OPERATOR)){
+			}else if(t.isOperator()){
 				if(oStack.isEmpty()||t.getLevel()>oStack.peek().getLevel()){
 					oStack.push(t);
 				}else{
@@ -55,7 +54,7 @@ public class InfixExpr {
 		case "/":
 			return num2/num1;	
 		}
-		return null;	
+		throw new RuntimeException(operator + " is not supported");
 	}
 	
 

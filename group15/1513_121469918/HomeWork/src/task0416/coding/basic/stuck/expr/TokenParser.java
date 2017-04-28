@@ -6,25 +6,15 @@ import java.util.List;
 import javax.print.attribute.standard.MediaSize.ISO;
 
 public class TokenParser {
-	private String expr;
-	
-	TokenParser(String expr){
-		this.expr = expr;
-	}
-	
-	public List<Token> getParserList(){
+		
+	public List<Token> parse(String expr){
 		List<Token> array = new ArrayList<>();
-		char[] chs = expr.toCharArray();
+		
 		int i = 0;
-		while(i<chs.length){
-			char c = chs[i];
+		while(i<expr.length()){
+			char c = expr.charAt(i);
 			if(isOperator(c)){
 				Token t = new Token(Token.OPERATOR,String.valueOf(c));
-				if("+".equals(String.valueOf(c))||"-".equals(String.valueOf(c))){
-					t.setLevel(Token.LEVEL_ADD_SUB);
-				}else{
-					t.setLevel(Token.LEVEL_MUL_DIV);
-				}
 				array.add(t);
 				i++;
 			}else if(Character.isDigit(c)){
@@ -33,18 +23,22 @@ public class TokenParser {
 				Token t = new Token(Token.NUMBER,value);
 				array.add(t);
 				i = nextOperatorIndex;
+			}else {
+				System.out.println("char:["+c+"] is not number or operator,ignore");
+				i++;
 			}
 		}
 		return array;
 	}
 	private int nextOperatorIndex(int i, String expr2) {
-		char[] chs = expr2.toCharArray();
-		for (int j = i; j < chs.length; j++) {
-			if(isOperator(chs[j])){
-				return j;
+		
+		while(Character.isDigit(expr2.charAt(i))){
+			i++;
+			if(i == expr2.length()){
+				break;
 			}
 		}
-		return chs.length;
+		return i;
 	}
 
 	boolean isOperator(char ch){

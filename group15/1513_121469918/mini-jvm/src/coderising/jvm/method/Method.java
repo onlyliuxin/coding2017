@@ -1,6 +1,7 @@
 package coderising.jvm.method;
 
 import coderising.jvm.clz.ClassFile;
+import coderising.jvm.cmd.ByteCodeCommand;
 import coderising.jvm.attr.AttributeInfo;
 import coderising.jvm.attr.CodeAttr;
 import coderising.jvm.constant.ConstantPool;
@@ -38,6 +39,8 @@ public class Method {
 	public void setCodeAttr(CodeAttr code) {
 		this.codeAttr = code;
 	}
+	
+	
 
 	public Method(ClassFile clzFile,int accessFlag, int nameIndex, int descriptorIndex) {
 		this.clzFile = clzFile;
@@ -92,5 +95,9 @@ public String toString() {
 		
 		return m ;
 		
+	}
+
+	public ByteCodeCommand[] getCmds() {		
+		return this.getCodeAttr().getCmds();
 	}
 }
