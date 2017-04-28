@@ -21,8 +21,10 @@ public class MiniJVM {
 		ExecutorEngine engine = new ExecutorEngine();
 		
 		className = className.replace(".", "/");
-		
+
+		//装载main方法
 		engine.execute(methodArea.getMainMethod(className));
+
 	}
 	
 }
