@@ -9,70 +9,51 @@ import java.util.List;
  * 中序转后序
  */
 public class InfixToPostfix {
-    /**
-     *
-     * 参考文献许卓群版《数据结构与算法》
-     *
-     *
-     * 1）当输入的是操作数时候，直接输出到后序表达式PostfixExp序列中
-     * 2）当输入开括号时候，把它压栈
-     * 3）当输入的是闭括号时候，先判断栈是否为空，若为空，则发生错误并进行相关处理。
-     * 若非空，把栈中元素依次弹出并输出到Postfix中，知道遇到第一个开括号，
-     * 若没有遇到开括号，也发生错误，进行相关处理
-     * 4）当输入是运算符op（+、- 、×、/）时候
-     * a)循环，当（栈非空and栈顶不是开括号and栈顶运算符的优先级不低于输入的
-     * 运算符的优先级）时，反复操作：将栈顶元素弹出并添加到Postfix中
-     * b)把输入的运算符op压栈
-     * 5）当中序表达式InfixExp的符号序列全部读入后，若栈内扔有元素，把他们依次弹
-     * 出并放到后序表达式PostfixExp序列尾部。若弹出的元素遇到空括号，则说明不
-     * 匹配，发生错误，并进行相关处理
-     */
+
     public static List<Token> convert(String expr) {
-        List<Token> original = TokenParser.parse(expr);
-        System.out.println(original);
-        //结果集合
         List<Token> postfixTokenList = new ArrayList<Token>();
-        //缓存，存放优先级低的运算符和括号
-        Stack tokens = new Stack();
-        for (Token t : original) {
-            if (t.isNumber()) {
-                postfixTokenList.add(t);
-            }
 
-            if (t.isLBracket()) tokens.push(t);
+        List<Token> original = TokenParser.parse(expr);
+        Stack buffer = new Stack();
+        for(Token t : original){
+            //数字直接放入结果
+            if(t.isNumber()) postfixTokenList.add(t);
 
-            if (t.isRBracket()) {
-                if (tokens.isEmpty()) {
-                    throw new RuntimeException("brackets are not in pair");
-                } else {
-                    Token tmp = (Token) tokens.peek();
-                    while (!tmp.isLBracket()) {
-                        if (tokens.size() == 1 && !tmp.isLBracket()) {
-                            throw new RuntimeException("brackets are not in pair");
-                        }
-                        postfixTokenList.add((Token) tokens.pop());
-                        tmp = (Token)tokens.peek();
+            //左括号，放入缓存
+            if(t.isLBracket()) buffer.push(t);
+
+            //右括号, 遍历完成后不用放入结果集
+            if(t.isRBracket()){
+                if(buffer.size() == 0){
+                    throw new RuntimeException("brackets are not in pair, check your expression");
+                }else{
+                    //遍历直至左括号
+                    Token tmp = (Token) buffer.peek();
+                    while (!tmp.isLBracket()){
+                        if(buffer.size() == 1 && !tmp.isLBracket()) throw new RuntimeException("brackets are not in pair, check your expression");
+                        //放入结果list
+                        postfixTokenList.add((Token) buffer.pop());
+                        tmp = (Token)buffer.peek();
                     }
                 }
             }
 
+            //处理运算符，若缓存栈顶的运算符优先级高于或等于该运算符时，则进行遍历：
+            //缓存中找出的运算符直接入结果list，遍历完成后当前运算符压进缓存栈中
             if(t.isOperator()){
-                Token tmp = (Token)tokens.peek();
-                while(tmp != null && !tmp.isLBracket() && tmp.isOperator() && tmp.hasHigherPriority(t)){
-                    postfixTokenList.add((Token) tokens.pop());
-                    tmp = (Token)tokens.peek();
+                Token tmp = (Token) buffer.peek();
+                while(tmp != null && tmp.isOperator() && tmp.hasHigherPriority(t)){
+                    //弹出至结果list
+                    postfixTokenList.add((Token) buffer.pop());
+                    tmp = (Token) buffer.peek();
                 }
-
-                tokens.push(t);
+                buffer.push(t);
             }
-            System.out.println("t--------->" + t.toString());
-            System.out.println("tokens---->" + tokens.toString());
-            System.out.println("postfix--->" + postfixTokenList + "\n");
-
         }
 
-        while(tokens.size() > 0){
-            Token t = (Token)tokens.pop();
+        //遍历完成后，若缓存还有值，则直接放到结果集，并去掉左括号
+        while (buffer.size() > 0){
+            Token t = (Token) buffer.pop();
             if(!t.isBracket()){
                 postfixTokenList.add(t);
             }
@@ -85,7 +66,7 @@ public class InfixToPostfix {
     public static void main(String[] args) {
 //		convert("9+(3-1)*3+10/2");
         List<Token> list = convert("1+(2+3*4-5)/2+10-1");
-//        System.out.println(list.toString());
+        System.out.println(list.toString());
 //		convert("2+3*4-5");
     }
 

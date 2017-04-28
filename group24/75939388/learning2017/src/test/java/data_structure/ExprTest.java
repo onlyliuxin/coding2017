@@ -1,6 +1,7 @@
 package data_structure;
 
 import basic.dataStructure.stack.expr.InfixExpr;
+import basic.dataStructure.stack.expr.InfixToPostfix;
 import basic.dataStructure.stack.expr.PostfixExpr;
 import basic.dataStructure.stack.expr.PrefixExpr;
 import org.junit.Assert;
@@ -92,12 +93,14 @@ public class ExprTest {
     @Test
     public void textInfixToPostfixExpr(){
         {
-            //9+(3-1)*3+10/2  =   9 3 1-3*+ 10 2/+
-
+            //9+(3-1)*3+10/2  =   9 3 1 - 3 * 10 2 / + +
+            String expr = "9+(3-1)*3+10/2";
+            Assert.assertEquals("[9, 3, 1, -, 3, *, 10, 2, /, +, +]", InfixToPostfix.convert(expr).toString());
         }
         {
-            //10-2*3+50       =   10 2 3 * - 50 +
-
+            //10-2*3+50       =   10 2 3 * 50 + -
+            String expr = "10-2*3+50";
+            Assert.assertEquals("[10, 2, 3, *, 50, +, -]", InfixToPostfix.convert(expr).toString());
         }
     }
 }
