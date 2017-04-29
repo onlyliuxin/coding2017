@@ -14,7 +14,7 @@ public class Josephus {
 	
 	public static List<Integer> execute(int n, int m){
 		
-		QueueWithTwoStacks<Integer> cq = new QueueWithTwoStacks();
+		QueueWithTwoStacks<Integer> cq = new QueueWithTwoStacks<Integer>();
 		for (int i = 0; i < n; i++) {
 			cq.enQueue(i);
 		}

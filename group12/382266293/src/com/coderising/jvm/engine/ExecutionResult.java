@@ -21,8 +21,6 @@ public class ExecutionResult {
 		this.nextMethod = nextMethod;
 	}
 
-	
-	
 	public void setNextAction(int action){
 		this.nextAction = action;
 	}

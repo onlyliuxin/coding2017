@@ -63,13 +63,18 @@ public class MethodArea {
 	
 	public Method getMethod(String className, String methodName, String paramAndReturnType){
 		
-		return null;
+		ClassFile clzFile = this.findClassFile(className);
+		
+		return clzFile.getMethod(methodName, paramAndReturnType);
 	}
 	
 	
-	public Method getMethod(MethodRefInfo methodRef){		
+	public Method getMethod(MethodRefInfo methodRef){
 		
-		return null;
+		String className = methodRef.getClassName();
+		ClassFile clzFile = this.findClassFile(className);
+		
+		return clzFile.getMethod(methodRef);
 			
 	}
 }

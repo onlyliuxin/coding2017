@@ -25,21 +25,21 @@ public class CircleQueue<E> {
 	}
 
 	public int size() {
-		return getIndex(front - rear);
+		return getArrIndex(front - rear);
 	}
 
-	private int getIndex(int i) {
+	private int getArrIndex(int i) {
 		return i % DEFAULT_SIZE;
 	}
 
 	public void enQueue(E data) {
 		checkCapacity();
-		elementData[getIndex(front)] = data;
+		elementData[getArrIndex(front)] = data;
 		front++;
 	}
 
 	private void checkCapacity() {
-		if (getIndex(front - rear + 1) == 0) {
+		if (getArrIndex(front - rear + 1) == 0) {
 			throw new RuntimeException("Queue is full");
 		}
 	}
@@ -48,7 +48,7 @@ public class CircleQueue<E> {
 		if (size() == 0) {
 			return null;
 		}
-		Object o = elementData[getIndex(rear)];
+		Object o = elementData[getArrIndex(rear)];
 		rear++;
 		return (E) o;
 	}
@@ -59,7 +59,7 @@ public class CircleQueue<E> {
 		StringBuilder sb = new StringBuilder();
 		sb.append("[");
 		for (int i = 0; i < size(); i++) {
-			sb.append(elementData[getIndex(rear + i)]);
+			sb.append(elementData[getArrIndex(rear + i)]);
 			if (i != size() - 1) {
 				sb.append(",");
 			}
