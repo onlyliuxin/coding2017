@@ -1,8 +1,10 @@
-package datastructure;
+package datastructure.queue;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import datastructure.queue.Queue;
 
 public class QueueTest {
 
