@@ -40,8 +40,8 @@ public class TokenParser {
     }
     
     private boolean isOperator(char c) {
-        String supplyOperator = "+-*/";
-        if (supplyOperator.indexOf(supplyOperator) != -1) {
+        String supplyOperator = "+-*/()";
+        if (supplyOperator.indexOf(c) != -1) {
             return true;
         }
         return false;

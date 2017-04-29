@@ -9,7 +9,7 @@ public class StackMapTable extends AttributeInfo{
 	private String originalCode;
 
 	public StackMapTable(int attrNameIndex, int attrLen) {
-		super(attrNameIndex, attrLen);		
+		super(attrNameIndex, attrLen,AttributeInfo.STACK_MAP_TABLE);		
 	}
 
 	public static StackMapTable parse(ByteCodeIterator iter){

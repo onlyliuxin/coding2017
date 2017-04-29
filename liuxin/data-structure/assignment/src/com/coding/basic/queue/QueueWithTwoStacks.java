@@ -2,8 +2,14 @@ package com.coding.basic.queue;
 
 import java.util.Stack;
 
+/**
+ * 用两个栈来实现一个队列
+ * @author liuxin
+ *
+ * @param <E>
+ */
 public class QueueWithTwoStacks<E> {
-    private Stack<E> stack1;    
+	private Stack<E> stack1;    
     private Stack<E> stack2;    
 
     
@@ -13,16 +19,16 @@ public class QueueWithTwoStacks<E> {
     }
 
    
-
+    
 
     public boolean isEmpty() {
-       return false;
+        return false;
     }
 
 
     
     public int size() {
-       return -1;
+        return -1;   
     }
 
 
@@ -34,6 +40,7 @@ public class QueueWithTwoStacks<E> {
     public E deQueue() {
         return null;
     }
+
 
 
  }
