@@ -15,21 +15,23 @@ public class GetFieldCmd extends TwoOperandCmd {
 	}
 
 	@Override
-	public String toString(ConstantPool pool) {
+	public String toString() {
 		
-		return super.getOperandAsField(pool);
+		return super.getOperandAsField();
 	}
 
 	@Override
-	public void execute(StackFrame frame, ExecutionResult result) {
-
+	public void execute(StackFrame frame,ExecutionResult result) {
+		
 		FieldRefInfo fieldRef = (FieldRefInfo)this.getConstantInfo(this.getIndex());
 		String fieldName = fieldRef.getFieldName();
 		JavaObject jo = frame.getOprandStack().pop();
 		JavaObject fieldValue = jo.getFieldValue(fieldName);
-
+		
 		frame.getOprandStack().push(fieldValue);
-
+		
+		
+		
 	}
 	
 

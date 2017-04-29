@@ -17,17 +17,16 @@ public class BiPushCmd extends OneOperandCmd {
 	}
 
 	@Override
-	public String toString(ConstantPool pool) {
+	public String toString() {
 	
-		return this.getOffset()+": "+ this.getOpCode()+" " + this.getReadableCodeText() + " " + this.getOperand();
+		return this.getOffset()+":"+ this.getOpCode()+" " + this.getReadableCodeText() + " " + this.getOperand();
 	}
-
-	@Override
-	public void execute(StackFrame frame, ExecutionResult result) {
-
+	public void execute(StackFrame frame,ExecutionResult result){
 		int value = this.getOperand();
 		JavaObject jo = Heap.getInstance().newInt(value);
 		frame.getOprandStack().push(jo);
+		
 	}
+	
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Stack;
 
 import com.donaldy.jvm.cmd.ByteCodeCommand;
+import com.donaldy.jvm.cmd.InvokeVirtualCmd;
 import com.donaldy.jvm.method.Method;
 
 public class StackFrame {
@@ -76,6 +77,8 @@ public class StackFrame {
 
 			System.out.println(cmds[this.index].toString());
 
+			cmds[this.index].execute(this, result);
+
 			if (result.isRunNextCmd()) {
 				this.index ++;
 			}
@@ -84,6 +87,7 @@ public class StackFrame {
 			}
 			else if (result.isPauseAndRunNewFrame()) {
 				this.index ++;
+
 				return result;
 			}
 			else if (result.isJump()) {
@@ -96,7 +100,9 @@ public class StackFrame {
 
 		//当前StackFrmae的指令全部执行完毕，可以退出了
 		ExecutionResult result = new ExecutionResult();
+
 		result.setNextAction(ExecutionResult.EXIT_CURRENT_FRAME);
+
 		return result;
 
 	}

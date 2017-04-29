@@ -19,26 +19,24 @@ public class GetStaticFieldCmd extends TwoOperandCmd {
 	}
 
 	@Override
-	public String toString(ConstantPool pool) {
+	public String toString() {
 		
-		return super.getOperandAsField(pool);
+		return super.getOperandAsField();
 	}
-
-	@Override
-	public void execute(StackFrame frame, ExecutionResult result) {
-
+	
+	@Override	
+	public void execute(StackFrame frame,ExecutionResult result) {
 		FieldRefInfo info = (FieldRefInfo)this.getConstantInfo(this.getIndex());
 		String className = info.getClassName();
 		String fieldName = info.getFieldName();
 		String fieldType = info.getFieldType();
-
-		if("java/lang/System".equals(className)
-			&& "out".equals(fieldName)
-			&& "Ljava/io/PrintStream;".equals(fieldType)){
+		
+		if("java/lang/System".equals(className) 
+				&& "out".equals(fieldName) 
+				&& "Ljava/io/PrintStream;".equals(fieldType)){
 			JavaObject jo = Heap.getInstance().newObject(className);
 			frame.getOprandStack().push(jo);
 		}
 		//TODO 处理非System.out的情况
 	}
-
 }

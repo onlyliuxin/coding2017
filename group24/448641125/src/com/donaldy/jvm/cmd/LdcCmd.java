@@ -16,9 +16,9 @@ public class LdcCmd extends OneOperandCmd {
 	}
 	
 	@Override
-	public String toString(ConstantPool pool) {
+	public String toString() {
 		
-		ConstantInfo info = (ConstantInfo)pool.getConstantInfo(this.getOperand());
+		ConstantInfo info = getConstantInfo(this.getOperand());
 		
 		String value = "TBD";
 		if(info instanceof StringInfo){
@@ -29,13 +29,11 @@ public class LdcCmd extends OneOperandCmd {
 		return this.getOffset()+":"+this.getOpCode()+" " + this.getReadableCodeText() + " "+  value;
 		
 	}
-
-	@Override
-	public void execute(StackFrame frame, ExecutionResult result) {
-
+	public void  execute(StackFrame frame,ExecutionResult result){
+		
 		ConstantPool pool = this.getConstantPool();
 		ConstantInfo info = (ConstantInfo)pool.getConstantInfo(this.getOperand());
-
+		
 		if(info instanceof StringInfo){
 			StringInfo strInfo = (StringInfo)info;
 			String value = strInfo.toString();
@@ -46,7 +44,7 @@ public class LdcCmd extends OneOperandCmd {
 			//TBD 处理其他类型
 			throw new RuntimeException("Only support StringInfo constant");
 		}
-
+		
+		
 	}
-	
 }

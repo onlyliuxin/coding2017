@@ -104,7 +104,7 @@ public class CodeAttr extends AttributeInfo {
 		StringBuilder buffer = new StringBuilder();
 		//buffer.append("Code:").append(code).append("\n");
 		for(int i=0;i<cmds.length;i++){
-			buffer.append(cmds[i].toString(pool)).append("\n");
+			buffer.append(cmds[i].toString()).append("\n");
 		}
 		buffer.append("\n");
 		buffer.append(this.lineNumTable.toString());
