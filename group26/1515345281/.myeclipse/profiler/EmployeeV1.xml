@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="app_preset_prof_preset_name">EmployeeV1 Launch Configuration</entry>
+<entry key="app_preset_prof_preset_filter_s"/>
+<entry key="app_preset_prof_preset_filter_p">Collection.*,
+com.coderising.jvm.attr.*,
+com.coderising.jvm.clz.*,
+com.coderising.jvm.cmd.*,
+com.coderising.jvm.constant.*,
+com.coderising.jvm.engine.*,
+com.coderising.jvm.field.*,
+com.coderising.jvm.loader.*,
+com.coderising.jvm.method.*,
+com.coderising.jvm.print.*,
+com.coderising.jvm.test.*,
+com.coderising.jvm.util.*,
+week1.collection.*,
+week2.arrayutil.*,
+week2.struts2.*,
+week3.download.*,
+week3.list.*,
+week4.origin.jvm.loader.*,
+week4.redo.jvm.loader.*,
+week5.jvm.*,
+week6.jvm.attr.*,
+week6.jvm.clz.*,
+week6.jvm.constant.*,
+week6.jvm.expr.*,
+week6.jvm.field.*,
+week6.jvm.loader.*,
+week6.jvm.method.*,
+week6.jvm.test.*,
+week6.jvm.util.*,
+week7.jvm.attr.*,
+week7.jvm.clz.*,
+week7.jvm.cmd.*,
+week7.jvm.constant.*,
+week7.jvm.expr.*,
+week7.jvm.field.*,
+week7.jvm.loader.*,
+week7.jvm.method.*,
+week7.jvm.test.*,
+week7.jvm.util.*</entry>
+<entry key="app_preset_prof_preset_alloc_p">10</entry>
+<entry key="app_preset_"/>
+<entry key="app_preset_prof_preset_samplingRefreshRate_s">1000</entry>
+<entry key="app_preset_prof_preset_stacks_p">false</entry>
+<entry key="app_preset_prof_preset_roots_p">Collection.**
+com.coderising.jvm.attr.**
+com.coderising.jvm.clz.**
+com.coderising.jvm.cmd.**
+com.coderising.jvm.constant.**
+com.coderising.jvm.engine.**
+com.coderising.jvm.field.**
+com.coderising.jvm.loader.**
+com.coderising.jvm.method.**
+com.coderising.jvm.print.**
+com.coderising.jvm.test.**
+com.coderising.jvm.util.**
+week1.collection.**
+week2.arrayutil.**
+week2.struts2.**
+week3.download.**
+week3.list.**
+week4.origin.jvm.loader.**
+week4.redo.jvm.loader.**
+week5.jvm.**
+week6.jvm.attr.**
+week6.jvm.clz.**
+week6.jvm.constant.**
+week6.jvm.expr.**
+week6.jvm.field.**
+week6.jvm.loader.**
+week6.jvm.method.**
+week6.jvm.test.**
+week6.jvm.util.**
+week7.jvm.attr.**
+week7.jvm.clz.**
+week7.jvm.cmd.**
+week7.jvm.constant.**
+week7.jvm.expr.**
+week7.jvm.field.**
+week7.jvm.loader.**
+week7.jvm.method.**
+week7.jvm.test.**
+week7.jvm.util.**
+</entry>
+<entry key="profiler.settings.instrument.empty.methods">false</entry>
+<entry key="myeclipse.profiling.mode">0</entry>
+<entry key="profiler.settings.istrument.getter.setter.methods">false</entry>
+<entry key="app_preset_prof_preset_samplingRate_s">100</entry>
+<entry key="app_preset_prof_preset_filterMode_s">true</entry>
+<entry key="app_preset_prof_preset_selector"/>
+<entry key="app_preset_prof_preset_refreshRate_s">1000</entry>
+<entry key="app_preset_prof_preset_runnables_p">true</entry>
+<entry key="app_preset_prof_preset_filterMode_p">false</entry>
+<entry key="app_preset_prof_preset_memoryMode_p">true</entry>
+</properties>
