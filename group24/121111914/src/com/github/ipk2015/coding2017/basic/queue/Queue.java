@@ -1,4 +1,4 @@
-package com.github.ipk2015.coding2017.basic;
+package com.github.ipk2015.coding2017.basic.queue;
 
 import com.github.ipk2015.coding2017.basic.linkedlist.LinkedList;
 

@@ -93,6 +93,7 @@ public class ClassFile {
 public Method getMethod(String methodName, String paramAndReturnType){
 		List<Method> list = getMethods();
 		for(Method m : list){
+			
 			String name = ((UTF8Info)pool.getConstantInfo(m.getNameIndex())).getValue();
 			String desc = ((UTF8Info)pool.getConstantInfo(m.getDescriptorIndex())).getValue();
 			if(name.equalsIgnoreCase(methodName) && desc.equalsIgnoreCase(paramAndReturnType)){

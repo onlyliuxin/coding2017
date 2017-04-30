@@ -28,12 +28,10 @@ public class ClassFileLoader {
 	public byte[] readBinaryCode(String className) {
 		
 		className = className.replace('.', File.separatorChar) +".class";
-		
 		for(String path : this.clzPaths){
-			
 			String clzFileName = path + File.separatorChar + className;
 			byte[] codes = loadClassFile(clzFileName);
-			if(codes != null){
+			if(codes != null && codes.length>0){
 				return codes;
 			}			
 		}
@@ -53,7 +51,7 @@ public class ClassFileLoader {
 			return IOUtils.toByteArray(new FileInputStream(f));
 			
 		} catch (IOException e) {			
-			e.printStackTrace();
+//			e.printStackTrace();
 			return null;
 		}
 	}
