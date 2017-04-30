@@ -10,13 +10,13 @@ public class View {
 		return jsp;
 	}
 
+	public Map getParameters() {
+		return parameters;
+	}
+
 	public View setJsp(String jsp) {
 		this.jsp = jsp;
 		return this;
-	}
-
-	public Map getParameters() {
-		return parameters;
 	}
 
 	public View setParameters(Map parameters) {

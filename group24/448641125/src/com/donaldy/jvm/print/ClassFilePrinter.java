@@ -29,21 +29,19 @@ public class ClassFilePrinter {
 		
 		System.out.println("minor version:" + clzFile.getMinorVersion());
 		
-		System.out.println("major version:" + clzFile.getMinorVersion());
+		System.out.println("major version:" + clzFile.getMajorVersion());
 		
 		ConstantPoolPrinter cnstPoolPrinter = new ConstantPoolPrinter(clzFile.getConstantPool());
-		cnstPoolPrinter.print();
-		
 
-		
-		
+		cnstPoolPrinter.print();
+
 	}
 	
 	public static void main(String[] args){
-		String path = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
+		String path = "D:\\tools\\Code\\Y_Repository\\coding2017\\group24\\448641125\\out\\production\\448641125\\";
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path);
-		String className = "com.coderising.jvm.test.EmployeeV1";
+		String className = "com.donaldy.jvm.test.EmployeeV1";
 		
 		ClassFile clzFile = loader.loadClass(className);
 		

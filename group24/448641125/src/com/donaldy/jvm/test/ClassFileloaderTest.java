@@ -288,6 +288,10 @@ public class ClassFileloaderTest {
 	@Test
 	public void testByteCodeCommand(){
 		{
+			ClassFileLoader loader = new ClassFileLoader();
+			loader.addClassPath(this.path1);
+			this.clzFile = loader.loadClass("com.donaldy.jvm.test.EmployeeV1");
+
 			Method initMethod = this.clzFile.getMethod("<init>", "(Ljava/lang/String;I)V");
 			ByteCodeCommand [] cmds = initMethod.getCmds();
 

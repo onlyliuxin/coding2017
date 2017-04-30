@@ -2,6 +2,11 @@ package com.coding2017.jvm.clz;
 
 import com.coding2017.jvm.constant.ClassInfo;
 import com.coding2017.jvm.constant.ConstantPool;
+import com.coding2017.jvm.field.Field;
+import com.coding2017.jvm.method.Method;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClassFile {
 
@@ -11,6 +16,9 @@ public class ClassFile {
     private AccessFlag accessFlag;
     private ClassIndex clzIndex;
     private ConstantPool pool;
+
+    private List<Field> fields = new ArrayList<Field>();
+    private List<Method> methods = new ArrayList<Method>();
 
     public ClassIndex getClzIndex() {
         return clzIndex;
@@ -51,6 +59,34 @@ public class ClassFile {
 
     public void setClassIndex(ClassIndex clzIndex) {
         this.clzIndex = clzIndex;
+    }
+
+    public void setClzIndex(ClassIndex clzIndex) {
+        this.clzIndex = clzIndex;
+    }
+
+    public ConstantPool getPool() {
+        return pool;
+    }
+
+    public void setPool(ConstantPool pool) {
+        this.pool = pool;
+    }
+
+    public List<Field> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<Field> fields) {
+        this.fields = fields;
+    }
+
+    public List<Method> getMethods() {
+        return methods;
+    }
+
+    public void setMethods(List<Method> methods) {
+        this.methods = methods;
     }
 
     public void print() {

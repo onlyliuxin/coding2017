@@ -7,6 +7,8 @@ import com.donaldy.jvm.constant.ConstantPool;
 import com.donaldy.jvm.constant.UTF8Info;
 import com.donaldy.jvm.loader.ByteCodeIterator;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Method {
@@ -49,7 +51,37 @@ public class Method {
 	
 	public static Method parse(ClassFile clzFile, ByteCodeIterator iter){
 
+
 		int accessFlag = iter.nextU2ToInt();
+		int nameIndex = iter.nextU2ToInt();
+		int descIndex = iter.nextU2ToInt();
+		int attribCount = iter.nextU2ToInt();
+
+
+		Method m = new Method(clzFile, accessFlag, nameIndex, descIndex);
+
+		for( int j = 1; j <= attribCount; j++){
+
+			int attrNameIndex = iter.nextU2ToInt();
+
+			String attrName = clzFile.getConstantPool().getUTF8String(attrNameIndex);
+
+			iter.back(2);
+
+			if(AttributeInfo.CODE.equalsIgnoreCase(attrName)){
+
+				CodeAttr codeAttr = CodeAttr.parse(clzFile, iter);
+				m.setCodeAttr(codeAttr);
+			} else{
+				throw new RuntimeException("only CODE attribute is implemented , please implement the "+ attrName);
+			}
+
+		}
+
+		return m ;
+
+		//////////////////////Backup///////////////////////
+		/*int accessFlag = iter.nextU2ToInt();
 		int nameIndex = iter.nextU2ToInt();
 		int descriptorIndex = iter.nextU2ToInt();
 
@@ -60,6 +92,7 @@ public class Method {
 		if (!"Code".equals(clzFile.getConstantPool().getUTF8String(attrNameIndex)))
 			throw new RuntimeException("attributeInfo : " + attrNameIndex);
 
+		//CodeAttr.parse
 		int attrLen = iter.nextU4ToInt();
 		int maxStack = iter.nextU2ToInt();
 		int maxLocals = iter.nextU2ToInt();
@@ -84,7 +117,7 @@ public class Method {
 		Method method = new Method(clzFile, accessFlag, nameIndex, descriptorIndex);
 
 		method.setCodeAttr(codeAttr);
-		return method;
+		return method;*/
 		
 	}
 
@@ -105,6 +138,65 @@ public class Method {
 	}
 
 	public ByteCodeCommand[] getCmds() {
+
 		return this.getCodeAttr().getCmds();
+
+	}
+
+	private String getParamAndReturnType() {
+		UTF8Info nameAndTypeInfo = (UTF8Info) this.getClzFile()
+			.getConstantPool().getConstantInfo(this.getDescriptorIndex());
+		return nameAndTypeInfo.getValue();
+	}
+
+	public List<String> getParameterList() {
+
+		//e.g. (Ljava/util/List;Ljava/lang/String;II)V
+		String paramAndType = getParamAndReturnType();
+
+		int first = paramAndType.indexOf("(");
+		int last = paramAndType.lastIndexOf(")");
+
+		//e.g. Ljava/util/List;Ljava/lang/String;II
+		String param = paramAndType.substring(first + 1, last);
+
+		List<String> paramList = new ArrayList<>();
+
+		if ((null == param) || "".equals(param)) {
+			return paramList;
+		}
+
+		while (!param.equals("")) {
+			int pos = 0;
+
+			//这是一个对象类型
+			if (param.charAt(pos) == 'L') {
+				int end = param.indexOf(";");
+
+				if (end == -1) {
+					throw new RuntimeException("can't find the ; fro a object type");
+				}
+
+				paramList.add(param.substring(pos+ 1, end));
+
+				pos = end + 1;
+			}
+			else if (param.charAt(pos) == 'I') {
+				//int
+				paramList.add("I");
+				pos ++;
+			}
+			else if (param.charAt(pos) == 'F') {
+				//float
+				paramList.add("F");
+				pos ++;
+			} else {
+				throw new RuntimeException("the param has unsupported type : " + param);
+			}
+
+			param = param.substring(pos);
+		}
+
+		return paramList;
 	}
 }
