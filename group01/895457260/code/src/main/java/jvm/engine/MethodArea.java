@@ -54,10 +54,6 @@ public class MethodArea {
     }
 
     public Method getMethod(MethodRefInfo methodRef) throws ReadClassException {
-        String[] split = methodRef.getNameAndType().split(":");
-        String className = methodRef.getClassName();
-        String methodName = split[0];
-        String paramAndReturnType = split[1];
-        return getMethod(className, methodName, paramAndReturnType);
+        return getMethod(methodRef.getClassName(), methodRef.getName(), methodRef.getParamAndReturnType());
     }
 }

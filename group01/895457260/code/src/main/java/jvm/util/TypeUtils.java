@@ -49,6 +49,6 @@ public class TypeUtils {
             case FLOAT:
                 return Heap.getInstance().newFloat(0);
         }
-        return Heap.getInstance().newClassReference(field.getDescriptor());
+        return null;
     }
 }

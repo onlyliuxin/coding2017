@@ -8,10 +8,11 @@ import jvm.command.item.TwoOperandCmd;
 import jvm.engine.ExecutionResult;
 import jvm.engine.JavaObject;
 import jvm.engine.StackFrame;
+import jvm.util.NumberUtils;
 
-public class PutFieldCmd extends TwoOperandCmd {
+public class IfNonNullCmd extends TwoOperandCmd {
 
-    public PutFieldCmd(ClassFile clzFile, String opCode, CommandIterator iterator) {
+    public IfNonNullCmd(ClassFile clzFile, String opCode, CommandIterator iterator) {
         super(clzFile, opCode, iterator);
     }
 
@@ -22,11 +23,13 @@ public class PutFieldCmd extends TwoOperandCmd {
 
     @Override
     public void execute(StackFrame frame, ExecutionResult result) {
-        JavaObject value = frame.getOperandStack().pop();
         JavaObject obj = frame.getOperandStack().pop();
-        int fieldIndex = (getOperand1() << 8) | getOperand2();
-        FieldRefInfo fieldRefInfo = (FieldRefInfo) getConstantInfo(fieldIndex);
-        String fieldName = fieldRefInfo.getNameAndType().split(":")[0];
-        obj.setFieldValue(fieldName, value);
+        if (obj != null) {
+            int nextCmdOffset = (getOperand1() << 8) | getOperand2();
+            nextCmdOffset = NumberUtils.toSignedInt(nextCmdOffset, 16);
+            nextCmdOffset += getOffset();
+            result.setNextCmdOffset(nextCmdOffset);
+            result.setNextAction(ExecutionResult.JUMP);
+        }
     }
 }

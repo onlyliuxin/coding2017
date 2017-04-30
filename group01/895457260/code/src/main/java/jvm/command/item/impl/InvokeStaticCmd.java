@@ -11,8 +11,8 @@ import jvm.engine.MethodArea;
 import jvm.engine.StackFrame;
 import jvm.exception.ReadClassException;
 
-public class InvokeSpecialCmd extends TwoOperandCmd {
-    public InvokeSpecialCmd(ClassFile clzFile, String opCode, CommandIterator iterator) {
+public class InvokeStaticCmd extends TwoOperandCmd {
+    public InvokeStaticCmd(ClassFile clzFile, String opCode, CommandIterator iterator) {
         super(clzFile, opCode, iterator);
     }
 
@@ -25,13 +25,6 @@ public class InvokeSpecialCmd extends TwoOperandCmd {
     public void execute(StackFrame frame, ExecutionResult result) throws ReadClassException {
         int methodIndex = (getOperand1() << 8) | getOperand2();
         MethodRefInfo methodRefInfo = (MethodRefInfo) getConstantInfo(methodIndex);
-
-        // 不调用Object的构造器
-        if (methodRefInfo.getClassName().equals("java/lang/Object")
-                && methodRefInfo.getName().equals("<init>")) {
-            frame.getOperandStack().pop(); // 弹出不需要的this
-            return;
-        }
         result.setNextAction(ExecutionResult.PAUSE_AND_RUN_NEW_FRAME);
         Method method = MethodArea.getInstance().getMethod(methodRefInfo);
         result.setNextMethod(method);

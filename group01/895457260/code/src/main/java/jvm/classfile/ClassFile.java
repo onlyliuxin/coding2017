@@ -6,10 +6,8 @@ import jvm.classfile.field.Field;
 import jvm.classfile.method.Method;
 import jvm.engine.JavaObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Haochen on 2017/4/9.
@@ -26,7 +24,7 @@ public class ClassFile {
     List<Method> methods = new ArrayList<>();
     List<AttributeInfo> attributes = new ArrayList<>();
 
-    Map<Field, JavaObject> staticFieldValues = new HashMap<>();
+    Map<String, JavaObject> staticFieldValues = new HashMap<>();
 
 
     public AccessFlag getAccessFlag() {
@@ -98,13 +96,25 @@ public class ClassFile {
                 .orElse(null);
     }
 
-    public JavaObject getStaticFieldValues(Field field) {
-        return staticFieldValues.get(field);
+    public JavaObject getStaticFieldValue(String name) {
+        return staticFieldValues.get(name);
     }
 
-    public void putStaticFieldValues(Field field, JavaObject object) {
-        if (staticFieldValues.containsKey(field)) {
-            staticFieldValues.put(field, object);
+    public void putStaticFieldValue(String name, JavaObject object) {
+        java.lang.reflect.Field field;
+        try {
+            Class<?> clazz = Class.forName(this.getClassName().replace('/', '.'));
+            field = clazz.getDeclaredField(name);
+            field.setAccessible(true);
+            if (object == null) {
+                staticFieldValues.remove(name);
+                field.set(null, null);
+            } else {
+                staticFieldValues.put(name, object);
+                field.set(null, object);
+            }
+        } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException("Static field " + getClassName() + "." + name + "not found");
         }
     }
 }

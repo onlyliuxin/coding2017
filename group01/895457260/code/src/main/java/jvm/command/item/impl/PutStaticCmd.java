@@ -6,12 +6,15 @@ import jvm.classfile.constant.item.impl.FieldRefInfo;
 import jvm.classfile.field.Field;
 import jvm.command.CommandIterator;
 import jvm.command.item.TwoOperandCmd;
-import jvm.engine.*;
+import jvm.engine.ExecutionResult;
+import jvm.engine.JavaObject;
+import jvm.engine.MethodArea;
+import jvm.engine.StackFrame;
 import jvm.exception.ReadClassException;
 
-public class GetStaticCmd extends TwoOperandCmd {
+public class PutStaticCmd extends TwoOperandCmd {
 
-    public GetStaticCmd(ClassFile clzFile, String opCode, CommandIterator iterator) {
+    public PutStaticCmd(ClassFile clzFile, String opCode, CommandIterator iterator) {
         super(clzFile, opCode, iterator);
     }
 
@@ -27,7 +30,7 @@ public class GetStaticCmd extends TwoOperandCmd {
         ClassFile classFile = MethodArea.getInstance().findClassFile(fieldRefInfo.getClassName());
         String fieldName = fieldRefInfo.getNameAndType().split(":")[0];
         Field field = classFile.getField(fieldName);
-        JavaObject object = classFile.getStaticFieldValue(field.getName());
-        frame.getOperandStack().push(object);
+        JavaObject object = frame.getOperandStack().pop();
+        classFile.putStaticFieldValue(field.getName(), object);
     }
 }

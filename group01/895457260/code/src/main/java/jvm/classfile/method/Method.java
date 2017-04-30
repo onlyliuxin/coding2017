@@ -98,4 +98,9 @@ public class Method {
     public String getParamAndReturnType() {
         return ((UTF8Info) getConstantPool().getConstantInfo(getDescriptorIndex())).getValue();
     }
+
+    @Override
+    public String toString() {
+        return getName() + ':' + getParamAndReturnType();
+    }
 }

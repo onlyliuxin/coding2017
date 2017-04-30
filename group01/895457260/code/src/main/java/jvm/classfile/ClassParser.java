@@ -28,11 +28,11 @@ public class ClassParser {
         classFile.constantPool = parseConstantPool(iterator);
         classFile.accessFlag = parseAccessFlag(iterator);
         classFile.classIndex = parseClassIndex(iterator);
+        linkConstantReferences(classFile);
         parseInterfaces(classFile, iterator);
         parseFields(classFile, iterator);
         parseMethods(classFile, iterator);
         parseAttributes(classFile, iterator);
-        linkConstantReferences(classFile);
         return classFile;
     }
 
@@ -95,7 +95,7 @@ public class ClassParser {
             Field field = Field.parse(iterator, classFile.constantPool);
             classFile.fields.add(field);
             if (field.getAccessFlag().isStatic()) {
-                classFile.staticFieldValues.put(field, TypeUtils.getDefaultValue(field));
+                classFile.putStaticFieldValue(field.getName(), TypeUtils.getDefaultValue(field));
             }
         }
     }

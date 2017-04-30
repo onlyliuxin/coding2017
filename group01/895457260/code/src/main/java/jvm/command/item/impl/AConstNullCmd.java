@@ -11,8 +11,8 @@ import jvm.engine.StackFrame;
  * Created by Haochen on 2017/4/20.
  * TODO:
  */
-public class DupCmd extends NoOperandCmd {
-    public DupCmd(ClassFile clzFile, String opCode, CommandIterator iterator) {
+public class AConstNullCmd extends NoOperandCmd {
+    public AConstNullCmd(ClassFile clzFile, String opCode, CommandIterator iterator) {
         super(clzFile, opCode, iterator);
     }
 
@@ -23,7 +23,6 @@ public class DupCmd extends NoOperandCmd {
 
     @Override
     public void execute(StackFrame frame, ExecutionResult result) {
-        JavaObject object = frame.getOperandStack().peek();
-        frame.getOperandStack().push(object);
+        frame.getOperandStack().push(null);
     }
 }

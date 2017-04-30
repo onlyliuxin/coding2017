@@ -54,7 +54,11 @@ public class MethodRefInfo implements Constant, IReference {
         return className;
     }
 
-    public String getNameAndType() {
-        return nameAndType;
+    public String getName() {
+        return nameAndType.substring(0, nameAndType.indexOf(':'));
+    }
+
+    public String getParamAndReturnType() {
+        return nameAndType.substring(nameAndType.indexOf(':') + 1);
     }
 }

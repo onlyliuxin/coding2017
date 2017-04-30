@@ -36,6 +36,6 @@ public class IntegerInfo implements Constant {
     }
 
     public int getValue() {
-        return ByteUtils.toInt(getBytes());
+        return ByteUtils.toUnsignedInt(getBytes());
     }
 }

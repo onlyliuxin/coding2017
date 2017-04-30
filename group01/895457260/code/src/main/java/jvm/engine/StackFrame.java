@@ -28,17 +28,17 @@ public class StackFrame {
             ByteCodeCommand cmd = commands[index];
             ExecutionResult result = new ExecutionResult();
             cmd.execute(this, result);
-            index++;
-            result.setNextCmdOffset(commands[index].getOffset());
 
             if (result.isExitCurrentFrame()) {
                 return result;
             } else if (result.isPauseAndRunNewFrame()) {
+                index++;
                 return result;
             } else if (result.isJump()) {
-                TwoOperandCmd jumpCmd = (TwoOperandCmd) cmd;
-                int offset = (jumpCmd.getOperand1() << 8) | jumpCmd.getOperand2();
+                int offset = result.getNextCmdOffset();
                 index = getNextCommandIndex(offset);
+            } else {
+                index++;
             }
         }
         ExecutionResult frameResult = new ExecutionResult();
@@ -91,5 +91,10 @@ public class StackFrame {
 
     public Method getMethod() {
         return method;
+    }
+
+    @Override
+    public String toString() {
+        return getMethod().toString();
     }
 }

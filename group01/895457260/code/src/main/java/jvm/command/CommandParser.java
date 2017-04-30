@@ -16,9 +16,9 @@ public class CommandParser {
         try {
             while (iterator.hasNext()) {
                 String opCode = iterator.next2CharAsString().toUpperCase();
-                String cmdClassName = packageName
-                        + ByteCodeCommand.codeMap.get(opCode).replaceAll("_", "")
-                        + "Cmd";
+                String cmdName = ByteCodeCommand.codeMap.get(opCode);
+                String cmdClassName = packageName + cmdName.replaceAll("_", "") + "Cmd";
+
                 Class<?> clazz = Class.forName(cmdClassName);
                 Constructor<?> constructor = clazz.getConstructor(
                         ClassFile.class, String.class, CommandIterator.class);
