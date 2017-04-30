@@ -1,6 +1,6 @@
 package data_structure;
 
-import basic.dataStructure.LinkedList;
+import basic.dataStructure.linkedList.LinkedList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -215,7 +215,7 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-.gitignore
+#.gitignore
 =======
 
 
@@ -235,7 +235,7 @@ hs_err_pid*
 .recommenders
 
 
-*.xml
+#*.xml
 *.iml
 .idea
 *.iml
@@ -248,7 +248,7 @@ rebel-remote.xml
 .metadata
 
 target
-*.class
+#*.class
 
 log
 *.log
@@ -257,7 +257,7 @@ tmp
 
 .metadata
 RemoteSystemsTempFiles
-.gitignore
+#.gitignore
 
 .recommenders
 .idea/

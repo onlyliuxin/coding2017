@@ -1,7 +1,7 @@
 package data_structure;
 
 import org.junit.Test;
-import basic.dataStructure.ArrayList;
+import basic.dataStructure.array.ArrayList;
 
 /**
  * Created by macvi on 2017/4/2.

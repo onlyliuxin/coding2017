@@ -1,4 +1,6 @@
-package basic.dataStructure;
+package basic.dataStructure.array;
+
+import basic.dataStructure.List;
 
 /**
  * Created by macvi on 2017/4/2.

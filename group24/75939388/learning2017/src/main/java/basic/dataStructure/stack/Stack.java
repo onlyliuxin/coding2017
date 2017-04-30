@@ -1,4 +1,6 @@
-package basic.dataStructure;
+package basic.dataStructure.stack;
+
+import basic.dataStructure.array.ArrayList;
 
 /**
  * Created by macvi on 2017/4/4.
@@ -6,6 +8,14 @@ package basic.dataStructure;
 public class Stack {
 
     private ArrayList elementData = new ArrayList();
+
+    public Stack(){}
+
+    public Stack(Object...objs){
+        for(int i = 0; i < objs.length; i++){
+            this.push(objs[i]);
+        }
+    }
 
     public void push(Object o){
         this.elementData.add(o);
@@ -20,7 +30,7 @@ public class Stack {
 
     public Object peek(){
         int index = elementData.size() - 1;
-        return elementData.get(index);
+        return index == -1 ? null : elementData.get(index);
     }
     public boolean isEmpty(){
         return peek() == null;
@@ -33,7 +43,11 @@ public class Stack {
     public String toString() {
         StringBuffer sb = new StringBuffer();
         for(int i = this.size() - 1; i >= 0; i--){
-            sb.append(elementData.get(i).toString()).append(",");
+            if(i != 0){
+                sb.append(elementData.get(i).toString()).append(",");
+            }else{
+                sb.append(elementData.get(i).toString());
+            }
         }
 
         return sb.toString();

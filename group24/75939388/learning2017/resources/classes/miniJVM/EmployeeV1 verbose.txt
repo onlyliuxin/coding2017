@@ -1,0 +1,164 @@
+youchaowendeMacBook-Pro:Downloads Tee$ javap -verbose EmployeeV1.class
+Classfile /Users/Tee/Downloads/EmployeeV1.class
+  Last modified 2017-4-27; size 1056 bytes
+  MD5 checksum 8454b8999ccc9a2ae26a405d47558825
+  Compiled from "EmployeeV1.java"
+public class com.coderising.jvm.test.EmployeeV1
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Class              #2             // com/coderising/jvm/test/EmployeeV1
+   #2 = Utf8               com/coderising/jvm/test/EmployeeV1
+   #3 = Class              #4             // java/lang/Object
+   #4 = Utf8               java/lang/Object
+   #5 = Utf8               name
+   #6 = Utf8               Ljava/lang/String;
+   #7 = Utf8               age
+   #8 = Utf8               I
+   #9 = Utf8               <init>
+  #10 = Utf8               (Ljava/lang/String;I)V
+  #11 = Utf8               Code
+  #12 = Methodref          #3.#13         // java/lang/Object."<init>":()V
+  #13 = NameAndType        #9:#14         // "<init>":()V
+  #14 = Utf8               ()V
+  #15 = Fieldref           #1.#16         // com/coderising/jvm/test/EmployeeV1.name:Ljava/lang/String;
+  #16 = NameAndType        #5:#6          // name:Ljava/lang/String;
+  #17 = Fieldref           #1.#18         // com/coderising/jvm/test/EmployeeV1.age:I
+  #18 = NameAndType        #7:#8          // age:I
+  #19 = Utf8               LineNumberTable
+  #20 = Utf8               LocalVariableTable
+  #21 = Utf8               this
+  #22 = Utf8               Lcom/coderising/jvm/test/EmployeeV1;
+  #23 = Utf8               setName
+  #24 = Utf8               (Ljava/lang/String;)V
+  #25 = Utf8               setAge
+  #26 = Utf8               (I)V
+  #27 = Utf8               sayHello
+  #28 = Fieldref           #29.#31        // java/lang/System.out:Ljava/io/PrintStream;
+  #29 = Class              #30            // java/lang/System
+  #30 = Utf8               java/lang/System
+  #31 = NameAndType        #32:#33        // out:Ljava/io/PrintStream;
+  #32 = Utf8               out
+  #33 = Utf8               Ljava/io/PrintStream;
+  #34 = String             #35            // Hello , this is class Employee
+  #35 = Utf8               Hello , this is class Employee
+  #36 = Methodref          #37.#39        // java/io/PrintStream.println:(Ljava/lang/String;)V
+  #37 = Class              #38            // java/io/PrintStream
+  #38 = Utf8               java/io/PrintStream
+  #39 = NameAndType        #40:#24        // println:(Ljava/lang/String;)V
+  #40 = Utf8               println
+  #41 = Utf8               main
+  #42 = Utf8               ([Ljava/lang/String;)V
+  #43 = String             #44            // Andy
+  #44 = Utf8               Andy
+  #45 = Methodref          #1.#46         // com/coderising/jvm/test/EmployeeV1."<init>":(Ljava/lang/String;I)V
+  #46 = NameAndType        #9:#10         // "<init>":(Ljava/lang/String;I)V
+  #47 = Methodref          #1.#48         // com/coderising/jvm/test/EmployeeV1.sayHello:()V
+  #48 = NameAndType        #27:#14        // sayHello:()V
+  #49 = Utf8               args
+  #50 = Utf8               [Ljava/lang/String;
+  #51 = Utf8               p
+  #52 = Utf8               SourceFile
+  #53 = Utf8               EmployeeV1.java
+{
+  public com.coderising.jvm.test.EmployeeV1(java.lang.String, int);
+    descriptor: (Ljava/lang/String;I)V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=3, args_size=3
+         0: aload_0
+         1: invokespecial #12                 // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: aload_1
+         6: putfield      #15                 // Field name:Ljava/lang/String;
+         9: aload_0
+        10: iload_2
+        11: putfield      #17                 // Field age:I
+        14: return
+      LineNumberTable:
+        line 9: 0
+        line 10: 4
+        line 11: 9
+        line 12: 14
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      15     0  this   Lcom/coderising/jvm/test/EmployeeV1;
+            0      15     1  name   Ljava/lang/String;
+            0      15     2   age   I
+
+  public void setName(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #15                 // Field name:Ljava/lang/String;
+         5: return
+      LineNumberTable:
+        line 15: 0
+        line 16: 5
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/coderising/jvm/test/EmployeeV1;
+            0       6     1  name   Ljava/lang/String;
+
+  public void setAge(int);
+    descriptor: (I)V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: iload_1
+         2: putfield      #17                 // Field age:I
+         5: return
+      LineNumberTable:
+        line 18: 0
+        line 19: 5
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/coderising/jvm/test/EmployeeV1;
+            0       6     1   age   I
+
+  public void sayHello();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: getstatic     #28                 // Field java/lang/System.out:Ljava/io/PrintStream;
+         3: ldc           #34                 // String Hello , this is class Employee
+         5: invokevirtual #36                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+         8: return
+      LineNumberTable:
+        line 21: 0
+        line 22: 8
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0  this   Lcom/coderising/jvm/test/EmployeeV1;
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=4, locals=2, args_size=1
+         0: new           #1                  // class com/coderising/jvm/test/EmployeeV1
+         3: dup
+         4: ldc           #43                 // String Andy
+         6: bipush        29
+         8: invokespecial #45                 // Method "<init>":(Ljava/lang/String;I)V
+        11: astore_1
+        12: aload_1
+        13: invokevirtual #47                 // Method sayHello:()V
+        16: return
+      LineNumberTable:
+        line 24: 0
+        line 25: 12
+        line 27: 16
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      17     0  args   [Ljava/lang/String;
+           12       5     1     p   Lcom/coderising/jvm/test/EmployeeV1;
+}
+SourceFile: "EmployeeV1.java"
+youchaowendeMacBook-Pro:Downloads Tee$
