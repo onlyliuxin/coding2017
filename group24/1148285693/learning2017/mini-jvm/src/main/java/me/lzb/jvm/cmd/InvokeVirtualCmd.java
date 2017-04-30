@@ -21,6 +21,11 @@ public class InvokeVirtualCmd extends TwoOperandCmd {
         return super.getOperandAsMethod(pool);
     }
 
+    public String toString() {
+        return toString(clzFile.getConstantPool());
+    }
+
+
     @Override
     public void execute(StackFrame frame, ExecutionResult result) {
         //先得到对该方法的描述

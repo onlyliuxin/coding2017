@@ -18,9 +18,13 @@ public class InvokeSpecialCmd extends TwoOperandCmd {
 
     @Override
     public String toString(ConstantPool pool) {
-
         return super.getOperandAsMethod(pool);
     }
+
+    public String toString() {
+        return toString(clzFile.getConstantPool());
+    }
+
 
     @Override
     public void execute(StackFrame frame, ExecutionResult result) {

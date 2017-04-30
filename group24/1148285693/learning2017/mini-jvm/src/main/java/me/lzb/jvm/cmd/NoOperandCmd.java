@@ -18,6 +18,10 @@ public class NoOperandCmd extends ByteCodeCommand {
         return this.getOffset() + ":" + this.getOpCode() + " " + this.getReadableCodeText();
     }
 
+    public String toString() {
+        return toString(clzFile.getConstantPool());
+    }
+
     @Override
     public void execute(StackFrame frame, ExecutionResult result) {
 

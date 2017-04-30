@@ -18,7 +18,7 @@ public class BiPushCmd extends OneOperandCmd {
     @Override
     public String toString(ConstantPool pool) {
 
-        return this.getOffset() + ": " + this.getOpCode() + " " + this.getReadableCodeText() + " " + this.getOperand();
+        return this.getOffset() + ":" + this.getOpCode() + " " + this.getReadableCodeText() + " " + this.getOperand();
     }
 
     public String toString() {

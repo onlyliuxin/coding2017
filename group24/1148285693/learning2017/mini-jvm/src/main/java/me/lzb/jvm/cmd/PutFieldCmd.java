@@ -18,8 +18,11 @@ public class PutFieldCmd extends TwoOperandCmd {
 
     @Override
     public String toString(ConstantPool pool) {
-
         return super.getOperandAsField(pool);
+    }
+
+    public String toString() {
+        return toString(clzFile.getConstantPool());
     }
 
     @Override
