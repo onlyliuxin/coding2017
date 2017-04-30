@@ -5,7 +5,7 @@ import com.coding.basic.array.ArrayList;
 public class BinaryTree {
 	
 	//根节点
-	private BinaryTreeNode root;	
+	private BinaryTreeNode<Integer> root;	
 	    
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public <T extends Comparable<? super T>> BinaryTreeNode insert(T o){
@@ -44,12 +44,12 @@ public class BinaryTree {
 	 * @param node
 	 * @return
 	 */
-	public List traversalBefore(BinaryTreeNode node){
+	public List<Integer> traversalBefore(BinaryTreeNode<Integer> node){
 		//所有数据集合
-	    List datas = new ArrayList();
+	    List<Integer> datas = new ArrayList<>();
 	    return traversal(node,datas);
 	}
-	private List traversal(BinaryTreeNode node,List datas){
+	private List<Integer> traversal(BinaryTreeNode<Integer> node,List<Integer> datas){
 		
 		if(node !=null){
 			datas.add(node.getData());
@@ -59,7 +59,7 @@ public class BinaryTree {
 		return datas;
 	}
 
-	public BinaryTreeNode getRoot() {
+	public BinaryTreeNode<Integer> getRoot() {
 		return root;
 	}
 		

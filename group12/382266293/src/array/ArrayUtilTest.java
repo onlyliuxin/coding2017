@@ -1,10 +1,14 @@
 package array;
 
-import static org.junit.Assert.*;
-import static util.TestUtil.*;
+import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
+import static util.TestUtil.getRandomIntArray;
+import static util.TestUtil.getRandomNumber;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.TreeSet;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,16 +29,86 @@ public class ArrayUtilTest {
 	}
 
 	@Test
-	public void testReverseArray() {
+	public void testFibonacci() {
+		int[] expected = new int[] { 1, 1, 2, 3, 5, 8, 13 };
+		int[] acutal = new int[expected.length];
+		actual = au.fibonacci(15);
+		assertArrayEquals(expected, actual);
+	}
 
-		int size = getRandomNumber();
-		int[] expected = getRandomIntArray(size);
-		actual = Arrays.copyOf(expected, size);
+	@Test
+	public void testGetPerfectNumbers() {
 
-		au.reverseArray(actual);
+		int[] expected = new int[] { 6, 28, 496, 8128 };
+		int[] acutal = new int[expected.length];
+		actual = au.getPerfectNumbers(10000);
+		assertArrayEquals(expected, actual);
+	}
 
-		for (int i = 0; i < size; i++) {
-			assertEquals(expected[i], actual[size - 1 - i]);
+	@Test
+	public void testGetPrimes() {
+
+		int[] expected = new int[] { 2, 3, 5, 7, 11, 13, 17, 19 };
+		int[] acutal = new int[expected.length];
+		actual = au.getPrimes(23);
+		assertArrayEquals(expected, actual);
+	}
+
+	@Test
+	public void testGrow() {
+		int[] expected = getRandomIntArray(getRandomNumber());
+		int growSize = getRandomNumber();
+		int[] actual = au.grow(expected, growSize);
+
+		assertEquals(expected.length + growSize, actual.length);
+
+		for (int i = 0; i < actual.length; i++) {
+			if (i < expected.length) {
+				assertEquals(expected[i], actual[i]);
+			} else {
+				assertEquals(0, actual[i]);
+			}
+		}
+
+	}
+
+	@Test
+	public void testJoin() {
+
+		int[] expected = getRandomIntArray(getRandomNumber());
+		String seperator = "-";
+		String joinedString = au.join(expected, seperator);
+
+		String[] actual = joinedString.split(seperator);
+
+		assertEquals(expected.length, actual.length);
+		for (int i = 0; i < expected.length; i++) {
+			assertEquals(expected[i], Integer.parseInt(actual[i]));
+		}
+
+	}
+
+	@Test
+	public void testMerge() {
+		int[] arr1 = getRandomIntArray(getRandomNumber());
+		int[] arr2 = getRandomIntArray(getRandomNumber());
+		Arrays.sort(arr1);
+		Arrays.sort(arr2);
+		TreeSet t = new TreeSet();
+		for (int i = 0; i < arr1.length; i++) {
+			t.add(arr1[i]);
+		}
+		for (int i = 0; i < arr2.length; i++) {
+			t.add(arr2[i]);
+		}
+		int[] actual = new int[arr1.length + arr2.length];
+		actual = au.merge(arr1, arr2);
+
+		assertEquals(t.size(), actual.length);
+
+		Iterator it = t.iterator();
+		for (int i = 0; it.hasNext(); i++) {
+			assertEquals((int) it.next(), actual[i]);
 		}
 
 	}
@@ -67,86 +141,16 @@ public class ArrayUtilTest {
 	}
 
 	@Test
-	public void testMerge() {
-		int[] arr1 = getRandomIntArray(getRandomNumber());
-		int[] arr2 = getRandomIntArray(getRandomNumber());
-		Arrays.sort(arr1);
-		Arrays.sort(arr2);
-		TreeSet t = new TreeSet();
-		for (int i = 0; i < arr1.length; i++) {
-			t.add(arr1[i]);
-		}
-		for (int i = 0; i < arr2.length; i++) {
-			t.add(arr2[i]);
-		}
-		int[] actual = new int[arr1.length + arr2.length];
-		actual = au.merge(arr1, arr2);
+	public void testReverseArray() {
 
-		assertEquals(t.size(), actual.length);
+		int size = getRandomNumber();
+		int[] expected = getRandomIntArray(size);
+		actual = Arrays.copyOf(expected, size);
 
-		Iterator it = t.iterator();
-		for (int i = 0; it.hasNext(); i++) {
-			assertEquals((int) it.next(), actual[i]);
-		}
+		au.reverseArray(actual);
 
-	}
-
-	@Test
-	public void testGrow() {
-		int[] expected = getRandomIntArray(getRandomNumber());
-		int growSize = getRandomNumber();
-		int[] actual = au.grow(expected, growSize);
-
-		assertEquals(expected.length + growSize, actual.length);
-
-		for (int i = 0; i < actual.length; i++) {
-			if (i < expected.length) {
-				assertEquals(expected[i], actual[i]);
-			} else {
-				assertEquals(0, actual[i]);
-			}
-		}
-
-	}
-
-	@Test
-	public void testFibonacci() {
-		int[] expected = new int[] { 1, 1, 2, 3, 5, 8, 13 };
-		int[] acutal = new int[expected.length];
-		actual = au.fibonacci(15);
-		assertArrayEquals(expected, actual);
-	}
-
-	@Test
-	public void testGetPrimes() {
-
-		int[] expected = new int[] { 2, 3, 5, 7, 11, 13, 17, 19 };
-		int[] acutal = new int[expected.length];
-		actual = au.getPrimes(23);
-		assertArrayEquals(expected, actual);
-	}
-
-	@Test
-	public void testGetPerfectNumbers() {
-
-		int[] expected = new int[] { 6, 28, 496, 8128 };
-		int[] acutal = new int[expected.length];
-		actual = au.getPerfectNumbers(10000);
-		assertArrayEquals(expected, actual);
-	}
-
-	@Test
-	public void testJoin() {
-
-		int[] expected = getRandomIntArray(getRandomNumber());
-		String seperator = "-";
-		String joinedString = au.join(expected, seperator);
-
-		String[] actual = joinedString.split(seperator);
-
-		assertEquals(expected.length, actual.length);
-		for (int i = 0; i < expected.length; i++) {
-			assertEquals(expected[i], Integer.parseInt(actual[i]));
+		for (int i = 0; i < size; i++) {
+			assertEquals(expected[i], actual[size - 1 - i]);
 		}
 
 	}

@@ -10,6 +10,8 @@ import minijvm.attr.LocalVariableTable;
 import minijvm.clz.AccessFlag;
 import minijvm.clz.ClassFile;
 import minijvm.clz.ClassIndex;
+import minijvm.cmd.ByteCodeCommand;
+import minijvm.cmd.CommandParser;
 import minijvm.constant.ClassInfo;
 import minijvm.constant.ConstantInfo;
 import minijvm.constant.ConstantPool;
@@ -212,7 +214,9 @@ public class ClassFileParser {
 	    int codeLength = iter.nextU4ToInt();
 	    String code = iter.nextUxToHexString(codeLength);
 	    
-	    CodeAttr codeAttr = new CodeAttr(nameIndex, length, maxStack, maxLocals, codeLength, code);
+	    ByteCodeCommand[] codeCommands = CommandParser.parse(classFile, code);
+	    
+	    CodeAttr codeAttr = new CodeAttr(nameIndex, length, maxStack, maxLocals, codeLength, code, codeCommands);
 	    
 	    // TODO Code属性中的exception
 	    int exceptionLength = iter.nextU2ToInt();
