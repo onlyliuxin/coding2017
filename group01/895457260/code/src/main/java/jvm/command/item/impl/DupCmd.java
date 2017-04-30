@@ -24,6 +24,6 @@ public class DupCmd extends NoOperandCmd {
     @Override
     public void execute(StackFrame frame, ExecutionResult result) {
         JavaObject object = frame.getOperandStack().peek();
-        frame.getOperandStack().push(object);
+        frame.getOperandStack().push(new JavaObject(object));
     }
 }

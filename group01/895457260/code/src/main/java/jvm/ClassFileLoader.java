@@ -43,6 +43,9 @@ public class ClassFileLoader {
 
 	private File getClassFile(String className) throws ClassDuplicateException {
 		int split = className.lastIndexOf('.');
+		if (split == -1) {
+			split = className.lastIndexOf('/');
+		}
 		String fileName = className.substring(split + 1) + ".class";
 		String subPath = className.substring(0, split).replaceAll("[.]", "/");
 		List<File> files = new ArrayList<>();

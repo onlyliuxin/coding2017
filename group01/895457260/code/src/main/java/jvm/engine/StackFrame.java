@@ -1,7 +1,5 @@
 package jvm.engine;
 
-import jvm.classfile.ConstantPool;
-import jvm.classfile.constant.item.impl.MethodRefInfo;
 import jvm.classfile.method.Method;
 import jvm.command.item.ByteCodeCommand;
 import jvm.command.item.TwoOperandCmd;
@@ -36,12 +34,6 @@ public class StackFrame {
             if (result.isExitCurrentFrame()) {
                 return result;
             } else if (result.isPauseAndRunNewFrame()) {
-                TwoOperandCmd invokeCmd = (TwoOperandCmd) cmd;
-                int methodIndex = (invokeCmd.getOperand1() << 8) | invokeCmd.getOperand2();
-                ConstantPool constantPool = getMethod().getConstantPool();
-                MethodRefInfo next = (MethodRefInfo) constantPool.getConstantInfo(methodIndex);
-                Method nextMethod = MethodArea.getInstance().getMethod(next);
-                result.setNextMethod(nextMethod);
                 return result;
             } else if (result.isJump()) {
                 TwoOperandCmd jumpCmd = (TwoOperandCmd) cmd;

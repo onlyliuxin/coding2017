@@ -74,4 +74,16 @@ public class JavaObject {
     public void setFloatValue(float value) {
         this.floatValue = value;
     }
+
+    public JavaObject(JavaObject object) {
+        type = object.type;
+        className = object.className;
+        stringValue = object.stringValue;
+        intValue = object.intValue;
+        floatValue = object.floatValue;
+        fieldValues = new HashMap<>();
+        for (Map.Entry<String, JavaObject> entry : fieldValues.entrySet()) {
+            fieldValues.put(entry.getKey(), new JavaObject(entry.getValue()));
+        }
+    }
 }
