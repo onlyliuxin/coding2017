@@ -80,23 +80,18 @@ public class ClassFileParser {
 
     private void parseFileds(ClassFile clzFile, ByteCodeIterator iter) {
         int fieldCount = iter.nextU2toInt();
-
-        for (int i = 1; i <= fieldCount; i++) {
+        for (int i =0; i<fieldCount; i++) {
             Field f = Field.parse(clzFile.getConstantPool(), iter);
             clzFile.addField(f);
         }
-
     }
 
     private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
-
         int methodCount = iter.nextU2toInt();
-
-        for (int i = 1; i <= methodCount; i++) {
+        for (int i=0; i<methodCount; i++) {
             Method m = Method.parse(clzFile, iter);
             clzFile.addMethod(m);
         }
-
     }
 
     protected ConstantInfo getConstantInfo(ByteCodeIterator iter, int tag, ConstantPool pool) {

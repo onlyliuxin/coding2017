@@ -33,7 +33,7 @@ public class LineNumberTable extends AttributeInfo {
 		
 	}
 	
-	public static LineNumberTable parse(ByteCodeIterator iter){
+	public static LineNumberTable parse_V2(ByteCodeIterator iter){
 		
 		int index = iter.nextU2toInt();
 		int len = iter.nextU4toInt();
@@ -49,6 +49,23 @@ public class LineNumberTable extends AttributeInfo {
 			table.addLineNumberItem(item);
 		}
 		return table;
+	}
+
+	public static LineNumberTable parse(ByteCodeIterator iter){
+        int nameIndex = iter.nextU2toInt();
+        int attrLen = iter.nextU4toInt();
+        int tableLen = iter.nextU2toInt();
+        LineNumberTable table = new LineNumberTable(nameIndex, attrLen);
+
+        for (int i=0; i<tableLen; i++) {
+            int startPc = iter.nextU2toInt();
+            int lineNum = iter.nextU2toInt();
+            LineNumberItem lineNumberItem = new LineNumberItem();
+            lineNumberItem.setStartPC(startPc);
+            lineNumberItem.setLineNum(lineNum);
+            table.addLineNumberItem(lineNumberItem);
+        }
+        return table;
 	}
 	
 	public String toString(){

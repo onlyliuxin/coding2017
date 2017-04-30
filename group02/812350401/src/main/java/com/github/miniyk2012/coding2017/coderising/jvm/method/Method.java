@@ -52,10 +52,10 @@ public class Method {
 		ConstantPool pool = this.clzFile.getConstantPool();
 		StringBuilder buffer = new StringBuilder();
 		
-		String name = ((UTF8Info)pool.getConstantInfo(this.nameIndex)).getValue();
-		
-		String desc = ((UTF8Info)pool.getConstantInfo(this.descriptorIndex)).getValue();
-		
+		// String name = ((UTF8Info)pool.getConstantInfo(this.nameIndex)).getValue();
+		String name = pool.getUTF8String(nameIndex);
+		// String desc = ((UTF8Info)pool.getConstantInfo(this.descriptorIndex)).getValue();
+		String desc = pool.getUTF8String(descriptorIndex);
 		buffer.append(name).append(":").append(desc).append("\n");
 		
 		buffer.append(this.codeAttr.toString(pool));
@@ -63,7 +63,7 @@ public class Method {
 		return buffer.toString();
 	}
 	
-	public static Method parse(ClassFile clzFile, ByteCodeIterator iter){
+	public static Method parse_V2(ClassFile clzFile, ByteCodeIterator iter){
 		int accessFlag = iter.nextU2toInt();
 		int nameIndex = iter.nextU2toInt();
 		int descIndex = iter.nextU2toInt();
@@ -72,22 +72,25 @@ public class Method {
 		
 		Method m = new Method(clzFile, accessFlag, nameIndex, descIndex);
 		
-		for( int j=1; j<= attribCount; j++){
-			
+		for( int j=1; j<= attribCount; j++) {
+
 			int attrNameIndex = iter.nextU2toInt();
 			String attrName = clzFile.getConstantPool().getUTF8String(attrNameIndex);
 			iter.skip(-2);
-			
-			if(AttributeInfo.CODE.equalsIgnoreCase(attrName)){
+
+			if (AttributeInfo.CODE.equalsIgnoreCase(attrName)) {
 				CodeAttr codeAttr = CodeAttr.parse(clzFile, iter);
 				m.setCodeAttr(codeAttr);
-			} else{
-				throw new RuntimeException("only CODE attribute is implemented , please implement the "+ attrName);
+			} else {
+				throw new RuntimeException("only CODE attribute is implemented , please implement the " + attrName);
 			}
-			
+
 		}
-		
 		return m ;
-		
 	}
+	public static Method parse(ClassFile clzFile, ByteCodeIterator iter){
+
+		return null;
+	}
+
 }

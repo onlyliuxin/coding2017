@@ -20,9 +20,11 @@ public class Field {
 	}
 
 	public String toString() {
-		String name = ((UTF8Info)pool.getConstantInfo(this.nameIndex)).getValue();
+		// String name = ((UTF8Info)pool.getConstantInfo(this.nameIndex)).getValue();
+		String name = pool.getUTF8String(nameIndex);
 		
-		String desc = ((UTF8Info)pool.getConstantInfo(this.descriptorIndex)).getValue();
+		//String desc = ((UTF8Info)pool.getConstantInfo(this.descriptorIndex)).getValue();
+		String desc = pool.getUTF8String(descriptorIndex);
 		return name +":"+ desc;
 	}
 	
@@ -35,7 +37,7 @@ public class Field {
 		int attribCount = iter.nextU2toInt();
 		//System.out.println("field attribute count:"+ attribCount);
 		
-		Field f = new Field(accessFlag, nameIndex, descIndex,pool);
+		Field f = new Field(accessFlag, nameIndex, descIndex, pool);
 		
 		if(attribCount > 0){
 			throw new RuntimeException("Field Attribute has not been implemented");

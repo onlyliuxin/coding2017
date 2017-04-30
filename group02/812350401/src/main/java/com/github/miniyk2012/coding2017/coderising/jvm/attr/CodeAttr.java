@@ -39,7 +39,7 @@ public class CodeAttr extends AttributeInfo {
 		this.localVarTable = t;		
 	}
 	
-public static CodeAttr parse(ClassFile clzFile, ByteCodeIterator iter){
+	public static CodeAttr parse_V2(ClassFile clzFile, ByteCodeIterator iter){
 		
 		int attrNameIndex = iter.nextU2toInt();
 		int attrLen = iter.nextU4toInt();
@@ -51,7 +51,7 @@ public static CodeAttr parse(ClassFile clzFile, ByteCodeIterator iter){
 		
 		System.out.println(code);
 		
-		//ByteCodeCommand[] cmds = ByteCodeCommand.parse(clzFile,code);
+		// ByteCodeCommand[] cmds = ByteCodeCommand.parse(clzFile,code);
 		
 		CodeAttr codeAttr = new CodeAttr(attrNameIndex,attrLen, maxStack,maxLocals,codeLen,code);
 		
@@ -95,7 +95,10 @@ public static CodeAttr parse(ClassFile clzFile, ByteCodeIterator iter){
 		
 		return codeAttr;
 	}
-	
+	public static CodeAttr parse(ClassFile clzFile, ByteCodeIterator iter){
+
+		return null;
+	}
 
 	public String toString(ConstantPool pool){
 		StringBuilder buffer = new StringBuilder();
