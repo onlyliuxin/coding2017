@@ -19,7 +19,19 @@ public class ByteUtils {
         return builder.toString();
     }
 
+    public static int toInt(byte[] bytes) {
+        return toInt(bytes, 0, bytes.length);
+    }
+
     public static int toInt(byte[] bytes, int off, int len) {
         return Integer.parseInt(toHexString(bytes, off, len), 16);
+    }
+
+    public static float toFloat(byte[] bytes) {
+        return toFloat(bytes, 0, bytes.length);
+    }
+
+    public static float toFloat(byte[] bytes, int off, int len) {
+        return Float.intBitsToFloat(toInt(bytes, off, len));
     }
 }

@@ -10,6 +10,7 @@ import jvm.classfile.constant.parser.ConstantParserFactory;
 import jvm.classfile.field.Field;
 import jvm.classfile.method.Method;
 import jvm.util.ByteCodeIterator;
+import jvm.util.TypeUtils;
 
 /**
  * Created by Haochen on 2017/4/9.
@@ -91,7 +92,11 @@ public class ClassParser {
     private static void parseFields(ClassFile classFile, ByteCodeIterator iterator) {
         int count = iterator.nextU2ToInt();
         for (int i = 0; i < count; ++i) {
-            classFile.fields.add(Field.parse(iterator, classFile.constantPool));
+            Field field = Field.parse(iterator, classFile.constantPool);
+            classFile.fields.add(field);
+            if (field.getAccessFlag().isStatic()) {
+                classFile.staticFieldValues.put(field, TypeUtils.getDefaultValue(field));
+            }
         }
     }
 

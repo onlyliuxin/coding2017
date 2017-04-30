@@ -1,5 +1,6 @@
 package datastructure;
 
+import datastructure.basic.LinkedList;
 import datastructure.exception.EmptyQueueException;
 import datastructure.basic.Queue;
 import org.junit.Assert;
@@ -29,7 +30,7 @@ public class QueueTest {
     }
 
     private Queue getQueue() {
-        Queue queue = new Queue(5);
+        Queue queue = new Queue();
         for (int i = 1; i <= 5; ++i) {
             queue.enQueue(i);
         }
@@ -38,35 +39,19 @@ public class QueueTest {
 
     private void assertQueue(Queue queue, Object[] actual) {
         Class<Queue> clazz = Queue.class;
-        Object[] array = null;
-        int head = 0;
-        int rear = 0;
-        Method mapIndex = null;
+        LinkedList list = null;
         try {
-            Field arrayField = clazz.getDeclaredField("array");
-            Field headField = clazz.getDeclaredField("head");
-            Field rearField = clazz.getDeclaredField("rear");
-            mapIndex = clazz.getDeclaredMethod("mapIndex", int.class);
-            arrayField.setAccessible(true);
-            headField.setAccessible(true);
-            rearField.setAccessible(true);
-            mapIndex.setAccessible(true);
-            array = (Object[]) arrayField.get(queue);
-            head = (int) headField.get(queue);
-            rear = (int) rearField.get(queue);
-        } catch (NoSuchFieldException | IllegalAccessException | NoSuchMethodException e) {
+            Field listField = clazz.getDeclaredField("list");
+            listField.setAccessible(true);
+            list = (LinkedList) listField.get(queue);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
+            Assert.fail();
         }
         int size = queue.size();
         Object[] excepted = new Object[size];
-        int pos = 0;
-        try {
-            while (head < rear) {
-                excepted[pos++] = array[(int) mapIndex.invoke(queue, head)];
-                head++;
-            }
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
+        for (int i = 0; i < size; ++i) {
+            excepted[i] = list.get(i);
         }
         Assert.assertArrayEquals(excepted, actual);
     }

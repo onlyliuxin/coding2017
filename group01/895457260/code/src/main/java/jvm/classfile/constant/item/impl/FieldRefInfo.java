@@ -49,4 +49,12 @@ public class FieldRefInfo implements Constant, IReference {
         className = ((ClassInfo) constantPool.getConstantInfo(classIndex)).getClassName();
         nameAndType = ((NameAndTypeInfo) constantPool.getConstantInfo(nameAndTypeIndex)).getNameAndType();
     }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public String getNameAndType() {
+        return nameAndType;
+    }
 }

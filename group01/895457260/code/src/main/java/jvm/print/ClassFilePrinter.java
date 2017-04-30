@@ -4,9 +4,6 @@ import jvm.ClassFileLoader;
 import jvm.classfile.ClassFile;
 import jvm.exception.ReadClassException;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ClassFilePrinter {
     ClassFile clzFile;
 
@@ -15,7 +12,7 @@ public class ClassFilePrinter {
     }
 
     public void print() {
-        if (clzFile.getAccessFlag().isPublicClass()) {
+        if (clzFile.getAccessFlag().isPublic()) {
             System.out.println("Access flag : public  ");
         }
         System.out.println("Class Name: " + clzFile.getClassName());

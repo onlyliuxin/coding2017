@@ -10,7 +10,7 @@ public class PostfixExpr {
 	private String expr;
 	private String splitRegex;
 	private Stack stack = new Stack();
-	
+
 	public PostfixExpr(String expr) {
 		this.expr = expr;
 		this.splitRegex = " ";

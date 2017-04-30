@@ -1,5 +1,6 @@
 package jvm.classfile.method;
 
+import jvm.classfile.AccessFlag;
 import jvm.classfile.ClassFile;
 import jvm.classfile.attribute.item.AttributeInfo;
 import jvm.classfile.attribute.item.impl.CodeAttr;
@@ -9,12 +10,14 @@ import jvm.classfile.constant.item.impl.UTF8Info;
 import jvm.command.CommandParser;
 import jvm.command.item.ByteCodeCommand;
 import jvm.util.ByteCodeIterator;
+import jvm.util.TypeUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Method {
-	private int accessFlag;
+	private AccessFlag accessFlag;
 	private int nameIndex;
 	private int descriptorIndex;
 	private ConstantPool constantPool;
@@ -22,7 +25,7 @@ public class Method {
 	private ByteCodeCommand[] commands;
 
 	public Method(int accessFlag, int nameIndex, int descriptorIndex, ConstantPool constantPool) {
-		this.accessFlag = accessFlag;
+		this.accessFlag = new AccessFlag(accessFlag);
 		this.nameIndex = nameIndex;
 		this.descriptorIndex = descriptorIndex;
 		this.constantPool = constantPool;
@@ -45,7 +48,24 @@ public class Method {
 		return result;
 	}
 
-	public int getAccessFlag() {
+	public String[] getParamTypes() {
+		String[] split = Arrays.stream(getParamAndReturnType().split("[)(L;]"))
+				.filter(s -> !"".equals(s))
+				.toArray(String[]::new);
+
+		List<String> result = new ArrayList<>();
+		Arrays.stream(split).forEach(s ->
+				result.add(s.length() == 1 ?
+						TypeUtils.parse(s) : s));
+
+		return result.toArray(new String[result.size()]);
+	}
+
+	public int getParamCount() {
+		return getParamTypes().length;
+	}
+
+	public AccessFlag getAccessFlag() {
 		return accessFlag;
 	}
 

@@ -32,6 +32,12 @@ public class PostfixExprTest {
 			PostfixExpr expr = new PostfixExpr("10 2 3 * - 50 +");
 			Assert.assertEquals(54, expr.evaluate(),0.0f);
 		}
+
+		{
+			//10-2^3+50
+			PostfixExpr expr = new PostfixExpr("10 2 3 ^ - 50 +");
+			Assert.assertEquals(52, expr.evaluate(),0.0f);
+		}
 	}
 
 }

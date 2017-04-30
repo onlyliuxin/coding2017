@@ -4,6 +4,9 @@ import jvm.classfile.ClassFile;
 import jvm.classfile.ConstantPool;
 import jvm.classfile.constant.item.Constant;
 import jvm.command.CommandIterator;
+import jvm.engine.ExecutionResult;
+import jvm.engine.StackFrame;
+import jvm.exception.ReadClassException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -113,5 +116,5 @@ public abstract class ByteCodeCommand {
         return txt == null ? opCode : txt.toLowerCase();
     }
 
-    //public abstract void execute(StackFrame frame,FrameResult result);
+    public abstract void execute(StackFrame frame, ExecutionResult result) throws ReadClassException;
 }

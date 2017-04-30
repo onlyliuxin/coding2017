@@ -21,10 +21,19 @@ public class AccessFlag {
         this.flagValue = flag;
     }
 
-    public boolean isPublicClass(){
+    public boolean isPublic(){
         return (this.flagValue & 0x0001) != 0;
     }
-    public boolean isFinalClass(){
+    public boolean isPrivate(){
+        return (this.flagValue & 0x0002) != 0;
+    }
+    public boolean isProtected(){
+        return (this.flagValue & 0x0004) != 0;
+    }
+    public boolean isStatic(){
+        return (this.flagValue & 0x0008) != 0;
+    }
+    public boolean isFinal(){
         return (this.flagValue & 0x0010) != 0;
     }
 }
