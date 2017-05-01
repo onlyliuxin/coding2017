@@ -8,6 +8,7 @@ import me.lzb.jvm.engine.ExecutionResult;
 import me.lzb.jvm.engine.Heap;
 import me.lzb.jvm.engine.JavaObject;
 import me.lzb.jvm.engine.StackFrame;
+import me.lzb.jvm.print.ExecutionVisitor;
 
 public class LdcCmd extends OneOperandCmd {
 
@@ -15,10 +16,9 @@ public class LdcCmd extends OneOperandCmd {
         super(clzFile, opCode);
     }
 
-    @Override
-    public String toString(ConstantPool pool) {
 
-        ConstantInfo info = pool.getConstantInfo(this.getOperand());
+    public String toString() {
+        ConstantInfo info = getConstantInfo(this.getOperand());
 
         String value = "TBD";
         if (info instanceof StringInfo) {
@@ -26,19 +26,14 @@ public class LdcCmd extends OneOperandCmd {
             value = strInfo.toString();
         }
 
-        return this.getOffset() + ":" + this.getOpCode() + " " + this.getReadableCodeText() + "   #" + getOffset() + "  // String  " + value;
-
-    }
-
-    public String toString() {
-        return toString(clzFile.getConstantPool());
+        return this.getOffset() + ":" + this.getOpCode() + " " + this.getReadableCodeText() + "   #" + getOperand() + "  // String  " + value;
     }
 
 
     @Override
     public void execute(StackFrame frame, ExecutionResult result) {
         ConstantPool pool = this.getConstantPool();
-        ConstantInfo info = (ConstantInfo) pool.getConstantInfo(this.getOperand());
+        ConstantInfo info = pool.getConstantInfo(this.getOperand());
 
         if (info instanceof StringInfo) {
             StringInfo strInfo = (StringInfo) info;
@@ -50,6 +45,11 @@ public class LdcCmd extends OneOperandCmd {
             throw new RuntimeException("Only support StringInfo constant");
         }
 
+    }
+
+    @Override
+    public void printExecute(ExecutionVisitor visitor) {
+        visitor.visitLdcCmd(this);
     }
 
 }

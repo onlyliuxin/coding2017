@@ -1,5 +1,6 @@
 package me.lzb.jvm.print;
 
+import me.lzb.common.utils.StringUtils;
 import me.lzb.jvm.clz.ClassFile;
 import me.lzb.jvm.constant.*;
 
@@ -33,38 +34,30 @@ public class PrintFormat implements PrintVisitor {
 
     @Override
     public void visitClassInfo(ClassInfo info) {
-        System.out.println("Class              #" + getSpace(info.getUtf8Index() + "") + "// " + info.getClassName());
+        System.out.println("Class              #" + StringUtils.appendSpace(FOURTEENTH, info.getUtf8Index() + "") + "// " + info.getClassName());
     }
 
     @Override
     public void visitFieldRef(FieldRefInfo info) {
-        System.out.println("FieldRef           #" + getSpace(info.getClassInfoIndex() + ".#" + info.getNameAndTypeIndex()) + "// " + info.getClassName() + ". " + info.toString());
+        System.out.println("FieldRef           #" + StringUtils.appendSpace(FOURTEENTH, info.getClassInfoIndex() + ".#" + info.getNameAndTypeIndex()) + "// " + info.getClassName() + ". " + info.toString());
     }
 
     @Override
     public void visitMethodRef(MethodRefInfo info) {
-        System.out.println("MethodRef          #" + getSpace(info.getClassInfoIndex() + ".#" + info.getNameAndTypeIndex()) + "// " + info.getClassName() + ". " + info.toString());
+        System.out.println("MethodRef          #" + StringUtils.appendSpace(FOURTEENTH, info.getClassInfoIndex() + ".#" + info.getNameAndTypeIndex()) + "// " + info.getClassName() + ". " + info.toString());
     }
 
     @Override
     public void visitNameAndType(NameAndTypeInfo info) {
         //  //
-        System.out.println("NameAndType        #" + getSpace(info.getIndex1() + ":#" + info.getIndex2()) + "// " + info.toString());
+        System.out.println("NameAndType        #" + StringUtils.appendSpace(FOURTEENTH, info.getIndex1() + ":#" + info.getIndex2()) + "// " + info.toString());
     }
 
     @Override
     public void visitString(StringInfo info) {
-        System.out.println("String             #" + getSpace(info.getIndex() + "") + "// " + info.toString());
+        System.out.println("String             #" + StringUtils.appendSpace(FOURTEENTH, info.getIndex() + "") + "// " + info.toString());
     }
 
 
-    private String getSpace(String str) {
-        int spaceCount = FOURTEENTH - str.length();
 
-        StringBuffer spaceBuffer = new StringBuffer();
-        for (int i = 0; i < spaceCount; i++) {
-            spaceBuffer.append(" ");
-        }
-        return str + spaceBuffer.toString();
-    }
 }

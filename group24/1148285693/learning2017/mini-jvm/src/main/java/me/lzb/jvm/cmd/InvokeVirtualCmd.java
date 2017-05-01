@@ -1,13 +1,13 @@
 package me.lzb.jvm.cmd;
 
 import me.lzb.jvm.clz.ClassFile;
-import me.lzb.jvm.constant.ConstantPool;
 import me.lzb.jvm.constant.MethodRefInfo;
 import me.lzb.jvm.engine.ExecutionResult;
 import me.lzb.jvm.engine.JavaObject;
 import me.lzb.jvm.engine.MethodArea;
 import me.lzb.jvm.engine.StackFrame;
 import me.lzb.jvm.method.Method;
+import me.lzb.jvm.print.ExecutionVisitor;
 
 public class InvokeVirtualCmd extends TwoOperandCmd {
 
@@ -15,14 +15,8 @@ public class InvokeVirtualCmd extends TwoOperandCmd {
         super(clzFile, opCode);
     }
 
-    @Override
-    public String toString(ConstantPool pool) {
-
-        return super.getOperandAsMethod(pool);
-    }
-
     public String toString() {
-        return toString(clzFile.getConstantPool());
+        return super.getOperandAsMethod();
     }
 
 
@@ -38,7 +32,7 @@ public class InvokeVirtualCmd extends TwoOperandCmd {
         if (isSystemOutPrintlnMethod(className, methodName)) {
             JavaObject jo = (JavaObject) frame.getOprandStack().pop();
             String value = jo.toString();
-            System.err.println("-------------------" + value + "----------------");
+            System.out.println("-------------------" + value + "----------------");
 
             // 这里就是那个out对象， 因为是个假的，直接pop出来
             frame.getOprandStack().pop();
@@ -79,6 +73,11 @@ public class InvokeVirtualCmd extends TwoOperandCmd {
         result.setNextAction(ExecutionResult.PAUSE_AND_RUN_NEW_FRAME);
 
         result.setNextMethod(m);
+    }
+
+    @Override
+    public void printExecute(ExecutionVisitor visitor) {
+        visitor.visitInvokeVirtualCmd(this);
     }
 
     private boolean isSystemOutPrintlnMethod(String className, String methodName) {

@@ -5,6 +5,7 @@ import me.lzb.jvm.constant.ConstantInfo;
 import me.lzb.jvm.constant.ConstantPool;
 import me.lzb.jvm.engine.ExecutionResult;
 import me.lzb.jvm.engine.StackFrame;
+import me.lzb.jvm.print.ExecutionVisitor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,7 +58,7 @@ public abstract class ByteCodeCommand {
     public static final String fload_2 = "24";
 
 
-    private static Map<String, String> codeMap = new HashMap<String, String>();
+    private static Map<String, String> codeMap = new HashMap<>();
 
     static {
         codeMap.put(aconst_null, "aconst_null");
@@ -129,7 +130,7 @@ public abstract class ByteCodeCommand {
         this.offset = offset;
     }
 
-    protected ConstantInfo getConstantInfo(int index) {
+    public ConstantInfo getConstantInfo(int index) {
         return this.getClassFile().getConstantPool().getConstantInfo(index);
     }
 
@@ -154,7 +155,6 @@ public abstract class ByteCodeCommand {
         return buffer.toString();
     }
 
-    public abstract String toString(ConstantPool pool);
 
     public String getReadableCodeText() {
         String txt = codeMap.get(opCode);
@@ -165,4 +165,6 @@ public abstract class ByteCodeCommand {
     }
 
     public abstract void execute(StackFrame frame, ExecutionResult result);
+
+    public abstract void printExecute(ExecutionVisitor visitor);
 }

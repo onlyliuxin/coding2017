@@ -2,13 +2,12 @@ package me.lzb.jvm.engine;
 
 import me.lzb.jvm.loader.ClassFileLoader;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
 public class MiniJVM {
 
-    public void run(String[] classPaths, String className) throws FileNotFoundException, IOException {
+    public void run(String[] classPaths, String className) throws IOException {
 
         ClassFileLoader loader = new ClassFileLoader();
         for (int i = 0; i < classPaths.length; i++) {

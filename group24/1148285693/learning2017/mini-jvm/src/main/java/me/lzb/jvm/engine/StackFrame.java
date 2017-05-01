@@ -2,6 +2,8 @@ package me.lzb.jvm.engine;
 
 import me.lzb.jvm.cmd.ByteCodeCommand;
 import me.lzb.jvm.method.Method;
+import me.lzb.jvm.print.ExecutionFormat;
+import me.lzb.jvm.print.ExecutionVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +75,10 @@ public class StackFrame {
             result.setNextAction(ExecutionResult.RUN_NEXT_CMD);
 
             //输出执行的命令
-            System.out.println(commands[index].toString());
+            ExecutionVisitor format = ExecutionFormat.getInstance();
+            commands[index].printExecute(format);
+
+//            System.out.println(commands[index].toString());
 
             commands[index].execute(this, result);
 
