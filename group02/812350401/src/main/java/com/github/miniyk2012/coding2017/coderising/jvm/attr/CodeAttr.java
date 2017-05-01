@@ -53,7 +53,7 @@ public class CodeAttr extends AttributeInfo {
 		
 		// ByteCodeCommand[] cmds = ByteCodeCommand.parse(clzFile,code);
 		
-		CodeAttr codeAttr = new CodeAttr(attrNameIndex,attrLen, maxStack,maxLocals,codeLen,code);
+		CodeAttr codeAttr = new CodeAttr(attrNameIndex, attrLen, maxStack, maxLocals, codeLen, code);
 		
 		int exceptionTableLen = iter.nextU2toInt();
 		//TODO 处理exception
@@ -74,7 +74,6 @@ public class CodeAttr extends AttributeInfo {
 			iter.skip(-2);
 			//line item table
 			if(AttributeInfo.LINE_NUM_TABLE.equalsIgnoreCase(subAttrName)){
-				
 				LineNumberTable t = LineNumberTable.parse(iter);
 				codeAttr.setLineNumberTable(t);
 			}
@@ -89,15 +88,45 @@ public class CodeAttr extends AttributeInfo {
 			else{
 				throw new RuntimeException("Need code to process " + subAttrName);
 			}
-			
-			
 		}
 		
 		return codeAttr;
 	}
 	public static CodeAttr parse(ClassFile clzFile, ByteCodeIterator iter){
+		int attributeNameIndex = iter.nextU2toInt();
+		int attributeLength = iter.nextU4toInt();
+		int maxStack = iter.nextU2toInt();
+		int maxLocals = iter.nextU2toInt();
+		int codeLength = iter.nextU4toInt();
 
-		return null;
+		String code = iter.nextUxToHexString(codeLength);
+        CodeAttr codeAttr = new CodeAttr(attributeNameIndex, attributeLength, maxStack, maxLocals, codeLength, code);
+
+        int exceptionTableLen = iter.nextU2toInt();
+        if(exceptionTableLen>0){
+            String exTable = iter.nextUxToHexString(exceptionTableLen);
+            System.out.println("Encountered exception table , just ignore it :" + exTable);
+        }
+
+        int attributesCount = iter.nextU2toInt();
+        for (int i=0; i<attributesCount; i++) {
+            int subAttrIndex = iter.nextU2toInt();
+            String subAttrName = clzFile.getConstantPool().getUTF8String(subAttrIndex);
+            iter.skip(-2);
+            if (AttributeInfo.LINE_NUM_TABLE.equalsIgnoreCase(subAttrName)) {
+                LineNumberTable lineNumberTable = LineNumberTable.parse(iter);
+                codeAttr.setLineNumberTable(lineNumberTable);
+            } else if (AttributeInfo.LOCAL_VAR_TABLE.equalsIgnoreCase(subAttrName)) {
+                LocalVariableTable localVariableTable = LocalVariableTable.parse(iter);
+                codeAttr.setLocalVariableTable(localVariableTable);
+            } else if (AttributeInfo.STACK_MAP_TABLE.equalsIgnoreCase(subAttrName)) {
+                StackMapTable stackMapTable = StackMapTable.parse(iter);
+                codeAttr.setStackMapTable(stackMapTable);
+            } else {
+                throw new RuntimeException("Need code to process " + subAttrName);
+            }
+        }
+        return codeAttr;
 	}
 
 	public String toString(ConstantPool pool){

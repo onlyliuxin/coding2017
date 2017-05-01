@@ -239,8 +239,8 @@ public class ClassFileloaderTest {
         }
     }
 
-    private void assertMethodEquals(ConstantPool pool,Method m , String expectedName, String expectedDesc,String expectedCode){
-         String methodName = pool.getUTF8String(m.getNameIndex());
+    private void assertMethodEquals(ConstantPool pool, Method m , String expectedName, String expectedDesc, String expectedCode){
+        String methodName = pool.getUTF8String(m.getNameIndex());
         String methodDesc = pool.getUTF8String(m.getDescriptorIndex());
         String code = m.getCodeAttr().getCode();
         Assert.assertEquals(expectedName, methodName);

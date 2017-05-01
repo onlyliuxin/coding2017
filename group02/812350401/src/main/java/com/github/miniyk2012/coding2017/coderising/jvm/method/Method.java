@@ -73,8 +73,7 @@ public class Method {
 		Method m = new Method(clzFile, accessFlag, nameIndex, descIndex);
 		
 		for( int j=1; j<= attribCount; j++) {
-
-			int attrNameIndex = iter.nextU2toInt();
+            int attrNameIndex = iter.nextU2toInt();
 			String attrName = clzFile.getConstantPool().getUTF8String(attrNameIndex);
 			iter.skip(-2);
 
@@ -89,8 +88,25 @@ public class Method {
 		return m ;
 	}
 	public static Method parse(ClassFile clzFile, ByteCodeIterator iter){
+		int accessFlag = iter.nextU2toInt();
+		int nameIndex = iter.nextU2toInt();
+		int descriptorIndex = iter.nextU2toInt();
+		int attributeCount = iter.nextU2toInt();
 
-		return null;
+		Method method = new Method(clzFile, accessFlag, nameIndex, descriptorIndex);
+		for (int i=0; i<attributeCount; i++) {
+			int attributeNameIndex = iter.nextU2toInt();
+			String attributeName = clzFile.getConstantPool().getUTF8String(attributeNameIndex);
+            iter.skip(-2);  // 把游标指向属性开头位置
+			if (AttributeInfo.CODE.equalsIgnoreCase(attributeName)) {
+				CodeAttr codeAttr = CodeAttr.parse(clzFile, iter);
+				method.setCodeAttr(codeAttr);
+			} else {
+				throw new RuntimeException("only CODE attribute is implemented , please implement the " + attributeName);
+			}
+
+		}
+		return method;
 	}
 
 }
