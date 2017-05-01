@@ -15,7 +15,7 @@ public class LdcCmd extends OneOperandCmd {
 	@Override
 	public String toString(ConstantPool pool) {
 		
-		ConstantInfo info = (ConstantInfo)pool.getConstantInfo(this.getOperand());
+		ConstantInfo info = pool.getConstantInfo(this.getOperand());
 		
 		String value = "TBD";
 		if(info instanceof StringInfo){

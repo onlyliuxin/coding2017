@@ -28,10 +28,10 @@ public class ClassFilePrinter {
 	}
 	
 	public static void main(String[] args){
-		String path = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
+		String path = ClassFilePrinter.class.getClassLoader().getResource("jvm").getPath();
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path);
-		String className = "com.coderising.jvm.test.EmployeeV1";
+		String className = "com.github.miniyk2012.coding2017.jvm.test.EmployeeV1";
 		
 		ClassFile clzFile = loader.loadClass(className);
 		

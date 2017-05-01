@@ -11,10 +11,7 @@ import com.github.miniyk2012.coding2017.coderising.jvm.field.Field;
 import com.github.miniyk2012.coding2017.coderising.jvm.loader.ClassFileLoader;
 import com.github.miniyk2012.coding2017.coderising.jvm.method.Method;
 import com.github.miniyk2012.coding2017.coderising.jvm.util.Util;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.List;
 
@@ -335,11 +332,25 @@ public class ClassFileloaderTest {
      * 编写代码时做的一些测试用例
      */
     @Test
+    @Ignore
     public void otherThing() {
         {   // Method的若干方法
             Method mainMethod = this.clzFile.getMainMethod();
             Assert.assertEquals("main", mainMethod.getMethodName());
             Assert.assertEquals("([Ljava/lang/String;)V", mainMethod.getDescriptor());
+            System.out.println(mainMethod);
+        }
+        {
+            Method sayHelloMethod = this.clzFile.getMethod("sayHello", "()V");
+            System.out.println(sayHelloMethod);
+        }
+        {
+            Method setNameMethod = this.clzFile.getMethod("setName", "(Ljava/lang/String;)V");
+            System.out.println(setNameMethod);
+        }
+        {
+            Method initMethod = this.clzFile.getMethod("<init>", "(Ljava/lang/String;I)V");
+            System.out.println(initMethod);
         }
     }
 

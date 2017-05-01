@@ -15,6 +15,4 @@ public class PutFieldCmd extends TwoOperandCmd {
 		
 		return super.getOperandAsField(pool);
 	}
-
-
 }

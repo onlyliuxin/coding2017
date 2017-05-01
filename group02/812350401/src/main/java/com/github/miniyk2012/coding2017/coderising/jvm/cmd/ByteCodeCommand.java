@@ -67,10 +67,7 @@ public abstract class ByteCodeCommand {
 		
 		codeMap.put("12", "ldc");
 	}
-	
-	
 
-	
 
 	protected ByteCodeCommand(ClassFile clzFile, String opCode){
 		this.clzFile = clzFile;
@@ -88,25 +85,22 @@ public abstract class ByteCodeCommand {
 	public void setOffset(int offset) {
 		this.offset = offset;
 	}
+
 	protected ConstantInfo getConstantInfo(int index){
-		return this.getClassFile().getConstantPool().getConstantInfo(index);
+		return getConstantPool().getConstantInfo(index);
 	}
 	
 	protected ConstantPool getConstantPool(){
 		return this.getClassFile().getConstantPool();
 	}
-	
-	
-	
+
 	public String getOpCode() {
 		return opCode;
 	}
 
 	public abstract int getLength();  // 以后goto语句要用到
-	
-	
-	
-	
+
+    @Override
 	public String toString(){
 		
 		StringBuffer buffer = new StringBuffer();
@@ -114,12 +108,13 @@ public abstract class ByteCodeCommand {
 		
 		return buffer.toString();
 	}
+
 	public abstract String toString(ConstantPool pool);
 	
 	public String getReadableCodeText(){
 		String txt = codeMap.get(opCode);
 		if(txt == null){
-			return opCode;
+			throw new RuntimeException("codeMap don't contain: " + opCode);
 		}
 		return txt;
 	}
