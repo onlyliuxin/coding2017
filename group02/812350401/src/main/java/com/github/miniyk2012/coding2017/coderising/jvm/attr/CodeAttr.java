@@ -3,6 +3,7 @@ package com.github.miniyk2012.coding2017.coderising.jvm.attr;
 
 import com.github.miniyk2012.coding2017.coderising.jvm.clz.ClassFile;
 import com.github.miniyk2012.coding2017.coderising.jvm.cmd.ByteCodeCommand;
+import com.github.miniyk2012.coding2017.coderising.jvm.cmd.CommandParser;
 import com.github.miniyk2012.coding2017.coderising.jvm.constant.ConstantPool;
 import com.github.miniyk2012.coding2017.coderising.jvm.loader.ByteCodeIterator;
 
@@ -54,7 +55,8 @@ public class CodeAttr extends AttributeInfo {
 		int codeLength = iter.nextU4toInt();
 
 		String code = iter.nextUxToHexString(codeLength);
-        CodeAttr codeAttr = new CodeAttr(attributeNameIndex, attributeLength, maxStack, maxLocals, codeLength, code, null);
+		ByteCodeCommand[] cmds = CommandParser.parse(clzFile, code);
+        CodeAttr codeAttr = new CodeAttr(attributeNameIndex, attributeLength, maxStack, maxLocals, codeLength, code, cmds);
 
         int exceptionTableLen = iter.nextU2toInt();
         if(exceptionTableLen>0){
@@ -98,8 +100,5 @@ public class CodeAttr extends AttributeInfo {
 		this.stackMapTable = t;
 	}
 
-	
-	
-	
-	
+
 }

@@ -84,11 +84,17 @@ public class ClassFile {
 	}
 
 	public Method getMethod(String methodName, String paramAndReturnType){
+		for (Method method: methods) {
+            String mName = method.getMethodName();
+            String desc = method.getDescriptor();
+            if (mName.equals(methodName) && desc.equals(paramAndReturnType)) {
+                return method;
+            }
+        }
 		return null;
 	}
 
 	public Method getMainMethod(){
-
-		return null;
+		return getMethod("main", "([Ljava/lang/String;)V");
 	}
 }

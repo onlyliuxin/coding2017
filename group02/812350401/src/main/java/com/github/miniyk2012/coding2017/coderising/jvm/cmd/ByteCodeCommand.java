@@ -10,11 +10,11 @@ import java.util.Map;
 
 public abstract class ByteCodeCommand {	
 	
-	String opCode;
+	String opCode;  // 该指令的助记符
 	ClassFile clzFile;
-	private int offset;
+	private int offset;  // 该命令在某方法指令中的偏移量
 	
-	private static Map<String,String> codeMap = new HashMap<String,String>();
+	private static Map<String,String> codeMap = new HashMap<String,String>();   // 二级制码与助记符的对应关系
 	
 	static{
 		codeMap.put("01", "aconst_null");
@@ -102,7 +102,7 @@ public abstract class ByteCodeCommand {
 		return opCode;
 	}
 
-	public abstract int getLength();
+	public abstract int getLength();  // 以后goto语句要用到
 	
 	
 	

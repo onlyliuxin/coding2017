@@ -70,7 +70,7 @@ public class ClassFileParser {
     private void parseInterfaces(ByteCodeIterator iter) {
         int interfaceCount = iter.nextU2toInt();
 
-        System.out.println("interfaceCount:" + interfaceCount);
+        // System.out.println("interfaceCount:" + interfaceCount);
         for (int i=0; i<interfaceCount; i++) {
             // TODO : 如果实现了interface, 这里需要解析
             iter.skip(2);

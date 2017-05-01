@@ -33,7 +33,7 @@ public class ClassFileloaderTest {
         String className = "com.github.miniyk2012.coding2017.jvm.test.EmployeeV1";
 
         clzFile = loader.loadClass(className);
-        clzFile.print();
+        // clzFile.print();
     }
 
 	@Before
@@ -331,5 +331,16 @@ public class ClassFileloaderTest {
         Assert.assertEquals(expected, acctual);
     }
 
+    /**
+     * 编写代码时做的一些测试用例
+     */
+    @Test
+    public void otherThing() {
+        {   // Method的若干方法
+            Method mainMethod = this.clzFile.getMainMethod();
+            Assert.assertEquals("main", mainMethod.getMethodName());
+            Assert.assertEquals("([Ljava/lang/String;)V", mainMethod.getDescriptor());
+        }
+    }
 
 }

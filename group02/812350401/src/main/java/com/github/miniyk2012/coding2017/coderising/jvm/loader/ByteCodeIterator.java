@@ -25,7 +25,7 @@ public class ByteCodeIterator {
     }
 
     public int nextU4toInt() {
-        return assignments.jvm.util.Util.byteToInt(new byte[] { codes[point++], codes[point++], codes[point++], codes[point++] });
+        return Util.byteToInt(new byte[] { codes[point++], codes[point++], codes[point++], codes[point++] });
     }
 
     /**
@@ -72,7 +72,7 @@ public class ByteCodeIterator {
     }
 
     public String nextU4ToHexString() {
-        return assignments.jvm.util.Util.byteToHexString((new byte[] { codes[point++], codes[point++], codes[point++], codes[point++] }));
+        return Util.byteToHexString((new byte[] { codes[point++], codes[point++], codes[point++], codes[point++] }));
     }
 
     public String nextUxToHexString(int len) {
@@ -81,7 +81,7 @@ public class ByteCodeIterator {
         for (int i = 0; i < len; i++) {
             tmp[i] = codes[point++];
         }
-        return assignments.jvm.util.Util.byteToHexString(tmp).toLowerCase();
+        return Util.byteToHexString(tmp).toLowerCase();
 
     }
 

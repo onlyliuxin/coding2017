@@ -2,6 +2,7 @@ package com.github.miniyk2012.coding2017.coderising.jvm.cmd;
 
 import com.github.miniyk2012.coding2017.coderising.jvm.clz.ClassFile;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -44,8 +45,69 @@ public class CommandParser {
 
 	public static ByteCodeCommand[] parse(ClassFile clzFile, String codes) {
 
-		
-		return null;
+		CommandIterator cIter = new CommandIterator(codes);
+		List<ByteCodeCommand> cmds = new LinkedList<>();
+		// 将字符串解析为ByteCodeCommand[]
+        while (cIter.hasNext()) {  // todo 重构，1.不应该用这么多的if语句 2.大量重复代码
+            String opCode = cIter.next2CharAsString().toUpperCase();
+            if (opCode.equalsIgnoreCase(getfield)) {
+                GetFieldCmd cmd = new GetFieldCmd(clzFile, opCode);
+                cmd.setOprand1(cIter.next2CharAsInt());
+                cmd.setOprand2(cIter.next2CharAsInt());
+                cmds.add(cmd);
+            } else if (opCode.equalsIgnoreCase(getstatic)) {
+                GetStaticFieldCmd cmd = new GetStaticFieldCmd(clzFile, opCode);
+                cmd.setOprand1(cIter.next2CharAsInt());
+                cmd.setOprand2(cIter.next2CharAsInt());
+                cmds.add(cmd);
+            } else if (opCode.equalsIgnoreCase(invokespecial)) {
+                InvokeSpecialCmd cmd = new InvokeSpecialCmd(clzFile, opCode);
+                cmd.setOprand1(cIter.next2CharAsInt());
+                cmd.setOprand2(cIter.next2CharAsInt());
+                cmds.add(cmd);
+            } else if (opCode.equalsIgnoreCase(invokevirtual)) {
+                InvokeVirtualCmd cmd = new InvokeVirtualCmd(clzFile, opCode);
+                cmd.setOprand1(cIter.next2CharAsInt());
+                cmd.setOprand2(cIter.next2CharAsInt());
+                cmds.add(cmd);
+            } else if (opCode.equalsIgnoreCase(ldc)) {
+                LdcCmd cmd = new LdcCmd(clzFile, opCode);
+                cmd.setOperand(cIter.next2CharAsInt());
+                cmds.add(cmd);
+            } else if (opCode.equalsIgnoreCase(new_object)) {
+                NewObjectCmd cmd = new NewObjectCmd(clzFile, opCode);
+                cmd.setOprand1(cIter.next2CharAsInt());
+                cmd.setOprand2(cIter.next2CharAsInt());
+                cmds.add(cmd);
+            } else if (opCode.equalsIgnoreCase(putfield)) {
+                PutFieldCmd cmd = new PutFieldCmd(clzFile, opCode);
+                cmd.setOprand1(cIter.next2CharAsInt());
+                cmd.setOprand2(cIter.next2CharAsInt());
+                cmds.add(cmd);
+            } else if (opCode.equalsIgnoreCase(bipush)) {
+                BiPushCmd cmd = new BiPushCmd(clzFile, opCode);
+                cmd.setOperand(cIter.next2CharAsInt());
+                cmds.add(cmd);
+            } else if (opCode.equalsIgnoreCase(aload_0)
+                    || opCode.equalsIgnoreCase(aload_1)
+                    || opCode.equalsIgnoreCase(aload_2)
+                    || opCode.equalsIgnoreCase(astore_1)
+                    || opCode.equalsIgnoreCase(iload_1)
+                    || opCode.equalsIgnoreCase(iload_2)
+                    || opCode.equalsIgnoreCase(voidreturn)
+                    || opCode.equalsIgnoreCase(dup)
+                    ) {
+                NoOperandCmd cmd = new NoOperandCmd(clzFile, opCode);
+                cmds.add(cmd);
+            } else {
+                throw new RuntimeException("not implement cmd: " + opCode);
+            }
+
+        }
+        calcuateOffset(cmds);
+        ByteCodeCommand[] result = new ByteCodeCommand[cmds.size()];
+		cmds.toArray(result);
+		return result;
 	}
 
 	private static void calcuateOffset(List<ByteCodeCommand> cmds) {
