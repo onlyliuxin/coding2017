@@ -4,8 +4,8 @@ package com.github.miniyk2012.coding2017.coderising.jvm.method;
 import com.github.miniyk2012.coding2017.coderising.jvm.attr.AttributeInfo;
 import com.github.miniyk2012.coding2017.coderising.jvm.attr.CodeAttr;
 import com.github.miniyk2012.coding2017.coderising.jvm.clz.ClassFile;
+import com.github.miniyk2012.coding2017.coderising.jvm.cmd.ByteCodeCommand;
 import com.github.miniyk2012.coding2017.coderising.jvm.constant.ConstantPool;
-import com.github.miniyk2012.coding2017.coderising.jvm.constant.UTF8Info;
 import com.github.miniyk2012.coding2017.coderising.jvm.loader.ByteCodeIterator;
 
 public class Method {
@@ -107,6 +107,10 @@ public class Method {
 
 		}
 		return method;
+	}
+
+	public ByteCodeCommand[] getCmds() {
+		return this.getCodeAttr().getCmds();
 	}
 
 }
