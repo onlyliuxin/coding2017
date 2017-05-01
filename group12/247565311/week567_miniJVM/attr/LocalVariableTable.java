@@ -15,16 +15,16 @@ public class LocalVariableTable extends AttributeInfo{
 	List<LocalVariableItem> items = new ArrayList<LocalVariableItem>();
 	
 	public LocalVariableTable(int attrNameIndex, int attrLen) {
-		super(attrNameIndex, attrLen);		
+		super(attrNameIndex, attrLen,AttributeInfo.LOCAL_VAR_TABLE);		
 	}
-	
 	public static LocalVariableTable parse(ByteCodeIterator iter){
 		
 		return null;
 	}
-	private void addLocalVariableItem(LocalVariableItem item) {
+	public void addLocalVariableItem(LocalVariableItem item) {
 		this.items.add(item);		
 	}
+
 	
 	
 }
