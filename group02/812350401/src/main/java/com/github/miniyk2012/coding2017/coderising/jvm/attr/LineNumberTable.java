@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class LineNumberTable extends AttributeInfo {
-	List<LineNumberItem> items = new ArrayList<LineNumberItem>();
+	List<LineNumberItem> items = new ArrayList<>();
 	
 	private static class LineNumberItem{
 		int startPC;
