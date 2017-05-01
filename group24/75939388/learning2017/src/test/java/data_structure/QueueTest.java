@@ -2,7 +2,7 @@ package data_structure;
 
 import org.junit.Assert;
 import org.junit.Test;
-import basic.dataStructure.Queue;
+import basic.dataStructure.queue.Queue;
 
 /**
  * Created by macvi on 2017/4/4.
