@@ -84,8 +84,4 @@ public class ByteCodeIterator {
 		}
 		return buffer.toString();
 	}
-	
-	public void back(int offset){
-		this.pos-=offset;
-	}
 }

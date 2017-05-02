@@ -26,7 +26,26 @@ public class StackUtil {
 			counter--;
 		}
 	}
-
+	
+	public static void reverse2(Stack s) {
+		if(s==null || s.isEmpty()){ 
+			return;
+		};
+		Stack temp = new Stack();
+		int counter = s.size();
+		while(counter>1){
+			//Get the peek one
+			Object o = s.pop();
+			for(int i=0;i<counter-1;i++){
+				temp.push(s.pop());
+			}
+			s.push(o);
+			for(int j=0;j<counter-1;j++){
+				s.push(temp.pop());
+			}
+			counter--;
+		}
+	}
 	/**
 	 * 删除栈中的某个元素 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
 	 * 
