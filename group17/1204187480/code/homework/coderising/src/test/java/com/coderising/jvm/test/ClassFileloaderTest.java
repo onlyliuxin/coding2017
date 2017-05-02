@@ -49,7 +49,7 @@ public class ClassFileloaderTest {
 //		clzFile = loader.loadClass(className);
 //
 //	}
-//
+
 	
 	@Before
 	public void setUp() throws Exception {		 
@@ -58,28 +58,31 @@ public class ClassFileloaderTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-	
+
+	private void addClassPath(ClassFileLoader loader) {
+		loader.addClassPath(path1);
+		loader.addClassPath(path2);
+	}
+
 	@Test
 	public void testClassPath(){		
 		
 		ClassFileLoader loader = new ClassFileLoader();
-		loader.addClassPath(path1);
-		loader.addClassPath(path2);
-		
+		addClassPath(loader);
 		String clzPath = loader.getClassPath();
 		
 		Assert.assertEquals(getCanonicalPath(new File(path1))+";"+getCanonicalPath(new File(path2)),clzPath);
 		
 	}
-	
+
 	@Test
 	public void testClassFileLength() {		
 		
 		ClassFileLoader loader = new ClassFileLoader();
-		loader.addClassPath(path1);
+		addClassPath(loader);
 		
 		String className = "com.coderising.jvm.test.EmployeeV1";
-		
+
 		byte[] byteCodes = loader.readBinaryCode(className);
 		
 		// 注意：这个字节数可能和你的JVM版本有关系， 你可以看看编译好的类到底有多大
@@ -91,7 +94,7 @@ public class ClassFileloaderTest {
     @Test	
 	public void testMagicNumber(){
     	ClassFileLoader loader = new ClassFileLoader();
-		loader.addClassPath(path1);
+		addClassPath(loader);
 		String className = "com.coderising.jvm.test.EmployeeV1";
 		byte[] byteCodes = loader.readBinaryCode(className);
 		byte[] codes = new byte[]{byteCodes[0],byteCodes[1],byteCodes[2],byteCodes[3]};
