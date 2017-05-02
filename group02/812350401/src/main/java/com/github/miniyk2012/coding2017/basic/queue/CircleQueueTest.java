@@ -26,6 +26,8 @@ public class CircleQueueTest {
 		queue.enQueue("a");
 		queue.enQueue("b");
 		queue.enQueue("c");
+        // System.out.println(queue.head);
+        // System.out.println(queue.rear);
 		queue.enQueue("d");
 		queue.enQueue("e");
 		
@@ -42,14 +44,21 @@ public class CircleQueueTest {
 
 		queue.enQueue("f");
 		queue.enQueue("g");
+		// System.out.println(queue.head);
+		// System.out.println(queue.rear);
 		Assert.assertEquals("d", queue.deQueue());
 		Assert.assertEquals("e", queue.deQueue());
+		// System.out.println(queue.head);
+		// System.out.println(queue.rear);
 		Assert.assertEquals("f", queue.deQueue());
 		Assert.assertEquals("g", queue.deQueue());
 
 		Assert.assertEquals(0, queue.size());
 		Assert.assertTrue(queue.isEmpty());
 		Assert.assertFalse(queue.isFull());
+
+		// System.out.println(queue.head);
+		// System.out.println(queue.rear);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.github.miniyk2012.coding2017.basic.queue;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,10 +15,22 @@ public class Josephus {
 	
 	public static List<Integer> execute(int n, int m){		
 		CircleQueue<Integer> circleQueue = new CircleQueue<>(n);
+		List<Integer> result = new LinkedList<>();
 		for (int i=0; i<n; i++) {
             circleQueue.enQueue(i);
         }
-        return null;
+        int num = 1;  // 从1开始报数
+        while (!circleQueue.isEmpty()) {
+			Integer x = circleQueue.deQueue();
+			if (num == m) {
+			    num = 1;  // 杀死一个人，下一个人从1开始报数
+			    result.add(x);
+            } else {
+			    num++;
+			    circleQueue.enQueue(x);
+            }
+		}
+        return result;
 	}
 
 	

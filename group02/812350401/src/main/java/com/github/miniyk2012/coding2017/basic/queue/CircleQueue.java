@@ -3,7 +3,7 @@ package com.github.miniyk2012.coding2017.basic.queue;
 import java.util.ArrayDeque;
 
 /**
- * 用数组实现循环队列
+ * 用数组实现循环队列,这也是一个队列，和普通队列有相同的外部特性，只是内部使用循环数组实现的罢了
  * @author liuxin
  *
  * @param <E>
@@ -16,9 +16,9 @@ public class CircleQueue <E> {
 	private Object[] elementData = new Object[DEFAULT_SIZE] ;
 	
 	//队头
-	private int head = 0;
+	protected int head = 0;
 	//队尾  
-	private int rear = 0;   // rear指向的位置不放值，也就是说即使满了，也有一个空位
+	protected int rear = 0;   // rear指向的位置不放值，也就是说即使满了，也有一个空位
 
     public CircleQueue(int capacity) {
         elementData = new Object[capacity+1];  // 实际的数组长度要比容量大1
