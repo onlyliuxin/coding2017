@@ -4,6 +4,8 @@ import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.constant.ConstantInfo;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.engine.ExecutionResult;
+import com.coderising.jvm.engine.Heap;
+import com.coderising.jvm.engine.JavaObject;
 import com.coderising.jvm.engine.StackFrame;
 
 
@@ -22,8 +24,10 @@ public class BiPushCmd extends OneOperandCmd {
 
 	@Override
 	public void execute(StackFrame frame, ExecutionResult result) {
-		// TODO Auto-generated method stub
-		
+		int value = this.getOperand();
+		JavaObject jo = Heap.getInstance().newInt(value);
+		frame.getOprandStack().push(jo);
+
 	}
 	
 	
