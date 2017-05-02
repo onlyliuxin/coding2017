@@ -32,7 +32,7 @@ public class MethodArea {
 		this.clzLoader = clzLoader;
 	}
 	
-	public Method getMainMethod(String className) throws NotAClassFileException{
+	public Method getMainMethod(String className){
 		
 		ClassFile clzFile = this.findClassFile(className);
 		
@@ -40,30 +40,55 @@ public class MethodArea {
 	}
 	
 	
-	public  ClassFile findClassFile(String className) throws NotAClassFileException{
+	public  ClassFile findClassFile(String className){
 		
-		if(map.get(className) != null){
-			return map.get(className);
+		ClassFile clzFile = null;
+		try {
+			if(map.get(className) != null){
+				return map.get(className);
+			}
+			// 看来该class 文件还没有load过
+			clzFile = this.clzLoader.loadClass(className);
+			
+			map.put(className, clzFile);
+			
+			
+		} catch (NotAClassFileException e) {
+			e.printStackTrace();
 		}
-		// 看来该class 文件还没有load过
-		ClassFile clzFile = this.clzLoader.loadClass(className);
-		
-		map.put(className, clzFile);
-		
 		return clzFile;
-		
 	}
 	
 	
 	public Method getMethod(String className, String methodName, String paramAndReturnType){
 		
-		return null;
+		ClassFile clz = this.findClassFile(className);
+		
+		Method m = clz.getMethod(methodName, paramAndReturnType);
+		
+		if(m == null){
+			
+			throw new RuntimeException("method can't be found : \n" 
+					+ "class: " + className
+					+ "method: " + methodName
+					+ "paramAndReturnType: " + paramAndReturnType);
+		}
+		
+		return m;
 	}
 	
 	
 	public Method getMethod(MethodRefInfo methodRef){		
 		
-		return null;
+		ClassFile clz = this.findClassFile(methodRef.getClassName());
+		
+		Method m = clz.getMethod(methodRef.getMethodName(), methodRef.getParamAndReturnType());
+		
+		if(m == null){
+			throw new RuntimeException("method can't be found : " + methodRef.toString());
+		}
+		
+		return m;
 			
 	}
 }

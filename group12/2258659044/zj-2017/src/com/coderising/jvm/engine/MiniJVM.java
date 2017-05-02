@@ -26,4 +26,16 @@ public class MiniJVM {
 		engine.execute(methodArea.getMainMethod(className));
 	}
 	
+	public static void main(String[] args) {
+		
+		try {
+			MiniJVM jvm = new MiniJVM();
+			String[] classPaths = {"E:\\githubRepository\\coding2017\\group12\\2258659044\\zj-2017\\bin"};
+			String clzName = "test.com.coderising.jvm.EmployeeV1";
+			
+			jvm.run(classPaths, clzName);
+		} catch (IOException | NotAClassFileException e) {
+			e.printStackTrace();
+		}
+	}
 }

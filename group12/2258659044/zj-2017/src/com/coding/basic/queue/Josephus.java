@@ -1,6 +1,7 @@
 package com.coding.basic.queue;
 
 import com.coding.basic.List;
+import com.coding.basic.array.ArrayList;
 
 /**
  * 用Queue来实现Josephus问题
@@ -11,8 +12,22 @@ import com.coding.basic.List;
  */
 public class Josephus {
 	
-	public static List<Integer> execute(int n, int m){		
-		return null;
+	public static List<Integer> execute(int n, int m){	
+		
+		CircleQueue<Integer> queue = new CircleQueue<>();
+		for (int i = 0; i < n; i++) {
+			queue.enQueue(i);
+		}
+		
+		List<Integer> ls = new ArrayList<>();
+		while(!queue.isEmpty()){
+			int position = (m-1)%queue.size();
+			for (int i = 0; i < position; i++) {
+				queue.enQueue(queue.deQueue());
+			}
+			ls.add(queue.deQueue());
+		}
+		return ls;
 	}
 	
 }
