@@ -1,4 +1,4 @@
-package data_structure;
+package data_structure.list;
 
 import basic.dataStructure.linkedList.LinkedList;
 import org.junit.After;

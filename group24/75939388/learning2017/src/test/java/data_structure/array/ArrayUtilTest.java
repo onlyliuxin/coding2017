@@ -1,4 +1,4 @@
-package data_structure;
+package data_structure.array;
 
 import org.junit.Test;
 import basic.dataStructure.ArrayUtil;
