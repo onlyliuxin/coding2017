@@ -1,7 +1,11 @@
 package com.coderising.jvm.test;
 
+import java.io.File;
 import java.util.List;
 
+import ch.qos.logback.core.encoder.ByteArrayUtil;
+import com.coding.common.util.ByteUtils;
+import com.coding.common.util.FileUtils2;
 import org.junit.After;
 import  org.junit.Assert;
 import org.junit.Before;
@@ -20,6 +24,8 @@ import org.junit.Test;
 //import com.coderising.jvm.constant.UTF8Info;
 //import com.coderising.jvm.field.Field;
 import com.coderising.jvm.loader.ClassFileLoader;
+
+import static com.coding.common.util.FileUtils2.getCanonicalPath;
 //import com.coderising.jvm.method.Method;
 
 
@@ -31,8 +37,8 @@ public class ClassFileloaderTest {
 	
 	private static final String FULL_QUALIFIED_CLASS_NAME = "com/coderising/jvm/test/EmployeeV1";
 	
-	static String path1 = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
-	static String path2 = "C:\temp";
+	static String path1 = "target/classes";
+	static String path2 = "target/test-classes";
 	
 //	static ClassFile clzFile = null;
 //	static {
@@ -62,7 +68,7 @@ public class ClassFileloaderTest {
 		
 		String clzPath = loader.getClassPath();
 		
-		Assert.assertEquals(path1+";"+path2,clzPath);
+		Assert.assertEquals(getCanonicalPath(new File(path1))+";"+getCanonicalPath(new File(path2)),clzPath);
 		
 	}
 	
@@ -97,19 +103,9 @@ public class ClassFileloaderTest {
 	}
     
     
-    
+
    	private String byteToHexString(byte[] codes ){
-   		StringBuffer buffer = new StringBuffer();
-   		for(int i=0;i<codes.length;i++){
-   			byte b = codes[i];
-   			int value = b & 0xFF;
-   			String strHex = Integer.toHexString(value);
-   			if(strHex.length()< 2){
-   				strHex = "0" + strHex;
-   			}		
-   			buffer.append(strHex);
-   		}
-   		return buffer.toString();
+		return ByteUtils.byteToHexString(codes);
    	}
 
 //    add comment for behind test

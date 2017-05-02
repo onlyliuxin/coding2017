@@ -20,7 +20,7 @@ public class BeanUtils {
     public static final String GET = "get";
     // 日志输出类
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final StringUtils stringUtils = new StringUtils();
+    private final StringUtils2 stringUtils = new StringUtils2();
 
     public Object setInvoke(Object para, String methodName, Object obj) {
         Method method = null;

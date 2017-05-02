@@ -25,6 +25,11 @@
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.coding</groupId>
+            <artifactId>parent</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 

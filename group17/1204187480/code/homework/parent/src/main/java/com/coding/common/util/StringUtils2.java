@@ -3,7 +3,7 @@ package com.coding.common.util;
 /**
  * Created by luoziyihao on 3/5/17.
  */
-public class StringUtils {
+public class StringUtils2 {
 
     /**
      * 改变指定位置的 char的大小写
