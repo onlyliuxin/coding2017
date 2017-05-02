@@ -36,9 +36,20 @@ public class CircleQueueTest {
 		Assert.assertEquals("a", queue.deQueue());
 		Assert.assertEquals("b", queue.deQueue());
 		Assert.assertEquals("c", queue.deQueue());
+
+		Assert.assertFalse(queue.isFull());
+		Assert.assertEquals(2, queue.size());
+
+		queue.enQueue("f");
+		queue.enQueue("g");
 		Assert.assertEquals("d", queue.deQueue());
 		Assert.assertEquals("e", queue.deQueue());
-		
+		Assert.assertEquals("f", queue.deQueue());
+		Assert.assertEquals("g", queue.deQueue());
+
+		Assert.assertEquals(0, queue.size());
+		Assert.assertTrue(queue.isEmpty());
+		Assert.assertFalse(queue.isFull());
 	}
 
 }

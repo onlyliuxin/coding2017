@@ -11,7 +11,7 @@ public class ByteCodeIterator {
     private int point = 0;
 
     public ByteCodeIterator(byte[] codes) {
-        this.codes = codes;
+        this.codes = codes.clone();
     }
 
     public int nextU1toInt() {
