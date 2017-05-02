@@ -8,7 +8,7 @@ import com.coderising.jvm.engine.MiniJVM;
 
 public class MiniJVMTest {
 
-	static final String PATH = "E:\\MyGit\\coding2017\\group27\\383117348\\bin";
+	static final String PATH = "E:\\coding2017\\group27\\383117348\\bin";
 
 	@Before
 	public void setUp() throws Exception {
