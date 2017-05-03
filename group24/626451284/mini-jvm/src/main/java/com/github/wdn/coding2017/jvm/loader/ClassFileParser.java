@@ -2,6 +2,8 @@ package com.github.wdn.coding2017.jvm.loader;
 
 import com.github.wdn.coding2017.jvm.clz.*;
 import com.github.wdn.coding2017.jvm.constant.*;
+import com.github.wdn.coding2017.jvm.field.Field;
+import com.github.wdn.coding2017.jvm.method.Method;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +24,15 @@ public class ClassFileParser {
 		classFile.setClassIndex(parseClassIndex(iter));
 		parseInterface(iter);
 		classFile.setFields(parseField(iter));
-		classFile.setMethods(parseMethod(iter));
+		classFile.setMethods(parseMethod(classFile,iter));
 		return classFile;
 	}
 
-	private List<Method> parseMethod(ByteCodeIterator iter) {
+	private List<Method> parseMethod(ClassFile classFile,ByteCodeIterator iter) {
 		int methodCount = iter.readU2ToInt();
 		List<Method> methods = new ArrayList<>(methodCount);
 		for (int i = 0; i < methodCount; i++) {
-			Method method = Method.parse(pool, iter);
+			Method method = Method.parse(classFile, iter);
 			method.setPool(pool);
 			methods.add(method);
 		}

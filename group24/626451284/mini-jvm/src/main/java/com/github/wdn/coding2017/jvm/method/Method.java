@@ -1,8 +1,12 @@
-package com.github.wdn.coding2017.jvm.clz;
+package com.github.wdn.coding2017.jvm.method;
 
 import com.github.wdn.coding2017.jvm.attr.*;
+import com.github.wdn.coding2017.jvm.clz.AccessFlag;
+import com.github.wdn.coding2017.jvm.clz.ClassFile;
+import com.github.wdn.coding2017.jvm.cmd.ByteCodeCommand;
 import com.github.wdn.coding2017.jvm.constant.ConstantPool;
 import com.github.wdn.coding2017.jvm.loader.ByteCodeIterator;
+import com.github.wdn.coding2017.jvm.util.Util;
 
 /**
  * Created by Administrator on 2017/4/10 0010.
@@ -14,7 +18,7 @@ public class Method {
     private CodeAttr code;
     //attributes[attributes_count];
     private ConstantPool pool;
-    public static Method parse(ConstantPool pool, ByteCodeIterator iter) {
+    public static Method parse(ClassFile clzFile, ByteCodeIterator iter) {
         Method method = new Method();
         method.setAccessFlags(new AccessFlag(iter.readU2ToInt()));
         method.setNameIndex(iter.readU2ToInt());
@@ -22,31 +26,11 @@ public class Method {
         int methodAttributesCount = iter.readU2ToInt();
         for (int j = 0; j < methodAttributesCount; j++) {
             int methodAttributeNameIndex = iter.readU2ToInt();
-            String methodAttributeType = pool.getConstantInfo(methodAttributeNameIndex).getValue();
+            String methodAttributeType = clzFile.getConstantPool().getConstantInfo(methodAttributeNameIndex).getValue();
+            methodAttributeType = Util.hexString2String(methodAttributeType);
+            iter.back(2);
             if (methodAttributeType.equals(AttributeInfo.CODE)) {
-                CodeAttr codeAttr = new CodeAttr(methodAttributeNameIndex, iter.readU4ToInt(), iter.readU2ToInt(), iter.readU2ToInt(), iter.readCustomToString(iter.readU4ToInt()));
-                int ExceptionCount = iter.readU2ToInt();
-                if (ExceptionCount > 0) {
-                    throw new RuntimeException("方法有异常待解析");
-                }
-                int codeAttributesCount = iter.readU2ToInt();
-                for (int k = 0; k < codeAttributesCount; k++) {
-                    int codeAttributeNameIndex = iter.readU2ToInt();
-                    String codeAttributeType = pool.getConstantInfo(codeAttributeNameIndex).getValue();
-                    if ("LineNumberTable".equals(codeAttributeType)) {
-                        LineNumberTable lineNumberTable = LineNumberTable.parse(iter);
-                        codeAttr.setLineNumTable(lineNumberTable);
-                    } else if ("LocalVariableTable".equals(codeAttributeType)) {
-                        LocalVariableTable localVariableTable = LocalVariableTable.parse(iter);
-                        codeAttr.setLocalVarTable(localVariableTable);
-                    }else if ("StackMapTable".equals(codeAttributeType)) {
-                        StackMapTable stackMapTable = StackMapTable.parse(iter);
-                        codeAttr.setStackMapTable(stackMapTable);
-                    } else {
-                        throw new RuntimeException("未知的Code附加属性类型" + codeAttributeType);
-                    }
-                }
-                method.setCode(codeAttr);
+                method.setCode(CodeAttr.parse(clzFile,iter));
             } else {
                 throw new RuntimeException("未知的方法属性类型" + methodAttributeType);
             }

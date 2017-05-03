@@ -1,10 +1,8 @@
-package com.github.wdn.coding2017.jvm.clz;
+package com.github.wdn.coding2017.jvm.field;
 
+import com.github.wdn.coding2017.jvm.clz.AccessFlag;
 import com.github.wdn.coding2017.jvm.constant.ConstantPool;
 import com.github.wdn.coding2017.jvm.loader.ByteCodeIterator;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Administrator on 2017/4/10 0010.
