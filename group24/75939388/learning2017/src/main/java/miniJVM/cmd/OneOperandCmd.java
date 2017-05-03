@@ -15,13 +15,12 @@ public abstract class OneOperandCmd extends ByteCodeCommand {
 		return this.operand;
 	}
 
-	public void setOperand(int oprand1) {
-		this.operand = oprand1;
+	public void setOperand(int operand) {
+		this.operand = operand;
 		
 	}
 	public  int getLength(){
 		return 2;
 	}
 
-	
 }

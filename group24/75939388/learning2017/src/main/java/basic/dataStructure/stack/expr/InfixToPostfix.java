@@ -38,8 +38,9 @@ public class InfixToPostfix {
                 }
             }
 
-            //处理运算符，若缓存栈顶的运算符优先级高于或等于该运算符时，则进行遍历：
-            //缓存中找出的运算符直接入结果list，遍历完成后当前运算符压进缓存栈中
+            //处理运算符:
+            //  遍历：缓存非空且栈顶是一个运算符且缓存栈顶的运算符的优先级不低于t的优先级，则将栈顶运算符直接入结果list
+            //  遍历完成后当前运算符压进缓存栈中
             if(t.isOperator()){
                 Token tmp = (Token) buffer.peek();
                 while(tmp != null && tmp.isOperator() && tmp.hasHigherPriority(t)){

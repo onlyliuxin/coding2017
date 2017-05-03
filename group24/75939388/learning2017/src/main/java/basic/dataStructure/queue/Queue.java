@@ -50,6 +50,10 @@ public class Queue {
         return peek() == null;
     }
 
+    public boolean isNotEmpty(){
+        return !isEmpty();
+    }
+
     public int size(){
         int size = 0;
         for(Object obj : this.data){

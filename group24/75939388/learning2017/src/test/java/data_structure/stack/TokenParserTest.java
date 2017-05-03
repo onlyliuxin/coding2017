@@ -1,4 +1,4 @@
-package data_structure;
+package data_structure.stack;
 
 
 import basic.dataStructure.stack.expr.Token;

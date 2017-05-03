@@ -1,4 +1,4 @@
-package data_structure;
+package data_structure.queue;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class QueueTest {
     public void testEnqueue(){
         Queue q = newQueue();
         q.enQueue(10 + "");
-        q.enQueue( "xxoo");
+        q.enQueue("xxoo");
         System.out.println("queue-->" + q.toString());
     }
 
