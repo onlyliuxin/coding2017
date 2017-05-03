@@ -1,6 +1,7 @@
 package data_Structure_Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -13,17 +14,18 @@ public class ArrayUtil {
 	 * @param origin
 	 * @return
 	 */
-	public int[] reverseArray(int[] origin){
+	public void reverseArray(int[] origin){
 		
+		if(origin == null || origin.length == 0){
+			return;
+		}
 		int len = origin.length;
-		int[] arr = new int[len];
-		
-		for(int i = 0; i < len; i++)
-		{
-			arr[i] = origin[ len -1 - i];
+		for(int i = 0; i < len/2; i++){
+			int temp = origin[i];
+			origin[i] = origin[len-1-i];
+			origin[len-1-i] = temp;
 		}
 		
-		return arr;
 	}
 	
 	/**
@@ -35,9 +37,11 @@ public class ArrayUtil {
 	 */
 	
 	public int[] removeZero(int[] oldArray){
+		if(oldArray == null){
+			return null;
+		}
 		
 		ArrayList<Integer> al = new ArrayList<Integer>();
-		
 		int len = oldArray.length;
 		for(int i = 0; i < len; i++)
 		{
@@ -68,6 +72,13 @@ public class ArrayUtil {
 	 */
 	
 	public int[] merge(int[] array1, int[] array2){
+		if(array1 == null){
+			return array2;
+		}
+		if(array2 == null){
+			return array1;
+		}
+		
 		TreeSet<Integer> tr = new TreeSet<Integer>();
 		for(int i = 0; i < array1.length; i++)
 		{
@@ -82,7 +93,7 @@ public class ArrayUtil {
 		int[] arr = new int[arrLen];
 		int index = 0;
 		
-		Iterator it = tr.iterator();
+		Iterator<Integer> it = tr.iterator();
 		while(it.hasNext())
 		{
 			arr[index] = (Integer) it.next();
@@ -101,20 +112,15 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
-		
-		int len = oldArray.length;
-		int arrLen = len + size;
-		int[] arr = new int[arrLen];
-		
-		for(int i = 0; i < arrLen; i++)
-		{
-			if (i < len)
-				arr[i] = oldArray[i];
-			else
-				arr[i] = 0;
+		if(oldArray == null){
+			return null;
 		}
-		
-		return arr;
+		if(size<0){
+			throw new IndexOutOfBoundsException("size < 0");
+		}
+		int[] newArray = new int[oldArray.length + size];
+		System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
+		return newArray;
 		
 	}
 	
@@ -126,35 +132,26 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max){
-		
-		ArrayList<Integer> al = new ArrayList<Integer>();
-		int first = 1;
-		int second = 1;
-		int value = 0;
-		if(max >= 2)
-		{
-			al.add(first);
-			al.add(second);
+		if(max == 1){
+			return new int[0];
 		}
-		do
-		{
-			value = first + second;
-			if(value < max)
-			{
-				al.add(value);
-				first = second;
-				second = value;
+		if(max == 2){
+			return new int[]{1, 1};
+		}
+		
+		int[] arr = new int[max];//分配了多的空间，后面需要做数组拷贝
+		arr[0] = 1;
+		arr[1] = 2;
+		int count = 2;//已经有两个元素了
+		for(int i = 2; i < max; i++){
+			arr[i] = arr[i-2] + arr[i-1];
+			if(arr[i] >= max){
+				break;
 			}
-		}while(value < max);
-		
-		int arrLen = al.size();
-		int[] arr = new int[arrLen];
-		for(int i = 0; i < arrLen; i++)
-		{
-			arr[i] = al.get(i);
+			count++;
 		}
 		
-		return arr;
+		return Arrays.copyOf(arr, count);
 		
 	}
 	
@@ -166,38 +163,34 @@ public class ArrayUtil {
 	 */
 	public int[] getPrimes(int max){
 		
-		ArrayList<Integer> al = new ArrayList<Integer>();
-		if(max > 2)
-			al.add(2);
+		if(max < 3){
+			return new int[0];
+		}
 		
-		int value = 3;
-		while(value < max)
-		{
-			int flag = 1;
-			for(int i = 2; i < value; i++)
-			{
-				if(value % i == 0)
-				{
-					flag = 0;
-					break;
-				}
+		int[] arr = new int[max];
+		int count = 0;
+		for(int n = 2; n < max; n++){
+			if(isPrime(n)){
+				arr[count++] = n;
 			}
-			
-			if (flag == 1)
-				al.add(value);
-			
-			value++;
 		}
 		
-		int arrLen = al.size();
-		int[] arr = new int[arrLen];
-		for(int i = 0; i < arrLen; i++)
-		{
-			arr[i] = al.get(i);
+		
+		return Arrays.copyOf(arr, count);
+		
+	}
+	
+	// 判断某个数是否是素数
+	private boolean isPrime(int n){
+		int i = 2;
+		while(i < n){
+			if(n % i != 0){
+				i++;
+			}else{
+				break;
+			}
 		}
-		
-		return arr;
-		
+		return i == n;
 	}
 	
 	/**
@@ -207,42 +200,45 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max){
-		
-		ArrayList<Integer> al = new ArrayList<Integer>();
-		for(int i = 1; i < max; i++)
-		{
-			if (isPerfectNumber(i))
-				al.add(i);
+		if (max <= 0) {
+		    return null;
 		}
+		int[] array = new int[max];
+		int count = 0;
 		
-		int arrLen = al.size();
-		int[] arr = new int[arrLen];
-		for(int i = 0; i < arrLen; i++)
-		{
-			arr[i] = al.get(i);
+		for(int n = 2; n < max; n++){
+			int sum = 0;//记录所有真因子之和
+			for(int i = 1; i < n; i++){
+				if(n%i == 0){
+					sum += i;
+				}
+			}
+			if(sum == n){
+				array[count++] = n;
+			}
 		}
-		
-		return arr;
+
+		return Arrays.copyOf(array, count);
 	}
 	
-	public boolean isPerfectNumber(int number)
-	{
-		ArrayList<Integer> al = new ArrayList<Integer>();
-		
-		for(int i = 1; i < number; i++)
-		{
-			if(number % i == 0)
-				al.add(i);
-		}
-		
-		int value = 0;
-		for(int j = 0; j < al.size(); j++)
-		{
-			value = value + al.get(j);
-		}
-		
-		return value == number;
-	}
+//	public boolean isPerfectNumber(int number)
+//	{
+//		ArrayList<Integer> al = new ArrayList<Integer>();
+//		
+//		for(int i = 1; i < number; i++)
+//		{
+//			if(number % i == 0)
+//				al.add(i);
+//		}
+//		
+//		int value = 0;
+//		for(int j = 0; j < al.size(); j++)
+//		{
+//			value = value + al.get(j);
+//		}
+//		
+//		return value == number;
+//	}
 	
 	/**
 	 * 用seperator 把数组 array给连接起来
@@ -254,15 +250,20 @@ public class ArrayUtil {
 	 */
 	public String join(int[] array, String seperator){
 		
-		String str = "";
-		int len = array.length;
-		for(int i = 0; i < len-1; i++)
-		{
-			str = str + array[i] + seperator;
+		if(array == null){
+			return null;
 		}
-		str = str + array[len-1];
-		
-		return str;
+		if(array.length == 0){
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < array.length; i++){
+			sb.append(array[i]);
+			if(i < array.length -1){
+				sb.append(seperator);
+			}
+		}
+		return sb.toString();
 	}
 	
 	
