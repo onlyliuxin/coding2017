@@ -51,4 +51,9 @@ public class FieldRefInfo extends ConstantInfo{
 		NameAndTypeInfo  typeInfo = (NameAndTypeInfo)this.getConstantInfo(this.getNameAndTypeIndex());
 		return typeInfo.getTypeInfo();	
 	}
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitFieldRef(this);
+		
+	}
 }
