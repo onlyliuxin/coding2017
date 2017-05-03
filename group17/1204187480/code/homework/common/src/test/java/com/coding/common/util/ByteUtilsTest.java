@@ -2,8 +2,6 @@ package com.coding.common.util;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by luoziyihao on 5/2/17.
  */
