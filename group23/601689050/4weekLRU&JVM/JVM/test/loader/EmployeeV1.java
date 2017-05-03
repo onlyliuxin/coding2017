@@ -1,4 +1,4 @@
-package com.test;
+package test.loader;
 
 public class EmployeeV1 {
 	
