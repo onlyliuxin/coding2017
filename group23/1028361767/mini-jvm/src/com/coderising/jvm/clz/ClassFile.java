@@ -86,12 +86,12 @@ public class ClassFile {
 		
 	}
 	
-	private String getClassName(){
+	public String getClassName(){
 		int thisClassIndex = this.clzIndex.getThisClassIndex();
 		ClassInfo thisClass = (ClassInfo)this.getConstantPool().getConstantInfo(thisClassIndex);
 		return thisClass.getClassName();
 	}
-	private String getSuperClassName(){
+	public String getSuperClassName(){
 		ClassInfo superClass = (ClassInfo)this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
 		return superClass.getClassName();
 	}
@@ -100,5 +100,22 @@ public class ClassFile {
 	}
 	public void setFields(List<Field> fields) {
 		this.fields = fields;
+	}
+	
+	public Method getMethod(String methodName, String paramAndReturnType){
+		for(Method m : this.methods){
+			String mName = this.getConstantPool().getUTF8String(m.getNameIndex());
+			String pAndRT = this.getConstantPool().getUTF8String(m.getDescriptorIndex());
+			if(methodName.equals(mName) 
+					&& paramAndReturnType.equals(pAndRT)){
+				return m;
+			}
+		}
+		
+		return null;
+	}
+	public Method getMainMethod(){
+		
+		return getMethod("main", "([Ljava/lang/String;)V");
 	}
 }

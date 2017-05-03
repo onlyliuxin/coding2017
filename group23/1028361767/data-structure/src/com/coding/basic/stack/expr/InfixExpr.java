@@ -1,6 +1,7 @@
 package com.coding.basic.stack.expr;
 
-import com.coding.basic.stack.Stack;
+import java.util.List;
+import java.util.Stack;
 
 public class InfixExpr {
 	String expr = null;
@@ -10,50 +11,92 @@ public class InfixExpr {
 	}
 
 	public float evaluate() {
-		if(expr == null || "".equals(expr)){
-			return 0;
-		}
-		Stack numStack = new Stack();
-		Stack opStack = new Stack();
-		String[] ss = expr.split("");
-		boolean needOper = false;// 需要运算，遇到* / 后置为true
-		boolean foundOper = true;// 遇到运算符
-		String ops = "+-*/";
-		for (int i=0;i<ss.length;i++) {
-			String s = ss[i];
-			if(ops.indexOf(s) != -1){
-				if(needOper){
-					doMulOrDivOp(numStack, (String)opStack.pop());
-					needOper = false;
-				}
-				opStack.push(s);
-				foundOper = true;
-				if("+-".indexOf(s) != -1){
+//		if(expr == null || "".equals(expr)){
+//			return 0;
+//		}
+//		Stack numStack = new Stack();
+//		Stack opStack = new Stack();
+//		String[] ss = expr.split("");
+//		boolean needOper = false;// 需要运算，遇到* / 后置为true
+//		boolean foundOper = true;// 遇到运算符
+//		String ops = "+-*/";
+//		for (int i=0;i<ss.length;i++) {
+//			String s = ss[i];
+//			if(ops.indexOf(s) != -1){
+//				if(needOper){
+//					doMulOrDivOp(numStack, (String)opStack.pop());
+//					needOper = false;
+//				}
+//				opStack.push(s);
+//				foundOper = true;
+//				if("+-".indexOf(s) != -1){
+//					
+//				}else{
+//					needOper = true;
+//				}
+//			}else if(!foundOper){// 未找到运算符前，字符串一直追加
+//				String tmp = "";
+//				Object obj = numStack.pop();
+//				if(obj != null){
+//					tmp = (String)obj;
+//				}
+//				numStack.push(tmp + s);
+//			}else if("1234567890".indexOf(s) != -1){
+//				numStack.push(s);
+//				foundOper = false;
+//			}else{
+//				throw new RuntimeException("InfixExpr not support " + s + " !");
+//			}
+//			if((i == ss.length - 1) && needOper){
+//				doMulOrDivOp(numStack, (String)opStack.pop());
+//			}
+//		}
+//		if(numStack.size() > 1){
+//			doAddOrSubOps(numStack, opStack);
+//		}
+//		return new Float((String)numStack.pop());
+		TokenParser parser = new TokenParser();
+		List<Token> tokens = parser.parse(this.expr);
+		
+		
+		Stack<Token> opStack = new Stack<>();
+		Stack<Float> numStack = new Stack<>();
+		
+		for(Token token : tokens){
+			
+			if (token.isOperator()){
+				
+				if(opStack.isEmpty()){
 					
-				}else{
-					needOper = true;
+					opStack.push(token);
+				} else{
+					
+					while(!opStack.isEmpty() 
+							&& !token.hasHigherPriority(opStack.peek())){
+						Token prevOperator = opStack.pop();
+						Float f2 = numStack.pop();
+						Float f1 = numStack.pop();
+						Float result = calculate(prevOperator.toString(), f1,f2);
+						numStack.push(result);						
+						
+					}
+					opStack.push(token);
 				}
-			}else if(!foundOper){// 未找到运算符前，字符串一直追加
-				String tmp = "";
-				Object obj = numStack.pop();
-				if(obj != null){
-					tmp = (String)obj;
-				}
-				numStack.push(tmp + s);
-			}else if("1234567890".indexOf(s) != -1){
-				numStack.push(s);
-				foundOper = false;
-			}else{
-				throw new RuntimeException("InfixExpr not support " + s + " !");
-			}
-			if((i == ss.length - 1) && needOper){
-				doMulOrDivOp(numStack, (String)opStack.pop());
+			} 
+			if(token.isNumber()){
+				numStack.push(new Float(token.getIntValue()));
 			}
 		}
-		if(numStack.size() > 1){
-			doAddOrSubOps(numStack, opStack);
+		
+		while(!opStack.isEmpty()){
+			Token token = opStack.pop();
+			Float f2 = numStack.pop();
+			Float f1 = numStack.pop();
+			numStack.push(calculate(token.toString(), f1,f2));
 		}
-		return new Float((String)numStack.pop());
+		
+		
+		return numStack.pop().floatValue();
 	}
 	
 	/**
@@ -98,4 +141,19 @@ public class InfixExpr {
 		numStack.push(result);
 	}
 	
+	private Float calculate(String op, Float f1, Float f2){
+		if(op.equals("+")){
+			return f1+f2;
+		}
+		if(op.equals("-")){
+			return f1-f2;
+		}
+		if(op.equals("*")){
+			return f1*f2;
+		}
+		if(op.equals("/")){
+			return f1/f2;
+		}
+		throw new RuntimeException(op + " is not supported");
+	}
 }

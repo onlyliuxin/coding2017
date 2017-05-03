@@ -6,6 +6,7 @@ import com.coderising.jvm.attr.LineNumberTable;
 import com.coderising.jvm.attr.LocalVariableTable;
 import com.coderising.jvm.attr.StackMapTable;
 import com.coderising.jvm.clz.ClassFile;
+import com.coderising.jvm.cmd.ByteCodeCommand;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.loader.ByteCodeIterator;
 
@@ -75,5 +76,9 @@ public class Method {
 		}
 		return method;
 		
+	}
+
+	public ByteCodeCommand[] getCmds() {
+		return this.getCodeAttr().getCmds();
 	}
 }
