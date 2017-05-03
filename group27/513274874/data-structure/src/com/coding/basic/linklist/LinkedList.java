@@ -2,7 +2,7 @@
 package com.coding.basic.linklist;
 
 import com.coding.basic.Iterator;
-import com.coding.basic.List;
+import com.coding.basic.array.List;
 
 import java.util.NoSuchElementException;
 

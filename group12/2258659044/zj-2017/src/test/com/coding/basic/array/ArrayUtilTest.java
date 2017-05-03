@@ -94,7 +94,7 @@ public class ArrayUtilTest {
 	@Test
 	public void testObjList2int() {
 		
-		ArrayList ls = new ArrayList();
+		ArrayList<Integer> ls = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
 			ls.add(i);
 		}

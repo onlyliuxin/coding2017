@@ -45,7 +45,27 @@ public class Token {
             }
             return 1;
         } else {
-            throw new RuntimeException("不支持的运算符");
+            throw new RuntimeException("不支持的运算符:" + token.getValue());
         }
     }
+    
+    public boolean isNumber() {
+        if (NUMBER.equals(type)) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean isOperator() {
+        if (OPERATOR.equals(OPERATOR)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Token [type=" + type + ", value=" + value + "]";
+    }
+    
 }

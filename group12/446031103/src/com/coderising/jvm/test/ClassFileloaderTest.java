@@ -23,15 +23,16 @@ public class ClassFileloaderTest {
 	
 	private static final String FULL_QUALIFIED_CLASS_NAME = "com/coderising/jvm/test/EmployeeV1";
 	
-	static String path1 = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
-	static String path2 = "C:\temp";
+	//模拟windows中的path,path用;连接，要在这串path中寻找jvm
+	//static String path1 = "C:\\Users\\liuxin\\git\\coding2017\\liuxin\\mini-jvm\\bin";
+	static String path1 = "E:\\mygit\\coding2017\\group12\\446031103\\bin";
+	static String path2 = "E:\temp";
 	
 	static ClassFile clzFile = null;
 	static {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
-		String className = "com.coderising.jvm.test.EmployeeV1";
-		
+		String className = "com.coderising.jvm.test.EmployeeV1";		
 		clzFile = loader.loadClass(className);
 		clzFile.print();
 	}

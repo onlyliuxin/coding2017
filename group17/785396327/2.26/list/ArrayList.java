@@ -1,5 +1,7 @@
 package list;
 
+import org.junit.Test;
+
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
@@ -34,12 +36,12 @@ public class ArrayList<T> implements List<T> {
     }
 
     public T get(int index) {
-        checkBounds(index);
+        checkBounds(index, false);
         return (T) elementData[index];
     }
 
     public T remove(int index) {
-        checkBounds(index);
+        checkBounds(index, false);
         T removeEle = (T) elementData[index];
         System.arraycopy(elementData, index + 1, elementData, index, size - index);
         size--;
@@ -47,7 +49,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     public boolean add(int index, T ele) {
-        checkBounds(index);
+        checkBounds(index, true);
         grow(size++);
         //将原本数组从待插入的index截取，将原本index后的有效值，复制到原本数组index+1之后
         System.arraycopy(elementData, index, elementData, index + 1, size - index);
@@ -65,8 +67,10 @@ public class ArrayList<T> implements List<T> {
         return true;
     }
 
-    private void checkBounds(int index) {
-        if (index < 0 || index >= size)
+    private void checkBounds(int index, boolean isAdd) {
+        if (isAdd && (index < 0 || index > size)) {
+            throw new IndexOutOfBoundsException("index : " + index + ", size : [ 0 - " + size + " ]");
+        } else if (!isAdd && (index < 0 || index >= size))
             throw new IndexOutOfBoundsException("index : " + index + ", size : [ 0 - " + size + " ]");
     }
 
