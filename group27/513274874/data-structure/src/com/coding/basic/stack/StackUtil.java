@@ -1,5 +1,6 @@
 package com.coding.basic.stack;
 
+import java.util.Stack;
 public class StackUtil {
 
     /**
@@ -7,13 +8,26 @@ public class StackUtil {
      * 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
      */
     public static void reverse(Stack s) {
-        Stack temp = new Stack();
-        //先清空s
-        while (!s.isEmpty()) {
-            temp.push(s.pop());
+        if(null == s || s.isEmpty()){
+            return;
         }
+        Object object = s.pop();
+        reverse(s);
+        addToBottom(s,object);
 
     }
+
+    public static void addToBottom(Stack s ,Object num){
+        if(s.isEmpty()){
+            s.push(num);
+
+        }else{
+            Object o = s.pop();
+            addToBottom(s,num);
+            s.push(o);
+        }
+    }
+
 
     /**
      * 删除栈中的某个元素 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
@@ -101,7 +115,7 @@ public class StackUtil {
                     break;
                 case ']':
                     temp = (byte) stack.peek();
-                    if (temp != ']') {
+                    if (temp != '[') {
                         return false;
                     } else {
                         stack.pop();
@@ -109,7 +123,7 @@ public class StackUtil {
                     break;
                 case '}':
                     temp = (byte) stack.peek();
-                    if (temp != ']') {
+                    if (temp != '{') {
                         return false;
                     } else {
                         stack.pop();
