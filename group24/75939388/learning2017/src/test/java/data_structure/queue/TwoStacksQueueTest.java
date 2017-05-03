@@ -2,6 +2,7 @@ package data_structure.queue;
 
 import basic.dataStructure.queue.QueueWithTwoStacks;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,10 +29,7 @@ public class TwoStacksQueueTest {
         queue.enQueue(10 + "");
         queue.enQueue( "xxoo");
         queue.enQueue( "ppxxoo");
-        System.out.println("queue-->" + queue.toString());
-
+        Assert.assertEquals(3, queue.size());
+        Assert.assertEquals("10", queue.deQueue());
     }
-
-
-
 }

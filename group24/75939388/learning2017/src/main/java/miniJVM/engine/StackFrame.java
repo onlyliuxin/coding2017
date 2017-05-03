@@ -11,7 +11,7 @@ import java.util.Stack;
 public class StackFrame {
 	
 	private List<JavaObject> localVariableTable = new ArrayList<JavaObject>();
-	private Stack<JavaObject> oprandStack = new Stack<JavaObject>();
+	private Stack<JavaObject> operandStack = new Stack<JavaObject>();
 	
 	int index = 0;
 	
@@ -28,29 +28,23 @@ public class StackFrame {
 	}
 
 	
-	
-	
 	public static  StackFrame create(Method m){
-		
-		StackFrame frame = new StackFrame( m );			
-		
+		StackFrame frame = new StackFrame(m);
+
 		return frame;
 	}
 
 	
 	private StackFrame(Method m) {		
 		this.m = m;
-		
 	}
-	
-	
-	
+
 	public JavaObject getLocalVariableValue(int index){
 		return this.localVariableTable.get(index);
 	}
 	
-	public Stack<JavaObject> getOprandStack(){
-		return this.oprandStack;
+	public Stack<JavaObject> getOperandStack(){
+		return this.operandStack;
 	}
 	
 	public int getNextCommandIndex(int offset){
@@ -65,13 +59,32 @@ public class StackFrame {
 	}
 	
 	public ExecutionResult execute(){
-		return null;
-		
+		ByteCodeCommand[] cmds = m.getCmds();
+
+		while(index < cmds.length){
+			ExecutionResult result = new ExecutionResult();
+			result.setNextAction(ExecutionResult.RUN_NEXT_CMD);
+
+			System.out.println("command -> " + cmds[index].toString());
+			cmds[index].execute(this, result);
+
+			if(result.isRunNextCmd()){//执行下一个指令 -> index直接+1
+				index++;
+			}else if(result.isPauseAndRunNewFrame()){//执行新的函数栈帧 -> index+1并返回该栈帧，保存index
+				index ++;
+				return result;
+			}else if(result.isExitCurrentFrame()){//退出当栈帧 -> 直接返回
+				return result;
+			}else if(result.isJump()){//跳到另外的函数栈帧 -> 获取要跳至的index
+				index = getNextCommandIndex(result.getNextCmdOffset());
+			}else index ++;
+		}
+
+		ExecutionResult result = new ExecutionResult();
+		result.setNextAction(ExecutionResult.EXIT_CURRENT_FRAME);
+		return result;
 	}
 
-	
-	
-	
 	public void setLocalVariableTable(List<JavaObject> values){
 		this.localVariableTable = values;	
 	}
@@ -84,8 +97,6 @@ public class StackFrame {
 			}
 		}
 		this.localVariableTable.set(index, jo);
-		
-		
 	}
 	
 	public Method getMethod(){

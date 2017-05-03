@@ -40,7 +40,7 @@ public class MethodArea {
 	}
 	
 	
-	public  ClassFile findClassFile(String className){
+	public ClassFile findClassFile(String className){
 		
 		if(map.get(className) != null){
 			return map.get(className);
@@ -56,14 +56,12 @@ public class MethodArea {
 	
 	
 	public Method getMethod(String className, String methodName, String paramAndReturnType){
-		
-		return null;
+		return this.findClassFile(className).getMethod(methodName, paramAndReturnType);
 	}
 	
 	
 	public Method getMethod(MethodRefInfo methodRef){
-		
-		return null;
+		return this.getMethod(methodRef.getClassName(), methodRef.getMethodName(), methodRef.getParamAndReturnType());
 			
 	}
 }

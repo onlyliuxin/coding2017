@@ -1,19 +1,23 @@
 package miniJVM;
 
-import thread.download.ClassFileReader;
+import miniJVM.engine.MiniJVM;
 import org.junit.Assert;
 import org.junit.Test;
+import thread.download.ClassFileReader;
 
-/**
- * @author : 温友朝
- * @date : 2017/4/18
- */
 public class miniJVMTest {
+
+    static final String PATH = "resources/classes";
 
     @Test
     public void readCafebabe(){
         Assert.assertEquals("cafebabe", ClassFileReader.readNextU4Bytes(0));
     }
 
-
+    @Test
+    public void testMain() throws Exception{
+        String[] classPaths = {PATH};
+        MiniJVM jvm = new MiniJVM();
+        jvm.run(classPaths, "miniJVM.EmployeeV1");
+    }
 }

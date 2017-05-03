@@ -49,16 +49,16 @@ public class JavaObject {
 	}
 	public String toString(){
 		switch(this.getType()){
-		case INT: 
-			return String.valueOf(this.intValue);
-		case STRING:
-			return this.stringValue;
-		case OBJECT:
-			return this.className +":"+ this.fieldValues;
-		case FLOAT :
-			return String.valueOf(this.floatValue);
-		default:
-			return null;
+			case INT:
+				return String.valueOf(this.intValue);
+			case STRING:
+				return this.stringValue;
+			case OBJECT:
+				return this.className +":"+ this.fieldValues;
+			case FLOAT :
+				return String.valueOf(this.floatValue);
+			default:
+				return null;
 		}
 	}
 	public String getClassName(){

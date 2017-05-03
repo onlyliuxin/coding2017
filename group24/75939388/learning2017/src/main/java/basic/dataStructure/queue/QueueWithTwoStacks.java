@@ -23,34 +23,30 @@ public class QueueWithTwoStacks<E> {
     }
 
     public int size() {
-        return stack2.size();
+        return stack1.size() + this.stack2.size();
     }
 
 
     public void enQueue(E item) {
         stack1.push(item);
-        Stack<E> tmp = stack1;
-        stack2.clear();
-        while (!tmp.isEmpty()){
-            stack2.push(tmp.pop());
+    }
+
+    private void move(){
+        while (!stack1.isEmpty()){
+            stack2.push(stack1.pop());
         }
     }
 
     public E deQueue() {
-        return stack2.pop();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("[");
-        Stack<E> tmp = stack2;
-        while(!tmp.isEmpty()){
-            sb.append(tmp.pop()).append(",");
+        if(stack1.isEmpty()){
+            throw new RuntimeException("queue is null");
         }
-        sb.substring(0, sb.length() - 1);
-        sb.append("]");
 
-        return sb.toString();
+        if(stack2.isEmpty()){
+            move();
+        }
+
+        return stack2.pop();
     }
 }
 
