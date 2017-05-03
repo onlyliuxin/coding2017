@@ -84,7 +84,6 @@ public class LinkedListTest extends LinkedList {
 	@Test
 	public void testRemoveRange() {
 		LinkedList linkedList = new LinkedList();
-		
 		linkedList.add(11);
 		linkedList.add(12);
 		linkedList.add(13);
@@ -92,11 +91,7 @@ public class LinkedListTest extends LinkedList {
 		linkedList.add(16);
 		linkedList.add(16);
 		linkedList.add(19);
-		
 		linkedList.removeRange(10, 14);
-		for (int i = 0; i < linkedList.size(); i++) {
-			System.out.println(linkedList.get(i));
-		}
 	}
 
 	@Test
