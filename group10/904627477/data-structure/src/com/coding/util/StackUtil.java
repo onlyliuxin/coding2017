@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.coding.basic.ArrayList;
-import com.coding.basic.Stack;
+import com.coding.basic.stack.Stack;
 
 public class StackUtil {
 	

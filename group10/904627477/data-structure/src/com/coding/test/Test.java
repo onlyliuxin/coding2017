@@ -1,6 +1,6 @@
 package com.coding.test;
 
-import com.coding.basic.Stack;
+import com.coding.basic.stack.Stack;
 
 
 

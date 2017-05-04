@@ -3,6 +3,7 @@ package com.coding.jvm.method;
 import com.coding.jvm.attr.AttributeInfo;
 import com.coding.jvm.attr.CodeAttr;
 import com.coding.jvm.clz.ClassFile;
+import com.coding.jvm.cmd.ByteCodeCommand;
 import com.coding.jvm.loader.ByteCodeIterator;
 
 
@@ -65,5 +66,9 @@ public class Method {
 		}
 		return method;
 		
+	}
+
+	public ByteCodeCommand[] getCmds() {		
+		return this.getCodeAttr().getCmds();
 	}
 }

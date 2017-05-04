@@ -1,6 +1,9 @@
 package com.coding.jvm.attr;
 
 import com.coding.jvm.clz.ClassFile;
+import com.coding.jvm.cmd.ByteCodeCommand;
+import com.coding.jvm.cmd.CommandParser;
+import com.coding.jvm.constant.ConstantPool;
 import com.coding.jvm.loader.ByteCodeIterator;
 
 
@@ -62,10 +65,15 @@ public class CodeAttr extends AttributeInfo {
 		this.code = code;
 	}
 
-	//private ByteCodeCommand[] cmds ;
-	//public ByteCodeCommand[] getCmds() {
-	//	return cmds;
-	//}
+	private ByteCodeCommand[] cmds ;
+	public ByteCodeCommand[] getCmds() {
+		return cmds;
+	}
+	
+	public void setCmds(ByteCodeCommand[] cmds) {
+		this.cmds = cmds;
+	}
+
 	private LineNumberTable lineNumTable;
 	private LocalVariableTable localVarTable;
 	private StackMapTable stackMapTable;
@@ -97,7 +105,9 @@ public class CodeAttr extends AttributeInfo {
 		codeAttr.setMaxLocals(iter.nextU2ToInt());
 		int codeLen = iter.nextU4ToInt();
 		codeAttr.setCodeLen(codeLen);
-		codeAttr.setCode(iter.nextUxToHexString(codeLen));
+		String hexCode = iter.nextUxToHexString(codeLen);
+		codeAttr.setCode(hexCode);
+		codeAttr.setCmds(CommandParser.parse(clzFile, hexCode));
 		int exceptionCount = iter.nextU2ToInt();
 		for(int i=0;i<exceptionCount;i++){
 			//TODO  待具体化处理
@@ -110,13 +120,22 @@ public class CodeAttr extends AttributeInfo {
 		}
 		return codeAttr;
 	}
-	private void setStackMapTable(StackMapTable t) {
+	
+	public String toString(ConstantPool pool){
+		StringBuilder buffer = new StringBuilder();
+		//buffer.append("Code:").append(code).append("\n");
+		for(int i=0;i<cmds.length;i++){
+			buffer.append(cmds[i].toString(pool)).append("\n");
+		}
+		buffer.append("\n");
+		buffer.append(this.lineNumTable.toString());
+		buffer.append(this.localVarTable.toString(pool));
+		return buffer.toString();
+	}
+	
+	/*private void setStackMapTable(StackMapTable t) {
 		this.stackMapTable = t;
 		
-	}
+	}*/
 
-	
-	
-	
-	
 }
