@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * 用一个数组实现两个栈 将数组的起始位置看作是第一个栈的栈底，将数组的尾部看作第二个栈的栈底，压栈时，栈顶指针分别向中间移动，直到两栈顶指针相遇，则扩容。
  * 
- * @author liuxin
+ * @author HarryHook
  *
  */
 public class TwoStackInOneArray {
