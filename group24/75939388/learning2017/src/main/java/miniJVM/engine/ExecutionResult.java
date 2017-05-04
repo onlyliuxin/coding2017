@@ -49,9 +49,4 @@ public class ExecutionResult {
 	public void setNextCmdOffset(int nextCmdOffset) {
 		this.nextCmdOffset = nextCmdOffset;
 	}
-	
-	
-	
-	
-
 }
