@@ -1,10 +1,9 @@
-package week7.jvm.print;
+package week8.jvm.print;
 
-import week7.jvm.constant.ClassInfo;
-import week7.jvm.constant.ConstantInfo;
-import week7.jvm.constant.ConstantPool;
-import week7.jvm.constant.UTF8Info;
-
+import week8.jvm.constant.ClassInfo;
+import week8.jvm.constant.ConstantInfo;
+import week8.jvm.constant.ConstantPool;
+import week8.jvm.constant.UTF8Info;
 
 /**反例**/
 public class ConstantPoolPrinterBad {
