@@ -10,15 +10,14 @@ public class StackUtil {
 	 * 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
 	 */
 	public static void reverse(Stack s) {
-		Stack stack = new Stack();
+		ArrayList arrayList = new ArrayList();
 		while (!s.isEmpty()) {
 			Object element = s.pop();
-			stack.push(element);
+			arrayList.add(element);
 		}
 
-		while (!stack.isEmpty()) {
-			Object element = stack.pop();
-			s.push(element);
+		for (int i = 0; i < arrayList.size(); ++i) {
+			s.push(arrayList.get(i));
 		}
 	}
 
@@ -53,11 +52,21 @@ public class StackUtil {
 	public static Object[] getTop(Stack s,int len) {
 		if (len < 0 || len >= s.size())
 			throw new IndexOutOfBoundsException("len : " + len);
+
 		Object [] arr = new Object[len];
 
-		for (int i = 0 ; i < len && !s.isEmpty(); ++i) {
-			arr[i] = s.pop();
+		ArrayList arrayList = new ArrayList();
+
+		while (!s.isEmpty()) {
+			arrayList.add(s.pop());
 		}
+
+		for (int i = arrayList.size() - 1; i >= 0; --i)
+			s.push(arrayList.get(i));
+
+		for (int i = 0 ; i < len; ++i)
+			arr[i] = arrayList.get(i);
+
 		return arr;
 	}
 	/**

@@ -25,4 +25,7 @@ public class ByteCodeIterator {
 			pos=pos+n;
 			return bytes;
 		}
+		public void back(int n) {
+			this.pos -= n;
+		}
 }

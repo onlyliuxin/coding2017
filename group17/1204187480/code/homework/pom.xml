@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>parent</module>
-        <module>basic</module>
+        <module>coding</module>
         <module>coderising</module>
     </modules>
 

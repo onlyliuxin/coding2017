@@ -21,9 +21,9 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "https://www.baidu.com/img/bd_logo1.png";
+		String url = "http://www.hinews.cn/pic/0/13/91/26/13912621_821796.jpg";
 		
-		FileDownloader downloader = new FileDownloader(url);
+		FileDownloader downloader = new FileDownloader(url, "d:/13912621_821796.jpg");
 
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);  //设置连接管理器

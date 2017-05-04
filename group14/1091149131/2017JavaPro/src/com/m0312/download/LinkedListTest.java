@@ -110,7 +110,7 @@ public class LinkedListTest {
 
 	@Test
 	public void testRemoveDuplicateValues() {
-		list.add(0);
+		list.add(3);
 		list.add(1);
 		list.add(22);
 		list.add(22);

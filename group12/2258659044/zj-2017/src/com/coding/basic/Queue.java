@@ -1,15 +1,17 @@
 package com.coding.basic;
 
-public class Queue {
+import com.coding.basic.linklist.LinkedList;
+
+public class Queue<E> {
 	
-	private LinkedList element = new LinkedList();
+	private LinkedList<E> element = new LinkedList<E>();
 	
-	public void enQueue(Object o){	
+	public void enQueue(E o){	
 		
 		element.add(o);
 	}
 	
-	public Object deQueue(){
+	public E deQueue(){
 		
 		return element.removeFirst();
 	}

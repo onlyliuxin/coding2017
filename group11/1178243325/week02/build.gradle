@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+
+repositories {
+	maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+	mavenCentral()
+}
+
+dependencies {
+	compile("org.jdom:jdom2:2.0.5")
+	testCompile("junit:junit:4.12")
+}

@@ -2,6 +2,7 @@ package com.donaldy.jvm.test;
 
 public class EmployeeV1 {
 	
+	
 	private String name;
     private int age;
     
@@ -22,5 +23,6 @@ public class EmployeeV1 {
     public static void main(String[] args){
     	EmployeeV1 p = new EmployeeV1("Andy",29);
     	p.sayHello();    
+    	
     }
 }

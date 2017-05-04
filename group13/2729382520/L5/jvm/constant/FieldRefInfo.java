@@ -1,0 +1,60 @@
+package io.github.vxzh.jvm.constant;
+
+import io.github.vxzh.jvm.clz.ConstantPool;
+
+public class FieldRefInfo extends ConstantInfo {
+    private int tag = ConstantInfo.CONSTANT_FIELDREF_INFO;
+    private int classInfoIndex;
+    private int nameAndTypeIndex;
+
+    public FieldRefInfo(ConstantPool pool) {
+        super(pool);
+    }
+
+    public int getTag() {
+        return tag;
+    }
+
+    public int getClassInfoIndex() {
+        return classInfoIndex;
+    }
+
+    public void setClassInfoIndex(int classInfoIndex) {
+        this.classInfoIndex = classInfoIndex;
+    }
+
+    public int getNameAndTypeIndex() {
+        return nameAndTypeIndex;
+    }
+
+    public void setNameAndTypeIndex(int nameAndTypeIndex) {
+        this.nameAndTypeIndex = nameAndTypeIndex;
+    }
+
+    public String toString() {
+
+        NameAndTypeInfo typeInfo = (NameAndTypeInfo) this.getConstantInfo(this.getNameAndTypeIndex());
+
+        return getClassName() + " : " + typeInfo.getName() + ":" + typeInfo.getTypeInfo() + "]";
+    }
+
+    public String getClassName() {
+
+        ClassInfo classInfo = (ClassInfo) this.getConstantInfo(this.getClassInfoIndex());
+
+        UTF8Info utf8Info = (UTF8Info) this.getConstantInfo(classInfo.getNameIndex());
+
+        return utf8Info.getValue();
+
+    }
+
+    public String getFieldName() {
+        NameAndTypeInfo typeInfo = (NameAndTypeInfo) this.getConstantInfo(this.getNameAndTypeIndex());
+        return typeInfo.getName();
+    }
+
+    public String getFieldType() {
+        NameAndTypeInfo typeInfo = (NameAndTypeInfo) this.getConstantInfo(this.getNameAndTypeIndex());
+        return typeInfo.getTypeInfo();
+    }
+}

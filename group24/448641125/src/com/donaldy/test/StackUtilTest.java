@@ -17,7 +17,7 @@ public class StackUtilTest {
         for (int i = 4; i >= 0 ; --i)
             stack.push(intArr[i]);
         StackUtil.reverse(stack);
-        for (int i = 0 ; i < 5; ++i) {
+        for (int i = 4 ; i >= 0; --i) {
             Assert.assertEquals((int)stack.pop(), (int)intArr[i]);
         }
     }
@@ -51,6 +51,10 @@ public class StackUtilTest {
         for (int i = 0 ; i < arr.length ; ++i) {
             Assert.assertEquals((int)arr[i], (int)intArr[i]);
         }
+
+        for (int i = 0; i < 5; ++i) {
+            Assert.assertEquals((int)intArr[i], (int)stack.pop());
+        }
     }
 
     @Test
@@ -61,5 +65,6 @@ public class StackUtilTest {
 
         String str2 = "([b{x]y})";
         Assert.assertEquals(false, StackUtil.isValidPairs(str2));
+
     }
 }

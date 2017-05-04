@@ -1,6 +1,10 @@
 package com.github.wdn.coding2017.jvm.clz;
 
 import com.github.wdn.coding2017.jvm.constant.ConstantPool;
+import com.github.wdn.coding2017.jvm.field.Field;
+import com.github.wdn.coding2017.jvm.method.Method;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/4/6 0006.
@@ -11,6 +15,8 @@ public class ClassFile {
     private ConstantPool constantPool;
     private AccessFlag accessFlag;
     private ClassIndex classIndex;
+    private List<Field> fields;
+    private List<Method> methods;
     public void print() {
     }
 
@@ -56,5 +62,21 @@ public class ClassFile {
 
     public ClassIndex getClzIndex() {
         return null;
+    }
+
+    public List<Field> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<Field> fields) {
+        this.fields = fields;
+    }
+
+    public List<Method> getMethods() {
+        return methods;
+    }
+
+    public void setMethods(List<Method> methods) {
+        this.methods = methods;
     }
 }
