@@ -33,7 +33,16 @@ public class FileDownloader {
 		this.url = _url;
 		
 	}
-	
+	private void createPlaceHolderFile(String fileName, int contentLen) throws IOException{
+		
+		RandomAccessFile file = new RandomAccessFile(fileName,"rw");
+		
+		for(int i=0; i<contentLen ;i++){
+			file.write(0);
+		}
+		
+		file.close();
+	}
 	public void execute(){
 		// 在这里实现你的代码， 注意： 需要用多线程实现下载
 		// 这个类依赖于其他几个接口, 你需要写这几个接口的实现代码
@@ -54,14 +63,19 @@ public class FileDownloader {
 			conn = cm.open(this.url);
 			
 			int length = conn.getContentLength();
+			File desc=new File(OUT_FILE_NAME);
+			if(desc.exists()){
+				desc.delete();
+			}
+			
 			String filename=url.substring(url.lastIndexOf("/"));
 			String descFilePath="E://testfile//"+filename;
+			createPlaceHolderFile(OUT_FILE_NAME, length);		
 			
 			CyclicBarrier barrier=new CyclicBarrier(THREAD_NUM,new Runnable() {
 	            @Override
 	            public void run() {
 	            	listener.notifyFinished();
-	            	
 	            }
 	        });
 			/*int every=length/3;
@@ -91,20 +105,21 @@ public class FileDownloader {
                     // 最后一个线程下载指定numPerThred+left个字节  
                 	start=(int) (i * numPerThred);
                 	end=(int) ((i + 1) * numPerThred  
-                            + left);
+                            + left-1);
                 } else {  
                     // 每个线程负责下载一定的numPerThred个字节  
                 	start=(int) (i * numPerThred);
-                	end=(int) ((i + 1) * numPerThred);
+                	end=(int) ((i + 1) * numPerThred)-1;
                    
                 } 
                 new DownloadThread(conn, start, end,OUT_FILE_NAME,barrier).start();
+                //Thread.sleep(1000);
             }  
 			
 		} catch (Exception e) {			
 			e.printStackTrace();
 		}finally{
-			
+			conn.close();
 		}
 		
 		

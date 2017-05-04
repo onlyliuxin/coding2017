@@ -54,7 +54,6 @@ public class ArrayListTest {
             arrayList4.add(i);
         }
         Object removed = arrayList4.remove(4);
-        System.out.println(arrayList4);
         assertThat(removed, equalTo(4));
         assertThat(arrayList4.size(), equalTo(5));
     }

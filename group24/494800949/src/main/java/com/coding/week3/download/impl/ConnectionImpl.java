@@ -6,6 +6,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.util.concurrent.TimeUnit;
 
 
 public class ConnectionImpl implements Connection {
@@ -48,8 +49,20 @@ public class ConnectionImpl implements Connection {
 	}
 
 	@Override
-	public InputStream getInputStream() throws IOException {
-		return httpURLConnection.getInputStream();
+	public InputStream getInputStream()  {
+		try {
+			return httpURLConnection.getInputStream();
+		} catch (IOException e) {
+			for (int i = 0; i < 5; i++) {
+				try {
+					TimeUnit.SECONDS.sleep(10);
+					return httpURLConnection.getInputStream();
+				} catch (IOException | InterruptedException e1) {
+					e1.printStackTrace();
+				}
+			}
+			throw new RuntimeException(e);
+		}
 	}
 
 }

@@ -1,6 +1,7 @@
 package main.week02.practice;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import com.sun.xml.internal.ws.org.objectweb.asm.Label;
@@ -19,7 +20,6 @@ public class ArrayUtil {
 			return;
 		}
 		int i = 0, j = origin.length - 1;
-		int temp;
 		while (j > i) {
 			origin[i] = origin[i] ^ origin[j];
 			origin[j] = origin[i] ^ origin[j];
@@ -137,21 +137,36 @@ public class ArrayUtil {
 		if (max <= 1) {
 			return new int[0];
 		}
-		ArrayList<Integer> list = new ArrayList<Integer>();
-		list.add(1);
-		list.add(1);
-		int index = 1;
-		while (list.get(index) + list.get(index - 1) < max) {
-			list.add(list.get(index) + list.get(index - 1));
-			index++;
+		if(max == 2){
+			return new int[]{1,1};
 		}
-		Iterator<Integer> iter = list.iterator();
-		int[] res = new int[list.size()];
-		int i = 0;
-		while (iter.hasNext()) {
-			res[i++] = iter.next();
+		int[] arr = new int[max];
+		arr[0] = arr[1] = 1;
+		int count = 2;
+		for(; count < max; count++){
+			arr[count] = arr[count-1] + arr[count-2];
+			if(arr[count] >= max){
+				break;
+			}
 		}
-		return res;
+		
+		return Arrays.copyOf(arr, count);
+		
+//		ArrayList<Integer> list = new ArrayList<Integer>();
+//		list.add(1);
+//		list.add(1);
+//		int index = 1;
+//		while (list.get(index) + list.get(index - 1) < max) {
+//			list.add(list.get(index) + list.get(index - 1));
+//			index++;
+//		}
+//		Iterator<Integer> iter = list.iterator();
+//		int[] res = new int[list.size()];
+//		int i = 0;
+//		while (iter.hasNext()) {
+//			res[i++] = iter.next();
+//		}
+//		return res;
 	}
 
 	/**

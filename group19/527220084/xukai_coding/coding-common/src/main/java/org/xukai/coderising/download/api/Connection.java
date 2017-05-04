@@ -1,7 +1,5 @@
 package org.xukai.coderising.download.api;
 
-import java.io.IOException;
-
 public interface Connection {
 	/**
 	 * 给定开始和结束位置， 读取数据， 返回值是字节数组

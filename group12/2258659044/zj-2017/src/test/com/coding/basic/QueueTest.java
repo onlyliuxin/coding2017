@@ -7,11 +7,11 @@ import com.coding.basic.Queue;
 
 public class QueueTest {
 
-	Queue qe ;
+	Queue<Object> qe ;
 	
 	@Before
     public void setup() {
-		qe = new Queue();
+		qe = new Queue<>();
 		for (int i = 0; i < 10; i++) {
 			qe.enQueue(i);
 		}		
@@ -44,7 +44,7 @@ public class QueueTest {
 			qe.deQueue();
 		}
 		Assert.assertEquals(qe.isEmpty(),true);
-		Queue qe1 = new Queue();
+		Queue<Object> qe1 = new Queue<>();
 		Assert.assertEquals(qe1.isEmpty(), true);
 	}
 	
@@ -58,7 +58,7 @@ public class QueueTest {
 			qe.deQueue();
 		}
 		Assert.assertEquals(qe.size(),0);
-		Queue qe1 = new Queue();
+		Queue<Object> qe1 = new Queue<>();
 		Assert.assertEquals(qe1.size(), 0);
 	}
 }
