@@ -12,7 +12,6 @@ public abstract class OneOperandCmd extends ByteCodeCommand {
     }
 
     public int getOperand() {
-
         return this.operand;
     }
 

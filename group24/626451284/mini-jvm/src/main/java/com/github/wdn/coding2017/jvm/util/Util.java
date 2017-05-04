@@ -16,9 +16,22 @@ public class Util {
 			String strHex = Integer.toHexString(value);
 			if(strHex.length()< 2){
 				strHex = "0" + strHex;
-			}		
+			}
 			buffer.append(strHex);
 		}
 		return buffer.toString();
+	}
+	public static String hexString2String(String src) {
+		String temp = "";
+		for (int i = 0; i < src.length() / 2; i++) {
+			temp = temp
+					+ (char) Integer.valueOf(src.substring(i * 2, i * 2 + 2),
+					16).byteValue();
+		}
+		return temp;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(Util.hexString2String("436f6465"));
 	}
 }
