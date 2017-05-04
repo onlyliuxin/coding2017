@@ -1,9 +1,9 @@
-package test.com.coding.basic;
+package test.com.coding.basic.queue;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.coding.basic.Queue;
+import com.coding.basic.queue.Queue;
 
 public class QueueTest {
 
