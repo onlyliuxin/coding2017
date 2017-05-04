@@ -1,5 +1,8 @@
 package com.coderising.jvm.constant;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MethodRefInfo extends ConstantInfo {
 	
 	private int type = ConstantInfo.METHOD_INFO;

@@ -11,4 +11,9 @@ public class NullConstantInfo extends ConstantInfo {
 	return -1;
     }
 
+    @Override
+    public void accept(Visitor visitor) {
+
+    }
+
 }

@@ -3,6 +3,8 @@ package jvm.classfile.constant.item.impl;
 import jvm.classfile.constant.item.Constant;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Haochen on 2017/4/9.
@@ -24,6 +26,14 @@ public class UTF8Info implements Constant {
     @Override
     public int size() {
         return 3 + length;
+    }
+
+    @Override
+    public Map<Integer, String> printableMap() {
+        Map<Integer, String> map = new HashMap<>();
+        map.put(PRINT_TYPE, "Utf8");
+        map.put(PRINT_PARAM, value);
+        return map;
     }
 
     public int getLength() {
