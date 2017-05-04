@@ -23,7 +23,7 @@ public class Josephus {
         while (!circleQueue.isEmpty()) {
 			Integer x = circleQueue.deQueue();
 			if (num == m) {
-			    num = 1;  // 杀死一个人，下一个人从1开始报数
+			    num = 1;  // 如果数到m，则杀死该人，下一个人从1开始报数
 			    result.add(x);
             } else {
 			    num++;
