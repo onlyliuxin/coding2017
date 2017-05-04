@@ -1,4 +1,6 @@
-package me.lzb.basic;
+package me.lzb.basic.stack;
+
+import me.lzb.basic.ArrayList;
 
 /**
  * 先进后出
