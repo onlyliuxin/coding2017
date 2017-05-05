@@ -11,6 +11,7 @@ public class ArrayList implements List {
 		if ((size()+1)>elementData.length) {
 			System.arraycopy(elementData, 0, elementData, 0, elementData.length+1);
 			elementData[size] = o;
+			size++;
 		}else {
 		//若插入元素后不出现溢出，则直接添加在末尾
 			elementData[size] = o;

@@ -12,6 +12,14 @@
     <artifactId>basic</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>org.jvnet.hudson.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
         <!--test-->
         <dependency>
             <groupId>junit</groupId>

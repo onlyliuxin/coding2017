@@ -1,0 +1,6 @@
+/bin/
+.eml
+.iml
+.idea
+/lib/
+*.eml

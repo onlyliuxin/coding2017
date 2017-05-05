@@ -1,3 +1,6 @@
+/*
+ * An automatic runner for Junit test for DataStructure assignment 
+ * */
 package com.github.congcongcong250.coding2017.basicTest;
 
 
@@ -8,19 +11,19 @@ import org.junit.runner.notification.Failure;
 public class TestRunner {
 
 	public static void main(String[] args){
-		ArrayListTest ALT = new ArrayListTest();
+		WArrayListTest ALT = new WArrayListTest();
 		test(ALT);
 		
-		LinkedListTest LLT = new LinkedListTest();
+		WLinkedListTest LLT = new WLinkedListTest();
 		test(LLT);
 		
-		StackTest STT = new StackTest();
+		WStackTest STT = new WStackTest();
 		test(STT);
 		
-		QueueTest QT = new QueueTest();
+		WQueueTest QT = new WQueueTest();
 		test(QT);
 		
-		BinaryTreeNodeTest BTNT = new BinaryTreeNodeTest();
+		WBinaryTreeNodeTest BTNT = new WBinaryTreeNodeTest();
 		test(BTNT);
 	    
 	}

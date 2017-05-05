@@ -1,4 +1,6 @@
 /bin/
+/lib/
+/out/
 *.class
 *.settings
 *.project

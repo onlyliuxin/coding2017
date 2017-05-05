@@ -56,9 +56,26 @@ public class ArrayList implements List {
 		return size;
 	}
 	
+	public boolean contains(Object o){
+		for (int i = 0; i < elementData.length; i++) {
+			if(elementData[i] == o){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public Iterator iterator(){
 		return null;
 //		return new ListIterator();
+	}
+	
+	public int[] listToArray(ArrayList arrayList){
+		int[] newArray = new int[arrayList.size()];
+		for (int k = 0; k < newArray.length; k++) {
+			newArray[k] = (int)arrayList.get(k);
+		}
+		return newArray;
 	}
 	
 	/*private class ListIterator implements Iterator{

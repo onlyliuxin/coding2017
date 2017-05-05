@@ -2,7 +2,8 @@ package com.coding.basic;
 
 public class Queue {
 	
-	public void enQueue(Object o){		
+	public void enQueue(Object o){	
+		
 	}
 	
 	public Object deQueue(){

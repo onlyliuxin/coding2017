@@ -23,29 +23,29 @@ public class ArrayListTest {
 
     @Test
     public void testAdd() {
-        Assert.assertEquals(arrayList.get(0), 1);
-        Assert.assertEquals(arrayList.get(1), 2);
-        Assert.assertEquals(arrayList.get(2), 3);
-        Assert.assertEquals(arrayList.size(), 3);
+        Assert.assertEquals(1, arrayList.get(0));
+        Assert.assertEquals(2, arrayList.get(1));
+        Assert.assertEquals(3, arrayList.get(2));
+        Assert.assertEquals(3, arrayList.size());
     }
 
     @Test
     public void testAddIndex() {
         arrayList.add(1, 4);
         arrayList.add(2, 5);
-        Assert.assertArrayEquals(arrayList.toArray(), new Object[]{1, 4, 5, 2, 3});
+        Assert.assertArrayEquals(new Object[]{1, 4, 5, 2, 3}, arrayList.toArray());
     }
 
     @Test
     public void testToArray() {
-        Assert.assertArrayEquals(arrayList.toArray(), new Object[]{1, 2, 3});
+        Assert.assertArrayEquals(new Object[]{1, 2, 3}, arrayList.toArray());
     }
 
     @Test
     public void testGet() {
-        Assert.assertEquals(arrayList.get(2), 3);
-        Assert.assertEquals(arrayList.get(0), 1);
-        Assert.assertEquals(arrayList.get(1), 2);
+        Assert.assertEquals(3, arrayList.get(2));
+        Assert.assertEquals(1, arrayList.get(0));
+        Assert.assertEquals(2, arrayList.get(1));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class ArrayListTest {
         arrayList.remove(2);
         arrayList.add(4, 10);
         arrayList.add(3, 9);
-        Assert.assertArrayEquals(arrayList.toArray(), new Object[]{1, 4, 2, 9, 3, 10});
+        Assert.assertArrayEquals(new Object[]{1, 4, 2, 9, 3, 10}, arrayList.toArray());
     }
 
     @Test
@@ -64,6 +64,6 @@ public class ArrayListTest {
             iterator.next();
             iterator.remove();
         }
-        Assert.assertArrayEquals(arrayList.toArray(), new Object[]{});
+        Assert.assertArrayEquals(new Object[]{}, arrayList.toArray());
     }
 }

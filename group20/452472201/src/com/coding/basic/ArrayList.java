@@ -4,10 +4,9 @@ public class ArrayList implements List {
 
 	private  int size=0;
 
-	private  Object[] elementData =new Object[10];
+	private  Object[] elementData =new Object[5];
 
 
-	//数组扩容
 	private void  ensureCapacityInternal(){
 		if(size==elementData.length){
 			Object[] newArray = new Object[size*2];
@@ -33,8 +32,8 @@ public class ArrayList implements List {
 		}
 
 		System.arraycopy(elementData, index, elementData, index+1,size-index );
-        elementData[index]=o;
-        size++;
+		elementData[index]=o;
+		size++;
 	}
 
 	public Object get(int index){
@@ -75,24 +74,41 @@ public class ArrayList implements List {
 
 
 	private class Iter implements Iterator {
-		//计数器 
+
 		private int coursor=-1;
-		//判断是否存在下一个
+
 		public boolean hasNext(){
 			return coursor+1<size;
 		}
-		//获取下一个
+
 		public String next(){
 			coursor++;
 			return (String) elementData[coursor];
 		}
 	}
-		public Iterator iterator(){
 
-			return new Iter();
+	public Iterator iterator(){
 
+		return new Iter();
+
+	}
+
+	public static void main(String[] args){
+		ArrayList alist = new ArrayList();
+		alist.add("1");
+		alist.add("2");
+		alist.add("3");
+		alist.add("4");
+		alist.add(2, "五");
+		System.out.println(alist.size());
+		Iterator i = alist.iterator();
+		while(i.hasNext()){
+		System.out.print(i.next());
 		}
+
+	}
 }
+
 
 
 

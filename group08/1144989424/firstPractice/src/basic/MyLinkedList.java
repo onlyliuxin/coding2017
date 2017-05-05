@@ -98,10 +98,32 @@ public class MyLinkedList implements MyList {
         size--;
         return deleteNode;
     }
+    
     public MyIterator iterator(){
-        return null;
+        return new MyLinkedListIterator(this);
     }
     
+    private class MyLinkedListIterator implements MyIterator{
+        private MyLinkedList list = null;
+        private int index = 0;
+        
+        private MyLinkedListIterator(MyLinkedList list){
+            this.list = list;
+        }
+        
+        @Override
+        public boolean hasNext(){
+            if(index < size){
+                return true;
+            }
+            return false;
+        }
+        
+        @Override
+        public Object next(){
+            return list.get(index++);
+        }
+    }
     
     private static class Node{
         Object data;

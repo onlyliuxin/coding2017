@@ -74,6 +74,7 @@ public class LinkedList implements List {
 	public void addFirst(Object o){
 		Node node = new Node(o,head);
 		this.head = node;
+		this.last = head;
 		this.size++;
 	}
 	public void addLast(Object o){
@@ -112,8 +113,10 @@ public class LinkedList implements List {
 			return orgLast;
 		}
 	}
+
 	public Iterator iterator(){
-		return null;
+		LinkedIterator linkIterator = new LinkedIterator(this);
+		return linkIterator;
 	}
 	
 	
@@ -137,7 +140,27 @@ public class LinkedList implements List {
 			sb.append("]");
 			return sb.toString();
 		}
-		
+	}
+	class LinkedIterator implements Iterator{
+		private LinkedList list;
+		private int position=0;
+		public LinkedIterator(LinkedList list){
+			this.list = list;
+		}
+
+		@Override
+		public boolean hasNext() {
+			if(list.get(position)!=null){
+				this.position++;
+				return true;
+			}else
+				return false;
+		}
+
+		@Override
+		public Object next() {
+			return list.get(position-1);
+		}
 		
 	}
 }

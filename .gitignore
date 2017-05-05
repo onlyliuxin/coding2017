@@ -259,4 +259,13 @@ tmp
 RemoteSystemsTempFiles
 .gitignore
 
+.recommenders
+.idea/
+*.iml
+rebel.*
+.rebel.*
 
+target
+*.DS_Store
+liuxin/.DS_Store
+liuxin/src/.DS_Store

@@ -1,5 +1,6 @@
 package com.coding.basic;
 
+
 public class ArrayList implements List {
 	
 	private int size = 0;
@@ -9,7 +10,11 @@ public class ArrayList implements List {
 	 */
 	public void add(Object o){
 		if(size+1>elementData.length)this.grow(elementData);
-		else elementData[size++]=o;
+		else{
+			elementData[size]=o;
+			size++;
+		}
+			
 	}
 	/**
 	 * 在index处添加元素，index+1到size-1元素向后移动
@@ -94,6 +99,13 @@ public class ArrayList implements List {
 	        }
 
 	 }
+	public Object[] toArray() {
+		Object[] array= new Object[size];
+		for (int i = 0; i < elementData.length; i++) {
+			array[i]=elementData[i];
+		}
+		return array;
+	}
 	public void grow(Object[] elementData2){
 		int[] elementData=new int[elementData2.length+elementData2.length/2];
 		System.arraycopy(elementData2,0,elementData,0,elementData2.length); 

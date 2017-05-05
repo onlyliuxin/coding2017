@@ -1,9 +1,9 @@
 package com.coding.basic;
 
-public class Queue {
+public class Queue<T extends Comparable>  {
 	//用链表实现队列
 	private LinkedList elementData = new LinkedList();
-	public void enQueue(Object o){
+	public void enQueue(T o){
 		elementData.addLast(o);;
 	}
 	public Object deQueue(){

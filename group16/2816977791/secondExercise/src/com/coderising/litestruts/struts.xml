@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<struts>
+    <action name="login" class="com.coderising.litestruts.LoginAction">
+        <result name="success">/jsp/homepage.jsp</result>
+        <result name="fail">/jsp/showLogin.jsp</result>
+    </action>
+    <action name="logout" class="com.coderising.litestruts.LogoutAction">
+    	<result name= "success">/jsp/welcome.jsp</result>
+    	<result name= "error">/jsp/error.jsp</result>
+    </action>
+</struts>

@@ -1,4 +1,23 @@
-public class LinkedList<T>{
+package lessones01;
+import lessones01.Node;
+import others.Range;
+import java.util.Iterator;
+public class LinkedList<T> implements Iterable<T>{
+	private static class Iter<E> implements Iterator<E>{
+		private Node<E> node;
+		private LinkedList<E> list;
+		public Iter(Node<E> arg_nullNode,LinkedList<E> arg_list){
+			node = arg_nullNode;
+			list = arg_list;
+		}
+		public boolean hasNext(){
+			return node.right!=null;
+		}
+		public E next(){
+			node = node.right;
+			return node.value;
+		}
+	}
 	public static void main(String[] args){
 		LinkedList<String> arr = new LinkedList<String>();
 		arr.add("0");
@@ -15,102 +34,180 @@ public class LinkedList<T>{
 		arr.add("before 2",2);
 		System.out.println(arr.get(2));
 		System.out.println(arr.get(4));
-		arr.set(4,"4");
+		arr.set("4",4);
 		System.out.println(arr.get(4));
-		arr.set(8,"8");
+		arr.set("8",8);
 		System.out.println(arr.get(8));
+		arr.remove(5);
+		arr.remove(6);
+		for(String x:arr){
+			System.out.print(x);
+			System.out.print(",");
+		}
 		
 	}
-	protected Node<T> first;
-	protected Node<T> lastest;
-	private int size;
+	protected Node<T> nullNode;
+	protected Node<T> point;
+	protected int pointNum;
+	protected int size;
 	public LinkedList(){
-		lastest = first = new Node<T>(null);
+		nullNode = point = new Node<T>(null);
+		pointNum = -1;
 		size = 0;
 	}
-	public T get(int arg_num){
-		//throw Error if arg_num<0,unfinished
-		return _get(arg_num);
-	}
-	public void set(int arg_num,T arg_value){
-		//throw Error if arg_num<0,unfinished
-		_set(arg_num,arg_value);
-	}
-	public T remove(int arg_num){
-		//throw Error if arg_num<0,unfinished
-		return _remove(arg_num).value;
-	}
-	public void add(T arg_value,int arg_num){
-		//throw Error if arg_num<0,unfinished
-		_add(arg_value,arg_num);
-	}
-	public void add(T arg_value){
-		_add(arg_value,size);
+	private void setPoint(int n){
+		while(size<=n){add(null);}
+		if(n<0){
+			point = nullNode;
+			pointNum = -1;
+		}else{
+			if((n<<1) < pointNum){
+				point = nullNode;
+				pointNum = -1;
+			}
+			while(pointNum<n){
+				point = point.right;
+				pointNum++;
+			}
+			while(pointNum>n){
+				point = point.left;
+				pointNum--;
+			}
+		}
 	}
 	public int size(){
 		return size;
 	}
-	protected Node<T> _remove(int arg_num){
-		if(arg_num<size){
-			Node<T> node = _getNode(arg_num);
-			node.remove();
-			size--;
-			if(arg_num == size){
-				lastest = node.left;
-			}else if(arg_num == 0 && size != 0){
-				first = node.right;
-			}
-			return node;
+	public void add(T arg_value){
+		setPoint(size-1);
+		point.setRight(new Node<T>(arg_value));
+		size++;
+	}
+	public void add(T arg_value,int arg_num){
+		if(arg_num<0){return;}
+		setPoint(arg_num-1);
+		Node<T> temp = point.right;
+		point.setRight(new Node<T>(arg_value));
+		point.right.setRight(temp);
+		size++;
+	}
+	public void set(T arg_value,int arg_num){
+		if(arg_num<0){return;}
+		setPoint(arg_num);
+		point.value = arg_value;
+	}
+	public T get(int arg_num){
+		if(size>arg_num&&arg_num>=0){
+			setPoint(arg_num);
+			return point.value;
 		}else{
 			return null;
 		}
 	}
-	protected Node<T> _getNode(int arg_num){
-		Node<T> node = first;
-		for(int num = 0;num<arg_num;num++){
-			node = node.right;
-		}
-		return node;
+	public T remove(int arg_num){
+		if(arg_num<0||arg_num>=size){return null;}
+		setPoint(arg_num-1);
+		T temp = point.right.value;
+		point.setRight(point.right.right);
+		size--;
+		return temp;
 	}
-	protected T _get(int arg_num){
-		if(arg_num>=size){return null;}
-		return _getNode(arg_num).value;
+	public void remove(int arg_num,int arg_length){
+		Range<Integer> r = new Range<Integer>(0,size-1);
+		r.and(new Range<Integer>(arg_num,arg_num+arg_length));
+		setPoint(r.max());
+		Node<T> temp = point;
+		setPoint(r.min()-1);
+		point.setRight(temp);
+		size-=r.max()- r.min();
 	}
-	protected void _set(int arg_num,T arg_value){
-		if(arg_num>=size){
-			_add(arg_value,arg_num);
-		}else{
-			_getNode(arg_num).value = arg_value;
-		}
-	}
-	protected void _add(T arg_value,int arg_num){
-		if(arg_num > size){
-			Node<T> n = new Node<T>(null);
-			lastest.setRight(n);
-			for(int num=size+1;num<arg_num;num++){
-				n.setRight(new Node<T>(null));
-				n = n.right;
+	public Integer index(T arg_value){
+		setPoint(-1);
+		if(arg_value == null){
+			while(point.right != null){
+				point = point.right;
+				pointNum++;
+				if(point.value == null){return pointNum;}
 			}
-			n.setRight(new Node<T>(arg_value));
-			lastest = n.right;
-			size = arg_num+1;
-		}else if(arg_num == size){
-			if(size == 0){
-				lastest.value = arg_value;
+		}else{
+			while(point.right != null){
+				point = point.right;
+				pointNum++;
+				if(arg_value.equals(point.value)){return pointNum;}
+			}
+		}
+		return null;
+	}
+	public void reverse(){
+		if(size<2){return;}
+		setPoint(-1);
+		_reverse();
+		pointNum = size - pointNum;
+	}
+	public void removeFirstHalf(){
+		setPoint(size>>1);
+		nullNode.setRight(point);
+		size -= pointNum;
+		pointNum = 0;
+	}
+	public Iterator<T> iterator(){
+		return new Iter<T>(nullNode,this);
+	}
+	public LinkedList<T> getElements(LinkedList<Integer> arg_list){
+		LinkedList<T> ret = new LinkedList<T>();
+		for(Integer x:arg_list){ret.add(get(x));}
+		return ret;
+	}
+	public void subtract(LinkedList<T> arg_list){
+		for(T x:arg_list){
+			Integer i;
+			while((i = index(x))!=null){this.remove(i);}
+		}
+	}
+	public void removeDuplicateValues(){
+		setPoint(0);
+		while(point.right != null){
+			if(point.value.equals(point.right.value)){
+				remove(pointNum+1);
 			}else{
-				lastest.setRight(new Node<T>(arg_value));
-				lastest = lastest.right;
+				setPoint(pointNum+1);
 			}
-			size++;
-		}else if(arg_num == 0){
-			first.setLeft(new Node<T>(arg_value));
-			first = first.left;
-			size++;
-		}else{
-			Node<T> node = _getNode(arg_num);
-			node.addLeft(new Node<T>(arg_value));
-			size++;
 		}
-		
+	}
+	public <E extends Comparable<T>> void removeRange(E min,E max){
+		int length = 0;
+		int i = 0;
+		while(i<size){
+			boolean bigThenMin = min.compareTo(get(i))<=0;
+			boolean lessThenMax = max.compareTo(get(i))>=0;
+			if(bigThenMin&&lessThenMax){length++;}
+			if(bigThenMin&&!lessThenMax){break;}
+			i++;
+		}
+		remove(i,length);
+	}
+	public <E extends Comparable<T>> LinkedList<T> intersection(LinkedList<E> arg_list){
+		LinkedList<T> ret = new LinkedList<T>();
+		int x=0;int y = 0;
+		while(x<size&&y<arg_list.size){
+			int result = arg_list.get(y).compareTo(get(x));
+			if(result == 0){
+				ret.add(get(x));
+				x++;
+			}else if(result>0){
+				x++;
+			}else{
+				y++;
+			}
+		}
+		ret.removeDuplicateValues();
+		return ret;
+	}
+	private void _reverse(){
+		Node<T> temp = point;
+		Node<T> temp2 = (point = point.right);
+		if(temp == null){return;}
+		_reverse();
+		temp2.setRight(temp);
 	}
 }

@@ -1,6 +1,9 @@
 package com.coding.basic;
 
+import java.util.Queue;
 import java.util.Stack;
+
+import java.util.LinkedList;
 
 /**
  二叉树
@@ -43,15 +46,19 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
                 if(current.getLeft() != null){
                     current = current.getLeft();
                 }else {
-                    current.setLeft(new BinarySearchTreeNode<T>(data));
-                    return current.getLeft();
+                    BinarySearchTreeNode<T> child = new BinarySearchTreeNode<T>(data);
+                    current.setLeft(child);
+                    child.setParent(current);
+                    return child;
                 }
             }else {//当前节点数据大于root
                 if(current.getRight() != null){
                     current = current.getRight();
                 }else {
-                    current.setRight(new BinarySearchTreeNode<T>(data));
-                    return current.getRight();
+                    BinarySearchTreeNode<T> child = new BinarySearchTreeNode<T>(data);
+                    current.setRight(child );
+                    child.setParent(current);
+                    return child;
                 }
             }
         }
@@ -230,9 +237,120 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         }
     }
 
-    //按层遍历，每层从左到右输出
-    /*public void  TraversalByLayer(){
+    /**
+     * 层次遍历
+        1.先根结点入队列
+        2.从队列中取出一个元素
+        3.访问该元素的节点
+        4.若该元素所指节点的左右子节点非空，则将左右孩子节点分别按照指针顺序入栈
+     */
+    public void traveralByLevel(BinarySearchTreeNode<T> n){
+        if(n == null) return;
 
-    }*/
-    
+        Queue<BinarySearchTreeNode<T>> queue = new LinkedList<BinarySearchTreeNode<T>>();
+        queue.offer(n);  //入队列
+
+        while(!queue.isEmpty()){
+            BinarySearchTreeNode<T> node = queue.poll();  //出队列
+            System.out.print(node.getData() + " ");
+            if(node.getLeft() != null) queue.offer(node.getLeft());
+            if(node.getRight() != null) queue.offer(node.getRight());
+        }
+    }
+
+    //删除某个节点n
+    public void delete(BinarySearchTreeNode<T> n){
+        BinarySearchTreeNode<T> p = n.getParent();  //节点的父节点
+        BinarySearchTreeNode<T> child;  //节点的子节点
+
+        //该节点没有任何子节点。// 叶子结点，直接删除即可。要考虑待删除结点是root的情况。
+        if(n.getLeft()==null && n.getRight()==null){
+            //该节点是根节点
+            if(n == root){
+                root = null;
+                return ;
+            }
+            //非根节点
+            if(n == p.getLeft()){
+                p.setLeft(null);
+            }else if(n == p.getRight()){
+                p.setRight(null);
+            }
+        }
+
+        // 内部结点，把它的后继的值拷进来，然后递归删除它的后继。
+        else if(n.getLeft()!=null && n.getRight()!=null){
+            BinarySearchTreeNode<T> next = successor(n);  //找到n的中序后继节点
+            n.setData(next.getData());
+            delete(next);  //中序后继节点
+        }
+
+        //只有一个孩子的结点，把它的孩子交给它的父结点即可
+        else {
+            if(n.getLeft() != null){ //得到子节点
+                child = n.getLeft();
+            }else {
+                child = n.getRight();
+            }
+
+            if(n == root){  // n是根节点的情况
+                child.setParent(null);
+                root = child;
+                return;
+            }
+            //非根节点
+            if(n == p.getLeft()){
+                p.setLeft(child);
+                child.setParent(p);
+            }else{
+                p.setRight(child);
+                child.setParent(p);
+            }
+
+        }
+    }
+
+    //找到n的中序后继节点
+    public BinarySearchTreeNode<T> successor(BinarySearchTreeNode<T> n){
+            if( n == null) return null;
+            if( n.getRight() == null ) return null;
+            return findMin(n.getRight());
+    }
+
+    //查找n树的最小值
+    public BinarySearchTreeNode<T> findMin(BinarySearchTreeNode<T> n){
+        BinarySearchTreeNode<T> current = n;
+        while(current.getLeft() != null){
+            current = current.getLeft();
+        }
+        return current;
+    }
+
+    //查找n树的最大值
+    public BinarySearchTreeNode<T> findMax(BinarySearchTreeNode<T> n){
+        BinarySearchTreeNode<T> current = n;
+        while(current.getRight() != null){
+            current = current.getRight();
+        }
+        return current;
+    }
+
+    /*
+      求树的高度(利用后序遍历)
+     */
+    public int postOrderGetHeight(BinarySearchTreeNode<T> n){
+        int hL = 0, hR = 0, maxH = 0;
+
+        if(n != null){
+            hL = postOrderGetHeight(n.getLeft()); //求左子树深度
+            hR = postOrderGetHeight(n.getRight()); //求右子树深度
+            maxH = hL> hR? hL : hR ; //求左右子树深度最大的那个
+            return (maxH+1);//返回树的深度
+        }
+        return 0;  //空树返回0
+    }
+
+
+
+
 }

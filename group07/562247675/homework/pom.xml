@@ -12,6 +12,7 @@
 
     <modules>
         <module>homework-0226</module>
+        <module>homework-0305</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -22,10 +23,23 @@
     </properties>
     <dependencyManagement>
         <dependencies>
+            <!-- junit -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.12</version>
+            </dependency>
+            <!-- dom4j core -->
+            <dependency>
+                <groupId>dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>1.6.1</version>
+            </dependency>
+            <!-- dom4j xpath -->
+            <dependency>
+                <groupId>jaxen</groupId>
+                <artifactId>jaxen</artifactId>
+                <version>1.1.6</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

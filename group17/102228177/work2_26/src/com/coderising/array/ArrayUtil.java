@@ -1,8 +1,10 @@
 package com.coderising.array;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class ArrayUtil {
@@ -29,7 +31,10 @@ public class ArrayUtil {
 		
 		int[] a1 = {3, 5, 7,8};
 		int[] a2 = {4, 5, 6,7};
-		System.out.println(Arrays.toString(util.merge(a1, a2)));
+//		System.out.println(Arrays.toString(util.merge(a1, a2)));
+		System.out.println(Arrays.toString(util.fibonacci(15)));
+		
+//		System.out.println(Arrays.toString(util.getPrimes(23)));
 	}
 	
 	/**
@@ -96,7 +101,9 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] grow(int [] oldArray,  int size){
-		return null;
+		int[] newArray = new int[oldArray.length + size];
+		System.arraycopy(oldArray, 0, newArray, 0, newArray.length);
+		return newArray;
 	}
 	
 	/**
@@ -107,7 +114,22 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max){
-		return null;
+		List<Integer> list = new ArrayList<Integer>();
+		if (max <= 1) {
+	        return new int[]{};
+        }
+		int lo = 0;
+		int hi = 1;
+		while(hi<max){
+			list.add(hi);
+			hi = lo + hi;
+			lo = hi - lo;
+		}
+		int[] arr = new int[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			arr[i] = list.get(i);
+		}
+		return arr;
 	}
 	
 	/**
@@ -117,7 +139,24 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max){
-		return null;
+		List<Integer> list = new ArrayList<Integer>();
+		for (int i = 2; i < max; i++) {
+			boolean flag = true;
+			for (int j = 2; j < i; j++) {
+				if ( i % j == 0) {
+					flag = false;
+					break;
+				}
+			}
+			if(flag){
+				list.add(i);
+			}
+		}
+		int[] arr = new int[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			arr[i] = list.get(i);
+		}
+		return arr;
 	}
 	
 	/**
@@ -127,7 +166,23 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max){
-		return null;
+		 List<Integer> list = new ArrayList<Integer>();
+		 for (int i = 1; i <= max; i++){
+	            int sum=0;
+	            for (int j = 1; j < i; j++){
+		            if(i%j==0){
+		                sum+=j;
+		            }   
+	            }
+	            if(i==sum){
+	            	list.add(sum);
+	            }
+	        }
+		int[] arr = new int[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			arr[i] = list.get(i);
+		}
+		return arr;
 	}
 	
 	/**
@@ -139,8 +194,10 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public String join(int[] array, String seperator){
-		return null;
+		String str = "";
+		for (int i = 0; i < array.length; i++) {
+			str += seperator+array[i];
+		}
+		return str.substring(1);
 	}
-	
-
 }

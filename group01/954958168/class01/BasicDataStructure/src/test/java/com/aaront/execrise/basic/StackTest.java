@@ -22,25 +22,25 @@ public class StackTest {
 
     @Test
     public void testPush() {
-        Assert.assertArrayEquals(stack.toArray(), new Object[]{1, 2, 3});
+        Assert.assertArrayEquals(new Object[]{1, 2, 3}, stack.toArray());
     }
 
     @Test
     public void testPop() {
         Object element1 = stack.pop();
-        Assert.assertEquals(element1, 3);
+        Assert.assertEquals(3, element1);
         Object element2 = stack.pop();
-        Assert.assertEquals(element2, 2);
-        Assert.assertArrayEquals(stack.toArray(), new Object[]{1});
+        Assert.assertEquals(2, element2);
+        Assert.assertArrayEquals(new Object[]{1}, stack.toArray());
     }
 
     @Test
     public void testPeek() {
         Object element1 = stack.peek();
-        Assert.assertEquals(element1, 3);
+        Assert.assertEquals(3, element1);
         Object element2 = stack.peek();
-        Assert.assertEquals(element2, 3);
-        Assert.assertArrayEquals(stack.toArray(), new Object[]{1, 2, 3});
+        Assert.assertEquals(3, element2);
+        Assert.assertArrayEquals(new Object[]{1, 2, 3}, stack.toArray());
     }
 
 }
