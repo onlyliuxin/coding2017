@@ -76,7 +76,7 @@ public class StackTest {
             }
             System.out.println("size1 ->" + stack.size1());
             System.out.println("size2 ->" + stack.size2());
-            System.out.println("stack -> " + stack.toString());
+            System.out.println(stack.toString());
 
             Assert.assertEquals(stack.peek1(), 6);
             Assert.assertEquals(stack.peek2(), 7);
