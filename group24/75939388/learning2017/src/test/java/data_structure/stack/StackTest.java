@@ -53,7 +53,13 @@ public class StackTest {
             qms.push(0);
             qms.push(-2);
             qms.push(10);
+            for(int i = 0; i < 14; i++){
+                qms.push(i);
+            }
             Assert.assertEquals(-2, qms.findMin());
+            Assert.assertEquals(17, qms.size());
+            Assert.assertEquals(13, qms.pop());
+            System.out.println(qms.toString());
         }
         //StackWithTwoQueues
         {
