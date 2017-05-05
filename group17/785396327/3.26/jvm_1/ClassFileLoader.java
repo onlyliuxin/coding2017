@@ -1,5 +1,8 @@
 package jvm_1;
 
+import clz.ClassFile;
+import parse.ClassFilePaser;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,5 +49,11 @@ public class ClassFileLoader {
             sb.append(clzPath).append(";");
         }
         return sb.substring(0, sb.length() - 1);
+    }
+
+    public ClassFile loadClass(String className) {
+        byte[] bytes = readBinaryCode(className);
+        ClassFilePaser classFilePaser = new ClassFilePaser();
+        return classFilePaser.parse(bytes);
     }
 }
