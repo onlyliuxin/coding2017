@@ -113,7 +113,7 @@ public class TwoStackInOneArray {
 
         //stack1
         //因为指针在数据添加后已经加上了，所以要减回去
-        for (int i = 0; i < index1; i++) {
+        for (int i = 0; i <= index1 - 1; i++) {
             extended[i] = data[i];
         }
 
