@@ -5,9 +5,6 @@ public class Util {
     	String s1 = byteToHexString(codes);
     	return Integer.valueOf(s1, 16).intValue();
     }
-    
-    
-    
 	public static String byteToHexString(byte[] codes ){
 		StringBuffer buffer = new StringBuffer();
 		for(int i=0;i<codes.length;i++){
