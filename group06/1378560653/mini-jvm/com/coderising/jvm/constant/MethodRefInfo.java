@@ -1,5 +1,8 @@
 package com.coderising.jvm.constant;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MethodRefInfo extends ConstantInfo {
 	
 	private int type = ConstantInfo.METHOD_INFO;
@@ -48,6 +51,11 @@ public class MethodRefInfo extends ConstantInfo {
 		ConstantPool pool = this.getConstantPool();
 		NameAndTypeInfo  typeInfo = (NameAndTypeInfo)pool.getConstantInfo(this.getNameAndTypeIndex());
 		return typeInfo.getTypeInfo();
+	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitMethodRef(this);		
 	}
 	
 	

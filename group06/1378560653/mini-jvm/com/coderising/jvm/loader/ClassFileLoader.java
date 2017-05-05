@@ -15,11 +15,14 @@ import com.coderising.jvm.clz.ClassFile;
 
 
 public class ClassFileLoader {
-	/*
+	/* 
 	 * 1.加载文件路径
 	 * 2.加载.class文件
+	 * - clzFileName = classPath + "/" + className(.class文件)
 	 * 3.将.class文件转换为字节数组
+	 * - clzFileName->byte[] codes
 	 * 4.解析.class字节数组
+	 * - paser(codes)
 	 */
 	private List<String> clzPaths = new ArrayList<String>();
 	
