@@ -6,7 +6,7 @@
 - 实现StackUtil
 - [文章](http://www.jianshu.com/p/502c1e5caa97)
 ## 完成情况：
-
+ok
 
 ## 我的收获：
-
+其实最难是坚持
