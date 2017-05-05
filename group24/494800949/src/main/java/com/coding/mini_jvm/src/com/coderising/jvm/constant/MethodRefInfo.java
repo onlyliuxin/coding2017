@@ -14,7 +14,12 @@ public class MethodRefInfo extends ConstantInfo {
 	public int getType() {
 		return type;
 	}
-	
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitMethodRef(this);
+	}
+
 	public int getClassInfoIndex() {
 		return classInfoIndex;
 	}
