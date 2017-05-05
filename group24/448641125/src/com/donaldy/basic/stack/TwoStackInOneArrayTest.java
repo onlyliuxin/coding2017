@@ -19,8 +19,24 @@ public class TwoStackInOneArrayTest {
             Assert.assertEquals(i, stack.peek1());
         }
 
+        for (int i = 10; i >= 2; --i) {
+            Assert.assertEquals(i, stack.pop1());
+        }
 
-        /*//两个栈
+        //第一个栈为空
+        stack = new TwoStackInOneArray();
+
+        for (int i = 1; i <= 10; ++i) {
+            stack.push2(i);
+            Assert.assertEquals(i, stack.peek2());
+        }
+
+        for (int i = 10; i >= 2; --i) {
+            Assert.assertEquals(i, stack.pop2());
+        }
+
+
+        //两个栈
         stack = new TwoStackInOneArray();
 
         for (int i = 1; i <= 4; ++i) {
@@ -39,7 +55,7 @@ public class TwoStackInOneArrayTest {
 
         for (int i = 4; i >= 1; --i) {
             Assert.assertEquals(i, stack.pop2());
-        }*/
+        }
 
     }
 
