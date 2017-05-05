@@ -1,6 +1,6 @@
 ## 讲课内容：
 
-## 第10周作业(JVM第5次作业)（04-24 至 04-30)
+## 第10周作业---JVM(5)（04-24 至 04-30)
 - 实现一个简单的执行引擎,主要代码engine cmd
 - 数据结构，实现循环队列CircleQueue.java,约瑟夫环Josephus.java,用两个栈实现队列QueueWithTwoStacks.java
 - 写一篇文章
