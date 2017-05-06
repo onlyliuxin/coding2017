@@ -1,5 +1,7 @@
 package com.coderising.jvm.constant;
 
+import com.coderising.jvm.print.ConstantPoolPrinterInterface;
+
 public class IntegerInfo extends ConstantInfo{
 
 	int val = 0;
@@ -18,5 +20,11 @@ public class IntegerInfo extends ConstantInfo{
 	
 	public int getInteger(){
 		return val;
+	}
+
+	@Override
+	public void print(ConstantPoolPrinterInterface cpp) {
+		cpp.printIntegerInfo(this);
+		
 	}
 }

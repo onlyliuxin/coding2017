@@ -1,6 +1,8 @@
 package com.coderising.jvm.attr;
 
 import com.coderising.jvm.clz.ClassFile;
+import com.coderising.jvm.cmd.ByteCodeCommand;
+import com.coderising.jvm.cmd.CommandParser;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.loader.ByteCodeIterator;
 import com.coderising.jvm.method.InvalidMethodInfoException;
@@ -15,21 +17,21 @@ public class CodeAttr extends AttributeInfo {
 		return code;
 	}
 
-	//private ByteCodeCommand[] cmds ;
-	//public ByteCodeCommand[] getCmds() {
-	//	return cmds;
-	//}
+	private ByteCodeCommand[] cmds ;
+	public ByteCodeCommand[] getCmds() {
+		return cmds;
+	}
 	private LineNumberTable lineNumTable;
 	private LocalVariableTable localVarTable;
 	private StackMapTable stackMapTable;
 	
-	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code /*ByteCodeCommand[] cmds*/) {
+	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code, ByteCodeCommand[] cmds) {
 		super(attrNameIndex, attrLen);
 		this.maxStack = maxStack;
 		this.maxLocals = maxLocals;
 		this.codeLen = codeLen;
 		this.code = code;
-		//this.cmds = cmds;
+		this.cmds = cmds;
 	}
 
 	public void setLineNumberTable(LineNumberTable t) {
@@ -54,41 +56,37 @@ public class CodeAttr extends AttributeInfo {
 		System.out.println("max local variable: " + maxLocalVar);
 		System.out.println("code length: " + codeLength);
 		
-		String realCode = iter.getNextNHexString(codeLength);
-		System.out.println("real cdoe: " + realCode);
-		
+		String code = iter.getNextNHexString(codeLength);
+		System.out.println("real cdoe: " + code);
+		ByteCodeCommand[] cmds = CommandParser.parse(clzFile, code);
 		int exceptionCount = iter.getNextNBytesInteger(2);
 		System.out.println("exception count: " + exceptionCount);
 		if(exceptionCount>0){
 			throw new InvalidAttributeInfoException("Exception parser un-implemented.");
 		}
-		//int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code
-		CodeAttr code = new CodeAttr(attributeNameIndex, attributeLength, maxStack, maxLocalVar, codeLength, realCode);
+		
+		CodeAttr codeAttr = new CodeAttr(attributeNameIndex, attributeLength, maxStack, maxLocalVar, codeLength, code, cmds);
 
 		int subAttributeCount = iter.getNextNBytesInteger(2);
 		System.out.println("sub attribute count : " + subAttributeCount); 
 		for(int i = 0; i<subAttributeCount; i++){
 			AttributeInfo attInfo = AttributeInfo.parse(clzFile, iter);
 			if(attInfo instanceof LineNumberTable){
-				code.setLineNumberTable((LineNumberTable)attInfo);
+				codeAttr.setLineNumberTable((LineNumberTable)attInfo);
 			}
 			else if(attInfo instanceof LocalVariableTable){
-				code.setLocalVariableTable((LocalVariableTable) attInfo);
+				codeAttr.setLocalVariableTable((LocalVariableTable) attInfo);
 			}
 			else{
 				throw new InvalidAttributeInfoException("Unimplemented attribute type.");
 			}
 		}
 				
-		return code;
+		return codeAttr;
 	}
 	private void setStackMapTable(StackMapTable t) {
 		this.stackMapTable = t;
 		
 	}
-
-	
-	
-	
 	
 }
