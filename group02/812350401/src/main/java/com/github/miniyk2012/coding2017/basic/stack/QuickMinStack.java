@@ -8,12 +8,11 @@ import java.util.Stack;
  * 设计一个栈，支持栈的push和pop操作，以及第三种操作findMin, 它返回改数据结构中的最小元素
  * finMin操作最坏的情形下时间复杂度应该是O(1) ， 简单来讲，操作一次就可以得到最小值
  * @author liuxin
- * 我用的有序链表实现的最小数栈，感觉不是好方法
  */
 public class QuickMinStack<E extends Comparable<E>> {
 	List<E> sortedList = new LinkedList<>();  // 从小到大排列,对应于V1
 	Stack<E> stack = new Stack();
-	Stack<E> minStack = new Stack<>();  // 更好的方法
+	Stack<E> minStack = new Stack<>();  // 更好的方法，保存了曾经的最小数的入栈顺序
 
 	public void pushV1(E data){
 		stack.push(data);
