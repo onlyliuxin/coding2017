@@ -2,7 +2,9 @@ package com.github.ipk2015.coding2017.basic.stack;
 
 import java.util.EmptyStackException;
 
-import com.github.ipk2015.coding2017.basic.ArrayList;
+import com.github.ipk2015.coding2017.basic.array.ArrayList;
+
+
 
 public class Stack {
 	private ArrayList elementData = new ArrayList();

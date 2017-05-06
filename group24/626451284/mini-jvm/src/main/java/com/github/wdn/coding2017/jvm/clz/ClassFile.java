@@ -1,6 +1,8 @@
 package com.github.wdn.coding2017.jvm.clz;
 
 import com.github.wdn.coding2017.jvm.constant.ConstantPool;
+import com.github.wdn.coding2017.jvm.field.Field;
+import com.github.wdn.coding2017.jvm.method.Method;
 
 import java.util.List;
 
