@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <struts>
-    <action name="login" class="assignment2_26.LoginAction">
+    <action name="login" class="assignment0226.LoginAction">
         <result name="success">/jsp/homepage.jsp</result>
         <result name="fail">/jsp/showLogin.jsp</result>
     </action>

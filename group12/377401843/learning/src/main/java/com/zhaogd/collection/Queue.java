@@ -1,5 +1,7 @@
 package com.zhaogd.collection;
 
+import com.zhaogd.collection.linkedlist.LinkedList;
+
 public class Queue {
 	private LinkedList element = new LinkedList();
 
