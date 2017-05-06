@@ -9,7 +9,7 @@ import org.junit.Test;
  * Created by william on 2017/4/5.
  */
 public class ClassFileloaderTest {
-    static String path1 = "D:\\workspace\\IDEA\\homework\\coding2017\\group17\\785396327\\out\\production\\785396327";
+    static String path1 = "G:\\Git\\homework\\coding2017\\group17\\785396327\\3.12\\out\\production\\785396327";
     static String path2 = "C:\temp";
 
 
