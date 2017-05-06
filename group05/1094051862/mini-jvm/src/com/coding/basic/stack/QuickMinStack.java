@@ -7,13 +7,32 @@ package com.coding.basic.stack;
  *
  */
 public class QuickMinStack {
+	
+	Stack<Integer> s = new Stack<Integer>();
+	Stack<Integer> m = new Stack<Integer>();
 	public void push(int data){
-		
+		s.push(data);
+		if(m.isEmpty()) {
+			m.push(data);
+		}
+		else if (data <= (int)m.peek()) {
+			m.push(data);
+		}
 	}
 	public int pop(){
-		return -1;
+		if (m.isEmpty()) {
+			throw new RuntimeException("stack is empty");
+		}
+		int x = (int) m.pop();
+		if (x==(int)m.peek()) {
+			m.pop();
+		}
+		return x;
 	}
 	public int findMin(){
-		return -1;
+		if (m.isEmpty()) {
+			throw new RuntimeException("stack is empty");
+		}
+		return (int) m.peek();
 	}
 }
