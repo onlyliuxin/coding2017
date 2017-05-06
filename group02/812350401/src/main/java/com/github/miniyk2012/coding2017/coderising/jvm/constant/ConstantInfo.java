@@ -1,6 +1,8 @@
 package com.github.miniyk2012.coding2017.coderising.jvm.constant;
 
-public abstract class ConstantInfo {
+import com.github.miniyk2012.coding2017.coderising.jvm.print.Visitable;
+
+public abstract class ConstantInfo implements Visitable{
 	public static final int UTF8_INFO = 1;
 	public static final int FLOAT_INFO = 4;
 	public static final int CLASS_INFO = 7;

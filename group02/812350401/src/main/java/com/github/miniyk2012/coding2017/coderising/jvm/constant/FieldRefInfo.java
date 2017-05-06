@@ -1,5 +1,7 @@
 package com.github.miniyk2012.coding2017.coderising.jvm.constant;
 
+import com.github.miniyk2012.coding2017.coderising.jvm.print.ConstantPoolPrinter;
+
 public class FieldRefInfo extends ConstantInfo{
 	private int type = ConstantInfo.FIELD_INFO;
 	private int classInfoIndex;
@@ -46,5 +48,10 @@ public class FieldRefInfo extends ConstantInfo{
 	public String getFieldType(){
 		NameAndTypeInfo  typeInfo = (NameAndTypeInfo)this.getConstantInfo(this.getNameAndTypeIndex());
 		return typeInfo.getTypeInfo();	
+	}
+
+	@Override
+	public void accept(ConstantPoolPrinter.Visitor visitor) {
+		visitor.visitFieldRefInfo(this);
 	}
 }

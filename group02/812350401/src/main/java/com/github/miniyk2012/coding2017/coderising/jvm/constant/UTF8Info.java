@@ -1,5 +1,7 @@
 package com.github.miniyk2012.coding2017.coderising.jvm.constant;
 
+import com.github.miniyk2012.coding2017.coderising.jvm.print.ConstantPoolPrinter;
+
 public class UTF8Info extends ConstantInfo{
 	private int type = ConstantInfo.UTF8_INFO;
 	private int length ;
@@ -27,4 +29,8 @@ public class UTF8Info extends ConstantInfo{
 		this.value = value;
 	}
 
+	@Override
+	public void accept(ConstantPoolPrinter.Visitor visitor) {
+		visitor.visitUTF8Info(this);
+	}
 }

@@ -24,8 +24,12 @@ public class ClassFilePrinter {
 		
 		ConstantPoolPrinter cnstPoolPrinter = new ConstantPoolPrinter(clzFile.getConstantPool());
 		cnstPoolPrinter.print();
-		
-	}
+        System.out.println("{\n");
+        
+
+        System.out.println("}");
+
+    }
 	
 	public static void main(String[] args){
 		String path = ClassFilePrinter.class.getClassLoader().getResource("jvm").getPath();
