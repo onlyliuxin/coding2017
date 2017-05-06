@@ -7,6 +7,7 @@ import assignment0326.jvm.loader.ByteCodeIterator;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class LocalVariableTable extends AttributeInfo{
 
 	List<LocalVariableItem> items = new ArrayList<LocalVariableItem>();
@@ -21,25 +22,21 @@ public class LocalVariableTable extends AttributeInfo{
 	}
 	
 	public static LocalVariableTable parse(ByteCodeIterator iter){
-		
-		int index = iter.nextU2ToInt();
-		int len = iter.nextU4ToInt();
-		
-		LocalVariableTable table = new LocalVariableTable(index,len);
-		
-		int itemLen = iter.nextU2ToInt();
-		
-		for(int i=1; i<=itemLen; i++){
-			LocalVariableItem item = new LocalVariableItem();
-			item.setStartPC(iter.nextU2ToInt());
-			item.setLength(iter.nextU2ToInt());
-			item.setNameIndex(iter.nextU2ToInt());
-			item.setDescIndex(iter.nextU2ToInt());
-			item.setIndex(iter.nextU2ToInt());
-			table.addLocalVariableItem(item);
-		}
-		return table;
-	}
+        int attrNameIndex = iter.nextU2ToInt();
+        int attrLength = iter.nextU4ToInt();
+        int localVarTableLength = iter.nextU2ToInt();
+        LocalVariableTable localVariableTable = new LocalVariableTable(attrNameIndex, attrLength);
+        for (int i = 0; i < localVarTableLength; i++) {
+            LocalVariableItem localVariableItem = new LocalVariableItem();
+            localVariableItem.setStartPC(iter.nextU2ToInt());
+            localVariableItem.setLength(iter.nextU2ToInt());
+            localVariableItem.setNameIndex(iter.nextU2ToInt());
+            localVariableItem.setDescIndex(iter.nextU2ToInt());
+            localVariableItem.setIndex(iter.nextU2ToInt());
+            localVariableTable.addLocalVariableItem(localVariableItem);
+        }
+        return localVariableTable;
+    }
 	
 	
 	public String toString(ConstantPool pool){

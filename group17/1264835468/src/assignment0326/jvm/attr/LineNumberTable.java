@@ -36,22 +36,18 @@ public class LineNumberTable extends AttributeInfo {
 	}
 	
 	public static LineNumberTable parse(ByteCodeIterator iter){
-		
-		int index = iter.nextU2ToInt();
-		int len = iter.nextU4ToInt();
-		
-		LineNumberTable table = new LineNumberTable(index,len);
-		
-		int itemLen = iter.nextU2ToInt();
-		
-		for(int i=1; i<=itemLen; i++){
-			LineNumberItem item = new LineNumberItem();
+        int attrNameIndex = iter.nextU2ToInt();
+        int attrLength = iter.nextU4ToInt();
+        int lineNumTableLength = iter.nextU2ToInt();
+        LineNumberTable lineNumberTable = new LineNumberTable(attrNameIndex, attrLength);
+        for (int i = 0; i < lineNumTableLength; i++) {
+            LineNumberItem item = new LineNumberItem();
 			item.setStartPC(iter.nextU2ToInt());
 			item.setLineNum(iter.nextU2ToInt());
-			table.addLineNumberItem(item);
-		}
-		return table;
-	}
+            lineNumberTable.addLineNumberItem(item);
+        }
+        return lineNumberTable;
+    }
 	
 	public String toString(){
 		StringBuilder buffer = new StringBuilder();

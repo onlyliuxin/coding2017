@@ -1,9 +1,9 @@
 package assignment0326.jvm.method;
 
 
-import assignment0326.jvm.attr.AttributeInfo;
 import assignment0326.jvm.attr.CodeAttr;
 import assignment0326.jvm.clz.ClassFile;
+import assignment0326.jvm.cmd.ByteCodeCommand;
 import assignment0326.jvm.constant.ConstantPool;
 import assignment0326.jvm.constant.UTF8Info;
 import assignment0326.jvm.loader.ByteCodeIterator;
@@ -39,6 +39,7 @@ public class Method {
         this.codeAttr = code;
     }
 
+
     public Method(ClassFile clzFile, int accessFlag, int nameIndex, int descriptorIndex) {
         this.clzFile = clzFile;
         this.accessFlag = accessFlag;
@@ -64,30 +65,18 @@ public class Method {
     }
 
     public static Method parse(ClassFile clzFile, ByteCodeIterator iter) {
-        int accessFlag = iter.nextU2ToInt();
+        int accessFlags = iter.nextU2ToInt();
         int nameIndex = iter.nextU2ToInt();
-        int descIndex = iter.nextU2ToInt();
-        int attribCount = iter.nextU2ToInt();
+        int descriptorIndex = iter.nextU2ToInt();
+        int attrCount = iter.nextU2ToInt();
+        Method method = new Method(clzFile, accessFlags, nameIndex, descriptorIndex);
+        CodeAttr codeAttr = CodeAttr.parse(clzFile, iter);
+        method.setCodeAttr(codeAttr);
+        return method;
 
+    }
 
-        Method m = new Method(clzFile, accessFlag, nameIndex, descIndex);
-
-        for (int j = 1; j <= attribCount; j++) {
-
-            int attrNameIndex = iter.nextU2ToInt();
-            String attrName = clzFile.getConstantPool().getUTF8String(attrNameIndex);
-            iter.back(2);
-
-            if (AttributeInfo.CODE.equalsIgnoreCase(attrName)) {
-                CodeAttr codeAttr = CodeAttr.parse(clzFile, iter);
-                m.setCodeAttr(codeAttr);
-            } else {
-                throw new RuntimeException("only CODE attribute is implemented , please implement the " + attrName);
-            }
-
-        }
-
-        return m;
-
+    public ByteCodeCommand[] getCmds() {
+        return this.getCodeAttr().getCmds();
     }
 }

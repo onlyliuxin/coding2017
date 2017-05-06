@@ -29,7 +29,10 @@ public class ByteCodeIterator {
     }
 
     public int nextU4ToInt(){
-        return 0;
+        int hi = nextU2ToInt();
+        int lo = nextU2ToInt();
+        int i = hi << 16 | lo;
+        return i;
     }
     public byte[] nextNBytes(int n) {
         byte[] bytes = new byte[n];
@@ -48,6 +51,15 @@ public class ByteCodeIterator {
     }
 
     public String nextUxToHexString(int len) {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < len; i++) {
+            String hexString = Integer.toHexString(nextByteToInt());
+            if (hexString.length() == 1) {
+                hexString = '0' + hexString;
+            }
+            stringBuilder.append(hexString);
+        }
+        return stringBuilder.toString();
     }
+
 }

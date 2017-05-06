@@ -29,7 +29,7 @@ public class ClassFileParser {
 
         parseFileds(classFile, iterator);
 
-        //parseMethods(classFile, iterator);
+        parseMethods(classFile, iterator);
         return classFile;
     }
 
@@ -157,7 +157,6 @@ public class ClassFileParser {
     private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
 
         int methodCount = iter.nextU2ToInt();
-
         for (int i = 1; i <= methodCount; i++) {
             Method m = Method.parse(clzFile, iter);
             clzFile.addMethod(m);

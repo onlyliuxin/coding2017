@@ -20,10 +20,10 @@ public class ClassFilePrinter {
 		System.out.println("Super Class Name:"+ clzFile.getSuperClassName());
 		
 		System.out.println("minor version:" + clzFile.getMinorVersion());
-		
-		System.out.println("major version:" + clzFile.getMinorVersion());
-		
-		ConstantPoolPrinter cnstPoolPrinter = new ConstantPoolPrinter(clzFile.getConstantPool());
+
+        System.out.println("major version:" + clzFile.getMajorVersion());
+
+        ConstantPoolPrinter cnstPoolPrinter = new ConstantPoolPrinter(clzFile.getConstantPool());
 		cnstPoolPrinter.print();
 		
 		
