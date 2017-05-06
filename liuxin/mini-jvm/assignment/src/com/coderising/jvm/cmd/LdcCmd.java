@@ -4,6 +4,8 @@ import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.constant.ConstantInfo;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.constant.StringInfo;
+import com.coderising.jvm.engine.ExecutionResult;
+import com.coderising.jvm.engine.StackFrame;
 
 public class LdcCmd extends OneOperandCmd {
 
@@ -23,6 +25,12 @@ public class LdcCmd extends OneOperandCmd {
 		}
 		
 		return this.getOffset()+":"+this.getOpCode()+" " + this.getReadableCodeText() + " "+  value;
+		
+	}
+
+	@Override
+	public void execute(StackFrame frame, ExecutionResult result) {
+		
 		
 	}
 	
