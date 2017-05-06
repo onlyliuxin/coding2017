@@ -215,7 +215,7 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-.gitignore
+
 =======
 
 
@@ -235,7 +235,6 @@ hs_err_pid*
 .recommenders
 
 
-*.xml
 *.iml
 .idea
 *.iml
