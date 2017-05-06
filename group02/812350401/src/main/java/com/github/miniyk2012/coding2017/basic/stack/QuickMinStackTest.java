@@ -26,7 +26,6 @@ public class QuickMinStackTest {
     public void test() {
         stack = new QuickMinStack<Integer>();
 
-
         stack.push(5);
         stack.push(3);
         stack.push(2);
@@ -58,11 +57,9 @@ public class QuickMinStackTest {
         assertEquals(3, stack.pop());  // [5]
         assertEquals(5, stack.findMin());
         assertEquals(5, stack.pop());  // []
-
-
+        
         //栈为空，抛出异常
         expectedEx.expect(Exception.class);
-        stack.findMin();
         stack.pop();
 
     }

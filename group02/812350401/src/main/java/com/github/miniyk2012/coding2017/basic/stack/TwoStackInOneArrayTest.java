@@ -79,9 +79,8 @@ public class TwoStackInOneArrayTest {
 
 	assertNull(stack.peek1());
 	assertNull(stack.peek2());
-	// 栈1,2为空，抛出异常
+	// 栈1为空，抛出异常
 	expectedEx.expect(Exception.class);
-	stack.pop2();
 	stack.pop1();
 	}
 
