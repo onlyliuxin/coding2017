@@ -1,6 +1,7 @@
-package com.coderising.array;
+package com.coding.basic.datastructure.array;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -14,6 +15,9 @@ public class ArrayUtil {
      * 如果     a = [7, 9, 30, 3, 4] , 置换后为 [4,3, 30 , 9,7]
      */
     public int[] reverseArray(int[] origin) {
+        if (origin == null) {
+            return null;
+        }
         for (int i = 0; i < origin.length / 2; i++) {
             int temp = origin[i];
             origin[i] = origin[origin.length - i - 1];
@@ -28,17 +32,17 @@ public class ArrayUtil {
      * {1,3,4,5,6,6,5,4,7,6,7,5}
      */
     public int[] removeZero(int[] oldArray) {
+        if (oldArray == null) {
+            return null;
+        }
         int[] newArray = new int[oldArray.length];
         int index = 0;
         for (int i = 0; i < oldArray.length; i++) {
             if (oldArray[i] != 0) {
-                newArray[index] = oldArray[i];
-                index++;
+                newArray[index++] = oldArray[i];
             }
         }
-        int[] result = new int[index];
-        System.arraycopy(newArray, 0, result, 0, index);
-        return result;
+        return Arrays.copyOf(newArray, index);
     }
 
     /**
@@ -46,6 +50,12 @@ public class ArrayUtil {
      * 例如 a1 = [3, 5, 7,8]   a2 = [4, 5, 6,7]    则 a3 为[3,4,5,6,7,8]    , 注意： 已经消除了重复
      */
     public int[] merge(int[] array1, int[] array2) {
+        if (array1 == null && array2 == null) {
+            return null;
+        }
+        if (array1 == null || array2 == null) {
+            return array1 == null ? array2 : array1;
+        }
         Set<Integer> set = new TreeSet<>();
         for (int i = 0; i < array1.length; i++) {
             set.add(array1[i]);
@@ -63,6 +73,12 @@ public class ArrayUtil {
      * [2,3,6,0,0,0]
      */
     public int[] grow(int[] oldArray, int size) {
+        if (oldArray == null) {
+            return null;
+        }
+        if (size < 0) {
+            throw new IndexOutOfBoundsException();
+        }
         int[] newArray = new int[oldArray.length + size];
         System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
         return newArray;
@@ -75,12 +91,12 @@ public class ArrayUtil {
      */
     public int[] fibonacci(int max) {
         List<Integer> list = new ArrayList<>();
-        for (int i = 1; i < max; i++) {
+        for (int i = 0; i < max; i++) {
             int f = fibonacci2(i);
-            if (f >= max) {
-                break;
-            } else {
+            if (f < max) {
                 list.add(f);
+            } else {
+                break;
             }
         }
         return list2Array(list);
@@ -135,6 +151,9 @@ public class ArrayUtil {
      * 则返回值为"3-8-9"
      */
     public String join(int[] array, String seperator) {
+        if (array == null) {
+            return null;
+        }
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < array.length; i++) {
             if (i != 0) {
