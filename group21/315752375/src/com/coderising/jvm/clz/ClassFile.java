@@ -114,13 +114,6 @@ public class ClassFile {
 	}
 
 	public Method getMainMethod() {
-		Iterator<Method>iter=methods.iterator();
-		while(iter.hasNext()){
-			Method tmp=iter.next();
-			String name=pool.getUTF8String(tmp.getNameIndex());
-			if(name.equals("main"))return tmp;
-			
-		}
-		return null;
+		return getMethod("main", "([Ljava/lang/String;)V");
 	}
 }
