@@ -12,7 +12,6 @@ public class ConstantPoolPrinter {
 	}
 
 	public void print(){
-		// todo: 实现javap
 		System.out.println("Constant Pool:");
 		Visitor visitor = new Visitor();
         for (int i=1; i<=pool.getSize(); i++) {
