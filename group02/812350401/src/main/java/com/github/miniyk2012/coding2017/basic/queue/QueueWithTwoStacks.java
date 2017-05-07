@@ -9,8 +9,8 @@ import java.util.Stack;
  * @param <E>
  */
 public class QueueWithTwoStacks<E> {
-	private Stack<E> stack1;    
-    private Stack<E> stack2;    
+	private Stack<E> stack1;    // stack1用来入队
+    private Stack<E> stack2;    // stack2用来出对
 
     
     public QueueWithTwoStacks() {
@@ -19,7 +19,7 @@ public class QueueWithTwoStacks<E> {
     }
 
     public boolean isEmpty() {
-        return stack1.isEmpty();
+        return size() == 0;
     }
 
     private void move(Stack s1, Stack s2) {
@@ -29,18 +29,26 @@ public class QueueWithTwoStacks<E> {
     }
     
     public int size() {
-        return  stack1.size();
+        return  stack1.size() + stack2.size();
     }
 
     public void enQueue(E item) {
         stack1.push(item);
     }
 
-    public E deQueue() {
+    public E deQueueV2() {
         move(stack1, stack2);
         E result = stack2.pop();
         move(stack2, stack1);
         return result;
+    }
+
+    // 只有当stack2为空时，才需要把stack1中的元素全部放到stack2中
+    public E deQueue() {
+        if (stack2.isEmpty()) {
+            move(stack1, stack2);
+        }
+        return stack2.pop();
     }
 
  }
