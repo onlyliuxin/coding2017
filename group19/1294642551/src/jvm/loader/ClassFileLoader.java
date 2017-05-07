@@ -1,7 +1,5 @@
 package jvm.loader;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -70,68 +68,13 @@ public class ClassFileLoader {
 	}
 
 	public ClassFile loadClass(String className) {
-//		byte[] codes = this.readBinaryCode(className);
-//		ClassFileParser parser = new ClassFileParser();
-//		return parser.parse(codes);
-		return null;
+		byte[] codes = this.readBinaryCode(className);
+		ClassFileParser parser = new ClassFileParser();
+		return parser.parse(codes);
 		
 	}
 	
-	
-	
-	// ------------------------------backup------------------------
-    public String getClassPath_V1(){
-		
-		StringBuffer buffer = new StringBuffer();
-		for(int i=0;i<this.clzPaths.size();i++){
-			buffer.append(this.clzPaths.get(i));
-			if(i<this.clzPaths.size()-1){
-				buffer.append(";");
-			}
-		}
-		return buffer.toString();
-	}
-	
-	private byte[] loadClassFile_V1(String clzFileName) {
-		
-		BufferedInputStream bis = null;
-		
-		try {
-			
-			File f = new File(clzFileName);
-			
-						
-			bis = new BufferedInputStream(new FileInputStream(f));
-			
-			ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			
-			
-			byte[] buffer = new byte[1024];
-			int length = -1;
-			
-			while((length = bis.read(buffer)) != -1){
-				bos.write(buffer, 0, length);				
-			}
-			
-			byte [] codes = bos.toByteArray();
-			
-			return codes;
-			
-		} catch(IOException e){
-			e.printStackTrace();
-			
-		} finally{
-			if(bis != null){
-				try {
-					bis.close();
-				} catch (IOException e) {					
-					e.printStackTrace();
-				}
-			}
-		}
-		return null;
-		
-	}
+
 
 
 

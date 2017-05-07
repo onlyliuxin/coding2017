@@ -1,7 +1,5 @@
 package jvm;
 
-import java.io.File;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -10,18 +8,12 @@ import org.junit.Test;
 
 import jvm.clz.ClassFile;
 import jvm.clz.ClassIndex;
-import jvm.cmd.BiPushCmd;
-import jvm.cmd.ByteCodeCommand;
-import jvm.cmd.OneOperandCmd;
-import jvm.cmd.TwoOperandCmd;
 import jvm.constant.ClassInfo;
 import jvm.constant.ConstantPool;
 import jvm.constant.MethodRefInfo;
 import jvm.constant.NameAndTypeInfo;
 import jvm.constant.UTF8Info;
-import jvm.field.Field;
 import jvm.loader.ClassFileLoader;
-import jvm.method.Method;
 
 
 
@@ -33,7 +25,15 @@ public class ClassFileloaderTest {
 	static String path1 = "D:\\Git Files\\coding2017\\group19\\1294642551\\bin";
 	static String path2 = "D:\\TempFiles";
 	
-
+	static ClassFile clzFile = null;
+	static {
+		ClassFileLoader loader = new ClassFileLoader();
+		loader.addClassPath(path1);
+		String className = "jvm.EmployeeV1";
+		
+		clzFile = loader.loadClass(className);
+		
+	}
 	
 	@Before
 	public void setUp() throws Exception {		 
@@ -101,6 +101,96 @@ public class ClassFileloaderTest {
    		}
    		return buffer.toString();
    	}
+   	
+   	//----------------常量池测试-----------------------------------------
+    @Test
+    public void testVersion(){    			
+		
+		Assert.assertEquals(0, clzFile.getMinorVersion());
+		Assert.assertEquals(50, clzFile.getMajorVersion());
+		
+    }
+    
+    @Test
+    public void testConstantPool(){
+    	
+
+		ConstantPool pool = clzFile.getConstantPool();
+		
+		Assert.assertEquals(53, pool.getSize());
+	
+		{
+			ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(1);
+			Assert.assertEquals(2, clzInfo.getUtf8Index());
+			
+			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(2);
+			Assert.assertEquals(FULL_QUALIFIED_CLASS_NAME, utf8Info.getValue());
+		}
+		{
+			ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(3);
+			Assert.assertEquals(4, clzInfo.getUtf8Index());
+			
+			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(4);
+			Assert.assertEquals("java/lang/Object", utf8Info.getValue());
+		}
+		{
+			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(5);
+			Assert.assertEquals("name", utf8Info.getValue());
+			
+			utf8Info = (UTF8Info) pool.getConstantInfo(6);
+			Assert.assertEquals("Ljava/lang/String;", utf8Info.getValue());
+			
+			utf8Info = (UTF8Info) pool.getConstantInfo(7);
+			Assert.assertEquals("age", utf8Info.getValue());
+			
+			utf8Info = (UTF8Info) pool.getConstantInfo(8);
+			Assert.assertEquals("I", utf8Info.getValue());
+			
+			utf8Info = (UTF8Info) pool.getConstantInfo(9);
+			Assert.assertEquals("<init>", utf8Info.getValue());
+			
+			utf8Info = (UTF8Info) pool.getConstantInfo(10);
+			Assert.assertEquals("(Ljava/lang/String;I)V", utf8Info.getValue());
+			
+			utf8Info = (UTF8Info) pool.getConstantInfo(11);
+			Assert.assertEquals("Code", utf8Info.getValue());
+		}
+		
+		{
+			MethodRefInfo methodRef = (MethodRefInfo)pool.getConstantInfo(12);
+			Assert.assertEquals(3, methodRef.getClassInfoIndex());
+			Assert.assertEquals(13, methodRef.getNameAndTypeIndex());
+		}
+		
+		{
+			NameAndTypeInfo nameAndType = (NameAndTypeInfo) pool.getConstantInfo(13);
+			Assert.assertEquals(9, nameAndType.getIndex1());
+			Assert.assertEquals(14, nameAndType.getIndex2());
+		}
+		//抽查几个吧
+		{
+			MethodRefInfo methodRef = (MethodRefInfo)pool.getConstantInfo(45);
+			Assert.assertEquals(1, methodRef.getClassInfoIndex());
+			Assert.assertEquals(46, methodRef.getNameAndTypeIndex());
+		}
+		
+		{
+			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(53);
+			Assert.assertEquals("EmployeeV1.java", utf8Info.getValue());
+		}
+    }
+    
+    @Test
+    public void testClassIndex(){
+    	
+    	ClassIndex clzIndex = clzFile.getClzIndex();
+    	ClassInfo thisClassInfo = (ClassInfo)clzFile.getConstantPool().getConstantInfo(clzIndex.getThisClassIndex());
+    	ClassInfo superClassInfo = (ClassInfo)clzFile.getConstantPool().getConstantInfo(clzIndex.getSuperClassIndex());
+    	
+    	
+    	Assert.assertEquals(FULL_QUALIFIED_CLASS_NAME, thisClassInfo.getClassName());
+    	Assert.assertEquals("java/lang/Object", superClassInfo.getClassName());
+    }
 
  
 }
