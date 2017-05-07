@@ -6,6 +6,8 @@ import com.coderising.jvm.constant.ConstantInfo;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.constant.FieldRefInfo;
 import com.coderising.jvm.constant.MethodRefInfo;
+import com.coderising.jvm.engine.ExecutionResult;
+import com.coderising.jvm.engine.StackFrame;
 
 public class TwoOperandCmd extends ByteCodeCommand{
 
@@ -71,6 +73,12 @@ public class TwoOperandCmd extends ByteCodeCommand{
 	@Override
 	public String toString(ConstantPool pool) {
 		return null;
+	}
+
+	@Override
+	public void execute(StackFrame frame, ExecutionResult result) {
+		
+		
 	}
 
 
