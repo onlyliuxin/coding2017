@@ -1,5 +1,8 @@
-package com.coding.basic.datastructure;
+package com.coding.basic.datastructure.array;
 
+
+import com.coding.basic.datastructure.Iterator;
+import com.coding.basic.datastructure.List;
 
 /**
  * Created by zt on 2017/2/19.
