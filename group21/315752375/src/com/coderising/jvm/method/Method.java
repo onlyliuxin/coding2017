@@ -1,5 +1,8 @@
 package com.coderising.jvm.method;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.cmd.ByteCodeCommand;
 import com.coderising.jvm.attr.AttributeInfo;
@@ -73,7 +76,40 @@ public class Method {
 	public ByteCodeCommand[] getCmds() {
 		return this.getCodeAttr().getCmds();
 	}
-
+	private String getParamAndReturnType() {
+		UTF8Info nameAndTypeInfo=(UTF8Info)this.getClzFile().getConstantPool().getConstantInfo(this.getDescriptorIndex());
+		return nameAndTypeInfo.getValue();
+	}
+	public List<String> getParameterList() {
+		String paramAndType=getParamAndReturnType();
+		int first =paramAndType.indexOf("(");
+		int last=paramAndType.lastIndexOf(")");
+		String param=paramAndType.substring(first+1,last);
+		List<String> paramList=new ArrayList<String>();
+		if(param==null||param.equals("")){
+			return paramList;
+		}
+		
+		while(!param.equals("")){
+			int pos=0;
+			if(param.charAt(pos)=='L'){
+				int end=param.indexOf(";");
+				if(end==-1){
+					throw new RuntimeException("can't find ;");
+				}
+				paramList.add(param.substring(pos+1,end));
+				pos=end+1;
+			}
+			else if(param.charAt(pos)=='I'||param.charAt(pos)=='F'){
+				paramList.add(""+param.charAt(pos));
+				pos++;
+			}else {
+				throw new RuntimeException("param"+param.charAt(pos)+" is not supported yet");
+			}
+			param = param.substring(pos);
+		}
+		return paramList;
+	}
 	public String toString() {
 
 		ConstantPool pool = this.clzFile.getConstantPool();

@@ -6,8 +6,8 @@ public class Queue<T extends Comparable<T>> {
 		linkedList.addLast(o);
 	}
 	
-	public Object deQueue(){
-		return linkedList.removeFirst();
+	public T deQueue(){
+		return (T)linkedList.removeFirst();
 	}
 	public boolean isEmpty(){
 		return linkedList.size()==0;

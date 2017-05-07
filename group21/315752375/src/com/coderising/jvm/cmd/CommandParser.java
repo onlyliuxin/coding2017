@@ -76,7 +76,7 @@ public class CommandParser {
 				cmd.setOprand2(iter.next2CharAsInt());
 				cmds.add(cmd);
 			}else if(oper.equals(getstatic)){
-				GetFieldCmd cmd=new GetFieldCmd(clzFile, oper);
+				GetStaticFieldCmd cmd=new GetStaticFieldCmd(clzFile, oper);
 				cmd.setOprand1(iter.next2CharAsInt());
 				cmd.setOprand2(iter.next2CharAsInt());
 				cmds.add(cmd);
@@ -92,7 +92,7 @@ public class CommandParser {
 					||oper.equals(aload_2)||oper.equals(iload_1)||oper.equals(iload_2)||oper.equals(iload_3)
 					||oper.equals(fload_3)||oper.equals(voidreturn)||oper.equals(ireturn)||oper.equals(freturn)
 					||oper.equals(astore_1)||oper.equals(iconst_0)||oper.equals(iconst_1)||oper.equals(istore_1)
-					||oper.equals(istore_2)||oper.equals(iadd)||oper.equals(iinc)){
+					||oper.equals(istore_2)||oper.equals(iadd)){
 				NoOperandCmd cmd=new NoOperandCmd(clzFile, oper);
 				cmds.add(cmd);
 			}else {

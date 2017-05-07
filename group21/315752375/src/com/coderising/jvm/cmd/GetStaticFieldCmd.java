@@ -5,6 +5,10 @@ import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.constant.FieldRefInfo;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.engine.ExecutionResult;
+import com.coderising.jvm.engine.Heap;
+import com.coderising.jvm.engine.JavaObject;
+import com.coderising.jvm.engine.StackFrame;
 
 
 public class GetStaticFieldCmd extends TwoOperandCmd {
@@ -19,5 +23,23 @@ public class GetStaticFieldCmd extends TwoOperandCmd {
 		
 		return super.getOperandAsField(pool);
 	}
+	@Override
+	public String toString() {
+		ConstantPool pool=clzFile.getConstantPool();
+		return toString(pool);
+	}
+	@Override
+	public void execute(StackFrame frame, ExecutionResult result) {
+		// TODO Auto-generated method stub
+		FieldRefInfo info = (FieldRefInfo)this.getConstantInfo(this.getIndex());
+		String className = info.getClassName();
+		String fieldName = info.getFieldName();
+		String fieldType = info.getFieldType();
+		
+		if(className.equals("java/lang/System")	&& fieldName.equals("out")&& fieldType.equals("Ljava/io/PrintStream;")){
+			JavaObject javaObject = Heap.getInstance().newObject(className);
+			frame.getOprandStack().push(javaObject);
+			}
+		}
 
 }
