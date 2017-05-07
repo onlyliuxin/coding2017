@@ -25,7 +25,7 @@ public class PrefixExprTest {
 		}
 		{
 			// 4*2 + 6+9*2/3 -8
-			PrefixExpr expr = new PrefixExpr("-++6/*2 9 3 * 4 2 8");
+			PrefixExpr expr = new PrefixExpr("-++6/*2 9 3 * 4 2 8");//  -++66
 			Assert.assertEquals(12, expr.evaluate(),0.001f);
 		}
 		{

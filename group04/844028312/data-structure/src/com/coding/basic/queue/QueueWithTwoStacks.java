@@ -16,22 +16,35 @@ public class QueueWithTwoStacks<E> {
 
 
     public boolean isEmpty() {
-       return false;
+       return stack1.isEmpty();
     }
 
 
     
     public int size() {
-       return -1;
+       return stack1.size();
     }
 
 
 
     public void enQueue(E item) {
-        
+    	stack1.push(item);  
     }
 
     public E deQueue() {
+    	E item;
+    	while(!stack1.isEmpty()){
+    		if(stack1.size()==1){
+    			item=stack1.pop();
+    			while(!stack2.isEmpty()){
+    				stack1.push(stack2.pop());
+    			}
+    			return item;
+    		}
+    		else{
+    			stack2.push(stack1.pop());
+    		}
+    	}
         return null;
     }
 

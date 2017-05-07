@@ -24,5 +24,10 @@ public class StringInfo extends ConstantInfo{
     public String toString(){
 		return this.getConstantPool().getUTF8String(index);
 	}
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitString(this);
+    }
 	
 }
