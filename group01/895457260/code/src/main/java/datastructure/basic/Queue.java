@@ -17,7 +17,7 @@ public class Queue {
 	}
 
     public boolean isEmpty() {
-		return list.size() == 0;
+		return list.isEmpty();
 	}
 
 	public int size() {
