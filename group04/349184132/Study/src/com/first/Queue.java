@@ -4,7 +4,7 @@ public class Queue {
 	private LinkedList elementData = new LinkedList();
 	private int size = 0;
 	public void enQueue(Object o){
-		elementData.addLast(o);
+		elementData.add(o);
 		size++;
 	}
 	

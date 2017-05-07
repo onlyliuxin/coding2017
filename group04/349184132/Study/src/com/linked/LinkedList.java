@@ -236,7 +236,7 @@ public class LinkedList<T> implements List<T> {
 	}
 	/**
 	 * 递归写法
-	 * @param node
+	 * @param
 	 * @return
 	 */
 	public Node reverseRecursion(Node current){
@@ -297,7 +297,7 @@ public class LinkedList<T> implements List<T> {
 		int index = 0;
 		for(Iterator iter = list.iterator();iter.hasNext();){
 			int LinkIndex = (int)iter.next();
-			result[index] = (int)get(LinkIndex);
+			result[index] = (Integer) get(LinkIndex);
 		}
 		return result;
 	}

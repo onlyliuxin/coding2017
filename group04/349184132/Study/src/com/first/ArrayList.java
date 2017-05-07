@@ -18,12 +18,12 @@ public class ArrayList implements List {
 	}
 	
 	public void add(Object o){
-		if(size==elementData.length)
-			ResizeCapacity();
+		if(size+1 == elementData.length)
+			resizeCapacity();
 		elementData[size++] = o;
 	}
 	
-	private void ResizeCapacity(){
+	private void resizeCapacity(){
 		Object[] newDatas = new Object[size*2+1];
 		System.arraycopy(elementData,0,newDatas,0,size);
 		elementData = newDatas;
@@ -37,6 +37,8 @@ public class ArrayList implements List {
 	public void add(int index, Object o){
 		rangeCheck(index);
 		//bug size++;
+
+
 		System.arraycopy(elementData,index,elementData,index+1,size-index);
 		elementData[index] = o;
 		size++;
@@ -52,7 +54,7 @@ public class ArrayList implements List {
 		rangeCheck(index);
 		Object oldElement = elementData[index];
 		System.arraycopy(elementData,index+1,elementData,index,size-index-1);
-		size--;
+		elementData[--size]= null;
 		return oldElement;
 	}
 	

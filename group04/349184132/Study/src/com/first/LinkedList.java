@@ -99,38 +99,56 @@ public class LinkedList implements List {
 	}
 
 	public void addLast(Object o) {
-		Node node = head;
-		while (node != null) {
-			node = node.next;
-			if (node == null) {
-				Node lastnode = new Node(o, null);
-				node = lastnode;
+		if(head==null){
+			addFirst(o);
+		}else {
+			Node node = head;
+			while (node != null) {
+				node = node.next;
+				if (node == null) {
+					Node lastnode = new Node(o, null);
+					node = lastnode;
+				}
 			}
+			size++;
 		}
-		size++;
 	}
 
 	public Object removeFirst() {
 		Node oldhead = head;
 		Node newhead = head.next;
-		oldhead.next = null;
 		head = newhead;
 		size--;
 		return oldhead.data;
 	}
 
 	public Object removeLast() {
-		Node node = head;
-		Node prev = head;
-		while (node != null) {
-			node = node.next;
-			if (node == null) {
-				prev.next = null;
-			}
-			prev = prev.next;
+		if(size == 1){
+			Node first = head;
+			Object data = first.data;
+			head = null;
+			size--;
+			return data;
+		}else{
+			Node lastPre = getNode(size-2);
+			Node last = lastPre.next;
+			Object data = last.data;
+			lastPre.next = null;
+			size--;
+			return data;
 		}
-		size--;
-		return node.data;
+
+	}
+
+	private Node getNode(int index) {
+		rangeCheck(index);
+		Node cur = head;
+		int i = 0;
+		while(i <=index){
+			cur = cur.next;
+			i++;
+		}
+		return cur;
 	}
 
 	public Iterator iterator() {
