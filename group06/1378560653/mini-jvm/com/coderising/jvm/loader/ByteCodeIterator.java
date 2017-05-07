@@ -37,4 +37,16 @@ public class ByteCodeIterator {
 		return data;
 	}
 
+	public String nextUxToHexString(int len) {
+		byte[] temp = new byte[len];
+		for(int i = 0; i < len; i++){
+			temp[i] = codes[pos++];
+		}
+		return Util.byteToHexString(temp).toLowerCase();
+	}
+	
+	public void back(int i) {
+		pos -= i;
+		
+	}
 }

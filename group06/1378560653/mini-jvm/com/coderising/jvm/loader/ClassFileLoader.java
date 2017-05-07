@@ -15,7 +15,15 @@ import com.coderising.jvm.clz.ClassFile;
 
 
 public class ClassFileLoader {
-
+	/* 
+	 * 1.加载文件路径
+	 * 2.加载.class文件
+	 * - clzFileName = classPath + "/" + className(.class文件)
+	 * 3.将.class文件转换为字节数组
+	 * - clzFileName->byte[] codes
+	 * 4.解析.class字节数组
+	 * - paser(codes)
+	 */
 	private List<String> clzPaths = new ArrayList<String>();
 	
 	public byte[] readBinaryCode(String className) {
@@ -32,8 +40,6 @@ public class ClassFileLoader {
 		}
 		
 		return null;
-		
-		
 		
 	}
 	
@@ -97,12 +103,9 @@ public class ClassFileLoader {
 		try {
 			
 			File f = new File(clzFileName);
-			
-						
+				
 			bis = new BufferedInputStream(new FileInputStream(f));
-			
 			ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			
 			
 			byte[] buffer = new byte[1024];
 			int length = -1;
@@ -130,8 +133,4 @@ public class ClassFileLoader {
 		return null;
 		
 	}
-
-
-	
-
 }

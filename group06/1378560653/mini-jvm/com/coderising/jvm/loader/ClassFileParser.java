@@ -13,6 +13,8 @@ import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.NullConstantInfo;
 import com.coderising.jvm.constant.StringInfo;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
 import com.sun.xml.internal.bind.v2.runtime.Name;
 
 public class ClassFileParser {
@@ -46,21 +48,59 @@ public class ClassFileParser {
 		ClassIndex clzIndex = parseClassIndex(iter);
 		clzFile.setClassIndex(clzIndex);
 		
+		//6.Interface
+		parseInterfaces(iter);
+		
+		//7.Filed
+		parseFileds(clzFile, iter);
+		
+		//8.Method
+		parseMethods(clzFile, iter);
+		
 		return clzFile;
 	}
-
-	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
-		AccessFlag flag = new AccessFlag(iter.nextU2ToInt());
-		return flag;
+	
+	/*
+	 * ---------------------------------------------------------------------------
+	 * 4.Interface
+	 * 5.Field
+	 * 6.Method
+	 */
+	private void parseInterfaces(ByteCodeIterator iter) {
+		int interfaceCount = iter.nextU2ToInt();
+		System.out.println("interfaceCount:" + interfaceCount);
+		
+		//TODO:EmployeeV1.java没有实现接口，只读出其接口个数：0;若实现interface,则解析
 	}
-
-	private ClassIndex parseClassIndex(ByteCodeIterator iter) {
-		ClassIndex clzIndex = new ClassIndex();
-		clzIndex.setThisClassIndex(iter.nextU2ToInt());
-		clzIndex.setSuperClassIndex(iter.nextU2ToInt());
-		return clzIndex;
-
+	
+	private void parseFileds(ClassFile clzFile, ByteCodeIterator iter) {
+		int fieldCount = iter.nextU2ToInt();
+		System.out.println("fieldCount:" + fieldCount);
+		
+		for(int i = 1; i <= fieldCount; i++){
+			Field field = Field.parse(clzFile, iter);
+			clzFile.addField(field);
+		}
+		
 	}
+	
+	private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
+		int methodCount = iter.nextU2ToInt();
+		System.out.println("methodCount:" + methodCount);
+		
+		for(int i = 1; i <= methodCount; i++){
+			Method method = Method.parse(clzFile, iter);
+			clzFile.addMethod(method);
+		}
+		
+	}
+	
+	/*
+	 * ---------------------------------------------------------------------------
+	 * 1.ConstantPool
+	 * 2.AccessFlag
+	 * 3.ClassIndex
+	 */
 
 	private ConstantPool parseConstantPool(ByteCodeIterator iter) {
 		
@@ -139,6 +179,20 @@ public class ClassFileParser {
 		}
 		return pool;
 	}
+	
+	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {
+		AccessFlag flag = new AccessFlag(iter.nextU2ToInt());
+		return flag;
+	}
+
+	private ClassIndex parseClassIndex(ByteCodeIterator iter) {
+		ClassIndex clzIndex = new ClassIndex();
+		clzIndex.setThisClassIndex(iter.nextU2ToInt());
+		clzIndex.setSuperClassIndex(iter.nextU2ToInt());
+		return clzIndex;
+	}
+
+	
 
 	
 }
