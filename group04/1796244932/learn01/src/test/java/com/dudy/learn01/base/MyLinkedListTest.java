@@ -2,10 +2,69 @@ package com.dudy.learn01.base;
 
 import java.util.LinkedList;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class MyLinkedListTest {
 
+	MyLinkedList list = new MyLinkedList();
+
+	@Before
+	public void  init(){
+		list.add(1);
+		list.add(2);
+		list.add(3);
+		list.add(4);
+		list.add(5);
+	}
+
+	@After
+	public void after(){
+		for(MyIterator it = list.iterator(); it.hasNext();){
+			System.out.print(it.next() + " ");
+		}
+	}
+
+	@Test
+	public void reverse() throws Exception {
+		list.reverse();
+	}
+
+	@Test
+	public void removeFirstHalf() throws Exception {
+		list.removeFirstHalf();
+	}
+
+	@Test
+	public void remove() throws Exception {
+		list.remove(0,2);
+	}
+
+	@Test
+	public void getElements() throws Exception {
+
+	}
+
+	@Test
+	public void subtract() throws Exception {
+
+	}
+
+	@Test
+	public void removeDuplicateValues() throws Exception {
+
+	}
+
+	@Test
+	public void removeRange() throws Exception {
+
+	}
+
+	@Test
+	public void intersection() throws Exception {
+
+	}
 
 
 	@Test

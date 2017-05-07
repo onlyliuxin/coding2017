@@ -7,8 +7,7 @@ import com.basic.BinaryTreeNode;
 public class TestBinaryTreeNode
 {
 	@Test
-	public void testBinaryTree()
-	{
+	public void testBinaryTree() {
 		BinaryTreeNode binNode = new BinaryTreeNode(5);
 		binNode.insert(1);
 		binNode.insert(10);

@@ -3,10 +3,10 @@ import java.util.Arrays;
 
 public class ArrayList implements List {
 	
-	//Êı×é³õÊ¼ÈİÁ¿//
+	//æ•°ç»„åˆå§‹å®¹é‡//
 	private final int DEFAULT_CAPICITY=7;
 	
-	//Êı×éÔªËØ¸öÊı//
+	//æ•°ç»„å…ƒç´ ä¸ªæ•°//
 	private int size = 0;
 	
 	private Object[] elementData = new Object[DEFAULT_CAPICITY];
@@ -16,11 +16,11 @@ public class ArrayList implements List {
 		elementData[size++]=o;
 	}
 	public void add(int index, Object o){
-		//indexÒªÁ¬ĞøµÄÔö¼Ó//
+		//indexè¦è¿ç»­çš„å¢åŠ //
 		checkIndex(index);
 		ensureCapcity(size+1);
-		/* index¼°ºóÃæµÄÔªËØ×óÒÆÒ»Î»,¼´´Óindex¿ªÊ¼ÒÆ¶¯£¬×¢Òâindex´Ó0¿ªÊ¼£¬
-		 * ¼´»¹Òª+1£¬Ôò³¤¶ÈÎªsize-((index)+1)+1
+		/* indexåŠåé¢çš„å…ƒç´ å·¦ç§»ä¸€ä½,å³ä»indexå¼€å§‹ç§»åŠ¨ï¼Œæ³¨æ„indexä»0å¼€å§‹ï¼Œ
+		 * å³è¿˜è¦+1ï¼Œåˆ™é•¿åº¦ä¸ºsize-((index)+1)+1
 		 */
 		System.arraycopy(elementData, index, elementData, index+1, size-index);
 		elementData[index]=o;
@@ -35,8 +35,8 @@ public class ArrayList implements List {
 	public Object remove(int index){
 		checkIndex(index);
 		Object temp=elementData[index];
-		/* indexºóÃæµÄÔªËØ×óÒÆÒ»Î»,¼´´Óindex+1¿ªÊ¼ÒÆ¶¯£¬×¢Òâindex´Ó0¿ªÊ¼£¬
-		 * ¼´»¹Òª+1£¬Ôò³¤¶ÈÎªsize-((index+1)+1)+1
+		/* indexåé¢çš„å…ƒç´ å·¦ç§»ä¸€ä½,å³ä»index+1å¼€å§‹ç§»åŠ¨ï¼Œæ³¨æ„indexä»0å¼€å§‹ï¼Œ
+		 * å³è¿˜è¦+1ï¼Œåˆ™é•¿åº¦ä¸ºsize-((index+1)+1)+1
 		 */
 		System.arraycopy(elementData, index+1, elementData, index, size-index-1);
 		size--;
@@ -62,30 +62,30 @@ public class ArrayList implements List {
 		}
 	}
 	
-	//ÅĞ¶ÏÇëÇóµÄÏÂ±êÊÇ·ñÔ½½ç²¢ÌáÊ¾//
+	//åˆ¤æ–­è¯·æ±‚çš„ä¸‹æ ‡æ˜¯å¦è¶Šç•Œå¹¶æç¤º//
 	private void checkIndex(int index){
 		if (index<0 || index >=size){
 			throw new IndexOutOfBoundsException("get " + index+" in "+size);
 		}		
 	}
 	
-	//ÅĞ¶ÏÊÇ·ñĞèÒªÀ©Èİ²¢Íê³ÉÀ©Èİ//
+	//åˆ¤æ–­æ˜¯å¦éœ€è¦æ‰©å®¹å¹¶å®Œæˆæ‰©å®¹//
 	private void ensureCapcity(int size){
 		int oldLength=elementData.length;
 		if (size>=oldLength){
-			//util.ArrayListÖĞµÄ¹«Ê½£¬Ô´´úÂëÊ¹ÓÃµÄÓÒÒÆ1£¬¼´³ı2//
+			//util.ArrayListä¸­çš„å…¬å¼ï¼Œæºä»£ç ä½¿ç”¨çš„å³ç§»1ï¼Œå³é™¤2//
 			int newLength=oldLength/2+oldLength;
 			if (newLength<size){
 				newLength=size;
 			}
-			//Arrays.copyOf·µ»ØĞÂµÄÖ¸¶¨³¤¶ÈµÄÊı×é//
+			//Arrays.copyOfè¿”å›æ–°çš„æŒ‡å®šé•¿åº¦çš„æ•°ç»„//
 			elementData=Arrays.copyOf(elementData, newLength);
 		}
 	}
 
 	@Override
 	public String toString(){
-		//·½±ã¼ì²éÖØĞ´ÁËtoString//
+		//æ–¹ä¾¿æ£€æŸ¥é‡å†™äº†toString//
 		StringBuilder sb = new StringBuilder("[");
 		for (int i=0 ;i<size-1;i++){
 			sb.append(elementData[i]+",");

@@ -1,0 +1,37 @@
+package com.coderising.jvm.constant;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ConstantPool {
+	
+	private List<ConstantInfo> constantInfos = new ArrayList<ConstantInfo>();
+	
+	
+	public ConstantPool(){
+		
+	}
+	public void addConstantInfo(ConstantInfo info){
+		System.out.println("added: " + info.getClass().getName() + " current size; " + constantInfos.size());
+		this.constantInfos.add(info);
+		
+	}
+	
+	public ConstantInfo getConstantInfo(int index){
+		return this.constantInfos.get(index);
+	}
+	public String getUTF8String(int index){
+		return ((UTF8Info)this.constantInfos.get(index)).getValue();
+	}
+	public int getSize() {		
+		return this.constantInfos.size() -1;
+	}
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i<constantInfos.size(); i++){
+			sb.append(constantInfos.get(i) + "\n");
+		}
+		return sb.toString();
+	}
+}

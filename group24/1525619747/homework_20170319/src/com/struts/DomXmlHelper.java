@@ -21,22 +21,17 @@ public class DomXmlHelper
 
 	private Map<String, String> kv = new HashMap<String, String>();
 
-	public DomXmlHelper () throws DocumentException
-	{
+	public DomXmlHelper () throws DocumentException {
 		fetchAttributes();
 	}
 
 	// 遍历当前节点下的所有节点
-	private void listNodes(Element node, String loop, Map<String, String> kv)
-	{
+	private void listNodes(Element node, String loop, Map<String, String> kv) {
 
 		// System.out.println("当前节点的名称：" + node.getName());
-		if (loop.equals(""))
-		{
+		if (loop.equals("")) {
 			loop += node.getName();
-		}
-		else
-		{
+		} else {
 			kv.put(loop, node.getName());
 			loop += "-" + node.getName();
 		}
@@ -44,8 +39,7 @@ public class DomXmlHelper
 		// 首先获取当前节点的所有属性节点
 		List<Attribute> list = node.attributes();
 		// 遍历属性节点
-		for (Attribute attribute : list)
-		{
+		for (Attribute attribute : list) {
 			// System.out.println("属性 "+attribute.getName() +":" +
 			// attribute.getValue());
 			kv.put(loop, attribute.getValue());
@@ -54,8 +48,7 @@ public class DomXmlHelper
 		}
 
 		// 如果当前节点内容不为空，则输出
-		if (!(node.getTextTrim().equals("")))
-		{
+		if (!(node.getTextTrim().equals(""))) {
 			// System.out.println("内容 " + node.getName() + "：" +
 			// node.getText());
 			kv.put(loop, node.getText());
@@ -66,15 +59,13 @@ public class DomXmlHelper
 		// 同时迭代当前节点下面的所有子节点
 		// 使用递归
 		Iterator<Element> iterator = node.elementIterator();
-		while (iterator.hasNext())
-		{
+		while (iterator.hasNext()) {
 			Element e = iterator.next();
 			listNodes(e, loop, kv);
 		}
 	}
 
-	private void fetchAttributes() throws DocumentException
-	{
+	private void fetchAttributes() throws DocumentException {
 		// 创建SAXReader对象
 		SAXReader reader = new SAXReader();
 		// 读取文件 转换成Document
@@ -86,23 +77,20 @@ public class DomXmlHelper
 
 		listNodes(root, "", kv);
 
-		for (Map.Entry<String, String> entity : kv.entrySet())
-		{
+		for (Map.Entry<String, String> entity : kv.entrySet()) {
 			// System.out.println("key: " + entity.getKey() + " , value: " +
 			// entity.getValue());
 		}
 	}
 
-	public String getActionView(String action, String method)
-	{
+	public String getActionView(String action, String method) {
 		String key = "struts-action-" + action;
 		String className = kv.get(key);
 		key += "-" + className + "-result-" + method;
 		return kv.get(key);
 	}
 
-	public String getActionClassByName(String action)
-	{
+	public String getActionClassByName(String action) {
 		String key = "struts-action-" + action;
 		return kv.get(key);
 	}

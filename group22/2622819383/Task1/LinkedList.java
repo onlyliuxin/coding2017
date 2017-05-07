@@ -129,8 +129,11 @@ public class LinkedList implements List {
     * 把该链表逆置
     * 例如链表为 3->7->10 , 逆置后变为  10->7->3
     */
-    public  void reverse(){		
-
+    public void reverse(){		
+        int times = theSize;
+        int index = 0;
+        while (0 < --times)
+            add(index++, removeLast());
     }
 
     /**
@@ -139,8 +142,10 @@ public class LinkedList implements List {
     * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
 
     */
-    public  void removeFirstHalf(){
-
+    public void removeFirstHalf(){
+        int times = theSize / 2;
+        while (0 < times--)
+            removeFirst();
     }
 
     /**
@@ -148,19 +153,46 @@ public class LinkedList implements List {
     * @param i
     * @param length
     */
-    public  void remove(int i, int length){
+    public void remove(int i, int length){
+        Node head = get(i).pred();   //删除(head, tail)之间元素  删除[i, i + length - 1]之间元素
+        Node tail = get(i + length - 1).succ();
 
+        head.succ = tail;
+        tail.pred = head;
+        theSize -= length;
     }
     /**
     * 假定当前链表和list均包含已升序排列的整数
     * 从当前链表中取出那些list所指定的元素
     * 例如当前链表 = 11->101->201->301->401->501->601->701
-    * listB = 1->3->4->6
+    * list = 1->3->4->6
     * 返回的结果应该是[101,301,401,601]  
     * @param list
     */
-    public static int[] getElements(LinkedList list){
-        return null;
+    public int[] getElements(LinkedList list){
+        Iterator itSelf = iterator();
+        Iterator itList = list.iterator();
+        int[] ret = new int[list.size()];
+        
+        int i = 0;    //list中元素的值，代表当前列表中要取出元素的秩
+            lastI = 0;//上一次取出元素的秩
+            moveTimes = 0;
+            value = itSelf.next();
+            index = 0;//要返回的数组中元素的秩
+
+        while (itList.hasNext()) {
+            i = itList.next();
+            if (theSize <= i) throw new IndexOutOfBoundsException();
+
+            moveTimes = i - lastI;            
+            while (0 < moveTimes--)
+                value = itSelf.next();
+
+            ret[index++] = value;
+            lastI = i;
+        }
+
+        return ret;
     }
 
     /**
@@ -169,9 +201,37 @@ public class LinkedList implements List {
 
     * @param list
     */
+    //返回与e相等的元素的秩；如果查找失败则返回-1
+    private int find(Object e) {
+        Iterator it = iterator();
+        int i = -1;    //要返回的元素的秩
+        Object value = null;
+        
+        while (it.hasNext()) {
+            value = it.next();
+            i++;
+            if (value == e) return i;
+            if (e < value) return -1;
+        }
 
-    public  void subtract(LinkedList list){
+        return -1;
+    }       
 
+    public void subtract(LinkedList list){
+        Iterator it = list.iterator();
+        Object value = null;
+        int i = -1;
+        
+        while (it.hasNext()) {
+            value = it.next();
+            i = find(value);
+            
+            //删去重复元素
+            while (0 <= i) {
+                remove(i);
+                i = find(value);
+            }
+        }
     }
 
     /**
@@ -179,7 +239,20 @@ public class LinkedList implements List {
     * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
     */
     public  void removeDuplicateValues(){
-
+        Node current = header.succ();
+        Node next = current;
+        int removedNum = 0;
+        
+        while ((next = next.succ()) != trailer) {
+            if (current.data() == next.data()) {                
+                removedNum++;
+            } else {
+                current.succ = next;
+                next.pred = current;
+                current = next;                
+            }
+        }
+        theSize -= removedNum;
     }
 
     /**
@@ -188,7 +261,26 @@ public class LinkedList implements List {
     * @param min
     * @param max
     */
+    //[low, min]U[max, end]
+
+
     public  void removeRange(int min, int max){
+        //删去(i, j]
+        int i = 0, j = 0;
+        Iterator it = iterator();
+        while (it.hasNext()) {
+            Object value = it.next();
+            if (value <= min) i++;
+            if (value < max) j++;
+            else break; //if(max <= value) break;
+        }
+        
+        Node head = get(i);
+        Node tail = get(j).succ();
+        
+        head.succ = tail;
+        tail.pred = head;
+        theSize -= (j - i);
 
     }
 
@@ -197,7 +289,27 @@ public class LinkedList implements List {
     * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
     * @param list
     */
-    public  LinkedList intersection( LinkedList list){
-        return null;
+    //交集：属于A且属于B的元素的合集
+    public  LinkedList intersection(LinkedList list){
+        LinkedList ret = new LinkedList();
+        Iterator it = iterator();
+        Iterator itList = list.iterator();
+        Object value1 = null, value2 = null;
+        
+        if (it.hasNext() && itList.hasNext()) {
+            value1 = it.next();
+            value2 = itList.next();
+        }
+        
+        while (value1 != null && value2 != null) {
+            if (value1 < value2)      value1 = it.hasNext() ? it.next() : null;
+            else if (value2 < value1) value2 = itList.hasNext() ? itList.next() : null;            
+            else {
+                ret.add(value1);
+                value1 = it.hasNext() ? it.next() : null;
+                value2 = itList.hasNext() ? itList.next() : null;
+            }       
+        }
+        return ret;
     }
 }

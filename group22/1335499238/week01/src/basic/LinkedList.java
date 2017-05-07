@@ -28,14 +28,14 @@ public class LinkedList implements List{
 	
 	@Override
 	public Object get(int index) {
-		checkIndex(index);
+		checkIndex(index + 1);
 		return findByIndex(index).data;
 	}
 	
 	@Override
 	public Object remove(int index) {
 		Node remove = null;
-		checkIndex(index);
+		checkIndex(index + 1);
 		Node next = findByIndex(index+1);
 		if(index == 0){
 			remove = head;
@@ -135,7 +135,12 @@ public class LinkedList implements List{
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3 
 	 */ 
 	public void reverse(){
-		
+		Node current = this.head;
+		for (int i = 0; i < size-1; i++) {
+			removeFirst();
+			add(size - i, current.data);
+			current = current.next;
+		}
 	}
 	 
 	/** 
@@ -145,7 +150,10 @@ public class LinkedList implements List{
 	 *
 	 */
 	public void removeFirstHalf(){
-		
+		int total = size/2;
+		for (int i = 0; i < total; i++) {
+			removeFirst();
+		}
 	}
 	 
 	/** 
@@ -154,7 +162,15 @@ public class LinkedList implements List{
 	 * @param length 
 	 */
 	public void remove(int i, int length){
-		
+		if(i < 0 || length < 0){
+			throw new IllegalArgumentException("参数异常");
+		}
+		if(i + length > size){
+			throw new IndexOutOfBoundsException();
+		}
+		for (int j = 0; j < length; j++) {
+			remove(i);
+		}
 	}
 	/** 
 	 * 假定当前链表和listB均包含已升序排列的整数 
@@ -165,7 +181,20 @@ public class LinkedList implements List{
 	 * @param list 
 	 */
 	public int[] getElements(LinkedList list){
-		return null;
+		if(list == null || list.head == null){
+			return new int[0];
+		}
+		int result[] = new int [list.size];
+		Iterator iterator = list.iterator();
+		int index = 0;
+		while(iterator.hasNext()){
+			int next = (int)iterator.next();
+			if(next < size){
+				result[index] = (int)this.get(next);
+			}
+			index++;
+		}
+		return result;
 	}
 	
 	/** 
@@ -175,14 +204,33 @@ public class LinkedList implements List{
 	 */ 
 	
 	public void subtract(LinkedList list){
-		
+		if(list == null || list.head == null){
+			return;
+		}
+		Iterator iterator = list.iterator();
+		while(iterator.hasNext()){
+			Object next = iterator.next();
+			Iterator iteratorInner = this.iterator();
+			int index = 0;
+			while(iteratorInner.hasNext()){
+				if(next.equals(iteratorInner.next())){
+					this.remove(index);
+					break;
+				}
+				index++;
+			}
+		}
 	}
 	/** 
 	 * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。 
 	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同） 
 	 */
 	public void removeDuplicateValues(){
-		
+		for (int i = 0; i < size; i++) {
+			if(findByIndex(i).data == findByIndex(i+1).data){
+				remove(i);
+			}
+		}
 	}
 	/** 
 	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。 
@@ -191,7 +239,25 @@ public class LinkedList implements List{
 	 * @param max 
 	 */
 	public void removeRange(int min, int max){
-		
+		if(min >= max){
+			throw new IllegalArgumentException("参数异常");
+		}
+		int minIndex = 0;
+		int maxIndex = 0;
+		boolean flag = true;
+		for (int i = 0; i < size; i++) {
+			int current = (int)get(i);
+			if(flag && current > min){
+				minIndex = i;
+				flag = false;
+			}else if(current >= max){
+				maxIndex = i;
+				break;
+			}else{
+				maxIndex = size;
+			}
+		}
+		remove(minIndex, maxIndex - minIndex);
 	}
 		
 	/** 
@@ -200,7 +266,20 @@ public class LinkedList implements List{
 	 * @param list 
 	 */
 	public LinkedList intersection( LinkedList list){
-		return null;
+		if(list == null || list.head == null){
+			return null;
+		}
+		LinkedList linkedList = new LinkedList();
+		Iterator iterator = this.iterator();
+		while(iterator.hasNext()){
+			Object next = iterator.next();
+			Iterator iterator2 = list.iterator();
+			while(iterator2.hasNext()){
+				if(next.equals(iterator2.next())){
+					linkedList.add(next);
+				}
+			}
+		}
+		return linkedList;
 	}
-	
 }

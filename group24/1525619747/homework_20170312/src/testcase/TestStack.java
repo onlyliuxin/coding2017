@@ -9,14 +9,12 @@ import com.basic.Stack;
 public class TestStack
 {
 	@Test
-	public void testStack()
-	{
+	public void testStack() {
 		Stack stack = new Stack();
 
 		assertTrue(stack.isEmpty());
 
-		for (int i = 10; i < 20; i++)
-		{
+		for (int i = 10; i < 20; i++) {
 			stack.push(i);
 		}
 

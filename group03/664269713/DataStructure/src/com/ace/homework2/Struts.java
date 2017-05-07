@@ -10,25 +10,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 
 public class Struts {
 	/*
-	 * 0. ¶ÁÈ¡ÅäÖÃÎÄ¼þstruts.xml
+	 * 0. ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½struts.xml
 	 * 
-	 * 1. ¸ù¾ÝactionNameÕÒµ½Ïà¶ÔÓ¦µÄclass £¬ ÀýÈçLoginAction, Í¨¹ý·´ÉäÊµÀý»¯£¨´´½¨¶ÔÏó£©
-	 * ¾ÝparametersÖÐµÄÊý¾Ý£¬µ÷ÓÃ¶ÔÏóµÄsetter·½·¨£¬ ÀýÈçparametersÖÐµÄÊý¾ÝÊÇ ("name"="test" ,
-	 * "password"="1234") , ÄÇ¾ÍÓ¦¸Ãµ÷ÓÃ setNameºÍsetPassword·½·¨
+	 * 1. ï¿½ï¿½ï¿½ï¿½actionNameï¿½Òµï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½class ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½LoginAction, Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * ï¿½ï¿½parametersï¿½Ðµï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½setterï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½parametersï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ("name"="test" ,
+	 * "password"="1234") , ï¿½Ç¾ï¿½Ó¦ï¿½Ãµï¿½ï¿½ï¿½ setNameï¿½ï¿½setPasswordï¿½ï¿½ï¿½ï¿½
 	 * 
-	 * 2. Í¨¹ý·´Éäµ÷ÓÃ¶ÔÏóµÄexectue ·½·¨£¬ ²¢»ñµÃ·µ»ØÖµ£¬ÀýÈç"success"
+	 * 2. Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½exectue ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"success"
 	 * 
-	 * 3. Í¨¹ý·´ÉäÕÒµ½¶ÔÏóµÄËùÓÐgetter·½·¨£¨ÀýÈç getMessage£©, Í¨¹ý·´ÉäÀ´µ÷ÓÃ£¬ °ÑÖµºÍÊôÐÔÐÎ³ÉÒ»¸öHashMap , ÀýÈç
-	 * {"message": "µÇÂ¼³É¹¦"} , ·Åµ½View¶ÔÏóµÄparameters
+	 * 3. Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½getterï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ getMessageï¿½ï¿½, Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î³ï¿½Ò»ï¿½ï¿½HashMap , ï¿½ï¿½ï¿½ï¿½
+	 * {"message": "ï¿½ï¿½Â¼ï¿½É¹ï¿½"} , ï¿½Åµï¿½Viewï¿½ï¿½ï¿½ï¿½ï¿½parameters
 	 * 
-	 * 4. ¸ù¾Ýstruts.xmlÖÐµÄ <result> ÅäÖÃ,ÒÔ¼°executeµÄ·µ»ØÖµ£¬ È·¶¨ÄÄÒ»¸öjsp£¬ ·Åµ½View¶ÔÏóµÄjsp×Ö¶ÎÖÐ¡£
+	 * 4. ï¿½ï¿½ï¿½ï¿½struts.xmlï¿½Ðµï¿½ <result> ï¿½ï¿½ï¿½ï¿½,ï¿½Ô¼ï¿½executeï¿½Ä·ï¿½ï¿½ï¿½Öµï¿½ï¿½ È·ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½jspï¿½ï¿½ ï¿½Åµï¿½Viewï¿½ï¿½ï¿½ï¿½ï¿½jspï¿½Ö¶ï¿½ï¿½Ð¡ï¿½
 	 */
 	private static final String STRUTS_XML = "struts.xml";
 	private static final String NAME = "name";
@@ -38,7 +34,7 @@ public class Struts {
 	private static final String SET = "set";
 
 	private static List<StrutsObj> getStrutsList() {
-		List<StrutsObj> strutsObjList = new ArrayList<StrutsObj>();
+		/*List<StrutsObj> strutsObjList = new ArrayList<StrutsObj>();
 		URL path = Struts.class.getResource(STRUTS_XML);
 		File f = new File(path.getFile());
 		SAXReader saxReader = new SAXReader();
@@ -66,7 +62,8 @@ public class Struts {
 			e.printStackTrace();
 		}
 
-		return strutsObjList;
+		return strutsObjList;*/
+		return null;
 	};
 
 	public static View runAction(String actionName, Map<String, String> parameters) {

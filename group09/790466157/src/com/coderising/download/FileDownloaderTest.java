@@ -10,6 +10,7 @@ import com.coderising.download.impl.ConnectionManagerImpl;
 
 public class FileDownloaderTest {
 	boolean downloadFinished = false;
+	private double time = 0;
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -21,39 +22,34 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1488796402240&di=8ca9322617d5338cad61232a06f6ed7a&imgtype=0&src=http%3A%2F%2Fjiangsu.china.com.cn%2Fuploadfile%2F2017%2F0212%2F1486868426284307.jpg";
-		
-		FileDownloader downloader = new FileDownloader(url);
+		String url = "http://inews.gtimg.com/newsapp_bt/0/1209438116/1000";
+//		String url = "https://www.baidu.com/img/bd_logo.png";
 
+		FileDownloader downloader = new FileDownloader(url, "test.png");
 	
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
-		
 		downloader.setListener(new DownloadListener() {
 			@Override
 			public void notifyFinished() {
 				downloadFinished = true;
 			}
-
 		});
-
 		
 		downloader.execute();
 		
-		// �ȴ����߳����س���ִ�����
+		// 等待多线程下载程序执行完毕
 		while (!downloadFinished) {
 			try {
-				System.out.println("��û��������ɣ���������");
-				//����5��
-				Thread.sleep(5000);
+				System.out.println("还没有下载完成，休眠0.01秒");
+				time += 0.01;
+				//休眠0.01秒
+				Thread.sleep(10);
 			} catch (InterruptedException e) {				
 				e.printStackTrace();
 			}
 		}
-		System.out.println("������ɣ�");
-		
-		
+		System.out.println("下载完成！耗时"+time+"秒");
 
 	}
-
 }

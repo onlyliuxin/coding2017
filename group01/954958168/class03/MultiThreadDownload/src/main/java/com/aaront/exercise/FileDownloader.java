@@ -5,9 +5,6 @@ import com.aaront.exercise.api.Connection;
 import com.aaront.exercise.api.ConnectionManager;
 import com.aaront.exercise.api.DownloadListener;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,14 +58,6 @@ public class FileDownloader {
                 thread.join();
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        try (FileOutputStream fos = new FileOutputStream(new File("temp.jpg"))) {
-            for(DownloadThread thread : threads) {
-                fos.write(thread.getContent());
-            }
-        } catch (IOException e) {
             e.printStackTrace();
         }
 

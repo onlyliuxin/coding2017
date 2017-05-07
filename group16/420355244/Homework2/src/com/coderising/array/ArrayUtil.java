@@ -26,16 +26,21 @@ public class ArrayUtil {
 	 */
 	
 	public static  int[] removeZero(int[] oldArray){
-		for(int i = 0;i < oldArray.length ;i++){
+		int zeroCount = 0;
+		for(int i = 0;i < oldArray.length; i++){
 			if(oldArray[i] == 0){
-				int[] a = {};
-				System.arraycopy(oldArray, 0, a, 0, i);
-				System.arraycopy(oldArray, 0, a, i, oldArray.length);
-				oldArray = a;
-				removeZero(oldArray);
+				zeroCount++;
 			}
 		}
-		return oldArray;
+		int[] newArr = new int[oldArray.length - zeroCount];
+		int index = 0;
+		for(int i = 0;i < oldArray.length; i++){
+			if(oldArray[i] != 0){
+				newArr[index] = oldArray[i];
+				index++;
+			}
+		}
+		return newArr;
 	}
 	
 	/**
@@ -47,7 +52,45 @@ public class ArrayUtil {
 	 */
 	
 	public static  int[] merge(int[] array1, int[] array2){
-		return  null;
+		//先对数组进行去重,记录重复的索引，后将两个数组合并，再进行排序
+		int[] repeatedNum = new int[array1.length + array2.length];
+		int repeatedCount = 0;
+		for(int i = 0;i < array1.length; i++){
+			for(int j = 0;j < array2.length; j++){
+				if(array1[i] == array2[j]){
+					repeatedNum[repeatedCount] = array1[i];
+					repeatedCount++;
+				}
+			}
+		}
+		int [] combineArr = new int[array1.length + array2.length - repeatedCount];
+		for(int i = 0;i < array1.length; i++){
+			combineArr[i] = array1[i];
+		}
+		for(int i = 0;i < array2.length; i++){
+			int index = array1.length -1;
+			boolean same = false;
+			for(int j = 0;j < repeatedNum.length; j++){
+				if(array2[i] == repeatedNum[j]){
+					same = true;
+				}
+			}
+			if(!same){
+				index += 1;
+				combineArr[index] = array2[i];
+			}
+		}
+		//冒泡排序
+		for(int i = 0;i < combineArr.length;i++){
+			for(int j = i + 1;j < combineArr.length;j++){
+				if(combineArr[i] > combineArr[j]){
+					int x = combineArr[i];
+					combineArr[i] = combineArr[j];
+					combineArr[j] = x;
+				}
+			}
+		}
+		return  combineArr;
 	}
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
@@ -59,7 +102,11 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public static  int[] grow(int [] oldArray,  int size){
-		return null;
+		int[] newArr = new int[oldArray.length + size];
+		for(int i = 0;i < oldArray.length; i++){
+			newArr[i] = oldArray[i];
+		}
+		return newArr;
 	}
 	
 	/**
@@ -70,7 +117,31 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public static  int[] fibonacci(int max){
-		return null;
+		if(max == 1){
+			return null;
+		}else{
+			int length = 0;
+			int dataBefore = 0;
+			int dataAfter = 1;
+			while(dataAfter < max){
+				int date = dataAfter;
+				dataAfter = dataAfter + dataBefore;
+				dataBefore = date;
+				length++;
+			}
+			int index = 0;
+			int[] result = new int[length];
+			dataBefore = 0;
+			dataAfter = 1;
+			while(dataAfter < max){
+				result[index] = dataAfter;
+				int date = dataAfter;
+				dataAfter = dataAfter + dataBefore;
+				dataBefore = date;
+				index ++;
+			}
+			return result;
+		}
 	}
 	
 	/**
@@ -80,6 +151,12 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public  static int[] getPrimes(int max){
+		int i = 1;
+		int length = 0;
+		while(i < max){
+			i++;
+			int search = 1;
+		}
 		return null;
 	}
 	
@@ -102,7 +179,14 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public static  String join(int[] array, String seperator){
-		return null;
+		StringBuilder sb = new StringBuilder();
+		for(int i=0 ;i < array.length; i++){
+			sb.append(String.valueOf(array[i]));
+			if(i != array.length - 1){
+				sb.append(seperator);
+			}
+		}
+		return sb.toString();
 	}
 	
 	public static void main(String[] args) {
@@ -111,9 +195,29 @@ public class ArrayUtil {
 		for (int i : a) {
 			System.out.print(i+",");
 		}*/
-		int oldArr[]={1,3,4,5,0,0,6,6,0,5,4,7,6,7,0,5} ;
-		removeZero(oldArr);
-		for (int i : oldArr) {
+		/*int[] oldArr = {1,3,4,5,0,0,6,6,0,5,4,7,6,7,0,5} ;
+		int[] newArr = removeZero(oldArr);
+		for (int i : newArr) {
+			System.out.print(i+",");
+		}*/
+		/*int[] a1 = {3, 5, 7,8};   
+		int[] a2 = {4, 5, 6,7};
+		int[] merge = merge(a1,a2);
+		for (int i : merge) {
+			System.out.print(i+",");
+		}*/
+		/*int[] oldArray = {2,3,6};
+		int size = 3;
+		int[] newArr = grow(oldArray, size);
+		for (int i : newArr) {
+			System.out.print(i+",");
+		}*/
+		/*int[] array= {3,8,9};
+		String seperator = "-";
+		String join = join(array, seperator);
+		System.out.println(join);*/
+		int[] fibonacci = fibonacci(15);
+		for (int i : fibonacci) {
 			System.out.print(i+",");
 		}
 	}

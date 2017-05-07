@@ -34,3 +34,7 @@ logs
 *.bak
 .directory
 .DS_Store
+
+
+Test.java
+example

@@ -7,75 +7,57 @@ public class BinaryTreeNode
 	private BinaryTreeNode left;
 	private BinaryTreeNode right;
 
-	public BinaryTreeNode (Object data)
-	{
+	public BinaryTreeNode (Object data) {
 		this.data = data;
 		left = null;
 		right = null;
 	}
 
 	public BinaryTreeNode (Object data, BinaryTreeNode left,
-			BinaryTreeNode right)
-	{
+			BinaryTreeNode right) {
 		this.data = data;
 		this.left = left;
 		this.right = right;
 	}
 
-	public Object getData()
-	{
+	public Object getData() {
 		return data;
 	}
 
-	public void setData(Object data)
-	{
+	public void setData(Object data) {
 		this.data = data;
 	}
 
-	public BinaryTreeNode getLeft()
-	{
+	public BinaryTreeNode getLeft() {
 		return left;
 	}
 
-	public void setLeft(BinaryTreeNode left)
-	{
+	public void setLeft(BinaryTreeNode left) {
 		this.left = left;
 	}
 
-	public BinaryTreeNode getRight()
-	{
+	public BinaryTreeNode getRight() {
 		return right;
 	}
 
-	public void setRight(BinaryTreeNode right)
-	{
+	public void setRight(BinaryTreeNode right) {
 		this.right = right;
 	}
 
 	/*
 	 * 排序二叉树的插入
 	 */
-	public BinaryTreeNode insert(Object o)
-	{
-		if (((Integer) data) > ((Integer) o))
-		{
-			if (left == null)
-			{
+	public BinaryTreeNode insert(Object o) {
+		if (((Integer) data) > ((Integer) o)) {
+			if (left == null) {
 				setLeft(new BinaryTreeNode(o));
-			}
-			else
-			{
+			} else {
 				left.insert(o);
 			}
-		}
-		else
-		{
-			if (right == null)
-			{
+		} else {
+			if (right == null) {
 				setRight(new BinaryTreeNode(o));
-			}
-			else
-			{
+			} else {
 				right.insert(o);
 			}
 		}
@@ -85,17 +67,14 @@ public class BinaryTreeNode
 	/*
 	 * 前序遍历
 	 */
-	public void preOrderInterator()
-	{
-		if (left != null)
-		{
+	public void preOrderInterator() {
+		if (left != null) {
 			left.preOrderInterator();
 		}
 
 		System.out.print(data.toString() + " ");
 
-		if (right != null)
-		{
+		if (right != null) {
 			right.preOrderInterator();
 		}
 	}

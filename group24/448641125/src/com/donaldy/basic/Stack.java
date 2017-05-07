@@ -4,15 +4,15 @@ public class Stack {
 	private ArrayList elementData = new ArrayList();
 	
 	public void push(Object o) {
-		elementData.add(o);
+		this.elementData.add(o);
 	}
 	
 	public Object pop() {
-		return elementData.remove(size() - 1);
+		return this.elementData.remove(size() - 1);
 	}
 	
 	public Object peek() {
-		return elementData.get(size() - 1);
+		return this.elementData.get(size() - 1);
 	}
 
 	public boolean isEmpty() {
@@ -20,6 +20,6 @@ public class Stack {
 	}
 
 	public int size(){
-		return elementData.size();
+		return this.elementData.size();
 	}
 }

@@ -1,3 +1,7 @@
-/bin/
-/lib/
-/src/java_training
+target/
+.idea/
+src/main/java/train/
+!src/main/resources/**/*.class
+!src/main/resources/**/*.xml
+src/main/resources/**/*.png
+src/main/java/assignments

@@ -16,10 +16,10 @@ public class ArrayUtil {
 		int tem = 0;
 		for(int i = 0, len = origin.length; i < len/2; i ++){
 			tem = origin[i];
-			origin[i] = origin[len - i + 1];
-			origin[len - i + 1] = tem;
+			origin[i] = origin[len - i - 1];
+			origin[len - i - 1] = tem;
 		}
-		
+		System.out.println(join(origin, ","));
 	}
 	
 	/**
@@ -33,12 +33,12 @@ public class ArrayUtil {
 	public int[] removeZero(int[] oldArray){
 		int withoutZeroSize = 0;
 		for(int i = 0, len = oldArray.length; i < len; i ++ ){
-			if( oldArray[i] == 0){
+			if( oldArray[i] != 0){
 				withoutZeroSize ++;
 			}
 		}
 		int[] newArray = new int[withoutZeroSize];
-		int point = 1;
+		int point = 0;
 		for(int i = 0 ,len = oldArray.length; i < len; i ++ ){
 			if( oldArray[i] != 0){
 				newArray[point] = oldArray[i];
@@ -57,19 +57,39 @@ public class ArrayUtil {
 	 */
 	
 	public int[] merge(int[] array1, int[] array2){
-		int point2 = 0;
-		int[] result = new int[array1.length + array2.length];
-		int point1 = 0, len1 = array1.length;
-		while(point1 < len1){
-			if(array1[point1] < array2[point2]){
-				result[point1 + point2] = array1[point1];
-				point1 ++;
+		int point = 0;
+		int point2 = 0, point1 = 0;
+		int len1 = array1.length, len2 = array2.length;
+		
+		int[] result = new int[len1 + len2];
+		while(point1 < len1 || point2 < len2){
+			if(point1 < len1 && point2 < len2){
+				if(array1[point1] <= array2[point2]){
+					result[point] = array1[point1];
+					point++;
+					point1++;
+				}else{
+					if(result[point - 1] == array2[point2]){
+						point2++;
+					}else{
+						result[point] = array2[point2];
+						point++;
+						point2++;
+					}
+				}
 			}else{
-				result[point1 + point2] = array2[point2];
-				point2 ++;
+				if(point1 < len1){
+					result[point] = array1[point1];
+					point++;
+					point1++;
+				}else{
+					result[point] = array2[point2];
+					point++;
+					point2++;
+				}
 			}
 		}
-		
+		result = removeZero(result);
 		return  result;
 	}
 	/**
@@ -97,24 +117,26 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] fibonacci(int max){
-		int[] result = {1,1,2};
-		int a1 = 1, a2 = 2;
+		int[] result = {1,1};
 		if(max <= 1){
 			return null;
 		}else if(max == 2){
 			return result;
 		}else{
 			result = grow(result, 10);
-			int index = 2;
-			while(result[index] > max){
-				if(result.length < index + 2){
+			int index = 1;
+			while(true){
+				index ++;
+				if(result.length < index + 1){
 					result = grow(result, 10);
 				}
-				result[index + 1] = result[index -1] + result[index];
-				index ++;
+				result[index] = result[index -1] + result[index - 2];
+				if(result[index] > max){
+					break;
+				}
 			}
 		}
-		return result;
+		return removeZero(result);
 	}
 	
 	/**
@@ -124,32 +146,36 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max){
-		int[] temArr = null;
+		int[] temArr = {2};
 		if(max < 2){
 			return null;
 		}else if (max == 2){
-			int[] re = {2};
-			return re;
+			return temArr;
 		}else{
-			temArr = new int[max/2];
-			temArr[0] = 2;
-			int index = 1;
-			for(int i = 3; i < max ; i= i+2){
+			temArr = grow(temArr, 10);
+			int index = 0;
+			for(int i = 3;i < max; i ++){
 				boolean flag = true;
-				int isql = (int) Math.sqrt(i);
-				for(int j = 3; j < isql; j++){
-					if(i % j == 0){
+				int iSqrt = (int) Math.sqrt(i);
+				for(int j = 0; j < index + 1; j ++){
+					if(iSqrt < temArr[j]){
+						break;
+					}
+					if(i % temArr[j] == 0){
 						flag = false;
+						break;
 					}
 				}
 				if(flag){
-					temArr[index] = i;
 					index ++;
+					if(temArr.length < index + 1){
+						temArr = grow(temArr, 30);
+					}
+					temArr[index] = i;
 				}
 			}
 		}
-		temArr = this.removeZero(temArr);
-		return temArr;
+		return removeZero(temArr);
 	}
 	
 	/**
@@ -163,17 +189,17 @@ public class ArrayUtil {
 		int index = 0;
 		if(max < 6){
 			return null;
-		}else{
-					}
+		}
+		
 		for (int n = 6; n <= max ; n ++){
-			int[] allPrimeFactore = getPrimeFactors(n);
+			int[] allFactors = getAllFactors(n);
 			int sum = 0;
-			for(int i = 0, len = allPrimeFactore.length; i < len; i ++){
-				sum += allPrimeFactore[i];
+			for(int i = 0, len = allFactors.length; i < len; i ++){
+				sum += allFactors[i];
 			}
 			if(sum == n){
 				if(result.length < index + 1){
-					result = this.grow(result, 1);
+					result = this.grow(result, 3);
 				}
 				result[index] = n;
 				index ++;
@@ -183,10 +209,24 @@ public class ArrayUtil {
 		return removeZero(result);
 	}
 	
-	private int[] getPrimeFactors(int n){
+	public int[] getAllFactors(int n){
+		int[] result = new int[n];
+		int index = 0;
+		for(int i = 1; i < n; i++){
+			if(n % i == 0){
+				result[index] = i;
+				index ++;
+			}
+		}
+		return removeZero(result);
+	}
+	
+	//分解因式算法
+	public int[] getPrimeFactors(int n){
 		int[] allPrimes = getPrimes(n);
 		int[] result = new int[allPrimes.length];
-		int index = 0;
+		int index = 1;
+		result[0] = 1;
 		for(int i = 0, len = allPrimes.length; i < len; i ++){
 			int devide = n;
 			while(devide % allPrimes[i] == 0){

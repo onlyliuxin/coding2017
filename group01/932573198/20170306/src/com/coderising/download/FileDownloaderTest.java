@@ -1,12 +1,9 @@
 package com.coderising.download;
 
-import java.io.IOException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 import com.coderising.download.api.DownloadListener;
 import com.coderising.download.impl.ConnectionManagerImpl;
@@ -24,8 +21,10 @@ public class FileDownloaderTest {
 
 	@Test
 	public void testDownload() {
+
 		String url = "http://localhost:8080/test/kittens.jpg";
-		FileDownloader downloader = new FileDownloader(url);
+		String targetPath = "E://kittens.jpg";
+		FileDownloader downloader = new FileDownloader(url, targetPath);
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
 		downloader.setListener(new DownloadListener() {
@@ -34,11 +33,8 @@ public class FileDownloaderTest {
 				downloadFinished = true;
 			}
 		});
-		try {
-			downloader.execute();
-		} catch (ConnectionException | InterruptedException | IOException e1) {
-			e1.printStackTrace();
-		}
+
+		downloader.execute();
 
 		// 等待多线程下载程序执行完毕
 		while (!downloadFinished) {
@@ -51,7 +47,6 @@ public class FileDownloaderTest {
 			}
 		}
 		System.out.println("下载完成！");
-
 	}
 
 }

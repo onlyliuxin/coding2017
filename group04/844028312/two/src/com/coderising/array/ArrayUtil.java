@@ -12,14 +12,16 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin){
-		int size=origin.length;
-		if(size>1){
-				for(int i=0;i<size/2;i++){
-					int temp=origin[i];			//记录origin[i]的值
-					origin[i]=origin[size-1-i];
-					origin[size-1-i]=temp;
-				}
+		if(origin==null){
+			return;
 		}
+		int size=origin.length;
+		for(int i=0;i<size/2;i++){
+				int temp=origin[i];			//记录origin[i]的值
+				origin[i]=origin[size-1-i];
+				origin[size-1-i]=temp;
+		}
+		
 	}
 	
 	/**
@@ -33,25 +35,20 @@ public class ArrayUtil {
 	public int[] removeZero(int[] oldArray){
 		int size=oldArray.length;
 		int zero=0;	//记录0的数目
+		int []array=new int[size];
 		for(int i=0;i<size;i++){
-			if(oldArray[i]==0){
+			if(oldArray[i]!=0){
+				array[i]=oldArray[i];
+			}
+			else{
 				zero++;
 			}
 		}
 		if(zero==0){
 			return oldArray;
-		}
-		else{
-			int [] newArray=new int[size-zero];	//新建一个数组
-			int now=0;//记录新数组的下标
-			for(int i=0;i<size;i++){
-				if(oldArray[i]!=0){
-					newArray[now]=oldArray[i];
-					now++;
-				}
-			}
-			return newArray;
-		}
+		}	
+		return Arrays.copyOf(array, zero);
+		
 	}
 	
 	/**
@@ -63,37 +60,38 @@ public class ArrayUtil {
 	 */
 	
 	public int[] merge(int[] array1, int[] array2){
+		if(array1==null){
+			return array2;
+		}
+		if(array2==null){
+			return array1;
+		}
 		int size1=array1.length;
 		int size2=array2.length;
-		int newArray[];
-		if(size1==0&&size2==0){
-			return  null;
+		int newArray[]=new int[size1+size2];
+		int count=0;
+		int i=0;int j=0;
+		while(i<size1 && j<size2){
+			 if(array1[i]>array2[j]){
+				 newArray[count++]=array2[j++];
+				
+			 }
+			 if(array1[i]<array2[j]){
+				 newArray[count++]=array1[i++];
+				
+			 }
+			 if(array1[i]==array2[j]){
+				 newArray[count++]=array1[i++];
+				 j++;
+			 }
 		}
-		else{
-			newArray=new int[size1+size2];
+		while(i==size1&&j<size2){
+			 newArray[count++]=array2[j++];
 		}
-		if(size1>0)
-			System.arraycopy(array1, 0, newArray, 0, size1);
-		if(size2>0)
-			System.arraycopy(array2,0, newArray,  size1, size2);
-		for(int i=0;i<newArray.length;i++){
-			int min=newArray[i];
-			for(int j=i+1;j<newArray.length;j++){	// [2, 4, 2, 5, 9, 6, 3, 1, 10, 8]
-				if(min==newArray[j]){				//去除重复数
-					System.arraycopy(newArray,j+1, newArray,  j, newArray.length-j-1);
-					int [] a=new int[newArray.length-1];
-					System.arraycopy(newArray,0, a,  0, newArray.length-1);
-					newArray=a;
-				}
-				if(min>newArray[j]){
-					int temp=min;
-					min=newArray[j];
-					newArray[i]=min;
-					newArray[j]=temp;
-				}
-			}
+		while(j==size1&&i<size1){
+			 newArray[count++]=array1[i++];
 		}
-		return  newArray;
+		return  Arrays.copyOf(newArray, count);
 	}
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
@@ -120,22 +118,15 @@ public class ArrayUtil {
 	public int[] fibonacci(int max){
 		int [] a = null;
 		if(max>2){
-			a=new int[10];
+			a=new int[max];
 			int record=2;
 			do{
 				a[0]=1;
 				a[1]=1;
-				if(a.length>record)
-					a[record]=a[record-2]+a[record-1];
-				else{
-					a=grow(a,3);
-					a[record]=a[record-2]+a[record-1];
-				}
+				a[record]=a[record-2]+a[record-1];
 				record++;
 			}while(a[record-1]<max);
-			int[] b=new int[record-1];
-			System.arraycopy(a, 0, b, 0, record-1);
-			a=b;
+			a=Arrays.copyOf(a, record-1);
 		}
 		else if(max==2){
 			a=new int[2];
@@ -153,39 +144,28 @@ public class ArrayUtil {
 	 */
 	public int[] getPrimes(int max){
 		int n=2;//初始素数大小
-		int[] primes=new int[10];
+		int[] primes=new int[max];
 		int record=0;
-		while(true){
-			boolean isPrime=true;//是否是质数的标志
-			if(max<=n){
-				break;
-			}
-			int jude=(int) Math.sqrt(n);
-			for(int i=jude;i>1;i--){
-				if(n%i==0){
-					 isPrime=false;
+		if(max>=2){
+			while(n<max){
+				int jude=(int) Math.sqrt(n);
+				boolean isPrime=true;//是否是质数的标志
+				for(int i=jude;i>1;i--){
+					if(n%i==0){
+						isPrime=false;
+						break;
+					}
+					
 				}
-			}
-			if(isPrime){
-				if(record<primes.length)
+				if(isPrime){
 					primes[record]=n;
-				else{
-					primes=grow(primes,5);
-					primes[record]=n;
+					record++;
 				}
-				record++;
+				n++;
 			}
-			n++;
 		}
-		if(record<10){			//如果小于初始数组要去除0
-			primes=removeZero(primes);
-		}
-		if(record<primes.length-1){
-			int[] newArray=new int [record];
-			System.arraycopy(primes, 0, newArray, 0, record);
-			primes=newArray;
-		}
-		return primes;
+		
+		return Arrays.copyOf(primes, record);
 	}
 	
 	/**
@@ -196,48 +176,25 @@ public class ArrayUtil {
 	 */
 	public int[] getPerfectNumbers(int max){
 		int min=6;
-		int[] perfect=new int[3];
+		int[] perfect=new int[10];
 		int record=0;
 		if(max>=min){
-			while(true){
-				boolean isPerfect=false;//是否是完数的标志
-				if(max<=min){
-					break;
-				}
-				int n=(int) Math.sqrt(min);
-				int count=0;
-				for(int i=n;i>=1;i--){
+			while(min<max){
+				int sum=0;
+				for(int i=min-1;i>0;i--){
 					if(min%i==0){
-						count=count+i;
-						int b=min/i;
-						if(b!=min)
-							count=count+b;
+						sum=sum+i;
 					}
 				}
-				if(count==min){
-					isPerfect=true;
-				}
-				if(isPerfect){
-					if(record<perfect.length)
-						perfect[record]=min;
-					else{
-						perfect=grow(perfect,1);
-						perfect[record]=min;
-					}
+				if(sum==min){
+					perfect[record]=min;
 					record++;
 				}
 				min++;
-			}
-			if(record<3){			//如果小于初始数组要去除0
-				perfect=removeZero(perfect);
-			}
-			if(record<perfect.length-1){
-				int[] newArray=new int [record];
-				System.arraycopy(perfect, 0, newArray, 0, record);
-				perfect=newArray;
+				
 			}
 		}
-		return perfect;
+		return Arrays.copyOf(perfect, record);
 	}
 	
 	/**

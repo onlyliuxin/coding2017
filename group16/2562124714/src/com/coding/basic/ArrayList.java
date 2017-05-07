@@ -1,5 +1,7 @@
 package com.coding.basic;
 
+import java.util.Objects;
+
 public class ArrayList implements List {
 	
 	private int size = 0;
@@ -95,6 +97,23 @@ public class ArrayList implements List {
 	
 	public Iterator iterator(){
 		return null;
+	}
+
+	public Object[] ToArray()
+	{
+		Object [] Array = new Object[this.size];
+		if(this.size == 0)
+		{
+			return new Object[0];
+		}
+
+		//使用System.arraycopy()来复制数组是更优的办法 zwj 20170309
+		for (int i = 0 ; i < this.size; i ++)
+		{
+			Array[i] = this.elementData[i];
+		}
+
+		return Array;
 	}
 	
 }

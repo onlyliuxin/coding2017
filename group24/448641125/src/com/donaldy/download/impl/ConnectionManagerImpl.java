@@ -6,8 +6,7 @@ import com.donaldy.download.api.ConnectionManager;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
+
 import java.net.URL;
 
 public class ConnectionManagerImpl implements ConnectionManager {
@@ -39,8 +38,6 @@ public class ConnectionManagerImpl implements ConnectionManager {
 			ConnectionImpl conn = new ConnectionImpl();
 
 			conn.setContentLength(connection.getContentLength());
-
-			System.out.println("connection.getContentLength() : " + connection.getContentLength());
 
 			conn.setInputStream(connection.getInputStream());
 

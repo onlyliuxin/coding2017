@@ -9,14 +9,14 @@ public class ArrayUtil {
      * 例如： a = [7, 9 , 30, 3]  ,   置换后为 [3, 30, 9,7]
      * 如果     a = [7, 9, 30, 3, 4] , 置换后为 [4,3, 30 , 9,7]
      *
-     * @param origin
+     * @param origin 整形数组
      */
-    public void reverseArray(int[] origin) {
-        if (null != origin) return;
-        for (int i = 0; i < origin.length; i++) {
+    public static void reverseArray(int[] origin) {
+        if (null == origin) return;
+        for (int i = 0; i < origin.length / 2; i++) {
             int temp = origin[i];
             origin[i] = origin[origin.length - i - 1];
-            origin[i] = temp;
+            origin[origin.length - i - 1] = temp;
         }
     }
 
@@ -29,16 +29,18 @@ public class ArrayUtil {
      * @return
      */
 
-    public int[] removeZero(int[] oldArray) {
-        if (null != oldArray) {
-            return null;
-        }
+    public static int[] removeZero(int[] oldArray) {
+        if (null == oldArray) return null;
+        int size = oldArray.length;
         for (int i = 0; i < oldArray.length; i++) {
             if (oldArray[i] == 0) {
                 System.arraycopy(oldArray, i + 1, oldArray, i, oldArray.length - i - 1);
+                size--;
             }
         }
-        return oldArray;
+        int[] newArray = new int[size];
+        System.arraycopy(oldArray, 0, newArray, 0, size);
+        return newArray;
     }
 
     /**
@@ -50,30 +52,34 @@ public class ArrayUtil {
      * @return
      */
 
-    public int[] merge(int[] array1, int[] array2) {
-        if (null != array1 && null != array2) return null;
+    public static int[] merge(int[] array1, int[] array2) {
+        if (null == array1 || null == array2) return null;
         int[] temp = new int[array1.length + array2.length];
         int i = 0, j = 0;
         if (array1.length >= array2.length) {
             while (i < array2.length) {
-                i++;
                 if (array1[i] <= array2[i])
                     temp[i] = array1[i];
                 else
                     temp[i] = array2[i];
+                i++;
             }
-            System.arraycopy(array1, i + 1, temp, i + 1, temp.length - i - 1);
+            System.arraycopy(array1, i - 1, temp, 2 * i - 1, temp.length - 2 * i - 1);
         } else {
-            while (j < array1.length) {
-                j++;
-                if (array1[j] <= array2[j])
+            while (j < array1.length - 1) {
+                if (array1[j] <= array2[j]) {
                     temp[j] = array1[j];
-                else
+                    if (array1[j + 1] > array2[j]) {
+                        temp[j] = array2[j];
+                    }
+                } else
                     temp[j] = array2[j];
+                j++;
+
             }
-            System.arraycopy(array1, j + 1, temp, j + 1, temp.length - j - 1);
+            System.arraycopy(array2, j - 1, temp, 2 * j - 1, temp.length - 2 * j - 1);
         }
-        return null;
+        return temp;
     }
 
     /**
@@ -86,7 +92,7 @@ public class ArrayUtil {
      * @param size
      * @return
      */
-    public int[] grow(int[] oldArray, int size) {
+    public static int[] grow(int[] oldArray, int size) {
         int oldCapacity = oldArray.length;
         int newCapacity = oldCapacity + (oldCapacity >> 1);
         if (newCapacity < size) {
@@ -106,7 +112,7 @@ public class ArrayUtil {
      * @param max
      * @return
      */
-    public int[] fibonacci(int max) {
+    public static int[] fibonacci(int max) {
         if (max <= 1)
             return new int[0];
         int[] temp = new int[max];
@@ -131,7 +137,7 @@ public class ArrayUtil {
      * @param max
      * @return
      */
-//    public int[] getPrimes(int max) {
+//    public static int[] getPrimes(int max) {
 //        int[] temp = new int[max];
 //        if (max < 2)
 //            return new int[0];
@@ -165,7 +171,7 @@ public class ArrayUtil {
      * @param max
      * @return
      */
-    public int[] getPerfectNumbers(int max) {
+    public static int[] getPerfectNumbers(int max) {
         int[] temp = new int[max];
         int index = 0;
         for (int i = 1; i <= max; i++) {
@@ -192,7 +198,7 @@ public class ArrayUtil {
      * @param seperator
      * @return
      */
-    public String join(int[] array, String seperator) {
+    public static String join(int[] array, String seperator) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < array.length; i++) {
             if (i == array.length - 1) {
