@@ -46,4 +46,12 @@ public class InterfaceMethodRefInfo extends ConstantInfo {
 		return type;
 	}
 
+
+
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitInterfaceMethodRefInfo(this);
+	}
+
 }

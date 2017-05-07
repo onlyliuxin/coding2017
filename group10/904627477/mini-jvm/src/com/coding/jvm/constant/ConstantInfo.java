@@ -1,5 +1,6 @@
 package com.coding.jvm.constant;
 
+
 public abstract class ConstantInfo {
 	public static final int UTF8_INFO = 1;
 	public static final int INTERGER_INFO = 3;
@@ -30,4 +31,19 @@ public abstract class ConstantInfo {
 		return this.constantPool.getConstantInfo(index);
 	}
 	
+	public abstract void accept(Visitor visitor);
+	
+	public static interface Visitor{
+		public void visitClassInfo(ClassInfo info);
+		public void visitUtf8Info(UTF8Info info);
+		public void visitStringInfo(StringInfo info);
+		public void visitFieldRefInfo(FieldRefInfo info);
+		public void visitInterfaceMethodRefInfo(InterfaceMethodRefInfo info);
+		public void visitMethodRefInfo(MethodRefInfo info);
+		public void visitNameAndTypeInfo(NameAndTypeInfo info);
+		public void visitIntegerInfo(IntegerInfo info);
+		public void visitDoubleInfo(DoubleInfo info);
+		public void visitFloatInfo(FloatInfo info);
+		public void visitLongInfo(LongInfo info);
+	}
 }

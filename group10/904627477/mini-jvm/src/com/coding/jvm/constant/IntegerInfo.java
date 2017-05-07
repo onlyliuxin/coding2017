@@ -26,4 +26,10 @@ public class IntegerInfo extends ConstantInfo {
 		return type;
 	}
 
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitIntegerInfo(this);
+	}
+
 }

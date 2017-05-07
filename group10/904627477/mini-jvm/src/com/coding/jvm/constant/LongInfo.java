@@ -26,4 +26,10 @@ public class LongInfo extends ConstantInfo {
 		return type;
 	}
 
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitLongInfo(this);
+	}
+
 }

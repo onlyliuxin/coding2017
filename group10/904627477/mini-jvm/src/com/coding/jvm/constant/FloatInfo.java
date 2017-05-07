@@ -26,4 +26,10 @@ public class FloatInfo extends ConstantInfo {
 		return type;
 	}
 
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitFloatInfo(this);
+	}
+
 }
