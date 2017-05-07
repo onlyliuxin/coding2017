@@ -1,5 +1,7 @@
 package com.coderising.jvm.constant;
 
+import com.coderising.jvm.constant.ConstantInfo.Visitor;
+
 public class ClassInfo extends ConstantInfo{
 	
 	private int type = ConstantInfo.CLASS_INFO;//  表示该常量为 类或接口的符号引用
@@ -27,6 +29,11 @@ public class ClassInfo extends ConstantInfo{
 		int index = getUtf8Index();
 		UTF8Info utf8Info = (UTF8Info)constantPool.getConstantInfo(index);
 		return utf8Info.getValue();
+	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitClassInfo(this);
 	}
 	
 	
