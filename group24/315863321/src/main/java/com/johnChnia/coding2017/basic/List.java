@@ -1,16 +1,23 @@
 package com.johnChnia.coding2017.basic;
 
+import java.util.Iterator;
+
 /**
  * Created by john on 2017/3/12.
  */
-public interface List<E> {
-    public void add(E o);
+public interface List<E> extends Iterable<E>{
+    void add(E o);
 
-    public void add(int index, E o);
+    void add(int index, E o);
 
-    public E get(int index);
+    E get(int index);
 
-    public E remove(int index);
+    E remove(int index);
 
-    public int size();
+    int size();
+
+    Iterator<E> iterator();
+
+    boolean contains(Object o);
+
 }

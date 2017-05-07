@@ -1,5 +1,7 @@
 package com.johnChnia.coding2017.basic;
 
+import com.johnChnia.coding2017.basic.queue.Queue;
+
 /**
  * Created by john on 2017/3/13.
  */
