@@ -1,5 +1,7 @@
 package com.coding.basic.queue;
 
+import javax.management.RuntimeErrorException;
+
 public class CircleQueue <E> {
 
 	//用数组来保存循环队列的元素
@@ -34,13 +36,22 @@ public class CircleQueue <E> {
     }
 
     public E deQueue() {
-        if(isEmpty()){
+        /*if(isEmpty()){
         	throw new RuntimeException("The queue is empty");
         }
         E data = (E)elementData[front];
         elementData[front] = null;
         front = (front+1) % elementData.length;
         size --;
-        return data;
+        return data ;*/
+    	if (isEmpty()){
+    		throw new RuntimeException("is empty");
+    	}
+    		E data = (E)elementData[front];
+    		elementData[front] = null;
+    		front = (front + 1) % elementData.length;
+    		size --;
+    		return data;
+    	
     }
 }
