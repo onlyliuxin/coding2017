@@ -1,8 +1,11 @@
 package com.coderising.array;
 
 
-import com.coding.basic.Queue;
+import com.coding.basic.ArrayList;
 import com.coding.basic.Stack;
+
+import java.util.HashSet;
+import java.util.Iterator;
 
 public class ArrayUtil {
 
@@ -19,20 +22,20 @@ public class ArrayUtil {
             return;
         }
         //solution 1  move element
-        //for (int i = 0; i <= origin.length >> 2; i++) {
-        //    int temp = origin[i];
-        //    origin[i] = origin[origin.length - 1 - i];
-        //    origin[origin.length - 1 - i] = temp;
-        //}
+        for (int i = 0; i < origin.length >> 1; i++) {
+            int temp = origin[i];
+            origin[i] = origin[origin.length - 1 - i];
+            origin[origin.length - 1 - i] = temp;
+        }
 
         //solution 2 use Stack
-        Stack<Integer> stack = new Stack<>();
-        for (int i : origin) {
-            stack.push(i);
-        }
-        for (int i = 0; i < origin.length; i++) {
-            origin[i]=stack.pop();
-        }
+//        Stack<Integer> stack = new Stack<>();
+//        for (int i : origin) {
+//            stack.push(i);
+//        }
+//        for (int i = 0; i < origin.length; i++) {
+//            origin[i] = stack.pop();
+//        }
     }
 
     /**
@@ -67,12 +70,12 @@ public class ArrayUtil {
         int index = 0;
         for (int i = 0; i < oldArray.length; i++) {
             if (oldArray[i] != 0) {
-                 tempArray[index++] = oldArray[i];
+                tempArray[index++] = oldArray[i];
             }
         }
         int[] newArray = new int[index];
-        System.arraycopy(tempArray,0,newArray,0,index);
-        return  newArray;
+        System.arraycopy(tempArray, 0, newArray, 0, index);
+        return newArray;
     }
 
     /**
@@ -85,8 +88,38 @@ public class ArrayUtil {
      */
 
     public int[] merge(int[] array1, int[] array2) {
-
-        return null;
+        if (isEmptyOrNull(array1) && isEmptyOrNull(array2)) {
+            return null;
+        }
+        if (isEmptyOrNull(array1)) {
+            return array2;
+        }
+        if (isEmptyOrNull(array2)) {
+            return array1;
+        }
+        HashSet<Integer> set = new HashSet<>();
+        for (int i : array1) {
+            set.add(i);
+        }
+        for (int i : array2) {
+            set.add(i);
+        }
+        Iterator iterator = set.iterator();
+        int[] result = new int[set.size()];
+        int index = 0;
+        while (iterator.hasNext()) {
+            result[index++] = (int) iterator.next();
+        }
+        for (int i = 0; i < result.length; i++) {
+            for (int j = i + 1; j < result.length; j++) {
+                if (result[i] > result[j]) {
+                    int temp = result[i];
+                    result[i] = result[j];
+                    result[j] = temp;
+                }
+            }
+        }
+        return result;
     }
 
     /**
@@ -123,7 +156,33 @@ public class ArrayUtil {
      * @return
      */
     public int[] fibonacci(int max) {
-        return null;
+        int[] fibo = {};
+        if (max <= 1) {
+            return fibo;
+        }
+        ArrayList<Integer> fiboList = new ArrayList<>();
+        fiboList.add(1);
+        fiboList.add(1);
+        if (max == 2) {
+            fibo = new int[2];
+            fibo[0] = 1;
+            fibo[1] = 1;
+            return fibo;
+        }
+        while (true) {
+            int nextNum = fiboList.get(fiboList.size() - 1) + fiboList.get(fiboList.size() - 2);
+            if (nextNum < max) {
+                fiboList.add(nextNum);
+            } else {
+                break;
+            }
+        }
+        fibo = new int[fiboList.size()];
+        for (int i = 0; i < fibo.length; i++) {
+            fibo[i] = fiboList.get(i);
+        }
+
+        return fibo;
     }
 
     /**
@@ -134,8 +193,41 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPrimes(int max) {
-        return null;
+        int[] primes = {};
+        if (max <= 2) {
+            return primes;
+        }
+        ArrayList<Integer> primeList = new ArrayList<>();
+        primeList.add(2);// first prime
+        for (int i = 3; i < max; i++) {
+            primeList.add(i);
+        }
+        int dividend = 2;
+        while (true) {
+            int index = primeList.indexOf(dividend);
+            if (primeList.get(primeList.size() - 1).equals(dividend)) {
+                break;
+            }
+            com.coding.basic.Iterator iterator = primeList.iterator();
+            for (int i = 0; i <= index; i++) {
+                iterator.next();//
+            }
+            while (iterator.hasNext()) {
+                int i = (int) iterator.next();
+                if (i % dividend == 0) {
+                    iterator.remove();
+                }
+            }
+            dividend = primeList.get(++index);
+        }
+
+        primes = new int[primeList.size()];
+        for (int i = 0; i < primes.length; i++) {
+            primes[i] = primeList.get(i);
+        }
+        return primes;
     }
+
 
     /**
      * 所谓“完数”， 是指这个数恰好等于它的因子之和，例如6=1+2+3
@@ -145,7 +237,23 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPerfectNumbers(int max) {
-        return null;
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        for (int i = 1; i < max; i++) {
+            int sum = 0;
+            for (int j = 1; j < i; j++) {
+                if (i % j == 0) {
+                    sum += j;
+                }
+            }
+            if (sum == i) {
+                arrayList.add(i);
+            }
+        }
+        int[] perfectNumbers = new int[arrayList.size()];
+        for (int i = 0; i < perfectNumbers.length; i++) {
+            perfectNumbers[i] = arrayList.get(i);
+        }
+        return perfectNumbers;
     }
 
     /**
@@ -184,14 +292,4 @@ public class ArrayUtil {
         }
         return false;
     }
-
-    public static void main(String[] args) {
-        int[] a = {7,9,5};
-        ArrayUtil arrayUtil = new ArrayUtil();
-        arrayUtil.reverseArray(a);
-        for (int i : a) {
-            System.out.println(i);
-        }
-    }
-
 }
