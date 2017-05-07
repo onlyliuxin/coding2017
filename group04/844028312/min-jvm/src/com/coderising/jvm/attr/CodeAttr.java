@@ -3,6 +3,7 @@ package com.coderising.jvm.attr;
 import java.io.UnsupportedEncodingException;
 
 import com.coderising.jvm.clz.ClassFile;
+import com.coderising.jvm.cmd.ByteCodeCommand;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.loader.ByteCodeIterator;
 import com.coderising.jvm.util.Util;
@@ -17,10 +18,15 @@ public class CodeAttr extends AttributeInfo {
 		return code;
 	}
 
-	//private ByteCodeCommand[] cmds ;
-	//public ByteCodeCommand[] getCmds() {
-	//	return cmds;
-	//}
+	private ByteCodeCommand[] cmds ;
+	public ByteCodeCommand[] getCmds() {
+		return cmds;
+	}
+	
+	public void setCmds(ByteCodeCommand[] cmds) {
+		this.cmds = cmds;
+	}
+
 	private LineNumberTable lineNumTable;
 	private LocalVariableTable localVarTable;
 	private StackMapTable stackMapTable;

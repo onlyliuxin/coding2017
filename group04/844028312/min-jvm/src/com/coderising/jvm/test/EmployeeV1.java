@@ -16,7 +16,6 @@ public class EmployeeV1 {
     }
     public void setAge(int age){
     	this.age = age;
-    	System.out.println("Hello , this is class Employee ");    	
     }
     public void sayHello() {        
     	System.out.println("Hello , this is class Employee ");    	

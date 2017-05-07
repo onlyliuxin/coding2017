@@ -42,4 +42,10 @@ public class NameAndTypeInfo extends ConstantInfo{
 	public String toString(){
 		return "(" + getName() + "," + getTypeInfo()+")";
 	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		// TODO Auto-generated method stub
+		visitor.visitNameAndType(this);
+	}
 }

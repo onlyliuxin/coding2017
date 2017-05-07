@@ -6,6 +6,8 @@ import java.util.List;
 import com.coderising.jvm.clz.AccessFlag;
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.clz.ClassIndex;
+import com.coderising.jvm.cmd.ByteCodeCommand;
+import com.coderising.jvm.cmd.CommandParser;
 import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantInfo;
 import com.coderising.jvm.constant.ConstantPool;
@@ -45,6 +47,10 @@ public class ClassFileParser {
 		parseInterfaces(iter);
 		parseField(clf,iter);
 		parseMethod(clf,iter);
+		for(Method m:clf.getMethods()){
+			ByteCodeCommand [] cmds =CommandParser.parse(clf,m.getCodeAttr().getCode() );
+			m.getCodeAttr().setCmds(cmds);
+		}
 		
 		return clf;
 	}
@@ -83,7 +89,7 @@ public class ClassFileParser {
 				int classIndex=iter.nextU2toInt();
 				int nameAndTypeIndex=iter.nextU2toInt();
 				field.setClassInfoIndex(classIndex);
-				field.setClassInfoIndex(nameAndTypeIndex);
+				field.setNameAndTypeIndex(nameAndTypeIndex);
 				constantPool.addConstantInfo(field);
 			}
 			else if(tag==ConstantInfo.FLOAT_INFO){
