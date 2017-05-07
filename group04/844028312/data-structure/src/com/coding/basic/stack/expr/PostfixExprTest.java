@@ -26,7 +26,7 @@ public class PostfixExprTest {
 			Assert.assertEquals(288, expr.evaluate(),0.0f);
 		}
 		{
-			//9+(3-1)*3+10/2
+			//9+(3-1)*3+10/2      9 2 3 *
 			PostfixExpr expr = new PostfixExpr("9 3 1-3*+ 10 2/+");
 			Assert.assertEquals(20, expr.evaluate(),0.0f);
 		}
