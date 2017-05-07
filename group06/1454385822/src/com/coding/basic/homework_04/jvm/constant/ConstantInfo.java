@@ -1,8 +1,13 @@
 package com.coding.basic.homework_04.jvm.constant;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
+import com.coding.basic.homework_04.jvm.info.ClassInfo;
+import com.coding.basic.homework_04.jvm.info.FieldRefInfo;
+import com.coding.basic.homework_04.jvm.info.MethodRefInfo;
+import com.coding.basic.homework_04.jvm.info.NameAndTypeInfo;
+import com.coding.basic.homework_04.jvm.info.StringInfo;
+import com.coding.basic.homework_04.jvm.info.UTF8Info;
 
-public class ConstantInfo {
+public abstract class ConstantInfo {
 
 	public static final int CLASS_INFO = 7;
 	public static final int UTF8_INFO = 1;
@@ -19,5 +24,18 @@ public class ConstantInfo {
 		this.pool = pool;
 	}
 
+	public abstract int getType();
+	
+	public abstract void accept(Visitor visitor);
+	
+	public static interface Visitor{
+		public void visitClassInfo(ClassInfo info);
+		public void visitFieldRef(FieldRefInfo info);
+		public void visitMethodRef(MethodRefInfo info);
+		public void visitNameAndType(NameAndTypeInfo info);
+		public void visitString(StringInfo info);
+		public void visistUTF8(UTF8Info info);
+		
+	}
 
 }

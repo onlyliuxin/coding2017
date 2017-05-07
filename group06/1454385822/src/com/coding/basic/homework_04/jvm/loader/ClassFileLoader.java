@@ -64,11 +64,7 @@ public class ClassFileLoader {
 	 * @return
 	 */
 	private String getPath(String path ,String className){
-//		System.out.println(className);
 		String [] ways = className.split("\\.");
-//		for (String string : ways) {
-//			System.out.println(string);
-//		}
 		StringBuilder builder = new StringBuilder();
 		builder.append(path);
 		for (String string : ways) {
@@ -77,7 +73,6 @@ public class ClassFileLoader {
 			builder.append(string);
 		}
 		builder.append(".class");
-//		System.out.println(builder.toString());
 		return builder.toString();
 	}
 	

@@ -9,12 +9,18 @@ import org.junit.Test;
 
 import com.coding.basic.homework_04.jvm.clz.ClassFile;
 import com.coding.basic.homework_04.jvm.clz.ClassIndex;
+import com.coding.basic.homework_04.jvm.cmd.BiPushCmd;
+import com.coding.basic.homework_04.jvm.cmd.ByteCodeCommand;
+import com.coding.basic.homework_04.jvm.cmd.OneOperandCmd;
+import com.coding.basic.homework_04.jvm.cmd.TwoOperandCmd;
 import com.coding.basic.homework_04.jvm.constant.ConstantPool;
+import com.coding.basic.homework_04.jvm.field.Field;
 import com.coding.basic.homework_04.jvm.info.ClassInfo;
 import com.coding.basic.homework_04.jvm.info.MethodRefInfo;
 import com.coding.basic.homework_04.jvm.info.NameAndTypeInfo;
 import com.coding.basic.homework_04.jvm.info.UTF8Info;
 import com.coding.basic.homework_04.jvm.loader.ClassFileLoader;
+import com.coding.basic.homework_04.jvm.method.Method;
 
 
 
@@ -22,6 +28,7 @@ public class ClassFileloaderTest {
 
 	private static final String FULL_QUALIFIED_CLASS_NAME = "com/coderising/jvm/test/EmployeeV1";
 	
+//	static String path1 = "D:\\mygit\\coding2017-1\\group06\\1454385822\\bin";
 	static String path1 = "C:\\Users\\yanght\\Documents\\mygit\\coding2017-1\\group06\\1454385822\\bin";
 	static String path2 = "D:\temp";
 	static ClassFile clzFile = null;
@@ -172,8 +179,8 @@ public class ClassFileloaderTest {
 		
 		{
 			NameAndTypeInfo nameAndType = (NameAndTypeInfo) pool.getConstantInfo(13);
-			Assert.assertEquals(9, nameAndType.getClz_index());
-			Assert.assertEquals(14, nameAndType.getDescriptor_index());
+			Assert.assertEquals(9, nameAndType.getIndex1());
+			Assert.assertEquals(14, nameAndType.getIndex2());
 		}
 		//抽查几个吧
 		{
@@ -202,74 +209,147 @@ public class ClassFileloaderTest {
     /**
      * 下面是第三次JVM课应实现的测试用例
      */
-    //@Test
-//    public void testReadFields(){
-//   
-//    	List<Field> fields = clzFile.getFields();
-//    	Assert.assertEquals(2, fields.size());
-//    	{
-//    		Field f = fields.get(0);
-//    		Assert.assertEquals("name:Ljava/lang/String;", f.toString());
-//    	}
-//    	{
-//    		Field f = fields.get(1);
-//    		Assert.assertEquals("age:I", f.toString());
-//    	}
-//    }
-//    //@Test
-//    public void testMethods(){
-//   
-//    	List<Method> methods = clzFile.getMethods();
-//    	ConstantPool pool = clzFile.getConstantPool();
-//    	
-//    	{
-//    		Method m = methods.get(0);    		
-//    		assertMethodEquals(pool,m,
-//    				"<init>",
-//    				"(Ljava/lang/String;I)V",
-//    				"2ab7000c2a2bb5000f2a1cb50011b1");
-//    		
-//    	}
-//    	{
-//    		Method m = methods.get(1);    
-//    		assertMethodEquals(pool,m,
-//    				"setName",
-//    				"(Ljava/lang/String;)V",
-//    				"2a2bb5000fb1");
-//    		
-//    	}
-//    	{
-//    		Method m = methods.get(2);    
-//    		assertMethodEquals(pool,m,
-//    				"setAge",
-//    				"(I)V",
-//    				"2a1bb50011b1");
-//    	}
-//    	{
-//    		Method m = methods.get(3); 
-//    		assertMethodEquals(pool,m,
-//    				"sayHello",
-//    				"()V",
-//    				"b2001c1222b60024b1");
-//    		
-//    	}
-//    	{
-//    		Method m = methods.get(4);    
-//    		assertMethodEquals(pool,m,
-//    				"main",
-//    				"([Ljava/lang/String;)V",
-//    				"bb000159122b101db7002d4c2bb6002fb1");
-//    	}
-//    }
-//    
-//    private void assertMethodEquals(ConstantPool pool,Method m , String expectedName, String expectedDesc,String expectedCode){
-//    	String methodName = pool.getUTF8String(m.getNameIndex());
-//		String methodDesc = pool.getUTF8String(m.getDescriptorIndex());    		
-//		String code = m.getCodeAttr().getCode();
-//		Assert.assertEquals(expectedName, methodName);
-//		Assert.assertEquals(expectedDesc, methodDesc);
-//		Assert.assertEquals(expectedCode, code);
-//    }
+    @Test
+    public void testReadFields(){
    
+    	List<Field> fields = clzFile.getFields();
+    	Assert.assertEquals(2, fields.size());
+    	{
+    		Field f = fields.get(0);
+    		Assert.assertEquals("name:Ljava/lang/String;", f.toString());
+    	}
+    	{
+    		Field f = fields.get(1);
+    		Assert.assertEquals("age:I", f.toString());
+    	}
+    }
+    @Test
+    public void testMethods(){
+   
+    	List<Method> methods = clzFile.getMethods();
+    	ConstantPool pool = clzFile.getConstantPool();
+    	
+    	{
+    		Method m = methods.get(0);    		
+    		assertMethodEquals(pool,m,
+    				"<init>",
+    				"(Ljava/lang/String;I)V",
+    				"2ab7000c2a2bb5000f2a1cb50011b1");
+    		
+    	}
+    	{
+    		Method m = methods.get(1);    
+    		assertMethodEquals(pool,m,
+    				"setName",
+    				"(Ljava/lang/String;)V",
+    				"2a2bb5000fb1");
+    		
+    	}
+    	{
+    		Method m = methods.get(2);    
+    		assertMethodEquals(pool,m,
+    				"setAge",
+    				"(I)V",
+    				"2a1bb50011b1");
+    	}
+    	{
+    		Method m = methods.get(3); 
+    		assertMethodEquals(pool,m,
+    				"sayHello",
+    				"()V",
+    				"b2001c1222b60024b1");
+    		
+    	}
+    	{
+    		Method m = methods.get(4);    
+    		assertMethodEquals(pool,m,
+    				"main",
+    				"([Ljava/lang/String;)V",
+    				"bb000159122b101db7002d4c2bb6002fb1");
+    	}
+    }
+    
+    private void assertMethodEquals(ConstantPool pool,Method m , String expectedName, String expectedDesc,String expectedCode){
+    	String methodName = pool.getUTF8String(m.getNameIndex());
+		String methodDesc = pool.getUTF8String(m.getDescriptorIndex());    		
+		String code = m.getCodeAttr().getCode();
+		Assert.assertEquals(expectedName, methodName);
+		Assert.assertEquals(expectedDesc, methodDesc);
+		Assert.assertEquals(expectedCode, code);
+    }
+   
+    @Test
+    public void testByteCodeCommand(){
+    	{
+	    	Method initMethod = this.clzFile.getMethod("<init>", "(Ljava/lang/String;I)V");
+	    	ByteCodeCommand [] cmds = initMethod.getCmds();
+	    	
+	    	assertOpCodeEquals("0: aload_0", cmds[0]);
+	    	assertOpCodeEquals("1: invokespecial #12", cmds[1]);
+	    	assertOpCodeEquals("4: aload_0", cmds[2]);
+	    	assertOpCodeEquals("5: aload_1", cmds[3]);
+	    	assertOpCodeEquals("6: putfield #15", cmds[4]);
+	    	assertOpCodeEquals("9: aload_0", cmds[5]);
+	    	assertOpCodeEquals("10: iload_2", cmds[6]);
+	    	assertOpCodeEquals("11: putfield #17", cmds[7]);
+	    	assertOpCodeEquals("14: return", cmds[8]);
+    	}
+    	
+    	{
+	    	Method setNameMethod = this.clzFile.getMethod("setName", "(Ljava/lang/String;)V");
+	    	ByteCodeCommand [] cmds = setNameMethod.getCmds();
+	    	
+	    	assertOpCodeEquals("0: aload_0", cmds[0]);
+	    	assertOpCodeEquals("1: aload_1", cmds[1]);
+	    	assertOpCodeEquals("2: putfield #15", cmds[2]);
+	    	assertOpCodeEquals("5: return", cmds[3]);
+	    	
+    	}
+    	
+    	{
+	    	Method sayHelloMethod = this.clzFile.getMethod("sayHello", "()V");
+	    	ByteCodeCommand [] cmds = sayHelloMethod.getCmds();
+	    	
+	    	assertOpCodeEquals("0: getstatic #28", cmds[0]);
+	    	assertOpCodeEquals("3: ldc #34", cmds[1]);
+	    	assertOpCodeEquals("5: invokevirtual #36", cmds[2]);
+	    	assertOpCodeEquals("8: return", cmds[3]);
+	    	
+    	}
+    	
+    	{
+	    	Method mainMethod = this.clzFile.getMainMethod();
+	    	
+	    	ByteCodeCommand [] cmds = mainMethod.getCmds();
+	    	
+	    	assertOpCodeEquals("0: new #1", cmds[0]);
+	    	assertOpCodeEquals("3: dup", cmds[1]);
+	    	assertOpCodeEquals("4: ldc #43", cmds[2]);
+	    	assertOpCodeEquals("6: bipush 29", cmds[3]);
+	    	assertOpCodeEquals("8: invokespecial #45", cmds[4]);
+	    	assertOpCodeEquals("11: astore_1", cmds[5]);
+	    	assertOpCodeEquals("12: aload_1", cmds[6]);
+	    	assertOpCodeEquals("13: invokevirtual #47", cmds[7]);
+	    	assertOpCodeEquals("16: return", cmds[8]);
+    	}
+    	
+    }
+   
+    private void assertOpCodeEquals(String expected, ByteCodeCommand cmd){
+    	
+    	String acctual = cmd.getOffset()+": "+cmd.getReadableCodeText();
+    	
+    	if(cmd instanceof OneOperandCmd){
+    		if(cmd instanceof BiPushCmd){
+    			acctual += " " + ((OneOperandCmd)cmd).getOperand();
+    		} else{
+    			acctual += " #" + ((OneOperandCmd)cmd).getOperand();
+    		}
+    	}
+    	if(cmd instanceof TwoOperandCmd){
+    		acctual += " #" + ((TwoOperandCmd)cmd).getIndex();
+    	}
+    	Assert.assertEquals(expected, acctual);
+    }
 
 }

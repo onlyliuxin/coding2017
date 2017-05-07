@@ -13,4 +13,15 @@ public class NullConstantInfo extends ConstantInfo{
 	public NullConstantInfo() {
 		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public int getType() {
+		return -1;
+	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		
+		
+	}
 }

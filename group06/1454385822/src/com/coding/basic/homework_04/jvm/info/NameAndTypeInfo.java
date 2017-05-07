@@ -6,8 +6,8 @@ import com.coding.basic.homework_04.jvm.constant.ConstantPool;
 public class NameAndTypeInfo extends ConstantInfo {
 
 	private int tag = ConstantInfo.NAMEANDTYPE_INFO;
-	private int clz_index;
-	private int descriptor_index;
+	private int index1;
+	private int index2;
 	
 	public NameAndTypeInfo(ConstantPool pool) {
 		super(pool);
@@ -18,21 +18,29 @@ public class NameAndTypeInfo extends ConstantInfo {
 	}
 	
 	
-	public int getClz_index() {
-		return clz_index;
+	public int getIndex1() {
+		return index1;
 	}
-	public void setClz_index(int clz_index) {
-		this.clz_index = clz_index;
+	public void setIndex1(int index1) {
+		this.index1 = index1;
 	}
 	
-	public int getDescriptor_index() {
-		return descriptor_index;
+	public int getIndex2() {
+		return index2;
 	}
-	public void setDescriptor_index(int descriptor_index) {
-		this.descriptor_index = descriptor_index;
+	public void setIndex2(int index2) {
+		this.index2 = index2;
 	}
 	public int getTag() {
 		return tag;
+	}
+	@Override
+	public int getType() {
+		return tag;
+	}
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitNameAndType(this);
 	}
 	
 	
