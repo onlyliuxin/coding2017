@@ -2,24 +2,23 @@ package com.coding.basic;
 
 import com.coding.basic.array.ArrayList;
 
-public class BinaryTree {
+public class BinaryTree<T extends Comparable<T>> {
 	
 	//根节点
-	private BinaryTreeNode<Integer> root;	
-	    
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public <T extends Comparable<? super T>> BinaryTreeNode insert(T o){
+	private BinaryTreeNode<T> root;	
+	    	
+	public BinaryTreeNode<T> insert(T o){
 		
-		BinaryTreeNode treeNode = new BinaryTreeNode();
+		BinaryTreeNode<T> treeNode = new BinaryTreeNode<T>();
 		treeNode.setData(o);
 		if(root == null){
 			root =  treeNode;
 		}else{				
-			BinaryTreeNode currentNode = root;
-			BinaryTreeNode parent;
+			BinaryTreeNode<T> currentNode = root;
+			BinaryTreeNode<T> parent;
 			while(true){
 				parent = currentNode;
-				if(((Comparable)currentNode.getData()).compareTo(o)>0){//向左放					
+				if((currentNode.getData()).compareTo(o)>0){//向左放					
 					currentNode = currentNode.getLeft();
 					if(currentNode == null){
 						parent.setLeft(treeNode);
@@ -44,12 +43,12 @@ public class BinaryTree {
 	 * @param node
 	 * @return
 	 */
-	public List<Integer> traversalBefore(BinaryTreeNode<Integer> node){
+	public List<T> traversalBefore(BinaryTreeNode<T> node){
 		//所有数据集合
-	    List<Integer> datas = new ArrayList<>();
+	    List<T> datas = new ArrayList<>();
 	    return traversal(node,datas);
 	}
-	private List<Integer> traversal(BinaryTreeNode<Integer> node,List<Integer> datas){
+	private List<T> traversal(BinaryTreeNode<T> node,List<T> datas){
 		
 		if(node !=null){
 			datas.add(node.getData());
@@ -59,8 +58,22 @@ public class BinaryTree {
 		return datas;
 	}
 
-	public BinaryTreeNode<Integer> getRoot() {
+	public BinaryTreeNode<T> getRoot() {
 		return root;
 	}
+	
+	/**
+	 * 获取比obj大的最小值
+	 * @param obj
+	 * @return
+	 */
+	public T getLeastBigger (T obj){
 		
+		BinaryTreeNode<T> left = root;
+		while(left.getLeft()!=null){
+			left = left.getLeft();
+		}
+		return left.getData();
+	}
+	
 }
