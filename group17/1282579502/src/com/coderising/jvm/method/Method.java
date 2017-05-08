@@ -1,6 +1,12 @@
 package com.coderising.jvm.method;
 
 import com.coderising.jvm.clz.ClassFile;
+import com.coderising.jvm.cmd.ByteCodeCommand;
+import com.coderising.jvm.cmd.CommandParser;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import com.coderising.jvm.attr.AttributeInfo;
 import com.coderising.jvm.attr.CodeAttr;
 import com.coderising.jvm.attr.InvalidAttributeInfoException;
@@ -47,8 +53,11 @@ public class Method {
 		this.descriptorIndex = descriptorIndex;
 	}
 
-	
-	
+	//ByteCodeCommand [] cmds = initMethod.getCmds();
+	public ByteCodeCommand[] getCmds(){
+		//System.out.println(codeAttr.getCode());
+		return CommandParser.parse(clzFile, codeAttr.getCode());
+	}
 	
 	
 	public static Method parse(ClassFile clzFile, ByteCodeIterator iter) throws InvalidMethodInfoException{
@@ -77,6 +86,33 @@ public class Method {
 		
 		return m;
 		
+	}
+	
+	public List<String> getParameterList(){
+		
+		List<String> params = new ArrayList<>();
+		String paramString  = clzFile.getConstantPool().getUTF8String(descriptorIndex);
+		int l = paramString.indexOf('(');
+		int r = paramString.indexOf(')');
+		if(l >=0 && r >=0){
+			paramString = paramString.substring(l+1, r);
+		}
+		String[] paramArray = paramString.split(";");
+		for(String str: paramArray){
+			if(str.startsWith("L")){
+				params.add(str);
+			}
+			else if(str.startsWith("I")){
+				char[] cArray = str.toCharArray();
+				for(char c: cArray){
+					params.add(String.valueOf(c));
+				}
+			}
+			else{
+				throw new RuntimeException("Uncatagorized parameter: " + str);
+			}
+		}
+		return params;
 	}
 
 	@Override

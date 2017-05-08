@@ -1,6 +1,8 @@
 package com.coderising.jvm.clz;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantPool;
@@ -91,5 +93,29 @@ public class ClassFile {
 	
 	public List<Method> getMethods(){
 		return methods;
+	}
+	
+	public String getClassNameVal(int index){
+		return pool.getUTF8String(index);
+	}
+	
+	public String getDescVal(int index){
+		return pool.getUTF8String(index);
+	}
+	
+	public Method getMainMethod(){
+		return getMethod("main", "([Ljava/lang/String;)V");
+	}
+	
+	//getMethod("<init>", "(Ljava/lang/String;I)V")
+	public Method getMethod(String methodName, String parameter){
+		System.out.println();System.out.println();System.out.println("Entering getMethod: " + methodName + " parameter: " + parameter);
+		for(Method m : methods){
+			if(getClassNameVal(m.getNameIndex()).equalsIgnoreCase(methodName) &&
+			   getDescVal(m.getDescriptorIndex()).equalsIgnoreCase(parameter)){
+				return m;
+			}
+		}
+		return null;
 	}
 }
