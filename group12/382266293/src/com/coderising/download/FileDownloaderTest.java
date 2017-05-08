@@ -30,7 +30,7 @@ public class FileDownloaderTest {
 
 		String url = "http://localhost:8080/test.jpg";
 
-		FileDownloader downloader = new FileDownloader(qq);
+		FileDownloader downloader = new FileDownloader(Git);
 
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
