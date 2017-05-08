@@ -53,9 +53,8 @@ public class ClassFileloaderTest {
 		loader.addClassPath(path2);
 		
 		String clzPath = loader.getClassPath();
-		
+
 		Assert.assertEquals(path1+";"+path2,clzPath);
-		
 	}
 	
 	@Test
@@ -70,7 +69,6 @@ public class ClassFileloaderTest {
 		
 		// 注意：这个字节数可能和你的JVM版本有关系， 你可以看看编译好的类到底有多大
 		Assert.assertEquals(1056, byteCodes.length);
-		
 	}
 	
 	
