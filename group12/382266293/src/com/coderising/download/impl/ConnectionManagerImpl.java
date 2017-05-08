@@ -11,7 +11,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
 
 	private int connections = 0;
 	private String url;
-	
+
 	public ConnectionManagerImpl() {
 		this.connections = 0;
 	}
@@ -24,12 +24,12 @@ public class ConnectionManagerImpl implements ConnectionManager {
 		Connection conn = null;
 		try {
 			address = new URL(url);
-			conn = new ConnectionImpl(this,url);
+			conn = new ConnectionImpl(this, url);
 			connections++;
 			return conn;
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
+		}
 		return null;
 	}
 
@@ -43,4 +43,3 @@ public class ConnectionManagerImpl implements ConnectionManager {
 	}
 
 }
-

@@ -129,6 +129,7 @@ public class LinkedList implements List {
 	}
 	public  class Iteratorimp implements Iterator{
 		Node newnode = new Node();
+		
 		public Iteratorimp(Node node){
 			this.newnode = node;		
 		}

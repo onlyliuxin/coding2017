@@ -1,5 +1,7 @@
 package com.coderising.jvm.loader;
 
+import com.coderising.jvm.clz.ClassFile;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,5 +55,13 @@ public class ClassFileLoader {
         }
         return clazzPaths;
     }
+
+    public ClassFile loadClass(String className) {
+        byte[] codes = this.readBinaryCode(className);
+        ClassFileParser parser = new ClassFileParser();
+        return parser.parse(codes);
+
+    }
+
 
   }

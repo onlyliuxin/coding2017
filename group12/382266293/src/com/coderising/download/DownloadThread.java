@@ -7,8 +7,7 @@ import java.io.RandomAccessFile;
 
 import com.coderising.download.api.Connection;
 
-
-public class DownloadThread extends Thread{
+public class DownloadThread extends Thread {
 
 	Connection conn;
 	int startPos;
@@ -16,15 +15,16 @@ public class DownloadThread extends Thread{
 	private String dest;
 	private FileDownloader fileDownloader;
 
-	public DownloadThread( Connection conn, int startPos, int endPos){
-		
-		this.conn = conn;		
+	public DownloadThread(Connection conn, int startPos, int endPos) {
+
+		this.conn = conn;
 		this.startPos = startPos;
 		this.endPos = endPos;
 	}
+
 	@Override
-	public void run(){
-		System.out.println(this.getName()+" is running");
+	public void run() {
+		System.out.println(this.getName() + " is running");
 		RandomAccessFile raf = null;
 		try {
 			byte[] buffer = conn.read(startPos, endPos);
@@ -36,7 +36,7 @@ public class DownloadThread extends Thread{
 			e.printStackTrace();
 		} finally {
 			conn.close();
-			System.out.println(this.getName()+" finished");
+			System.out.println(this.getName() + " finished");
 
 			try {
 				if (raf != null)
@@ -48,7 +48,7 @@ public class DownloadThread extends Thread{
 			}
 		}
 	}
-	
+
 	public void setFileDownloader(FileDownloader fileDownloader) {
 		this.fileDownloader = fileDownloader;
 	}
@@ -56,15 +56,14 @@ public class DownloadThread extends Thread{
 	public void notifyFinished() {
 		fileDownloader.setThreadFinished();
 	}
-	
+
 	public void setDest(String dest) {
 		this.dest = dest;
 	}
-	
+
 	public void close() {
 		this.conn.close();
-		
+
 	}
-	
 
 }

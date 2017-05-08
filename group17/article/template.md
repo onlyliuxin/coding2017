@@ -10,9 +10,9 @@
 ## 文章
 ---
 
-1204187480 http://blog.leanote.com/post/luoziyihao/js%E9%97%AD%E5%8C%85
+1204187480 
 
-102228177  
+102228177  http://note.youdao.com/noteshare?id=1f8f4a9d861e24948cdf0219a0d39f4e
 
 876385982 
 
@@ -26,11 +26,11 @@
 
 296910598
 
-1264835468 http://www.jianshu.com/p/634ca8cdd6e3
+1264835468 
 
 516886559
 
-1282579502 https://www.evernote.com/shard/s413/sh/142601dd-edc3-4e37-871e-37a7489d7634/a092bf080e1aefbaeab96d34edac8cf0
+1282579502 
 
 614982500
 
