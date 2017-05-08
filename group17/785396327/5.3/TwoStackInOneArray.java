@@ -18,6 +18,7 @@ public class TwoStackInOneArray {
      */
     public void push1(Object o) {
         grow();
+        data[size1++] = o;
     }
 
     private void grow() {
@@ -27,7 +28,7 @@ public class TwoStackInOneArray {
             //拷贝第一个栈
             System.arraycopy(data, 0, newArray, 0, size1);
             //拷贝第二个栈
-            System.arraycopy(data, data.length - size2 - 1, newArray, newArray.length - size2 - 1, size2);
+            System.arraycopy(data, data.length - size2, newArray, newArray.length - size2, size2);
             data = newArray;
         }
     }
@@ -38,7 +39,9 @@ public class TwoStackInOneArray {
      * @return
      */
     public Object pop1() {
-        return null;
+        Object removeEle = data[--size1];
+        data[size1] = null;
+        return removeEle;
     }
 
     /**
@@ -48,7 +51,7 @@ public class TwoStackInOneArray {
      */
 
     public Object peek1() {
-        return null;
+        return data[size1 - 1];
     }
 
     /*
@@ -56,6 +59,7 @@ public class TwoStackInOneArray {
      */
     public void push2(Object o) {
         grow();
+        data[data.length - ++size2] = o;
     }
 
     /**
@@ -64,7 +68,9 @@ public class TwoStackInOneArray {
      * @return
      */
     public Object pop2() {
-        return null;
+        Object removeEle = data[data.length - size2];
+        data[data.length - size2--] = null;
+        return removeEle;
     }
 
     /**
@@ -74,6 +80,11 @@ public class TwoStackInOneArray {
      */
 
     public Object peek2() {
-        return null;
+        return data[data.length - size2];
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(data);
     }
 }
