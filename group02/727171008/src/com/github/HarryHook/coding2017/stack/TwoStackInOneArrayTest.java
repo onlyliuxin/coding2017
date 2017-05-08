@@ -37,9 +37,6 @@ public class TwoStackInOneArrayTest {
 	assertEquals(5, stack.pop1());
 	assertEquals(3, stack.peek1());
 	assertEquals(3, stack.pop1());
-	// 栈1为空，抛出异常
-	expectedEx.expect(Exception.class);
-	stack.pop1();
 
 	stack.push2(123);
 	stack.push2(1);
