@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 定长链表
  * 命中后更新 pageNumber的位置
+ * 随时要考虑 first, node 的变化
  */
 @Slf4j
 public class LRUPageFrame {
@@ -26,6 +27,20 @@ public class LRUPageFrame {
 
         Node() {
         }
+
+        public String debug() {
+            return new StringBuilder().
+                    append("\n##########################pre: ")
+                    .append(prev)
+                    .append("\n##########################node: ")
+                    .append(this)
+                    .append("\n##########################next: ")
+                    .append(next)
+                    .append("\n##########################pageNum: ")
+                    .append(pageNum)
+
+                    .toString();
+        }
     }
 
 
@@ -45,6 +60,7 @@ public class LRUPageFrame {
     /**
      * 获取缓存中对象
      * 新的对象应该放在前面
+     *
      * @param pageNum
      * @return
      */
@@ -76,6 +92,7 @@ public class LRUPageFrame {
             last = last.prev;
             last.next = null;
             currentSize--;
+            debugContent("rmSpareNode");
         }
     }
 
@@ -88,10 +105,13 @@ public class LRUPageFrame {
                 Node nodeNext = node.next;
                 if (nodePre == null) {  // 说明在第一个节点就 hit了
                     first = nodeNext;
+                    first.prev = null;
                 } else {
                     nodePre.next = nodeNext;
                     if (nodeNext != null) {
                         nodeNext.prev = nodePre;
+                    } else {
+                        last = nodePre; // 如果 nodeNext 为空, 说明原先 last 是 node, 现在是 nodePre
                     }
                 }
                 currentSize--;
@@ -103,8 +123,8 @@ public class LRUPageFrame {
         return null;
     }
 
-    private void debugContent(String  tag) {
-        log.debug("tag={}, currentSize={}, toString={}", tag, currentSize, toString());
+    private void debugContent(String tag) {
+        log.debug("tag={}, currentSize={}, toString={}", tag, currentSize, debug());
     }
 
 
@@ -120,6 +140,29 @@ public class LRUPageFrame {
             }
         }
         return buffer.toString();
+    }
+
+    public String debug() {
+        StringBuilder buffer = new StringBuilder();
+        Node node = first;
+        while (node != null) {
+            buffer
+                    .append(node.debug())
+                    .append("\n##########################last: ")
+                    .append(last)
+                    .append("\n##########################capacity: ")
+                    .append(capacity)
+                    .append("\n##########################toString: ")
+                    .append(toString())
+
+            ;
+
+            node = node.next;
+            if (node != null) {
+                buffer.append("\n,");
+            }
+        }
+        return buffer.toString() + "\n";
     }
 
 
