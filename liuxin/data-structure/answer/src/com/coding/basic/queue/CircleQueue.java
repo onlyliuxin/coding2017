@@ -14,7 +14,7 @@ public class CircleQueue <E> {
 		elementData = new Object[capacity];
 	}
 	public boolean isEmpty() {
-		return front == rear;
+		return (front == rear) && !isFull();
         
     }
 	
@@ -29,6 +29,7 @@ public class CircleQueue <E> {
         if(isFull()){
         	throw new RuntimeException("The queue is full");
         }
+        rear = (rear+1) % elementData.length;
         elementData[rear++] = data;
         size++;
     }
