@@ -10,23 +10,49 @@ public class StackUtil {
 	/**
 	 * 假设栈中的元素是Integer, 从栈顶到栈底是 : 5,4,3,2,1 调用该方法后， 元素次序变为: 1,2,3,4,5
 	 * 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
+	 *  *** 使用中间变量和长度来完成
 	 */
 	public static void reverse(Stack s) {
 		if(isEmpty(s)) {
 			return;
 		}
 		Stack temp = new Stack();
-		reversePush(s, temp);
-		Stack temp2 = new Stack();
-		reversePush(temp, temp2);
-		reversePush(temp2, s);
+		int size = s.size();
+		int count = 0;
+		while(count < size) {
+			Object pop = s.pop();
+			for(int i = count + 1; i < size; i++) {
+				temp.push(s.pop());
+			}
+			s.push(pop);
+			move(temp, s);
+			count++;
+		}
+	}
+
+	// ***递归,通过每一个函数栈存放一个元素
+	public static void reverse2(Stack s) {
+		if(isEmpty(s)) {
+			return;
+		}
+		Stack temp = new Stack();
+		move(s, temp);
+		addTop(temp.pop(), temp, s);
+	}
+	
+
+	private static void addTop(Object pop, Stack temp, Stack s) {
+		if(!temp.isEmpty()) {
+			addTop(temp.pop(), temp, s);
+		}
+		s.push(pop);
 	}
 
 	private static boolean isEmpty(Stack s) {
 		return s == null || s.isEmpty();
 	}
 
-	private static void reversePush(Stack source, Stack dest) {
+	private static void move(Stack source, Stack dest) {
 		while(!source.isEmpty()) {
 			dest.push(source.pop());
 		}
@@ -48,7 +74,7 @@ public class StackUtil {
 				temp.push(dest);
 			}
 		}
-		reversePush(temp, s);
+		move(temp, s);
 	}
 
 	/**
@@ -70,7 +96,7 @@ public class StackUtil {
 			temp.push(v);
 			count++;
 		}
-		reversePush(temp, s);
+		move(temp, s);
 		return Arrays.copyOf(result, count);
 	}
 	/**

@@ -1,7 +1,5 @@
 package org.coding.five;
 
-import static org.junit.Assert.fail;
-
 import org.coding.one.Stack;
 import org.junit.After;
 import org.junit.Assert;
@@ -37,7 +35,16 @@ public class StackUtilTest {
 		Assert.assertEquals(4, s.pop());
 		Assert.assertEquals(5, s.pop());
 	}
-
+	@Test
+	public void testReverse2() {
+		StackUtil.reverse2(s);
+		Assert.assertEquals(5, s.size());
+		Assert.assertEquals(1, s.pop());
+		Assert.assertEquals(2, s.pop());
+		Assert.assertEquals(3, s.pop());
+		Assert.assertEquals(4, s.pop());
+		Assert.assertEquals(5, s.pop());
+	}
 	@Test
 	public void testRemove() {
 		StackUtil.remove(s, 1);
