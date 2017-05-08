@@ -15,7 +15,7 @@ public class Method {
     private AccessFlag accessFlags;
     private int nameIndex;
     private int descriptorIndex;
-    private CodeAttr code;
+    private CodeAttr codeAttr;
     //attributes[attributes_count];
     private ConstantPool pool;
     public static Method parse(ClassFile clzFile, ByteCodeIterator iter) {
@@ -30,7 +30,7 @@ public class Method {
             methodAttributeType = Util.hexString2String(methodAttributeType);
             iter.back(2);
             if (methodAttributeType.equals(AttributeInfo.CODE)) {
-                method.setCode(CodeAttr.parse(clzFile,iter));
+                method.setCodeAttr(CodeAttr.parse(clzFile,iter));
             } else {
                 throw new RuntimeException("未知的方法属性类型" + methodAttributeType);
             }
@@ -42,7 +42,7 @@ public class Method {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(pool.getConstantInfo(nameIndex).getValue());
         stringBuffer.append(pool.getConstantInfo(descriptorIndex).getValue());
-        stringBuffer.append(code);
+        stringBuffer.append(codeAttr);
         return stringBuffer.toString();
     }
     public AccessFlag getAccessFlags() {
@@ -69,15 +69,16 @@ public class Method {
         this.descriptorIndex = descriptorIndex;
     }
 
-    public CodeAttr getCode() {
-        return code;
+    public CodeAttr getCodeAttr() {
+        return codeAttr;
     }
 
-    public void setCode(CodeAttr code) {
-        this.code = code;
+    public void setCodeAttr(CodeAttr codeAttr) {
+        this.codeAttr = codeAttr;
     }
 
     public void setPool(ConstantPool pool) {
         this.pool = pool;
     }
+
 }

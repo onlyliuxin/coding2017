@@ -2,10 +2,7 @@ package com.coding.mini_jvm.src.com.coderising.jvm.loader;
 
 import com.coding.mini_jvm.src.com.coderising.jvm.clz.ClassFile;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +10,11 @@ import java.util.List;
 
 public class ClassFileLoader {
 
+	private ClassLoader classLoader;
+
 	private static final String CLASS_FILE_SUFFIX = ".class";
-	private List<String> clzPaths = new ArrayList<String>();
-	
+	private static List<String> clzPaths = new ArrayList<String>();
+
 	public byte[] readBinaryCode(String className) {
 		String classPath = getClassPath();
 		String[] paths = classPath.split(File.pathSeparator);
@@ -42,6 +41,7 @@ public class ClassFileLoader {
 			e.printStackTrace();
 			return null;
 		}
+
 	}
 	
 	public void addClassPath(String path) {
@@ -49,8 +49,10 @@ public class ClassFileLoader {
 			return;
 		}
 		clzPaths.add(path);
+
+
 	}
-	
+
 	
 	
 	public String getClassPath(){
@@ -68,5 +70,39 @@ public class ClassFileLoader {
 		byte[] data = readBinaryCode(className);
 		ClassFileParser classFileParser = new ClassFileParser();
 		return classFileParser.parse(data);
+	}
+
+//	public static void main(String[] args) {
+//
+//
+//		System.out.println(System.getProperty("java.library.path"));
+//		System.out.println(System.getProperty("java.class.path"));
+//		System.out.println(System.getProperty("java.home"));
+////		System.getProperty("java.class.path");
+////		System.getProperty("java.class.path");
+////		System.getProperty("java.class.path");
+////		System.getProperty("java.class.path");
+//
+//	}
+
+	private class MyClassLoader extends ClassLoader {
+		@Override
+		public Class<?> loadClass(String name) throws ClassNotFoundException {
+			String filename = name.substring(name.lastIndexOf(".")+1) + ".class";
+			try {
+				InputStream is = getClass().getResourceAsStream(filename);
+				if (is == null) {
+					return super.loadClass(name);
+				}
+
+				byte[] b = new byte[is.available()];
+				is.read(b);
+				return defineClass(name, b, 0, b.length);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			return super.loadClass(name);
+		}
 	}
 }

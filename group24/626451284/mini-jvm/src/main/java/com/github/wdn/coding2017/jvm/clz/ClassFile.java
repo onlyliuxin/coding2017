@@ -79,4 +79,8 @@ public class ClassFile {
     public void setMethods(List<Method> methods) {
         this.methods = methods;
     }
+
+    public Method getMainMethod() {
+        return null;
+    }
 }
