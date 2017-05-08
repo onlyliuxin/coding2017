@@ -14,7 +14,17 @@ public class MethodRefInfo extends ConstantInfo {
 	public int getType() {
 		return type;
 	}
-	
+
+	@Override
+	public String typeDescription() {
+		return "Methodref";
+	}
+
+	@Override
+	public String contentDescription() {
+		return "#" + classInfoIndex + ".#" + nameAndTypeIndex;
+	}
+
 	public int getClassInfoIndex() {
 		return classInfoIndex;
 	}

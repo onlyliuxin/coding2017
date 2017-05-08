@@ -21,6 +21,11 @@ public class Queue<T> {
 	public int size() {
 		return elementData.size();
 	}
+
+    @Override
+    public String toString() {
+        return elementData.toString();
+    }
 }
 
 class QueueIsEmptyException extends RuntimeException {
