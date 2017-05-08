@@ -41,14 +41,14 @@ public class ClassFile {
     public void setVersion(int minor,int major){
         minorVersion = minor;
         majorVersion = major;
-    }
+    }/*
 	public void print(){
 		if(this.accessFlag.isPublicClass()){
 			System.out.println("Access flag:public");
 		}
 		System.out.println("Class Name:"+ getClassName());
 		System.out.println("Super Class Name:"+ getSuperClassName());
-	}
+	}*/
 	private String getClassName(){
 		int thisClassIndex = this.clzIndex.getThisClassIndex();
 		ClassInfo thisClass = (ClassInfo)this.getConstantPool().getConstantInfo(thisClassIndex);

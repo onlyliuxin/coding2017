@@ -19,19 +19,24 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ClassFileLoaderTest {
-	private static final String FULL_QUALIFIED_CLASS_NAME = "EmployeeV1.class";
-	static String path1 = "F:\\code_language\\demo\\Homework\\bin\\week567_miniJVM\\test\\";
-	static String path2 = "C:\temp";
-	
+	//static{
+	private String FULL_QUALIFIED_CLASS_NAME = "EmployeeV1.class";
+	String path1 = "F:\\code_language\\demo\\Homework\\bin\\week567_miniJVM\\test\\";
+	String path2 = "C:\temp";
+	String className = "EmployeeV1";
+	//}
+	private ClassFile clzFile = null;
+	private ClassFileLoader loader = null;
 	@Before
 	public void setUp() throws Exception {
-		int 啊 = 1;
-		啊 += 1;
-		System.out.print(啊);
+		loader = new ClassFileLoader();
+		loader.addClassPath(path1);
+		clzFile = loader.loadClass(className);
 	}
 	@After
 	public void tearDown() throws Exception {
 	}
+
 	@Test
 	public void testClassPath(){
 		ClassFileLoader loader = new ClassFileLoader();
@@ -52,58 +57,21 @@ public class ClassFileLoaderTest {
 			e.printStackTrace();
 		}
 		// 这里断言.class文件的字节数
-		System.out.print(byteCodes.length);
 		Assert.assertEquals(267, byteCodes.length);
 	}
-    @Test	
-	public void testMagicNumber(){
-    	ClassFileLoader loader = new ClassFileLoader();
-		loader.addClassPath(path1);
-		String className = "EmployeeV1";
-		byte[] byteCodes = new byte[0];
-		try {
-			byteCodes = loader.readBinaryCode(className);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		byte[] codes = new byte[]{byteCodes[0],byteCodes[1],byteCodes[2],byteCodes[3]};
-		String acctualValue = this.byteToHexString(codes);
-		Assert.assertEquals("cafebabe", acctualValue);
-	}
-	private String byteToHexString(byte[] codes ){
-		StringBuffer buffer = new StringBuffer();
-		for(int i=0;i<codes.length;i++){
-			byte b = codes[i];
-			int value = b & 0xFF;
-			String strHex = Integer.toHexString(value);
-			if(strHex.length()< 2){
-				strHex = "0" + strHex;
-			}		
-			buffer.append(strHex);
-		}
-		return buffer.toString();
-	}
+
     /**
     * miniJVM第二次作业测试用例
     */
-    static ClassFile clzFile = null;
-	static {
-		ClassFileLoader loader = new ClassFileLoader();
-		loader.addClassPath(path1);
-		String className = "week567_miniJVM.test.EmployeeV1";
-		
-		clzFile = loader.loadClass(className);
-		clzFile.print();
-	}
     @Test
     public void testVersion(){
 		Assert.assertEquals(0, clzFile.getMinorVersion());
-		Assert.assertEquals(52, clzFile.getMajorVersion());
+		Assert.assertEquals(51, clzFile.getMajorVersion());
     }
     @Test
     public void testConstantPool(){
 		ConstantPool pool = clzFile.getConstantPool();
-		Assert.assertEquals(53, pool.getSize());
+		Assert.assertEquals(35, pool.getSize());
 		{
 			ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(1);
 			Assert.assertEquals(2, clzInfo.getUtf8Index());
@@ -153,6 +121,7 @@ public class ClassFileLoaderTest {
 			Assert.assertEquals("EmployeeV1.java", utf8Info.getValue());
 		}
     }
+
     @Test
     public void testClassIndex(){
     	ClassIndex clzIndex = clzFile.getClzIndex();
@@ -225,4 +194,6 @@ public class ClassFileLoaderTest {
 		Assert.assertEquals(expectedDesc, methodDesc);
 		Assert.assertEquals(expectedCode, code);
     }
+
+
 }
