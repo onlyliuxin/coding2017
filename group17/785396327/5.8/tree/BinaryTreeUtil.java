@@ -73,8 +73,16 @@ public class BinaryTreeUtil {
     public static <T> List<T> preOrderWithoutRecursion(BinaryTreeNode<T> root) {
         List<T> result = new ArrayList<T>();
         Stack<BinaryTreeNode<T>> stack = new Stack<BinaryTreeNode<T>>();
-        if (root != null) {
-
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                result.add(root.getData());
+                stack.push(root);
+                root = root.getLeft();
+            }
+            if (!stack.isEmpty()) {
+                root = stack.pop();
+                root = root.getRight();
+            }
         }
         return result;
     }
