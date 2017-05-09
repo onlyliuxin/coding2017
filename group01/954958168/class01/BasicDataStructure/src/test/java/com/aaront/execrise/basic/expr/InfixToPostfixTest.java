@@ -1,4 +1,4 @@
-package com.aaront.execrise.expr;
+package com.aaront.execrise.basic.expr;
 
 import com.aaront.exercise.basic.expr.InfixToPostfix;
 import com.aaront.exercise.basic.expr.PostfixExpr;
