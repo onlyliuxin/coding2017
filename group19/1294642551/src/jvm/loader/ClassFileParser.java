@@ -2,6 +2,8 @@ package jvm.loader;
 
 
 
+import java.io.UnsupportedEncodingException;
+
 import jvm.clz.AccessFlag;
 import jvm.clz.ClassFile;
 import jvm.clz.ClassIndex;
@@ -14,9 +16,13 @@ import jvm.constant.NameAndTypeInfo;
 import jvm.constant.NullConstantInfo;
 import jvm.constant.StringInfo;
 import jvm.constant.UTF8Info;
+import jvm.field.Field;
+import jvm.method.Method;
 
 public class ClassFileParser {
 
+	private ConstantPool constantPool;
+	
 	public ClassFile parse(byte[] codes) {
 
 		
@@ -24,13 +30,10 @@ public class ClassFileParser {
 		ByteCodeIterator iter = new ByteCodeIterator(codes);
 		iter.nextUxToHexString(4);
 		
-		int minorVersion = getMinorVersion(iter);
-		clzFile.setMinorVersion(minorVersion);
+		clzFile.setMinorVersion(iter.nextU2ToInt());
+		clzFile.setMajorVersion(iter.nextU2ToInt());
 		
-		int majorVersion = getMajorVersion(iter);
-		clzFile.setMajorVersion(majorVersion);
-		
-		ConstantPool constantPool = parseConstantPool(iter);
+		this.constantPool = parseConstantPool(iter);
 		clzFile.setConstPool(constantPool);
 		
 		AccessFlag accessFlag = parseAccessFlag(iter);
@@ -39,20 +42,17 @@ public class ClassFileParser {
 		ClassIndex clzIndex = parseClassInfex(iter);
 		clzFile.setClassIndex(clzIndex);
 		
+		parseInterfaces(iter);//接口
+		
+		parseFileds(clzFile, iter);
+		
+		parseMethods(clzFile, iter);
+		
+		
+		
 		return clzFile;
 	}
 	
-	// 次版本号
-	private int getMinorVersion(ByteCodeIterator iter){
-		int minorVersion = iter.nextU2ToInt();
-		return minorVersion;
-	}
-	
-	// 主版本号
-	private int getMajorVersion(ByteCodeIterator iter){
-		int majorVersion = iter.nextU2ToInt();
-		return majorVersion;
-	}
 	
 
 	// 访问标志
@@ -87,13 +87,13 @@ public class ClassFileParser {
 			if(type == 1){
 				UTF8Info utf8Info = new UTF8Info(constantPool);
 				int length = iter.nextU2ToInt();
-				int[] codes = new int[length];
-				StringBuilder sb = new StringBuilder();
-				for(int j = 0; j < length; j++){
-					codes[j] = iter.nextU1toInt();
-					sb.append((char)codes[j]);
+				byte[] data = iter.getBytes(length);
+				String value = null;
+				try {
+					value = new String(data, "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
 				}
-				String value = sb.toString();
 				
 				utf8Info.setLength(length);
 				utf8Info.setValue(value);
@@ -101,38 +101,30 @@ public class ClassFileParser {
 				
 			}else if(type == 7){
 				ClassInfo classInfo = new ClassInfo(constantPool);
-				int utf8Index = iter.nextU2ToInt();
-				classInfo.setUtf8Index(utf8Index);
+				classInfo.setUtf8Index(iter.nextU2ToInt());
 				constantInfo = classInfo;
 				
 			}else if(type == 8){
 				StringInfo stringInfo = new StringInfo(constantPool);
-				int index = iter.nextU2ToInt();
-				stringInfo.setIndex(index);
+				stringInfo.setIndex(iter.nextU2ToInt());
 				constantInfo = stringInfo;
 				
 			}else if(type == 9){
 				FieldRefInfo fieldRefInfo = new FieldRefInfo(constantPool);
-				int classInfoIndex = iter.nextU2ToInt();
-				int nameAndTypeIndex = iter.nextU2ToInt();
-				fieldRefInfo.setClassInfoIndex(classInfoIndex);
-				fieldRefInfo.setNameAndTypeIndex(nameAndTypeIndex);
+				fieldRefInfo.setClassInfoIndex(iter.nextU2ToInt());
+				fieldRefInfo.setNameAndTypeIndex(iter.nextU2ToInt());
 				constantInfo = fieldRefInfo;
 				
 			}else if(type == 10){
 				MethodRefInfo methodRefInfo = new MethodRefInfo(constantPool);
-				int classInfoIndex = iter.nextU2ToInt();
-				int nameAndTypeIndex = iter.nextU2ToInt();
-				methodRefInfo.setClassInfoIndex(classInfoIndex);
-				methodRefInfo.setNameAndTypeIndex(nameAndTypeIndex);
+				methodRefInfo.setClassInfoIndex(iter.nextU2ToInt());
+				methodRefInfo.setNameAndTypeIndex(iter.nextU2ToInt());
 				constantInfo = methodRefInfo;
 				
 			}else if(type == 12){
 				NameAndTypeInfo nameAndTypeInfo = new NameAndTypeInfo(constantPool);
-				int nameIndex = iter.nextU2ToInt();
-				int descIndex = iter.nextU2ToInt();
-				nameAndTypeInfo.setIndex1(nameIndex);
-				nameAndTypeInfo.setIndex2(descIndex);
+				nameAndTypeInfo.setIndex1(iter.nextU2ToInt());
+				nameAndTypeInfo.setIndex2(iter.nextU2ToInt());
 				constantInfo = nameAndTypeInfo;
 				
 			}else{
@@ -145,7 +137,32 @@ public class ClassFileParser {
 		return constantPool;
 	}
 	
+	private void parseInterfaces(ByteCodeIterator iter) {
+		int interfaceCount = iter.nextU2ToInt();
 
+//		System.out.println("interfaceCount:" + interfaceCount);
+
+		// TODO : 如果实现了interface, 这里需要解析
+	}
+
+	private void parseFileds(ClassFile clzFile, ByteCodeIterator iter) {
+		int fieldCount = iter.nextU2ToInt();
+		for(int i = 0; i < fieldCount; i++){
+			Field field = Field.parse(constantPool, iter);
+			clzFile.addField(field);
+		}
+
+	}
+
+	private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
+		int methodCount = iter.nextU2ToInt();
+		for(int i = 0; i < methodCount; i++){
+			Method method = Method.parse(clzFile, iter);
+			clzFile.addMethod(method);
+		}
+		
+
+	}
 	
 	
 }
