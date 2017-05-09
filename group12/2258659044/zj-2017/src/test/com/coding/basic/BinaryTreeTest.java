@@ -23,16 +23,17 @@ public class BinaryTreeTest {
 		tree.insert(1);
 		tree.insert(6);
     }
+	@SuppressWarnings("unchecked")
 	@Test
 	public void insert(){
 		
-		BinaryTreeNode  node = tree.insert(4);
-		Assert.assertEquals(node.getParent().getData(), 2);
-		Assert.assertEquals(node.getParent().getLeft().getData(), 1);
+		BinaryTreeNode<Integer>  node = tree.insert(4);
+		Assert.assertEquals((int)node.getParent().getData(), 2);
+		Assert.assertEquals((int)node.getParent().getLeft().getData(), 1);
 		
-		BinaryTreeNode node2 = tree.insert(8);
-		Assert.assertEquals(node2.getParent().getData(), 7);
-		Assert.assertEquals(node2.getParent().getLeft().getData(), 6);
+		BinaryTreeNode<Integer> node2 = tree.insert(8);
+		Assert.assertEquals((int)node2.getParent().getData(), 7);
+		Assert.assertEquals((int)node2.getParent().getLeft().getData(), 6);
 	}
 	
 	@Test
@@ -40,19 +41,19 @@ public class BinaryTreeTest {
 		
 		insert();
 		//以根节点为起点先序遍历
-		List  treeList = tree.traversalBefore(tree.getRoot());
+		List<Integer>  treeList = tree.traversalBefore(tree.getRoot());
 		//expected value
 		int[] exValue = {5,2,1,4,7,6,8};
 		for (int i = 0; i < exValue.length; i++) {
-			Assert.assertEquals(treeList.get(i),exValue[i]);
+			Assert.assertEquals((int)treeList.get(i),exValue[i]);
 		}
 		
 		//以数据2位起点先序遍历
-		List  treeList2 = tree.traversalBefore(tree.getRoot().getLeft());
+		List<Integer>  treeList2 = tree.traversalBefore(tree.getRoot().getLeft());
 		//expected value
 		int[] exValue2 = {2,1,4};
 		for (int i = 0; i < exValue2.length; i++) {
-			Assert.assertEquals(treeList2.get(i),exValue2[i]);
+			Assert.assertEquals((int)treeList2.get(i),exValue2[i]);
 		}
 	}
 }

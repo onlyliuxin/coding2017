@@ -9,18 +9,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.coderising.jvm.clz.ClassFile;
+
 
 
 public class ClassFileLoader {
 
 	private List<String> clzPaths = new ArrayList<String>();
 	
+	public ClassFileLoader(){
+		
+	}
+	
 	public byte[] readBinaryCode(String className) {
 		String classPath = convertToFilePath(className);
 		File targetFile = null;
 		for(int i = 0; i< clzPaths.size(); i++){
 			String fullPath = clzPaths.get(i)+File.separator+classPath;
-			System.out.println("path: " + fullPath); 
+			//System.out.println("path: " + fullPath); 
 			File temp = new File(fullPath);
 			if(temp.exists()) {
 				targetFile = temp;
@@ -29,10 +35,10 @@ public class ClassFileLoader {
 		}
 		
 		if(targetFile != null){
-			System.out.println("targetFile: " + targetFile.getAbsolutePath());
+			//System.out.println("targetFile: " + targetFile.getAbsolutePath());
 		}
 		long fileLength = targetFile.length();
-		System.out.println("File length: " + fileLength); 
+		//System.out.println("File length: " + fileLength); 
 		byte[] byteArray = new byte[(int)fileLength];
 		FileInputStream is = null;
 		try {
@@ -60,6 +66,14 @@ public class ClassFileLoader {
 		
 		
 	}
+	
+	public ClassFile loadClass(String className){
+		byte[] ba = readBinaryCode(className);
+		ClassFileParser parser = new ClassFileParser();
+		return parser.parse(ba);
+	}
+	
+	
 	
 	private String convertToFilePath(String className){
 		return className.replaceAll("\\.", File.separator) + ".class";
