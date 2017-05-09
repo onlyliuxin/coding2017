@@ -1,6 +1,5 @@
 package com.coding.basic.linklist;
 
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 import org.junit.Test;
@@ -123,43 +122,42 @@ public class LinkedList implements List {
 	 * 
 	 * @return
 	 */
-	public Object removeFirst() {
-		Node node = first;
-		if (node == null)
-			throw new NoSuchElementException();
-		else {
-			Node next = node.next;
-			if (next == null)
-				first = null;
-			else {
-				first = next;
-				first.prev = null;
-			}
-		}
-		size--;
-		return node.data;
+	public Object removeFirst(){
+		final Node f = first;
+	    if (f == null)
+	        throw new NoSuchElementException();
+	    final Object element = f.data;
+        final Node next = f.next;
+        f.data = null;
+        f.next = null; // help GC
+        first = next;
+        if (next == null)
+            last = null;
+        else
+            next.prev = null;
+        size--;
+        return element;
 	}
-
 	/**
 	 * 移除链表最后一个元素
 	 * 
 	 * @return
 	 */
 	public Object removeLast() {
-		Node node = last;
-		if (last == null)
-			throw new NoSuchElementException();
-		else {
-			Node prev = node.prev;
-			if (prev == null)
-				last = null;
-			else {
-				last = prev;
-				last.next = null;
-			}
-		}
-		size--;
-		return node.data;
+		final Node l = last;
+        if (l == null)
+            throw new NoSuchElementException();
+		 final Object element = l.data;
+	        final Node prev = l.prev;
+	        l.data = null;
+	        l.prev = null; 
+	        last = prev;
+	        if (prev == null)
+	            first = null;
+	        else
+	            prev.next = null;
+	        size--;
+	        return element;
 	}
 
 	/**
