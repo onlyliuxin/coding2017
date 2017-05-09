@@ -1,8 +1,9 @@
-package com.coding.basic.stack.expr;
+package com.coding.basic.stack.myself;
 
 import java.util.List;
 import java.util.Stack;
 
+import com.coding.basic.stack.myself.Token;
 
 public class InfixExpr {
 	String expr = null;
@@ -12,47 +13,47 @@ public class InfixExpr {
 	}
 
 	public float evaluate() {
-		
-		
 		TokenParser parser = new TokenParser();
-		List<Token> tokens = parser.parse(this.expr);
+		List<Token> tokens = parser.parse(expr);
 		
 		//存放操作符栈
 		Stack<Token> opStack = new Stack<>();
 		//操作数据值栈
 		Stack<Float> numStack = new Stack<>();
 		
-		for(Token token : tokens){
-			
+		for (Token token:tokens){
+			//当前的token代表的是操作符时
 			if (token.isOperator()){
-				
-				while(!opStack.isEmpty() 
-						&& !token.hasHigherPriority(opStack.peek())){
-					Token prevOperator = opStack.pop();
-					Float f2 = numStack.pop();
-					Float f1 = numStack.pop();
-					Float result = calculate(prevOperator.toString(), f1,f2);
-					numStack.push(result);						
-					
+				//当前操作符栈不为空并且当前操作符并不比栈顶优先级更高
+				while (!opStack.isEmpty()
+						 && !token.hasHigherPriority(opStack.peek())){
+					Token preOperate = opStack.pop();
+					float f2 = numStack.pop();
+					float f1 = numStack.pop();
+					float result = calculate(preOperate.toString(), f1, f2);
+					numStack.push(result);
 				}
 				opStack.push(token);
-			} 
-			if(token.isNumber()){
+			}
+			
+			if (token.isNumber()){
 				numStack.push(new Float(token.getIntValue()));
 			}
+			
+			
 		}
-		
-		while(!opStack.isEmpty()){
+		while (!opStack.isEmpty()){
 			Token token = opStack.pop();
 			Float f2 = numStack.pop();
 			Float f1 = numStack.pop();
 			numStack.push(calculate(token.toString(), f1,f2));
 		}
 		
-		
 		return numStack.pop().floatValue();
+		
 	}
-	private Float calculate(String op, Float f1, Float f2){
+	
+	public float calculate(String op, float f1, float f2){
 		if(op.equals("+")){
 			return f1+f2;
 		}
@@ -67,7 +68,6 @@ public class InfixExpr {
 		}
 		throw new RuntimeException(op + " is not supported");
 	}
-
 	
 	
 }

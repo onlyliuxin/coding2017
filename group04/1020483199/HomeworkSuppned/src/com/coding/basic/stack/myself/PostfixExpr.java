@@ -1,10 +1,10 @@
-package com.coding.basic.stack.expr;
+package com.coding.basic.stack.myself;
 
 import java.util.List;
 import java.util.Stack;
 
 public class PostfixExpr {
-String expr = null;
+	String expr = null;
 	
 	public PostfixExpr(String expr) {
 		this.expr = expr;
@@ -12,24 +12,25 @@ String expr = null;
 
 	public float evaluate() {
 		TokenParser parser = new TokenParser();
-		List<Token> tokens = parser.parse(this.expr);
+		List<Token> tokens = parser.parse(expr);
 		
-		
-		Stack<Float> numStack = new Stack<>();
-		for(Token token : tokens){
-			System.out.println(token+"----");
-			if(token.isNumber()){
+		Stack<Float> numStack = new Stack<Float>();
+		for (Token token:tokens){
+			if (token.isNumber()){
 				numStack.push(new Float(token.getIntValue()));
-			} else{
-				Float f2 = numStack.pop();
-				Float f1 = numStack.pop();
-				numStack.push(calculate(token.toString(),f1,f2));
+			}else{
+				float f2 = numStack.pop();
+				float f1 = numStack.pop();
+				float result = calculate(token.toString(), f1, f2);
+				numStack.push(result);
 			}
+			
+			
 		}
 		return numStack.pop().floatValue();
 	}
 	
-	private Float calculate(String op, Float f1, Float f2){
+	public float calculate(String op, float f1, float f2){
 		if(op.equals("+")){
 			return f1+f2;
 		}
@@ -44,4 +45,5 @@ String expr = null;
 		}
 		throw new RuntimeException(op + " is not supported");
 	}
+	
 }
