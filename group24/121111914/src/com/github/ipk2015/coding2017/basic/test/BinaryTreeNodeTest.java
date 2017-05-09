@@ -5,7 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.ipk2015.coding2017.basic.BinaryTreeNode;
+import com.github.ipk2015.coding2017.basic.tree.BinaryTreeNode1;
+
+
 
 public class BinaryTreeNodeTest {
 
@@ -15,7 +17,7 @@ public class BinaryTreeNodeTest {
 
 	@Test
 	public void testInsert() {
-		BinaryTreeNode node=new BinaryTreeNode();
+		BinaryTreeNode1 node=new BinaryTreeNode1();
 		
 		node.setData(5);
 		node.insert(2);
