@@ -116,6 +116,11 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.10</version>
+        </dependency>
 
 
     </dependencies>

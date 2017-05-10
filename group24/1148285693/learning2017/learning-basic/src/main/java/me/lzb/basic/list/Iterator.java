@@ -1,4 +1,4 @@
-package me.lzb.basic;
+package me.lzb.basic.list;
 
 /**
  * Created by LZB on 2017/3/11.

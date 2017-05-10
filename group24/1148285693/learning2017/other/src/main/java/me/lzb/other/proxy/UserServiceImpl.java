@@ -6,6 +6,6 @@ package me.lzb.other.proxy;
 public class UserServiceImpl implements UserService {
 
     public void add() {
-        System.out.println("--------------------add---------------");
+        System.out.println("--------------------addNode---------------");
     }
 }

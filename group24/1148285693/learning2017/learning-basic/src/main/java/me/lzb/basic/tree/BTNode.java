@@ -1,16 +1,16 @@
-package me.lzb.basic;
+package me.lzb.basic.tree;
 
 /**
  * 左边比父节点小，右边比父节点大
  * Created by LZB on 2017/3/11.
  */
-public class BinaryTreeNode {
+public class BTNode {
 
 	private int data;
-	private BinaryTreeNode left;
-	private BinaryTreeNode right;
+	private BTNode left;
+	private BTNode right;
 
-	public BinaryTreeNode(int data){
+	public BTNode(int data){
 	    this.data = data;
     }
 
@@ -21,7 +21,7 @@ public class BinaryTreeNode {
 
     //这层满了就下一层继续add,直到找到空位
     public void add(int d){
-        BinaryTreeNode b = new BinaryTreeNode(d);
+        BTNode b = new BTNode(d);
         if(compareTo(b)){
             //比父节点小，左边
             if(this.left == null){
@@ -42,7 +42,7 @@ public class BinaryTreeNode {
     }
 
 
-	public boolean compareTo(BinaryTreeNode node){
+	public boolean compareTo(BTNode node){
 		if(this.data > node.getData()){
 			return true;
 		}

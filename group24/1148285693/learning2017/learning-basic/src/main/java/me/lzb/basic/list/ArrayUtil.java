@@ -1,4 +1,4 @@
-package me.lzb.basic;
+package me.lzb.basic.list;
 
 public class ArrayUtil {
 
