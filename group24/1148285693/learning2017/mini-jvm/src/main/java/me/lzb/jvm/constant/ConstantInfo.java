@@ -1,9 +1,12 @@
 package me.lzb.jvm.constant;
 
+import me.lzb.jvm.print.Print;
+import me.lzb.jvm.print.PrintVisitor;
+
 /**
  * Created by LZB on 2017/4/14.
  */
-public abstract class ConstantInfo {
+public abstract class ConstantInfo implements Print {
 
     public static final String MAGIC_NUMBER = "cafebabe";
 
@@ -20,11 +23,10 @@ public abstract class ConstantInfo {
     public static final int Utf8_info = 1;
 
 
-
     protected ConstantPool constantPool;
 
 
-    public ConstantInfo(){
+    public ConstantInfo() {
 
     }
 
@@ -35,10 +37,16 @@ public abstract class ConstantInfo {
     public ConstantPool getConstantPool() {
         return constantPool;
     }
-    public ConstantInfo getConstantInfo(int index){
+
+    public ConstantInfo getConstantInfo(int index) {
         return this.constantPool.getConstantInfo(index);
     }
 
 
     public abstract int getType();
+
+
+    @Override
+    public abstract void print(PrintVisitor visitor);
+
 }

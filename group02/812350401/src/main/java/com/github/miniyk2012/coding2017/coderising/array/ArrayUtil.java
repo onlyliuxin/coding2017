@@ -119,7 +119,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public int[] getPrimes(int max){
-		// TODO 使用筛法,写的不好，有待改善
+		// TODO 使用筛法,写的不好，有待改善,见《敏捷开发》一书，我有空就重构
 		if (max <= 2) return new int[0];
 		List<Integer> list = new ArrayList<>();
 		int i;

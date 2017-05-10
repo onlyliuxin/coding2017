@@ -50,6 +50,10 @@ public class MethodRefInfo extends ConstantInfo {
 		return typeInfo.getTypeInfo();
 	}
 	
-	
+	@Override
+	public void accept(Visistor visitor) {
+		visitor.visitMethodRef(this);
+		
+	}
 	
 }

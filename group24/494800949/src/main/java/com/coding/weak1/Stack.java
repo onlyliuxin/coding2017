@@ -18,6 +18,8 @@ public class Stack {
 	}
 	
 	public Object peek(){
+		if (size() == 0)
+			return null;
 		return elementData.get(elementData.size()-1);
 	}
 	public boolean isEmpty(){

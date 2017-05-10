@@ -1,6 +1,5 @@
 package jvm.classfile;
 
-
 import jvm.classfile.attribute.item.AttributeInfo;
 import jvm.classfile.constant.item.impl.ClassInfo;
 import jvm.classfile.field.Field;
@@ -24,6 +23,10 @@ public class ClassFile {
     List<Method> methods = new ArrayList<>();
     List<AttributeInfo> attributes = new ArrayList<>();
 
+
+    public AccessFlag getAccessFlag() {
+        return accessFlag;
+    }
     public List<ClassInfo> getInterfaces() {
         return this.interfaces;
     }
@@ -45,13 +48,13 @@ public class ClassFile {
         System.out.println("Super Class Name:"+ getSuperClassName());
     }
 
-    private String getClassName() {
+    public String getClassName() {
         int thisClassIndex = this.classIndex.getThisClassIndex();
         ClassInfo thisClass = (ClassInfo)this.getConstantPool().getConstantInfo(thisClassIndex);
         return thisClass.getClassName();
     }
 
-    private String getSuperClassName() {
+    public String getSuperClassName() {
         ClassInfo superClass = (ClassInfo)this.getConstantPool()
                 .getConstantInfo(this.classIndex.getSuperClassIndex());
         return superClass.getClassName();
@@ -71,5 +74,15 @@ public class ClassFile {
 
     public ClassIndex getClzIndex() {
         return classIndex;
+    }
+
+    public Method getMethod(String methodName, String paramAndReturnType) {
+        return methods.stream().filter(m -> methodName.equals(m.getName())
+                && paramAndReturnType.equals(m.getParamAndReturnType()))
+                .findFirst().orElse(null);
+    }
+
+    public Method getMainMethod() {
+        return getMethod("main", "([Ljava/lang/String;)V");
     }
 }

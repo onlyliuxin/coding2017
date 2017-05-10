@@ -318,7 +318,7 @@ public class LinkedList implements List {
 
         LinkedList cList = new LinkedList();
 
-	    // TODO：为了方便起见，先各自复制并去重，虽然效率不高，以后有时间再优化
+	    // 为了方便起见，先各自复制并去重，虽然效率不高，以后有时间再优化
         LinkedList aList = LinkedList.copy(this);
         LinkedList bList = LinkedList.copy(list);
 
