@@ -2,20 +2,10 @@ package structure.week6;
 import java.util.Stack;
 public class StackUtil {
 	
-	public static void bad_reverse(Stack<Integer> s) {
-		if(s == null || s.isEmpty()){
-			return;
-		}
-		Stack<Integer> tmpStack = new Stack();
-		while(!s.isEmpty()){
-			tmpStack.push(s.pop());
-		}
-		s = tmpStack;
-	}
-	
+
     /**
-    * 閸嬪洩顔曢弽鍫滆厬閻ㄥ嫬鍘撶槐鐘虫ЦInteger, 娴犲孩鐖ゆい璺哄煂閺嶅牆绨抽弰锟� 5,4,3,2,1 鐠嬪啰鏁ょ拠銉︽煙濞夋洖鎮楅敍锟介崗鍐濞嗏�绨崣妯硅礋: 1,2,3,4,5
-    * 濞夈劍鍓伴敍姘涧閼虫垝濞囬悽鈯縯ack閻ㄥ嫬鐔�張顒佹惙娴ｆ粣绱濋崡纭僽sh,pop,peek,isEmpty閿涳拷閸欘垯浜掓担璺ㄦ暏閸欙箑顦绘稉锟介嚋閺嶅牊娼垫潏鍛И
+    * 假设栈中的元素是Integer, 从栈顶到栈底是 : 5,4,3,2,1 调用该方法后， 元素次序变为: 1,2,3,4,5
+	* 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
     */
     public static void reverse(Stack<Integer> s){
         if(s == null || s.isEmpty()) return;
@@ -27,22 +17,26 @@ public class StackUtil {
         }
         while(!s1.isEmpty())
             s.push(s1.pop());
+        
         for(int i=0;i<size;i++){
             Integer integer = s.pop();
-            while(s.size()>i)
+            int index = 1;
+            while(index+i<size){
+                index += 1;
                 s1.push(s.pop());
+            }
             s.push(integer);
-            while(s1.size()>0)
+            while(!s1.isEmpty())
                 s.push(s1.pop());
         }
     }
-    // 閫氳繃閫掑綊鍙互涓嶄娇鐢ㄥ爢鏍堝畬鎴愯繖涓�姛鑳�
+    // 原地翻转栈也可以使用递归的方式，就是不好理解
 	public static void reverse2(Stack<Integer> s) {
 		if(s == null || s.isEmpty()){
 			return;
 		}
 		Integer top = s.pop();
-		reverse(s);
+		reverse2(s);
 		addToBottom(s,top);
 	}
 	public static void addToBottom(Stack<Integer> s,  Integer value){
@@ -55,7 +49,7 @@ public class StackUtil {
 		}
 	}
 	/**
-	 * 閸掔娀娅庨弽鍫滆厬閻ㄥ嫭鐓囨稉顏勫帗缁憋拷濞夈劍鍓伴敍姘涧閼虫垝濞囬悽鈯縯ack閻ㄥ嫬鐔�張顒佹惙娴ｆ粣绱濋崡纭僽sh,pop,peek,isEmpty閿涳拷閸欘垯浜掓担璺ㄦ暏閸欙箑顦绘稉锟介嚋閺嶅牊娼垫潏鍛И
+	 * 移出栈中的某个元素，只能使用push,pop,peek,isEmpty这几种操作
 	 * 
 	 * @param o
 	 */
@@ -76,7 +70,7 @@ public class StackUtil {
 	}
 
 	/**
-	 * 娴犲孩鐖ゆい璺哄絿瀵版en娑擃亜鍘撶槐锟�閸樼喐娼甸惃鍕垽娑擃厼鍘撶槐鐘辩箽閹镐椒绗夐崣锟�	 * 濞夈劍鍓伴敍姘涧閼虫垝濞囬悽鈯縯ack閻ㄥ嫬鐔�張顒佹惙娴ｆ粣绱濋崡纭僽sh,pop,peek,isEmpty閿涳拷閸欘垯浜掓担璺ㄦ暏閸欙箑顦绘稉锟介嚋閺嶅牊娼垫潏鍛И
+	 * 获取栈顶的len个元素，只能使用push,pop,peek,isEmpty这几种操作来完成
 	 * @param len
 	 * @return
 	 */
@@ -98,10 +92,10 @@ public class StackUtil {
 		return result;
 	}
 	/**
-	 * 鐎涙顑佹稉鐬�閸欘垵鍏橀崠鍛儓鏉╂瑤绨虹�妤冾儊閿涳拷 ( ) [ ] { }, a,b,c... x,yz
-	 * 娴ｈ法鏁ら崼鍡樼垽濡拷鐓＄�妤冾儊娑撶灚娑擃厾娈戦幏顒�娇閺勵垯绗夐弰顖涘灇鐎电懓鍤悳鎵畱閵嗭拷
-	 * 娓氬顩 = "([e{d}f])" , 閸掓瑨顕氱�妤冾儊娑撹弓鑵戦惃鍕閸欓攱妲搁幋鎰嚠閸戣櫣骞囬敍锟界拠銉︽煙濞夋洝绻戦崶鐎焤ue
-	 * 婵″倹鐏�s = "([b{x]y})", 閸掓瑨顕氱�妤冾儊娑撹弓鑵戦惃鍕閸欒渹绗夐弰顖涘灇鐎电懓鍤悳鎵畱閿涳拷鐠囥儲鏌熷▔鏇＄箲閸ョ�alse;
+	 * 字符串s 可能包含这些字符：  ( ) [ ] { }, a,b,c... x,yz
+	 * 使用堆栈检查字符串s中的括号是不是成对出现的。
+	 * 例如s = "([e{d}f])" , 则该字符串中的括号是成对出现， 该方法返回true
+	 * 如果 s = "([b{x]y})", 则该字符串中的括号不是成对出现的， 该方法返回false;
 	 * @param s
 	 * @return
 	 */

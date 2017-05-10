@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.LinkedList;
+
 import sun.net.www.protocol.http.HttpURLConnection;
 
 public class test {
@@ -15,30 +16,6 @@ public class test {
 	public static String downloadLocation = "C:\\";
 	public static String tempName = "";
 	public static String fileName = "";
-
-	LinkedList a;
-
-	private static void createTempFile1(String from) {
-		long length = 0;
-		URL url = null;
-		HttpURLConnection conn = null;
-		try {
-			url = new URL(from);
-			conn = (HttpURLConnection) url.openConnection();
-			String file = conn.getURL().getFile();
-			fileName = file.substring(file.lastIndexOf('/') + 1);
-			tempName = fileName.substring(0, fileName.lastIndexOf('.') + 1) + "lyj";
-			length = conn.getContentLength();
-			conn.disconnect();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			conn.disconnect();
-		}
-		tempName = downloadLocation + tempName;
-		fileName = downloadLocation + fileName;
-		bufferFile(tempName, length);
-	}
 
 	public static void bufferFile(String name, long len) {
 
@@ -64,6 +41,28 @@ public class test {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private static void createTempFile1(String from) {
+		long length = 0;
+		URL url = null;
+		HttpURLConnection conn = null;
+		try {
+			url = new URL(from);
+			conn = (HttpURLConnection) url.openConnection();
+			String file = conn.getURL().getFile();
+			fileName = file.substring(file.lastIndexOf('/') + 1);
+			tempName = fileName.substring(0, fileName.lastIndexOf('.') + 1) + "lyj";
+			length = conn.getContentLength();
+			conn.disconnect();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			conn.disconnect();
+		}
+		tempName = downloadLocation + tempName;
+		fileName = downloadLocation + fileName;
+		bufferFile(tempName, length);
 	}
 
 	public static void download(String src) {
@@ -95,6 +94,12 @@ public class test {
 
 	}
 
+	public static void main(String[] args) throws IOException {
+
+		download(url2);
+
+	}
+
 	public static boolean rename(String temp) {
 		File file = new File(temp);
 		File f1 = new File(fileName);
@@ -107,10 +112,6 @@ public class test {
 		return false;
 	}
 
-	public static void main(String[] args) throws IOException {
-
-		download(url2);
-
-	}
+	LinkedList a;
 
 }

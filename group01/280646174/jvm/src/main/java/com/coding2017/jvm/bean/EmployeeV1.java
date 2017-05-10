@@ -3,6 +3,7 @@ package com.coding2017.jvm.bean;
 public class EmployeeV1 {
 
     private String name;
+
     private int age;
 
     public EmployeeV1(String name, int age) {

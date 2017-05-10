@@ -98,16 +98,18 @@ public class ClassParser {
     private static void parseMethods(ClassFile classFile, ByteCodeIterator iterator) {
         int count = iterator.nextU2ToInt();
         for (int i = 0; i < count; ++i) {
-            classFile.methods.add(Method.parse(iterator, classFile.constantPool));
+            classFile.methods.add(Method.parse(iterator, classFile));
         }
     }
 
     private static void linkConstantReferences(ClassFile classFile) {
         ConstantPool constantPool = classFile.constantPool;
-        constantPool.forEach(c -> {
-            if (c instanceof IReference) {
-                ((IReference) c).linkReference(constantPool);
-            }
-        });
+        for (int i = 0; i < constantPool.getSize(); ++i) {
+            constantPool.forEach(c -> {
+                if (c instanceof IReference) {
+                    ((IReference) c).linkReference(constantPool);
+                }
+            });
+        }
     }
 }
