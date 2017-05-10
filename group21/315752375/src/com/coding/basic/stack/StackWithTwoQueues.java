@@ -21,6 +21,8 @@ public class StackWithTwoQueues {
     public int pop() {
        return queue1.deQueue();
     }
-
+    public boolean isEmpty() {
+		return queue1.isEmpty();
+	}
     
 }
