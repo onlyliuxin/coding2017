@@ -12,7 +12,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
 	
 	@Override
 	public Connection open(String url) throws ConnectionException {
-		Connection con=new ConnectionImpl();
+		Connection con=new ConnectionImpl(url);
 		
 		try {
 			URL website = new URL(url);

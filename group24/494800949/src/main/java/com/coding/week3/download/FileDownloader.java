@@ -68,7 +68,6 @@ public class FileDownloader {
                 lastLen = fileLength % nThread;
                 perLenOfThread = (fileLength + (nThread - lastLen)) / nThread;
             }
-			//计算
 
 			//启动线程
 			for (int i = 0; i < nThread; i++) {
@@ -87,7 +86,7 @@ public class FileDownloader {
 
 		} catch (ConnectionException e) {
 			e.printStackTrace();
-		}finally{
+		} finally{
 			if(conn != null){
 				conn.close();
 			}

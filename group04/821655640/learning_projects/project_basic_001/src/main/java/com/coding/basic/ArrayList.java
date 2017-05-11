@@ -1,5 +1,7 @@
 package com.coding.basic;
 
+import java.util.concurrent.CyclicBarrier;
+
 /** 
  * @ClassName: ArrayList 
  * @Description: 自增长数组
@@ -116,4 +118,5 @@ public class ArrayList implements List {
 			return true;
 		}
 	}
+	
 }

@@ -54,7 +54,13 @@ public class FileDownloaderTest {
 			}
 		}
 		System.out.println("下载完成！");
-		
+		/**
+		 * 网络资源的大小4812
+			开始读[0,1603]
+			开始读[1604,3207]
+			开始读[3208,4811]
+			下载完成！
+		 */
 		
 
 	}

@@ -2,7 +2,7 @@ package com.johnChnia.coding2017.basic;
 
 import org.junit.Before;
 import org.junit.Test;
-
+import com.johnChnia.coding2017.basic.linklist.LinkedList;
 import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.containsString;
