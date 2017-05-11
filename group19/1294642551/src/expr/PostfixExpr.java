@@ -3,44 +3,27 @@ package expr;
 import java.util.List;
 import java.util.Stack;
 
-public class InfixExpr {
-	String expr = null;
+public class PostfixExpr {
+String expr = null;
 	
-	public InfixExpr(String expr) {
+	public PostfixExpr(String expr) {
 		this.expr = expr;
-		
 	}
 
 	public float evaluate() {
 		List<Token> tokenList = TokenParser.parse(expr);
 		Stack<Token> operatorStack = new Stack<Token>();
 		Stack<Token> valueStack = new Stack<Token>();
-		
 		for(int i = 0; i < tokenList.size(); i++){
 			Token token = tokenList.get(i);
-			if(token.isOperator()){//新元素是操作符
-				if(operatorStack.isEmpty()){
-					operatorStack.push(token);
-				}else{
-					while(!token.hasHigherPriority(operatorStack.peek())){
-						popCompute(operatorStack, valueStack);
-						if(operatorStack.isEmpty()){
-							break;
-						}
-					}
-					operatorStack.push(token);
-				}
-			}else{//新元素是数值
+			if(token.isOperator()){
+				operatorStack.push(token);
+				popCompute(operatorStack, valueStack);
+			}else{
 				valueStack.push(token);
 			}
 			
-			
 		}
-		
-		while(!operatorStack.isEmpty()){
-			popCompute(operatorStack, valueStack);
-		}
-		
 		
 		return valueStack.peek().getFloatValue();
 	}
