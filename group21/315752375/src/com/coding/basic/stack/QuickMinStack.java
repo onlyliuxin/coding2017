@@ -14,22 +14,26 @@ import com.coding.basic.ArrayList;
  */
 public class QuickMinStack {
 	Stack<Integer> stack=new Stack<>();
-	List<Integer> values=new java.util.ArrayList<>();
-	int min=0;
+	Stack<Integer> values=new Stack<>();
+	int min;
+	public boolean isEmpty() {
+		return stack.isEmpty();
+	}
 	public void push(int data){
-		values.add(data);
+		if(stack.isEmpty()){
+			values.push(data);
+		}else{
+			if(data<=values.peek())
+				values.push(data);
+		}
 		stack.push(data);
 	}
 	public int pop(){
-		Integer integer=stack.pop();
-		values.remove(integer);
-		if(integer==min){
-		Collections.sort(values);
-		min=values.get(0);
-		}
-		return stack.pop();
+		int pop=stack.pop();
+		if(pop==values.peek())values.pop();
+		return pop;
 	}
 	public int findMin(){
-		return min;
+		return values.peek();
 	}
 }
