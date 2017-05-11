@@ -1,5 +1,7 @@
 package jvm.attr;
 
+import java.util.Arrays;
+
 import jvm.clz.ClassFile;
 import jvm.cmd.ByteCodeCommand;
 import jvm.cmd.CommandParser;
@@ -12,20 +14,27 @@ public class CodeAttr extends AttributeInfo {
 	private int maxLocals ;
 	private int codeLen ;
 	private String code;
-	public String getCode() {
-		return code;
-	}
-
 	private LineNumberTable lineNumTable;
 	private LocalVariableTable localVarTable;
 	private StackMapTable stackMapTable;
 	
-	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code) {
+	private ByteCodeCommand[] cmds ;
+	
+	public String getCode() {
+		return code;
+	}
+	
+	public ByteCodeCommand[] getCmds() {		
+		return cmds;
+	}
+	
+	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code, ByteCodeCommand[] cmds) {
 		super(attrNameIndex, attrLen);
 		this.maxStack = maxStack;
 		this.maxLocals = maxLocals;
 		this.codeLen = codeLen;
 		this.code = code;
+		this.cmds = cmds;
 	}
 
 	public void setLineNumberTable(LineNumberTable t) {
@@ -45,8 +54,18 @@ public class CodeAttr extends AttributeInfo {
 		int codeLen = iter.nextU4ToInt();
 		String code = iter.nextUxToHexString(codeLen);
 		
-		CodeAttr codeAttr = new CodeAttr(attrNameIndex, attrLen, maxStack, maxLocals, codeLen, code);
+		ByteCodeCommand[] cmds = CommandParser.parse(clzFile, code);
+//		System.out.println(Arrays.toString(cmds));
+		
+		CodeAttr codeAttr = new CodeAttr(attrNameIndex, attrLen, maxStack, maxLocals, codeLen, code, cmds);
+		
 		int exceptionLen = iter.nextU2ToInt();
+		if(exceptionLen>0){
+			String exTable = iter.nextUxToHexString(exceptionLen);
+			System.out.println("Encountered exception table , just ignore it :" + exTable);
+			
+		}
+		
 		int childAttrLen = iter.nextU2ToInt();
 		
 		
@@ -59,6 +78,9 @@ public class CodeAttr extends AttributeInfo {
 			}else if(AttributeInfo.LOCAL_VAR_TABLE.equalsIgnoreCase(childAttrName)){
 				LocalVariableTable localVariableTable = LocalVariableTable.parse(iter);
 				codeAttr.setLocalVariableTable(localVariableTable);
+			}else if (AttributeInfo.STACK_MAP_TABLE.equalsIgnoreCase(childAttrName)){
+				StackMapTable t = StackMapTable.parse(iter);
+				codeAttr.setStackMapTable(t);
 			}else{
 				throw new RuntimeException("code 的子属性 "+ childAttrName+"没有解析");
 			}
@@ -69,11 +91,10 @@ public class CodeAttr extends AttributeInfo {
 
 	public String toString(ConstantPool pool){
 		StringBuilder buffer = new StringBuilder();
-		//buffer.append("Code:").append(code).append("\n");
-//		for(int i=0;i<cmds.length;i++){
-//			buffer.append(cmds[i].toString(pool)).append("\n");
-//		}
-//		buffer.append("\n");
+		for(int i=0;i<cmds.length;i++){
+			buffer.append(cmds[i].toString(pool)).append("\n");
+		}
+		buffer.append("\n");
 		buffer.append(this.lineNumTable.toString());
 		buffer.append(this.localVarTable.toString(pool));
 		return buffer.toString();

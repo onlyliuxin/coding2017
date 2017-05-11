@@ -1,6 +1,7 @@
 package jvm.method;
 
 import jvm.clz.ClassFile;
+import jvm.cmd.ByteCodeCommand;
 import jvm.attr.AttributeInfo;
 import jvm.attr.CodeAttr;
 import jvm.constant.ConstantPool;
@@ -89,6 +90,10 @@ public class Method {
 		
 		return method;
 		
+	}
+	
+	public ByteCodeCommand[] getCmds() {		
+		return this.getCodeAttr().getCmds();
 	}
 
 }
