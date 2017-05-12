@@ -12,6 +12,8 @@ import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.NullConstantInfo;
 import com.coderising.jvm.constant.StringInfo;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
 
 public class ClassFileParser {
 
@@ -35,6 +37,9 @@ public class ClassFileParser {
 		clzFile.setAccessFlag(accFlag);
 		ClassIndex clsIdx =  parseClassIndex(iter);
 		clzFile.setClassIndex(clsIdx);
+		parseInterfaces(iter,pool,clzFile);
+		parseFields(iter, pool, clzFile);
+		parseMethods(iter, pool, clzFile);
 		return clzFile;
 	}
 
@@ -96,6 +101,32 @@ public class ClassFileParser {
 			}
 		}
 		return cp;
+	}
+	
+	private void parseInterfaces(ByteCodeIterator iter, ConstantPool pool, ClassFile clz){
+		int interfaceCount = iter.nextU2AsInt();
+		System.out.println("Total number of interface="+interfaceCount);
+		for(int i=0;i<interfaceCount;i++){
+			System.out.println("Parse Interface="+iter.nextU2AsInt());
+		}
+	}
+
+	private void parseFields(ByteCodeIterator iter, ConstantPool pool, ClassFile clz){
+		int fieldCount = iter.nextU2AsInt();
+		System.out.println("Total number of fields="+fieldCount);
+		for(int i=0;i<fieldCount;i++){
+			Field field = Field.parse(pool, iter);
+			clz.addField(field);
+		}
+	}
+	
+	private void parseMethods(ByteCodeIterator iter, ConstantPool pool, ClassFile clz){
+		int methodCount = iter.nextU2AsInt();
+		System.out.println("Total number of methods="+methodCount);
+		for(int i=0;i<methodCount;i++){
+			Method method = Method.parse(clz,pool, iter);
+			clz.addMethod(method);
+		}
 	}
 
 }
