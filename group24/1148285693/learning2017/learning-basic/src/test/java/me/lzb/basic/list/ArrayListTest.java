@@ -1,7 +1,5 @@
-package me.lzb.basic;
+package me.lzb.basic.list;
 
-import me.lzb.basic.ArrayList;
-import me.lzb.basic.Iterator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
