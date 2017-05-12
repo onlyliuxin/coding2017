@@ -15,7 +15,17 @@ public class ClassInfo extends ConstantInfo {
 	public int getType() {
 		return type;
 	}
-	
+
+	@Override
+	public String typeDescription() {
+		return "Class";
+	}
+
+	@Override
+	public String contentDescription() {
+		return "#" + utf8Index;
+	}
+
 	public String getClassName() {		
 		int index = getUtf8Index();
 		UTF8Info utf8Info = (UTF8Info)constantPool.getConstantInfo(index);

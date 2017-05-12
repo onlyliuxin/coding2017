@@ -7,9 +7,12 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
+        <module>parent-dependencies</module>
+        <module>common</module>
         <module>parent</module>
         <module>coding</module>
         <module>coderising</module>
     </modules>
+
 
 </project>

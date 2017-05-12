@@ -1,6 +1,8 @@
 package com.coderising.jvm.constant;
 
-public class FloatRefInfo extends ClassInfo{
+import com.coderising.jvm.print.ConstantPoolPrinterInterface;
+
+public class FloatRefInfo extends ConstantInfo{
 
 	public FloatRefInfo(ConstantPool pool) {
 		super(pool);
@@ -11,5 +13,12 @@ public class FloatRefInfo extends ClassInfo{
 		return ConstantInfo.FLOAT_INFO;
 	}
 	
+	public float getFloat(){
+		return Float.NaN;
+	}
+	
+	public void print(ConstantPoolPrinterInterface cpp){
+		cpp.printFloatInfo(this);
+	}
 
 }

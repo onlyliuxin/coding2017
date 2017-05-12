@@ -1,5 +1,7 @@
 package com.coderising.jvm.constant;
 
+import com.coderising.jvm.print.ConstantPoolPrinterInterface;
+
 public class StringInfo extends ConstantInfo{
 	private int type = ConstantInfo.STRING_INFO;
 	private int index;
@@ -21,6 +23,11 @@ public class StringInfo extends ConstantInfo{
 	
 	public String toString(){
 		return this.getConstantPool().getUTF8String(index);
+	}
+
+	@Override
+	public void print(ConstantPoolPrinterInterface cpp) {
+		cpp.printStringInfo(this);
 	}
 	
 }
