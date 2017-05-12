@@ -1,7 +1,10 @@
 package minijvm.cmd;
 
 import minijvm.clz.ClassFile;
-import minijvm.constant.ConstantPool;
+import minijvm.constant.FieldRefInfo;
+import minijvm.engine.ExecutionResult;
+import minijvm.engine.JavaObject;
+import minijvm.engine.StackFrame;
 
 public class GetFieldCmd extends TwoOperandCmd {
 
@@ -10,10 +13,19 @@ public class GetFieldCmd extends TwoOperandCmd {
 	}
 
 	@Override
-	public String toString(ConstantPool pool) {
+	public String toString() {
 		
-		return super.getOperandAsField(pool);
+		return super.getOperandAsField();
 	}
+
+    @Override
+    public void execute(StackFrame frame, ExecutionResult result) {
+        FieldRefInfo fieldRefInfo = (FieldRefInfo) this.getConstantInfo(this.getIndex());
+        String fieldName = fieldRefInfo.getFieldName();
+        JavaObject jo = frame.getOprandStack().pop();
+        JavaObject fieldValue = jo.getFieldValue(fieldName);
+        frame.getOprandStack().push(fieldValue);
+    }
 
 	
 	

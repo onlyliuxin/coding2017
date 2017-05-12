@@ -3,6 +3,7 @@ package com.github.wdn.coding2017.jvm.loader;
 
 import com.github.wdn.coding2017.jvm.util.Util;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 
 public class ByteCodeIterator {
@@ -31,12 +32,15 @@ public class ByteCodeIterator {
     public String readU4ToString(){
         return Util.byteToHexString(new byte[]{bytes[index++],bytes[index++],bytes[index++],bytes[index++]});
     }
+    public void back(int back){
+        index -=back;
+    }
     public String readCustomToString(int len){
-        byte[] b = new byte[len];
+        byte[] tmp = new byte[len];
+
         for (int i = 0; i < len; i++) {
-            b[i] = bytes[index++];
+            tmp[i] = bytes[index++];
         }
-        return new String(b);
-        //return Util.byteToHexString(b);
+        return Util.byteToHexString(tmp);
     }
 }

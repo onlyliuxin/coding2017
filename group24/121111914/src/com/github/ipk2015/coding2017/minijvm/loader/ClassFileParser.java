@@ -164,7 +164,7 @@ public class ClassFileParser {
 	private void parseInterfaces(ByteCodeIterator iter) {
 		int interfaceCount = iter.nextUNToInt(2);
 
-		System.out.println("interfaceCount:" + interfaceCount);
+//		System.out.println("interfaceCount:" + interfaceCount);
 
 		// TODO : 如果实现了interface, 这里需要解析
 	}

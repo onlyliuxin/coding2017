@@ -22,8 +22,9 @@ public class ClassFileLoader {
 	 *  @×Ö½ÚÊý×é
 	 */
 	public byte[] readBinaryCode(String className) throws IOException{
+		System.out.println("className: " + className);
 		DataInputStream dis = new DataInputStream(
-				new BufferedInputStream(new FileInputStream(className)));
+				new BufferedInputStream(new FileInputStream("D://EmployeeV1.class")));
 		for(int i = 0; dis.available() != 0; i++){
 			a[i] = dis.readByte();
 			countForReadBinaryCode++;

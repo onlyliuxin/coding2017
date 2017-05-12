@@ -3,12 +3,12 @@ package com.coderising.download.impl;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 
 import com.coderising.download.api.Connection;
 import com.coderising.download.api.ConnectionManager;
 
-import sun.net.www.protocol.http.HttpURLConnection;
 
 public class ConnectionImpl implements Connection {
 

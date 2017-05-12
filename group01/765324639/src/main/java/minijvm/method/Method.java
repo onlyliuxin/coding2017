@@ -1,5 +1,10 @@
 package minijvm.method;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+
 import minijvm.attr.CodeAttr;
 import minijvm.clz.ClassFile;
 import minijvm.cmd.ByteCodeCommand;
@@ -74,5 +79,47 @@ public class Method {
 
     public ByteCodeCommand[] getCmds() {        
         return this.getCodeAttr().getCmds();
+    }
+    
+    private String getParamAndReturnType() {
+        UTF8Info nameAndTypeInfo = (UTF8Info)this.getClzFile().getConstantPool().getConstantInfo(this.getDescriptorIndex());
+        return nameAndTypeInfo.getValue();
+    }
+
+    public List<String> getParameterList() {
+        String paramAndType = getParamAndReturnType();
+        
+        // 获取参数和返回类型中的参数部分
+        int first = paramAndType.indexOf("(");
+        int last = paramAndType.lastIndexOf(")");
+        String param = paramAndType.substring(first + 1, last);
+        
+        List<String> paramList = new ArrayList<>();
+        if (StringUtils.isEmpty(param)) {
+            return paramList;
+        }
+        
+        while (!"".equals(param)) {
+            int pos = 0;
+            // 对象类型（以'L'开头，以';'结尾）
+            if (param.charAt(pos) == 'L') {
+                int end = param.indexOf(";");
+                if (end == -1) {
+                    throw new RuntimeException("对象类型没有以;结尾");
+                }
+                paramList.add(param.substring(pos + 1, end));
+                pos = end + 1;
+            } else if (param.charAt(pos) == 'I') { // int类型
+                paramList.add("I");
+                pos++;
+            } else if (param.charAt(pos) == 'F') { // float类型
+                paramList.add("F");
+                pos++;
+            } else {
+                throw new RuntimeException("这个参数类型还没有实现" + param.charAt(pos));
+            }
+            param = param.substring(pos);
+        }
+        return paramList;
     }
 }

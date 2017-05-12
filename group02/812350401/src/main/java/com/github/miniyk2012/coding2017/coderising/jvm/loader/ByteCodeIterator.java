@@ -11,7 +11,7 @@ public class ByteCodeIterator {
     private int point = 0;
 
     public ByteCodeIterator(byte[] codes) {
-        this.codes = codes;
+        this.codes = codes.clone();
     }
 
     public int nextU1toInt() {
@@ -24,6 +24,10 @@ public class ByteCodeIterator {
         return Util.byteToInt(u2);
     }
 
+    public int nextU4toInt() {
+        return Util.byteToInt(new byte[] { codes[point++], codes[point++], codes[point++], codes[point++] });
+    }
+
     /**
      * 读取n个字节，并编码成UTF-8输出，point自动增加
      * @param n
@@ -31,6 +35,10 @@ public class ByteCodeIterator {
      */
     public String readUtf8(int n)
     {
+        if (point + n >= codes.length) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+
         byte[] info = Arrays.copyOfRange(codes, point, point+n);
         String utf8;
         try {
@@ -61,6 +69,20 @@ public class ByteCodeIterator {
     public void seek(int n) {
         if (n >= codes.length || n < 0) throw new IndexOutOfBoundsException();
         point = n;
+    }
+
+    public String nextU4ToHexString() {
+        return Util.byteToHexString((new byte[] { codes[point++], codes[point++], codes[point++], codes[point++] }));
+    }
+
+    public String nextUxToHexString(int len) {
+        byte[] tmp = new byte[len];
+
+        for (int i = 0; i < len; i++) {
+            tmp[i] = codes[point++];
+        }
+        return Util.byteToHexString(tmp).toLowerCase();
+
     }
 
     public static void main(String[] args) throws UnsupportedEncodingException {
