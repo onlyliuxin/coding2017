@@ -13,13 +13,8 @@ public class InfixToPostfix {
 		for(int i = 0; i < inList.size(); i++){
 			Token token = inList.get(i);
 			if(token.isOperator()){
-				if(!operatorStack.isEmpty()){
-					while(!token.hasHigherPriority(operatorStack.peek())){
-						postList.add(operatorStack.pop());
-						if(operatorStack.isEmpty()){
-							break;
-						}
-					}
+				while(!operatorStack.isEmpty() && !token.hasHigherPriority(operatorStack.peek())){
+					postList.add(operatorStack.pop());
 				}
 				operatorStack.add(token);
 

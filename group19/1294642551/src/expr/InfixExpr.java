@@ -22,11 +22,8 @@ public class InfixExpr {
 				if(operatorStack.isEmpty()){
 					operatorStack.push(token);
 				}else{
-					while(!token.hasHigherPriority(operatorStack.peek())){
+					while(!operatorStack.isEmpty() && !token.hasHigherPriority(operatorStack.peek())){
 						popCompute(operatorStack, valueStack);
-						if(operatorStack.isEmpty()){
-							break;
-						}
 					}
 					operatorStack.push(token);
 				}
