@@ -148,7 +148,7 @@ public class ClassFileParser {
 	private void parseFileds(ClassFile clzFile, ByteCodeIterator iter) {
 		int fieldCount = iter.nextU2ToInt();
 		for(int i = 0; i < fieldCount; i++){
-			Field field = Field.parse(constantPool, iter);
+			Field field = Field.parse(clzFile.getConstantPool(), iter);
 			clzFile.addField(field);
 		}
 
