@@ -44,11 +44,5 @@ public class InfixExprTest {
 		}
 		
 	}
-	@Test
-	public void test0001() {
-		InfixExpr expr = new InfixExpr("2+3*4+5");
-		String s = "23+3*4+5";
-		new TokenParser().parse(s);
-	}
 
 }
