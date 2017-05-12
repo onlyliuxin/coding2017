@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantPool;
+import com.coderising.jvm.constant.MethodRefInfo;
 import com.coderising.jvm.constant.UTF8Info;
 import com.coderising.jvm.field.Field;
 import com.coderising.jvm.method.Method;
@@ -134,19 +135,20 @@ public class ClassFile {
 		
 		return null;
 	}
+	
 	public Method getMainMethod(){
 		
-		for (Method m : methods) {
-			
-			int nameIndex = m.getNameIndex();
-			int descriptorIndex= m.getDescriptorIndex();
-			String name = ((UTF8Info)pool.getConstantInfo(nameIndex)).getValue();
-			String desc = ((UTF8Info)pool.getConstantInfo(descriptorIndex)).getValue();
-			if (name.equals("main") && desc.equals("([Ljava/lang/String;)V")) {
-				return m;
-			}		
-		}
-		
-		return null;
+		return getMethod("main", "([Ljava/lang/String;)V");
+
 	}
+	
+	public Method getMethod(MethodRefInfo methodRef){
+
+		String methodName = methodRef.getMethodName();
+		String paramAndReturnType = methodRef.getParamAndReturnType();
+	
+		return getMethod(methodName, paramAndReturnType);
+
+	}
+
 }
