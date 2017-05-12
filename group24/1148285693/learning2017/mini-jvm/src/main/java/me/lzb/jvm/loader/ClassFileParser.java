@@ -185,32 +185,29 @@ public class ClassFileParser {
     private void parserField(ClassFile classFile) {
         int count = nextBytesToInt(2);
         for (int i = 1; i <= count; i++) {
+
             int accessFlags = nextBytesToInt(2);
             int nameIndex = nextBytesToInt(2);
             int descriptorIndex = nextBytesToInt(2);
             int attributesCount = nextBytesToInt(2);
 
-            Field field = new Field(accessFlags, nameIndex, descriptorIndex, classFile.getConstantPool());
+            Field f = new Field(accessFlags, nameIndex, descriptorIndex, classFile.getConstantPool());
 
-
-            for (int j = 1; j < attributesCount; j++) {
-
+            for (int j = 1; j <= attributesCount; j++) {
                 int attrNameIndex = nextBytesToInt(2);
                 String attrName = classFile.getConstantPool().getUTF8String(attrNameIndex);
 
-
                 if (AttributeInfo.CONST_VALUE.equals(attrName)) {
                     int attrLen = nextBytesToInt(4);
-                    int attrValueIndex = nextBytesToInt(2);
-                    ConstantValue constantValue = new ConstantValue(attrNameIndex, attrLen, attrValueIndex, classFile.getConstantPool());
-                    field.setConstantValue(constantValue);
+                    ConstantValue constValue = new ConstantValue(attrNameIndex, attrLen);
+                    constValue.setConstValueIndex(nextBytesToInt(2));
+                    f.setConstantValue(constValue);
                 } else {
-                    throw new RuntimeException("The field attribute  " + attrName + " has not been implement");
+                    throw new RuntimeException("the attribute " + attrName + " has not been implemented yet.");
                 }
             }
 
-
-            classFile.addField(field);
+            classFile.addField(f);
         }
     }
 

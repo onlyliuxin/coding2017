@@ -21,7 +21,7 @@ public class ComparisonCmd extends TwoOperandCmd {
     @Override
     public void execute(StackFrame frame, ExecutionResult result) {
 
-        if (ByteCodeCommand.if_icmp_ge.equals(this.getOpCode())) {
+        if (ByteCodeCommand.if_icmpge.equals(this.getOpCode())) {
             JavaObject jo2 = frame.getOprandStack().pop();
             JavaObject jo1 = frame.getOprandStack().pop();
 
@@ -38,6 +38,13 @@ public class ComparisonCmd extends TwoOperandCmd {
                 setJumpResult(result);
             }
 
+        } else if (ByteCodeCommand.if_icmpgt.equals(this.getOpCode())) {
+            JavaObject jo2 = frame.getOprandStack().pop();
+            JavaObject jo1 = frame.getOprandStack().pop();
+
+            if (jo1.getIntValue() > jo2.getIntValue()) {
+                setJumpResult(result);
+            }
         } else if (ByteCodeCommand.goto_no_condition.equals(this.opCode)) {
             setJumpResult(result);
         }
@@ -56,8 +63,12 @@ public class ComparisonCmd extends TwoOperandCmd {
     }
 
     private int getOffsetFromStartCmd() {
-        //TODO getOffsetFromStartCmd
-        return 0;
+//      如果比较结果为真，那无符号 byte 型数据 branchbyte1 和 branchbyte2 用于构建一个 16 位有符号的分支偏移量，构建方式为（branchbyte1 << 8）| branchbyte2。
+//      指令执行后，程序将会转到这个 if_acmp<cond>指令之后的，由上述偏移量确定的目标地址上继续执行。这个目标地址必须处于if_acmp<cond>指令所在的方法之中。
+        int index1 = this.getOprand1();
+        int index2 = this.getOprand2();
+        short offsetFromCurrent = (short) (index1 << 8 | index2);
+        return this.getOffset() + offsetFromCurrent;
     }
 
     public int getGoOffset() {

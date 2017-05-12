@@ -1,27 +1,24 @@
 package me.lzb.jvm.attr;
 
-import me.lzb.jvm.constant.ConstantPool;
-
 /**
  * @author LZB
  * @date 2017/5/12
  */
-public class ConstantValue {
-    //U2
-    private int attributeNameIndex;
-    //U4
-    private int attributeLength;
+public class ConstantValue extends AttributeInfo {
 
-    //U2
-    private int constantvalueIndex;
+    private int constValueIndex;
 
-    private ConstantPool pool;
-
-    public ConstantValue(int attributeNameIndex, int attributeLength, int constantvalueIndex, ConstantPool pool){
-        this.attributeNameIndex = attributeNameIndex;
-        this.attributeLength = attributeLength;
-        this.constantvalueIndex = constantvalueIndex;
-        this.pool = pool;
+    public ConstantValue(int attrNameIndex, int attrLen) {
+        super(attrNameIndex, attrLen);
     }
+
+    public int getConstValueIndex() {
+        return constValueIndex;
+    }
+
+    public void setConstValueIndex(int constValueIndex) {
+        this.constValueIndex = constValueIndex;
+    }
+
 
 }

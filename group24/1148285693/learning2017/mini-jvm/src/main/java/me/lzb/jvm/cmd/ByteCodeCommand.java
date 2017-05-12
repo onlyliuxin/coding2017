@@ -43,7 +43,8 @@ public abstract class ByteCodeCommand {
     public static final String freturn = "AE";
 
     public static final String astore_1 = "4C";
-    public static final String if_icmp_ge = "A2";
+    public static final String if_icmpge = "A2";
+    public static final String if_icmpgt = "A3";
     public static final String if_icmple = "A4";
     public static final String goto_no_condition = "A7";
     public static final String iconst_0 = "03";
@@ -89,9 +90,9 @@ public abstract class ByteCodeCommand {
         codeMap.put(fload_2, "fload_2");
         codeMap.put(astore_1, "astore_1");
 
-        codeMap.put(if_icmp_ge, "if_icmp_ge");
+        codeMap.put(if_icmpge, "if_icmpge");
         codeMap.put(if_icmple, "if_icmple");
-
+        codeMap.put(if_icmpgt, "if_icmpgt");
         codeMap.put("A7", "goto");
 
         codeMap.put("B1", "return");

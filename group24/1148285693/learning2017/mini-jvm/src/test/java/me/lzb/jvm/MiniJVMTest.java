@@ -25,4 +25,20 @@ public class MiniJVMTest {
 
 	}
 
+    @Test
+    public void testMainV2() throws Exception{
+        String[] classPaths = {PATH};
+        MiniJVM jvm = new MiniJVM();
+        jvm.run(classPaths, "me.lzb.jvm.EmployeeV2");
+
+    }
+
+    @Test
+    public void testMainHE() throws Exception{
+        String[] classPaths = {PATH};
+        MiniJVM jvm = new MiniJVM();
+        jvm.run(classPaths, "me.lzb.jvm.HourlyEmployee");
+
+    }
+
 }

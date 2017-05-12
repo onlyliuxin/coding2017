@@ -5,6 +5,6 @@ package me.lzb.jvm.print;
  */
 public interface Print {
 
-    public void print(PrintVisitor visitor);
+    void print(PrintVisitor visitor);
 
 }

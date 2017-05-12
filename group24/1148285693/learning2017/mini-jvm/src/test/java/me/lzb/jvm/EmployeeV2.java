@@ -40,7 +40,7 @@ public class EmployeeV2 {
     public void testAdd() {
         int sum = 0;
 
-        for (int i = 1; i <= 100; ++i) {
+        for (int i = 1; i <= 10; ++i) {
             sum += i;
         }
 

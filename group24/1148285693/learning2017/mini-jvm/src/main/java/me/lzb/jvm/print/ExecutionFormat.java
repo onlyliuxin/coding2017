@@ -83,10 +83,19 @@ public class ExecutionFormat implements ExecutionVisitor {
         exFile(cmd);
     }
 
+
     @Override
     public void visitComparisonCmd(ComparisonCmd cmd) {
+        //TODO 执行输出格式
         String codeTxt = cmd.getReadableCodeText();
         System.out.println(getOffset(cmd.getOffset()) + ":" + cmd.getOpCode() + " " + StringUtils.appendSpace(one, codeTxt) + cmd.getGoOffset());
+    }
+
+    @Override
+    public void visitIncrementCmd(IncrementCmd cmd) {
+        //TODO 执行输出格式
+        String codeTxt = cmd.getReadableCodeText();
+        System.out.println(getOffset(cmd.getOffset()) + ":" + cmd.getOpCode() + " " + StringUtils.appendSpace(one, codeTxt));
     }
 
 
