@@ -6,7 +6,7 @@ import com.jvm.constant.ClassInfo;
 import com.jvm.constant.ConstantPool;
 
 
-public class ClassField {
+public class ClassFile {
 
 	private int minorVersion;
 	

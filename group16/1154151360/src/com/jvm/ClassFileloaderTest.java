@@ -10,12 +10,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.jvm.clz.ClassFile;
+import com.jvm.constant.ConstantPool;
+
 public class ClassFileloaderTest {
 
 	static String path1 = "H:\\GitHub2\\coding2017\\group16\\1154151360\\bin\\";
 	static String path2 = "C:\temp";
 	
-	
+	ClassFile clazFile = null;
 	
 	@Before
 	public void setUp() throws Exception {		 
@@ -96,5 +99,11 @@ public class ClassFileloaderTest {
 		
 		System.out.println("minorVersion: "+minorVersion );
 		System.out.println("majorVersion: "+majorVersion );
+	}
+	
+	@Test
+	public void testConstantPool(){
+		ConstantPool pool = clazFile.getConstantPool();
+		
 	}
 }
