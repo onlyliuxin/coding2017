@@ -190,11 +190,26 @@ public class ClassFileParser {
             int descriptorIndex = nextBytesToInt(2);
             int attributesCount = nextBytesToInt(2);
 
-            if (attributesCount > 0) {
-                throw new RuntimeException("Field Attribute has not been implement");
+            Field field = new Field(accessFlags, nameIndex, descriptorIndex, classFile.getConstantPool());
+
+
+            for (int j = 1; j < attributesCount; j++) {
+
+                int attrNameIndex = nextBytesToInt(2);
+                String attrName = classFile.getConstantPool().getUTF8String(attrNameIndex);
+
+
+                if (AttributeInfo.CONST_VALUE.equals(attrName)) {
+                    int attrLen = nextBytesToInt(4);
+                    int attrValueIndex = nextBytesToInt(2);
+                    ConstantValue constantValue = new ConstantValue(attrNameIndex, attrLen, attrValueIndex, classFile.getConstantPool());
+                    field.setConstantValue(constantValue);
+                } else {
+                    throw new RuntimeException("The field attribute  " + attrName + " has not been implement");
+                }
             }
 
-            Field field = new Field(accessFlags, nameIndex, descriptorIndex, classFile.getConstantPool());
+
             classFile.addField(field);
         }
     }

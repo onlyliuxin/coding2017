@@ -22,7 +22,7 @@ public class ExecutionFormat implements ExecutionVisitor {
         return format;
     }
 
-    private ExecutionFormat(){
+    private ExecutionFormat() {
 
     }
 
@@ -81,6 +81,12 @@ public class ExecutionFormat implements ExecutionVisitor {
     @Override
     public void visitPutFieldCmd(PutFieldCmd cmd) {
         exFile(cmd);
+    }
+
+    @Override
+    public void visitComparisonCmd(ComparisonCmd cmd) {
+        String codeTxt = cmd.getReadableCodeText();
+        System.out.println(getOffset(cmd.getOffset()) + ":" + cmd.getOpCode() + " " + StringUtils.appendSpace(one, codeTxt) + cmd.getGoOffset());
     }
 
 

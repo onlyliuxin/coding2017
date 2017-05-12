@@ -25,5 +25,5 @@ public interface ExecutionVisitor {
 
     void visitPutFieldCmd(PutFieldCmd cmd);
 
-
+    void visitComparisonCmd(ComparisonCmd cmd);
 }

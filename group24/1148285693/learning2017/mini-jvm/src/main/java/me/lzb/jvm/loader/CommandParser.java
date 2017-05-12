@@ -104,6 +104,12 @@ public class CommandParser {
                 BiPushCmd cmd = new BiPushCmd(clzFile, opCode);
                 cmd.setOperand(next2CharAsInt());
                 cmds.add(cmd);
+            } else if (ByteCodeCommand.if_icmp_ge.equals(opCode)
+                || ByteCodeCommand.if_icmple.equals(opCode)
+                || ByteCodeCommand.goto_no_condition.equals(opCode)) {
+
+            } else if (ByteCodeCommand.iinc.equals(opCode)) {
+
             } else if (ByteCodeCommand.dup.equals(opCode)
                 || ByteCodeCommand.aload_0.equals(opCode)
                 || ByteCodeCommand.aload_1.equals(opCode)

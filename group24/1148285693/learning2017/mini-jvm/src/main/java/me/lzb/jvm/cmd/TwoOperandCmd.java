@@ -59,4 +59,7 @@ public abstract class TwoOperandCmd extends ByteCodeCommand {
     public int getLength() {
         return 3;
     }
+
+
+
 }
