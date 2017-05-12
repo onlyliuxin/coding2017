@@ -1,10 +1,14 @@
 package com.github.orajavac.coding2017.basic;
 
-public class BinaryTreeNode {
+public class BinaryTreeNode<T> {
 	
 	private Object data;
 	private BinaryTreeNode left;
 	private BinaryTreeNode right;
+
+	public BinaryTreeNode(Integer i){
+		data = i;
+	}
 	
 	public Object getData() {
 		return data;
