@@ -12,11 +12,6 @@
         <relativePath>../parent-dependencies/pom.xml</relativePath>
     </parent>
 
-    <modules>
-        <module>../coding</module>
-        <module>../coderising</module>
-    </modules>
-
     <dependencies>
         <dependency>
             <groupId>com.coding</groupId>

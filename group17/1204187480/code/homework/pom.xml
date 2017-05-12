@@ -10,6 +10,9 @@
         <module>parent-dependencies</module>
         <module>common</module>
         <module>parent</module>
+        <module>coding</module>
+        <module>coderising</module>
     </modules>
+
 
 </project>

@@ -15,5 +15,7 @@ public class ByteUtilsTest {
         };
         System.out.println(ByteUtils.byteToHexString(bytes));
         System.out.println(Integer.toHexString(255));
+        throw new IllegalStateException();
     }
+
 }
