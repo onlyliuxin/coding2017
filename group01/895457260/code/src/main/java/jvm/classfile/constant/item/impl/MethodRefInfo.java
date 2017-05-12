@@ -49,4 +49,16 @@ public class MethodRefInfo implements Constant, IReference {
         className = ((ClassInfo) constantPool.getConstantInfo(classIndex)).getClassName();
         nameAndType = ((NameAndTypeInfo) constantPool.getConstantInfo(nameAndTypeIndex)).getNameAndType();
     }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public String getName() {
+        return nameAndType.substring(0, nameAndType.indexOf(':'));
+    }
+
+    public String getParamAndReturnType() {
+        return nameAndType.substring(nameAndType.indexOf(':') + 1);
+    }
 }
