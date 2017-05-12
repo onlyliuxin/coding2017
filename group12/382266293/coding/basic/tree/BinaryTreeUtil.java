@@ -11,7 +11,6 @@ public class BinaryTreeUtil {
 	 * @param root
 	 * @return
 	 */
-
 	public static <T> List<T> preOrderVisit(BinaryTreeNode<T> root) {
 
 		List<T> result = new ArrayList<T>();
