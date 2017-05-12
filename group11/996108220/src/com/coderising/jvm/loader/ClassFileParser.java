@@ -57,7 +57,9 @@ public class ClassFileParser {
 		int maxStack=iter.nextU2ToInt();
 		int maxLocals=iter.nextU2ToInt();
 		int codeLen=iter.nextU4ToInt();
-		String code=iter.getByte(codeLen).toString();
+		byte[] codes=iter.getByte(codeLen);
+		
+		String code=Util.byteToHexString(codes);
 		CodeAttr codeAttr=new CodeAttr(attrNameIndex, attrLen, maxStack, maxLocals, codeLen, code);
 		int exceptionLength=iter.nextU2ToInt();
 		int count=iter.nextU2ToInt();

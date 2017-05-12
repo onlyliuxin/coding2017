@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.coding.basic.stack.expr.InfixExpr;
+
 public class StackUtilTest {
 	Stack s;
 	@Before
