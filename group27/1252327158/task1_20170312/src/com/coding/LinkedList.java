@@ -183,7 +183,16 @@ public class LinkedList<T> implements List<T> {
 	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
 	public  void reverse(){
-
+		if (size <= 1) {
+			 return;
+		 }
+		 Node<T> node = head;
+		 while (node.next != null) {
+			 Node<T> temp = node.next;
+			 node.next = temp.next;
+			 temp.next = head;
+			 head = temp;
+		 }
 	}
 
 	/**
@@ -193,7 +202,11 @@ public class LinkedList<T> implements List<T> {
 
 	 */
 	public  void removeFirstHalf(){
-
+		if (size < 2) {
+			return;
+		}
+		int delSize = (int)Math.floor(size/2);
+		remove(0, delSize);
 	}
 
 	/**
@@ -202,8 +215,31 @@ public class LinkedList<T> implements List<T> {
 	 * @param length
 	 */
 	public  void remove(int i, int length){
-
+		if (i < 0 || i >= size || length < 0 || i + length > size) {
+			throw new IndexOutOfBoundsException();
+		}
+		if (i == 0) {
+			head = removeStartWith(head, length);
+			return;
+		}
+		Node beforeStart = head;      //被删除元素的前一个
+		for (int index = 1; index < i; index++) {
+			beforeStart = beforeStart.next;
+		}
+        beforeStart.next = removeStartWith(beforeStart.next, length);
 	}
+
+	private Node<T> removeStartWith(Node<T> startNode, int length) {
+		Node<T> node = null;
+		for (int index = 1; index <= length; index++) {
+			node = startNode;
+			startNode = startNode.next;
+			node.next = null;
+			size--;
+		}
+		return startNode;
+	}
+
 	/**
 	 * 假定当前链表和list均包含已升序排列的整数
 	 * 从当前链表中取出那些list所指定的元素
@@ -212,8 +248,29 @@ public class LinkedList<T> implements List<T> {
 	 * 返回的结果应该是[101,301,401,601]
 	 * @param list
 	 */
-	public static int[] getElements(LinkedList list){
-		return null;
+	public int[] getElements(LinkedList list){
+		if (size == 0 || list == null || list.size == 0) {
+			return new int[0];
+		}
+		int[] result = new int[list.size];
+		Node node = head;
+		int index = 0;
+		int resultIndex = 0;
+		for (int i = 0; i < size; i++ ) {
+			int listData = ((Integer)list.get(index)).intValue();
+			if ( listData >= size) {
+				throw new IndexOutOfBoundsException();
+			}
+			if (i == listData) {
+				result[resultIndex++] = ((Integer)node.data).intValue();
+				index++;
+			}
+           	if (index == list.size || listData == size) {
+				break;
+			}
+			node = node.next;
+		}
+		return result;
 	}
 
 	/**
@@ -224,7 +281,35 @@ public class LinkedList<T> implements List<T> {
 	 */
 
 	public  void subtract(LinkedList list){
-
+        if (list == null || list.size() == 0) {
+            return;
+        }
+        Node node = head;
+        Node beforeNode = null;
+        Node temp = null;
+        int j = 0;    //参数list索引
+		for (;node != null && j < list.size() ;) {
+            int paradata = ((Integer)list.get(j)).intValue();
+            int data = ((Integer)node.data).intValue();
+            if (data == paradata) {
+                j++;
+                size--;
+                temp = node;
+                if (beforeNode == null) {
+                    head = node.next;
+                    node = node.next;
+                } else {;
+                    beforeNode.next = node.next;
+                    node = node.next;
+                }
+                temp.next = null;
+            } else if (data < paradata) {
+                beforeNode = node;
+                node = node.next;
+            } else {
+                j++;
+            }
+        }
 	}
 
 	/**
@@ -232,7 +317,21 @@ public class LinkedList<T> implements List<T> {
 	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
 	public  void removeDuplicateValues(){
-
+		if (size < 2) {
+			return;
+		}
+		Node node = head;
+		Node delNode = null;
+		while (node.next != null) {
+			if (((Integer)node.next.data).equals(node.data)) {
+				delNode = node.next;
+				node.next = node.next.next;
+				delNode.next = null;
+				size--;
+			} else {
+				node = node.next;
+			}
+		}
 	}
 
 	/**
@@ -242,7 +341,27 @@ public class LinkedList<T> implements List<T> {
 	 * @param max
 	 */
 	public  void removeRange(int min, int max){
-
+ 		if (min >= max) {
+			return;
+		}
+		Node node = head;
+		int delLen = 0;
+		int startIndex = -1;
+		for (int i = 0; i < size; i++) {
+			int currentData = ((Integer)node.data).intValue();
+			if (currentData > min && currentData < max) {
+				if (delLen == 0) {
+					startIndex = i;
+				}
+				delLen++;
+			} else if (currentData >= max) {
+				break;
+			}
+			node = node.next;
+		}
+		if (delLen > 0) {
+			remove(startIndex, delLen);
+		}
 	}
 
 	/**
@@ -251,6 +370,24 @@ public class LinkedList<T> implements List<T> {
 	 * @param list
 	 */
 	public  LinkedList intersection( LinkedList list){
-		return null;
+		if (list.size() == 0 || size == 0) {
+			return null;
+		}
+		LinkedList result = new LinkedList();
+		Node node = head;
+		Iterator listIter = list.iterator();
+		while (listIter.hasNext()) {
+			int listData = ((Integer)listIter.next()).intValue();
+			for (;node != null;) {
+				int currentData = ((Integer)node.data).intValue();
+				if (currentData == listData) {
+					result.addLast(currentData);
+				} else if (currentData > listData) {
+					break;
+				}
+				node = node.next;
+			}
+		}
+		return result;
 	}
 }

@@ -1,42 +1,61 @@
 package com.coderising.download.impl;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import com.coderising.download.api.Connection;
 
 public class ConnectionImpl implements Connection {
 
-	private FileInputStream fis;
-	private File file;
+	private HttpURLConnection ucon = null;
 
-	public ConnectionImpl(String source) throws FileNotFoundException {
-		file = new File(getClass().getClassLoader().getResource(source).getFile());
-		fis = new FileInputStream(file);
+	private URL url = null;
+
+	public ConnectionImpl() {
+	}
+
+	public ConnectionImpl(String _url) throws MalformedURLException, IOException {
+		url = new URL(_url);
 	}
 
 	@Override
 	public byte[] read(int startPos, int endPos) throws IOException {
-		fis.skip(startPos);
+		ucon = (HttpURLConnection) url.openConnection();
+		// openConnection()已将连接打开
+		// 不用ucon.connect();
+		ucon.setRequestProperty("Range", "bytes=" + startPos + "-" + endPos);
+		InputStream in = ucon.getInputStream();
+		
 		byte[] content = new byte[endPos - startPos + 1];
-		fis.read(content, 0, content.length);
+		
+		byte[] data = new byte[1024];
+		int read = 0, i = 0;
+		while ((read = in.read(data, 0, data.length)) != -1) {
+			System.arraycopy(data, 0, content, i, read);
+			i += read;
+		}
 		return content;
 	}
 
 	@Override
 	public int getContentLength() {
-		return (int) file.length();
+		int length = 0;
+		try {
+			ucon = (HttpURLConnection) url.openConnection();
+			length = ucon.getContentLength();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			ucon.disconnect();
+		}
+		return length;
 	}
 
 	@Override
 	public void close() {
-		try {
-			fis.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

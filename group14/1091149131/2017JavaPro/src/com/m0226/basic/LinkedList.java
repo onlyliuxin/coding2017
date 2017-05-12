@@ -7,7 +7,7 @@ public class LinkedList implements List {
 	private Node head;
 	private int size = 0;//自己加的，觉得需要
 	/**
-	 * 与addList()是一样的
+	 * 与addLast()是一样的
 	 */
 	public void add(Object o){
 		addLast(o);

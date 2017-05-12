@@ -1,5 +1,5 @@
 
-package week2.test;
+package week2.arrayutil;
 
 import static org.junit.Assert.*;
 

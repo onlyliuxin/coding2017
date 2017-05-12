@@ -8,5 +8,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="D:/Java2017/GitHub/coding2017/group16/313001956/WebContent/WEB-INF/lib/junit-4.7.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

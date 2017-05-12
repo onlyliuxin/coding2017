@@ -14,8 +14,7 @@ public class TestLinkedList
 	 * test add() and size()
 	 */
 	@Test
-	public void testAdd()
-	{
+	public void testAdd() {
 		LinkedList linkedList = new LinkedList();
 		linkedList.add(3);
 		linkedList.add("hello world");
@@ -23,8 +22,7 @@ public class TestLinkedList
 	}
 
 	@Test
-	public void testGet()
-	{
+	public void testGet() {
 		LinkedList linkedList = new LinkedList();
 		linkedList.add(3);
 		linkedList.add("hello world");
@@ -32,12 +30,9 @@ public class TestLinkedList
 		assertFalse(linkedList.get(0).equals("hello world"));
 		assertTrue(linkedList.get(1).equals("hello world"));
 
-		try
-		{
+		try {
 			linkedList.get(-1);
-		}
-		catch (ArrayIndexOutOfBoundsException e)
-		{
+		} catch (ArrayIndexOutOfBoundsException e) {
 			assertNotNull(e);
 			String errorInfo = "Invalid index to get:" + -1
 					+ " out of range: [0," + linkedList.size() + "]";
@@ -47,32 +42,25 @@ public class TestLinkedList
 	}
 
 	@Test
-	public void testRemove()
-	{
+	public void testRemove() {
 		LinkedList linkedList = new LinkedList();
 		linkedList.add(3);
 		linkedList.add("hello world");
 		linkedList.add(4);
 		linkedList.add("Leon Deng");
 
-		try
-		{
+		try {
 			linkedList.remove(-1);
-		}
-		catch (ArrayIndexOutOfBoundsException e)
-		{
+		} catch (ArrayIndexOutOfBoundsException e) {
 			assertNotNull(e);
 			String errorInfo = "Invalid index to remove:" + -1
 					+ " out of range: [0," + linkedList.size() + "]";
 			assertTrue(e.getMessage().equals(errorInfo));
 		}
 
-		try
-		{
+		try {
 			linkedList.remove(10);
-		}
-		catch (ArrayIndexOutOfBoundsException e)
-		{
+		} catch (ArrayIndexOutOfBoundsException e) {
 			assertNotNull(e);
 			String errorInfo = "Invalid index to remove:" + 10
 					+ " out of range: [0," + linkedList.size() + "]";
@@ -80,22 +68,16 @@ public class TestLinkedList
 		}
 
 		Object o = null;
-		try
-		{
+		try {
 			o = linkedList.remove(0);
-		}
-		catch (ArrayIndexOutOfBoundsException e)
-		{
+		} catch (ArrayIndexOutOfBoundsException e) {
 			assertNull(e);
 		}
 		assertTrue(o.equals(3));
 
-		try
-		{
+		try {
 			o = linkedList.remove(2);
-		}
-		catch (ArrayIndexOutOfBoundsException e)
-		{
+		} catch (ArrayIndexOutOfBoundsException e) {
 			assertNull(e);
 		}
 		// System.out.println(o);
@@ -103,8 +85,7 @@ public class TestLinkedList
 	}
 
 	@Test
-	public void testAddFirst()
-	{
+	public void testAddFirst() {
 		LinkedList linkedList = new LinkedList();
 		linkedList.add(3);
 		linkedList.add("hello world");
@@ -115,8 +96,7 @@ public class TestLinkedList
 	}
 
 	@Test
-	public void testAddLast()
-	{
+	public void testAddLast() {
 		LinkedList linkedList = new LinkedList();
 		linkedList.add(3);
 		linkedList.add("hello world");
@@ -126,8 +106,7 @@ public class TestLinkedList
 	}
 
 	@Test
-	public void testRemoveFirst()
-	{
+	public void testRemoveFirst() {
 		LinkedList linkedList = new LinkedList();
 		linkedList.add(3);
 		linkedList.add("hello world");
@@ -139,8 +118,7 @@ public class TestLinkedList
 	}
 
 	@Test
-	public void testRemoveLast()
-	{
+	public void testRemoveLast() {
 		LinkedList linkedList = new LinkedList();
 		linkedList.add(3);
 		linkedList.add("hello world");
@@ -153,8 +131,7 @@ public class TestLinkedList
 	}
 
 	@Test
-	public void testInterator()
-	{
+	public void testInterator() {
 		LinkedList linkedList = new LinkedList();
 		linkedList.add(3);
 		linkedList.add("Leon Deng");
@@ -168,8 +145,7 @@ public class TestLinkedList
 	}
 
 	@Test
-	public void testReverse()
-	{
+	public void testReverse() {
 		LinkedList linkedList = new LinkedList();
 		linkedList.add(3);
 		linkedList.add(4);
@@ -210,8 +186,7 @@ public class TestLinkedList
 	}
 
 	@Test
-	public void testRemoveFirstHalf()
-	{
+	public void testRemoveFirstHalf() {
 		LinkedList linkedList = new LinkedList();
 		linkedList.add(2);
 		linkedList.add(5);
@@ -239,8 +214,7 @@ public class TestLinkedList
 	}
 
 	@Test
-	public void testRemoveIndexLength()
-	{
+	public void testRemoveIndexLength() {
 		LinkedList linkedList = new LinkedList();
 		linkedList.add(2);
 		linkedList.add(5);
@@ -271,8 +245,7 @@ public class TestLinkedList
 	}
 
 	@Test
-	public void testGetElements()
-	{
+	public void testGetElements() {
 		// 11->101->201->301->401->501->601->701 listB = 1->3->4->6
 		LinkedList linkedList = new LinkedList();
 		linkedList.add(11);
@@ -304,8 +277,7 @@ public class TestLinkedList
 	}
 
 	@Test
-	public void testSubstract()
-	{
+	public void testSubstract() {
 		LinkedList linkedList = new LinkedList();
 		linkedList.add(11);
 		linkedList.add(101);
@@ -336,8 +308,7 @@ public class TestLinkedList
 	}
 
 	@Test
-	public void testRemoveDuplicateValues()
-	{
+	public void testRemoveDuplicateValues() {
 		LinkedList linkedList = new LinkedList();
 		linkedList.add(1);
 		linkedList.add(1);
@@ -363,11 +334,9 @@ public class TestLinkedList
 	}
 
 	@Test
-	public void testRemoveRange()
-	{
+	public void testRemoveRange() {
 		LinkedList linkedList = new LinkedList();
-		for (int i = 0; i < 10; i++)
-		{
+		for (int i = 0; i < 10; i++) {
 			linkedList.add(i);
 		}
 
@@ -383,8 +352,7 @@ public class TestLinkedList
 	}
 
 	@Test
-	public void testIntersection()
-	{
+	public void testIntersection() {
 		LinkedList linkedList = new LinkedList();
 		linkedList.add(1);
 		linkedList.add(2);

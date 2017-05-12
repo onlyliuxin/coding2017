@@ -3,13 +3,13 @@ package com.coding.basic;
 
 public class LinkedList implements List {
 	
-	//����ͷ//
+	//链表头//
 	private Node head;
 	
-	//����β��Ϊ�˷�����ϵ�//
+	//链表尾，为了方便加上的//
 	private Node tail;
 	
-	//�������ȣ�Ϊ�˷�����ϵ�//
+	//链表长度，为了方便加上的//
 	private int size=0;
 	
 	private static class Node{
@@ -18,8 +18,8 @@ public class LinkedList implements List {
 	}
 	
 	public void add(Object o){
-		/*����ǿյ����ͷ��ʼ���ӣ���ΪҪ�������ͷ������β����ı����
-		 *������ǿյ����β�Ϳ�ʼ���ӣ���ΪҪ�������β
+		/*如果是空的则从头开始增加，因为要标记链表头，链表尾额外的标记下
+		 *如果不是空的则从尾巴开始增加，因为要标记链表尾
 		 */
 		if (head==null){
 			addFirst(o);
@@ -30,7 +30,7 @@ public class LinkedList implements List {
 	}
 	
 	public void add(int index , Object o){
-		//ͷβ�������ӣ�����ά�����//
+		//头尾单独增加，方便维护标记//
 		if (index==0){
 			addFirst(o);
 			return;
@@ -48,7 +48,7 @@ public class LinkedList implements List {
 		size++;
 	}
 	
-	//�����±��ȡ�ڵ㣬������±��йص�����ɾ��//
+	//按照下标获取节点，方便跟下标有关的增查删改//
 	private Node getNode(int index){
 		checkIndex(index);
 		Node current = head;
@@ -63,7 +63,7 @@ public class LinkedList implements List {
 	}
 	
 	public Object remove(int index){
-		//ͷβ��������������ά�����//
+		//头尾单独处理，方便维护标记//
 		if (index==0){
 			return removeFirst();
 		}
@@ -86,20 +86,20 @@ public class LinkedList implements List {
 		Node node = new Node();
 		node.data=o;
 		node.next=head;
-		head=node;//�������ͷ//
+		head=node;//标记链表头//
 		size++;			
 	}
 	public void addLast(Object o){
 		Node node = new Node();
 		node.data=o;
 		tail.next=node;
-		tail=node;//�������β//
+		tail=node;//标记链表尾//
 		size++;		
 	}
 	public Object removeFirst(){
 		Node current = head;
-		head=current.next;//�������ͷ//
-		current.next=null;//�жϹ���//
+		head=current.next;//标记链表头//
+		current.next=null;//切断关联//
 		size--;
 		return current.data;
 	}
@@ -107,8 +107,8 @@ public class LinkedList implements List {
 	public Object removeLast(){
 		Node current=getNode(size-2);
 		Node temp = current.next;
-		current.next=null;//�жϹ���//
-		tail=current;//�������β//
+		current.next=null;//切断关联//
+		tail=current;//标记链表尾//
 		size--;
 		return temp.data;
 	}
@@ -133,17 +133,17 @@ public class LinkedList implements List {
 	}
 
 	/**
-	 * �Ѹ���������
-	 * ��������Ϊ 3->7->10 , ���ú��Ϊ  10->7->3
+	 * 把该链表逆置
+	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
 	 */
 	public void reverse(){
-		/*����ָ�룬��ʼ��ʱ��ָ��ͷ��ͷ�����һ��(ǰָ�롢��ָ��)
-		 *ѭ����ÿ������ƶ�����1������ָ���Ƶ�����β��size-1���ڵ���Ҫ�ƶ�(size-1)-1��
-		 *�ȱ���ǰָ���ֵtemp������ǰ����������ͷ��Ȼ�����ƶ�ǰ����ָ��
-		 *�ƶ��󣬽�ǰָ��Ľڵ����ӵ�����������ͷ����ʼ��һ���ƶ�
-		 *ѭ��������ע�⵽ʵ��������ֻ�о������ĵڶ����ڵ㵽�����ڸ��ڵ㣬��Ҫ����������������ͷβ�ڵ�
-		 *��������β�ڵ���Ҫ���ӵ�����������ͷ����������ͷ�ڵ��ָ���ÿգ���Ȼ��1<->2
-		 *ά��ͷβ���
+		/*两个指针，开始的时候指向头跟头后面的一个(前指针、后指针)
+		 *循环：每次向后移动步长1，至后指针移到链表尾，size-1个节点需要移动(size-1)-1次
+		 *先保留前指针的值temp，即当前逆序链表的头，然后再移动前、后指针
+		 *移动后，将前指针的节点连接到逆序链表的头，开始下一次移动
+		 *循环结束后，注意到实际重连的只有旧链表的第二个节点到倒数第个节点，需要单独处理旧链表的头尾节点
+		 *旧链表的尾节点需要链接到逆序链表的头，旧链表的头节点的指针置空，不然会1<->2
+		 *维护头尾标记
 		 */
 		Node current=head;
 		Node currentAfter=current.next;
@@ -161,12 +161,12 @@ public class LinkedList implements List {
 	}
 	
 	/**
-	 * ɾ��һ����������ǰ�벿��
-	 * ���磺list = 2->5->7->8 , ɾ���Ժ��ֵΪ 7->8
-	 * ���list = 2->5->7->8->10 ,ɾ���Ժ��ֵΪ7,8,10
+	 * 删除一个单链表的前半部分
+	 * 例如：list = 2->5->7->8 , 删除以后的值为 7->8
+	 * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
 	 */
 	public  void removeFirstHalf(){
-		//int�ضϣ�������С��//
+		//int截断，不会有小数//
 		int removeLength = size / 2;
 		for (int i=1;i<=removeLength;i++){
 			removeFirst();
@@ -174,7 +174,7 @@ public class LinkedList implements List {
 	}
 	
 	/**
-	 * �ӵ�i��Ԫ�ؿ�ʼ�� ɾ��length ��Ԫ�� �� ע��i��0��ʼ
+	 * 从第i个元素开始， 删除length 个元素 ， 注意i从0开始
 	 * @param i
 	 * @param length
 	 */
@@ -184,17 +184,17 @@ public class LinkedList implements List {
 		if (i+length-1>size){
 			length=size-i;
 		}
-		//�Ӻ���ǰɾ������ֹԽ��//
+		//从后往前删除，防止越界//
 		for (int k=length;k>=i;k--){
 			remove(k);
 		}
 	}
 	/**
-	 * �ٶ���ǰ������list���������������е�����
-	 * �ӵ�ǰ������ȡ����Щlist��ָ����Ԫ��
-	 * ���統ǰ���� = 11->101->201->301->401->501->601->701
+	 * 假定当前链表和list均包含已升序排列的整数
+	 * 从当前链表中取出那些list所指定的元素
+	 * 例如当前链表 = 11->101->201->301->401->501->601->701
 	 * listB = 1->3->4->6
-	 * ���صĽ��Ӧ����[101,301,401,601]  
+	 * 返回的结果应该是[101,301,401,601]  
 	 * @param list
 	 */
 	public int[] getElements(LinkedList list){
@@ -212,11 +212,11 @@ public class LinkedList implements List {
 	}
 	
 	/**
-	 * ��֪�����е�Ԫ����ֵ�����������У����Ե��������洢�ṹ��
-	 * �ӵ�ǰ��������ɾ����list�г��ֵ�Ԫ�� 
+	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
+	 * 从当前链表中中删除在list中出现的元素 
 	 * @param list
 	 */
-	//ע�⵽�����������ѭ��list��ʱ�򣬱����ڲ�ѭ���ı��Ƚ������Ľڵ���±겢��������//
+	//注意到递增，在外层循环list的时候，保留内层循环的被比较链表的节点的下标并递增即可//
 	public void subtract(LinkedList list){
 		int startIndex=0;
 		Iterator iter=list.iterator();
@@ -235,10 +235,10 @@ public class LinkedList implements List {
 	}
 	
 	/**
-	 * ��֪��ǰ�����е�Ԫ����ֵ�����������У����Ե��������洢�ṹ��
-	 * ɾ����������ֵ��ͬ�Ķ���Ԫ�أ�ʹ�ò���������Ա�������Ԫ�ص�ֵ������ͬ��
+	 * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。
+	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
 	 */
-	//ע�⵽��������������Ҫɾ���Ľڵ���±겢��������//
+	//注意到递增，保留不需要删除的节点的下标并递增即可//
 	public  void removeDuplicateValues(){
 		int startIndex=1;
 		int scr=(int)head.data;
@@ -253,12 +253,12 @@ public class LinkedList implements List {
 	}
 	
 	/**
-	 * ��֪�����е�Ԫ����ֵ�����������У����Ե��������洢�ṹ��
-	 * ��дһ��Ч���㷨��ɾ����������ֵ����min��С��max��Ԫ�أ������д���������Ԫ�أ�
+	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
+	 * 试写一高效的算法，删除表中所有值大于min且小于max的元素（若表中存在这样的元素）
 	 * @param min
 	 * @param max
 	 */
-	//��������ö��ַ������ǵ�������û�뵽��Ч���㷨������˵��B����Ȼ�����ᡣ��������һ��һ���Ƚϵ�//
+	//这个，想用二分法但是是单链表，没想到高效的算法（网上说是B树，然而不会。。。），一个一个比较的//
 	public  void removeRange(int min, int max){
 		Node current=head;
 		Node temp=head;
@@ -283,11 +283,11 @@ public class LinkedList implements List {
 	}
 	
 	/**
-	 * ���赱ǰ�����Ͳ���listָ������������Ԫ����ֵ�����������У�ͬһ���е�Ԫ��ֵ������ͬ��
-	 * ��Ҫ������������C����Ԫ��Ϊ��ǰ������list��Ԫ�صĽ������ұ�C�е�Ԫ������ֵ������������
+	 * 假设当前链表和参数list指定的链表均以元素依值递增有序排列（同一表中的元素值各不相同）
+	 * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
 	 * @param list
 	 */
-	//ע�⵽������������ѭ���±�λ�õ�������//
+	//注意到递增，保留内循环下标位置递增即可//
 	public LinkedList intersection( LinkedList list){
 		LinkedList result = new LinkedList();
 		int startIndex = 0;

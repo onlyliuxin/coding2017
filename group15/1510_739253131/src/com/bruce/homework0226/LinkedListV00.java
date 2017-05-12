@@ -4,7 +4,6 @@ import com.bruce.utils.MyException;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Collection;
 
 /**
  * 实现LinkedList的基本功能
@@ -18,19 +17,21 @@ public class LinkedListV00<E> implements Serializable {
     private transient int size = 0;
 
     /**
-     * 前一个节点
+     * 头节点
      */
-    private transient Node<E> first;
+    private transient Node<E> head;
 
     /**
-     * 后一个节点
+     * 尾节点
      */
     private transient Node<E> last;
 
     /**
      * 空构造
      */
-    public LinkedListV00(){}
+    public LinkedListV00(){
+        head = new Node<E>(null, null, null);
+    }
 
     /**
      * 添加一个节点
@@ -99,11 +100,11 @@ public class LinkedListV00<E> implements Serializable {
      */
     private static class Node<E>{
         E element;
-        Node<E> previous;
+        Node<E> prev;
         Node<E> next;
-        Node(Node<E> previous,E element,Node<E> next){
+        Node(Node<E> prev,E element,Node<E> next){
             this.element = element;
-            this.previous = previous;
+            this.prev = prev;
             this.next = next;
         }
     }
@@ -118,7 +119,7 @@ public class LinkedListV00<E> implements Serializable {
         //如果index小于size的一半，即目标节点在链表前半部分
         if(index < (size >> 1)){
             //从第一个节点挨个向后查找,一直到（index-1）处，将其next赋值给x
-            x = first;
+            x = head;
             for(int i = 0; i<index;i++){
                 x = x.next;
             }
@@ -127,7 +128,7 @@ public class LinkedListV00<E> implements Serializable {
             //从最后一个节点挨个向前查找，一直查找到（index+1）处，将其previous赋值给x
             x = last;
             for(int i = size-1;i>index;i--){
-                x = x.previous;
+                x = x.prev;
             }
         }
         //返回x
@@ -148,7 +149,7 @@ public class LinkedListV00<E> implements Serializable {
         //如果n为null，说明还是一个空的双向链表，将新节点newNode赋值给first
         //否则，将newNode赋值给n的next
         if(n == null){
-            first = newNode;
+            head = newNode;//第一次添加的时候，将该元素放在头节点位置
         }else{
             n.next = newNode;
         }
@@ -167,16 +168,16 @@ public class LinkedListV00<E> implements Serializable {
         //拿到传入节点的next节点
         final Node<E> next = node.next;
         //拿到传入节点的previous节点
-        final Node<E> previous = node.previous;
+        final Node<E> previous = node.prev;
         //如果传入节点的previous=null，说明是第一个节点
         if(previous == null){
             //将链表第一个节点指向本节点的下一个节点next，即把原有的第一个节点解除
-            first = next;
+            head = next;
         }else{
             //将本节点前一个节点的next指向本节点后一个节点，即跳过了本节点
             previous.next = next;
             //将本节点的previous节点设置为null
-            node.previous = null;
+            node.prev = null;
         }
         //如果传入节点的next=null，说明是最后一个节点
         if(next == null){
@@ -184,7 +185,7 @@ public class LinkedListV00<E> implements Serializable {
             last = previous;
         }else{
             //将本节点下一个节点的previous节点指向本节点的前一个节点，即跳过了本节点
-            next.previous = previous;
+            next.prev = previous;
             //本节点的next节点设置为null
             node.next = null;
         }

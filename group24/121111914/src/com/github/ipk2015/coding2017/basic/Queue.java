@@ -1,5 +1,7 @@
 package com.github.ipk2015.coding2017.basic;
 
+import com.github.ipk2015.coding2017.basic.linkedlist.LinkedList;
+
 public class Queue {
 	private LinkedList elementDatas=new LinkedList();
 	public void enQueue(Object o){		

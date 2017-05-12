@@ -5,8 +5,9 @@
         <result name="fail">/jsp/showLogin.jsp</result>
     </action>
     
-    <action name="logout" class="week2.struts2.LogoutAction">
-    	<result name="success">/jsp/welcome.jsp</result>   	
+    <action name="logout" class="week2.struts2.LoginOutAction">
+       <result name="success">/jsp/welcome.jsp</result>
     	<result name="error">/jsp/error.jsp</result>
     </action>
+    
 </struts>

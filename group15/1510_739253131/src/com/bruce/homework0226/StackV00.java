@@ -10,7 +10,7 @@ import java.util.Arrays;
  * @Version: 0.0
  * Created by Bruce.Jiao on 17-2-24.
  */
-public class StackV00 implements Serializable{
+public class StackV00<T> implements Serializable{
 
     /**
      * 底层存放栈元素的数组
@@ -61,7 +61,7 @@ public class StackV00 implements Serializable{
      * @param value 添加的元素，可以为null
      * @return 添加成功后的元素
      */
-    public Object push(Object value){
+    public T push(T value){
         ensureCapacity(size+1);
         //将新增的元素放在size索引处，并且将size加1
         elementData[size++] = value;
@@ -72,9 +72,11 @@ public class StackV00 implements Serializable{
      * 从栈中获取元素，拿到当前所有元素中最后添加进来的元素
      * @return 最后的元素
      */
-    public Object pop(){
+    public T pop(){
         //拿到最后的元素，在栈中将该元素删除，将size减1
-        return elementData[--size];
+        T data = (T) elementData[size-1];
+        elementData[size--] = null;
+        return data;
     }
 
     /**

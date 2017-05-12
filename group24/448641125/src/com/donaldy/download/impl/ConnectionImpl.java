@@ -1,7 +1,9 @@
 package com.donaldy.download.impl;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 import com.donaldy.download.api.Connection;
 
@@ -25,25 +27,29 @@ public class ConnectionImpl implements Connection{
 		if (inputStream == null)
 			return null;
 
-		System.out.println("inputStream is not equal null");
-
 		inputStream.skip(startPos);
 
-		int length = endPos - startPos + 1;
+		int totalLen = endPos - startPos + 1;
 
-		System.out.println("要读的长度 : " + length);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-		byte [] buffer = new byte[length];
+		byte [] buffer = new byte[1024];
 
-		System.out.println("buffer - 1: " + buffer.length);
+		while (baos.size() < totalLen) {
+			int len = inputStream.read(buffer);
+			if (len < 0)
+				break;
+			baos.write(buffer, 0, len);
+		}
 
-		contentLength = inputStream.read(buffer);
+		if (baos.size() > totalLen) {
+			byte [] data = baos.toByteArray();
+			return Arrays.copyOf(data, totalLen);
+		}
 
-		System.out.println("buffer - 2: " + buffer.length);
+		System.out.println("读入：" + totalLen);
 
-		System.out.println("contentLength : " + contentLength);
-
-		return buffer;
+		return baos.toByteArray();
 	}
 
 	@Override

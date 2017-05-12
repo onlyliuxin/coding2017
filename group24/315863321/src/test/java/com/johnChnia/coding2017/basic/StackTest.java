@@ -1,5 +1,6 @@
 package com.johnChnia.coding2017.basic;
 
+import com.johnChnia.coding2017.basic.stack.Stack;
 import org.junit.Before;
 import org.junit.Test;
 

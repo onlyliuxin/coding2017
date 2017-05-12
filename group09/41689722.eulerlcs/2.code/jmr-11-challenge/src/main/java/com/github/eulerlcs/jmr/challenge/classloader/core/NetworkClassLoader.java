@@ -5,9 +5,9 @@ import java.io.InputStream;
 import java.net.URL;
 
 public class NetworkClassLoader extends ClassLoader {
-	
+
 	private String rootUrl;
-	
+
 	public NetworkClassLoader(String rootUrl) {
 		this.rootUrl = rootUrl;
 	}
@@ -16,12 +16,11 @@ public class NetworkClassLoader extends ClassLoader {
 		byte[] classData = getClassData(name);
 		if (classData == null) {
 			throw new ClassNotFoundException();
-		}
-		else {
+		} else {
 			return defineClass(name, classData, 0, classData.length);
 		}
 	}
-	
+
 	private byte[] getClassData(String className) {
 		String path = classNameToPath(className);
 		try {
@@ -40,9 +39,8 @@ public class NetworkClassLoader extends ClassLoader {
 		}
 		return null;
 	}
-	
+
 	private String classNameToPath(String className) {
-		return rootUrl + "/"
-				+ className.replace('.', '/') + ".class";
+		return rootUrl + "/" + className.replace('.', '/') + ".class";
 	}
 }

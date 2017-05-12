@@ -1,19 +1,19 @@
 package com.coderising.download.impl;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import com.coderising.download.api.Connection;
-import com.coderising.download.api.ConnectionException;
 import com.coderising.download.api.ConnectionManager;
 
 public class ConnectionManagerImpl implements ConnectionManager {
 
+	private Connection conn = null;
+	
 	@Override
-	public Connection open(String url) throws ConnectionException {
-		ConnectionImpl conn = null;
+	public Connection open(String url) {
 		try {
 			conn = new ConnectionImpl(url);
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return conn;

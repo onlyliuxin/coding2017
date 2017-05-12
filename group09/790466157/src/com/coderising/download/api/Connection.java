@@ -4,23 +4,21 @@ import java.io.IOException;
 
 public interface Connection {
 	/**
-	 * ¸ø¶¨¿ªÊ¼ºÍ½áÊøÎ»ÖÃ£¬ ¶ÁÈ¡Êı¾İ£¬ ·µ»ØÖµÊÇ×Ö½ÚÊı×é
-	 * @param startPos ¿ªÊ¼Î»ÖÃ£¬ ´Ó0¿ªÊ¼
-	 * @param endPos ½áÊøÎ»ÖÃ
+	 * ç»™å®šå¼€å§‹å’Œç»“æŸä½ç½®ï¼Œ è¯»å–æ•°æ®ï¼Œ è¿”å›å€¼æ˜¯å­—èŠ‚æ•°ç»„
+	 * @param startPos å¼€å§‹ä½ç½®ï¼Œ ä»0å¼€å§‹
+	 * @param endPos ç»“æŸä½ç½®
 	 * @return
 	 */
-	public byte[] read(int startPos,int endPos) throws IOException;
+    byte[] read(int startPos, int endPos) throws IOException;
+
 	/**
-	 * µÃµ½Êı¾İÄÚÈİµÄ³¤¶È
+	 * å¾—åˆ°æ•°æ®å†…å®¹çš„é•¿åº¦
 	 * @return
 	 */
-	public int getContentLength();
+    int getContentLength();
 	
 	/**
-	 * ¹Ø±ÕÁ¬½Ó
+	 * å…³é—­è¿æ¥
 	 */
-	public void close();
-	public Connection open(Object url);
+    void close();
 }
-
-

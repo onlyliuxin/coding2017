@@ -8,10 +8,8 @@ import com.basic.ArrayUtil;
 
 public class TestArrayUtil
 {
-	private void print_r(int[] a)
-	{
-		for (int i = 0; i < a.length; i++)
-		{
+	private void print_r(int[] a) {
+		for (int i = 0; i < a.length; i++) {
 			System.out.print(a[i] + " ");
 		}
 		System.out.println();
@@ -25,8 +23,7 @@ public class TestArrayUtil
 	}
 
 	@Test
-	public void testReverseArray()
-	{
+	public void testReverseArray() {
 		ArrayUtil arrayUtil = new ArrayUtil();
 
 		int[] a = { 7, 9, 30, 3 };
@@ -50,8 +47,7 @@ public class TestArrayUtil
 	}
 
 	@Test
-	public void testRemoveZero()
-	{
+	public void testRemoveZero() {
 		ArrayUtil arrayUtil = new ArrayUtil();
 
 		int[] oldArr = { 1, 3, 4, 5, 0, 0, 6, 6, 0, 5, 4, 7, 6, 7, 0, 5 };
@@ -63,8 +59,7 @@ public class TestArrayUtil
 	}
 
 	@Test
-	public void testMerge()
-	{
+	public void testMerge() {
 		ArrayUtil arrayUtil = new ArrayUtil();
 
 		int[] a1 = { 3, 5, 7, 8 };
@@ -79,8 +74,7 @@ public class TestArrayUtil
 	}
 
 	@Test
-	public void testGrow()
-	{
+	public void testGrow() {
 		ArrayUtil arrayUtil = new ArrayUtil();
 
 		int[] a1 = { 3, 5, 7, 8 };
@@ -96,8 +90,7 @@ public class TestArrayUtil
 	}
 
 	@Test
-	public void testFibonacci()
-	{
+	public void testFibonacci() {
 		ArrayUtil arrayUtil = new ArrayUtil();
 		int max = 100;
 		int[] arr = arrayUtil.fibonacci(max);
@@ -112,8 +105,7 @@ public class TestArrayUtil
 	}
 
 	@Test
-	public void testGetPrimes()
-	{
+	public void testGetPrimes() {
 		ArrayUtil arrayUtil = new ArrayUtil();
 		int max = 23;
 		int[] arr = arrayUtil.getPrimes(max);
@@ -126,8 +118,7 @@ public class TestArrayUtil
 	}
 
 	@Test
-	public void testGetPerfectNumbers()
-	{
+	public void testGetPerfectNumbers() {
 		ArrayUtil arrayUtil = new ArrayUtil();
 		int max = 300;
 		int[] arr = arrayUtil.getPerfectNumbers(max);
@@ -140,8 +131,7 @@ public class TestArrayUtil
 	}
 
 	@Test
-	public void testJoin()
-	{
+	public void testJoin() {
 		ArrayUtil arrayUtil = new ArrayUtil();
 		int[] a = { 3, 8, 9 };
 		String str = arrayUtil.join(a, "-");

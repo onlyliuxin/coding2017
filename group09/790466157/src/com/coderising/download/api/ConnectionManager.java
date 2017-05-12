@@ -1,10 +1,13 @@
 package com.coderising.download.api;
 
+import java.io.IOException;
+import java.net.ProtocolException;
+
 public interface ConnectionManager {
 	/**
-	 * ¸ø¶¨Ò»¸öurl , ´ò¿ªÒ»¸öÁ¬½Ó
+	 * ç»™å®šä¸€ä¸ªurl , æ‰“å¼€ä¸€ä¸ªè¿žæŽ¥
 	 * @param url
 	 * @return
 	 */
-	public Connection open(String url) throws ConnectionException;	
+    Connection open(String url) throws ConnectionException;
 }
