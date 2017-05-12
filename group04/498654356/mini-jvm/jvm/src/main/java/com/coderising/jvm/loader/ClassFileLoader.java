@@ -1,14 +1,14 @@
 package com.coderising.jvm.loader;
 
-import java.io.ByteArrayOutputStream;
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import com.coderising.jvm.clz.ClassFile;
 
 
 
@@ -22,7 +22,7 @@ public class ClassFileLoader {
 		if(StringUtils.isEmpty(className)) {
 			return EMPTY_BYTES;
 		}
-		String child = className.replaceAll("\\.", "\\\\") + CLASS_SUFFIX;
+		String child = className.replace(".", File.separator) + CLASS_SUFFIX;
 		for (String parent: clzPaths) {
 			File file = new File(parent, child);
 			if(file.exists()) {
@@ -35,34 +35,15 @@ public class ClassFileLoader {
 	
 	private byte[] doReadBinaryCode(File file) {
 		FileInputStream fis = null;
-		ByteArrayOutputStream baos = null;
 		try {
 			fis = new FileInputStream(file);
-			baos = new ByteArrayOutputStream();
-			byte[] b = new byte[1024];
-			int len = 0;
-			while((len = fis.read(b)) > 0) {
-				baos.write(b, 0, len);
-			}
-			return baos.toByteArray();
+			return IOUtils.toByteArray(fis);
 		} catch (Exception e) {
-			new RuntimeException(e);
+			e.printStackTrace();
 		} finally {
-			close(baos);
-			close(fis);
+			IOUtils.closeQuietly(fis);
 		}
 		return EMPTY_BYTES;
-	}
-
-
-	private void close(Closeable stream) {
-		if(stream != null ) {
-			try {
-				stream.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 	public void addClassPath(String path) {
@@ -70,14 +51,14 @@ public class ClassFileLoader {
 	}
 	
 	public String getClassPath(){
-		StringBuilder builder = new StringBuilder();
-		for (String path : clzPaths) {
-			builder.append(path).append(";");
-		}
-		if(builder.length() > 0) {
-			builder = builder.deleteCharAt(builder.length() - 1);
-		}
-		return builder.toString();
+		return StringUtils.join(clzPaths, ";");
+	}
+
+
+	public ClassFile loadClass(String className) {
+		byte[] codes = this.readBinaryCode(className);
+		ClassFileParser parser = new ClassFileParser();
+		return parser.parse(codes);
 	}
 	
 }

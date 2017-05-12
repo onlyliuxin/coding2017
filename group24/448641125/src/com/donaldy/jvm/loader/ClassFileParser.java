@@ -125,10 +125,11 @@ public class ClassFileParser {
 				nameType.setIndex2(iter.nextU2ToInt());
 				pool.addConstantInfo(nameType);
 			} else {
-				throw new RuntimeException("the constant pool tag" + tag);
+				throw new RuntimeException("the constant pool tag " + tag + " has not been implemented yet.");
 			}
 		}
 
+		System.out.println("Finished reading Constant pool ");
 		return pool;
 	}
 

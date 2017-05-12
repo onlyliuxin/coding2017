@@ -47,7 +47,7 @@ public  class ByteCodeIterator {
 	}
 
 	public int nextInt(int byteCount) {
-		int result = ByteUtils.toInt(codes, pos, byteCount);
+		int result = ByteUtils.toUnsignedInt(codes, pos, byteCount);
 		pos += byteCount;
 		return result;
 	}
