@@ -1,6 +1,8 @@
 package com.coderising.jvm.attr;
 
 import com.coderising.jvm.clz.ClassFile;
+import com.coderising.jvm.cmd.ByteCodeCommand;
+import com.coderising.jvm.cmd.CommandParser;
 import com.coderising.jvm.loader.ByteCodeIterator;
 
 public class CodeAttr extends AttributeInfo{
@@ -9,6 +11,12 @@ public class CodeAttr extends AttributeInfo{
 	private int maxLocals;
 	private int codeLen;
 	private String code;
+	
+	private ByteCodeCommand[] cmds;
+	
+	public ByteCodeCommand[] getCmds(){
+		return cmds;
+	}
 	
 	public String getCode(){
 		return code;
@@ -21,12 +29,13 @@ public class CodeAttr extends AttributeInfo{
 	
 	
 	
-	public CodeAttr(int attrNameIndex,  int attrLen , int maxStack, int maxLocals, int codeLen,String code) {
+	public CodeAttr(int attrNameIndex,  int attrLen , int maxStack, int maxLocals, int codeLen,String code, ByteCodeCommand[] cmds) {
 		super(attrNameIndex, attrLen);
 		this.maxStack = maxStack;
 		this.maxLocals = maxLocals;
 		this.codeLen = codeLen;
 		this.code = code;
+		this.cmds = cmds;
 	}
 	
 	public void setLineNumberTable(LineNumberTable t) {
@@ -50,7 +59,12 @@ public class CodeAttr extends AttributeInfo{
 		int codeLen = iter.nextU4toInt();
 		// 读真正的 code
 		String code = iter.nextUxToHexString(codeLen);
-		CodeAttr codeAttr = new CodeAttr(attrNameIndex, attrLen, maxStack, max_Locals, max_Locals, code);
+		System.out.println("code: " + code);
+		
+		ByteCodeCommand[] cmds = CommandParser.parse(clzFile, code);
+		System.out.println("cmds:  ==== " + cmds.length);
+		System.out.println("CodeAttr属性中的cmd的长度： " + cmds.length);
+		CodeAttr codeAttr = new CodeAttr(attrNameIndex, attrLen, maxStack, max_Locals, max_Locals, code, cmds);
 		
 		int exceptionTableLen = iter.nextU2toInt();
 		

@@ -40,4 +40,26 @@ public class MethodRefInfo extends ConstantInfo {
     public void setNameAndTypeIndex(int nameAndTypeIndex) {
         this.nameAndTypeIndex = nameAndTypeIndex;
     }
+
+    public String getClassName(){
+        ConstantPool pool = this.getConstantPool();
+        ClassInfo clzInfo = (ClassInfo)pool.getConstantInfo(this.getClassInfoIndex());
+        return clzInfo.getClassName();
+    }
+
+    public String getMethodName(){
+        ConstantPool pool = this.getConstantPool();
+        NameAndTypeInfo  typeInfo = (NameAndTypeInfo)pool.getConstantInfo(this.getNameAndTypeIndex());
+        return typeInfo.getName();
+    }
+
+    public String getParamAndReturnType(){
+        ConstantPool pool = this.getConstantPool();
+        NameAndTypeInfo  typeInfo = (NameAndTypeInfo)pool.getConstantInfo(this.getNameAndTypeIndex());
+        return typeInfo.getTypeInfo();
+    }
+
+    public String toString(){
+        return this.getMethodName() + ":" + this.getParamAndReturnType() ;
+    }
 }

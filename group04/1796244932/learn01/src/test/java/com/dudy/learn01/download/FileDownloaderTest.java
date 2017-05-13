@@ -1,8 +1,10 @@
 package com.dudy.learn01.download;
 
-import com.dudy.learn01.download.api.ConnectionManager;
-import com.dudy.learn01.download.api.DownloadListener;
-import com.dudy.learn01.download.impl.ConnectionManagerImpl;
+
+import com.dudy.learn01.coderising.download.FileDownloader;
+import com.dudy.learn01.coderising.download.api.ConnectionManager;
+import com.dudy.learn01.coderising.download.api.DownloadListener;
+import com.dudy.learn01.coderising.download.impl.ConnectionManagerImpl;
 import org.junit.Test;
 
 
