@@ -29,5 +29,10 @@ public class Field {
 		
 		return null;
 	}
+	public String toString() {
+		UTF8Info name=(UTF8Info)(pool.getConstantInfo(nameIndex));
+		UTF8Info descriptor=(UTF8Info)(pool.getConstantInfo(descriptorIndex));
+		return name.getValue()+":"+descriptor.getValue();
+	}
 
 }
