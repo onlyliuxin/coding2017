@@ -3,55 +3,45 @@ package structure.week9;
 /**
  * 用数组实现循环队列
  * @author liuxin
- *
  * @param <E>
  */
 public class CircleQueue <E> {
-	
 	private final static int DEFAULT_SIZE = 10;
-	
 	//用数组来保存循环队列的元素
 	private Object[] elementData = new Object[DEFAULT_SIZE] ;
+	boolean isFull = false;
 	
-	//队头
-	private int front = -1;  
-	//队尾  
-	private int rear = -1;
-	
+	private int front = 0;  //队头
+	private int rear = 0;    //队尾 
 	public boolean isEmpty() {
-		return front==0&&rear==0;
+		if(isFull) return false;
+		return (rear-front+DEFAULT_SIZE)%DEFAULT_SIZE==0;
     }
-
     public int size() {
-        return rear>=front?rear-front:rear-front+DEFAULT_SIZE;
-    }
-
-    
-
-    public void enQueue(E data) {
-    	if(rear>=front){
-    		rear += 1;
-    		rear %= DEFAULT_SIZE;
-    		if(rear==front) front += 1;
-    		elementData[rear] = data;
-    	}else{
-    		rear += 1;
-    		rear %= DEFAULT_SIZE;
-    		if(rear == front) 
+    	if(isFull) return DEFAULT_SIZE;
+    	else{
+        	if(rear<front)return rear-front+DEFAULT_SIZE;
+    		else return rear-front;
     	}
-        rear += 1;
-        rear %= DEFAULT_SIZE;
-        if(front<=rear){
-        	front += 1;
-        	front %= DEFAULT_SIZE;
-        }
-        elementData[rear] = data;
     }
-
+    public void enQueue(E data) {
+    	if(isFull){
+    		elementData[rear] = data;
+    		rear += 1;
+    		rear %= DEFAULT_SIZE;
+    		front = rear;
+    	}else{
+    		elementData[rear] = data;
+    		rear += 1;
+    		rear %= DEFAULT_SIZE;
+    		if(rear == front) isFull = true;
+    	}
+    }
     public E deQueue() {
-    	if(rear!=front) return null;
-    	E res = (E)elementData[front];
+    	E res = (E) elementData[front];
     	front += 1;
-        return res;
+    	front %=DEFAULT_SIZE;
+    	isFull = false;
+    	return res;
     }
 }

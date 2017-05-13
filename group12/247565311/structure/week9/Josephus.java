@@ -1,6 +1,8 @@
 package structure.week9;
 import java.util.List;
-
+import java.util.Queue;
+import java.util.LinkedList;
+import java.util.ArrayList;
 /**
  * 用Queue来实现Josephus问题
  * 在这个古老的问题当中， N个深陷绝境的人一致同意用这种方式减少生存人数：  N个人围成一圈（位置记为0到N-1）， 并且从第一个人报数， 报到M的人会被杀死， 直到最后一个人留下来
@@ -9,12 +11,24 @@ import java.util.List;
  *
  */
 public class Josephus {
-	
+	static Queue<Integer> queue = new LinkedList<Integer>();
 	public static List<Integer> execute(int n, int m){
+		List<Integer> res = new ArrayList<Integer>();
+		int index = 0;
 		for(int i=0;i<n;i++){
-			
+			queue.add(i);
 		}
-		return null;
+	    while(queue.size()>0){
+	    	Integer intege = queue.remove();
+	    	if(index==m-1){
+	    		res.add(intege);
+	    		index = 0;
+	    	}else{
+	    		queue.add(intege);
+		    	index += 1;
+		    	index %= m;
+	    	}
+	    }
+		return res;
 	}
-	
 }
