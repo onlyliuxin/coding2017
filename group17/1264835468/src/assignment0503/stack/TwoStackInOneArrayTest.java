@@ -20,7 +20,8 @@ public class TwoStackInOneArrayTest {
         Assert.assertEquals("[27, 26, 25, 24, 23, 22, 21, 3, 2, 1] [7, 6, 5]", twoStack.toString());
         pushAll(2, 31, 32, 33, 34);
         Assert.assertEquals("[27, 26, 25, 24, 23, 22, 21, 3, 2, 1] [34, 33, 32, 31, 7, 6, 5]", twoStack.toString());
-
+        Assert.assertEquals(27, twoStack.pop1());
+        Assert.assertEquals(34,twoStack.peek2());
     }
 
     private void pushAll(int stackIndex, int... data) {
