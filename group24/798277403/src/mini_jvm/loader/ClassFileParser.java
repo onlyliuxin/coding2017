@@ -4,6 +4,8 @@ import mini_jvm.clz.AccessFlag;
 import mini_jvm.clz.ClassFile;
 import mini_jvm.clz.ClassIndex;
 import mini_jvm.constant.*;
+import mini_jvm.field.Field;
+import mini_jvm.method.Method;
 
 import java.io.UnsupportedEncodingException;
 
@@ -34,6 +36,15 @@ public class ClassFileParser {
 		//5 解析类索引，父类索引，接口索引
 		ClassIndex classIndex = parseClassInfex(iter);
 		classFile.setClassIndex(classIndex);
+
+		//6 解析接口
+		parseInterfaces(iter);
+
+		//7 解析字段
+		parseFileds(classFile, iter);
+
+		//8 解析方法
+		parseMethods(classFile, iter);
 
 		return classFile;
 	}
@@ -124,6 +135,30 @@ public class ClassFileParser {
 			}
 		}
 		return constantPool;
+	}
+
+	private void parseInterfaces(ByteCodeIterator iter) {
+		int interfaceCount = iter.nextU2ToInt();
+
+		System.out.println("interfaceCount:" + interfaceCount);
+
+		// TODO : 如果实现了interface, 这里需要解析
+	}
+
+	private void parseFileds(ClassFile clzFile, ByteCodeIterator iter) {
+		int filedCount = iter.nextU2ToInt();
+		for(int i=0; i<filedCount; i++){
+			Field field = Field.parse(clzFile.getConstantPool(),iter);
+			clzFile.addField(field);
+		}
+	}
+
+	private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
+		int methodCount = iter.nextU2ToInt();
+		for (int i = 1; i <= methodCount; i++) {
+			Method method = Method.parse(clzFile, iter);
+			clzFile.addMethod(method);
+		}
 	}
 
 	
