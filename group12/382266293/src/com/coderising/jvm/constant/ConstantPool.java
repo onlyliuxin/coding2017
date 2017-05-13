@@ -21,12 +21,17 @@ public class ConstantPool {
 		//System.out.println(this.constantInfos.get(index));
 		return this.constantInfos.get(index);
 	}
+	
+	public List<ConstantInfo> getConstantInfos() {
+
+		return constantInfos;
+	}
+
+	public int getSize() {
+		return this.constantInfos.size() - 1;
+	}
 
 	public String getUTF8String(int index) {
 		return ((UTF8Info) this.constantInfos.get(index)).getValue();
-	}
-
-	public Object getSize() {
-		return this.constantInfos.size() - 1;
 	}
 }

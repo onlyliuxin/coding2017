@@ -1,5 +1,7 @@
 package me.lzb.jvm.constant;
 
+import me.lzb.jvm.print.PrintVisitor;
+
 /**
  * Created by LZB on 2017/4/15.
  */
@@ -18,6 +20,11 @@ public class NameAndTypeInfo extends ConstantInfo {
         return type;
     }
 
+    @Override
+    public void print(PrintVisitor visitor) {
+        visitor.visitNameAndType(this);
+    }
+
     public int getIndex1() {
         return index1;
     }
@@ -32,5 +39,22 @@ public class NameAndTypeInfo extends ConstantInfo {
 
     public void setIndex2(int index2) {
         this.index2 = index2;
+    }
+
+
+    public String getName() {
+        ConstantPool pool = this.getConstantPool();
+        UTF8Info utf8Info1 = (UTF8Info) pool.getConstantInfo(index1);
+        return utf8Info1.getValue();
+    }
+
+    public String getTypeInfo() {
+        ConstantPool pool = this.getConstantPool();
+        UTF8Info utf8Info2 = (UTF8Info) pool.getConstantInfo(index2);
+        return utf8Info2.getValue();
+    }
+
+    public String toString() {
+        return getName() + "：" + getTypeInfo();
     }
 }

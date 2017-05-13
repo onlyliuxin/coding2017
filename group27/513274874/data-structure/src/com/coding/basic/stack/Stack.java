@@ -1,7 +1,8 @@
 
 package com.coding.basic.stack;
 
-import com.coding.basic.List;
+
+import com.coding.basic.array.List;
 import com.coding.basic.array.ArrayList;
 
 /**
@@ -20,6 +21,7 @@ public class Stack {
 	 * @param o
 	 */
 	public void push(Object o){
+
 		elementData.add(o);
 	}
 

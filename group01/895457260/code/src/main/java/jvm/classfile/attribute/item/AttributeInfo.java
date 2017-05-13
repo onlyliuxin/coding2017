@@ -8,7 +8,7 @@ public abstract class AttributeInfo {
 	public static final String LOCAL_VAR_TABLE = "LocalVariableTable";
 	public static final String STACK_MAP_TABLE = "StackMapTable";
 
-	int attrNameIndex;				
+	int attrNameIndex;
 	int attrLen;
 
 	public AttributeInfo(int attrNameIndex, int attrLen) {

@@ -4,8 +4,12 @@ package org.xukai.jvm.method;
 import org.xukai.jvm.attr.AttributeInfo;
 import org.xukai.jvm.attr.CodeAttr;
 import org.xukai.jvm.clz.ClassFile;
+import org.xukai.jvm.cmd.ByteCodeCommand;
 import org.xukai.jvm.constant.UTF8Info;
 import org.xukai.jvm.loader.ByteCodeIterator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Method {
 	
@@ -25,6 +29,7 @@ public class Method {
 	public int getNameIndex() {
 		return nameIndex;
 	}
+
 	public int getDescriptorIndex() {
 		return descriptorIndex;
 	}
@@ -55,6 +60,10 @@ public class Method {
 	public String getMethodDescription(){
 		return ((UTF8Info)clzFile.getConstantPool().getConstantInfo(this.descriptorIndex)).getValue();
 	}
+
+	public ByteCodeCommand[] getCmds() {
+		return this.getCodeAttr().getCmds();
+	}
 	
 	
 	
@@ -77,11 +86,58 @@ public class Method {
 		
 	}
 
-	public static void main(String[] args) {
-		CodeAttr codeAttr = new CodeAttr(1, 1, 1, 1, 1, "");
-		System.out.println(codeAttr instanceof AttributeInfo);
-		AttributeInfo codeAttr2 = new CodeAttr(1, 1, 1, 1, 1, "");
-		System.out.println(codeAttr2 instanceof CodeAttr);
+	public List<String> getParameterList(){
+
+		// e.g. (Ljava/util/List;Ljava/lang/String;II)V
+		String paramAndType = getMethodDescription();
+
+		int first = paramAndType.indexOf("(");
+		int last = paramAndType.lastIndexOf(")");
+		// e.g. Ljava/util/List;Ljava/lang/String;II
+		String param = paramAndType.substring(first+1, last);
+
+		List<String> paramList = new ArrayList<String>();
+
+		if((null == param) || "".equals(param)){
+			return paramList;
+		}
+
+		while(!param.equals("")){
+
+			int pos = 0;
+			// 这是一个对象类型
+			if(param.charAt(pos) == 'L'){
+
+				int end = param.indexOf(";");
+
+				if(end == -1){
+					throw new RuntimeException("can't find the ; for a object type");
+				}
+				paramList.add(param.substring(pos+1,end));
+
+				pos = end + 1;
+
+			}
+			else if(param.charAt(pos) == 'I'){
+				// int
+				paramList.add("I");
+				pos ++;
+
+			}
+			else if(param.charAt(pos) == 'F'){
+				// float
+				paramList.add("F");
+				pos ++;
+
+			} else{
+				throw new RuntimeException("the param has unsupported type:" + param);
+			}
+
+			param = param.substring(pos);
+
+		}
+		return paramList;
+
 	}
 
 

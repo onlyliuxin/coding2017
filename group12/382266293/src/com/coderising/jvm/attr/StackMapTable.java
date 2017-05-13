@@ -5,12 +5,6 @@ import com.coderising.jvm.loader.ByteCodeIterator;
 
 public class StackMapTable extends AttributeInfo{
 	
-	private String originalCode;
-
-	public StackMapTable(int attrNameIndex, int attrLen) {
-		super(attrNameIndex, attrLen);		
-	}
-
 	public static StackMapTable parse(ByteCodeIterator iter){
 		int index = iter.nextU2ToInt();
 		int len = iter.nextU4ToInt();
@@ -21,6 +15,12 @@ public class StackMapTable extends AttributeInfo{
 		t.setOriginalCode(code);
 		
 		return t;
+	}
+
+	private String originalCode;
+
+	public StackMapTable(int attrNameIndex, int attrLen) {
+		super(attrNameIndex, attrLen);		
 	}
 
 	private void setOriginalCode(String code) {
