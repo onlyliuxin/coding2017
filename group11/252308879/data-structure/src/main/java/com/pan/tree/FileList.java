@@ -25,4 +25,16 @@ public class FileList {
     }
 
 
+
+
+
+
+
+
+    public static void main(String[] args) {
+        while (true){
+           String[] strings = new String[10000000];
+        }
+    }
+
 }
