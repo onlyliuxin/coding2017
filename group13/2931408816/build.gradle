@@ -2,7 +2,7 @@ group 'cn.net.pikachu'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.1.0'
+    ext.kotlin_version = '1.1.2'
 
     repositories {
         mavenCentral()
