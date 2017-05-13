@@ -26,3 +26,7 @@
  * [20170416-20170423](https://github.com/luoziyihao/coding2017/blob/master/group17/article/20170416-20170423.md) 
 
  * [20170423-20170430](https://github.com/luoziyihao/coding2017/blob/master/group17/article/20170423-20170430.md) 
+
+ * [20170430-20170507](https://github.com/luoziyihao/coding2017/blob/master/group17/article/20170430-20170507.md) 
+
+ * [20170507-20170514](https://github.com/luoziyihao/coding2017/blob/master/group17/article/20170507-20170514.md) 
