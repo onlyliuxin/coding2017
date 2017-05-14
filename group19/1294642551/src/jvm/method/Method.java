@@ -1,5 +1,8 @@
 package jvm.method;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jvm.clz.ClassFile;
 import jvm.cmd.ByteCodeCommand;
 import jvm.attr.AttributeInfo;
@@ -94,6 +97,65 @@ public class Method {
 	
 	public ByteCodeCommand[] getCmds() {		
 		return this.getCodeAttr().getCmds();
+	}
+	
+	private String getParamAndReturnType(){
+		UTF8Info  nameAndTypeInfo = (UTF8Info)this.getClzFile()
+				.getConstantPool().getConstantInfo(this.getDescriptorIndex());
+		return nameAndTypeInfo.getValue();
+	}
+	public List<String> getParameterList(){
+				
+		// e.g. (Ljava/util/List;Ljava/lang/String;II)V
+		String paramAndType = getParamAndReturnType();
+		
+		int first = paramAndType.indexOf("(");
+		int last = paramAndType.lastIndexOf(")");
+		// e.g. Ljava/util/List;Ljava/lang/String;II
+		String param = paramAndType.substring(first+1, last);		
+		
+		List<String> paramList = new ArrayList<String>();
+		
+		if((null == param) || "".equals(param)){
+			return paramList;
+		}
+		
+		while(!param.equals("")){
+			
+			int pos = 0;
+			// 这是一个对象类型
+			if(param.charAt(pos) == 'L'){
+				
+				int end = param.indexOf(";");
+				
+				if(end == -1){
+					throw new RuntimeException("can't find the ; for a object type");
+				}
+				paramList.add(param.substring(pos+1,end));
+				
+				pos = end + 1; 				
+				
+			} 
+			else if(param.charAt(pos) == 'I'){
+				// int
+				paramList.add("I");
+				pos ++;
+				
+			}
+			else if(param.charAt(pos) == 'F'){
+				// float
+				paramList.add("F");
+				pos ++;
+				
+			} else{
+				throw new RuntimeException("the param has unsupported type:" + param);
+			}
+			
+			param = param.substring(pos);
+			
+		}
+		return paramList;
+		
 	}
 
 }
