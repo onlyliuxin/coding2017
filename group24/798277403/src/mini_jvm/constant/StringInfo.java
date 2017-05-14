@@ -10,7 +10,12 @@ public class StringInfo extends ConstantInfo{
 	public int getType() {
 		return type;
 	}
-	
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitString(this);
+	}
+
 	public int getIndex() {
 		return index;
 	}

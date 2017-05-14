@@ -1,6 +1,6 @@
 package me.lzb.basic.queue;
 
-import me.lzb.basic.LinkedList;
+import me.lzb.basic.list.LinkedList;
 
 /**
  * 先进先出

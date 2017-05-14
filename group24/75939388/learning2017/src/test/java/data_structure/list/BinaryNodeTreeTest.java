@@ -1,7 +1,7 @@
 package data_structure.list;
 
 import org.junit.Test;
-import basic.dataStructure.BinaryTreeNode;
+import basic.dataStructure.binaryTree.BinaryTreeNode;
 
 /**
  * @author : 温友朝
