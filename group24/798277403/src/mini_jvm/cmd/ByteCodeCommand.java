@@ -22,7 +22,7 @@ public abstract class ByteCodeCommand {
 	public static final String new_object = "BB"; //创建一个对象
 	public static final String lstore = "37";
 	public static final String invokespecial = "B7"; //对一个对象进行初始化， 父类的初始化， 调用私有方法
-	public static final String invokevirtual = "B6"; //指令调用对象的实例方法（多态）
+	public static final String invokevirtual = "B6"; //调用对象的实例方法（多态）
 	public static final String getfield = "B4";
 	public static final String putfield = "B5"; //给一个对象的字段赋值
 	public static final String getstatic = "B2";
@@ -147,7 +147,6 @@ public abstract class ByteCodeCommand {
 		}
 		return txt;
 	}
-	public abstract String toString(ConstantPool pool);
 
 	public abstract void execute(StackFrame frame,ExecutionResult result);
 }
