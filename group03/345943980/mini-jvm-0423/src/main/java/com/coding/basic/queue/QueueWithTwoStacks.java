@@ -3,6 +3,13 @@ package com.coding.basic.queue;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
+/**
+ * 用两个栈实现队列
+ * 
+ * @author chenming E-mail:cm_20094020@163.com
+ * @version 创建时间：2017年5月8日 下午9:59:34
+ * @param <E>
+ */
 public class QueueWithTwoStacks<E> {
 
 	private Stack<E> stack1;    

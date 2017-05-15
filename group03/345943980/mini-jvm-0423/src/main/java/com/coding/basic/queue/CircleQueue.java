@@ -1,5 +1,11 @@
 package com.coding.basic.queue;
 
+/**
+ * 实现循环队列
+ * @author chenming E-mail:cm_20094020@163.com
+ * @version 创建时间：2017年5月8日 下午9:59:09
+ * @param <E>
+ */
 public class CircleQueue<E> {
 
 	// 用数组来保存循环队列的元素

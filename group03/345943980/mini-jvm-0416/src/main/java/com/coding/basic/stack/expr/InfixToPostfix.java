@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * 中序表达式转后缀表达式
+ * 中缀表达式转后缀表达式
  * @author chenming E-mail:cm_20094020@163.com
  * @version 创建时间：2017年5月7日 下午4:29:06
  */
