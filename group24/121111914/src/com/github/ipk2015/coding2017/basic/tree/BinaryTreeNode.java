@@ -1,34 +1,41 @@
-package com.github.ipk2015.coding2017.basic;
+package com.github.ipk2015.coding2017.basic.tree;
 
-public class BinaryTreeNode {
+
+
+public class BinaryTreeNode<T> {
 	
-	private Comparable data;
-	private BinaryTreeNode left;
-	private BinaryTreeNode right;
+	private T data;
+	private BinaryTreeNode<T> left;
+	private BinaryTreeNode<T> right;
 	
-	public Object getData() {
+	public BinaryTreeNode(T data){
+		this.data=data;
+	}
+	public BinaryTreeNode(){
+		
+	}
+	public T getData() {
 		return data;
 	}
-	public void setData(Comparable data) {
+	public void setData(T data) {
 		this.data = data;
 	}
-	public BinaryTreeNode getLeft() {
+	public BinaryTreeNode<T> getLeft() {
 		return left;
 	}
-	public void setLeft(BinaryTreeNode left) {
+	public void setLeft(BinaryTreeNode<T> left) {
 		this.left = left;
 	}
-	public BinaryTreeNode getRight() {
+	public BinaryTreeNode<T> getRight() {
 		return right;
 	}
-	public void setRight(BinaryTreeNode right) {
+	public void setRight(BinaryTreeNode<T> right) {
 		this.right = right;
 	}
 	
-	public BinaryTreeNode insert(Comparable o){
-		BinaryTreeNode insertNode=new BinaryTreeNode();
+	public BinaryTreeNode<T> insert(T o){
+		BinaryTreeNode insertNode=new BinaryTreeNode(o);
 		BinaryTreeNode compareNode=this;
-		insertNode.setData(o);
 		
 		while(null!=compareNode){
 			if(null==compareNode.getData()){
@@ -36,7 +43,9 @@ public class BinaryTreeNode {
 				break;
 			}else{
 				Comparable com=(Comparable) compareNode.getData();
-				int result=com.compareTo(o);
+				
+				int result = com.compareTo(o);
+				
 				if(result==0){
 					break;
 				}else if(result>0){
