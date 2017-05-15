@@ -40,8 +40,23 @@ public class ArrayList implements List {
 		return removed;
 	}
 
-    public int size() {
+	@Override
+	public int indexOf(Object o) {
+	    for (int i = 0; i < size(); ++i) {
+			if (elementData[i] == null ? o == null : elementData[i].equals(o)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public int size() {
 		return size;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return size() == 0;
 	}
 
 	public Iterator iterator() {

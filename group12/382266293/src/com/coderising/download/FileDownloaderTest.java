@@ -15,6 +15,8 @@ public class FileDownloaderTest {
 
 	public static String foxmail = "http://sw.bos.baidu.com/sw-search-sp/software/6c7bb8b6674d0/fm728chb379_7.2.8.379_setup.exe";
 
+	public static String Git = "https://github.com/onlyliuxin/coding2017/archive/master.zip";
+	
 	boolean downloadFinished = false;
 	@Before
 	public void setUp() throws Exception {
@@ -28,7 +30,7 @@ public class FileDownloaderTest {
 
 		String url = "http://localhost:8080/test.jpg";
 
-		FileDownloader downloader = new FileDownloader(foxmail);
+		FileDownloader downloader = new FileDownloader(Git);
 
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
