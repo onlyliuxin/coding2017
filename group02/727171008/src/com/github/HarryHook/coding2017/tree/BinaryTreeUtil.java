@@ -13,7 +13,7 @@ public class BinaryTreeUtil {
      */
     static List<Object> result = new ArrayList<>();
     public static <T extends Comparable<T>> List<T> preOrderVisit(BinaryTreeNode<T> root) {
-	//List<T> result = new ArrayList<T>();
+	// List<T> result = new ArrayList<T>();
 	if (root != null) {
 	    result.add(root.getData());
 	    preOrderVisit(root.getLeft());
@@ -30,8 +30,9 @@ public class BinaryTreeUtil {
      * @return
      */
     static List<Object> result1 = new ArrayList<>();
+
     public static <T extends Comparable<T>> List<T> inOrderVisit(BinaryTreeNode<T> root) {
-	
+
 	if (root != null) {
 	    inOrderVisit(root.getLeft());
 	    result1.add(root.getData());
@@ -47,8 +48,9 @@ public class BinaryTreeUtil {
      * @return
      */
     static List<Object> result2 = new ArrayList<>();
+
     public static <T extends Comparable<T>> List<T> postOrderVisit(BinaryTreeNode<T> root) {
-	//List<T> result = new ArrayList<T>();
+	// List<T> result = new ArrayList<T>();
 	if (root != null) {
 	    postOrderVisit(root.getLeft());
 	    postOrderVisit(root.getRight());
@@ -147,7 +149,9 @@ public class BinaryTreeUtil {
 	binaryTreeNode.insert(2);
 	System.out.println(preOrderVisit(binaryTreeNode));
 	System.out.println(preOrderWithoutRecursion(binaryTreeNode));
+	System.out.println(inOrderVisit(binaryTreeNode));
 	System.out.println(inOrderWithoutRecursion(binaryTreeNode));
+	System.out.println(postOrderVisit(binaryTreeNode));
 	System.out.println(postOrderWithoutRecursion(binaryTreeNode));
     }
 

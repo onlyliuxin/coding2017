@@ -1,10 +1,10 @@
 package com.github.HarryHook.coding2017.tree;
 
-public class BinaryTreeNode<T extends Comparable<T>> {
+public class BinaryTreeNode<T extends Comparable> {
 
-    private T data;
-    private BinaryTreeNode<T> left;
-    private BinaryTreeNode<T> right;
+    public  T data;
+    public  BinaryTreeNode<T> left;
+    public  BinaryTreeNode<T> right;
 
     public BinaryTreeNode() {
     }
@@ -47,7 +47,7 @@ public class BinaryTreeNode<T extends Comparable<T>> {
 
 	if (data == null) {
 	    data = (T) o;
-	} else {	  
+	} else {
 	    int comparedValue = data.compareTo((T) o);
 	    if (comparedValue > 0) {
 		if (left == null) {
