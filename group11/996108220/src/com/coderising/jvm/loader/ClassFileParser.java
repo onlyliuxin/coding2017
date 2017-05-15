@@ -1,4 +1,7 @@
 package com.coderising.jvm.loader;
+import com.coderising.jvm.attr.CodeAttr;
+import com.coderising.jvm.attr.LineNumberTable;
+import com.coderising.jvm.attr.LocalVariableTable;
 import com.coderising.jvm.clz.AccessFlag;
 import com.coderising.jvm.clz.ClassFile;
 import com.coderising.jvm.clz.ClassIndex;
@@ -10,7 +13,10 @@ import com.coderising.jvm.constant.NameAndTypeInfo;
 import com.coderising.jvm.constant.NullConstantInfo;
 import com.coderising.jvm.constant.StringInfo;
 import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
 import com.coderising.jvm.util.Util;
+import com.sun.org.apache.bcel.internal.classfile.LineNumber;
 
 public class ClassFileParser {
 
@@ -23,10 +29,78 @@ public class ClassFileParser {
 		ClassFile classFile=new ClassFile();
 		classFile.setMinorVersion(iter.nextU2ToInt());
 		classFile.setMajorVersion(iter.nextU2ToInt());
-		classFile.setConstPool(parseConstantPool(iter));
+		ConstantPool pool=parseConstantPool(iter);
+		classFile.setConstPool(pool);
 		classFile.setAccessFlag(parseAccessFlag(iter));
 		classFile.setClassIndex(parseClassInfex(iter));
+		parseInterfaces(iter);
+		int fieldCount=iter.nextU2ToInt();
+		for (int i = 0; i <fieldCount ; i++) {
+			classFile.addField(parseField(iter,pool));
+		}
+		int methodCount=iter.nextU2ToInt();
+		for (int i = 0; i < methodCount; i++) {
+			classFile.addMethod(parseMethod(iter, classFile));
+		}
 		return classFile;
+	}
+
+	private Method parseMethod(ByteCodeIterator iter,ClassFile clzFile) {
+		
+		int accessFlag=iter.nextU2ToInt();	
+		int nameIndex=iter.nextU2ToInt();
+		int descriptorIndex=iter.nextU2ToInt();
+		Method method= new Method(clzFile, accessFlag, nameIndex, descriptorIndex);
+		int attrCount=iter.nextU2ToInt();
+		int attrNameIndex=iter.nextU2ToInt();
+		int attrLen=iter.nextU4ToInt();
+		int maxStack=iter.nextU2ToInt();
+		int maxLocals=iter.nextU2ToInt();
+		int codeLen=iter.nextU4ToInt();
+		byte[] codes=iter.getByte(codeLen);
+		
+		String code=Util.byteToHexString(codes);
+		CodeAttr codeAttr=new CodeAttr(attrNameIndex, attrLen, maxStack, maxLocals, codeLen, code);
+		int exceptionLength=iter.nextU2ToInt();
+		int count=iter.nextU2ToInt();
+		for (int i = 0; i < count; i++) {
+			int attrNameIndex1=iter.nextU2ToInt();
+			UTF8Info utf8Info=(UTF8Info) clzFile.getConstantPool().getConstantInfo(attrNameIndex1);
+			String attrName=utf8Info.getValue();
+			if (attrName.equals("LineNumberTable")) {
+				int attrLen1=iter.nextU4ToInt();
+				LineNumberTable lnTable=new LineNumberTable(attrNameIndex1, attrLen1);
+				lnTable.parse(iter);	
+			}
+			else if (attrName.equals("LocalVariableTable")) {
+				int attrLen1=iter.nextU4ToInt();
+				LocalVariableTable lvTable=new LocalVariableTable(attrNameIndex1, attrLen1);
+				lvTable.parse(iter);	
+			}
+			else {
+				throw new RuntimeException();
+			}
+		}
+		method.setCodeAttr(codeAttr);
+		return method;
+	}
+
+	private Field parseField(ByteCodeIterator iter,ConstantPool pool) {
+		int accessFlag=iter.nextU2ToInt();
+	    int	nameIndex=iter.nextU2ToInt();
+
+	    int	descriptorIndex=iter.nextU2ToInt();
+		Field field=new Field(accessFlag, nameIndex, descriptorIndex, pool);
+		iter.nextU2ToInt();
+		return field;
+	}
+
+	private void parseInterfaces(ByteCodeIterator iter) {
+		// TODO Auto-generated method stub
+		int interfaceCount = iter.nextU2ToInt();
+
+		System.out.println("interfaceCount:" + interfaceCount);
+
 	}
 
 	private AccessFlag parseAccessFlag(ByteCodeIterator iter) {

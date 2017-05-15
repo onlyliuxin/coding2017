@@ -2,7 +2,6 @@ package mini_jvm.cmd;
 
 
 import mini_jvm.clz.ClassFile;
-import mini_jvm.constant.ConstantPool;
 
 public abstract class OneOperandCmd extends ByteCodeCommand {
 
@@ -25,6 +24,4 @@ public abstract class OneOperandCmd extends ByteCodeCommand {
 		return 2;
 	}
 
-
-	public abstract String toString(ConstantPool pool);
 }

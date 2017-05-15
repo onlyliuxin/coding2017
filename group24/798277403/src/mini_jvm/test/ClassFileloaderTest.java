@@ -31,7 +31,7 @@ public class ClassFileloaderTest {
 	static {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path2);
-		String className = "EmployeeV1";
+		String className = "com.coderising.jvm.test.EmployeeV1";
 
 		clzFile = loader.loadClass(className);
 		//clzFile.print();
@@ -63,22 +63,22 @@ public class ClassFileloaderTest {
 	public void testClassFileLength() {		
 		
 		ClassFileLoader loader = new ClassFileLoader();
-		loader.addClassPath(path3);
+		loader.addClassPath(path2);
 		
-		String className = "week4.test.EmployeeV1";
+		String className = "com.coderising.jvm.test.EmployeeV1";
 		
 		byte[] byteCodes = loader.readBinaryCode(className);
 		
 		// 注意：这个字节数可能和你的JVM版本有关系， 你可以看看编译好的类到底有多大
-		Assert.assertEquals(1030, byteCodes.length);
+		Assert.assertEquals(1056, byteCodes.length);
 		
 	}
 
     @Test	
 	public void testMagicNumber(){
     	ClassFileLoader loader = new ClassFileLoader();
-		loader.addClassPath(path3);
-		String className = "week4.test.EmployeeV1";
+		loader.addClassPath(path2);
+		String className = "com.coderising.jvm.test.EmployeeV1";
 		byte[] byteCodes = loader.readBinaryCode(className);
 		byte[] codes = new byte[]{byteCodes[0],byteCodes[1],byteCodes[2],byteCodes[3]};
 		
