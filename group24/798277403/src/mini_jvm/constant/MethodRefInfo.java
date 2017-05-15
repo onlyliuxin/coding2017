@@ -1,5 +1,8 @@
 package mini_jvm.constant;
 
+/**
+ * 常量池中  类中方法的符号引用
+ */
 public class MethodRefInfo extends ConstantInfo {
 	
 	private int type = ConstantInfo.METHOD_INFO;

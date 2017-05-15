@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Stack;
 
 
+/**
+ * 函数帧
+ * 包含操作数栈，返回值，局部变量表，常量池引用
+ */
 public class StackFrame {
 	
 	private List<JavaObject> localVariableTable = new ArrayList<JavaObject>();
@@ -54,7 +58,6 @@ public class StackFrame {
 	}
 	
 	public int getNextCommandIndex(int offset){
-		
 		ByteCodeCommand[] cmds = m.getCodeAttr().getCmds();
 		for(int i=0;i<cmds.length; i++){
 			if(cmds[i].getOffset() == offset){
@@ -65,8 +68,48 @@ public class StackFrame {
 	}
 	
 	public ExecutionResult execute(){
-		return null;
-		
+
+		ByteCodeCommand [] cmds = m.getCmds();
+
+		//执行字节码指令
+		while(index<cmds.length){
+
+			ExecutionResult result = new ExecutionResult();
+			//缺省值是执行下一条命令
+			result.setNextAction(ExecutionResult.RUN_NEXT_CMD);
+
+			System.out.println(cmds[index].toString());
+
+			//执行字节码指令
+			cmds[index].execute(this,result);
+
+			if(result.isRunNextCmd()){
+				//执行完一条再执行下面一条
+				index++;
+			}
+			else if(result.isExitCurrentFrame()){
+				//退出当前栈帧
+				return result;
+			}
+			else if(result.isPauseAndRunNewFrame()){
+				//暂停当前栈帧的执行， 创建新的栈帧
+				index++;
+				return result;
+			}
+			else if(result.isJump()){
+				//跳转到另外一行指令去执行
+				int offset = result.getNextCmdOffset();
+				this.index = getNextCommandIndex(offset);
+			} else{
+				index++;
+			}
+
+		}
+
+		//当前StackFrmae的指令全部执行完毕，可以退出了
+		ExecutionResult result = new ExecutionResult();
+		result.setNextAction(ExecutionResult.EXIT_CURRENT_FRAME);
+		return result;
 	}
 
 	
