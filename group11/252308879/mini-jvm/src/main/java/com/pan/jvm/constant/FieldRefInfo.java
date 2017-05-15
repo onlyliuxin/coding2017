@@ -8,7 +8,6 @@ public class FieldRefInfo extends ConstantInfo {
     public FieldRefInfo(ConstantPool pool) {
         super(pool);
     }
-
     public int getType() {
         return type;
     }
@@ -16,43 +15,44 @@ public class FieldRefInfo extends ConstantInfo {
     public int getClassInfoIndex() {
         return classInfoIndex;
     }
-
     public void setClassInfoIndex(int classInfoIndex) {
         this.classInfoIndex = classInfoIndex;
     }
-
     public int getNameAndTypeIndex() {
         return nameAndTypeIndex;
     }
-
     public void setNameAndTypeIndex(int nameAndTypeIndex) {
         this.nameAndTypeIndex = nameAndTypeIndex;
     }
 
-    public String toString() {
+    public String toString(){
 
-        NameAndTypeInfo typeInfo = (NameAndTypeInfo) this.getConstantInfo(this.getNameAndTypeIndex());
+        NameAndTypeInfo  typeInfo = (NameAndTypeInfo)this.getConstantInfo(this.getNameAndTypeIndex());
 
-        return getClassName() + " : " + typeInfo.getName() + ":" + typeInfo.getTypeInfo() + "]";
+        return getClassName() +" : "+  typeInfo.getName() + ":" + typeInfo.getTypeInfo() +"]";
     }
 
-    public String getClassName() {
+    public String getClassName(){
 
         ClassInfo classInfo = (ClassInfo) this.getConstantInfo(this.getClassInfoIndex());
 
-        UTF8Info utf8Info = (UTF8Info) this.getConstantInfo(classInfo.getUtf8Index());
+        UTF8Info utf8Info = (UTF8Info)this.getConstantInfo(classInfo.getUtf8Index());
 
         return utf8Info.getValue();
 
     }
 
-    public String getFieldName() {
-        NameAndTypeInfo typeInfo = (NameAndTypeInfo) this.getConstantInfo(this.getNameAndTypeIndex());
+    public String getFieldName(){
+        NameAndTypeInfo  typeInfo = (NameAndTypeInfo)this.getConstantInfo(this.getNameAndTypeIndex());
         return typeInfo.getName();
     }
 
-    public String getFieldType() {
-        NameAndTypeInfo typeInfo = (NameAndTypeInfo) this.getConstantInfo(this.getNameAndTypeIndex());
+    public String getFieldType(){
+        NameAndTypeInfo  typeInfo = (NameAndTypeInfo)this.getConstantInfo(this.getNameAndTypeIndex());
         return typeInfo.getTypeInfo();
+    }
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitFieldRef(this);
     }
 }

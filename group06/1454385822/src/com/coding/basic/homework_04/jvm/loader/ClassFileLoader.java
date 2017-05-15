@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.coding.basic.homework_04.jvm.clz.ClassFile;
+import com.coding.basic.homework_04.jvm.clz.ClassFileParser;
 
 
 public class ClassFileLoader {
@@ -62,11 +64,7 @@ public class ClassFileLoader {
 	 * @return
 	 */
 	private String getPath(String path ,String className){
-		System.out.println(className);
 		String [] ways = className.split("\\.");
-		for (String string : ways) {
-			System.out.println(string);
-		}
 		StringBuilder builder = new StringBuilder();
 		builder.append(path);
 		for (String string : ways) {
@@ -75,7 +73,6 @@ public class ClassFileLoader {
 			builder.append(string);
 		}
 		builder.append(".class");
-		System.out.println(builder.toString());
 		return builder.toString();
 	}
 	
@@ -107,8 +104,19 @@ public class ClassFileLoader {
 		return builder.toString();
 	}
 
+	public ClassFile loadClass(String className) {
+		byte[] codes = readBinaryCode(className);
+		ClassFileParser parser = new ClassFileParser();
+		ClassFile clzFile = parser.parser(codes);
+		return clzFile;
+	}
+
 	
 
 	
 
 }
+	 
+
+
+	

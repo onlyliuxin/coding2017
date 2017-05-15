@@ -1,2 +1,12 @@
-﻿CPU、内存、硬盘、指令以及他们之间的关系
+﻿第一次作业博客：
+CPU、内存、硬盘、指令以及他们之间的关系
 https://zhuanlan.zhihu.com/p/25442061
+第二次作业博客：
+为什么32位处理器只能配4G内存
+https://zhuanlan.zhihu.com/p/26174778
+第三次作业博客：
+报文和帧
+https://zhuanlan.zhihu.com/p/26175504
+第四次作业博客：
+依赖注入通俗解释
+https://zhuanlan.zhihu.com/p/26176550
