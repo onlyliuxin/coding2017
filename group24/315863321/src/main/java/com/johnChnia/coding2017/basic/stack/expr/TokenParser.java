@@ -30,6 +30,10 @@ public class TokenParser {
                 tokens.add(t);
                 i = nextOperatorIndex;
 
+            } else if (isParentheses(c)) {
+                Token t = new Token(Token.PARENTHESES, String.valueOf(c));
+                tokens.add(t);
+                i++;
             } else {
                 System.out.println("char :[" + c + "] is not number or operator,ignore");
                 i++;
@@ -54,5 +58,10 @@ public class TokenParser {
     private boolean isOperator(char c) {
         String sc = String.valueOf(c);
         return Token.OPERATORS.contains(sc);
+    }
+
+    private boolean isParentheses(char c) {
+        String sc = String.valueOf(c);
+        return Token.OPENINGPARENTHESES.contains(sc) || Token.CLOSINGPARENTHESES.contains(sc);
     }
 }

@@ -1,9 +1,12 @@
 package com.github.miniyk2012.coding2017.coderising.jvm.loader;
 
+
 import com.github.miniyk2012.coding2017.coderising.jvm.clz.AccessFlag;
 import com.github.miniyk2012.coding2017.coderising.jvm.clz.ClassFile;
 import com.github.miniyk2012.coding2017.coderising.jvm.clz.ClassIndex;
 import com.github.miniyk2012.coding2017.coderising.jvm.constant.*;
+import com.github.miniyk2012.coding2017.coderising.jvm.field.Field;
+import com.github.miniyk2012.coding2017.coderising.jvm.method.Method;
 
 
 public class ClassFileParser {
@@ -12,7 +15,12 @@ public class ClassFileParser {
 
 		ClassFile clzFile = new ClassFile();
         ByteCodeIterator byteCodeIterator = new ByteCodeIterator(codes);
-        byteCodeIterator.skip(4);  // skip magic
+        // byteCodeIterator.skip(4);  // skip magic number
+        String magicNumber = byteCodeIterator.nextU4ToHexString();
+
+        if (!"cafebabe".equals(magicNumber)) {
+            return null;
+        }
         int minorVersion = byteCodeIterator.nextU2toInt();
         int majorVersion = byteCodeIterator.nextU2toInt();
         ConstantPool constantPool = parseConstantPool(byteCodeIterator);
@@ -24,6 +32,10 @@ public class ClassFileParser {
         clzFile.setConstPool(constantPool);
         clzFile.setAccessFlag(accessFlag);
         clzFile.setClassIndex(classIndex);
+
+        parseInterfaces(byteCodeIterator);
+        parseFileds(clzFile, byteCodeIterator);
+        parseMethods(clzFile, byteCodeIterator);
         return clzFile;
 	}
 
@@ -54,6 +66,33 @@ public class ClassFileParser {
         }
         return constantPool;
 	}
+
+    private void parseInterfaces(ByteCodeIterator iter) {
+        int interfaceCount = iter.nextU2toInt();
+
+        // System.out.println("interfaceCount:" + interfaceCount);
+        for (int i=0; i<interfaceCount; i++) {
+            // TODO : 如果实现了interface, 这里需要解析
+            iter.skip(2);
+        }
+
+    }
+
+    private void parseFileds(ClassFile clzFile, ByteCodeIterator iter) {
+        int fieldCount = iter.nextU2toInt();
+        for (int i =0; i<fieldCount; i++) {
+            Field f = Field.parse(clzFile.getConstantPool(), iter);
+            clzFile.addField(f);
+        }
+    }
+
+    private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
+        int methodCount = iter.nextU2toInt();
+        for (int i=0; i<methodCount; i++) {
+            Method m = Method.parse(clzFile, iter);
+            clzFile.addMethod(m);
+        }
+    }
 
     protected ConstantInfo getConstantInfo(ByteCodeIterator iter, int tag, ConstantPool pool) {
 	    switch (tag) {

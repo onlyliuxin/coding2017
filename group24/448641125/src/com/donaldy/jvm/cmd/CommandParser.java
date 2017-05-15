@@ -71,7 +71,7 @@ public class CommandParser {
 
 				cmds.add(cmd);
 			} else if (invokevirtual.equals(opCode)) {
-				InvokeSpecialCmd cmd = new InvokeSpecialCmd(clzFile, opCode);
+				InvokeVirtualCmd cmd = new InvokeVirtualCmd(clzFile, opCode);
 
 				cmd.setOprand1(iter.next2CharAsInt());
 				cmd.setOprand2(iter.next2CharAsInt());

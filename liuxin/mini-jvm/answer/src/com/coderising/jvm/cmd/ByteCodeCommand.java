@@ -55,6 +55,10 @@ public abstract class ByteCodeCommand {
 	static{
 		codeMap.put("01", "aconst_null");
 		
+		codeMap.put("A2", "if_icmp_ge");
+		codeMap.put("A4", "if_icmple");
+		codeMap.put("A7", "goto");
+		
 		codeMap.put("BB", "new");
 		codeMap.put("37", "lstore");
 		codeMap.put("B7", "invokespecial");
