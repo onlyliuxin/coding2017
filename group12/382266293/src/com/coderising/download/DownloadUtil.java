@@ -9,8 +9,15 @@ public class DownloadUtil {
 	private static final int MIN_CONNECTIONS = 3;
 	private static final int MAX_CONNECTIONS = 10;
 
-	public static long getCurrentTime() {
-		return System.currentTimeMillis();
+	public static int calculateConnects(int length) {
+		int conns = length / 1024 / 1024 / 10;
+		if (conns < MIN_CONNECTIONS) {
+			return MIN_CONNECTIONS;
+		} else if (conns > MAX_CONNECTIONS) {
+			return MAX_CONNECTIONS;
+		} else {
+			return conns;
+		}
 	}
 
 	public static void createTempFile(String tempName, int len) {
@@ -44,15 +51,14 @@ public class DownloadUtil {
 		}
 	}
 
-	public static int calculateConnects(int length) {
-		int conns = length / 1024 / 1024 / 10;
-		if (conns < MIN_CONNECTIONS) {
-			return MIN_CONNECTIONS;
-		} else if (conns > MAX_CONNECTIONS) {
-			return MAX_CONNECTIONS;
-		} else {
-			return conns;
-		}
+	public static long getCurrentTime() {
+		return System.currentTimeMillis();
+	}
+
+	public static void printDownloadReport(int length, long start, long end) {
+		int time = (int) ((end - start) / 1000);
+		float speed = (float) length / 1024 / 1024 / time;
+		System.out.println("共耗时：" + time + "s，下载速度： " + (float) (Math.round(speed * 100)) / 100 + "Mb/s");
 	}
 
 	public static boolean rename(String from, String to) {
@@ -62,12 +68,6 @@ public class DownloadUtil {
 		}
 		System.out.println("rename failed");
 		return false;
-	}
-
-	public static void printDownloadReport(int length, long start, long end) {
-		int time = (int) ((end - start) / 1000);
-		float speed = (float)length / 1024 / 1024 / time;
-		System.out.println("共耗时：" + time + "s，下载速度： " + (float)(Math.round(speed*100))/100 + "Mb/s");
 	}
 
 }
