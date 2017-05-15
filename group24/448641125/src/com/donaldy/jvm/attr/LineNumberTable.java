@@ -38,8 +38,6 @@ public class LineNumberTable extends AttributeInfo {
 		int lnTableLen = iter.nextU2ToInt();
 		LineNumberTable lnTable = new LineNumberTable(attrNameIndex, attributeLen);
 
-		System.out.println("LineNumberTable.lnTableLen : " + lnTableLen);
-
 		for (int i = 0; i < lnTableLen; ++i) {
 			LineNumberItem lnItem = new LineNumberItem();
 

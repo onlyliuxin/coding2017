@@ -2,7 +2,11 @@ package me.lzb.jvm.cmd;
 
 
 import me.lzb.jvm.clz.ClassFile;
-import me.lzb.jvm.constant.ConstantPool;
+import me.lzb.jvm.constant.FieldRefInfo;
+import me.lzb.jvm.engine.ExecutionResult;
+import me.lzb.jvm.engine.JavaObject;
+import me.lzb.jvm.engine.StackFrame;
+import me.lzb.jvm.print.ExecutionVisitor;
 
 public class GetFieldCmd extends TwoOperandCmd {
 
@@ -10,10 +14,25 @@ public class GetFieldCmd extends TwoOperandCmd {
         super(clzFile, opCode);
     }
 
-    @Override
-    public String toString(ConstantPool pool) {
+    public String toString() {
 
-        return super.getOperandAsField(pool);
+        return super.getOperandAsField();
+    }
+
+
+    @Override
+    public void execute(StackFrame frame, ExecutionResult result) {
+        FieldRefInfo fieldRef = (FieldRefInfo)this.getConstantInfo(this.getIndex());
+        String fieldName = fieldRef.getFieldName();
+        JavaObject jo = frame.getOprandStack().pop();
+        JavaObject fieldValue = jo.getFieldValue(fieldName);
+
+        frame.getOprandStack().push(fieldValue);
+    }
+
+    @Override
+    public void printExecute(ExecutionVisitor visitor) {
+        visitor.visitGetFieldCmd(this);
     }
 
 

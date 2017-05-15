@@ -14,12 +14,9 @@ public class StackMapTableParser implements AttributeInfoParser {
     @Override
     public AttributeInfo parse(int attrNameIndex, int attrLen,
                                ByteCodeIterator iterator, ConstantPool constantPool) {
-        int index = iterator.nextU2ToInt();
-        int len = iterator.nextU4ToInt();
 
         //后面的StackMapTable太过复杂， 不再处理， 只把原始的代码读进来保存
-        String code = iterator.nextHexString(len);
-
-        return new StackMapTableAttr(index, len, code);
+        String code = iterator.nextHexString(attrLen);
+        return new StackMapTableAttr(attrNameIndex, attrLen, code);
     }
 }

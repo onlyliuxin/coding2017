@@ -1,5 +1,7 @@
 package com.coderising.jvm.constant;
 
+import com.coderising.jvm.constant.ConstantInfo.Visitor;
+
 public class FieldRefInfo extends ConstantInfo{
 	
 	private int type = ConstantInfo.FIELD_INFO;
@@ -49,6 +51,12 @@ public class FieldRefInfo extends ConstantInfo{
 	public String getFieldType(){
 		NameAndTypeInfo typeInfo = (NameAndTypeInfo)this.getConstantInfo(nameAndTypeIndex);
 		return typeInfo.getTypeInfo();
+	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitFieldRef(this);
+		
 	}
 }
 

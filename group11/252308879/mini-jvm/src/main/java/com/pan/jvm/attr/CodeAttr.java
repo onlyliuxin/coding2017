@@ -1,6 +1,7 @@
 package com.pan.jvm.attr;
 
 import com.pan.jvm.clz.ClassFile;
+import com.pan.jvm.cmd.ByteCodeCommand;
 import com.pan.jvm.loader.ByteCodeIterator;
 
 
@@ -13,10 +14,10 @@ public class CodeAttr extends AttributeInfo {
 		return code;
 	}
 
-	//private ByteCodeCommand[] cmds ;
-	//public ByteCodeCommand[] getCmds() {
-	//	return cmds;
-	//}
+	private ByteCodeCommand[] cmds ;
+	public ByteCodeCommand[] getCmds() {
+		return cmds;
+	}
 	private LineNumberTable lineNumTable;
 	private LocalVariableTable localVarTable;
 	private StackMapTable stackMapTable;

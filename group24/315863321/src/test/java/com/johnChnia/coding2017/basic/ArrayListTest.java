@@ -15,7 +15,7 @@ public class ArrayListTest {
     private ArrayList<Integer> arrayList2;
     private ArrayList<Integer> arrayList3;
     private ArrayList<Integer> arrayList4;
-    private ArrayList<String> arrayList5;
+    private ArrayList<Integer> arrayList5;
 
     @Before
     public void setUp() throws Exception {
@@ -23,6 +23,7 @@ public class ArrayListTest {
         arrayList2 = new ArrayList<>(3);
         arrayList3 = new ArrayList<>(3);
         arrayList4 = new ArrayList<>(3);
+        arrayList5 = new ArrayList<>();
     }
 
     @Test
@@ -58,5 +59,14 @@ public class ArrayListTest {
         assertThat(arrayList4.size(), equalTo(5));
     }
 
-
+    @Test
+    public void testIterator() {
+        for (int i = 0; i < 6; i++) {
+            arrayList5.add(i);
+        }
+        for (int i:
+             arrayList5) {
+            System.out.println(i);
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package com.coderising.jvm.constant;
 
+import com.coderising.jvm.constant.ConstantInfo.Visitor;
+
 public class NameAndTypeInfo extends ConstantInfo{
 	
 	public int type = ConstantInfo.NAME_AND_TYPE_INFO;
@@ -47,6 +49,12 @@ public class NameAndTypeInfo extends ConstantInfo{
 	
 	public String toString(){
 		return "(" + getName() + "," + getTypeInfo() + ")";
+	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitNameAndType(this);
+		
 	}
 	
 }

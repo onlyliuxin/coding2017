@@ -23,6 +23,12 @@ public class IntegerInfo extends ConstantInfo {
 	public void setValue(int value) {
 		this.value = value;
 	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }
