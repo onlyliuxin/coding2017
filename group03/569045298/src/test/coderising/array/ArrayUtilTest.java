@@ -1,6 +1,7 @@
 package coderising.array;
 
-import com.coderising.array.ArrayUtil;
+
+import com.coding.basic.datastructure.array.ArrayUtil;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -38,10 +39,10 @@ public class ArrayUtilTest {
     @Test
     public void testFibonacci() {
         int max = 1;
-        int[] expected = {};
+        int[] expected = {0};
         Assert.assertArrayEquals(expected, arrayUtil.fibonacci(max));
         int max2 = 15;
-        int[] expected2 = {1, 1, 2, 3, 5, 8, 13};
+        int[] expected2 = {0, 1, 1, 2, 3, 5, 8, 13};
         Assert.assertArrayEquals(expected2, arrayUtil.fibonacci(max2));
     }
 
@@ -62,7 +63,7 @@ public class ArrayUtilTest {
 
     @Test
     public void testGetPerfectNumbers() {
-        int max = 6;
+        int max = 1000;
         arrayUtil.getPerfectNumbers(max);
     }
 

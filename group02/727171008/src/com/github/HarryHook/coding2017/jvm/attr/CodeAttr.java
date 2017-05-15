@@ -99,7 +99,7 @@ public class CodeAttr extends AttributeInfo {
     public String toString(ConstantPool pool) {
 	StringBuffer buffer = new StringBuffer();
 	for(int i=0;i<cmds.length;i++){
-		buffer.append(cmds[i].toString(pool)).append("\n");
+		buffer.append(cmds[i].toString()).append("\n");
 	}
 	//buffer.append("Code:").append(code).append("\n");
 	buffer.append("\n");

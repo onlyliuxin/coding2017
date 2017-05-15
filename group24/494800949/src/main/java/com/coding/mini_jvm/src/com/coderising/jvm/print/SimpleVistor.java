@@ -10,47 +10,44 @@ import java.util.Formatter;
 public class SimpleVistor implements ConstantInfo.Visitor {
     private              Formatter formatter    = new Formatter(System.out);
     private              String    format       = " = %-20s %-20s %-100s\n";
-    private static final String    HASH_KEY     = "#";
-    private static final String    DOUBLE_SLASH = "// ";
-    private static final String    DOT          = ".";
-    private static final String    COLON        = ":";
 
     @Override
     public void visitClassInfo(ClassInfo info) {
         formatter.format(format, "Class",
-                HASH_KEY + info.getUtf8Index(),
-                DOUBLE_SLASH + info.getClassName());
+                "#" + info.getUtf8Index(),
+                "// " + info.getClassName());
     }
 
     @Override
     public void visitFieldRef(FieldRefInfo info) {
         NameAndTypeInfo nameAndTypeInfo = (NameAndTypeInfo)info.getConstantInfo(info.getNameAndTypeIndex());
         formatter.format(format, "Fieldref",
-                HASH_KEY + info.getClassInfoIndex() + DOT + HASH_KEY + info.getNameAndTypeIndex(),
-                DOUBLE_SLASH + info.getClassName() + DOT + nameAndTypeInfo.getName() + COLON + nameAndTypeInfo.getTypeInfo());
+                "#" + info.getClassInfoIndex() + "." + "#" + info.getNameAndTypeIndex(),
+                "// " + info.getClassName() + "." + nameAndTypeInfo.getName() + ":" + nameAndTypeInfo.getTypeInfo());
     }
 
     @Override
     public void visitMethodRef(MethodRefInfo info) {
         formatter.format(format, "Methodref",
-                HASH_KEY + info.getClassInfoIndex() + DOT + HASH_KEY + info.getNameAndTypeIndex(),
-                DOUBLE_SLASH + info.getClassName() + DOT + info.getMethodName());
+                "#" + info.getClassInfoIndex() + "." + "#" + info.getNameAndTypeIndex(),
+                "// " + info.getClassName() + "." + info.getMethodName());
     }
 
     @Override
     public void visitNameAndType(NameAndTypeInfo info) {
         formatter.format(format, "NameAndType",
-                HASH_KEY + info.getIndex1() + COLON + HASH_KEY + info.getIndex2(),
-                DOUBLE_SLASH + info.getName() + COLON + info.getTypeInfo());
+                "#" + info.getIndex1() + ":" + "#" + info.getIndex2(),
+                "// " + info.getName() + ":" + info.getTypeInfo());
     }
 
     @Override
     public void visitString(StringInfo info) {
-        formatter.format(format, "String", HASH_KEY + info.getIndex(), DOUBLE_SLASH + info.toString());
+        formatter.format(format, "String", "#" + info.getIndex(), "// " + info.toString());
     }
 
     @Override
     public void visistUTF8(UTF8Info info) {
         formatter.format(format, "Utf8", info.getValue(), "");
     }
+
 }
