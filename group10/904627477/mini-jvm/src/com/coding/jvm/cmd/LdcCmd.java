@@ -4,6 +4,8 @@ import com.coding.jvm.clz.ClassFile;
 import com.coding.jvm.constant.ConstantInfo;
 import com.coding.jvm.constant.ConstantPool;
 import com.coding.jvm.constant.StringInfo;
+import com.coding.jvm.engine.ExecutionResult;
+import com.coding.jvm.engine.StackFrame;
 
 public class LdcCmd extends OneOperandCmd {
 
@@ -23,6 +25,12 @@ public class LdcCmd extends OneOperandCmd {
 		}
 		
 		return this.getOffset()+":"+this.getOpCode()+" " + this.getReadableCodeText() + " "+  value;
+		
+	}
+
+	@Override
+	public void execute(StackFrame frame, ExecutionResult result) {
+		// TODO Auto-generated method stub
 		
 	}
 	

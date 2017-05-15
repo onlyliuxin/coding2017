@@ -6,6 +6,13 @@ import com.coding.util.IOUtils;
 
 public class Test {
 	
+	public static void main(String[] args) {
+		Stu obj = new Tear();
+		obj.say();
+		obj.test();
+	}
+	
+	
 	private static String byteToHexString(byte[] codes ){
 		StringBuffer buffer = new StringBuffer();
 		for(int i=0;i<codes.length;i++){
@@ -20,11 +27,6 @@ public class Test {
 		return buffer.toString();
 	}
 
-	public static void main(String[] args) {
-		String filePath = System.getProperty("user.dir")+"/bin/EmployeeV1.class";
-		ClassFileLoader loader = new ClassFileLoader();
-		ClassFile clzFile = loader.loadFile(filePath);
-		System.out.println(clzFile);
-	}
+	
 
 }
