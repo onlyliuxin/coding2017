@@ -12,7 +12,8 @@ import java.util.List;
  *
  */
 public class Josephus {
-	
+
+/*
 	public static List<Integer> execute(int n, int m){
 		CircleQueue<Integer> queue = createCircleQueue(n);
 		List<Integer> list = new ArrayList<Integer>();
@@ -55,6 +56,26 @@ public class Josephus {
 			}
 		}
 		return start % queue.size();
+	}
+
+*/
+	public static List<Integer> execute(int n, int m){
+		Queue<Integer> queue = new Queue<Integer>();
+		for(int i = 0; i < n; i++){
+			queue.enQueue(i);
+		}
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		int i = 1;
+		while(!queue.isEmpty()){
+			int value = queue.deQueue();
+			if(i % m == 0){
+				list.add(value);
+			}else{
+				queue.enQueue(value);
+			}
+			i++;
+		}
+		return list;
 	}
 	
 }

@@ -1,19 +1,18 @@
 package queue;
 
-//import java.util.NoSuchElementException;
 
 /**
  * 用数组实现循环队列
+ * front 和 rear 之间有一个空位来区分队列空和满
  * @author liuxin
  *
  * @param <E>
  */
 public class CircleQueue <E> {
 	
-	private static int DEFAULT_SIZE = 10;
 	
 	//用数组来保存循环队列的元素
-	private Object[] elementData = new Object[DEFAULT_SIZE] ;
+	private Object[] elementData ;
 	//队列实际元素个数
 	private int size = 0;
 	
@@ -26,21 +25,24 @@ public class CircleQueue <E> {
 		return front == rear;
         
     }
+	
+	public boolean isFull(){
+		return (rear + 1) % elementData.length == front;
+	}
 
     public int size() {
         return size;
     }
 
-    public CircleQueue(int length){
-    	DEFAULT_SIZE = length;
-    	elementData = new Object[length];
+    public CircleQueue(int capacity){
+    	elementData = new Object[capacity];
     }
 
     public void enQueue(E data) {
-    	if((rear+1) % DEFAULT_SIZE == front){
+    	if(isFull()){
     		throw new IndexOutOfBoundsException("队列满");
     	}
-    	rear = (rear+1) % DEFAULT_SIZE;
+    	rear = (rear+1) % elementData.length;
     	elementData[rear] = data;
     	size++;
     }
@@ -50,7 +52,7 @@ public class CircleQueue <E> {
     	if(isEmpty()){
     		throw new IndexOutOfBoundsException("队列空");
     	}
-    	front = (front + 1) % DEFAULT_SIZE;
+    	front = (front + 1) % elementData.length;
     	size--;
     	return (E) elementData[front];
     }
@@ -66,13 +68,13 @@ public class CircleQueue <E> {
     
     public String toString(){
     	StringBuilder sb = new StringBuilder("[");
-    	int i = (front + 1) % DEFAULT_SIZE;
-    	while(i != (rear + 1) % DEFAULT_SIZE){
+    	int i = (front + 1) % elementData.length;
+    	while(i != (rear + 1) % elementData.length){
     		sb.append(elementData[i]);
     		if(i != rear){
     			sb.append(", ");
     		}
-    		i = (i + 1) % DEFAULT_SIZE;
+    		i = (i + 1) % elementData.length;
     	}
     	sb.append("]");
     	return sb.toString();

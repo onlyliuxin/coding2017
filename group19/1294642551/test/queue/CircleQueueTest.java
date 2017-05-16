@@ -66,5 +66,15 @@ public class CircleQueueTest {
 		int actual = queue.get(3);
 		Assert.assertEquals(4, actual);
 	}
+	
+	public void testSize(){
+		CircleQueue<Integer> queue = new CircleQueue<Integer>(6);
+		queue.enQueue(1);
+		queue.enQueue(2);
+		queue.enQueue(3);
+		queue.enQueue(4);
+		queue.enQueue(5);
+		Assert.assertEquals(5, queue.size());
+	}
 
 }
