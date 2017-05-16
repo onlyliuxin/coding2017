@@ -1,4 +1,4 @@
-package designPattern.chainResponsePattern;
+package teePrivate.designPattern.chainResponsePattern;
 
 /**
  * @author : 温友朝

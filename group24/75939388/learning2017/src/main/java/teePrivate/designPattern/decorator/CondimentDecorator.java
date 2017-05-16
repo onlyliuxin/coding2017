@@ -1,4 +1,4 @@
-package designPattern.decorator;
+package teePrivate.designPattern.decorator;
 
 /**
  * @author : 温友朝

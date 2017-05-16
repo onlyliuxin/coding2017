@@ -1,12 +1,12 @@
-package designPattern;
+package teePrivate.designPattern;
 
-import designPattern.decorator.Beverage;
-import designPattern.decorator.beverages.DarkRoast;
-import designPattern.decorator.beverages.Espresso;
-import designPattern.decorator.beverages.HouseBlend;
-import designPattern.decorator.condiments.Mocha;
-import designPattern.decorator.condiments.Soy;
-import designPattern.decorator.condiments.Whip;
+import teePrivate.designPattern.decorator.Beverage;
+import teePrivate.designPattern.decorator.beverages.DarkRoast;
+import teePrivate.designPattern.decorator.beverages.Espresso;
+import teePrivate.designPattern.decorator.beverages.HouseBlend;
+import teePrivate.designPattern.decorator.condiments.Mocha;
+import teePrivate.designPattern.decorator.condiments.Soy;
+import teePrivate.designPattern.decorator.condiments.Whip;
 import org.junit.Test;
 
 /**

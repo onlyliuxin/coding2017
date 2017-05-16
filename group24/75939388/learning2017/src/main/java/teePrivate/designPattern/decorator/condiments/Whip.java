@@ -1,7 +1,7 @@
-package designPattern.decorator.condiments;
+package teePrivate.designPattern.decorator.condiments;
 
-import designPattern.decorator.Beverage;
-import designPattern.decorator.CondimentDecorator;
+import teePrivate.designPattern.decorator.Beverage;
+import teePrivate.designPattern.decorator.CondimentDecorator;
 
 /**
  * @author : 温友朝

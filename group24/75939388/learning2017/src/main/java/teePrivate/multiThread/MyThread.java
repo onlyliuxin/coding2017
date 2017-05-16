@@ -1,4 +1,4 @@
-package multiThread;
+package teePrivate.multiThread;
 
 /**
  * @author : 温友朝
