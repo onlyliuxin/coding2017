@@ -1,10 +1,10 @@
 package task10;
 
-public class BinaryTreeNode<T> {
+public class BinaryTreeNode<T extends Comparable<T>> {
 
-    private T data;
-    private BinaryTreeNode<T> left;
-    private BinaryTreeNode<T> right;
+    public T data;
+    public BinaryTreeNode<T> left;
+    public BinaryTreeNode<T> right;
 
     public BinaryTreeNode(T data) {
         this.data = data;

@@ -10,7 +10,7 @@ public class BinaryTreeUtil {
      * <p>
      * 根左右
      */
-    public static <T> List<T> preOrderVisit(BinaryTreeNode<T> root) {
+    public static <T extends Comparable<T>> List<T> preOrderVisit(BinaryTreeNode<T> root) {
         List<T> result = new ArrayList<T>();
 
         T rootNode = root.getData();
@@ -19,7 +19,7 @@ public class BinaryTreeUtil {
         return result;
     }
 
-    private static <T> void preList(List<T> result, BinaryTreeNode<T> root) {
+    private static <T extends Comparable<T>> void preList(List<T> result, BinaryTreeNode<T> root) {
         if (root.getLeft() != null) {
             result.add(root.getLeft().getData());
             preList(result, root.getLeft());
@@ -35,13 +35,13 @@ public class BinaryTreeUtil {
      * <p>
      * 左根右
      */
-    public static <T> List<T> inOrderVisit(BinaryTreeNode<T> root) {
+    public static <T extends Comparable<T>> List<T> inOrderVisit(BinaryTreeNode<T> root) {
         List<T> result = new ArrayList<T>();
         inOrderList(result, root);
         return result;
     }
 
-    private static <T> void inOrderList(List<T> result, BinaryTreeNode<T> root) {
+    private static <T extends Comparable<T>> void inOrderList(List<T> result, BinaryTreeNode<T> root) {
         if (root == null) {
             return;
         }
@@ -55,13 +55,13 @@ public class BinaryTreeUtil {
      * <p>
      * 左右根
      */
-    public static <T> List<T> postOrderVisit(BinaryTreeNode<T> root) {
+    public static <T extends Comparable<T>> List<T> postOrderVisit(BinaryTreeNode<T> root) {
         List<T> result = new ArrayList<T>();
         postOrderVisit(result, root);
         return result;
     }
 
-    private static <T> void postOrderVisit(List<T> result, BinaryTreeNode<T> root) {
+    private static <T extends Comparable<T>> void postOrderVisit(List<T> result, BinaryTreeNode<T> root) {
         if (root == null) {
             return;
         }
@@ -73,7 +73,7 @@ public class BinaryTreeUtil {
     /**
      * 用非递归的方式实现对二叉树的前序遍历
      */
-    public static <T> List<T> preOrderWithoutRecursion(BinaryTreeNode<T> root) {
+    public static <T extends Comparable<T>> List<T> preOrderWithoutRecursion(BinaryTreeNode<T> root) {
         List<T> result = new ArrayList<>();
 
         Stack<BinaryTreeNode<T>> s = new Stack<>();
@@ -95,7 +95,7 @@ public class BinaryTreeUtil {
     /**
      * 用非递归的方式实现对二叉树的中序遍历
      */
-    public static <T> List<T> inOrderWithoutRecursion(BinaryTreeNode<T> root) {
+    public static <T extends Comparable<T>> List<T> inOrderWithoutRecursion(BinaryTreeNode<T> root) {
         List<T> result = new ArrayList<>();
         Stack<BinaryTreeNode<T>> s = new Stack<>();
         while (root != null || !s.empty()) {
