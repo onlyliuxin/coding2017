@@ -1,6 +1,9 @@
 package com.aaront.exercise.generic;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
 
 public class GenericBinaryTree<T extends Comparable<T>> {
 
@@ -176,6 +179,77 @@ public class GenericBinaryTree<T extends Comparable<T>> {
         return datas;
     }
 
+    public List<T> traversalWithoutRecursion(int order) {
+        if (order == PREORDER) {
+            return preorderWithoutRecursion(root);
+        } else if (order == INORDER) {
+            return inorderWithoutRecursion(root);
+        } else if (order == POSTORDER) {
+            return postorderWithoutRecursion(root);
+        } else {
+            return hierarchicalTraversalWithoutRecursion(root);
+        }
+    }
+
+    private List<T> preorderWithoutRecursion(BinaryTreeNode<T> root) {
+        List<T> nodes = new ArrayList<>();
+        Stack<BinaryTreeNode<T>> stack = new Stack<>();
+        while (root != null) {
+            nodes.add(root.getData());
+            if (root.getRight() != null) {
+                stack.push(root.getRight());
+            }
+            if (root.getLeft() != null) {
+                root = root.getLeft();
+            } else {
+                if (stack.isEmpty()) break;
+                root = stack.pop();
+            }
+        }
+
+        return nodes;
+    }
+
+    private List<T> inorderWithoutRecursion(BinaryTreeNode<T> root) {
+        List<T> nodes = new ArrayList<>();
+        Stack<BinaryTreeNode<T>> stack = new Stack<>();
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                stack.push(root);
+                root = root.getLeft();
+            }
+            BinaryTreeNode<T> node = stack.pop();
+            nodes.add(node.getData());
+            root = node.getRight();
+        }
+        return nodes;
+    }
+
+    private List<T> postorderWithoutRecursion(BinaryTreeNode<T> root) {
+        List<T> nodes = new ArrayList<>();
+        Stack<BinaryTreeNode<T>> stack = new Stack<>();
+        stack.push(root);
+        BinaryTreeNode<T> pre = null;
+        BinaryTreeNode<T> cur = null;
+        while (!stack.isEmpty()) {
+            cur = stack.peek();
+            // 如果当前节点是叶子节点 || 当前节点的左右节点都已经被访问过了, 则可以直接访问当前节点
+            if (cur.getLeft() == null && cur.getRight() == null || pre != null && (cur.getLeft() == pre || cur.getRight() == pre)) {
+                nodes.add(cur.getData());
+                stack.pop();
+                pre = cur;
+            } else {
+                if (cur.getRight() != null) stack.push(cur.getRight());
+                if (cur.getLeft() != null) stack.push(cur.getLeft());
+            }
+        }
+        return nodes;
+    }
+
+    private List<T> hierarchicalTraversalWithoutRecursion(BinaryTreeNode<T> root) {
+        return new ArrayList<>();
+    }
+
     private void preorderTraversal(BinaryTreeNode<T> node, Object[] datas) {
         if (node == null) {
             return;
@@ -211,7 +285,7 @@ public class GenericBinaryTree<T extends Comparable<T>> {
         GenericQueue<BinaryTreeNode<T>> queue = new GenericQueue<>();
         queue.enQueue(node);
         while (!queue.isEmpty()) {
-            BinaryTreeNode<T> tmp =  queue.deQueue();
+            BinaryTreeNode<T> tmp = queue.deQueue();
             datas[index++] = tmp.getData();
             if (tmp.getLeft() != null) queue.enQueue(tmp.getLeft());
             if (tmp.getRight() != null) queue.enQueue(tmp.getRight());

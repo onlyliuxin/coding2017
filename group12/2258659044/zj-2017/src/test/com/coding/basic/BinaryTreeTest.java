@@ -10,20 +10,21 @@ import com.coding.basic.List;
 
 public class BinaryTreeTest {
 
-	BinaryTree tree ;
+	BinaryTree<Integer> tree ;
 	
 	@Before
     public void setup() {
 		
-		tree = new BinaryTree();
+		tree = new BinaryTree<>();
 		Assert.assertEquals(tree.getRoot(), null);
 		tree.insert(5);
 		tree.insert(2);
 		tree.insert(7);
 		tree.insert(1);
 		tree.insert(6);
+
     }
-	@SuppressWarnings("unchecked")
+
 	@Test
 	public void insert(){
 		
@@ -36,7 +37,7 @@ public class BinaryTreeTest {
 		Assert.assertEquals((int)node2.getParent().getLeft().getData(), 6);
 	}
 	
-	@Test
+	//@Test
 	public void traversal(){
 		
 		insert();

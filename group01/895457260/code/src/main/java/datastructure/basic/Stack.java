@@ -23,7 +23,7 @@ public class Stack {
 	}
 
 	public boolean isEmpty() {
-		return size() == 0;
+		return elementData.isEmpty();
 	}
 
 	public int size() {
