@@ -118,7 +118,7 @@ public class BinarySearchTree<T extends Comparable> {
         if (parent == null)
             throw new RuntimeException("cannot remove non-exist node");
 
-        BinaryTreeNode<T> removeNode = null;
+        BinaryTreeNode<T> removeNode;
         boolean isLeft = true;//待删除的节点是否是parent的左节点
         BinaryTreeNode<T> left = parent.getLeft();
         BinaryTreeNode<T> right = parent.getRight();
@@ -153,12 +153,41 @@ public class BinarySearchTree<T extends Comparable> {
         else {
             if (isLeft) {
                 //删除的是左节点，找所有右子节点中最小的
-                BinaryTreeNode<T> min = getExtremeNodeRecursive(removeNode.getRight(), false);
-
+                BinaryTreeNode<T> minNode = getExtremeNodeRecursive(removeNode.getRight(), false);
+                //以最小的右子节点为根，构造新的右子树
+                minNode = createSubTree(minNode, removeNode.getRight());
+                //新子树设置原本的左子树
+                minNode.setLeft(parent.getLeft());
+                //父节点的左子树指向新子树
+                parent.setLeft(minNode);
             } else {
-
+                BinaryTreeNode<T> maxNode = getExtremeNodeRecursive(removeNode.getLeft(), true);
+                maxNode = createSubTree(maxNode, removeNode.getLeft());
+                maxNode.setRight(parent.getRight());
+                parent.setRight(maxNode);
             }
         }
+    }
+
+    /**
+     * 用新节点作为根节点重新构造二叉搜索树
+     *
+     * @param root
+     * @param oldRoot
+     */
+    private BinaryTreeNode<T> createSubTree(BinaryTreeNode<T> root, BinaryTreeNode<T> oldRoot) {
+        if (root == null)
+            throw new RuntimeException("cannot create a new binary search tree by new root");
+        Queue<BinaryTreeNode<T>> queue = new Queue<BinaryTreeNode<T>>();
+        queue.offer(oldRoot);
+        while (!queue.isEmpty()) {
+            BinaryTreeNode<T> node = queue.poll();
+            if (root.getData().compareTo(node.getData()) > 0)
+                root.setLeft(node);
+            if (root.getData().compareTo(node.getData()) < 0)
+                root.setRight(node);
+        }
+        return root;
     }
 
     /**
