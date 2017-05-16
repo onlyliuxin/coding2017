@@ -66,4 +66,10 @@ public class BinarySearchTreeTest {
         Assert.assertEquals(3, root.getLeft().getData().intValue());
         Assert.assertEquals(4, root.getLeft().getRight().getData().intValue());
     }
+
+    @Test
+    public void testFindParent() {
+        BinaryTreeNode<Integer> node = tree.findParent(tree.getRoot(), 8);
+        System.out.println(node);
+    }
 }
