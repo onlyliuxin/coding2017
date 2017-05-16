@@ -16,9 +16,9 @@ public class BinaryTreeNode<T extends Comparable<T>> {
         return data;
     }
 
-//    public void setData(T data) {
-//        this.data = data;
-//    }
+    public void setData(T data) {
+        this.data = data;
+    }
 
     public BinaryTreeNode<T> getLeft() {
         return left;
@@ -73,5 +73,12 @@ public class BinaryTreeNode<T extends Comparable<T>> {
     private boolean isSmaller(T d) {
         return this.data.compareTo(d) > 0;
     }
+
+    @Override
+    public String toString() {
+//        return getLeft() != null ? getLeft().getData().toString() : "" + ":" + getData().toString() + ":" + getRight() != null ? getRight().getData().toString() : "";
+        return getData().toString();
+    }
+
 
 }
