@@ -27,6 +27,24 @@ public class BinaryTreeUtil {
 		return datas;
 	}
     
+    /**
+     * 获取指定内容的节点
+     * @param root
+     * @param data
+     * @return
+     */
+    public static <T> BinaryTreeNode<T> findNode(BinaryTreeNode<T> root,T data) {
+				
+    	if(root !=null){
+			if(root.data.equals(data)){
+				return root;
+			}
+			findNode(root.getLeft(),data);
+			findNode(root.getRight(),data);
+		}
+		return null;
+	}
+   
 	/**
 	 * 用递归的方式实现对二叉树的中遍历
 	 * 
@@ -37,6 +55,9 @@ public class BinaryTreeUtil {
 		List<T> result = new ArrayList<T>();
 		inOrderTraversal(root,result);
 		return result;
+	}
+	public static <T> void heh(BinaryTreeNode<T> root){
+		
 	}
 	
     private static <T> List<T> inOrderTraversal(BinaryTreeNode<T> node,List<T> datas){

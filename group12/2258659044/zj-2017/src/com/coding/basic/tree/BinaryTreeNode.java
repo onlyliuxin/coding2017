@@ -1,40 +1,79 @@
 package com.coding.basic.tree;
-public class BinaryTreeNode<E> {
-	
-	private E data;
-	//父节点
-	private BinaryTreeNode<E> parent;
-	private BinaryTreeNode<E> left;
-	private BinaryTreeNode<E> right;
-	
-	public BinaryTreeNode(E data) {
+
+import java.util.Comparator;
+
+public class BinaryTreeNode<T> {
+
+	public T data;
+	// 父节点
+	public BinaryTreeNode<T> parent;
+	public BinaryTreeNode<T> left;
+	public BinaryTreeNode<T> right;
+
+	public BinaryTreeNode(T data) {
 		this.data = data;
 	}
-	public E getData() {
+
+	public T getData() {
 		return data;
 	}
-	public void setData(E data) {
+
+	public void setData(T data) {
 		this.data = data;
 	}
-	
-	public BinaryTreeNode<E> getLeft() {
+
+	public BinaryTreeNode<T> getLeft() {
 		return left;
 	}
-	public void setLeft(BinaryTreeNode<E> left) {
+
+	public void setLeft(BinaryTreeNode<T> left) {
 		this.left = left;
 	}
-	
-	public BinaryTreeNode<E> getRight() {
+
+	public BinaryTreeNode<T> getRight() {
 		return right;
 	}
-	public void setRight(BinaryTreeNode<E> right) {
+
+	public void setRight(BinaryTreeNode<T> right) {
 		this.right = right;
 	}
-	
-	public BinaryTreeNode<E> getParent() {
+
+	public BinaryTreeNode<T> getParent() {
 		return parent;
 	}
-	public void setParent(BinaryTreeNode<E> parent) {
+
+	public void setParent(BinaryTreeNode<T> parent) {
 		this.parent = parent;
 	}
+
+	public BinaryTreeNode<T> insert(T o,Comparator<? super T> comptor) {
+
+		BinaryTreeNode<T> parent;
+		BinaryTreeNode<T> currentNode = this;
+		BinaryTreeNode<T> treeNode = new BinaryTreeNode<T>(o);
+
+		while (true) {
+			parent = currentNode;			
+			if (comptor.compare(currentNode.data, o)>0) {// 向左放
+				currentNode = currentNode.getLeft();
+				if (currentNode == null) {
+					parent.setLeft(treeNode);
+					treeNode.setParent(parent);
+					break;
+				}
+			} else if (comptor.compare(currentNode.data, o)<0) {// 向右放
+				currentNode = currentNode.getRight();
+				if (currentNode == null) {
+					parent.setRight(treeNode);
+					treeNode.setParent(parent);
+					break;
+				}
+			} else {
+				break;
+			}
+		}
+
+		return treeNode;
+	}
+	
 }
