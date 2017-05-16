@@ -78,7 +78,9 @@ public class CommandParser {
 		if(opCode.equals(aload_0) || opCode.equals(aload_1) || opCode.equals(aload_2) 
 				|| opCode.equals(iload_1) || opCode.equals(iload_2) ||opCode.equals(iload_3) 
 				|| opCode.equals(fload_3) || opCode.equals(voidreturn) || opCode.equals(dup) 
-				|| opCode.equals(astore_1)){
+				|| opCode.equals(astore_1) || opCode.equals(iadd) || opCode.equals(ireturn) 
+				|| opCode.equals(astore_1) || opCode.equals(istore_1) || opCode.equals(istore_2) 
+				|| opCode.equals(iconst_0) || opCode.equals(iconst_1) || opCode.equals(fload_3)){
 			noOperandCmd = new NoOperandCmd(clzFile, opCode);
 			cmds.add(noOperandCmd);
 		}
@@ -129,6 +131,15 @@ public class CommandParser {
 			twoOperandCmd = new PutFieldCmd(clzFile, opCode);
 			flag = true;
 			
+		}else if(if_icmp_ge.equals(opCode) 
+				|| if_icmple.equals(opCode) 
+				|| goto_no_condition.equals(opCode)){
+			twoOperandCmd = new ComparisonCmd(clzFile,opCode);
+			flag = true;
+			
+		} else if(iinc.equals(opCode)){
+			twoOperandCmd = new IncrementCmd(clzFile,opCode);
+			flag = true;
 		}
 		
 		if(flag){
