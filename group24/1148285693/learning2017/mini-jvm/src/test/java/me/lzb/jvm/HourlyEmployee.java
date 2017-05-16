@@ -2,7 +2,6 @@ package me.lzb.jvm;
 
 /**
  * @author LZB
- * @date 2017/5/12
  */
 public class HourlyEmployee extends EmployeeV2 {
     int hourlySalary;

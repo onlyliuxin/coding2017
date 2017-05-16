@@ -14,7 +14,8 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * 处理字class文件字节流
- * Created by LZB on 2017/4/14.
+ *
+ * @author LZB
  */
 public class ClassFileParser {
 

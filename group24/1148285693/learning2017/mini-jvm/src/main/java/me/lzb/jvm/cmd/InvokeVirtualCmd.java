@@ -9,6 +9,9 @@ import me.lzb.jvm.engine.StackFrame;
 import me.lzb.jvm.method.Method;
 import me.lzb.jvm.print.ExecutionVisitor;
 
+/**
+ * @author LZB
+ */
 public class InvokeVirtualCmd extends TwoOperandCmd {
 
     public InvokeVirtualCmd(ClassFile clzFile, String opCode) {

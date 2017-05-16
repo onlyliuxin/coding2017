@@ -10,7 +10,9 @@ import me.lzb.jvm.print.ExecutionVisitor;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * @author LZB
+ */
 public abstract class ByteCodeCommand {
 
     String opCode;

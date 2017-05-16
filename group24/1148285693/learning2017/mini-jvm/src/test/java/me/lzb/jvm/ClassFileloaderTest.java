@@ -19,7 +19,9 @@ import org.junit.Test;
 
 import java.util.List;
 
-
+/**
+ * @author LZB
+ */
 public class ClassFileloaderTest {
 
 
@@ -95,7 +97,7 @@ public class ClassFileloaderTest {
 
     static {
         ClassFileLoader loader = new ClassFileLoader();
-        loader.addClassPath(path1 );
+        loader.addClassPath(path1);
 
         clzFile = loader.loadClass(className);
         clzFile.print();

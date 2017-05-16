@@ -1,7 +1,7 @@
 package me.lzb.jvm.print;
 
 /**
- * Created by LZB on 2017/4/23.
+ * @author LZB
  */
 public interface Print {
 

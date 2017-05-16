@@ -7,7 +7,6 @@ import org.junit.Test;
 
 /**
  * @author LZB
- * @date 2017/5/16
  */
 public class BinarySearchTreeTest {
     BinarySearchTree<Integer> tree = null;
@@ -15,11 +14,11 @@ public class BinarySearchTreeTest {
     @Before
     public void setUp() throws Exception {
         BinaryTreeNode<Integer> root = new BinaryTreeNode<>(6);
-        root.left = new BinaryTreeNode<>(2);
-        root.right = new BinaryTreeNode<>(8);
-        root.left.left = new BinaryTreeNode<>(1);
-        root.left.right = new BinaryTreeNode<>(4);
-        root.left.right.left = new BinaryTreeNode<>(3);
+        root.insert(2);
+        root.insert(8);
+        root.insert(1);
+        root.insert(4);
+        root.insert(3);
         tree = new BinarySearchTree<>(root);
     }
 
@@ -53,7 +52,7 @@ public class BinarySearchTreeTest {
     public void testRemoveLeaf() {
         tree.remove(4);
         BinaryTreeNode<Integer> root = tree.getRoot();
-        Assert.assertEquals(3, root.left.right.data.intValue());
+        Assert.assertEquals(3, root.getLeft().getRight().getData().intValue());
 
     }
 
@@ -61,7 +60,7 @@ public class BinarySearchTreeTest {
     public void testRemoveMiddleNode() {
         tree.remove(2);
         BinaryTreeNode<Integer> root = tree.getRoot();
-        Assert.assertEquals(3, root.left.data.intValue());
-        Assert.assertEquals(4, root.left.right.data.intValue());
+        Assert.assertEquals(3, root.getLeft().getData().intValue());
+        Assert.assertEquals(4, root.getLeft().getRight().getData().intValue());
     }
 }

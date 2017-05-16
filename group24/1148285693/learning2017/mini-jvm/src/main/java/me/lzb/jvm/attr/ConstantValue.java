@@ -2,7 +2,6 @@ package me.lzb.jvm.attr;
 
 /**
  * @author LZB
- * @date 2017/5/12
  */
 public class ConstantValue extends AttributeInfo {
 

@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Created by LZB on 2017/3/27.
+ * @author LZB
  */
 public class ConnectionTest {
 
@@ -25,7 +25,7 @@ public class ConnectionTest {
     }
 
     @Test
-    public void testContentLength() throws Exception{
+    public void testContentLength() throws Exception {
         ConnectionManager connMan = new ConnectionManagerImpl();
         Connection conn = connMan.open(imageUrl);
         Assert.assertEquals(3440179, conn.getContentLength());
@@ -33,7 +33,7 @@ public class ConnectionTest {
     }
 
     @Test
-    public void testRead() throws Exception{
+    public void testRead() throws Exception {
 
         ConnectionManager connMan = new ConnectionManagerImpl();
         Connection conn = connMan.open(imageUrl);

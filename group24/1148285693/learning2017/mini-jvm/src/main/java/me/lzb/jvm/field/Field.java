@@ -4,7 +4,7 @@ import me.lzb.jvm.attr.ConstantValue;
 import me.lzb.jvm.constant.ConstantPool;
 
 /**
- * Created by LZB on 2017/4/15.
+ * @author LZB
  */
 public class Field {
     private int accessFlag;
@@ -15,16 +15,13 @@ public class Field {
 
     private ConstantValue constantValue;
 
-    public Field(int accessFlag, int nameIndex, int descriptorIndex ,ConstantPool pool) {
+    public Field(int accessFlag, int nameIndex, int descriptorIndex, ConstantPool pool) {
 
         this.accessFlag = accessFlag;
         this.nameIndex = nameIndex;
         this.descriptorIndex = descriptorIndex;
         this.pool = pool;
     }
-
-
-
 
 
     @Override

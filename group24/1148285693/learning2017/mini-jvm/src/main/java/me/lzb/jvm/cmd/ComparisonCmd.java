@@ -8,7 +8,6 @@ import me.lzb.jvm.print.ExecutionVisitor;
 
 /**
  * @author LZB
- * @date 2017/5/12
  */
 public class ComparisonCmd extends TwoOperandCmd {
 

@@ -2,7 +2,6 @@ package me.lzb.jvm;
 
 /**
  * @author LZB
- * @date 2017/5/12
  */
 public class EmployeeV2 {
     public static final String TEAM_NAME = "Dev Team";

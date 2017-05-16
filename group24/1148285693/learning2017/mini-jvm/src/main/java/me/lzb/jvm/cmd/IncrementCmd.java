@@ -8,7 +8,7 @@ import me.lzb.jvm.engine.StackFrame;
 import me.lzb.jvm.print.ExecutionVisitor;
 
 /**
- * Created by lzbfe on 2017/5/13.
+ * @author LZB
  */
 public class IncrementCmd extends TwoOperandCmd {
 
