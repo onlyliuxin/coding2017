@@ -25,9 +25,7 @@ public class TwoStackInOneArray {
 	 * @param o
 	 */
 	public void push1(Object o){
-		if(isFull()){
-			throw new IndexOutOfBoundsException("栈已满");
-		}
+		ensureCapacity();
 		data[++index1] = o;
 		
 	}
@@ -50,6 +48,9 @@ public class TwoStackInOneArray {
 	 */
 	
 	public Object peek1(){
+		if(isEmpty1()){
+			throw new IndexOutOfBoundsException("栈1 为空");
+		}
 		return data[index1];
 	}
 	
@@ -57,9 +58,7 @@ public class TwoStackInOneArray {
 	 * 向第二个栈压入元素
 	 */
 	public void push2(Object o){
-		if(isFull()){
-			throw new IndexOutOfBoundsException("栈已满");
-		}
+		ensureCapacity();
 		data[--index2] = o;
 	}
 	/**
@@ -80,6 +79,9 @@ public class TwoStackInOneArray {
 	 */
 	
 	public Object peek2(){
+		if(isEmpty2()){
+			throw new IndexOutOfBoundsException("栈2 为空");
+		}
 		return data[index2];
 	}
 	
@@ -92,6 +94,20 @@ public class TwoStackInOneArray {
 	
 	public boolean isFull(){
 		return index2 == (index1 + 1);
+	}
+	
+	public void ensureCapacity(){
+		if(index2 > index1+1){
+			return ;
+		}
+		if(isFull()){
+			Object[] newData = new Object[2*capacity];
+			System.arraycopy(data, 0, newData, 0, index1+1);
+			System.arraycopy(data, index2, newData, index2 + capacity, capacity-index2);
+			data = newData;
+			capacity = 2 * capacity;
+			index2 = index2 + capacity;
+		}
 	}
 	
 	public boolean isEmpty1(){

@@ -10,28 +10,36 @@ import java.util.Stack;
  */
 public class QuickMinStack {
 	private Stack<Integer> stack;
-	private Integer minData;
+	private Stack<Integer> minStack;
 	
 	public QuickMinStack(){
 		stack = new Stack<Integer>();
+		minStack = new Stack<Integer>();
 	}
 	
 	public void push(Integer data){
 		stack.push(data);
-		if(minData == null){
-			minData = data;
-		}else{
-			minData = min(minData, data);
+		if(minStack.isEmpty()){
+			minStack.push(data);
+		}else if(data <= minStack.peek()){
+			minStack.push(data);
 		}
-	}
-	private int min(int minData, int data) {
-		return data < minData ? data:minData;
 	}
 
 	public int pop(){
-		return stack.pop();
+		if(stack.isEmpty()){
+			throw new RuntimeException("the stack is empty");
+		}
+		int value = stack.pop();
+		if(minStack.peek() == value){
+			minStack.pop();
+		}
+		return value;
 	}
 	public int findMin(){
-		return minData;
+		if(minStack.isEmpty()){
+			throw new RuntimeException("the minStack is empty");
+		}
+		return minStack.peek();
 	}
 }

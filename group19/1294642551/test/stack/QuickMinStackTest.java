@@ -19,13 +19,21 @@ public class QuickMinStackTest {
 	@Test
 	public void test() {
 		QuickMinStack stack = new QuickMinStack();
-		stack.push(1);
 		stack.push(5);
-		stack.push(-4);
-		stack.push(10);
-		stack.push(-2);
-		Assert.assertEquals(-2, stack.pop());
-		Assert.assertEquals(-4, stack.findMin());
+		Assert.assertEquals(5, stack.findMin());
+		stack.push(6);
+		Assert.assertEquals(5, stack.findMin());
+		stack.push(4);
+		Assert.assertEquals(4, stack.findMin());
+		stack.push(4);
+		Assert.assertEquals(4, stack.findMin());
+		
+		stack.pop();
+		Assert.assertEquals(4, stack.findMin());
+		stack.pop();
+		Assert.assertEquals(5, stack.findMin());
+		stack.pop();
+		Assert.assertEquals(5, stack.findMin());
 		
 	}
 

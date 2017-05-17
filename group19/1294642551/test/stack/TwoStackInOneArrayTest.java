@@ -36,6 +36,9 @@ public class TwoStackInOneArrayTest {
 		stack.push2("e");
 		Assert.assertEquals("[1, 2, e, d, b, a]", stack.toString());
 		Assert.assertEquals(true, stack.isFull());
+		
+		stack.push1("4");
+		Assert.assertEquals("[1, 2, 4, null, null, null, null, null, e, d, b, a]", stack.toString());
 	}
 
 }
