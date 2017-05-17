@@ -23,30 +23,33 @@ public class TokenParser {
 				Token t = new Token(Token.NUMBER, value);
 				tokens.add(t);
 				i = nextOperatorIndex;
+			} else{
+				System.out.println("char :["+c+"] is not number or operator,ignore");
+				i++;
 			}
-			System.out.println(c);
 		}
 		
 		return tokens;
 	}
 
-	private int indexOfNextOperator(int nowIndex, String expr) {
-		for (int i = nowIndex; i < expr.length(); i++) {
-			char c = expr.charAt(i);
-			if (charIsOperator(c)) {
-				return i;
+	private  int indexOfNextOperator(int i, String expr) {
+		while (Character.isDigit(expr.charAt(i))) {
+			i++;
+			if (i == expr.length()) {
+				break;
 			}
 		}
-		return expr.length();//如果后面没有操作符，返回字符串长度，用于截取数字
+		return i;
 	}
 
 	private boolean charIsDigit(char c) {
+		//return Character.isDigit(c);
 		return c>='0' && c<='9';
 	}
 
 	private boolean charIsOperator(char c) {
-		
-		return c=='+' || c=='-' || c=='*' || c=='/';
+		String sc = String.valueOf(c);
+		return Token.OPERATORS.contains(sc);
 	}
 	
 }

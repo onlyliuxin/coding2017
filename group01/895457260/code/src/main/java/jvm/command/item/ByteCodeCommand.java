@@ -4,6 +4,9 @@ import jvm.classfile.ClassFile;
 import jvm.classfile.ConstantPool;
 import jvm.classfile.constant.item.Constant;
 import jvm.command.CommandIterator;
+import jvm.engine.ExecutionResult;
+import jvm.engine.StackFrame;
+import jvm.exception.ReadClassException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,15 +24,19 @@ public abstract class ByteCodeCommand {
 
         codeMap.put("BB", "New");
         codeMap.put("37", "LStore");
+        codeMap.put("B9", "InvokeInterface");
+        codeMap.put("B8", "InvokeStatic");
         codeMap.put("B7", "InvokeSpecial");
         codeMap.put("B6", "InvokeVirtual");
-        codeMap.put("B4", "GetField");
         codeMap.put("B5", "PutField");
+        codeMap.put("B4", "GetField");
+        codeMap.put("B3", "PutStatic");
         codeMap.put("B2", "GetStatic");
 
         codeMap.put("2A", "ALoad_0");
         codeMap.put("2B", "ALoad_1");
         codeMap.put("2C", "ALoad_2");
+        codeMap.put("2D", "ALoad_3");
 
         codeMap.put("10", "BiPush");
         codeMap.put("15", "ILoad");
@@ -43,7 +50,11 @@ public abstract class ByteCodeCommand {
         codeMap.put("1E", "LLoad_0");
 
         codeMap.put("24", "FLoad_2");
+
+        codeMap.put("4B", "AStore_0");
         codeMap.put("4C", "AStore_1");
+        codeMap.put("4D", "AStore_2");
+        codeMap.put("4E", "AStore_3");
 
         codeMap.put("A2", "If_Icmp_Ge");
         codeMap.put("A4", "If_Icmple");
@@ -57,15 +68,20 @@ public abstract class ByteCodeCommand {
         codeMap.put("03", "IConst_0");
         codeMap.put("04", "IConst_1");
 
+        codeMap.put("3B", "IStore_0");
         codeMap.put("3C", "IStore_1");
         codeMap.put("3D", "IStore_2");
+        codeMap.put("3E", "IStore_3");
 
         codeMap.put("59", "Dup");
+        codeMap.put("57", "Pop");
 
         codeMap.put("60", "IAdd");
         codeMap.put("84", "IInc");
 
         codeMap.put("12", "Ldc");
+
+        codeMap.put("C7", "IfNonNull");
     }
 
     ByteCodeCommand(ClassFile clzFile, String opCode, CommandIterator iterator) {
@@ -113,5 +129,5 @@ public abstract class ByteCodeCommand {
         return txt == null ? opCode : txt.toLowerCase();
     }
 
-    //public abstract void execute(StackFrame frame,FrameResult result);
+    public abstract void execute(StackFrame frame, ExecutionResult result) throws ReadClassException;
 }

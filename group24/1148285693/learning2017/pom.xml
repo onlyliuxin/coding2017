@@ -25,7 +25,6 @@
         <module>common</module>
         <module>learning-basic</module>
         <module>mini-jvm</module>
-        <module>other</module>
     </modules>
 
     <properties>
@@ -138,6 +137,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
+
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.maven.surefire</groupId>
@@ -147,6 +147,12 @@
                 </dependencies>
                 <configuration>
                     <skipTests>false</skipTests>
+                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                    <forkCount>1</forkCount>
+                    <reuseForks>false</reuseForks>
+                    <systemPropertyVariables>
+                        <buildTestDir>${java.io.tmpdir}</buildTestDir>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>

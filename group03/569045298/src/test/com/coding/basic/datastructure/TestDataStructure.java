@@ -1,5 +1,9 @@
 package com.coding.basic.datastructure;
 
+import com.coding.basic.datastructure.array.ArrayList;
+import com.coding.basic.datastructure.linklist.LinkedList;
+import com.coding.basic.datastructure.stack.Stack;
+
 import org.junit.Test;
 
 /**
@@ -8,7 +12,7 @@ import org.junit.Test;
 public class TestDataStructure {
 
     @Test
-    public void testLinedList() {
+    public void testLinkedList() {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 5; i++) {
             list.add(i);
@@ -61,6 +65,107 @@ public class TestDataStructure {
         System.out.println("ArrayList size : " + arrayList.size());
         for (int i = 0; i < arrayList.size(); i++) {
             System.out.println(arrayList.get(i));
+        }
+    }
+
+    @Test
+    public void testReverseLinkedList() {
+        LinkedList linkedList = new LinkedList();
+        for (int i = 0; i < 10; i++) {
+            linkedList.add(i);
+        }
+        linkedList.reverse();
+        printLinkedList(linkedList);
+    }
+
+    @Test
+    public void testRemoveLinkedList() {
+        LinkedList linkedList = new LinkedList();
+        for (int i = 0; i < 10; i++) {
+            linkedList.add(i);
+        }
+        linkedList.remove(0, 8);
+        printLinkedList(linkedList);
+    }
+
+    @Test
+    public void testRemoveFirstHalf() {
+        LinkedList linkedList = new LinkedList();
+        for (int i = 0; i < 1; i++) {
+            linkedList.add(i);
+        }
+        linkedList.removeFirstHalf();
+        printLinkedList(linkedList);
+    }
+
+    @Test
+    public void testRemoveDuplicateValues() {
+        LinkedList linkedList = new LinkedList();
+        linkedList.add(1);
+        linkedList.add(2);
+        linkedList.add(2);
+        linkedList.add(2);
+        linkedList.add(3);
+        linkedList.add(3);
+        linkedList.add(4);
+        linkedList.add(4);
+        linkedList.removeDuplicateValues();
+        printLinkedList(linkedList);
+    }
+
+    @Test
+    public void testLinkedListIterator() {
+        LinkedList linkedList = new LinkedList();
+        for (int i = 0; i < 10; i++) {
+            linkedList.add(i);
+        }
+        Iterator iterator = linkedList.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+    }
+
+    @Test
+    public void testGetElements() {
+        LinkedList linkedList = new LinkedList();
+        linkedList.add(11);
+        linkedList.add(101);
+        linkedList.add(201);
+        linkedList.add(301);
+        linkedList.add(401);
+        linkedList.add(501);
+        linkedList.add(601);
+        linkedList.add(701);
+
+        LinkedList indexList = new LinkedList();
+        indexList.add(0);
+        indexList.add(3);
+        indexList.add(4);
+        indexList.add(6);
+
+        int[] result = linkedList.getElements(indexList);
+        for (int i = 0; i < result.length; i++) {
+            System.out.println(result[i]);
+        }
+    }
+
+    @Test
+    public void testRemoveRange() {
+        LinkedList linkedList = new LinkedList();
+        linkedList.add(1);
+        linkedList.add(2);
+        linkedList.add(3);
+        linkedList.add(3);
+        linkedList.add(4);
+        linkedList.add(6);
+        linkedList.add(6);
+        linkedList.removeRange(1, 4);
+        printLinkedList(linkedList);
+    }
+
+    private void printLinkedList(LinkedList linkedList) {
+        for (int i = 0; i < linkedList.size(); i++) {
+            System.out.print(linkedList.get(i) + ",");
         }
     }
 }

@@ -20,6 +20,10 @@ public class InfixExprTest {
 	public void testEvaluate() {
 		//InfixExpr expr = new InfixExpr("300*20+12*5-20/4");
 		{
+			InfixExpr expr = new InfixExpr("2");
+			Assert.assertEquals(2.0, expr.evaluate(), 0.001f);
+		}
+		{
 			InfixExpr expr = new InfixExpr("2+3");
 			Assert.assertEquals(5.0, expr.evaluate(), 0.001f);
 		}
@@ -46,7 +50,14 @@ public class InfixExprTest {
 			InfixExpr expr = new InfixExpr("10-30+50");
 			Assert.assertEquals(30, expr.evaluate(), 0.001f);
 		}
-		
+		{
+			InfixExpr expr = new InfixExpr("10-30+50-20/10/2*4");
+			Assert.assertEquals(26, expr.evaluate(), 0.001f);
+		}
+		{
+			InfixExpr expr = new InfixExpr("10-30+50-20/1+10");
+			Assert.assertEquals(20, expr.evaluate(), 0.001f);
+		}
 	}
 
 }
