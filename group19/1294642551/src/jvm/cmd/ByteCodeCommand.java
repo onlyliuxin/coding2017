@@ -10,6 +10,7 @@ import jvm.engine.ExecutionResult;
 import jvm.engine.StackFrame;
 
 
+
 public abstract class ByteCodeCommand {	
 	
 	String opCode;
@@ -52,9 +53,12 @@ public abstract class ByteCodeCommand {
 	public static final String iinc = "84";
 	private static Map<String,String> codeMap = new HashMap<String,String>();
 	
-	
 	static{
 		codeMap.put("01", "aconst_null");
+		
+		codeMap.put("A2", "if_icmp_ge");
+		codeMap.put("A4", "if_icmple");
+		codeMap.put("A7", "goto");
 		
 		codeMap.put("BB", "new");
 		codeMap.put("37", "lstore");
@@ -141,18 +145,6 @@ public abstract class ByteCodeCommand {
 
 	public abstract int getLength();
 	
-	
-	
-	
-	public String toString(){
-		
-		StringBuffer buffer = new StringBuffer();
-		buffer.append(this.opCode);
-		
-		return buffer.toString();
-	}
-	public abstract String toString(ConstantPool pool);
-	
 	public String getReadableCodeText(){
 		String txt = codeMap.get(opCode);
 		if(txt == null){
@@ -160,6 +152,6 @@ public abstract class ByteCodeCommand {
 		}
 		return txt;
 	}
-	
+	public abstract String toString(ConstantPool pool);
 	public abstract void execute(StackFrame frame,ExecutionResult result);
 }
