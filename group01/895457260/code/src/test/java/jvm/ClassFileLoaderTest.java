@@ -56,7 +56,7 @@ public class ClassFileLoaderTest {
 	public void testClassFileLength() throws ReadClassException {
 		byte[] byteCodes = loader.readBinaryCode(LOAD_CLASS_NAME);
 		// 注意：这个字节数可能和你的JVM版本有关系， 你可以看看编译好的类到底有多大
-		Assert.assertEquals(1016, byteCodes.length);
+		Assert.assertEquals(981, byteCodes.length);
 	}
 
     @Test	
@@ -79,65 +79,65 @@ public class ClassFileLoaderTest {
 
 		ConstantPool pool = clzFile.getConstantPool();
 
-		Assert.assertEquals(53, pool.getSize());
+		Assert.assertEquals(48, pool.getSize());
 
 		{
-			ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(7);
-			Assert.assertEquals(44, clzInfo.getUtf8Index());
+			ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(6);
+			Assert.assertEquals(41, clzInfo.getUtf8Index());
 
-			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(44);
+			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(41);
 			Assert.assertEquals(FULL_QUALIFIED_CLASS_NAME, utf8Info.getValue());
 		}
 		{
-			ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(11);
-			Assert.assertEquals(48, clzInfo.getUtf8Index());
+			ClassInfo clzInfo = (ClassInfo) pool.getConstantInfo(10);
+			Assert.assertEquals(45, clzInfo.getUtf8Index());
 
-			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(48);
+			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(45);
 			Assert.assertEquals("java/lang/Object", utf8Info.getValue());
 		}
 		{
-			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(12);
+			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(11);
 			Assert.assertEquals("name", utf8Info.getValue());
 
-			utf8Info = (UTF8Info) pool.getConstantInfo(13);
+			utf8Info = (UTF8Info) pool.getConstantInfo(12);
 			Assert.assertEquals("Ljava/lang/String;", utf8Info.getValue());
 
-			utf8Info = (UTF8Info) pool.getConstantInfo(14);
+			utf8Info = (UTF8Info) pool.getConstantInfo(13);
 			Assert.assertEquals("age", utf8Info.getValue());
 
-			utf8Info = (UTF8Info) pool.getConstantInfo(15);
+			utf8Info = (UTF8Info) pool.getConstantInfo(14);
 			Assert.assertEquals("I", utf8Info.getValue());
 
-			utf8Info = (UTF8Info) pool.getConstantInfo(16);
+			utf8Info = (UTF8Info) pool.getConstantInfo(15);
 			Assert.assertEquals("<init>", utf8Info.getValue());
 
-			utf8Info = (UTF8Info) pool.getConstantInfo(17);
+			utf8Info = (UTF8Info) pool.getConstantInfo(16);
 			Assert.assertEquals("(Ljava/lang/String;I)V", utf8Info.getValue());
 
-			utf8Info = (UTF8Info) pool.getConstantInfo(18);
+			utf8Info = (UTF8Info) pool.getConstantInfo(17);
 			Assert.assertEquals("Code", utf8Info.getValue());
 		}
 
 		{
 			MethodRefInfo methodRef = (MethodRefInfo)pool.getConstantInfo(1);
-			Assert.assertEquals(11, methodRef.getClassInfoIndex());
-			Assert.assertEquals(36, methodRef.getNameAndTypeIndex());
+			Assert.assertEquals(10, methodRef.getClassInfoIndex());
+			Assert.assertEquals(35, methodRef.getNameAndTypeIndex());
 		}
 
 		{
-			NameAndTypeInfo nameAndType = (NameAndTypeInfo) pool.getConstantInfo(36);
-			Assert.assertEquals(16, nameAndType.getIndex1());
-			Assert.assertEquals(28, nameAndType.getIndex2());
+			NameAndTypeInfo nameAndType = (NameAndTypeInfo) pool.getConstantInfo(35);
+			Assert.assertEquals(15, nameAndType.getIndex1());
+			Assert.assertEquals(27, nameAndType.getIndex2());
 		}
 		//抽查几个吧
 		{
 			MethodRefInfo methodRef = (MethodRefInfo)pool.getConstantInfo(9);
-			Assert.assertEquals(7, methodRef.getClassInfoIndex());
-			Assert.assertEquals(46, methodRef.getNameAndTypeIndex());
+			Assert.assertEquals(6, methodRef.getClassInfoIndex());
+			Assert.assertEquals(44, methodRef.getNameAndTypeIndex());
 		}
 
 		{
-			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(35);
+			UTF8Info utf8Info = (UTF8Info) pool.getConstantInfo(34);
 			Assert.assertEquals("EmployeeV1.java", utf8Info.getValue());
 		}
 	}
@@ -204,7 +204,7 @@ public class ClassFileLoaderTest {
 			assertMethodEquals(pool,m,
 					"sayHello",
 					"()V",
-					"b200041205b60006b1");
+					"1204b80005b1");
 
 		}
 		{
@@ -212,7 +212,7 @@ public class ClassFileLoaderTest {
 			assertMethodEquals(pool,m,
 					"main",
 					"([Ljava/lang/String;)V",
-					"bb0007591208101db700094c2bb6000ab1");
+					"bb0006591207101db700084c2bb60009b1");
 		}
 	}
 
@@ -260,10 +260,9 @@ public class ClassFileLoaderTest {
 					"()V");
 			ByteCodeCommand [] cmds = sayHelloMethod.getCommands();
 
-			assertOpCodeEquals("0: getstatic #4", cmds[0]);
-			assertOpCodeEquals("3: ldc #5", cmds[1]);
-			assertOpCodeEquals("5: invokevirtual #6", cmds[2]);
-			assertOpCodeEquals("8: return", cmds[3]);
+			assertOpCodeEquals("0: ldc #4", cmds[0]);
+			assertOpCodeEquals("2: invokestatic #5", cmds[1]);
+			assertOpCodeEquals("5: return", cmds[2]);
 
 		}
 
@@ -272,14 +271,14 @@ public class ClassFileLoaderTest {
 
 			ByteCodeCommand [] cmds = mainMethod.getCommands();
 
-			assertOpCodeEquals("0: new #7", cmds[0]);
+			assertOpCodeEquals("0: new #6", cmds[0]);
 			assertOpCodeEquals("3: dup", cmds[1]);
-			assertOpCodeEquals("4: ldc #8", cmds[2]);
+			assertOpCodeEquals("4: ldc #7", cmds[2]);
 			assertOpCodeEquals("6: bipush 29", cmds[3]);
-			assertOpCodeEquals("8: invokespecial #9", cmds[4]);
+			assertOpCodeEquals("8: invokespecial #8", cmds[4]);
 			assertOpCodeEquals("11: astore_1", cmds[5]);
 			assertOpCodeEquals("12: aload_1", cmds[6]);
-			assertOpCodeEquals("13: invokevirtual #10", cmds[7]);
+			assertOpCodeEquals("13: invokevirtual #9", cmds[7]);
 			assertOpCodeEquals("16: return", cmds[8]);
 		}
 

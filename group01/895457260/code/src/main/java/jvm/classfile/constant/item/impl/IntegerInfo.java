@@ -34,4 +34,8 @@ public class IntegerInfo implements Constant {
     public byte[] getBytes() {
         return bytes;
     }
+
+    public int getValue() {
+        return ByteUtils.toUnsignedInt(getBytes());
+    }
 }

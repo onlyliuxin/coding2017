@@ -36,6 +36,9 @@ public class QuickMinStack {
 		return value;
 	}
 	public int findMin(){
+		if(minNumStack.isEmpty()){
+			throw new RuntimeException("the stack is empty");
+		}
 		return minNumStack.peek();
 	}
 }

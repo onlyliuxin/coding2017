@@ -1,5 +1,7 @@
 package com.coderising.jvm.constant;
 
+import com.coderising.jvm.constant.ConstantInfo.Visitor;
+
 public class NullConstantInfo extends ConstantInfo{
 
 	public NullConstantInfo(){
@@ -8,6 +10,10 @@ public class NullConstantInfo extends ConstantInfo{
 	@Override
 	public int getType() {
 		return -1;
+	}
+	@Override
+	public void accept(Visitor visitor) {
+		
 	}
 	
 }
