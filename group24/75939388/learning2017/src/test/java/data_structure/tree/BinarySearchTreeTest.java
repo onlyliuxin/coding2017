@@ -48,8 +48,8 @@ public class BinarySearchTreeTest {
 	@Test
 	public void testRemoveLeaf() {
 		tree.remove(4);
-//		BinaryTreeNode<Integer> root= tree.getRoot();
-//		Assert.assertEquals(3, root.left.right.data.intValue());
+		BinaryTreeNode<Integer> root= tree.getRoot();
+		Assert.assertEquals(3, root.left.right.data.intValue());
 		
 	}
 	@Test

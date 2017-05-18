@@ -1,6 +1,7 @@
 package gabageCollection;
 
-import org.junit.Test;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author : 温友朝
@@ -8,18 +9,25 @@ import org.junit.Test;
  */
 public class MemoryLeakSimulation {
 
-    @Test
-    public void testOutOfMemory(){
-
+    public static void testOutOfMemory(){
+//        List<UUID> list = new ArrayList<UUID>();
+        List<byte[]> list = new ArrayList<byte[]>();
+        for(;;){
+            list.add(new byte[10*1024*1024]);
+        }
     }
 
-    @Test
-    public void testStackOverFlowError(){
-
+    public static void testStackOverFlowError(){
+        testStackOverFlowError();
     }
 
-    @Test
-    public void testOutOfMemoryPermGenSpace(){
+    public static void testOutOfMemoryPermGenSpace(){
+        //出现在热部署时最多
+    }
 
+    public static void main(String[] args){
+//        testOutOfMemory();
+//        testStackOverFlowError();
+        testOutOfMemoryPermGenSpace();
     }
 }
