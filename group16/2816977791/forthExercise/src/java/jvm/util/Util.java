@@ -5,8 +5,17 @@ public class Util {
     	String s1 = byteToHexString(codes);
     	return Integer.valueOf(s1, 16).intValue();
     }
-    
-    
+
+	public static String byteToString(byte[] codes ){
+		StringBuffer buffer = new StringBuffer();
+		for(int i=0;i<codes.length;i++){
+			byte b = codes[i];
+			int value = b & 0xFF;
+			String str = Integer.toString(value);
+			buffer.append(str);
+		}
+		return buffer.toString();
+	}
     
 	public static String byteToHexString(byte[] codes ){
 		StringBuffer buffer = new StringBuffer();
