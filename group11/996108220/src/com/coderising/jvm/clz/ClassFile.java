@@ -1,7 +1,13 @@
 package com.coderising.jvm.clz;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantPool;
+import com.coderising.jvm.constant.UTF8Info;
+import com.coderising.jvm.field.Field;
+import com.coderising.jvm.method.Method;
 
 public class ClassFile {
 	
@@ -10,7 +16,8 @@ public class ClassFile {
 	private AccessFlag accessFlag;
 	private ClassIndex clzIndex;
 	private ConstantPool pool;
-	
+	private List<Field> fields = new ArrayList<Field>();
+	private List<Method> methods = new ArrayList<Method>();
 	
 	public ClassIndex getClzIndex() {
 		return clzIndex;
@@ -46,7 +53,18 @@ public class ClassFile {
 	public void setClassIndex(ClassIndex clzIndex) {
 		this.clzIndex = clzIndex;		
 	}
-	
+	public void addField(Field f){
+		this.fields.add(f);
+	}
+	public List<Field> getFields(){
+		return this.fields;
+	}
+	public void addMethod(Method m){
+		this.methods.add(m);
+	}
+	public List<Method> getMethods() {
+		return methods;
+	}
 	
 	
 	
@@ -62,13 +80,26 @@ public class ClassFile {
 		
 	}
 	
-	private String getClassName(){
+	public String getClassName(){
 		int thisClassIndex = this.clzIndex.getThisClassIndex();
 		ClassInfo thisClass = (ClassInfo)this.getConstantPool().getConstantInfo(thisClassIndex);
 		return thisClass.getClassName();
 	}
-	private String getSuperClassName(){
+	public String getSuperClassName(){
 		ClassInfo superClass = (ClassInfo)this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
 		return superClass.getClassName();
+	}
+	public Method getMainMethod() {
+		return getMethod("main", null);
+	}
+	public Method getMethod(String string, String string2) {
+		for (int i = 0; i < methods.size(); i++) {
+			Method method=methods.get(i);
+			UTF8Info utf8Info=(UTF8Info)pool.getConstantInfo(method.getNameIndex());
+			if (utf8Info.getValue().equals(string)) {
+				return method;
+			}
+		}
+		return null;
 	}
 }

@@ -2,8 +2,10 @@ package mini_jvm.cmd;
 
 
 import mini_jvm.clz.ClassFile;
-import mini_jvm.constant.ConstantPool;
+import mini_jvm.constant.ClassInfo;
 import mini_jvm.engine.ExecutionResult;
+import mini_jvm.engine.Heap;
+import mini_jvm.engine.JavaObject;
 import mini_jvm.engine.StackFrame;
 
 public class NewObjectCmd extends TwoOperandCmd{
@@ -13,14 +15,22 @@ public class NewObjectCmd extends TwoOperandCmd{
 	}
 
 	@Override
-	public String toString(ConstantPool pool) {
-		
-		return super.getOperandAsClassInfo(pool);
+	public String toString() {
+
+		return super.getOperandAsClassInfo();
 	}
 
 	@Override
 	public void execute(StackFrame frame, ExecutionResult result) {
-		
+		//（indexbyte1 << 8）| indexbyte2 得到一个指向常量池的索引
+		int index = this.getIndex();
+
+		ClassInfo info = (ClassInfo)this.getConstantInfo(index);
+		String clzName = info.getClassName();
+		//在Java堆上创建一个实例
+		JavaObject jo = Heap.getInstance().newObject(clzName);
+
+		frame.getOprandStack().push(jo);
 		
 	}
 

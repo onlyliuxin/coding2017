@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+
 public class MethodArea {
 	
 	public static final MethodArea instance = new MethodArea();
@@ -46,6 +47,7 @@ public class MethodArea {
 			return map.get(className);
 		}
 		// 看来该class 文件还没有load过
+		System.out.println("load class");
 		ClassFile clzFile = this.clzLoader.loadClass(className);
 		
 		map.put(className, clzFile);
@@ -53,17 +55,29 @@ public class MethodArea {
 		return clzFile;
 		
 	}
-	
-	
+
+	//根据方法的名称和描述符从方法区获取方法
 	public Method getMethod(String className, String methodName, String paramAndReturnType){
-		
-		return null;
+		ClassFile classFile = this.findClassFile(className);
+		Method m = classFile.getMethod(methodName,paramAndReturnType);
+		if(m==null){
+			throw new RuntimeException("method can't be found : \n"
+					+ "class: " + className
+					+ "method: " + methodName
+					+ "paramAndReturnType: " + paramAndReturnType);
+		}
+		return m;
 	}
 	
-	
+	//根据类中方法的符号引用从方法区获取方法
 	public Method getMethod(MethodRefInfo methodRef){
-		
-		return null;
-			
+		ClassFile clz = this.findClassFile(methodRef.getClassName());
+
+		Method m = clz.getMethod(methodRef.getMethodName(), methodRef.getParamAndReturnType());
+
+		if(m == null){
+			throw new RuntimeException("method can't be found : " + methodRef.toString());
+		}
+		return m;
 	}
 }

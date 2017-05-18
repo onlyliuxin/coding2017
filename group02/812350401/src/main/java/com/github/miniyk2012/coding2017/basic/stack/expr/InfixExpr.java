@@ -1,5 +1,6 @@
 package com.github.miniyk2012.coding2017.basic.stack.expr;
 
+import java.util.EmptyStackException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -61,11 +62,16 @@ public class InfixExpr {
                     operatorStack.push(t);
                 } else {
                     Token<Operator> preT = operatorStack.peek();
-                    if ((preT.value).priority >= ((Operator)t.value).priority) {
+                    while (preT.value.priority >= ((Operator)t.value).priority) {
                         Token number2 = numberStack.pop();
                         Token number1 = numberStack.pop();
                         operatorStack.pop();
                         numberStack.push(evaluate(preT, number1, number2));
+                        try {
+                            preT = operatorStack.peek();
+                        } catch (EmptyStackException e) {
+                            break;
+                        }
                     }
                     operatorStack.push(t);
 
