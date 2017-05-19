@@ -85,7 +85,7 @@ public class BinaryTreeUtil {
 	 * @param root
 	 * @return
 	 */
-	public static <T> List<T> preOrderWithoutRecursion(BinaryTreeNode<T> root) {
+	/*public static <T> List<T> preOrderWithoutRecursion(BinaryTreeNode<T> root) {
 		if(root==null){
 			return null;
 		}
@@ -110,13 +110,42 @@ public class BinaryTreeUtil {
 			}
 		}
 		return result;
+	}*/
+	public static <T> List<T> preOrderWithoutRecursion(BinaryTreeNode<T> root) {
+		if(root==null){
+			return null;
+		}
+		List<T> result = new ArrayList<T>();
+		Stack<BinaryTreeNode<T>> stack = new Stack<BinaryTreeNode<T>>();
+		//stack.push(root);
+		BinaryTreeNode<T> p = root;
+		while(p!=null){
+			if(!p.isRead()){
+				result.add(p.getData());
+			}
+			if(p.hasLeft()&&!p.left.isRead()){
+				stack.push(p);
+				p = p.left;
+			}else{
+				if(p.hasRight()){
+					p = p.right;
+				}else{
+					if(stack.isEmpty()){
+						break;
+					}else{
+						p = stack.pop();
+					}
+				}
+			}
+		}
+		return result;
 	}
 	/**
 	 * 用非递归的方式实现对二叉树的中序遍历
 	 * @param root
 	 * @return
 	 */
-	public static <T> List<T> inOrderWithoutRecursion(BinaryTreeNode<T> root) {
+/*	public static <T> List<T> inOrderWithoutRecursion(BinaryTreeNode<T> root) {
 		if(root==null){
 			return null;
 		}
@@ -137,6 +166,33 @@ public class BinaryTreeUtil {
 			}			
 		}
 		return result;
-	}
+	}*/
 	
+	public static <T> List<T> inOrderWithoutRecursion(BinaryTreeNode<T> root) {
+		if(root==null){
+			return null;
+		}
+		List<T> result = new ArrayList<T>();
+		Stack<BinaryTreeNode<T>> stack = new Stack<BinaryTreeNode<T>>();
+		//stack.push(root);
+		BinaryTreeNode<T> p = root;
+		while(p!=null){
+			if(p.hasLeft()&&!p.left.isRead()){
+				stack.push(p);
+				p = p.left;
+			}else{
+				result.add(p.getData());
+				if(p.hasRight()){
+					p = p.right;
+				}else{
+					if(stack.isEmpty()){
+						break;
+					}else{
+						p = stack.pop();
+					}
+				}
+			}
+		}
+		return result;
+	}
 }

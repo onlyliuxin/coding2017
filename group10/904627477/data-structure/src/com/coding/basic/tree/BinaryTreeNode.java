@@ -2,22 +2,22 @@ package com.coding.basic.tree;
 
 public class BinaryTreeNode<T> {
 	
-	private T data;
-	private BinaryTreeNode<T> left;
-	private BinaryTreeNode<T> right;
+	T data;
+	BinaryTreeNode<T> left;
+	BinaryTreeNode<T> right;
 	
-	private BinaryTreeNode<T> parent = null;
+	//private BinaryTreeNode<T> parent = null;
 	private boolean flag = false;
 	
 	public boolean isRead() {
 		return flag;
 	}	
-	public BinaryTreeNode<T> getParent() {
+	/*public BinaryTreeNode<T> getParent() {
 		return parent;
 	}
 	public void setParent(BinaryTreeNode<T> parent) {
 		this.parent = parent;
-	}
+	}*/
 	public BinaryTreeNode(T data){
 		this.data=data;
 	}
@@ -33,14 +33,14 @@ public class BinaryTreeNode<T> {
 	}
 	public void setLeft(BinaryTreeNode<T> left) {
 		this.left = left;
-		left.setParent(this);
+		//left.setParent(this);
 	}
 	public BinaryTreeNode<T> getRight() {
 		return right;
 	}
 	public void setRight(BinaryTreeNode<T> right) {
 		this.right = right;
-		right.setParent(this);
+		//right.setParent(this);
 	}
 	
 	public boolean hasLeft(){
