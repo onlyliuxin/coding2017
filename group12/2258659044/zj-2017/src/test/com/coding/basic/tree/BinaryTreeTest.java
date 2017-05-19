@@ -1,12 +1,12 @@
-package test.com.coding.basic;
+package test.com.coding.basic.tree;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.coding.basic.BinaryTree;
-import com.coding.basic.BinaryTreeNode;
 import com.coding.basic.List;
+import com.coding.basic.tree.BinaryTree;
+import com.coding.basic.tree.BinaryTreeNode;
 
 public class BinaryTreeTest {
 
