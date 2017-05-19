@@ -1,4 +1,4 @@
-package com.coding.mini_jvm.src.com.coderising.jvm;
+package com.coding.mini_jvm.src.com.coderising.jvm.test;
 
 public class EmployeeV1 {
 	
