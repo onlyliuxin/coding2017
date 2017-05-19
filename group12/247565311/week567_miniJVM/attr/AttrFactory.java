@@ -19,7 +19,7 @@ public class AttrFactory{
         	int maxStack = iter.nextU2ToInt();
         	int maxLocal = iter.nextU2ToInt();
         	int codeLen = iter.nextU4ToInt();
-        	String code = iter.nextUxToHexString(codeLen);
+        	String code = iter.nextUxToString(codeLen);
         	CodeAttr codeattr = new CodeAttr(attrNameIndex,attrLen,maxStack,maxLocal,codeLen,code);
         	
         	int exceptLen = iter.nextU2ToInt(); // “Ï≥£≥§∂»

@@ -37,13 +37,13 @@ public class Method {
 		this.descIndex = descIndex;
 	}
 	
-	public void parse(ClassFile clzFile, ByteCodeIterator iter){
+	public void parse( ByteCodeIterator iter){
         int attributeNum = iter.nextU2ToInt();
         while(attributeNum>0){
         	attributeNum -= 1;
         	AttributeInfo attrinfo = AttrFactory.Instance().parse(clzFile, iter);
         	if(attrinfo == null) continue;
-
+            if(attrinfo.getAttrName().equals("Code")) codeAttr = (CodeAttr) attrinfo;
             
         }
 	}

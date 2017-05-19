@@ -9,6 +9,7 @@ public class InfixExpr {
         getElem = new Element(expr);
 	}
 	public float evaluate() throws Exception{
+		
         Node root = createNode(null);
 		return (float) getValue(root);
 	}

@@ -15,4 +15,17 @@ public class Queue<E> {
      public boolean isEmpty(){
          return data.isEmpty();
      }
+     public E pop(){
+    	 if(data.size()==0) return null;
+    	 E res = data.get(0);
+    	 data.remove(0);
+    	 return res;
+     }
+     public E peek(){
+    	 return data.get(0);
+     }
+     public void push(E e){
+    	 data.add(data.size(), e);
+     }
+     
 }

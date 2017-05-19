@@ -14,14 +14,16 @@ import week567_miniJVM.method.Method;
 
 public class ClassFileParser {
 	public ClassFile parse(byte[] bytes) {
+		if(bytes == null) return null;
         ClassFile clzFile = new ClassFile();
         ByteCodeIterator iter = new ByteCodeIterator(bytes);
-        if(!"cafebabe".equals(iter.nextUxToHexString(4))) return null;
+        String cafebabe = iter.nextUxToHexString(4);
+        if(!"cafebabe".equals(cafebabe)) return null;
         
         clzFile.setVersion(iter.nextU2ToInt(),iter.nextU2ToInt());
         
         ConstantPool pool = parseConstantPool(iter);
-        clzFile.setConstantPool(pool);    
+        clzFile.setConstantPool(pool);
         
         clzFile.setAccessFlag(parseAccessFlag(iter));
         clzFile.setClassIndex(parseClassIndex(iter));
@@ -83,7 +85,7 @@ public class ClassFileParser {
             int nameIndex = iter.nextU2ToInt();
             int descIndex = iter.nextU2ToInt();
             Method method = new Method(clzFile,accflag,nameIndex,descIndex);
-            method.parse(clzFile,iter);
+            method.parse(iter);
             methods.add(method);
         }
         return methods;
