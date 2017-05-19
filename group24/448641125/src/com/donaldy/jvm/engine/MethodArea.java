@@ -52,17 +52,37 @@ public class MethodArea {
 		return clzFile;
 		
 	}
-	
-	
+
+
 	public Method getMethod(String className, String methodName, String paramAndReturnType){
-		
-		return null;
+
+		ClassFile clz = this.findClassFile(className);
+
+		Method m = clz.getMethod(methodName, paramAndReturnType);
+
+		if(m == null){
+
+			throw new RuntimeException("method can't be found : \n"
+				+ "class: " + className
+				+ "method: " + methodName
+				+ "paramAndReturnType: " + paramAndReturnType);
+		}
+
+		return m;
 	}
-	
-	
-	public Method getMethod(MethodRefInfo methodRef){		
-		
-		return null;
-			
+
+
+	public Method getMethod(MethodRefInfo methodRef){
+
+		ClassFile clz = this.findClassFile(methodRef.getClassName());
+
+		Method m = clz.getMethod(methodRef.getMethodName(), methodRef.getParamAndReturnType());
+
+		if(m == null){
+			throw new RuntimeException("method can't be found : " + methodRef.toString());
+		}
+
+		return m;
+
 	}
 }

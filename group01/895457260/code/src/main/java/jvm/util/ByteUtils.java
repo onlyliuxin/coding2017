@@ -1,5 +1,8 @@
 package jvm.util;
 
+import jvm.util.code.Code;
+import jvm.util.code.CompCode;
+
 /**
  * Created by Haochen on 2017/4/9.
  * TODO:
@@ -19,7 +22,19 @@ public class ByteUtils {
         return builder.toString();
     }
 
-    public static int toInt(byte[] bytes, int off, int len) {
+    public static int toUnsignedInt(byte[] bytes) {
+        return toUnsignedInt(bytes, 0, bytes.length);
+    }
+
+    public static int toUnsignedInt(byte[] bytes, int off, int len) {
         return Integer.parseInt(toHexString(bytes, off, len), 16);
+    }
+
+    public static float toFloat(byte[] bytes) {
+        return toFloat(bytes, 0, bytes.length);
+    }
+
+    public static float toFloat(byte[] bytes, int off, int len) {
+        return Float.intBitsToFloat(toUnsignedInt(bytes, off, len));
     }
 }
