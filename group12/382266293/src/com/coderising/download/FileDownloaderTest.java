@@ -28,7 +28,7 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 
-		String url = "http://localhost:8080/test.jpg";
+		String url = "http://localhost:8080/test0.jpg";
 
 		FileDownloader downloader = new FileDownloader(Git);
 
