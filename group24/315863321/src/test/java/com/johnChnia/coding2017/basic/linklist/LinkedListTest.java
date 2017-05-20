@@ -1,4 +1,4 @@
-package com.johnChnia.coding2017.basic;
+package com.johnChnia.coding2017.basic.linklist;
 
 import org.junit.Before;
 import org.junit.Test;

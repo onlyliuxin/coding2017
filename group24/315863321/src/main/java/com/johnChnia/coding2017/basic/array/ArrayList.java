@@ -1,4 +1,6 @@
-package com.johnChnia.coding2017.basic;
+package com.johnChnia.coding2017.basic.array;
+
+import com.johnChnia.coding2017.basic.List;
 
 import java.util.Arrays;
 import java.util.Iterator;
