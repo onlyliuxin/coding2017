@@ -1,9 +1,12 @@
 package jvm;
 
+import jvm.classfile.ClassFile;
+import jvm.classfile.ClassParser;
 import jvm.exception.ClassDuplicateException;
 import jvm.exception.ClassNotExistsException;
 import jvm.exception.ReadClassException;
 import jvm.util.ArrayUtils;
+import jvm.util.ByteUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -40,20 +43,36 @@ public class ClassFileLoader {
 
 	private File getClassFile(String className) throws ClassDuplicateException {
 		int split = className.lastIndexOf('.');
+		if (split == -1) {
+			split = className.lastIndexOf('/');
+		}
 		String fileName = className.substring(split + 1) + ".class";
-		String subPath = className.substring(0, split).replaceAll("[.]", "/");
+
 		List<File> files = new ArrayList<>();
 		for (String path : classPaths) {
-			File dir = new File(path + '/' + subPath);
-			File[] listFile = dir.listFiles((dir1, name) -> name.equals(fileName));
-			if (listFile != null) {
-				Arrays.stream(listFile).forEach(files::add);
-			}
+			files.addAll(getFiles(new File(path), fileName));
 		}
 		if (files.size() > 1) {
 			throw new ClassDuplicateException();
 		}
 		return files.size() == 1 ? files.get(0) : null;
+	}
+
+	private List<File> getFiles(File path, String fileName) {
+		List<File> files = new ArrayList<>();
+		File[] listFile = path.listFiles();
+		if (listFile == null) {
+			return files;
+		}
+
+		for (File f : listFile) {
+			if (f.isDirectory()) {
+				files.addAll(getFiles(f, fileName));
+			} else if (f.getName().equals(fileName)) {
+				files.add(f);
+			}
+		}
+		return files;
 	}
 
 	public void addClassPath(String path) {
@@ -69,12 +88,16 @@ public class ClassFileLoader {
 	}
 
 	boolean checkMagicNumber(byte[] bytes) {
-		String magicNumber = "CAFEBABE";
-		String str = "";
-		int byteNum = 4;
-		for (int i = 0; i < byteNum; ++i) {
-			str += Integer.toHexString(Byte.toUnsignedInt(bytes[i]));
+		String magicNumber = "cafebabe";
+		String str = ByteUtils.toHexString(bytes, 0, 4);
+		return magicNumber.equals(str.toLowerCase());
+	}
+
+	public ClassFile load(String className) throws ReadClassException {
+		byte[] bytes = readBinaryCode(className);
+		if (checkMagicNumber(bytes)) {
+			return ClassParser.parse(bytes);
 		}
-		return magicNumber.equals(str.toUpperCase());
+		return null;
 	}
 }

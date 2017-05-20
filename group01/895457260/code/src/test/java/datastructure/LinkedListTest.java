@@ -114,7 +114,7 @@ public class LinkedListTest extends ArrayListTest {
 
     /**
      *
-     * Method: remove(int i, int length)
+     * Method: remove(int i, int size)
      *
      */
     @Test

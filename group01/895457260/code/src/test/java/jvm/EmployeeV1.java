@@ -1,5 +1,7 @@
 package jvm;
 
+import jvm.engine.ConsolePrinter;
+
 public class EmployeeV1 {
 
     private String name;
@@ -19,7 +21,7 @@ public class EmployeeV1 {
     }
 
     public void sayHello() {
-        System.out.println("Hello , this is class Employee ");
+        ConsolePrinter.println("Hello , this is class Employee ");
     }
 
     public static void main(String[] args) {

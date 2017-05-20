@@ -44,7 +44,7 @@ public class FileDownloader {
 			int length = conn.getContentLength();
 			System.out.println(length);
 			int blockSize = length / 9;
-			ArrayList<DownloadThread> downloadThreads = new ArrayList<>();
+			ArrayList<DownloadThread> downloadThreads = new ArrayList<DownloadThread>();
 
 			for (int i = 0; i < 9; i++) {
 				int startPos = blockSize * i;
@@ -57,9 +57,9 @@ public class FileDownloader {
 				downloadThreads.add(thread);
 				thread.start();
 			}
-//			for(DownloadThread thread : downloadThreads){
-//				thread.join();
-//			}
+			for(DownloadThread thread : downloadThreads){
+				thread.join();
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,11 +70,6 @@ public class FileDownloader {
 			}
 		}
 		listener.notifyFinished();
-		try {
-			System.in.read();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 	}
 	
