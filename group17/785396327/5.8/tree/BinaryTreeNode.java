@@ -39,4 +39,9 @@ public class BinaryTreeNode<T> {
     public BinaryTreeNode<T> insert(Object o) {
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "data : " + data + ", left data : " + left.getData() + ", right data : " + right.getData();
+    }
 }
