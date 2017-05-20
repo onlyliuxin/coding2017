@@ -4,13 +4,29 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by john on 2017/5/18.
  */
 public class FileList {
-    public void list(File f) {
 
+    public TreeInfo list(File f) {
+        if (Objects.isNull(f)) {
+            return null;
+        }
+        TreeInfo treeInfo = new TreeInfo();
+        if (f.isDirectory()) {
+            treeInfo.dirs.add(f);
+            for (File lf :
+                    f.listFiles()) {
+                treeInfo.addAll(list(lf));
+            }
+        } else {
+            if (!f.getName().matches(".*\\.DS_Store"))
+            treeInfo.files.add(f);
+        }
+        return treeInfo;
     }
 
     public static class TreeInfo implements Iterable<File> {
