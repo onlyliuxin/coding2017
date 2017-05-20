@@ -16,6 +16,7 @@ public class StackUtil {
 	}
 	
 	
+	
 	public static void reverse_247565311(Stack<Integer> s){
         if(s == null || s.isEmpty()) {
         	return;
@@ -114,7 +115,9 @@ public class StackUtil {
 				break;
 			}
 		}
-		
+		while(!tmpStack.isEmpty()){
+			s.push(tmpStack.pop());
+		}
 		return result;
 	}
 	/**
