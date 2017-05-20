@@ -17,6 +17,10 @@ public class FileDownloaderTest {
 
 	public static String Git = "https://github.com/onlyliuxin/coding2017/archive/master.zip";
 	
+	static String epg = "http://172.26.203.62/smg_xtbd/bianpai/playListAction.do?playDateAfter=2017-05-20&playDateBefor=2017-05-21&fileType=TXT&channelId=L&method=export"; 
+	
+	static String epgXLS = "http://172.26.203.62/smg_xtbd/bianpai/playListAction.do?playDateAfter=2017-05-20&playDateBefor=2017-05-21&fileType=XLS&channelId=L&method=export"; 
+	
 	boolean downloadFinished = false;
 	@Before
 	public void setUp() throws Exception {
@@ -30,7 +34,7 @@ public class FileDownloaderTest {
 
 		String url = "http://localhost:8080/test0.jpg";
 
-		FileDownloader downloader = new FileDownloader(Git);
+		FileDownloader downloader = new FileDownloader(epgXLS);
 
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);
