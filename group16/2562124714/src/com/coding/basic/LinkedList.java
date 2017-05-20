@@ -56,12 +56,35 @@ public class LinkedList implements List {
 		Node node;
 		int i = 0;
 
+		if (index > this.size())
+		{
+			return  null;
+		}
+
 		for (i = 1, node = head; i < index ; i++, node = node.next) {
 		}
 
 		return node.data;
 //		return null;
 	}
+
+	public void set(int index, Object o)
+	{
+		if (o == null || index > this.size())
+		{
+			return;
+		}
+
+		Node node;
+		int i;
+		for (i = 1, node = head; i < index ; i++, node = node.next)
+		{
+		}
+
+		node.data = o;
+
+	}
+
 	public Object remove(int index){
 		Node node;
 		int i = 0;
