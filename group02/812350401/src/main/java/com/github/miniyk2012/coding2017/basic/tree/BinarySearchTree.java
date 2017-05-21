@@ -78,44 +78,38 @@ public class BinarySearchTree<T extends Comparable> {
         if (root == null) {
             throw new NoSuchElementException("根节点为空");
         }
-        remove(e, root);
+        root = remove(e, root);
 	}
 
 	private BinaryTreeNode<T> remove(T e, BinaryTreeNode<T> root) {
         if (root == null) {
             throw new NoSuchElementException("不存在该元素，删除失败");
         }
-        if (root.data.compareTo(e) == 0) {
-            if (root.left == null && root.right == null) {
-                return null;
-            } else if (root.right == null && root.left != null) {
-                return root.left;
-            } else if (root.right != null && root.left == null) {
+        int cmp = root.data.compareTo(e);
+        if (cmp == 0) {
+            if (root.left == null) {
                 return root.right;
-            } else {
-                BinaryTreeNode<T> minParent = findMinParent(root.right);
-                root.data = minParent.left.data;
-                minParent.left = null;
-                return root;
             }
-        } else if (root.data.compareTo(e) < 0) {
+            if (root.right == null) {
+                return root.left;
+            }
+            T min = findMin(root.right);
+            root.data = min;
+            root.right = deleteMin(root.right);
+        } else if (cmp < 0) {
             root.right = remove(e, root.right);
-            return root;
         } else {
             root.left = remove(e, root.left);
-            return root;
         }
+        return root;
     }
 
-    private BinaryTreeNode<T> findMinParent(BinaryTreeNode<T> root) {
-        BinaryTreeNode<T> p = root;
-        BinaryTreeNode<T> parent = null;
-        while (p.left!=null) {
-            parent = p;
-            p = p.left;
+    private BinaryTreeNode<T> deleteMin(BinaryTreeNode<T> root) {
+        if (root.left == null) {
+            return root.right;
         }
-        return parent;
+        root.left = deleteMin(root.left);
+        return root;
     }
-	
 }
 

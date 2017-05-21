@@ -64,4 +64,16 @@ public class BinarySearchTreeTest {
 		Assert.assertEquals(3, root.left.data.intValue());
 		Assert.assertEquals(4, root.left.right.data.intValue());
 	}
+
+	@Test
+	public void testRemoveRoot() {
+		tree.remove(6);
+		BinaryTreeNode<Integer> root= tree.getRoot();
+		Assert.assertEquals(8, root.data.intValue());
+		Assert.assertEquals(2, root.left.data.intValue());
+		Assert.assertNull(root.right);
+		Assert.assertEquals(3, root.left.right.left.data.intValue());
+
+	}
+
 }
