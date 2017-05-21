@@ -2,6 +2,9 @@ package me.lzb.jvm.cmd;
 
 import me.lzb.jvm.clz.ClassFile;
 
+/**
+ * @author LZB
+ */
 public abstract class OneOperandCmd extends ByteCodeCommand {
 
     private int operand;

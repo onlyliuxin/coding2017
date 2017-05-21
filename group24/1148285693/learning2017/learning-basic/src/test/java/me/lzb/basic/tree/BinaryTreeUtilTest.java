@@ -54,7 +54,6 @@ public class BinaryTreeUtilTest {
     }
 
 
-
     @Test
     public void testPreOrderVisitWithoutRecursion() {
         BinaryTreeNode<Integer> node = root.getLeft().getRight();

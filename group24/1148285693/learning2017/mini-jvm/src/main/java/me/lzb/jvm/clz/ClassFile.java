@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by LZB on 2017/4/14.
+ * @author LZB
  */
-public class ClassFile implements Print{
+public class ClassFile implements Print {
 
     private String magicNumber;
 

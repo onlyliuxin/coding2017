@@ -1,7 +1,7 @@
 package me.lzb.jvm.clz;
 
 /**
- * Created by LZB on 2017/4/14.
+ * @author LZB
  */
 public class ClassIndex {
     private int thisClassIndex;

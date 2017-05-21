@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by LZB on 2017/4/15.
+ * @author LZB
  */
 public class LocalVariableTable extends AttributeInfo {
     List<LocalVariableItem> items = new ArrayList<>();

@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-
+/**
+ * @author LZB
+ */
 public class StackFrame {
 
     private List<JavaObject> localVariableTable = new ArrayList<>();

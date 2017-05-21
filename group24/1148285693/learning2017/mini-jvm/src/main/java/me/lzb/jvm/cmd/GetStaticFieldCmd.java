@@ -8,6 +8,9 @@ import me.lzb.jvm.engine.JavaObject;
 import me.lzb.jvm.engine.StackFrame;
 import me.lzb.jvm.print.ExecutionVisitor;
 
+/**
+ * @author LZB
+ */
 public class GetStaticFieldCmd extends TwoOperandCmd {
 
     public GetStaticFieldCmd(ClassFile clzFile, String opCode) {

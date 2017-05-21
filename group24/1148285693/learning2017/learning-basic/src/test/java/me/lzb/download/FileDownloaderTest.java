@@ -7,6 +7,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * @author LZB
+ */
 public class FileDownloaderTest {
 
     private static final String imageUrl = "https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-499994.png";

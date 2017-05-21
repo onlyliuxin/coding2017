@@ -3,7 +3,7 @@ package me.lzb.basic.tree;
 /**
  * @author LZB
  */
-public class BinaryTreeNode<T> {
+public class BinaryTreeNode<T extends Comparable<T>> {
     private T data;
     private BinaryTreeNode<T> left;
     private BinaryTreeNode<T> right;
@@ -36,8 +36,49 @@ public class BinaryTreeNode<T> {
         this.right = right;
     }
 
-    public BinaryTreeNode<T> insert(Object o) {
-        return null;
+
+    /**
+     * 左边比父节点小，右边比父节点大
+     * 这层满了就下一层继续add,直到找到空位
+     *
+     * @param d data
+     */
+    public void insert(T d) {
+        BinaryTreeNode<T> b = new BinaryTreeNode(d);
+        if (isSmaller(d)) {
+            //比父节点小，左边
+            if (this.left == null) {
+                this.left = b;
+            } else {
+                this.left.insert(d);
+            }
+
+        } else {//相等不考虑
+            //比父节点大，右边
+            if (this.right == null) {
+                this.right = b;
+            } else {
+                this.right.insert(d);
+            }
+
+        }
     }
+
+    /**
+     * 是否比当前节点的data小
+     *
+     * @param d data
+     * @return true false
+     */
+    private boolean isSmaller(T d) {
+        return this.data.compareTo(d) > 0;
+    }
+
+    @Override
+    public String toString() {
+//        return getLeft() != null ? getLeft().getData().toString() : "" + ":" + getData().toString() + ":" + getRight() != null ? getRight().getData().toString() : "";
+        return getData().toString();
+    }
+
 
 }

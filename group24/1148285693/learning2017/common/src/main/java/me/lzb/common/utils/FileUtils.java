@@ -3,7 +3,7 @@ package me.lzb.common.utils;
 import java.io.*;
 
 /**
- * Created by LZB on 2017/4/4.
+ * @author LZB
  */
 public class FileUtils {
 
@@ -26,12 +26,13 @@ public class FileUtils {
 
     /**
      * 读取文件为二进制数组
+     *
      * @param clzFileName 文件路径
      * @return 数组
      * @throws IOException
      */
     public static byte[] readByteCodes(String clzFileName) throws IOException {
-        if(!isFileExist(clzFileName)){
+        if (!isFileExist(clzFileName)) {
             return null;
         }
 

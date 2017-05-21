@@ -3,7 +3,7 @@ package me.lzb.jvm.attr;
 import me.lzb.jvm.cmd.ByteCodeCommand;
 
 /**
- * Created by LZB on 2017/4/15.
+ * @author LZB
  */
 public class CodeAttr extends AttributeInfo {
     private int maxStack;
