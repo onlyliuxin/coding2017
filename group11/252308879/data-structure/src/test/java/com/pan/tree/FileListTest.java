@@ -15,5 +15,4 @@ public class FileListTest {
         FileList fileList = new FileList();
         fileList.list(new File("E:\\DevWorkspace\\GitHub\\coding2017\\group11"));
     }
-
 }
