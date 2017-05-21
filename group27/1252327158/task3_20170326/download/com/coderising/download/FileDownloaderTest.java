@@ -21,7 +21,7 @@ public class FileDownloaderTest {
 	@Test
 	public void testDownload() {
 		
-		String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1489721424&di=1fda6467501ab1d5e5bff43e801d14ee&imgtype=jpg&er=1&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201507%2F30%2F20150730163204_A24MX.thumb.700_0.jpeg";
+		String url = "http://read.pudn.com/downloads161/ebook/730477/driver%20book/Windows文件系统过滤驱动开发教程(第二版).pdf";
 		
 		FileDownloader downloader = new FileDownloader(url);
 

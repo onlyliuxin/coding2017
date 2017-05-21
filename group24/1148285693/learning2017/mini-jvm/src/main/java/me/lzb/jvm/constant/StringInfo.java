@@ -30,4 +30,9 @@ public class StringInfo extends ConstantInfo {
     public void setIndex(int index) {
         this.index = index;
     }
+
+    public String toString(){
+        return getConstantPool().getUTF8String(index);
+    }
+
 }
