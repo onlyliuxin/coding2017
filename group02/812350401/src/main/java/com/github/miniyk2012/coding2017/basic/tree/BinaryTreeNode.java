@@ -2,9 +2,9 @@ package com.github.miniyk2012.coding2017.basic.tree;
 
 public class BinaryTreeNode<T> {
 	
-	private T data;
-	private BinaryTreeNode<T> left;
-	private BinaryTreeNode<T> right;
+	protected T data;
+	protected BinaryTreeNode<T> left;
+	protected BinaryTreeNode<T> right;
 	
 	public BinaryTreeNode(T data){
 		this.data=data;
