@@ -2,7 +2,6 @@ package jvm.constant;
 
 public abstract class ConstantInfo {
 	public static final int UTF8_INFO = 1;
-	public static final int FLOAT_INFO = 4;
 	public static final int CLASS_INFO = 7;
 	public static final int STRING_INFO = 8;
 	public static final int FIELD_INFO = 9;
