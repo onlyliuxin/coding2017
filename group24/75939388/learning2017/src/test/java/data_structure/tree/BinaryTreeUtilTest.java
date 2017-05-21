@@ -1,4 +1,4 @@
-package data_structure.binaryTree;
+package data_structure.tree;
 
 import basic.dataStructure.binaryTree.BinaryTreeNode;
 import basic.dataStructure.binaryTree.BinaryTreeUtil;
