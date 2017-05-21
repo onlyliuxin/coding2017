@@ -1,7 +1,6 @@
-package com.johnChnia.coderising2017.array;
+package com.johnChnia.coding2017.basic.array;
 
 import com.johnChnia.coding2017.basic.queue.Queue;
-import com.johnChnia.coding2017.basic.ArrayList;
 
 
 public class ArrayUtil {

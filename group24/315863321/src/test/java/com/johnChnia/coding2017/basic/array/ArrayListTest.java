@@ -1,5 +1,6 @@
-package com.johnChnia.coding2017.basic;
+package com.johnChnia.coding2017.basic.array;
 
+import com.johnChnia.coding2017.basic.array.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 

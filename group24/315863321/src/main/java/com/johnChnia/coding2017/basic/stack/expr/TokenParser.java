@@ -1,7 +1,7 @@
 package com.johnChnia.coding2017.basic.stack.expr;
 
 
-import com.johnChnia.coding2017.basic.ArrayList;
+import com.johnChnia.coding2017.basic.array.ArrayList;
 import com.johnChnia.coding2017.basic.List;
 
 public class TokenParser {

@@ -1,4 +1,4 @@
-package com.johnChnia.coding2017.basic;
+package com.johnChnia.coding2017.basic.queue;
 
 import com.johnChnia.coding2017.basic.queue.Queue;
 import org.junit.Before;
