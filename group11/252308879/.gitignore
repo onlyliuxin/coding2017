@@ -1,0 +1,10 @@
+.project
+.settings/
+target/
+# 忽略IntelliJ IDEA配置文件
+*.iml
+*.idea/
+*.zip
+*.index
+*.threads
+
