@@ -57,11 +57,35 @@ public class BinarySearchTree<T extends Comparable> {
 		return nodes.size();
 	}
 	
+	private BinaryTreeNode<T> find(BinaryTreeNode<T> root, T e) {
+		
+		if (root == null) {
+			return null;
+		}
+
+		int compare = root.data.compareTo(e);
+		
+		if (compare == 0) {
+			System.out.println(root.data);
+			return root;
+		}
+		
+		if (compare > 0) {
+			find (root.getLeft(),e);
+		} else {
+			find (root.getRight(),e);
+		}
+		
+		return null;
+	}
+	
+	
+	
 	public void remove(T e){
 		
-		BinaryTreeNode<T> node = getRoot();
-		List<T> nodes = BinaryTreeUtil.preOrderVisit(node);
-		if (!nodes.contains(e)) {
+		BinaryTreeNode<T> root = getRoot();
+		BinaryTreeNode<T> node = find(root,e);
+		if (node == null) {
 			return;
 		}
 		
