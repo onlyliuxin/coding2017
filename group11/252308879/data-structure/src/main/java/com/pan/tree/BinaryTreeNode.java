@@ -2,9 +2,9 @@ package com.pan.tree;
 
 public class BinaryTreeNode<T> {
 	
-	private T data;
-	private BinaryTreeNode<T> left;
-	private BinaryTreeNode<T> right;
+	T data;
+	BinaryTreeNode<T> left;
+	BinaryTreeNode<T> right;
 	
 	public BinaryTreeNode(T data){
 		this.data=data;
