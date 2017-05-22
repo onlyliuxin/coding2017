@@ -1,5 +1,4 @@
 package com.coding.basic.stack;
-
 public class StackUtil {
 	
 	
@@ -7,7 +6,7 @@ public class StackUtil {
 	 * 假设栈中的元素是Integer, 从栈顶到栈底是 : 5,4,3,2,1 调用该方法后， 元素次序变为: 1,2,3,4,5
 	 * 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
 	 */
-	public static void reverse(Stack s) {
+	public static void reverseV1(Stack s) {
 		if (s == null || s.size() == 0) {
 			return;
 		}
@@ -23,6 +22,38 @@ public class StackUtil {
 		while(!s.isEmpty()) {
 			s1.push(s.pop());
 		}
+	}
+	/**
+	 * 递归实现
+	 * @param s
+	 */
+	public static void reverse(Stack<Integer> s) {
+		if (s == null || s.size() == 0) {
+			return;
+		}
+		
+		Stack temp = new Stack();
+		while(!s.isEmpty()){
+			temp.push(s.pop());
+		}
+		
+		while (!temp.isEmpty()) {
+			Object pop = temp.pop();
+			addToBottom(s,pop);
+		}
+		
+	}
+
+	private static void addToBottom(Stack<Integer> s, Object o) {
+		
+		if (s.isEmpty()) {
+			s.push(o);
+		} else {
+			Object pop = s.pop();
+			addToBottom(s, o);
+			s.push(pop);	
+		}
+		
 	}
 
 	/**

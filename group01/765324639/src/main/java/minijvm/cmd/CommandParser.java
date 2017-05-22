@@ -114,7 +114,8 @@ public class CommandParser {
 	    }
 	    calcuateOffset(commandList);
 	    ByteCodeCommand[] commands = new ByteCodeCommand[commandList.size()];
-		return commandList.toArray(commands);
+		commandList.toArray(commands);
+		return commands;
 	}
 
 	private static void calcuateOffset(List<ByteCodeCommand> cmds) {

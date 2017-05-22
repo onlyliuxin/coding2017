@@ -1,5 +1,6 @@
 package jvm.classfile.field;
 
+import jvm.classfile.AccessFlag;
 import jvm.classfile.attribute.item.AttributeInfo;
 import jvm.classfile.attribute.parser.AttributeParser;
 import jvm.classfile.ConstantPool;
@@ -10,14 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Field {
-	private int accessFlag;
+	private AccessFlag accessFlag;
 	private int nameIndex;
 	private int descriptorIndex;
 	private ConstantPool constantPool;
 	private List<AttributeInfo> attributes = new ArrayList<>();
 	
 	public Field(int accessFlag, int nameIndex, int descriptorIndex, ConstantPool constantPool) {
-		this.accessFlag = accessFlag;
+		this.accessFlag = new AccessFlag(accessFlag);
 		this.nameIndex = nameIndex;
 		this.descriptorIndex = descriptorIndex;
 		this.constantPool = constantPool;
@@ -38,12 +39,10 @@ public class Field {
 
 	@Override
 	public String toString() {
-		String name = ((UTF8Info) constantPool.getConstantInfo(nameIndex)).getValue();
-		String desc = ((UTF8Info) constantPool.getConstantInfo(descriptorIndex)).getValue();
-		return name + ":" + desc;
+		return getName() + ":" + getDescriptor();
 	}
 
-	public int getAccessFlag() {
+	public AccessFlag getAccessFlag() {
 		return accessFlag;
 	}
 
@@ -61,5 +60,13 @@ public class Field {
 
 	public List<AttributeInfo> getAttributes() {
 		return attributes;
+	}
+
+	public String getName() {
+		return ((UTF8Info) constantPool.getConstantInfo(nameIndex)).getValue();
+	}
+
+	public String getDescriptor() {
+		return ((UTF8Info) constantPool.getConstantInfo(descriptorIndex)).getValue();
 	}
 }

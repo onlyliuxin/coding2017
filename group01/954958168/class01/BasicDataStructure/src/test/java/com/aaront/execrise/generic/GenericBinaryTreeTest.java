@@ -5,6 +5,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author tonyhui
  * @since 17/2/20
@@ -27,6 +30,12 @@ public class GenericBinaryTreeTest {
         for (String data : datas) {
             binaryTree.add(data);
         }
+        List<String> preorderWithoutRecursionDatas = binaryTree.traversalWithoutRecursion(GenericBinaryTree.PREORDER);
+        Assert.assertEquals(Arrays.asList(new String[]{"9", "4", "1", "2", "10", "17", "3", "5", "7", "9" }), preorderWithoutRecursionDatas);
+        List<String> inorderWithoutRecursionDatas = binaryTree.traversalWithoutRecursion(GenericBinaryTree.INORDER);
+        Assert.assertEquals(Arrays.asList(new String[]{"1", "10", "17", "2", "3", "4", "5", "7", "9", "9" }), inorderWithoutRecursionDatas);
+        List<String> postorderWithoutRecursionDatas = binaryTree.traversalWithoutRecursion(GenericBinaryTree.POSTORDER);
+        Assert.assertEquals(Arrays.asList(new String[]{"17", "10", "3", "2", "1", "7", "5", "4", "9", "9" }), postorderWithoutRecursionDatas);
         String[] preorderDatas = binaryTree.traversal(GenericBinaryTree.PREORDER, new String[0]);
         Assert.assertArrayEquals(new String[]{"9", "4", "1", "2", "10", "17", "3", "5", "7", "9" }, preorderDatas);
         String[] inorderDatas = binaryTree.traversal(GenericBinaryTree.INORDER, new String[0]);

@@ -3,6 +3,8 @@ package com.coding.mini_jvm.src.com.coderising.jvm.cmd;
 import com.coding.mini_jvm.src.com.coderising.jvm.clz.ClassFile;
 import com.coding.mini_jvm.src.com.coderising.jvm.constant.ConstantInfo;
 import com.coding.mini_jvm.src.com.coderising.jvm.constant.ConstantPool;
+import com.coding.mini_jvm.src.com.coderising.jvm.engine.ExecutionResult;
+import com.coding.mini_jvm.src.com.coderising.jvm.engine.StackFrame;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -123,5 +125,5 @@ public abstract class ByteCodeCommand {
 		return txt;
 	}
 	
-	//public abstract void execute(StackFrame frame,FrameResult result);
+	public abstract void execute(StackFrame frame,ExecutionResult result);
 }

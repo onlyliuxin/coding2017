@@ -5,7 +5,7 @@ import me.lzb.jvm.print.PrintVisitor;
 /**
  * Created by LZB on 2017/4/15.
  */
-public class FieldRefInfo extends ConstantInfo{
+public class FieldRefInfo extends ConstantInfo {
     private int type = ConstantInfo.Fieldref_info;
 
     private int classInfoIndex;
@@ -14,6 +14,7 @@ public class FieldRefInfo extends ConstantInfo{
     public FieldRefInfo(ConstantPool pool) {
         super(pool);
     }
+
     @Override
     public int getType() {
         return type;
@@ -38,5 +39,26 @@ public class FieldRefInfo extends ConstantInfo{
 
     public void setNameAndTypeIndex(int nameAndTypeIndex) {
         this.nameAndTypeIndex = nameAndTypeIndex;
+    }
+
+    public String getFieldName() {
+        NameAndTypeInfo typeInfo = (NameAndTypeInfo) this.getConstantInfo(this.getNameAndTypeIndex());
+        return typeInfo.getName();
+    }
+
+    public String getFieldType() {
+        NameAndTypeInfo typeInfo = (NameAndTypeInfo) this.getConstantInfo(this.getNameAndTypeIndex());
+        return typeInfo.getTypeInfo();
+    }
+
+    public String getClassName() {
+        ClassInfo classInfo = (ClassInfo) this.getConstantInfo(this.getClassInfoIndex());
+        UTF8Info utf8Info = (UTF8Info) this.getConstantInfo(classInfo.getUtf8Index());
+        return utf8Info.getValue();
+    }
+
+    public String toString() {
+        NameAndTypeInfo typeInfo = (NameAndTypeInfo) this.getConstantInfo(this.getNameAndTypeIndex());
+        return typeInfo.getName() + ":" + typeInfo.getTypeInfo();
     }
 }
