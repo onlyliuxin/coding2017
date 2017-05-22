@@ -17,6 +17,7 @@ public class MemoryLeakSimulation {
         }
     }
 
+    //死循环的递归会引起stackOverFlow
     public static void testStackOverFlowError(){
         testStackOverFlowError();
     }
