@@ -8,18 +8,27 @@ public class FileList {
 	    if (!f.exists()) {
 	        throw new FileNotFoundException("该文件不存在");
         }
-        showFiles(f, 0);
+        list(f, 0);
 	}
 
-    private void showFiles(File f, int i) {
-	    if (f.isFile()) {
-            System.out.printf(f.getName() + " ");
-        } else {
-            System.out.println();
-            System.out.println(i+" depth "+f.getAbsolutePath());
-            for (File subFile: f.listFiles()) {
-	            showFiles(subFile, i+1);
+    private void list(File f, int depth) {
+	    printName(f, depth);
+	    if (f.isDirectory()) {
+	        for (File subFile: f.listFiles()) {
+	            list(subFile, depth+1);
             }
+        }
+    }
+
+    private void printName(File f, int depth) {
+	    String name = f.getName();
+	    for (int i=0; i<depth; i++) {
+            System.out.print("+");
+        }
+        if (f.isFile()) {
+            System.out.println(name + " " + f.length());
+        } else {
+            System.out.println("Dir: " + name);
         }
     }
 
