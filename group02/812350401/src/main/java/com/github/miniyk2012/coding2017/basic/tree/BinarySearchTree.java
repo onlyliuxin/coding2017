@@ -1,5 +1,6 @@
 package com.github.miniyk2012.coding2017.basic.tree;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class BinarySearchTree<T extends Comparable> {
@@ -110,6 +111,21 @@ public class BinarySearchTree<T extends Comparable> {
         }
         root.left = deleteMin(root.left);
         return root;
+    }
+
+    public List<T> levelVisit(){
+
+        return null;
+    }
+    public boolean isValid(){
+        return false;
+    }
+    public T getLowestCommonAncestor(T n1, T n2){
+        return null;
+
+    }
+    public List<T> getNodesBetween(T n1, T n2){
+        return null;
     }
 }
 
