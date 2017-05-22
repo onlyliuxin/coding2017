@@ -29,14 +29,16 @@ import java.util.Map;
 
 */
 
-
+/**
+ * @author LZB
+ */
 public class Struts {
 
     private static final String XML = "struts.xml";
 
     private static final XmlUtil resource = createResource(XML);
 
-    private static XmlUtil createResource(String xml){
+    private static XmlUtil createResource(String xml) {
         try {
             return new XmlUtil(xml);
         } catch (DocumentException e) {
@@ -46,7 +48,7 @@ public class Struts {
     }
 
 
-    public static View runAction(String actionName, Map<String,String> parameters) throws ClassNotFoundException, IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException {
+    public static View runAction(String actionName, Map<String, String> parameters) throws ClassNotFoundException, IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException {
 
         Object loginAction = getAuctionByName(actionName);
 
@@ -58,7 +60,7 @@ public class Struts {
         view.setJsp(resource.getResultJsp(actionName, resultName));
         view.setParameters(invokeGetMethods(loginAction));
 
-    	return view;
+        return view;
     }
 
     private static Object getAuctionByName(String auctionName) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
@@ -74,14 +76,14 @@ public class Struts {
     }
 
 
-    private static void invokeSetMethods(Object o, Map<String,String> parameteMap) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private static void invokeSetMethods(Object o, Map<String, String> parameteMap) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class c = o.getClass();
-        Method[]  methods = c.getDeclaredMethods();
-        for (int  i = 0;  i< methods.length; i++) {
+        Method[] methods = c.getDeclaredMethods();
+        for (int i = 0; i < methods.length; i++) {
             String name = methods[i].getName();
-            if(StringUtils.startsWith(name, "set")){
+            if (StringUtils.startsWith(name, "set")) {
                 String key = name.replaceAll("^set", "").toLowerCase();
-                if(parameteMap.containsKey(key)){
+                if (parameteMap.containsKey(key)) {
                     methods[i].invoke(o, parameteMap.get(key));
                 }
             }
@@ -99,12 +101,12 @@ public class Struts {
         Map resultMap = new HashMap();
         Class c = o.getClass();
         Method[] methods = c.getDeclaredMethods();
-        for(int i =0 ;i<methods.length;i++){
+        for (int i = 0; i < methods.length; i++) {
             String methodName = methods[i].getName();
-            if(StringUtils.startsWith(methodName, "get")){
+            if (StringUtils.startsWith(methodName, "get")) {
                 String key = methodName.replaceAll("^get", "");
                 key = StringUtils.lowerCase(key);
-                resultMap.put(key,methods[i].invoke(o));
+                resultMap.put(key, methods[i].invoke(o));
             }
         }
         return resultMap;

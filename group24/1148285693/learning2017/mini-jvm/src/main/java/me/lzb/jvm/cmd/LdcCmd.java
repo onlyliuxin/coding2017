@@ -10,6 +10,9 @@ import me.lzb.jvm.engine.JavaObject;
 import me.lzb.jvm.engine.StackFrame;
 import me.lzb.jvm.print.ExecutionVisitor;
 
+/**
+ * @author LZB
+ */
 public class LdcCmd extends OneOperandCmd {
 
     public LdcCmd(ClassFile clzFile, String opCode) {

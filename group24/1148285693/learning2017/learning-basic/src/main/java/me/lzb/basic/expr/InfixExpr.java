@@ -5,7 +5,8 @@ import java.util.Stack;
 
 /**
  * 中序表达式
- * Created by LZB on 2017/4/15.
+ *
+ * @author LZB
  */
 public class InfixExpr {
 

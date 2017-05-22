@@ -4,7 +4,7 @@ import me.lzb.jvm.print.Print;
 import me.lzb.jvm.print.PrintVisitor;
 
 /**
- * Created by LZB on 2017/4/14.
+ * @author LZB
  */
 public abstract class ConstantInfo implements Print {
 

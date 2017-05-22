@@ -1,4 +1,4 @@
-package com.johnChnia.coderising2017.array;
+package com.johnChnia.coding2017.basic.array;
 
 import org.junit.Before;
 import org.junit.Test;
