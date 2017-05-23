@@ -135,6 +135,7 @@ public class ClassFile implements Print {
         this.methods.add(m);
     }
 
+    //函数的 方法名+参数类型+返回值，构成函数的唯一标识
     public Method getMethod(String methodName, String paramAndReturnType) {
         for (Method m : methods) {
             int nameIndex = m.getNameIndex();

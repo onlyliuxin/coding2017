@@ -6,7 +6,7 @@ package me.lzb.jvm.engine;
  * @author LZB
  */
 public class Heap {
-
+    //堆，存放new出来的对象
     private static Heap instance = new Heap();
 
     private Heap() {
