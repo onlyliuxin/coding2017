@@ -34,7 +34,7 @@ public class FileDownloaderTest {
 
 		String url = "http://localhost:8080/test0.jpg";
 
-		FileDownloader downloader = new FileDownloader(epgXLS);
+		FileDownloader downloader = new FileDownloader(Git);
 
 		ConnectionManager cm = new ConnectionManagerImpl();
 		downloader.setConnectionManager(cm);

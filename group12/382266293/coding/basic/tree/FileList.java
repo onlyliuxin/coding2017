@@ -42,6 +42,6 @@ public class FileList {
 
 	public static void main(String[] args) {
 		FileList ff = new FileList();
-		ff.list(new File("D:\\py"));
+		ff.list(new File("D:\\迅雷下载"));
 	}
 }
