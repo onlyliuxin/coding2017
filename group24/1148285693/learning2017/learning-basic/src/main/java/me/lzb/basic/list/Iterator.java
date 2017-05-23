@@ -1,10 +1,11 @@
 package me.lzb.basic.list;
 
 /**
- * Created by LZB on 2017/3/11.
+ * @author LZB
  */
 public interface Iterator {
-	public boolean hasNext();
-	public Object next();
+    boolean hasNext();
+
+    Object next();
 
 }

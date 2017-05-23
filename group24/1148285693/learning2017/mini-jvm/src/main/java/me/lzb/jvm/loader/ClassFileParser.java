@@ -14,7 +14,8 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * 处理字class文件字节流
- * Created by LZB on 2017/4/14.
+ *
+ * @author LZB
  */
 public class ClassFileParser {
 
@@ -185,17 +186,29 @@ public class ClassFileParser {
     private void parserField(ClassFile classFile) {
         int count = nextBytesToInt(2);
         for (int i = 1; i <= count; i++) {
+
             int accessFlags = nextBytesToInt(2);
             int nameIndex = nextBytesToInt(2);
             int descriptorIndex = nextBytesToInt(2);
             int attributesCount = nextBytesToInt(2);
 
-            if (attributesCount > 0) {
-                throw new RuntimeException("Field Attribute has not been implement");
+            Field f = new Field(accessFlags, nameIndex, descriptorIndex, classFile.getConstantPool());
+
+            for (int j = 1; j <= attributesCount; j++) {
+                int attrNameIndex = nextBytesToInt(2);
+                String attrName = classFile.getConstantPool().getUTF8String(attrNameIndex);
+
+                if (AttributeInfo.CONST_VALUE.equals(attrName)) {
+                    int attrLen = nextBytesToInt(4);
+                    ConstantValue constValue = new ConstantValue(attrNameIndex, attrLen);
+                    constValue.setConstValueIndex(nextBytesToInt(2));
+                    f.setConstantValue(constValue);
+                } else {
+                    throw new RuntimeException("the attribute " + attrName + " has not been implemented yet.");
+                }
             }
 
-            Field field = new Field(accessFlags, nameIndex, descriptorIndex, classFile.getConstantPool());
-            classFile.addField(field);
+            classFile.addField(f);
         }
     }
 

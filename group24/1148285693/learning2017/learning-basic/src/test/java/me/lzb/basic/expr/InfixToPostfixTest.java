@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Created by LZB on 2017/4/20.
+ * @author LZB
  */
 public class InfixToPostfixTest {
 

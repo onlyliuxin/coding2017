@@ -3,9 +3,9 @@ package me.lzb.jvm.constant;
 import me.lzb.jvm.print.PrintVisitor;
 
 /**
- * Created by LZB on 2017/4/14.
+ * @author LZB
  */
-public class NullConstantInfo extends ConstantInfo{
+public class NullConstantInfo extends ConstantInfo {
 
     @Override
     public int getType() {

@@ -1,7 +1,7 @@
 package me.lzb.basic.expr;
 
 /**
- * Created by LZB on 2017/4/20.
+ * @author LZB
  */
 public class Node {
     float number;
@@ -22,7 +22,7 @@ public class Node {
         return calLevel == 3;
     }
 
-    public boolean isNumber(){
+    public boolean isNumber() {
         return calLevel == -1;
     }
 }

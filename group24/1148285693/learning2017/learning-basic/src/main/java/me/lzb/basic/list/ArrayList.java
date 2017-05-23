@@ -2,7 +2,8 @@ package me.lzb.basic.list;
 
 /**
  * 简易ArrayList
- * Created by LZB on 2017/3/11.
+ *
+ * @author LZB
  */
 public class ArrayList implements List {
 

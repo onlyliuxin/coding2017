@@ -4,7 +4,9 @@ import me.lzb.jvm.loader.ClassFileLoader;
 
 import java.io.IOException;
 
-
+/**
+ * @author LZB
+ */
 public class MiniJVM {
 
     public void run(String[] classPaths, String className) throws IOException {

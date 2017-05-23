@@ -7,6 +7,9 @@ import me.lzb.jvm.engine.JavaObject;
 import me.lzb.jvm.engine.StackFrame;
 import me.lzb.jvm.print.ExecutionVisitor;
 
+/**
+ * @author LZB
+ */
 public class NoOperandCmd extends ByteCodeCommand {
 
     public NoOperandCmd(ClassFile clzFile, String opCode) {
