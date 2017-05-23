@@ -146,5 +146,24 @@ public class BinaryTreeUtil {
 		
 		return result;
 	}
+	// 非递归中序遍历：方法二
+	public static <T> List<T> inOrderWithoutRecursion2(BinaryTreeNode<T> root) {
+		List<T> result = new ArrayList<T>();
+		Stack<BinaryTreeNode<T>> stack = new Stack<BinaryTreeNode<T>>();
+		BinaryTreeNode<T> point = root;
+		
+		while(point != null || !stack.isEmpty()){
+			while(point != null){
+				stack.push(point);
+				point = point.getLeft();
+			}
+			
+			BinaryTreeNode<T> node = stack.pop();
+			result.add(node.getData());
+			point = node.getRight();
+		}
+		
+		return result;
+	}
 	
 }

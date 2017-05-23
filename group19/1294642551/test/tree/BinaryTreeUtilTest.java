@@ -77,6 +77,12 @@ public class BinaryTreeUtilTest {
 			Assert.assertEquals("[3, 2, 6, 4, 7, 1, 10, 8, 11, 5, 9]", result.toString());
 		}
 		
+		{//测试方法2
+
+			List<Integer> result2 = BinaryTreeUtil.inOrderWithoutRecursion2(root);
+			Assert.assertEquals("[3, 2, 6, 4, 7, 1, 10, 8, 11, 5, 9]", result2.toString());
+		}
+		
 	}
 	@Test
 	public void testPreOrderVisitWithoutRecursion() {
@@ -87,7 +93,7 @@ public class BinaryTreeUtilTest {
 		List<Integer> result = BinaryTreeUtil.preOrderWithoutRecursion(root);
 		Assert.assertEquals("[1, 2, 3, 4, 6, 7, 5]", result.toString());	
 		
-		{//补充测试
+		{//测试方法2
 			List<Integer> result2 = BinaryTreeUtil.preOrderWithoutRecursion2(root);
 			Assert.assertEquals("[1, 2, 3, 4, 6, 7, 5]", result2.toString());
 		}
