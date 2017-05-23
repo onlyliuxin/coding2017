@@ -88,5 +88,35 @@ public class BinarySearchTree<T extends Comparable> {
         }
     }
 
+    /**
+     * 逐层遍历
+     */
+    public List<T> levelVisit(){
+
+        return null;
+    }
+
+    /**
+     * 判断一个二叉树是不是二叉查找树
+     */
+    public boolean isValid(){
+        return false;
+    }
+
+    /**
+     * 获取两个节点的最小公共祖先
+     */
+    public T getLowestCommonAncestor(T n1, T n2){
+        return null;
+
+    }
+
+    /**
+     * 给定两个值， 获得处于这两个值中间的节点
+     */
+    public List<T> getNodesBetween(T n1, T n2){
+        return null;
+    }
+
 }
 
