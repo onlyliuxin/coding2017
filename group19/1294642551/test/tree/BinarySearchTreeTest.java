@@ -1,6 +1,8 @@
 package tree;
 
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -70,5 +72,36 @@ public class BinarySearchTreeTest {
 		BinaryTreeNode<Integer> root= tree.getRoot();
 		Assert.assertEquals(3, root.left.data.intValue());
 		Assert.assertEquals(4, root.left.right.data.intValue());
+	}
+	
+	@Test
+	public void testLevelVisit(){
+		List<Integer> result = tree.levelVisit();
+		Assert.assertEquals("[6, 2, 8, 1, 4, 3]", result.toString());
+	}
+	
+	@Test
+	public void testIsValid(){
+		Assert.assertEquals(true, tree.isValid());
+		
+		tree.root.right.setLeft(new BinaryTreeNode<Integer>(5));
+		Assert.assertEquals(false, tree.isValid());
+	}
+	
+	@Test
+	public void testGetAncestor(){
+		Assert.assertEquals("[6, 2, 4, 3]", tree.getAncestor(3).toString());
+	}
+	
+	@Test
+	public void testGetLowestCommonAncestor(){
+		int result = tree.getLowestCommonAncestor(1, 3);
+		Assert.assertEquals(2, result);
+	}
+	
+	@Test
+	public void testGetNodesBetween(){
+		List<Integer> result = tree.getNodesBetween(1, 7);
+		Assert.assertEquals("[6, 2, 4, 3]", result.toString());
 	}
 }
