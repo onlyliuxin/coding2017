@@ -20,13 +20,20 @@ public class MiniJVMTest {
 	@After
 	public void tearDown() throws Exception {
 	}
+//
+//	@Test
+//	public void testMain() throws Exception {
+//		String[] classPaths = {PATH, PATH1, PATH2};
+//		MiniJVM jvm = new MiniJVM();
+//		jvm.run(classPaths, "com.coding.mini_jvm.src.com.coderising.jvm.test.EmployeeV1");
+//
+//	}
 
 	@Test
-	public void testMain() throws Exception {
-		String[] classPaths = {PATH, PATH1, PATH2};
+	public void testMain() throws Exception{
+		String[] classPaths = {PATH};
 		MiniJVM jvm = new MiniJVM();
-		jvm.run(classPaths, "com.coding.mini_jvm.src.com.coderising.jvm.EmployeeV1");
-		
-	}
+		jvm.run(classPaths, "com.coding.mini_jvm.src.com.coderising.jvm.test.HourlyEmployee");
 
+	}
 }
