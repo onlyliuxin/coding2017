@@ -2,6 +2,7 @@ package tree;
 
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -55,30 +56,30 @@ public class BinarySearchTreeTest {
 		Assert.assertEquals(6, tree.size());
 	}
 
-//	@Test
-//	public void testRemoveLeaf() {
-//		tree.remove(4);
-//		BinaryTreeNode<Integer> root= tree.getRoot();
-//		Assert.assertEquals(3, root.left.right.data.intValue());
-//		
-//	}
+	@Test
+	public void testRemoveLeaf() {
+		tree.remove(4);
+		BinaryTreeNode<Integer> root= tree.getRoot();
+		Assert.assertEquals(3, root.left.right.data.intValue());
+		
+	}
 
-//	@Test
-//	public void testRemoveMiddleNode() {
-//		tree.remove(2);
-//		BinaryTreeNode<Integer> root= tree.getRoot();
-//		Assert.assertEquals(3, root.left.data.intValue());
-//		Assert.assertEquals(4, root.left.right.data.intValue());
-//	}
+	@Test
+	public void testRemoveMiddleNode() {
+		tree.remove(2);
+		BinaryTreeNode<Integer> root= tree.getRoot();
+		Assert.assertEquals(3, root.left.data.intValue());
+		Assert.assertEquals(4, root.left.right.data.intValue());
+	}
 	
 	
 	
 	@Test
 	public void testLevelVisit() {
 		List<Integer> result = tree.levelVisit();
-		//List<Integer> expected = new ArrayList<>();
+		List<Integer> expected = new ArrayList<>();
 		Integer[] e1 = {6,2,8,1,4,3};
-		List<Integer> expected = Arrays.asList(e1);
+		expected = Arrays.asList(e1);
 		Assert.assertEquals(expected, result);
 		
 	}
