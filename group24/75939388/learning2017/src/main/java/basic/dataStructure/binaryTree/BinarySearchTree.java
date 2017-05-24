@@ -1,6 +1,6 @@
 package basic.dataStructure.binaryTree;
 
-import java.util.List;
+import java.util.*;
 
 public class BinarySearchTree<T extends Comparable> {
 
@@ -92,24 +92,90 @@ public class BinarySearchTree<T extends Comparable> {
      * 逐层遍历
      */
     public List<T> levelVisit(){
+        Queue<BinaryTreeNode> buffer = new LinkedList<BinaryTreeNode>();
+        List<T> result = new ArrayList<T>();
 
-        return null;
+        result = level(root, result, buffer);
+
+        return result;
+    }
+
+    private List<T> level(BinaryTreeNode<T> node, List<T> result, Queue<BinaryTreeNode> buffer){
+        result.add(node.getData());
+        if(node.getLeft() != null){
+            buffer.offer(node.left);
+        }
+
+        if(node.getRight() != null){
+            buffer.offer(node.right);
+        }
+
+        while(!buffer.isEmpty()){
+            result = level(buffer.poll(), result, buffer);
+        }
+
+        return result;
     }
 
     /**
      * 判断一个二叉树是不是二叉查找树
      */
     public boolean isValid(){
-        return false;
+        if(root.left == null || root.right == null){
+            return false;
+        }
+
+        return root.left.getData().compareTo(root.getData()) == -1 &&
+                root.right.getData().compareTo(root.getData()) == 1;
     }
 
     /**
      * 获取两个节点的最小公共祖先
      */
     public T getLowestCommonAncestor(T n1, T n2){
-        return null;
+        if(!isValid()){
+            throw new RuntimeException("this tree is not binary search tree");
+        }
 
+        return getLowestCommonAncestor(root, n1, n2).data;
     }
+
+    private BinaryTreeNode<T> getLowestCommonAncestor(BinaryTreeNode<T> node, T n1, T n2){
+//        if(node == null || node.data.compareTo(n1) == 0 || node.data.compareTo(n2) == 0){
+//            return node;
+//        }
+//
+//        BinaryTreeNode<T> left = getLowestCommonAncestor(node.left, n1, n2);
+//        BinaryTreeNode<T> right = getLowestCommonAncestor(node.right, n1, n2);
+//
+//        if (left != null && right != null) {
+//            return node;
+//        }
+//        if (left != null) {
+//            return left;
+//        }
+//        if (right != null) {
+//            return right;
+//        }
+//        return null;
+        if(node == null){
+            return null;
+        }
+
+        int cmp1 = n1.compareTo(node.data);
+        int cmp2 = n2.compareTo(node.data);
+
+        if(cmp1 > 0 && cmp2 > 0){
+            return getLowestCommonAncestor(node.right, n1, n2);
+        }
+
+        if(cmp1 < 0 && cmp2 < 0){
+            return getLowestCommonAncestor(node.left, n1, n2);
+        }
+
+        return node;
+    }
+
 
     /**
      * 给定两个值， 获得处于这两个值中间的节点
