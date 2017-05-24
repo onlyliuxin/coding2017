@@ -1,5 +1,7 @@
 package com.coderising.jvm.constant;
 
+import com.coderising.jvm.constant.ConstantInfo.Visitor;
+
 public class UTF8Info extends ConstantInfo{
 	
 	private int type = ConstantInfo.UTF8_INFO;
@@ -34,6 +36,12 @@ public class UTF8Info extends ConstantInfo{
 	@Override
 	public String toString(){
 		return "UTF8Info [type=" + type + ",length" + length + ",value" + value + ")]";
+	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitUTF8(this);
+		
 	}
 	
 
