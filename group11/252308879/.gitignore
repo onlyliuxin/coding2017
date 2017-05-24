@@ -7,4 +7,5 @@ target/
 *.zip
 *.index
 *.threads
+*.hprof
 
