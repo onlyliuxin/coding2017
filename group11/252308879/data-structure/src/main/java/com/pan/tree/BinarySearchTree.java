@@ -213,11 +213,11 @@ public class BinarySearchTree<T extends Comparable> {
      * @return
      */
     private boolean findNode(BinaryTreeNode<T> root, T node) {
-        if (root == null || node == null) {
-            return false;
-        }
         if (root == node) {
             return true;
+        }
+        if (node == null) {
+            return false;
         }
         // 递归查找是否在左节点中
         boolean foundLeft = findNode(root.left, node);
