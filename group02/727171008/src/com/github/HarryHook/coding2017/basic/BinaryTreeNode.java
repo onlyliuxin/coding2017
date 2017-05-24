@@ -18,6 +18,13 @@ public class BinaryTreeNode {
 	    inOrder(node.right);
 	}
     }
+    public BinaryTreeNode() {}
+    
+    public BinaryTreeNode(Integer data, BinaryTreeNode left, BinaryTreeNode right) {
+	this.data = data;
+	this.right = right;
+	this.left = left;
+    }
 
     // 获取给节点的值
     public Integer getData() {
@@ -52,41 +59,26 @@ public class BinaryTreeNode {
     // 在二叉树中插入一个节点，需要判断
     public BinaryTreeNode insert(Integer obj) {
 	// 新增节点
-	BinaryTreeNode newNode = new BinaryTreeNode();
-	// 当前节点,保留根的值
-	BinaryTreeNode current = this;
-	// 上个节点
-	BinaryTreeNode parent = null;
-	// 如果根节点为空
-	if (current.data == null) {
-	    newNode.setData(obj);
-	    newNode.setLeft(null);
-	    newNode.setRight(null);
-	    return newNode;
+
+	if (data == null) {
+	    data = obj;
 	} else {
-	    while (true) {
-		parent = current;
-		if (obj < current.data) {
-		    current = current.left;
-		    if (current == null) {
-			newNode.setData(obj);
-			newNode.setLeft(null);
-			newNode.setRight(null);
-			parent.left = newNode;
-			return newNode;
-		    }
+	    if (obj < data) {
+		if (left == null) {
+		    left = new BinaryTreeNode(obj, null, null);
 		} else {
-		    current = current.right;
-		    if (current == null) {
-			newNode.setData(obj);
-			newNode.setLeft(null);
-			newNode.setRight(null);
-			parent.right = newNode;
-			return newNode;
-		    }
+		    left = left.insert(obj);
+		}
+
+	    } else {
+		if (right == null) {
+		    right = new BinaryTreeNode(obj, null, null);
+		} else {
+		    right = right.insert(obj);
 		}
 	    }
 	}
+	return this;
     }
 
     public static void main(String[] args) {

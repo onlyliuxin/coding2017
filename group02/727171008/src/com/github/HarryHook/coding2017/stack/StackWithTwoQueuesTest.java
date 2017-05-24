@@ -27,9 +27,6 @@ public class StackWithTwoQueuesTest {
     @Test
     public void test() {
 	stack = new StackWithTwoQueues();
-	// 栈为空，抛出异常
-	expectedEx.expect(Exception.class);
-	stack.pop();
 
 	stack.push(1);
 	stack.push(2);

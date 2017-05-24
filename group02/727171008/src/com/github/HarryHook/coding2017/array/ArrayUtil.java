@@ -169,15 +169,12 @@ public class ArrayUtil {
 
 	return Arrays.copyOf(array, count);
     }
-
+    // 判断当前n是不是素数
     private boolean isPrime(int n) {
-	// 判断当前n是不是素数
+	
 	int i = 2;
-	while (i < n) {
-	    if (n % i == 0)
-		break;
-	    if (n % i != 0)
-		i++;
+	while (i < n && n%i != 0) {
+	    i++;
 	}
 	return i == n;
     }

@@ -1,4 +1,4 @@
-package com.github.HarryHook.coding2017.basic;
+package com.github.HarryHook.coding2017.basic.test;
 
 import org.junit.Before;
 import com.github.HarryHook.coding2017.basic.MyArrayList;
