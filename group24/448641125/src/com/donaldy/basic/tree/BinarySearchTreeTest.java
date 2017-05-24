@@ -1,12 +1,12 @@
 package com.donaldy.basic.tree;
 
-import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
 
 
 public class BinarySearchTreeTest {
@@ -57,11 +57,45 @@ public class BinarySearchTreeTest {
 		Assert.assertEquals(3, root.getLeft().getRight().getData().intValue());
 		
 	}
+
 	@Test
 	public void testRemoveMiddleNode() {
 		tree.remove(2);
 		BinaryTreeNode<Integer> root= tree.getRoot();
 		Assert.assertEquals(3, root.getLeft().getData().intValue());
 		Assert.assertEquals(4, root.getLeft().getRight().getData().intValue());
+	}
+
+	@Test
+	public void testLevelVisit() {
+		String str = tree.levelVisit().toString();
+
+		Assert.assertEquals("[6, 2, 8, 1, 4, 3]", str);
+
+	}
+
+	@Test
+	public void testIsValid() {
+
+		Assert.assertEquals(true, tree.isValid());
+
+	}
+
+	@Test
+	public void testGetLowestCommonAncestor() {
+
+		Assert.assertEquals(3, (int)tree.getLowestCommonAncestor(2, 8));
+
+	}
+
+	@Test
+	public void testGetNodesBetween() {
+		String str = tree.getNodesBetween(1, 4).toString();
+		Assert.assertEquals("[2, 3]", str);
+
+		str = tree.getNodesBetween(0, 9).toString();
+		Assert.assertEquals("[6, 2, 8, 1, 4, 3]", str);
+
+
 	}
 }

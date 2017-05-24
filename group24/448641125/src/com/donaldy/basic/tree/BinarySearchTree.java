@@ -1,5 +1,8 @@
 package com.donaldy.basic.tree;
 
+import com.donaldy.basic.queue.Queue;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class BinarySearchTree<T extends Comparable> {
@@ -80,6 +83,7 @@ public class BinarySearchTree<T extends Comparable> {
 		List<T> list = BinaryTreeUtil.inOrderVisit(this.root);
 
 		return list.size();
+
 	}
 
 	public void remove(T e){
@@ -132,6 +136,165 @@ public class BinarySearchTree<T extends Comparable> {
 		}
 
 		return findMinNode(node.getLeft());
+	}
+
+	public List<T> levelVisit(){
+
+		List<T> list = new ArrayList<T>();
+
+		Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
+
+		queue.enQueue(this.root);
+
+		while (!queue.isEmpty()) {
+
+			BinaryTreeNode node = queue.deQueue();
+
+			list.add((T)node.getData());
+
+			if (node.getLeft() != null) {
+				queue.enQueue(node.getLeft());
+			}
+
+			if (node.getRight() != null) {
+				queue.enQueue(node.getRight());
+			}
+
+		}
+
+		return list;
+	}
+
+	/**
+	 * 是否为二叉树
+	 * @return
+	 */
+	public boolean isValid(){
+
+		Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
+
+		queue.enQueue(this.root);
+
+		while (!queue.isEmpty()) {
+
+			BinaryTreeNode node = queue.deQueue();
+
+			T t = (T)node.getData();
+
+			if (node.getLeft() != null) {
+
+				if (t.compareTo(node.getLeft().getData()) <= 0) {
+					return false;
+				}
+
+				queue.enQueue(node.getLeft());
+			}
+
+			if (node.getRight() != null) {
+
+				if (t.compareTo(node.getRight().getData()) >= 0) {
+					return false;
+				}
+
+				queue.enQueue(node.getRight());
+			}
+
+		}
+
+		return true;
+
+	}
+
+	/**
+	 * 获取两个节点的最小公共祖先
+	 * 同层算同一级别？
+	 * @param n1
+	 * @param n2
+	 * @return
+	 */
+	public T getLowestCommonAncestor(T n1, T n2){
+
+		if (n1.compareTo(n2) > 0) {
+			T t = n1;
+			n1 = n2;
+			n2 = t;
+		}
+
+		BinaryTreeNode ancestor = null;
+
+		Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
+
+		queue.enQueue(this.root);
+
+		while (!queue.isEmpty()) {
+
+			BinaryTreeNode node = queue.deQueue();
+
+			T t = (T)node.getData();
+
+			if (t.compareTo(n1) > 0 && t.compareTo(n2) < 0) {
+				ancestor = node;
+			}
+
+			if (node.getLeft() != null) {
+
+				queue.enQueue(node.getLeft());
+			}
+
+			if (node.getRight() != null) {
+
+				queue.enQueue(node.getRight());
+			}
+
+		}
+
+
+		return (T)ancestor.getData();
+
+	}
+
+	/**
+	 * 给定两个值， 获得处于这两个值中间的节点
+	 * @param n1
+	 * @param n2
+	 * @return
+	 */
+	public List<T> getNodesBetween(T n1, T n2) {
+
+		if (n1.compareTo(n2) > 0) {
+			T t = n1;
+			n1 = n2;
+			n2 = t;
+		}
+
+		List<T> list = new ArrayList<T>();
+
+		Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
+
+		queue.enQueue(this.root);
+
+		while (!queue.isEmpty()) {
+
+			BinaryTreeNode node = queue.deQueue();
+
+			T t = (T)node.getData();
+
+			if (t.compareTo(n1) > 0 && t.compareTo(n2) < 0) {
+				list.add(t);
+			}
+
+			if (node.getLeft() != null) {
+				queue.enQueue(node.getLeft());
+			}
+
+			if (node.getRight() != null) {
+				queue.enQueue(node.getRight());
+			}
+
+		}
+
+		return list;
+
 	}
 
 }
