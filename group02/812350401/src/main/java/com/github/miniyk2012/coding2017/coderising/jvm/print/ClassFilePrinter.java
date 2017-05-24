@@ -23,9 +23,20 @@ public class ClassFilePrinter {
 		System.out.println("major version:" + clzFile.getMinorVersion());
 		
 		ConstantPoolPrinter cnstPoolPrinter = new ConstantPoolPrinter(clzFile.getConstantPool());
-		cnstPoolPrinter.print();
-		
-	}
+		cnstPoolPrinter.print();  // 打印常量池
+
+        System.out.println("{\n");
+
+        FieldPrinter fieldPrinter = new FieldPrinter(clzFile);
+        fieldPrinter.print();  // 打印字段
+
+
+        MethodPrinter methodPrinter = new MethodPrinter(clzFile);
+        methodPrinter.print();  // 打印方法
+
+        System.out.println("}");
+
+    }
 	
 	public static void main(String[] args){
 		String path = ClassFilePrinter.class.getClassLoader().getResource("jvm").getPath();

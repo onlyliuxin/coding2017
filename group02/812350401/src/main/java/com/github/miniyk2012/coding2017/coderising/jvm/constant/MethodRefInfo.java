@@ -1,5 +1,7 @@
 package com.github.miniyk2012.coding2017.coderising.jvm.constant;
 
+import com.github.miniyk2012.coding2017.coderising.jvm.print.ConstantPoolPrinter;
+
 public class MethodRefInfo extends ConstantInfo {
 	
 	private int type = ConstantInfo.METHOD_INFO;
@@ -52,5 +54,9 @@ public class MethodRefInfo extends ConstantInfo {
         NameAndTypeInfo typeInfo = (NameAndTypeInfo)this.getConstantInfo(nameAndTypeIndex);
 		return typeInfo.getTypeInfo();
 	}
-	
+
+	@Override
+	public void accept(ConstantPoolPrinter.Visitor visitor) {
+		visitor.visitMethodRefInfo(this);
+	}
 }
