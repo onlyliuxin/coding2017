@@ -1,4 +1,4 @@
-package com.coderising.array;
+package com.coding.basic.arrayList;
 
 import java.util.Arrays;
 
