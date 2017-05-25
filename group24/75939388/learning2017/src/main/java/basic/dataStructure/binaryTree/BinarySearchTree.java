@@ -181,8 +181,23 @@ public class BinarySearchTree<T extends Comparable> {
      * 给定两个值， 获得处于这两个值中间的节点
      */
     public List<T> getNodesBetween(T n1, T n2){
-        return null;
+        if(!isValid()) throw new RuntimeException("this is not binary search tree");
+        List<T> list = new ArrayList<T>();
+        getNodesBetween(root, n1, n2, list);
+        return list;
     }
 
+    private void getNodesBetween(BinaryTreeNode<T> node, T n1, T n2, List<T> list){
+        int cmp1 = n1.compareTo(node.data);
+        int cmp2 = n2.compareTo(node.data);
+
+        if(cmp1 == -1 && node.left != null){
+            if(cmp2 != 0) list.add(node.data);
+            getNodesBetween(node.left, n1, n2, list);
+        }else if(cmp2 == 1 && node.right != null){
+            if(cmp1 != 0) list.add(node.data);
+            getNodesBetween(node.right, n1, n2, list);
+        }
+    }
 }
 

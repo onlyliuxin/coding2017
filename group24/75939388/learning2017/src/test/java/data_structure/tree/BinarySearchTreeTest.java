@@ -76,7 +76,14 @@ public class BinarySearchTreeTest {
 
 	@Test
 	public void testGetNodesBetween(){
-		List<Integer> list = tree.getNodesBetween(1, 8);
-		Assert.assertEquals("[2, 6]", list);
+		{
+			List<Integer> list = tree.getNodesBetween(3, 8);
+			Assert.assertEquals("[6, 2, 4]", list.toString());
+		}
+		{
+			List<Integer> list = tree.getNodesBetween(3, 6);
+			Assert.assertEquals("[2, 4]", list.toString());
+		}
+
 	}
 }
