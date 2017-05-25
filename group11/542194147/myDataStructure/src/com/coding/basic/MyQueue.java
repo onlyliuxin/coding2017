@@ -1,4 +1,4 @@
-package com.coding.basic.queue;
+package com.coding.basic;
 
 public class MyQueue {
 

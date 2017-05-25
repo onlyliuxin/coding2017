@@ -1,4 +1,4 @@
-package com.coding.basic.stack;
+package com.coding.basic;
 
 import java.util.ArrayList;
 

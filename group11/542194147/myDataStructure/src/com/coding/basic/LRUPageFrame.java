@@ -1,4 +1,4 @@
-package com.coding.basic.linkedList;
+package com.coding.basic;
 
 /**
  * 用双向链表实现LRU算法
