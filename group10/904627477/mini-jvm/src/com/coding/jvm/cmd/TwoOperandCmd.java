@@ -6,6 +6,8 @@ import com.coding.jvm.constant.ConstantInfo;
 import com.coding.jvm.constant.ConstantPool;
 import com.coding.jvm.constant.FieldRefInfo;
 import com.coding.jvm.constant.MethodRefInfo;
+import com.coding.jvm.engine.ExecutionResult;
+import com.coding.jvm.engine.StackFrame;
 
 public abstract class TwoOperandCmd extends ByteCodeCommand{
 	
@@ -71,6 +73,12 @@ public abstract class TwoOperandCmd extends ByteCodeCommand{
 			@Override
 			public String toString(ConstantPool pool) {
 				return getOperandAsField(pool);
+			}
+
+			@Override
+			public void execute(StackFrame frame, ExecutionResult result) {
+				// TODO Auto-generated method stub
+				
 			}
 		};
 		return cmd;

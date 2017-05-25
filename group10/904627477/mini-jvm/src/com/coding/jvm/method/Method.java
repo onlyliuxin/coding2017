@@ -1,5 +1,8 @@
 package com.coding.jvm.method;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.coding.jvm.attr.AttributeInfo;
 import com.coding.jvm.attr.CodeAttr;
 import com.coding.jvm.clz.ClassFile;
@@ -65,10 +68,62 @@ public class Method {
 			}
 		}
 		return method;
-		
 	}
 
 	public ByteCodeCommand[] getCmds() {		
 		return this.getCodeAttr().getCmds();
 	}
+	
+	public String getParamAndReturnType(){
+		return this.clzFile.getConstantPool().getUTF8String(this.descriptorIndex);
+	}
+	// e.g. (Ljava/util/List;IF)V
+	public List<String> getParamList(){
+		String paramAndReturn = getParamAndReturnType();
+		int first = paramAndReturn.indexOf('(');
+		int last = paramAndReturn.indexOf(')');
+		
+		String param = paramAndReturn.substring(first+1,last);
+		List<String> result = new ArrayList<String>();
+		if(param==null||param.length()==0){
+			return result;
+		}
+		while(!"".equals(param)){
+			int pos = 0;
+			char head = param.charAt(pos);
+			switch (head) {
+			case 'L':
+				int end = param.indexOf(";");
+				if(end==-1){
+					throw new RuntimeException("can't find the ';' for a object type");
+				}
+				result.add(param.substring(pos+1,end));
+				pos = end + 1;
+				break;
+			case 'I':
+				result.add("I");
+				pos++;
+				break;
+			case 'F':
+				result.add("F");
+				pos++;
+				break;
+			case 'C':
+				result.add("C");
+				pos++;
+				break;
+			case 'Z':
+				result.add("Z");
+				pos++;
+				break;
+			default:
+				throw new RuntimeException("the param has unsupported type:" + param);
+			}
+			//使用该方式方便‘L’类型中获取边界‘;’的index
+			param = param.substring(pos);
+		}
+		return result;
+	}
+	
+	
 }
