@@ -13,24 +13,32 @@ public class Token {
 	public Token(String type,String value){
 		this.type = type;
 		this.value = value;
+		if(type.equals(OPERATOR)){
+			setLevel(value);
+		}
 	}
 		
 	public String getValue() {
 		return value;
 	}
-	public void setValue(String value) {
-		this.value = value;
-	}
+	
 	public int getLevel() {
 		return level;
 	}
-	public void setLevel(int level) {
-		this.level = level;
+
+	private void setLevel(String value){
+		if("+".equals(String.valueOf(value))||"-".equals(String.valueOf(value))){
+			this.level = LEVEL_ADD_SUB;
+		}else{
+			this.level =LEVEL_MUL_DIV;
+		}
 	}
-	public String getType() {
-		return type;
+	
+	public boolean isNumber() {
+		return type == NUMBER;
 	}
-	public void setType(String type) {
-		this.type = type;
+
+	public boolean isOperator() {
+		return type == OPERATOR;
 	}
 }
