@@ -13,9 +13,6 @@ public class MethodRefInfo extends ConstantInfo {
 		super(pool);
 	}
 
-	public int getClassInfoIndex() {
-		return classInfoIndex;
-	}
 
 	public String getClassName() {
 		ConstantPool pool = this.getConstantPool();
@@ -27,6 +24,11 @@ public class MethodRefInfo extends ConstantInfo {
 		ConstantPool pool = this.getConstantPool();
 		NameAndTypeInfo typeInfo = (NameAndTypeInfo) pool.getConstantInfo(this.getNameAndTypeIndex());
 		return typeInfo.getName();
+	}
+
+
+	public int getClassInfoIndex() {
+		return classInfoIndex;
 	}
 
 	public int getNameAndTypeIndex() {

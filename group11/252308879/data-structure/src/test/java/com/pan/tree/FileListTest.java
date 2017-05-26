@@ -13,7 +13,7 @@ public class FileListTest {
     @Test
     public void testFileList(){
         FileList fileList = new FileList();
-        fileList.list(new File("E:\\DevWorkspace\\GitHub\\coding2017\\group11"));
+        fileList.list(new File("D:\\DevWorkspace\\GitHub\\coding2017\\group11"));
     }
 
 }

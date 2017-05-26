@@ -4,20 +4,20 @@ public class Stack {
 	private ArrayList elementData = new ArrayList();
 	
 	public void push(Object o){	
-		elementData.add(o);								//ÏòÕ»¶¥Ñ¹ÈëÔªËØ
+		elementData.add(o);								//ï¿½ï¿½Õ»ï¿½ï¿½Ñ¹ï¿½ï¿½Ôªï¿½ï¿½
 	}
 	
 	public Object pop(){
-		Object o=elementData.get(elementData.size()-1);	//Õ»¶¥ÔªËØ£¬ÒòÎªÕ»ÏÈ½øºó³ö
-		elementData.remove(elementData.size()-1);		//ÒÆ³ýÕ»¶¥ÔªËØ
+		Object o=elementData.get(elementData.size()-1);	//Õ»ï¿½ï¿½Ôªï¿½Ø£ï¿½ï¿½ï¿½ÎªÕ»ï¿½È½ï¿½ï¿½ï¿½
+		elementData.remove(elementData.size()-1);		//ï¿½Æ³ï¿½Õ»ï¿½ï¿½Ôªï¿½ï¿½
 		return o;							
 	}
 	
 	public Object peek(){
-		return elementData.get(elementData.size()-1);   //»ñÈ¡Õ»¶¥ÔªËØ
+		return elementData.get(elementData.size()-1);   //ï¿½ï¿½È¡Õ»ï¿½ï¿½Ôªï¿½ï¿½
 	}
 	public boolean isEmpty(){
-		if(elementData.size()==0){			//¸ù¾ÝelementData.sizeÅÐ¶ÏÊÇ·ñÎª¿Õ
+		if(elementData.size()==0){			//ï¿½ï¿½ï¿½elementData.sizeï¿½Ð¶ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½
 			return true;
 		}
 		return false;
