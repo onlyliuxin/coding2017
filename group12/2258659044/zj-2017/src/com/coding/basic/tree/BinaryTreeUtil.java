@@ -26,25 +26,7 @@ public class BinaryTreeUtil {
 		}
 		return datas;
 	}
-    
-    /**
-     * 获取指定内容的节点
-     * @param root
-     * @param data
-     * @return
-     */
-    public static <T> BinaryTreeNode<T> findNode(BinaryTreeNode<T> root,T data) {
-				
-    	if(root !=null){
-			if(root.data.equals(data)){
-				return root;
-			}
-			findNode(root.getLeft(),data);
-			findNode(root.getRight(),data);
-		}
-		return null;
-	}
-   
+         
 	/**
 	 * 用递归的方式实现对二叉树的中遍历
 	 * 
@@ -149,4 +131,58 @@ public class BinaryTreeUtil {
 		return result;
 	}
 	
+    /**
+     * 获取指定内容的节点
+     * @param root
+     * @param data
+     * @return
+     */
+    public static <T> BinaryTreeNode<T> findNode(BinaryTreeNode<T> root,T data) {
+				   	
+    	if(root == null ||data == null){
+    		return null;
+    	}
+    	
+    	if(data.equals(root.data)){
+    		return root;
+    	}
+    	   	
+    	if(root.left!=null){
+    		return findNode(root.left,data);
+    	}
+    	
+    	if(root.right!=null){
+    		return findNode(root.right,data);
+    	}
+    	
+    	return null;
+    	
+	}
+    
+    /**
+     * 获取指定内容的父节点节点
+     * @param root
+     * @param data
+     * @return
+     */
+    public static <T> BinaryTreeNode<T> findParentNode(BinaryTreeNode<T> root,BinaryTreeNode<T> parent,T data) {
+				   	
+    	if(root == null ||data == null){
+    		return null;
+    	}
+    	
+    	if(data.equals(root.data)){
+    		return parent;
+    	}
+    	   	
+    	if(root.left!=null){
+    		return findParentNode(root.left,root,data);
+    	}
+    	
+    	if(root.right!=null){
+    		return findParentNode(root.right,root,data);
+    	}
+    	
+    	return null;
+	}
 }

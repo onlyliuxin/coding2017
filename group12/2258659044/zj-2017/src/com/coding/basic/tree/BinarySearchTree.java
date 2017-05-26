@@ -66,48 +66,12 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 		if(node == null){
 			return;
 		}
-		//删除本节点		
-		if(node.equals(node.parent.left)){
-			node.parent.left = null;
-		}else{
-			node.parent.right = null;
-		}
-		//存储所删除节点下所有子节点的值(该集合包含节点本身数据)
-		List<T> dataList = BinaryTreeUtil.preOrderVisit(node);
-		//重构二叉树
-		for (T t : dataList) {
-			if(t != node.data){
-				add(t);
-			}			
+				
+		//当前节点为叶子节点直接删除
+		if(node.left==null&&node.right==null){
+			//获取该节点的父节点
+			
 		}
 	}
 	
-	private void add(T o) {
-
-		BinaryTreeNode<T> parent;
-		BinaryTreeNode<T> currentNode = root;
-		BinaryTreeNode<T> treeNode = new BinaryTreeNode<T>(o);
-
-		while (true) {
-			parent = currentNode;	
-						
-			if (currentNode.data.compareTo(o)>0) {// 向左放
-				currentNode = currentNode.getLeft();
-				if (currentNode == null) {
-					parent.setLeft(treeNode);
-					treeNode.setParent(parent);
-					break;
-				}
-			} else if (currentNode.data.compareTo(o)<0) {// 向右放
-				currentNode = currentNode.getRight();
-				if (currentNode == null) {
-					parent.setRight(treeNode);
-					treeNode.setParent(parent);
-					break;
-				}
-			} else {
-				break;
-			}
-		}
-	}
 }
