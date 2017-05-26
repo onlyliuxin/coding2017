@@ -2,7 +2,6 @@ package com.coderising.jvm.GC;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class OutOfMemory_PermGen_space {
 
@@ -12,8 +11,8 @@ public class OutOfMemory_PermGen_space {
 		int i = 1;
 		try {
 			while (true) {
-				list.add(UUID.randomUUID().toString().intern());
-				i++;
+				list.add(String.valueOf(i++).intern());
+				System.out.println("i: "+i);
 			}
 		} finally {
 			System.out.println("运行次数：" + i);
