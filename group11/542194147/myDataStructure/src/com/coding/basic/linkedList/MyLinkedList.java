@@ -1,6 +1,8 @@
-package com.coding.basic;
+package com.coding.basic.linkedList;
 
 import java.util.Iterator;
+
+import com.coding.basic.MyList;
 
 public class MyLinkedList implements MyList {
 
