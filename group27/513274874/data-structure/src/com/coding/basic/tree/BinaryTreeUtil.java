@@ -114,7 +114,7 @@ public class BinaryTreeUtil {
             }
             if (stack.size() > 0) {
                 node = stack.pop();
-                result.add((T) node.getData());   //与iterativePreorder2比较只有这句话的位置不一样，弹出时再访问。
+                result.add((T) node.getData());
                 node = node.getRight();
             }
 
