@@ -1,5 +1,7 @@
 package com.coding.basic.tree;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -59,5 +61,18 @@ BinarySearchTree<Integer> tree = null;
 		BinaryTreeNode<Integer> root= tree.getRoot();
 		Assert.assertEquals(3, root.left.data.intValue());
 		Assert.assertEquals(4, root.left.right.data.intValue());
+	}
+	@Test
+	public void testLevelVisit(){
+		List<Integer>list=tree.levelVisit();
+		Assert.assertEquals("[6, 2, 8, 1, 4, 3]", list.toString());
+	}
+	@Test
+	public void testIsValid(){
+		Assert.assertEquals(true, tree.isValid());
+	}
+	@Test
+	public void testGetLowestCommonAncestor(){
+		Assert.assertEquals(6, tree.getLowestCommonAncestor(8,3).intValue());
 	}
 }
