@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.coding.basic.stack.expr.InfixExpr;
+
 public class StackUtilTest {
 	Stack s;
 	@Before
@@ -77,6 +79,25 @@ public class StackUtilTest {
 	public void testIsValidPairs() {
 		String s="([e{df])" ;
 		Assert.assertEquals(false, StackUtil.isValidPairs(s));
+	}
+	//5-2+3 6/2*3 5-2+3*4 2+3-5
+	@Test
+	public void testevaluate() {
+		InfixExpr expr = new InfixExpr("2+3*4+5");
+		System.out.println(expr.evaluate());
+		Assert.assertEquals(19, expr.evaluate(), 0.001f);
+		InfixExpr expr1 = new InfixExpr("5-2+3");
+		System.out.println(expr1.evaluate());
+		Assert.assertEquals(6, expr1.evaluate(), 0.001f);
+		InfixExpr expr2 = new InfixExpr("6/2*3");
+		System.out.println(expr2.evaluate());
+		Assert.assertEquals(9, expr2.evaluate(), 0.001f);
+		InfixExpr expr3 = new InfixExpr("50-2+3*4");
+		System.out.println(expr3.evaluate());
+		Assert.assertEquals(60, expr3.evaluate(), 0.001f);
+		InfixExpr expr4 = new InfixExpr("20+30-50");
+		System.out.println(expr4.evaluate());
+		Assert.assertEquals(0, expr4.evaluate(), 0.001f);
 	}
 
 }

@@ -34,4 +34,8 @@ public class FloatInfo implements Constant {
     public byte[] getBytes() {
         return bytes;
     }
+
+    public float getValue() {
+        return ByteUtils.toFloat(bytes);
+    }
 }

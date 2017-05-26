@@ -10,7 +10,6 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -28,57 +27,29 @@ public class Struts {
     private static final String FILE_PATH = "src/main/com/coderising/litestruts/struts.xml";
 
     public View runAction(String actionName, Map<String, String> parameters) {
-        // 视图
-        View view = new View();
         // 读取配置文件struts.xml
-        Map<String, Action> actions = this.xmlToList();
-        if (null == actions || actions.size() == 0) {
+        Map<String, Action> configuration = this.parseXML();
+        if (null == configuration || configuration.size() == 0) {
             return null;
         }
         try {
-            // 根据actionName找到相对应的class
-            Action action = actions.get(actionName);
-            Class clazz = Class.forName(action.getClassName());
-            // 通过反射实例化
-            Object newInstance = clazz.newInstance();
-            // 获得所有方法
-            Map<String, Method> methodMap = new HashMap<>();
-            Method[] methods = clazz.getDeclaredMethods();
-            for (Method method : methods) {
-                methodMap.put(method.getName(), method);
-            }
-            // 根据parameters中的数据，调用对象的setter方法
-            for (Map.Entry<String, String> entry : parameters.entrySet()) {
-                String key = entry.getKey();
-                String value = entry.getValue();
-                Method setterMethod = methodMap.get(settterMethodName(key));
-                setterMethod.invoke(newInstance, value);
-            }
-            // 通过反射调用对象的exectue 方法， 并获得返回值，例如"success"
+            Action actions = configuration.get(actionName);
+            Class<?> clazz = Class.forName(actions.getClassName());
+            Object action = clazz.newInstance();
+            ReflectionUtil.setParameters(parameters, action);
             Method executeMethod = clazz.getMethod("execute");
-            Object object = executeMethod.invoke(newInstance);
-            // 通过反射找到对象的所有getter方法
-            Map<Object, Object> map = new HashMap<>();
-            Field[] fields = clazz.getDeclaredFields();
-            if (fields != null && fields.length > 0) {
-                // 通过反射来调用， 把值和属性形成一个HashMap , 例如 {"message":  "登录成功"} ,
-                for (int i = 0; i < fields.length; i++) {
-                    Field field = fields[i];
-                    String fieldName = field.getName();
-                    Method getterMethod = methodMap.get(gettterMethodName(fieldName));
-                    Object value = getterMethod.invoke(newInstance);
-                    map.put(fieldName, value);
-                }
-            }
-            // 放到View对象的parameters中
+            Object object = executeMethod.invoke(action);
+            Map<Object, Object> map = ReflectionUtil.getParametersMap(clazz, action);
+            View view = new View();
             view.setParameters(map);
             // 根据struts.xml中的 <result> 配置,以及execute的返回值，  确定哪一个jsp，放到View对象的jsp字段中
-            List<Result> resultList = action.getResult();
+            List<Result> resultList = actions.getResult();
             for (Result result : resultList) {
                 if (result.getName().equals(object)) {
                     view.setJsp(result.getValue());
                 }
             }
+            return view;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
@@ -90,10 +61,10 @@ public class Struts {
         } catch (InstantiationException e) {
             e.printStackTrace();
         }
-        return view;
+        return null;
     }
 
-    private Map<String, Action> xmlToList() {
+    private Map<String, Action> parseXML() {
         Map<String, Action> map = new HashMap<>();
         SAXReader saxReader = new SAXReader();
         Document document;
@@ -135,22 +106,6 @@ public class Struts {
             e.printStackTrace();
         }
         return map;
-    }
-
-    private String gettterMethodName(String fieldName) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("get");
-        stringBuilder.append(fieldName.substring(0, 1).toUpperCase());
-        stringBuilder.append(fieldName.substring(1));
-        return stringBuilder.toString();
-    }
-
-    private String settterMethodName(String fieldName) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("set");
-        stringBuilder.append(fieldName.substring(0, 1).toUpperCase());
-        stringBuilder.append(fieldName.substring(1));
-        return stringBuilder.toString();
     }
 
 }

@@ -34,9 +34,6 @@ public class FieldRefInfo extends ConstantInfo{
 	
 	public String getClassName(){
 		ClassInfo classInfo = (ClassInfo) this.getConstantInfo(this.getClassInfoIndex());
-		
-		// UTF8Info utf8Info = (UTF8Info)this.getConstantInfo(classInfo.getUtf8Index());
-		// return utf8Info.getValue();
 		return classInfo.getClassName();
 		
 	}

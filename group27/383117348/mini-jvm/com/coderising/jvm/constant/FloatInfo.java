@@ -23,4 +23,10 @@ public class FloatInfo extends ConstantInfo{
 	public void setValue(float value) {
 		this.value = value;
 	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		// TODO Auto-generated method stub
+		
+	}
 }
