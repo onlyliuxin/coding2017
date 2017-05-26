@@ -138,25 +138,23 @@ public class BinaryTreeUtil {
      * @return
      */
     public static <T> BinaryTreeNode<T> findNode(BinaryTreeNode<T> root,T data) {
-				   	
-    	if(root == null ||data == null){
+			
+    	if(root ==null||data==null){
     		return null;
     	}
-    	
     	if(data.equals(root.data)){
     		return root;
     	}
-    	   	
-    	if(root.left!=null){
-    		return findNode(root.left,data);
+    	
+    	BinaryTreeNode<T> parent = findParentNode(root,null,data);  	
+    	if(parent == null){
+    		return parent;
     	}
-    	
-    	if(root.right!=null){
-    		return findNode(root.right,data);
-    	}
-    	
-    	return null;
-    	
+    	if(parent.right!=null&&data.equals(parent.right.data)){
+			return parent.right;
+		}else{
+			return parent.left;
+		}   	
 	}
     
     /**
@@ -176,11 +174,17 @@ public class BinaryTreeUtil {
     	}
     	   	
     	if(root.left!=null){
-    		return findParentNode(root.left,root,data);
+    		BinaryTreeNode<T> temp = findParentNode(root.left,root,data);
+    		if(temp!=null){
+    			return temp;
+    		}
     	}
     	
-    	if(root.right!=null){
-    		return findParentNode(root.right,root,data);
+    	if(root.right!=null){    		
+    		BinaryTreeNode<T> temp = findParentNode(root.right,root,data);;
+    		if(temp!=null){
+    			return temp;
+    		}
     	}
     	
     	return null;
