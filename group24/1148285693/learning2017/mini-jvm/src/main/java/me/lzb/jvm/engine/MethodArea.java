@@ -9,6 +9,9 @@ import me.lzb.jvm.method.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author LZB
+ */
 public class MethodArea {
 
     public static final MethodArea instance = new MethodArea();

@@ -1,7 +1,7 @@
 package me.lzb.jvm.attr;
 
 /**
- * Created by LZB on 2017/4/16.
+ * @author LZB
  */
 public class LineNumberItem {
     int startPC;

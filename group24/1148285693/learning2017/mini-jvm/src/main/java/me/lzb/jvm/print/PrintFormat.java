@@ -5,7 +5,7 @@ import me.lzb.jvm.clz.ClassFile;
 import me.lzb.jvm.constant.*;
 
 /**
- * Created by LZB on 2017/4/23.
+ * @author LZB
  */
 public class PrintFormat implements PrintVisitor {
 
@@ -57,7 +57,6 @@ public class PrintFormat implements PrintVisitor {
     public void visitString(StringInfo info) {
         System.out.println("String             #" + StringUtils.appendSpace(FOURTEENTH, info.getIndex() + "") + "// " + info.toString());
     }
-
 
 
 }

@@ -4,7 +4,8 @@ import me.lzb.basic.list.ArrayList;
 
 /**
  * 先进后出
- * Created by LZB on 2017/3/11.
+ *
+ * @author LZB
  */
 public class Stack {
     private ArrayList elementData = new ArrayList();

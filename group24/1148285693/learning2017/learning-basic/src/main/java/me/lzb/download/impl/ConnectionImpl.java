@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
-
+/**
+ * @author LZB
+ */
 class ConnectionImpl implements Connection {
 
 
@@ -24,22 +26,21 @@ class ConnectionImpl implements Connection {
     CloseableHttpClient httpClient;
 
 
-
-    public ConnectionImpl(String url) throws ConnectionException{
+    public ConnectionImpl(String url) throws ConnectionException {
         httpget = new HttpGet(url);
         httpget.setHeader("Accept-Encoding", "identity");
         httpClient = HttpClients.createDefault();
     }
 
 
-	@Override
-	public byte[] read(int startPos, int endPos) throws IOException {
+    @Override
+    public byte[] read(int startPos, int endPos) throws IOException {
 
         httpget.removeHeaders("Range");
         httpget.addHeader("Range", "bytes=" + startPos + "-" + endPos);
 
         CloseableHttpResponse response = httpClient.execute(httpget);
-        InputStream inputStream  = response.getEntity().getContent();
+        InputStream inputStream = response.getEntity().getContent();
 
         byte[] buff = new byte[BUFFER_SIZE];
 
@@ -47,25 +48,25 @@ class ConnectionImpl implements Connection {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        while(baos.size() < lenth){
+        while (baos.size() < lenth) {
 
             int len = inputStream.read(buff);
             if (len < 0) {
                 break;
             }
-            baos.write(buff,0, len);
+            baos.write(buff, 0, len);
         }
 
-        if(baos.size() > lenth){
+        if (baos.size() > lenth) {
             byte[] data = baos.toByteArray();
             return Arrays.copyOf(data, lenth);
         }
 
         return baos.toByteArray();
-	}
+    }
 
-	@Override
-	public int getContentLength() {
+    @Override
+    public int getContentLength() {
 
         CloseableHttpResponse response;
         try {
@@ -80,13 +81,10 @@ class ConnectionImpl implements Connection {
         return (int) httpEntity.getContentLength();
     }
 
-	@Override
-	public void close() {
+    @Override
+    public void close() {
 
     }
-
-
-
 
 
 }

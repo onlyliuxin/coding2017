@@ -1,7 +1,7 @@
 package me.lzb.jvm.attr;
 
 /**
- * Created by LZB on 2017/4/15.
+ * @author LZB
  */
 public class LocalVariableItem {
     private int startPC;
@@ -11,7 +11,7 @@ public class LocalVariableItem {
     private int index;
 
 
-    public LocalVariableItem(int startPC, int length, int nameIndex, int descIndex, int index){
+    public LocalVariableItem(int startPC, int length, int nameIndex, int descIndex, int index) {
         this.startPC = startPC;
         this.length = length;
         this.nameIndex = nameIndex;

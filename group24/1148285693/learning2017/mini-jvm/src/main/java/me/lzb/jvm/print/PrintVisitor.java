@@ -4,7 +4,7 @@ import me.lzb.jvm.clz.ClassFile;
 import me.lzb.jvm.constant.*;
 
 /**
- * Created by LZB on 2017/4/23.
+ * @author LZB
  */
 public interface PrintVisitor {
     void visitBasicMsg(ClassFile info);

@@ -3,9 +3,9 @@ package me.lzb.jvm.constant;
 import me.lzb.jvm.print.PrintVisitor;
 
 /**
- * Created by LZB on 2017/4/14.
+ * @author LZB
  */
-public class ClassInfo extends ConstantInfo{
+public class ClassInfo extends ConstantInfo {
     private int type = ConstantInfo.Class_info;
     private int utf8Index;
 
@@ -34,7 +34,7 @@ public class ClassInfo extends ConstantInfo{
 
     public String getClassName() {
         int index = getUtf8Index();
-        UTF8Info utf8Info = (UTF8Info)constantPool.getConstantInfo(index);
+        UTF8Info utf8Info = (UTF8Info) constantPool.getConstantInfo(index);
         return utf8Info.getValue();
     }
 }

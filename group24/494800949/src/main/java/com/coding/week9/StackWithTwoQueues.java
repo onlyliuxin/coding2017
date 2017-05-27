@@ -24,13 +24,14 @@ public class StackWithTwoQueues {
                 queue2.enQueue(queue1.deQueue());
             }
             return queue1.deQueue();
-        } else {
+        }
+        if (queue1.isEmpty()){
             while (queue2.size() > 1) {
                 queue1.enQueue(queue2.deQueue());
             }
             return queue2.deQueue();
         }
-
+        throw new UnsupportedOperationException();
 
     }
 

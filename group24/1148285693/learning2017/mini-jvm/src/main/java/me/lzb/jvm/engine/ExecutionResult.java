@@ -3,6 +3,9 @@ package me.lzb.jvm.engine;
 
 import me.lzb.jvm.method.Method;
 
+/**
+ * @author LZB
+ */
 public class ExecutionResult {
     public static final int RUN_NEXT_CMD = 1;
     public static final int JUMP = 2;

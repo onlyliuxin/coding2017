@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Created by LZB on 2017/4/27.
+ * @author LZB
  */
 public class QueueTest {
 

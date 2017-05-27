@@ -4,7 +4,8 @@ import java.util.Stack;
 
 /**
  * 用两个栈来实现一个队列
- * Created by LZB on 2017/4/27.
+ *
+ * @author LZB
  */
 public class QueueWithTwoStacks<E> {
     private Stack<E> stack1;//ASC

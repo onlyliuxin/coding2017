@@ -1,12 +1,13 @@
 package me.lzb.common.utils;
 
 /**
- * Created by lzbfe on 2017/4/29.
+ * @author LZB
  */
 public class AppUtils {
 
     /**
      * 获取一个数的位数
+     *
      * @param i
      * @return
      */

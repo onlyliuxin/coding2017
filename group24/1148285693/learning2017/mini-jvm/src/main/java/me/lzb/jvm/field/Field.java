@@ -1,9 +1,10 @@
 package me.lzb.jvm.field;
 
+import me.lzb.jvm.attr.ConstantValue;
 import me.lzb.jvm.constant.ConstantPool;
 
 /**
- * Created by LZB on 2017/4/15.
+ * @author LZB
  */
 public class Field {
     private int accessFlag;
@@ -12,7 +13,9 @@ public class Field {
 
     private ConstantPool pool;
 
-    public Field(int accessFlag, int nameIndex, int descriptorIndex ,ConstantPool pool) {
+    private ConstantValue constantValue;
+
+    public Field(int accessFlag, int nameIndex, int descriptorIndex, ConstantPool pool) {
 
         this.accessFlag = accessFlag;
         this.nameIndex = nameIndex;
@@ -26,5 +29,13 @@ public class Field {
         String key = pool.getUTF8String(nameIndex);
         String value = pool.getUTF8String(descriptorIndex);
         return key + ":" + value;
+    }
+
+    public ConstantValue getConstantValue() {
+        return constantValue;
+    }
+
+    public void setConstantValue(ConstantValue constantValue) {
+        this.constantValue = constantValue;
     }
 }
