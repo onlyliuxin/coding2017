@@ -1,6 +1,9 @@
 package com.coding.basic.tree;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.coding.basic.queue.Queue;
 
 public class BinarySearchTree<T extends Comparable<? super T>> {
 
@@ -74,7 +77,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 		}
 
 		// 获取当前节点的父节点以及在父节点中的位置
-		BinaryTreeNode<T> parent = BinaryTreeUtil.findParentNode(root, null, value);
+		BinaryTreeNode<T> parent = BinaryTreeUtil.findParentNode(root,value);
 		if (parent == null) {
 			return;
 		}
@@ -98,9 +101,9 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 			assignmentValue(node.right, parent, position);
 		}
 
+		// 当前节点有两个子节点
 		if (node.left != null && node.right != null) {
-
-			// 当前节点有两个子节点
+			
 			// 获取右节点中值最小的节点
 			T minValue = new BinarySearchTree<T>(node.right).findMin();
 			if (position) {
@@ -126,5 +129,58 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 		} else {
 			parent.right = node;
 		}
+	}
+	
+	/**
+	* @Title: levelVisit  
+	* @Description: 按层次便利  
+	* @param @return
+	* @return List<T>
+	* @throws
+	 */
+	public List<T> levelVisit(){
+		
+		List<T> datas = new ArrayList<T>();
+		Queue<BinaryTreeNode<T>> nodeQueue = new Queue<>();
+		nodeQueue.enQueue(root);
+		do {
+			
+			BinaryTreeNode<T> node = nodeQueue.deQueue();
+			datas.add(node.data);
+			if(node.left!=null){
+				nodeQueue.enQueue(node.left);
+			}
+			if(node.right!=null){
+				nodeQueue.enQueue(node.right);
+			}
+		} while (!nodeQueue.isEmpty());
+		
+		return datas;
+	}
+			
+	public boolean isValid(){
+		
+		//中序遍历二叉树
+		List<T> datas = BinaryTreeUtil.inOrderVisit(root);
+		if(datas.isEmpty()){
+			return false;
+		}
+		//判断中序遍历结果是否为递增数列
+		for (int i = 0; i < datas.size()-1; i++) {
+			if(datas.get(i).compareTo(datas.get(i+1))>=0){
+				return false;
+			}		
+		}
+		return true;
+	}
+	
+	public T getLowestCommonAncestor(T n1, T n2){
+		
+		
+		return null;
+        
+	}
+	public List<T> getNodesBetween(T n1, T n2){
+		return null;
 	}
 }

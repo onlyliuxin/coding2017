@@ -38,9 +38,6 @@ public class BinaryTreeUtil {
 		inOrderTraversal(root,result);
 		return result;
 	}
-	public static <T> void heh(BinaryTreeNode<T> root){
-		
-	}
 	
     private static <T> List<T> inOrderTraversal(BinaryTreeNode<T> node,List<T> datas){
 		
@@ -146,7 +143,7 @@ public class BinaryTreeUtil {
     		return root;
     	}
     	
-    	BinaryTreeNode<T> parent = findParentNode(root,null,data);  	
+    	BinaryTreeNode<T> parent = findParent(root,data);  	
     	if(parent == null){
     		return parent;
     	}
@@ -158,35 +155,58 @@ public class BinaryTreeUtil {
 	}
     
     /**
-     * 获取指定内容的父节点节点
+     * 获取指定内容节点的最近父节点
      * @param root
      * @param data
      * @return
      */
-    public static <T> BinaryTreeNode<T> findParentNode(BinaryTreeNode<T> root,BinaryTreeNode<T> parent,T data) {
-				   	
-    	if(root == null ||data == null){
-    		return null;
-    	}
+    public static <T> BinaryTreeNode<T> findParentNode(BinaryTreeNode<T> root,T data){
+    	return findParent(root,data);
+    }
+    
+    /**
+    * @Title: findParentNodes  
+    * @Description: 获取指定内容节点的所有父节点 
+    * @param @param root
+    * @param @param data
+    * @param @return
+    * @return List<BinaryTreeNode<T>>
+    * @throws
+     */
+    public static <T> List<BinaryTreeNode<T>> findParentNodes(BinaryTreeNode<T> root,T data){
     	
-    	if(data.equals(root.data)){
-    		return parent;
-    	}
+    	BinaryTreeNode<T> temp = findParent(root,data);
+    	List<BinaryTreeNode<T>> parents = new ArrayList<BinaryTreeNode<T>>();
     	   	
-    	if(root.left!=null){
-    		BinaryTreeNode<T> temp = findParentNode(root.left,root,data);
-    		if(temp!=null){
-    			return temp;
+    	while(temp!=null){
+    		parents.add(temp);
+    		temp = findParent(root,temp.data);
+    	}
+    	return parents;
+    }
+    
+    private static <T> BinaryTreeNode<T> findParent(BinaryTreeNode<T> root,T data){
+    	
+    	if(root!=null){
+
+    		if(root.left!=null&&root.left.data.equals(data)){
+    			return root;
+    		}
+    		if(root.right!=null&&root.right.data.equals(data)){
+    			return root;
+    		}
+    		
+    		BinaryTreeNode<T> leftNode =  findParent(root.left,data);
+    		if(leftNode!=null){
+    			return leftNode;
+    		}
+    		
+    		BinaryTreeNode<T> rightNode = findParent(root.right,data);
+    		if(rightNode!=null){
+    			return leftNode;
     		}
     	}
-    	
-    	if(root.right!=null){    		
-    		BinaryTreeNode<T> temp = findParentNode(root.right,root,data);;
-    		if(temp!=null){
-    			return temp;
-    		}
-    	}
-    	
     	return null;
-	}
+    }
+
 }

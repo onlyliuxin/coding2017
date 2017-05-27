@@ -1,5 +1,7 @@
 package test.com.coding.basic.tree;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -7,6 +9,7 @@ import org.junit.Test;
 
 import com.coding.basic.tree.BinarySearchTree;
 import com.coding.basic.tree.BinaryTreeNode;
+import com.coding.basic.tree.BinaryTreeUtil;
 
 public class BinarySearchTreeTest {
 	
@@ -62,5 +65,48 @@ public class BinarySearchTreeTest {
 		BinaryTreeNode<Integer> root= tree.getRoot();
 		Assert.assertEquals(3, root.left.data.intValue());
 		Assert.assertEquals(4, root.left.right.data.intValue());
+	}
+	
+	@Test
+	public void testLevelVisit(){
+		
+		List<Integer> datas = tree.levelVisit();
+		
+		Integer[] excpt = {6,2,8,1,4,3};
+				
+		Assert.assertArrayEquals(excpt, datas.toArray());		
+	}
+	
+	@Test
+	public void testIsValid(){
+		
+		Assert.assertEquals(true, tree.isValid());
+		
+		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(6);
+		root.left = new BinaryTreeNode<Integer>(2);
+		root.right = new BinaryTreeNode<Integer>(8);
+		root.left.left = new BinaryTreeNode<Integer>(1);
+		root.left.right = new BinaryTreeNode<Integer>(4);
+		root.left.right.left = new BinaryTreeNode<Integer>(5);
+		tree = new BinarySearchTree<Integer>(root);
+		
+		Assert.assertEquals(false, tree.isValid());
+		
+	}
+	
+	public static void main(String[] args) {
+		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(6);
+		root.left = new BinaryTreeNode<Integer>(2);
+		root.right = new BinaryTreeNode<Integer>(8);
+		root.right.left = new BinaryTreeNode<Integer>(7);
+		root.right.right = new BinaryTreeNode<Integer>(9);
+		root.left.left = new BinaryTreeNode<Integer>(1);
+		root.left.right = new BinaryTreeNode<Integer>(4);
+		root.left.right.left = new BinaryTreeNode<Integer>(3);
+		List<BinaryTreeNode<Integer>> a = BinaryTreeUtil.findParentNodes(root,9);
+		
+		for (BinaryTreeNode<Integer> binaryTreeNode : a) {
+			System.out.println(binaryTreeNode.data);
+		}
 	}
 }
