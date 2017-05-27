@@ -82,7 +82,18 @@ public class BinaryTreeUtil {
 	public static <T> List<T> preOrderWithoutRecursion(BinaryTreeNode<T> root) {
 
 		List<T> result = new ArrayList<T>();
-
+		Stack<BinaryTreeNode> stack = new Stack<BinaryTreeNode>();
+		while (root != null || stack.size() > 0) {  //将所有左孩子压栈
+			if (root != null) {   //压栈之前先访问
+				//printNode(node);
+				result.add(root.getData());
+				stack.push(root);
+				root = root.getLeft();
+			} else {
+				root = stack.pop();
+				root = root.getRight();
+			}
+		}
 		return result;
 	}
 
@@ -95,7 +106,17 @@ public class BinaryTreeUtil {
 	public static <T> List<T> inOrderWithoutRecursion(BinaryTreeNode<T> root) {
 
 		List<T> result = new ArrayList<T>();
-
+		Stack<BinaryTreeNode> stack = new Stack<BinaryTreeNode>();
+		while (root != null || stack.size() > 0) {
+			if (root != null) {
+				stack.push(root);   //直接压栈
+				root = root.getLeft();
+			} else {
+				root = stack.pop(); //出栈并访问
+				result.add(root.getData());
+				root = root.getRight();
+			}
+		}
 		return result;
 	}
 
