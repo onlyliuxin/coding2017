@@ -35,27 +35,25 @@ public abstract class TwoOperandCmd extends ByteCodeCommand {
         return index;
     }
 
-    protected String getOperandAsClassInfo(ConstantPool pool) {
+    protected String getOperandAsClassInfo() {
         int index = getIndex();
         String codeTxt = getReadableCodeText();
-        ClassInfo info = (ClassInfo) pool.getConstantInfo(index);
-        return this.getOffset() + ":" + this.getOpCode() + " " + codeTxt + "  " + info.getClassName();
+        ClassInfo info = (ClassInfo) getConstantInfo(index);
+        return this.getOffset() + ":" + this.getOpCode() + " " + codeTxt + " #" + index + "  " + "// class   " + info.getClassName();
     }
 
-    protected String getOperandAsMethod(ConstantPool pool) {
+    public String getOperandAsMethod() {
         int index = getIndex();
         String codeTxt = getReadableCodeText();
-        ConstantInfo constInfo = this.getConstantInfo(index);
         MethodRefInfo info = (MethodRefInfo) this.getConstantInfo(index);
-        return this.getOffset() + ":" + this.getOpCode() + " " + codeTxt + "  " + info.toString();
+        return this.getOffset() + ":" + this.getOpCode() + " " + codeTxt + "  #" + index + "    // Method  " + info.toString();
     }
 
-    protected String getOperandAsField(ConstantPool pool) {
+    public String getOperandAsField() {
         int index = getIndex();
-
         String codeTxt = getReadableCodeText();
         FieldRefInfo info = (FieldRefInfo) this.getConstantInfo(index);
-        return this.getOffset() + ":" + this.getOpCode() + " " + codeTxt + "  " + info.toString();
+        return this.getOffset() + ":" + this.getOpCode() + " " + codeTxt + "  #" + index + "    // Field  " + info.toString();
     }
 
     public int getLength() {

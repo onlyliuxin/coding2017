@@ -5,7 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.ipk2015.coding2017.basic.ArrayList;
+import com.github.ipk2015.coding2017.basic.array.ArrayList;
+
+
 
 public class ArrayListTest {
 	ArrayList list;

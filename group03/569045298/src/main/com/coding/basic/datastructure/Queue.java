@@ -1,6 +1,8 @@
 package com.coding.basic.datastructure;
 
 
+import com.coding.basic.datastructure.array.ArrayList;
+
 /**
  * Created by zt on 2017/2/19.
  */

@@ -1,11 +1,13 @@
 package com.johnChnia.coding2017.basic;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Created by john on 2017/3/8.
  *
- * @// TODO: 2017/4/1  实现Iterator 接口
+ * @// TODO: 学会多线程后，实现Iterator 的 remove 方法
  */
 
 public class ArrayList<E> implements List<E> {
@@ -138,14 +140,57 @@ public class ArrayList<E> implements List<E> {
         return size;
     }
 
+    @Override
+    public Iterator<E> iterator() {
+        return new Itr();
+    }
 
-    /**
+
+    private class Itr implements Iterator<E> {
+        int cursor = 0;
+        @Override
+        public boolean hasNext() {
+            return cursor != size;
+        }
+
+        @Override
+        public E next() {
+            int i = cursor;
+            if (i >= size) {
+                throw new NoSuchElementException();
+            }
+            Object[] elementData = ArrayList.this.elementData;
+            cursor = i + 1;
+            return (E) elementData[i];
+        }
+    }
+
+        /**
      * Increases the capacity to ensure that it can hold at least the
      * number of elements specified by the double length of list.
      */
     private void grow() {
         elementData = Arrays.copyOf(elementData,
                 2 * elementData.length);
+    }
+
+    public boolean contains(Object o) {
+        Itr itr = new Itr();
+        if (o == null) {
+            while (itr.hasNext()) {
+                if (itr.next() == null) {
+                    return true;
+                }
+            }
+
+        } else {
+            while (itr.hasNext()) {
+                if (itr.next().equals(o)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public String toString() {

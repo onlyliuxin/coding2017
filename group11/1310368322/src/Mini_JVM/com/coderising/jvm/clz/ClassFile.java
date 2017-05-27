@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.coderising.jvm.constant.ClassInfo;
 import com.coderising.jvm.constant.ConstantPool;
+import com.coderising.jvm.constant.UTF8Info;
 import com.coderising.jvm.field.Field;
 import com.coderising.jvm.method.Method;
 
@@ -90,6 +91,33 @@ public class ClassFile {
 	private String getSuperClassName(){
 		ClassInfo superClass = (ClassInfo)this.getConstantPool().getConstantInfo(this.clzIndex.getSuperClassIndex());
 		return superClass.getClassName();
+	}
+	
+	public Method getMethod(String methodName, String paramAndReturnType){
+		for(Method m : methods){
+			int nameIndex = m.getNameIndex();
+			int descIndex = m.getDescriptorIndex();
+			String name = this.getConstantPool().getUTF8String(nameIndex);
+			String desc = this.getConstantPool().getUTF8String(descIndex);
+			if(name.equals(methodName) && desc.equals(paramAndReturnType)){
+				return m;
+			}
+		}
+		return null;
+	}
+	
+	public Method getMainMethod(){
+		
+		for(Method m : methods){
+			int nameIndex = m.getNameIndex();
+			int descIndex = m.getDescriptorIndex();
+			String name = this.getConstantPool().getUTF8String(nameIndex);
+			String desc = this.getConstantPool().getUTF8String(descIndex);
+			if( name.equals("main")  && desc.equals("([Ljava/lang/String;)V")){
+				return m;
+			}
+		}
+		return null;
 	}
 	
 }

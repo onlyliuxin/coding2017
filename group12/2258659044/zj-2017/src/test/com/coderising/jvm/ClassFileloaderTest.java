@@ -28,8 +28,8 @@ public class ClassFileloaderTest {
 	
 	private static final String FULL_QUALIFIED_CLASS_NAME = "test/com/coderising/jvm/EmployeeV1";
 	
-	static String path1 = "F:\\githubRes\\coding2017\\group12\\2258659044\\zj-2017\\bin";
-	//static String path1 = "E:\\githubRepository\\coding2017\\group12\\2258659044\\zj-2017\\bin";
+	//static String path1 = "F:\\githubRes\\coding2017\\group12\\2258659044\\zj-2017\\bin";
+	static String path1 = "E:\\githubRepository\\coding2017\\group12\\2258659044\\zj-2017\\bin";
 	static String path2 = "C:\temp";
 	
 	

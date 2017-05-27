@@ -66,7 +66,20 @@ public class CommandParser {
 				BiPushCmd cmd = new BiPushCmd(clzFile, opCode);
 				cmd.setOperand(iter.next2CharAsInt());
 				cmds.add(cmd);
-			} else if (ByteCodeCommand.dup.equals(opCode) 
+			}else if(ByteCodeCommand.if_icmp_ge.equals(opCode) 
+					|| ByteCodeCommand.if_icmple.equals(opCode) 
+					|| ByteCodeCommand.goto_no_condition.equals(opCode)){
+				ComparisonCmd cmd = new ComparisonCmd(clzFile,opCode);
+				cmd.setOprand1(iter.next2CharAsInt());
+				cmd.setOprand2(iter.next2CharAsInt());
+				cmds.add(cmd);
+			} else if(ByteCodeCommand.iinc.equals(opCode)){
+				IncrementCmd cmd = new IncrementCmd(clzFile,opCode);
+				cmd.setOprand1(iter.next2CharAsInt());
+				cmd.setOprand2(iter.next2CharAsInt());
+				cmds.add(cmd);
+			}
+			else if (ByteCodeCommand.dup.equals(opCode) 
 					|| ByteCodeCommand.aload_0.equals(opCode) 
 					|| ByteCodeCommand.aload_1.equals(opCode) 
 					|| ByteCodeCommand.aload_2.equals(opCode)
@@ -74,8 +87,14 @@ public class CommandParser {
 					|| ByteCodeCommand.iload_2.equals(opCode) 
 					|| ByteCodeCommand.iload_3.equals(opCode)
 					|| ByteCodeCommand.fload_3.equals(opCode) 
+					|| ByteCodeCommand.iconst_0.equals(opCode)
+					|| ByteCodeCommand.iconst_1.equals(opCode)
+					|| ByteCodeCommand.istore_1.equals(opCode)
+					|| ByteCodeCommand.istore_2.equals(opCode)
 					|| ByteCodeCommand.voidreturn.equals(opCode) 
-					|| ByteCodeCommand.astore_1.equals(opCode)) {
+					|| ByteCodeCommand.iadd.equals(opCode)
+					|| ByteCodeCommand.astore_1.equals(opCode)
+					|| ByteCodeCommand.ireturn.equals(opCode)) {
 
 				NoOperandCmd cmd = new NoOperandCmd(clzFile, opCode);
 				cmds.add(cmd);
