@@ -117,12 +117,31 @@ public class BinarySearchTree<T extends Comparable> {
 
         return null;
     }
+
+    /**
+     * 判断该二叉树是否是查找二叉树
+     * @return
+     */
     public boolean isValid(){
-        return false;
+        if (root == null) return true;
+        BinarySearchTree<T> leftTree = new BinarySearchTree<>(root.left);
+        BinarySearchTree<T> rightTree = new BinarySearchTree<>(root.right);
+        boolean isValid = true;
+        if (root.left != null) {
+            if (!leftTree.isValid() || root.data.compareTo(leftTree.findMax())<0) {
+                isValid = false;
+            }
+        }
+        if (isValid && root.right != null) {
+            if (!rightTree.isValid() || root.data.compareTo(rightTree.findMin())>0) {
+                isValid = false;
+            }
+        }
+        return isValid;
     }
+
     public T getLowestCommonAncestor(T n1, T n2){
         return null;
-
     }
     public List<T> getNodesBetween(T n1, T n2){
         return null;

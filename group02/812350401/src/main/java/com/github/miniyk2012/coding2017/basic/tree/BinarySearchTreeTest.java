@@ -1,6 +1,5 @@
 package com.github.miniyk2012.coding2017.basic.tree;
 
-import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -12,9 +11,21 @@ import org.junit.Test;
 public class BinarySearchTreeTest {
 	
 	BinarySearchTree<Integer> tree = null;
-	
+	BinarySearchTree<Integer> tree2 = null;
+	BinarySearchTree<Integer> tree3 = null;
+
 	@Before
 	public void setUp() throws Exception {
+	    /**
+	          6
+             / \
+	        2   8
+           / \
+          1   4
+             /
+            3
+
+         */
 		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(6);
 		root.left = new BinaryTreeNode<Integer>(2);
 		root.right = new BinaryTreeNode<Integer>(8);
@@ -22,7 +33,15 @@ public class BinarySearchTreeTest {
 		root.left.right = new BinaryTreeNode<Integer>(4);
 		root.left.right.left = new BinaryTreeNode<Integer>(3);
 		tree = new BinarySearchTree<Integer>(root);
-	}
+
+		BinaryTreeNode<Integer> root2 = new BinaryTreeNode<>(5);
+        tree2 = new BinarySearchTree<>(root2);
+
+        BinaryTreeNode<Integer> root3 = new BinaryTreeNode<>(5);
+        root3.left = new BinaryTreeNode<Integer>(6);
+        tree3 = new BinarySearchTree<>(root3);
+
+    }
 
 	@After
 	public void tearDown() throws Exception {
@@ -75,5 +94,20 @@ public class BinarySearchTreeTest {
 		Assert.assertEquals(3, root.left.right.left.data.intValue());
 
 	}
+
+	@Test
+	public void testIsValid() {
+        Assert.assertTrue(tree.isValid());
+        Assert.assertTrue(tree2.isValid());
+        Assert.assertFalse(tree3.isValid());
+
+        BinarySearchTree<Integer> tree4 = new BinarySearchTree<>(tree.root.left);
+        Assert.assertTrue(tree4.isValid());
+
+        tree.root.right.right = new BinaryTreeNode<>(7);
+        Assert.assertFalse(tree.isValid());
+        Assert.assertTrue(tree4.isValid());
+
+    }
 
 }
