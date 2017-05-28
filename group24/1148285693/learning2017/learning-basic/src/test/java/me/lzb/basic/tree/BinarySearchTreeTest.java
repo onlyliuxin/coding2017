@@ -63,4 +63,37 @@ public class BinarySearchTreeTest {
         Assert.assertEquals(3, root.getLeft().getData().intValue());
         Assert.assertEquals(4, root.getLeft().getRight().getData().intValue());
     }
+
+    @Test
+    public void testLevelVisit() {
+        Assert.assertEquals("[6, 2, 8, 1, 4, 3]", tree.levelVisit().toString());
+    }
+
+    @Test
+    public void testIsValid() {
+        Assert.assertTrue(tree.isValid());
+        tree.getRoot().getRight().setData(5);
+        Assert.assertFalse(tree.isValid());
+        tree.getRoot().getRight().setData(8);
+        tree.getRoot().getLeft().getLeft().setData(5);
+        Assert.assertFalse(tree.isValid());
+    }
+
+    @Test
+    public void testGetLowestCommonAncestor() {
+        Assert.assertEquals(2l, tree.getLowestCommonAncestor(1, 4).longValue());
+        Assert.assertEquals(6l, tree.getLowestCommonAncestor(1, 8).longValue());
+    }
+
+
+    @Test
+    public void testGetNodesBetween() {
+        Assert.assertEquals("[6, 2, 4, 3]", tree.getNodesBetween(1, 8).toString());
+
+        Assert.assertEquals("[6]", tree.getNodesBetween(7, 4).toString());
+
+        Assert.assertEquals("[6, 2, 1, 4, 3, 8]", tree.getNodesBetween(20, 0).toString());
+    }
+
+
 }

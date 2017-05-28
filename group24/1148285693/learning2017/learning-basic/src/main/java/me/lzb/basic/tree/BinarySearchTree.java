@@ -1,5 +1,10 @@
 package me.lzb.basic.tree;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 /**
  * @author LZB
  */
@@ -180,30 +185,156 @@ public class BinarySearchTree<T extends Comparable<T>> {
         if (node.getRight() != null && node.getRight().getData().equals(t)) {
             return node;
         }
-        if (t.compareTo(node.getData()) > 0) {
+        if (node.isSmallerThanParam(t)) {
             return getFatherNode(node.getRight(), t);
         } else {
             return getFatherNode(node.getLeft(), t);
         }
     }
 
-    private BinaryTreeNode<T> getNode(BinaryTreeNode<T> node, T t) {
-        if (node == null) {
-            return node;
-        }
 
-
-        if (node.getData().equals(t)) {
-            return node;
-        }
-
-        if (t.compareTo(node.getData()) > 0) {
-            return getNode(node.getRight(), t);
-        } else {
-            return getNode(node.getLeft(), t);
-        }
-
+    /**
+     * 按层次遍历： levelVisit
+     *
+     * @return
+     */
+    public List<T> levelVisit() {
+        List<T> result = new ArrayList<>();
+        levelVisit(result, root);
+        return result;
     }
 
 
+    private void levelVisit(List<T> list, BinaryTreeNode<T> node) {
+        if (node == null) {
+            return;
+        }
+        //先放入根节点
+        Queue<BinaryTreeNode<T>> queue = new LinkedList<>();
+        queue.add(node);
+        while (!queue.isEmpty()) {
+            //上一层的节点个数
+            int l = queue.size();
+            //循环取出上一层这些节点
+            for (int i = 0; i < l; i++) {
+                BinaryTreeNode<T> temp = queue.poll();
+                list.add(temp.getData());
+                //把下一层的节点放入队列
+                if (temp.getLeft() != null) {
+                    queue.add(temp.getLeft());
+                }
+                if (temp.getRight() != null) {
+                    queue.add(temp.getRight());
+                }
+            }
+        }
+    }
+
+
+    /**
+     * 判断一个二叉树是不是二叉查找树
+     *
+     * @return
+     */
+    public boolean isValid() {
+        return isValid(true, root);
+    }
+
+    private boolean isValid(boolean b, BinaryTreeNode<T> node) {
+        if (!b || node == null) {
+            return b;
+        }
+
+        if (node.getLeft() == null && node.getRight() == null) {
+            return b;
+        }
+
+        if (node.getLeft() != null) {
+            if (node.isSmallerThanParam(node.getLeft())) {
+                b = false;
+            }
+        }
+
+        if (node.getRight() != null) {
+            if (node.isBiggerThanParam(node.getRight())) {
+                b = false;
+            }
+        }
+
+        boolean bl = isValid(b, node.getLeft());
+        boolean br = isValid(b, node.getRight());
+
+        return bl && br;
+    }
+
+
+    /**
+     * 获取两个节点的最小公共祖先
+     *
+     * @param n1
+     * @param n2
+     * @return
+     */
+    public T getLowestCommonAncestor(T n1, T n2) {
+        return getLowestCommonAncestor(root, n1, n2);
+    }
+
+
+    private T getLowestCommonAncestor(BinaryTreeNode<T> node, T n1, T n2) {
+        if (node == null) {
+            return null;
+        }
+
+        //找到一个位于两者之间的节点，就是公共祖先。
+        if ((node.isSmallerThanParam(n1) && node.isBiggerThanParam(n2)) || (node.isSmallerThanParam(n2) && node.isBiggerThanParam(n1))) {
+            return node.getData();
+        }
+
+        //当前节点比n1和n2都小，最小公共祖先在右子树。
+        if (node.isSmallerThanParam(n1) && node.isSmallerThanParam(n2)) {
+            return getLowestCommonAncestor(node.getRight(), n1, n2);
+        }
+
+        //当前节点比n1和n2都大，最小公共祖先在左子树。
+        if (node.isBiggerThanParam(n1) && node.isBiggerThanParam(n2)) {
+            return getLowestCommonAncestor(node.getLeft(), n1, n2);
+        }
+        return null;
+    }
+
+
+    /**
+     * 给定两个值， 获得处于这两个值中间的节点
+     *
+     * @param n1
+     * @param n2
+     * @return
+     */
+    public List<T> getNodesBetween(T n1, T n2) {
+        List<T> result = new ArrayList<>();
+        T s, b;
+        if (n1.compareTo(n2) < 0) {
+            s = n1;
+            b = n2;
+        } else {
+            s = n2;
+            b = n1;
+        }
+        getNodesBetween(result, root, s, b);
+
+        return result;
+    }
+
+    private void getNodesBetween(List<T> list, BinaryTreeNode<T> node, T small, T bigger) {
+        if (node == null) {
+            return;
+        }
+
+        if (node.isBiggerThanParam(small) && node.isSmallerThanParam(bigger)) {
+            list.add(node.getData());
+        }
+
+        getNodesBetween(list, node.getLeft(), small, bigger);
+        getNodesBetween(list, node.getRight(), small, bigger);
+    }
 }
