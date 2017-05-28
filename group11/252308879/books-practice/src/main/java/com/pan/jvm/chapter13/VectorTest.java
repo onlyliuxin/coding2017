@@ -79,7 +79,7 @@ public class VectorTest {
      * 可重入锁
      * @param args
      */
-    public static void main(String[] args) {
+    public static void main_4(String[] args) {
 
         Thread test = new Thread(() -> {
             // 用循环的方式不能和递归等价，循环一次，代码退出函数，相当于重新获取锁
@@ -101,6 +101,18 @@ public class VectorTest {
         }
         // 递归方式
         test(--n);
+    }
+
+    public static void main(String[] args) {
+        String a = null;
+        String b = null;
+        a = a == null ? "" : a;
+//        b = b == null ? "" : b;
+        if (a.equals(b)){
+            System.out.println("yyyy");
+        }else {
+            System.out.println("xxxxxx");
+        }
     }
 
 }

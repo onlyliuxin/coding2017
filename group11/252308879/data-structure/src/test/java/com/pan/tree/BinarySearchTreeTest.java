@@ -16,12 +16,12 @@ public class BinarySearchTreeTest {
 	@Before
 	public void setUp() throws Exception {
 		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(6);
-		root.left = new BinaryTreeNode<>(2);
-		root.right = new BinaryTreeNode<>(8);
-		root.left.left = new BinaryTreeNode<>(1);
-		root.left.right = new BinaryTreeNode<>(4);
-		root.left.right.left = new BinaryTreeNode<>(3);
-		tree = new BinarySearchTree<>(root);
+		root.left = new BinaryTreeNode<Integer>(2);
+		root.right = new BinaryTreeNode<Integer>(8);
+		root.left.left = new BinaryTreeNode<Integer>(1);
+		root.left.right = new BinaryTreeNode<Integer>(4);
+		root.left.right.left = new BinaryTreeNode<Integer>(3);
+		tree = new BinarySearchTree<Integer>(root);
 	}
 
 	@After
