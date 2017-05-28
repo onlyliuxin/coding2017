@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import com.coding.basic.tree.BinarySearchTree;
 import com.coding.basic.tree.BinaryTreeNode;
-import com.coding.basic.tree.BinaryTreeUtil;
 
 public class BinarySearchTreeTest {
 	
@@ -94,19 +93,26 @@ public class BinarySearchTreeTest {
 		
 	}
 	
-	public static void main(String[] args) {
-		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(6);
-		root.left = new BinaryTreeNode<Integer>(2);
-		root.right = new BinaryTreeNode<Integer>(8);
-		root.right.left = new BinaryTreeNode<Integer>(7);
-		root.right.right = new BinaryTreeNode<Integer>(9);
-		root.left.left = new BinaryTreeNode<Integer>(1);
-		root.left.right = new BinaryTreeNode<Integer>(4);
-		root.left.right.left = new BinaryTreeNode<Integer>(3);
-		List<BinaryTreeNode<Integer>> a = BinaryTreeUtil.findParentNodes(root,9);
+	@Test
+	public void testGetLowestCommonAncestor(){
 		
-		for (BinaryTreeNode<Integer> binaryTreeNode : a) {
-			System.out.println(binaryTreeNode.data);
-		}
+		Assert.assertEquals(6,tree.getLowestCommonAncestor(3, 8).intValue());
+		
+		Assert.assertEquals(2,tree.getLowestCommonAncestor(1, 3).intValue());
+		
+		Assert.assertEquals(2,tree.getLowestCommonAncestor(4, 3).intValue());
+
+	}
+	
+	@Test
+	public void testGetNodesBetween(){
+		
+        List<Integer> datas = tree.getNodesBetween(4, 8);		
+		Integer[] excpt = {2,6};		
+		Assert.assertArrayEquals(excpt, datas.toArray());
+		
+		List<Integer> datas1 = tree.getNodesBetween(1, 3);		
+		Integer[] excpt1 = {2,4};		
+		Assert.assertArrayEquals(excpt1, datas1.toArray());
 	}
 }
