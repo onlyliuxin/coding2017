@@ -3,8 +3,7 @@ package week4.redo.jvm.loader.test;
 import  org.junit.Assert;
 import org.junit.Test;
 
-import week4.origin.jvm.loader.LRUPageFrame;
-
+import week4.redo.jvm.loader.LRUPageFrame;
 
 public class LRUPageFrameTest {
 	

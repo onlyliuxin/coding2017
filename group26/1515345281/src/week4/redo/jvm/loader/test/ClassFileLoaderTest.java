@@ -3,7 +3,7 @@ package week4.redo.jvm.loader.test;
 import  org.junit.Assert;
 import org.junit.Test;
 
-import week4.origin.jvm.loader.ClassFileLoader;
+import week4.redo.jvm.loader.ClassFileLoader;
 
 
 public class ClassFileLoaderTest {
