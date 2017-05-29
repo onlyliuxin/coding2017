@@ -17,6 +17,9 @@ public class StackFrame {
     private List<JavaObject> localVariableTable = new ArrayList<>();
     private Stack<JavaObject> oprandStack = new Stack<>();
 
+    /**
+     * 用来记录当前栈帧帧，已经执行到哪一步，以便恢复的时候，继续执行
+     */
     int index = 0;
 
     private Method m = null;
@@ -65,8 +68,12 @@ public class StackFrame {
         throw new RuntimeException("Can't find next command");
     }
 
+    /**
+     * 执行栈帧
+     * @return
+     */
     public ExecutionResult execute() {
-
+        //取出所有jvm指令
         ByteCodeCommand[] commands = m.getCmds();
 
 
@@ -76,22 +83,23 @@ public class StackFrame {
             //缺省值是执行下一条命令
             result.setNextAction(ExecutionResult.RUN_NEXT_CMD);
 
-            //输出执行的命令
+            //在控制台打印，执行的命令，这里用了visitor设计模式
             ExecutionVisitor format = ExecutionFormat.getInstance();
             commands[index].printExecute(format);
 
-//            System.out.println(commands[index].toString());
-
+            //执行指令，这里是一个多态，具体执行的内容在各个指令的内部
             commands[index].execute(this, result);
 
-            if (result.isRunNextCmd()) {
+
+            if (result.isRunNextCmd()) { //当前指令结果是执行下一条指令，就++，继续循环
                 index++;
-            } else if (result.isExitCurrentFrame()) {
+            } else if (result.isExitCurrentFrame()) {   //退出当前栈帧，就是return
                 return result;
-            } else if (result.isPauseAndRunNewFrame()) {
+            } else if (result.isPauseAndRunNewFrame()) {    //暂停当前栈帧的执行，创建新的栈帧
                 index++;
                 return result;
-            } else if (result.isJump()) {
+
+            } else if (result.isJump()) {   //跳转，要注意偏移量
                 int offset = result.getNextCmdOffset();
                 this.index = getNextCommandIndex(offset);
             } else {

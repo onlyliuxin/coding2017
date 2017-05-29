@@ -59,6 +59,9 @@ public class CommandParser {
 
         List<ByteCodeCommand> cmds = new ArrayList<>();
 
+        //这里用到的指令分为3种，没有操作数的（2个字节），一个操作数（4个字节），两个操作数（6个字节）
+
+
         while (hasNext()) {
             String opCode = next2CharAsString();
 

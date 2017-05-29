@@ -45,7 +45,7 @@ public class BinaryTreeNode<T extends Comparable<T>> {
      */
     public void insert(T d) {
         BinaryTreeNode<T> b = new BinaryTreeNode(d);
-        if (isSmaller(d)) {
+        if (isBiggerThanParam(d)) {
             //比父节点小，左边
             if (this.left == null) {
                 this.left = b;
@@ -70,8 +70,20 @@ public class BinaryTreeNode<T extends Comparable<T>> {
      * @param d data
      * @return true false
      */
-    private boolean isSmaller(T d) {
+    public boolean isBiggerThanParam(T d) {
         return this.data.compareTo(d) > 0;
+    }
+
+    public boolean isBiggerThanParam(BinaryTreeNode<T> node) {
+        return isBiggerThanParam(node.getData());
+    }
+
+    public boolean isSmallerThanParam(T d) {
+        return this.data.compareTo(d) < 0;
+    }
+
+    public boolean isSmallerThanParam(BinaryTreeNode<T> node) {
+        return isSmallerThanParam(node.getData());
     }
 
     @Override

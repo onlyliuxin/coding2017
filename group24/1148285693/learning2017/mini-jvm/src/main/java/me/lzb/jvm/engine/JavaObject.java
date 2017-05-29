@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 自己定义一个Object代替java的Object
  * @author LZB
  */
 public class JavaObject {
