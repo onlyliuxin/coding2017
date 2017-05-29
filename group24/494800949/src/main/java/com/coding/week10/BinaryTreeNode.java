@@ -49,6 +49,15 @@ public class BinaryTreeNode<T extends Comparable<T>>{
 		return  newNode;
 	}
 
+	@Override
+	public String toString() {
+		return "{" +
+				"data:" + data +
+				", left:" + left +
+				", right:" + right +
+				'}';
+	}
+
 	public static void main(String[] args) {
 		BinaryTreeNode<Integer> b = new BinaryTreeNode<>(2);
 		b.insert(3).insert(5).insert(1);
