@@ -1,7 +1,11 @@
-package com.github.ipk2015.coding2017.basic.tree;
+ package com.github.ipk2015.coding2017.basic.tree;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.github.ipk2015.coding2017.basic.queue.Queue;
+
+
 
 public class BinarySearchTree<T extends Comparable> {
 	
@@ -199,6 +203,136 @@ public class BinarySearchTree<T extends Comparable> {
 			 }
 		}
 		return false;
+	}
+	
+	public List<T> levelVisit(){
+		List<T> list = new ArrayList();
+		if(null == root){
+			return list;
+		}
+		Queue queue = new Queue();
+		queue.enQueue(root);
+		
+		while(!queue.isEmpty()){
+			BinaryTreeNode<T> node = (BinaryTreeNode<T>)queue.deQueue();
+			list.add(node.getData());
+			BinaryTreeNode<T> left = node.getLeft();
+			if(null != left){
+				queue.enQueue(left);
+			}
+			
+			BinaryTreeNode<T> right = node.getRight();
+			if(null != right){
+				queue.enQueue(right);
+			}
+		}
+ 		return list; 
+	}
+	/*
+	 * 每一个节点的值都大于左节点的所有值，小于右节点的所有值
+	 * */
+	public boolean isValid(){
+		return isNodeValid(root);
+	}
+	private boolean isNodeValid(BinaryTreeNode<T> node){
+		if(null == node){
+			return true;
+		}
+		BinaryTreeNode<T> left = node.getLeft();
+		if(null != left){
+			boolean isLeftNodeValid = isNodeValid(left);
+			if(!isLeftNodeValid){
+				return false;
+			}
+			if(node.getData().compareTo(findMaxInOneNode(left,left.getData())) <= 0){
+				return false;
+			}
+		}
+		BinaryTreeNode<T> right = node.getRight();
+		if(null != right){
+			boolean isRightNodeValid = isNodeValid(right);
+			if(!isRightNodeValid){
+				return false;
+			}
+			if(node.getData().compareTo(findMaxInOneNode(right,right.getData())) >= 0){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public T getLowestCommonAncestor(T n1, T n2){
+		if(null == root){
+			return null;
+		}
+		List<BinaryTreeNode<T>> list1 = getNodeAllAncestor(n1);
+		List<BinaryTreeNode<T>> list2 = getNodeAllAncestor(n2);
+		int size1 = list1.size();
+		int size2 = list2.size();
+		int minSize = size1 < size2? size1 :size2;
+		T result = null;
+		for(int i = 0;i < minSize; i++){
+			T data1 = list1.get(size1-1-i).getData();
+			if(data1.compareTo(list2.get(size2-1-i).getData()) != 0){
+				break;
+			}
+			result = data1;
+		}
+		return result;
+	}
+	private List<BinaryTreeNode<T>> getNodeAllAncestor(T data){
+		List<BinaryTreeNode<T>> list = new ArrayList();
+		isAncestor(list,root,data);
+		return list;
+	}
+	private boolean isAncestor(List<BinaryTreeNode<T>> list,BinaryTreeNode<T> node,T data){
+		if(null == node){
+			return false;
+		}
+		if(data.compareTo(node.getData()) == 0){
+			list.add(node);
+			return true;
+		}
+		BinaryTreeNode<T> left = node.getLeft();
+		if(null != left){
+			boolean isLeftAncetor = isAncestor(list,left,data);
+			if(isLeftAncetor){
+				list.add(node);
+				return true;
+			}
+		}
+		BinaryTreeNode<T> right = node.getRight();
+		if(null != right){
+			boolean isRightAncetor = isAncestor(list,right,data);
+			if(isRightAncetor){
+				list.add(node);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public List<T> getNodesBetween(T n1, T n2){
+		List<T> list = new ArrayList();
+		getNodesBetween(root,list,n1,n2);
+		return list;
+	}
+	private void getNodesBetween(BinaryTreeNode<T> node,List<T> list,T n1,T n2){
+		if(null == node){
+			return;
+		}
+		T data = node.getData();
+		if(data.compareTo(n2) >= 0){
+			getNodesBetween(node.getLeft(),list,n1,n2);
+			return;
+		}
+		if(data.compareTo(n1) <= 0){
+			getNodesBetween(node.getRight(),list,n1,n2);
+			return;
+		}
+		list.add(data);
+		getNodesBetween(node.getLeft(),list,n1,n2);
+		getNodesBetween(node.getRight(),list,n1,n2);
 	}
 	
 }
