@@ -1,4 +1,3 @@
-
 #################
 ## Eclipse
 #################
@@ -215,7 +214,7 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-.gitignore
+#.gitignore
 =======
 
 
@@ -235,7 +234,7 @@ hs_err_pid*
 .recommenders
 
 
-*.xml
+#*.xml
 *.iml
 .idea
 *.iml
@@ -248,7 +247,7 @@ rebel-remote.xml
 .metadata
 
 target
-*.class
+#*.class
 
 log
 *.log
@@ -257,8 +256,26 @@ tmp
 
 .metadata
 RemoteSystemsTempFiles
-.gitignore
+#.gitignore
 
+
+build/
+.idea/
+.gradle/
+*.class
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+#ide config
+.metadata
 .recommenders
 .idea/
 *.iml
@@ -269,3 +286,9 @@ target
 *.DS_Store
 liuxin/.DS_Store
 liuxin/src/.DS_Store
+
+
+
+
+
+
