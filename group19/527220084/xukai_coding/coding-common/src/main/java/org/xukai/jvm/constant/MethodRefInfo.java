@@ -54,7 +54,7 @@ public class MethodRefInfo extends ConstantInfo {
 		NameAndTypeInfo  typeInfo = (NameAndTypeInfo)pool.getConstantInfo(this.getNameAndTypeIndex());
 		return typeInfo.getTypeInfo();
 	}
-	
-	
+
+
 	
 }
