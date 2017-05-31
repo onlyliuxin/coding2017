@@ -40,6 +40,13 @@ public class BinarySearchTree<T extends Comparable> {
 		return null;
         
 	}
+	/**
+	 * 返回所有满足下列条件的节点的值：  n1 <= n <= n2 , n 为
+	 * 该二叉查找树中的某一节点
+	 * @param n1
+	 * @param n2
+	 * @return
+	 */
 	public List<T> getNodesBetween(T n1, T n2){
 		return null;
 	}
