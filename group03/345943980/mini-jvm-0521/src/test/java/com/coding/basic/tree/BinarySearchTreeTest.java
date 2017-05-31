@@ -8,7 +8,7 @@ import org.junit.Test;
 public class BinarySearchTreeTest {
 
 	BinarySearchTree<Integer> tree = null;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(6);
@@ -28,7 +28,6 @@ public class BinarySearchTreeTest {
 	@Test
 	public void testFindMin() {
 		Assert.assertEquals(1, tree.findMin().data.intValue());
-		
 	}
 
 	@Test
@@ -49,14 +48,15 @@ public class BinarySearchTreeTest {
 	@Test
 	public void testRemoveLeaf() {
 		tree.remove(4);
-		BinaryTreeNode<Integer> root= tree.getRoot();
+		BinaryTreeNode<Integer> root = tree.getRoot();
 		Assert.assertEquals(3, root.left.right.data.intValue());
-		
+
 	}
+
 	@Test
 	public void testRemoveMiddleNode() {
 		tree.remove(2);
-		BinaryTreeNode<Integer> root= tree.getRoot();
+		BinaryTreeNode<Integer> root = tree.getRoot();
 		Assert.assertEquals(3, root.left.data.intValue());
 		Assert.assertEquals(4, root.left.right.data.intValue());
 	}
