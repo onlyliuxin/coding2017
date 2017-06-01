@@ -38,7 +38,6 @@ public class LocalVariableTable extends AttributeInfo{
 			localVariableTable.addLocalVariableItem(item);
 			
 		}
-		
 		return localVariableTable;
 	}
 	

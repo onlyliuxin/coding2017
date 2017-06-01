@@ -1,4 +1,4 @@
-package org.xukai.jvm.constant;
+package jvm.constant;
 
 public class MethodRefInfo extends ConstantInfo {
 	
@@ -14,12 +14,7 @@ public class MethodRefInfo extends ConstantInfo {
 	public int getType() {
 		return type;
 	}
-
-	@Override
-	public void accept(Visitor visitor) {
-		visitor.visitMethodRef(this);
-	}
-
+	
 	public int getClassInfoIndex() {
 		return classInfoIndex;
 	}
@@ -55,6 +50,11 @@ public class MethodRefInfo extends ConstantInfo {
 		return typeInfo.getTypeInfo();
 	}
 
-
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitMethodRef(this);		
+	}
+	
+	
 	
 }
