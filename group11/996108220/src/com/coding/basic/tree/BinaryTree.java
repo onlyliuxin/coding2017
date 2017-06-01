@@ -1,4 +1,4 @@
-package com.coding.basic;
+package com.coding.basic.tree;
 
 import com.sun.corba.se.impl.orbutil.graph.Node;
 
