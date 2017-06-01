@@ -10,7 +10,7 @@ public class InfoFactory{
         case 1:{
         	UTF8Info info = new UTF8Info(pool);
             info.setLength(iter.nextU2ToInt());
-            info.setValue(iter.nextUxToHexString(info.getLength()));
+            info.setValue(iter.nextUxToString(info.getLength()));
             return info;}
         case 7:{
         	ClassInfo info = new ClassInfo(pool);

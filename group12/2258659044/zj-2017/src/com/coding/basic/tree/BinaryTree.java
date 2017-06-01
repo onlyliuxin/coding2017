@@ -1,5 +1,6 @@
-package com.coding.basic;
+package com.coding.basic.tree;
 
+import com.coding.basic.List;
 import com.coding.basic.array.ArrayList;
 
 public class BinaryTree<T extends Comparable<T>> {
@@ -9,8 +10,7 @@ public class BinaryTree<T extends Comparable<T>> {
 	    	
 	public BinaryTreeNode<T> insert(T o){
 		
-		BinaryTreeNode<T> treeNode = new BinaryTreeNode<T>();
-		treeNode.setData(o);
+		BinaryTreeNode<T> treeNode = new BinaryTreeNode<T>(o);
 		if(root == null){
 			root =  treeNode;
 		}else{				
@@ -25,13 +25,15 @@ public class BinaryTree<T extends Comparable<T>> {
 						treeNode.setParent(parent);
 						break;
 					}					
-				}else{//向右放
+				}else if((currentNode.getData()).compareTo(o)<0){//向右放
 					currentNode = currentNode.getRight();
 					if(currentNode == null){
 						parent.setRight(treeNode);
 						treeNode.setParent(parent);
 						break;
 					}
+				}else{
+					break;
 				}
 			}			
 		}
@@ -60,20 +62,6 @@ public class BinaryTree<T extends Comparable<T>> {
 
 	public BinaryTreeNode<T> getRoot() {
 		return root;
-	}
-	
-	/**
-	 * 获取比obj大的最小值
-	 * @param obj
-	 * @return
-	 */
-	public T getLeastBigger (T obj){
-		
-		BinaryTreeNode<T> left = root;
-		while(left.getLeft()!=null){
-			left = left.getLeft();
-		}
-		return left.getData();
 	}
 	
 }
