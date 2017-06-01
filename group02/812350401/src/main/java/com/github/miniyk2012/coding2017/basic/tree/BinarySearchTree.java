@@ -1,7 +1,6 @@
 package com.github.miniyk2012.coding2017.basic.tree;
 
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class BinarySearchTree<T extends Comparable> {
 	
@@ -113,19 +112,106 @@ public class BinarySearchTree<T extends Comparable> {
         return root;
     }
 
+    /**
+     * 树的层序遍历
+     * @return
+     */
     public List<T> levelVisit(){
-
-        return null;
+        return levelVisit(root);
     }
+
+    private List<T> levelVisit(BinaryTreeNode<T> root) {
+        ArrayDeque<BinaryTreeNode<T>> queue = new ArrayDeque<>();
+        List<T> list = new LinkedList<>();
+        if (root == null) return list;
+        queue.add(root);
+        BinaryTreeNode<T> head;
+        while (!queue.isEmpty()) {
+            head = queue.remove();
+            if (head.left != null) {
+                queue.add(head.left);
+            }
+            if (head.right != null) {
+                queue.add(head.right);
+            }
+            list.add(head.getData());
+        }
+        return list;
+    }
+
+    /**
+     * 判断该二叉树是否是查找二叉树
+     * @return
+     */
     public boolean isValid(){
-        return false;
+        if (root == null) return true;
+        BinarySearchTree<T> leftTree = new BinarySearchTree<>(root.left);
+        BinarySearchTree<T> rightTree = new BinarySearchTree<>(root.right);
+        boolean isValid = true;
+        if (root.left != null) {
+            if (!leftTree.isValid() || root.data.compareTo(leftTree.findMax())<0) {
+                isValid = false;
+            }
+        }
+        if (isValid && root.right != null) {
+            if (!rightTree.isValid() || root.data.compareTo(rightTree.findMin())>0) {
+                isValid = false;
+            }
+        }
+        return isValid;
     }
-    public T getLowestCommonAncestor(T n1, T n2){
-        return null;
 
+    /**
+     * 返回n1, n2的最低公共父节点(n1, n2分别为搜索二叉树中某节点的值，只考虑各节点值不同的情况, 且n1, n2是不同的节点值)
+     * @param n1
+     * @param n2
+     * @return
+     */
+    public T getLowestCommonAncestor(T n1, T n2){
+        return  getLowestCommonAncestor(root, n1, n2);
     }
+
+    private T getLowestCommonAncestor(BinaryTreeNode<T> root, T n1, T n2) {
+        if (root == null) {
+            return null;
+        }
+        if (n1.compareTo(root.data)>0 && n2.compareTo(root.data)>0) {
+            return getLowestCommonAncestor(root.right, n1, n2);
+        }
+        if (n1.compareTo(root.data)<0 && n2.compareTo(root.data)<0) {
+            return getLowestCommonAncestor(root.left, n1, n2);
+        }
+        return root.data;
+    }
+
+    /**
+     * 返回一个数组，每个元素e满足n1<e<n2（n1, n2为任意值，不一定是某节点的值）
+     * @param n1
+     * @param n2
+     * @return
+     */
     public List<T> getNodesBetween(T n1, T n2){
-        return null;
+        List<T> elements = new ArrayList<>();
+        getNodesBetween(elements, root, n1, n2);
+        return elements;
+    }
+
+    private void getNodesBetween(List<T> elements, BinaryTreeNode<T> root, T n1, T n2) {
+        if (root == null) {
+            return;
+        }
+        // 若根节点在范围内，把根节点加入element
+        if (n1.compareTo(root.data)<0 && n2.compareTo(root.data)>0) {
+            elements.add(root.data);
+        }
+        // 找左子树的满足范围的节点
+        if (n1.compareTo(root.data)<0) {
+            getNodesBetween(elements, root.left, n1, n2);
+        }
+        // 找右子树的满足范围的节点
+        if (n2.compareTo(root.data)>0) {
+            getNodesBetween(elements, root.right, n1, n2);
+        }
     }
 }
 
