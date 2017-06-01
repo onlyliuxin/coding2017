@@ -5,11 +5,20 @@ import com.github.miniyk2012.coding2017.coderising.jvm.constant.ConstantPool;
 import com.github.miniyk2012.coding2017.coderising.jvm.constant.UTF8Info;
 import com.github.miniyk2012.coding2017.coderising.jvm.loader.ByteCodeIterator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Field {
 	private int accessFlag;
 	private int nameIndex;
 	private int descriptorIndex;
 	private ConstantPool pool;
+
+    private static Map<Integer, String> flagNameMap = new HashMap<>();
+    {
+        flagNameMap.put(0x0001, "public-ACC_PUBLIC");
+        flagNameMap.put(0x0002, "private-ACC_PRIVATE");
+    }
 	
 	public Field(int accessFlag, int nameIndex, int descriptorIndex, ConstantPool pool) {
 		
@@ -27,7 +36,21 @@ public class Field {
 		String desc = pool.getUTF8String(descriptorIndex);
 		return name +":"+ desc;
 	}
-	
+
+	public String getAccessFlagDescription() {
+        String accessFlag = flagNameMap.get(this.accessFlag);
+        // TODO: 6/5/2017 访问标志补全
+        if (accessFlag == null) throw new RuntimeException("访问标志还未实现");
+        return accessFlag;
+    }
+
+    public String getType() {
+        return pool.getUTF8String(descriptorIndex);
+    }
+
+    public String getName() {
+        return pool.getUTF8String(nameIndex);
+    }
 	
 	public static Field parse(ConstantPool pool, ByteCodeIterator iter){
 		
