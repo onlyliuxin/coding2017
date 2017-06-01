@@ -14,6 +14,12 @@
       <module name="lesson4_test" target="1.8" />
       <module name="lesson5_main" target="1.8" />
       <module name="lesson5_test" target="1.8" />
+      <module name="lesson6-jvm3_main" target="1.8" />
+      <module name="lesson6-jvm3_test" target="1.8" />
+      <module name="lesson7-jvm4_main" target="1.8" />
+      <module name="lesson7-jvm4_test" target="1.8" />
+      <module name="lesson8-jvm5_main" target="1.8" />
+      <module name="lesson8-jvm5_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
