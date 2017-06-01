@@ -1,5 +1,7 @@
 package com.coderising.jvm.constant;
 
+import com.coderising.jvm.print.ConstantPoolPrinterInterface;
+
 public class FieldRefInfo extends ConstantInfo{
 	private int type = ConstantInfo.FIELD_INFO;
 	private int classInfoIndex;
@@ -50,5 +52,9 @@ public class FieldRefInfo extends ConstantInfo{
 	public String getFieldType(){
 		NameAndTypeInfo  typeInfo = (NameAndTypeInfo)this.getConstantInfo(this.getNameAndTypeIndex());
 		return typeInfo.getTypeInfo();	
+	}
+	@Override
+	public void print(ConstantPoolPrinterInterface cpp) {
+		cpp.printFieldRefInfo(this);
 	}
 }

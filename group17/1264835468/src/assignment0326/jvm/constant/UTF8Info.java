@@ -16,6 +16,17 @@ public class UTF8Info extends ConstantInfo{
 	public int getType() {
 		return type;
 	}
+
+	@Override
+	public String typeDescription() {
+		return "Utf8";
+	}
+
+	@Override
+	public String contentDescription() {
+		return value;
+	}
+
 	@Override
 	public String toString() {
 		return "UTF8Info [type=" + type + ", length=" + length + ", value=" + value +")]";

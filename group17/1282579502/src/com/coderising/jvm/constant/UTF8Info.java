@@ -1,5 +1,7 @@
 package com.coderising.jvm.constant;
 
+import com.coderising.jvm.print.ConstantPoolPrinterInterface;
+
 public class UTF8Info extends ConstantInfo{
 	private int type = ConstantInfo.UTF8_INFO;
 	private int length ;
@@ -25,6 +27,10 @@ public class UTF8Info extends ConstantInfo{
 	}
 	public void setValue(String value) {
 		this.value = value;
+	}
+	@Override
+	public void print(ConstantPoolPrinterInterface cpp) {
+		cpp.printUtf8Info(this);
 	}
 	
 	

@@ -14,12 +14,13 @@ public class StackUtil {
      * 假设栈中的元素是Integer, 从栈顶到栈底是 : 5,4,3,2,1 调用该方法后， 元素次序变为: 1,2,3,4,5
      * 注意：只能使用Stack的基本操作，即push,pop,peek,isEmpty， 可以使用另外一个栈来辅助
      */
-    public static void reverse(Stack s) {
+    public static void reverse(Stack<Integer> s) {
         Stack stack1 = new Stack();
         Stack stack2 = new Stack();
         popAllToAnotherStack(s, stack1);
         popAllToAnotherStack(stack1, stack2);
         popAllToAnotherStack(stack2, s);
+
     }
 
     private static void popAllToAnotherStack(Stack s, Stack another) {

@@ -10,6 +10,8 @@ public class ComputeTest {
     @Test
     public void testDivisionExactly(){
         System.out.println( 7 >> 1);
+        System.out.println( -5 >> 2);
+        System.out.println( -5 << 2);
     }
 
     @Test
