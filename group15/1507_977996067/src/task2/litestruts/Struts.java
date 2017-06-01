@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+@SuppressWarnings("unchecked")
 public class Struts {
 
     public static View runAction(String actionName, Map<String, String> parameters) {
