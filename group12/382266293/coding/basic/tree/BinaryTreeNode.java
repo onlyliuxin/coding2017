@@ -85,6 +85,24 @@ public class BinaryTreeNode<T> {
 		return true;
 	}
 	
+	public BinaryTreeNode<T> findMaxNode() {
+
+		BinaryTreeNode<T> node = this;
+		while(node.getRight() != null) {
+			node = node.getRight();
+		}
+
+		return node;
+	}
 	
+	public BinaryTreeNode<T> findMinNode() {
+
+		BinaryTreeNode<T> node = this;
+		while(node.getLeft() != null) {
+			node = node.getLeft();
+		}
+
+		return node;
+	}
 	
 }

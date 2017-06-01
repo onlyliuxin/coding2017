@@ -60,6 +60,16 @@ public class ConnectionImpl implements Connection {
 		try {
 			httpConn = (HttpURLConnection) url.openConnection();
 			httpConn.setRequestProperty("Range", "bytes=" + startPos + "-" + endPos);
+			httpConn.setRequestProperty("connection", "keep-alive");
+			httpConn.setRequestProperty("Upgrade-Insecure-Requests", "1");
+			httpConn.setRequestProperty("User-Agent",
+                    "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729)");
+			httpConn.setRequestProperty("Host", "172.26.203.62");
+			httpConn.setRequestProperty("Referer", "http://172.26.203.62/smg_xtbd/bianpai/playListAction.do?method=egpList");
+			httpConn.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.8");
+			httpConn.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch");
+
+			httpConn.setRequestProperty("Cookie", "theme=THEME1; userName=liyijun; modules=m_work|m_message; JSESSIONID=0000GVQZgIsXFQyoCCmhnH1weFW:15ldljac7");
 			in = httpConn.getInputStream();
 			out = new ByteArrayOutputStream();
 			in = httpConn.getInputStream();

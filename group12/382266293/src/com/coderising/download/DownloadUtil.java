@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class DownloadUtil {
 
-	private static final int MIN_CONNECTIONS = 3;
+	private static final int MIN_CONNECTIONS = 1;
 	private static final int MAX_CONNECTIONS = 10;
 
 	public static int calculateConnects(int length) {
