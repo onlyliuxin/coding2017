@@ -2,18 +2,18 @@ package me.lzb.basic.queue;
 
 /**
  * 用数组实现循环队列
- * <p>
- * Created by LZB on 2017/4/27.
+ *
+ * @author LZB
  */
 public class CircleQueue<E> {
 
 
-    public CircleQueue(){
+    public CircleQueue() {
         DEFAULT_SIZE = 10;
     }
 
-    public CircleQueue(int size){
-        if(size <= 0){
+    public CircleQueue(int size) {
+        if (size <= 0) {
             size = 10;
         }
         DEFAULT_SIZE = size;

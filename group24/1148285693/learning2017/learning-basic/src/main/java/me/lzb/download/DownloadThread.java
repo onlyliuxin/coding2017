@@ -5,6 +5,9 @@ import me.lzb.download.api.Connection;
 import java.io.RandomAccessFile;
 import java.util.concurrent.CyclicBarrier;
 
+/**
+ * @author LZB
+ */
 public class DownloadThread extends Thread {
 
     Connection conn;

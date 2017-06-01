@@ -3,6 +3,10 @@ package me.lzb.jvm.engine;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 自己定义一个Object代替java的Object
+ * @author LZB
+ */
 public class JavaObject {
     public static final int OBJECT = 1;
     public static final int STRING = 2;

@@ -2,6 +2,9 @@ package me.lzb.basic.stack;
 
 import java.util.Stack;
 
+/**
+ * @author LZB
+ */
 public class StackUtil {
 
     public static void bad_reverse(Stack<Integer> s) {

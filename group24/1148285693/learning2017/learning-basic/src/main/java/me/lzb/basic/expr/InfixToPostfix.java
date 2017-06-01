@@ -5,7 +5,8 @@ import java.util.Stack;
 
 /**
  * 中序转后序
- * Created by LZB on 2017/4/20.
+ *
+ * @author LZB
  */
 public class InfixToPostfix {
 

@@ -1,8 +1,11 @@
 package me.lzb.jvm;
 
+/**
+ * @author LZB
+ */
 public class EmployeeV1 {
 
-	private String name;
+    private String name;
     private int age;
 
     public EmployeeV1(String name, int age) {
@@ -13,15 +16,18 @@ public class EmployeeV1 {
     public void setName(String name) {
         this.name = name;
     }
-    public void setAge(int age){
-    	this.age = age;
+
+    public void setAge(int age) {
+        this.age = age;
     }
+
     public void sayHello() {
-    	System.out.println("Hello , this is class Employee ");
+        System.out.println("Hello , this is class Employee ");
     }
-    public static void main(String[] args){
-    	EmployeeV1 p = new EmployeeV1("Andy",29);
-    	p.sayHello();
+
+    public static void main(String[] args) {
+        EmployeeV1 p = new EmployeeV1("Andy", 29);
+        p.sayHello();
 
     }
 }

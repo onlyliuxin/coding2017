@@ -1,6 +1,6 @@
 package com.johnChnia.coding2017.basic.queue;
 
-import com.johnChnia.coding2017.basic.ArrayList;
+import com.johnChnia.coding2017.basic.array.ArrayList;
 
 import java.util.NoSuchElementException;
 
@@ -54,9 +54,9 @@ public class Queue<E> {
      *
      * @return the head of this queue, or {@code 0} if this queue is empty
      */
-    public Object peek() {
+    public E peek() {
         if (arrayList.empty())
-            return 0;
+            return null;
         return arrayList.get(0);
     }
 

@@ -18,7 +18,7 @@ public class BinaryTreeUtil {
      * @param root
      * @return
      */
-    public static <T> List<T> preOrderVisit(BinaryTreeNode<T> root) {
+    public static <T extends Comparable<T>> List<T> preOrderVisit(BinaryTreeNode<T> root) {
         List<T> result = new ArrayList<>();
         preOrderVisit(root, result);
         return result;
@@ -43,7 +43,7 @@ public class BinaryTreeUtil {
      * @param root
      * @return
      */
-    public static <T> List<T> inOrderVisit(BinaryTreeNode<T> root) {
+    public static <T extends Comparable<T>> List<T> inOrderVisit(BinaryTreeNode<T> root) {
         List<T> result = new ArrayList<>();
         inOrderVisit(root, result);
         return result;
@@ -67,7 +67,7 @@ public class BinaryTreeUtil {
      * @param root
      * @return
      */
-    public static <T> List<T> postOrderVisit(BinaryTreeNode<T> root) {
+    public static <T extends Comparable<T>> List<T> postOrderVisit(BinaryTreeNode<T> root) {
         List<T> result = new ArrayList<>();
         postOrderVisit(root, result);
         return result;
@@ -90,7 +90,7 @@ public class BinaryTreeUtil {
      * @param root
      * @return
      */
-    public static <T> List<T> preOrderWithoutRecursion(BinaryTreeNode<T> root) {
+    public static <T extends Comparable<T>> List<T> preOrderWithoutRecursion(BinaryTreeNode<T> root) {
 
         List<T> result = new ArrayList<>();
         Stack<BinaryTreeNode<T>> stack = new Stack<>();
@@ -118,7 +118,7 @@ public class BinaryTreeUtil {
      * @param root
      * @return
      */
-    public static <T> List<T> inOrderWithoutRecursion(BinaryTreeNode<T> root) {
+    public static <T extends Comparable<T>> List<T> inOrderWithoutRecursion(BinaryTreeNode<T> root) {
 
         List<T> result = new ArrayList<>();
         Stack<BinaryTreeNode<T>> stack = new Stack<>();
@@ -143,7 +143,7 @@ public class BinaryTreeUtil {
      * @param root
      * @return
      */
-    public static <T> List<T> postOrderWithoutRecursion(BinaryTreeNode<T> root) {
+    public static <T extends Comparable<T>> List<T> postOrderWithoutRecursion(BinaryTreeNode<T> root) {
 
         List<T> result = new ArrayList<>();
         Stack<BinaryTreeNode<T>> stack = new Stack<>();

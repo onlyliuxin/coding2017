@@ -5,7 +5,7 @@ import me.lzb.jvm.cmd.*;
 import me.lzb.jvm.constant.*;
 
 /**
- * Created by LZB on 2017/5/1.
+ * @author LZB
  */
 public class ExecutionFormat implements ExecutionVisitor {
 
@@ -22,7 +22,7 @@ public class ExecutionFormat implements ExecutionVisitor {
         return format;
     }
 
-    private ExecutionFormat(){
+    private ExecutionFormat() {
 
     }
 
@@ -81,6 +81,21 @@ public class ExecutionFormat implements ExecutionVisitor {
     @Override
     public void visitPutFieldCmd(PutFieldCmd cmd) {
         exFile(cmd);
+    }
+
+
+    @Override
+    public void visitComparisonCmd(ComparisonCmd cmd) {
+        //TODO 执行输出格式
+        String codeTxt = cmd.getReadableCodeText();
+        System.out.println(getOffset(cmd.getOffset()) + ":" + cmd.getOpCode() + " " + StringUtils.appendSpace(one, codeTxt) + cmd.getGoOffset());
+    }
+
+    @Override
+    public void visitIncrementCmd(IncrementCmd cmd) {
+        //TODO 执行输出格式
+        String codeTxt = cmd.getReadableCodeText();
+        System.out.println(getOffset(cmd.getOffset()) + ":" + cmd.getOpCode() + " " + StringUtils.appendSpace(one, codeTxt));
     }
 
 

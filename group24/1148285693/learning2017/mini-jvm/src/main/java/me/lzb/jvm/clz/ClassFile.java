@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by LZB on 2017/4/14.
+ * @author LZB
  */
-public class ClassFile implements Print{
+public class ClassFile implements Print {
 
     private String magicNumber;
 
@@ -135,6 +135,7 @@ public class ClassFile implements Print{
         this.methods.add(m);
     }
 
+    //函数的 方法名+参数类型+返回值，构成函数的唯一标识
     public Method getMethod(String methodName, String paramAndReturnType) {
         for (Method m : methods) {
             int nameIndex = m.getNameIndex();

@@ -4,6 +4,8 @@ import mini_jvm.clz.AccessFlag;
 import mini_jvm.clz.ClassFile;
 import mini_jvm.clz.ClassIndex;
 import mini_jvm.constant.*;
+import mini_jvm.field.Field;
+import mini_jvm.method.Method;
 
 import java.io.UnsupportedEncodingException;
 
@@ -14,26 +16,43 @@ public class ClassFileParser {
 		ClassFile classFile = new ClassFile();
 		ByteCodeIterator iter = new ByteCodeIterator(codes);
 		//1 先解析魔数
+		System.out.println("Parse MagicNumber!");
 		String magicNumber = iter.nextU4ToHexString();
 		if(!magicNumber.equals("cafebabe")){
 			return null;
 		}
 
 		//2 解析次版本号 主版本号
+		System.out.println("Parse MinorVersion and MajorVersion !");
 		classFile.setMinorVersion(iter.nextU2ToInt());
 		classFile.setMajorVersion(iter.nextU2ToInt());
 
 		//3 解析常量池
+		System.out.println("Parse ConstantPool!");
 		ConstantPool constantPool = parseConstantPool(iter);
 		classFile.setConstPool(constantPool);
 
 		//4 解析访问标志
+		System.out.println("Parse AccessFlag!");
 		AccessFlag accessFlag = parseAccessFlag(iter);
 		classFile.setAccessFlag(accessFlag);
 
 		//5 解析类索引，父类索引，接口索引
+		System.out.println("Parse ClassInfex!");
 		ClassIndex classIndex = parseClassInfex(iter);
 		classFile.setClassIndex(classIndex);
+
+		//6 解析接口
+		System.out.println("Parse Interfaces!");
+		parseInterfaces(iter);
+
+		//7 解析字段
+		System.out.println("Parse Fileds!");
+		parseFileds(classFile, iter);
+
+		//8 解析方法
+		System.out.println("Parse Methods!");
+		parseMethods(classFile, iter);
 
 		return classFile;
 	}
@@ -124,6 +143,30 @@ public class ClassFileParser {
 			}
 		}
 		return constantPool;
+	}
+
+	private void parseInterfaces(ByteCodeIterator iter) {
+		int interfaceCount = iter.nextU2ToInt();
+
+		//System.out.println("interfaceCount:" + interfaceCount);
+
+		// TODO : 如果实现了interface, 这里需要解析
+	}
+
+	private void parseFileds(ClassFile clzFile, ByteCodeIterator iter) {
+		int filedCount = iter.nextU2ToInt();
+		for(int i=0; i<filedCount; i++){
+			Field field = Field.parse(clzFile.getConstantPool(),iter);
+			clzFile.addField(field);
+		}
+	}
+
+	private void parseMethods(ClassFile clzFile, ByteCodeIterator iter) {
+		int methodCount = iter.nextU2ToInt();
+		for (int i = 1; i <= methodCount; i++) {
+			Method method = Method.parse(clzFile, iter);
+			clzFile.addMethod(method);
+		}
 	}
 
 	

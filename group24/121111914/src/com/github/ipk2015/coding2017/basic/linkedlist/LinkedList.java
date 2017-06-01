@@ -117,7 +117,7 @@ public class LinkedList implements List {
 		}
 		Node node=head;
 		head=node.next;
-		return node;
+		return node.data;
 	}
 	public Object removeLast(){
 		if(null==head){

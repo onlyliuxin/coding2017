@@ -9,16 +9,21 @@ import me.lzb.jvm.method.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author LZB
+ */
 public class MethodArea {
 
     public static final MethodArea instance = new MethodArea();
 
     /**
-     * 注意：我们做了极大的简化， ClassLoader 只有一个， 实际JVM中的ClassLoader,是一个双亲委托的模型
+     * 这里ClassLoader 只有一个， 实际JVM中的ClassLoader,是一个双亲委托的模型，类装载器有命名空间，和被装载的类是关联的
      */
-
     private ClassFileLoader clzLoader = null;
 
+    /**
+     * 保存load过的class，key：me/lzb/jvm/HourlyEmployee, value：ClassFile对象
+     */
     Map<String, ClassFile> map = new HashMap<>();
 
     private MethodArea() {
@@ -52,24 +57,6 @@ public class MethodArea {
 
         return clzFile;
 
-    }
-
-
-    public Method getMethod(String className, String methodName, String paramAndReturnType) {
-
-        ClassFile clz = this.findClassFile(className);
-
-        Method m = clz.getMethod(methodName, paramAndReturnType);
-
-        if (m == null) {
-
-            throw new RuntimeException("method can't be found : \n"
-                + "class: " + className
-                + "method: " + methodName
-                + "paramAndReturnType: " + paramAndReturnType);
-        }
-
-        return m;
     }
 
 

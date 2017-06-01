@@ -32,6 +32,7 @@ public class CommandParser {
 
 	public static final String astore_1 = "4C";
 	public static final String if_icmp_ge = "A2";
+	public static final String if_icmp_gt = "A3";
 	public static final String if_icmple = "A4";
 	public static final String goto_no_condition = "A7";
 	public static final String iconst_0 = "03";
@@ -99,11 +100,32 @@ public class CommandParser {
 				case aload_1:
 				case iload_1:
 				case iload_2:
+				case iload_3:
 				case istore_1:
 				case voidreturn:
+				case iconst_0:
+				case iconst_1:
+				case istore_2:
+				case iadd:
+				case ireturn:
 				case dup:
 					NoOperandCmd noOperandCmd = new NoOperandCmd(clzFile, operCode);
 					cmds.add(noOperandCmd);
+					break;
+				case if_icmp_ge:
+				case if_icmple:
+				case if_icmp_gt:
+				case goto_no_condition:
+					ComparisonCmd cmd1 = new ComparisonCmd(clzFile,operCode);
+					cmd1.setOprand1(cmdIter.next2CharAsInt());
+					cmd1.setOprand2(cmdIter.next2CharAsInt());
+					cmds.add(cmd1);
+					break;
+				case iinc:
+					IncrementCmd incrementCmd = new IncrementCmd(clzFile,operCode);
+					incrementCmd.setOprand1(cmdIter.next2CharAsInt());
+					incrementCmd.setOprand2(cmdIter.next2CharAsInt());
+					cmds.add(incrementCmd);
 					break;
 				default:
 					throw new RuntimeException("this oper [ " +operCode+ " ]not impl yet");
