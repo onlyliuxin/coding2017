@@ -7,6 +7,7 @@
     <modules>
         <module>data-structure</module>
         <module>mini-jvm</module>
+        <module>books-practice</module>
     </modules>
 
     <groupId>com.pan</groupId>
