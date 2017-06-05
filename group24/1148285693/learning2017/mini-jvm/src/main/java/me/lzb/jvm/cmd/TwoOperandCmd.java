@@ -3,6 +3,9 @@ package me.lzb.jvm.cmd;
 import me.lzb.jvm.clz.ClassFile;
 import me.lzb.jvm.constant.*;
 
+/**
+ * @author LZB
+ */
 public abstract class TwoOperandCmd extends ByteCodeCommand {
 
     int oprand1 = -1;
@@ -59,4 +62,6 @@ public abstract class TwoOperandCmd extends ByteCodeCommand {
     public int getLength() {
         return 3;
     }
+
+
 }

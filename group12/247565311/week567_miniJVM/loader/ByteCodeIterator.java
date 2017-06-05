@@ -11,7 +11,6 @@ public class ByteCodeIterator {
     }
     public int nextU1ToInt(){
         byte a = bytes[index];
-        System.out.print(a);
         index += 1;
         return (int)(a&0xff);
     }
@@ -22,13 +21,24 @@ public class ByteCodeIterator {
 	public int nextU4ToInt() {
 		return nextU1ToInt()*256*256*256+nextU1ToInt()*256*256+nextU1ToInt()*256+nextU1ToInt();
 	}
-
+    public String nextUxToString(int len){
+    	String res="";
+    	while(len>0){
+    		len -= 1;
+    		res += (char)(bytes[index]);
+    		index += 1;
+    	}
+    	return res;
+    }
 	public String nextUxToHexString(int len) {
         String res = "";
         while(len>0){
-            len -= 1;
-            int a = nextU1ToInt();
-            res += (char)(a&0xff);
+        	len -= 1;
+        	int val = (int)(bytes[index]&0xff);
+            String hex = Integer.toHexString(val);
+            res+=hex.length()<2?"0":"";
+            res+=hex;
+            index += 1;
         }
 		return res;
 	}

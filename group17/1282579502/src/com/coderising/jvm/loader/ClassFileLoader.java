@@ -26,7 +26,7 @@ public class ClassFileLoader {
 		File targetFile = null;
 		for(int i = 0; i< clzPaths.size(); i++){
 			String fullPath = clzPaths.get(i)+File.separator+classPath;
-			//System.out.println("path: " + fullPath); 
+			System.out.println("path: " + fullPath); 
 			File temp = new File(fullPath);
 			if(temp.exists()) {
 				targetFile = temp;

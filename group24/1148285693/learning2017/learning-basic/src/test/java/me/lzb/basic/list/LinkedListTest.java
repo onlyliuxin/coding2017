@@ -1,7 +1,5 @@
 package me.lzb.basic.list;
 
-import me.lzb.basic.list.Iterator;
-import me.lzb.basic.list.LinkedList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -11,7 +9,8 @@ import org.junit.rules.ExpectedException;
 
 /**
  * linkedliksTest
- * Created by LZB on 2017/3/11.
+ *
+ * @author LZB
  */
 public class LinkedListTest {
 

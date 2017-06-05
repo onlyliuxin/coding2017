@@ -5,6 +5,9 @@ import me.lzb.download.api.Connection;
 import me.lzb.download.api.ConnectionException;
 import me.lzb.download.api.ConnectionManager;
 
+/**
+ * @author LZB
+ */
 public class ConnectionManagerImpl implements ConnectionManager {
 
 

@@ -50,7 +50,6 @@ public class LineNumberTable extends AttributeInfo {
 			lineNumberTable.addLineNumberItem(item);
 			
 		}
-		
 		return lineNumberTable;
 	}
 	

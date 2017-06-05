@@ -35,6 +35,9 @@ public class NoOperandCmd extends ByteCodeCommand{
 		} else if (CommandParser.iload_2.equals(this.getOpCode())) {
 			JavaObject jo = frame.getLocalVariableValue(2);
 			frame.getOprandStack().push(jo);
+		} else if (CommandParser.iload_3.equals(this.getOpCode())) {
+			JavaObject jo = frame.getLocalVariableValue(3);
+			frame.getOprandStack().push(jo);
 		} else if (CommandParser.istore_1.equals(this.getOpCode())) {
 			JavaObject jo = frame.getOprandStack().pop();
 			frame.setLocalVariableValue(1, jo);

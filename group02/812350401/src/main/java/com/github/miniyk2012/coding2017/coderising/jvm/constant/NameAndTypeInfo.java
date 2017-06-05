@@ -1,5 +1,7 @@
 package com.github.miniyk2012.coding2017.coderising.jvm.constant;
 
+import com.github.miniyk2012.coding2017.coderising.jvm.print.ConstantPoolPrinter;
+
 public class NameAndTypeInfo extends ConstantInfo{
 	public  int type = ConstantInfo.NAME_AND_TYPE_INFO;
 	
@@ -43,5 +45,10 @@ public class NameAndTypeInfo extends ConstantInfo{
 	
 	public String toString(){
 		return "(" + getName() + "," + getTypeInfo()+")";
+	}
+
+	@Override
+	public void accept(ConstantPoolPrinter.Visitor visitor) {
+		visitor.visitNameAndTypeInfo(this);
 	}
 }

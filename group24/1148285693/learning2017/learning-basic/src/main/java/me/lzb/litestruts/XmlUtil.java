@@ -9,7 +9,8 @@ import java.io.File;
 
 /**
  * xml工具类
- * Created by LZB on 2017/3/16.
+ *
+ * @author LZB
  */
 public class XmlUtil {
 

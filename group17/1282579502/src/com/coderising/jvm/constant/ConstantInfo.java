@@ -1,6 +1,8 @@
 package com.coderising.jvm.constant;
 
-public abstract class ConstantInfo {
+import com.coderising.jvm.print.ConstantPoolPrintable;
+
+public abstract class ConstantInfo implements ConstantPoolPrintable{
 	public static final int UTF8_INFO = 1;
 	public static final int INTEGER_INFO = 3;
 	public static final int FLOAT_INFO = 4;
@@ -26,4 +28,5 @@ public abstract class ConstantInfo {
 	public ConstantInfo getConstantInfo(int index){
 		return this.constantPool.getConstantInfo(index);
 	}
+	
 }

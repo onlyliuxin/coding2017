@@ -6,7 +6,7 @@ import me.lzb.jvm.constant.ConstantInfo;
 import me.lzb.jvm.constant.ConstantPool;
 
 /**
- * Created by LZB on 2017/4/23.
+ * @author LZB
  */
 public class ClassPrinter {
 

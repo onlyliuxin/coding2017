@@ -73,42 +73,6 @@ public class ConstantPoolPrinter {
 			System.out.print(i + "# = ");
 			ConstantInfo cnst = pool.getConstantInfo(i);
 			cnst.accept(visitor);
-//			if(cnst instanceof ClassInfo){
-//				sb.append("Class       ");
-//				sb.append("#" + ((ClassInfo) cnst).getUtf8Index());
-//				sb.append("  //" + ((ClassInfo) cnst).getClassName());
-//			}else if(cnst instanceof UTF8Info){
-//				sb.append("Utf8        ");
-//				sb.append(((UTF8Info) cnst).getValue());
-//			}else if(cnst instanceof MethodRefInfo){
-//				sb.append("MethodRef   ");
-//				sb.append("#" + ((MethodRefInfo) cnst).getClassInfoIndex());
-//				sb.append(".").append("#" + ((MethodRefInfo) cnst).getNameAndTypeIndex());
-//				sb.append("  //" + ((MethodRefInfo) cnst).getClassName());
-//				sb.append("." + ((MethodRefInfo) cnst).getMethodName());
-//				sb.append(":" + ((MethodRefInfo) cnst).getParamAndReturnType());
-//			}else if(cnst instanceof NameAndTypeInfo){
-//				sb.append("NameAndType ");
-//				sb.append("#" + ((NameAndTypeInfo) cnst).getIndex1());
-//				sb.append(":#" + ((NameAndTypeInfo) cnst).getIndex2());
-//				sb.append("  //" + ((NameAndTypeInfo) cnst).getName());
-//				sb.append(":" + ((NameAndTypeInfo) cnst).getTypeInfo());
-//			}else if(cnst instanceof FieldRefInfo){
-//				sb.append("Fieldref    ");
-//				sb.append("#" + ((FieldRefInfo) cnst).getClassInfoIndex());
-//				sb.append("." + ((FieldRefInfo) cnst).getNameAndTypeIndex());
-//				sb.append("  //" + ((FieldRefInfo) cnst).getClassName());
-//				sb.append("." + ((FieldRefInfo) cnst).getFieldName());
-//				sb.append(":" + ((FieldRefInfo) cnst).getFieldType());
-//			}else if(cnst instanceof StringInfo){
-//				sb.append("String      ");
-//				sb.append("#" + ((StringInfo) cnst).getIndex());
-//				sb.append("  //" + cnst.toString());
-//			}else{
-//				throw new RuntimeException(cnst.getType() + "not processed");
-//			}
-
-//			System.out.println(sb.toString());
 		}
 	}
 }

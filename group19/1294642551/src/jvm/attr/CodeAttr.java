@@ -53,7 +53,7 @@ public class CodeAttr extends AttributeInfo {
 		int maxLocals = iter.nextU2ToInt();
 		int codeLen = iter.nextU4ToInt();
 		String code = iter.nextUxToHexString(codeLen);
-		
+		System.out.println("-------code:"+code);
 		ByteCodeCommand[] cmds = CommandParser.parse(clzFile, code);
 //		System.out.println(Arrays.toString(cmds));
 		
@@ -72,16 +72,19 @@ public class CodeAttr extends AttributeInfo {
 		for(int i = 0; i < childAttrLen; i++){
 			int childAttrNameIndex = iter.nextU2ToInt();
 			String childAttrName = clzFile.getConstantPool().getUTF8String(childAttrNameIndex);
+			System.out.println("childAttribute: "+childAttrName);
 			if(AttributeInfo.LINE_NUM_TABLE.equalsIgnoreCase(childAttrName)){
 				LineNumberTable lineNumberTable = LineNumberTable.parse(iter);
 				codeAttr.setLineNumberTable(lineNumberTable);
 			}else if(AttributeInfo.LOCAL_VAR_TABLE.equalsIgnoreCase(childAttrName)){
 				LocalVariableTable localVariableTable = LocalVariableTable.parse(iter);
 				codeAttr.setLocalVariableTable(localVariableTable);
-			}else if (AttributeInfo.STACK_MAP_TABLE.equalsIgnoreCase(childAttrName)){
+			}
+				else if (AttributeInfo.STACK_MAP_TABLE.equalsIgnoreCase(childAttrName)){
 				StackMapTable t = StackMapTable.parse(iter);
 				codeAttr.setStackMapTable(t);
-			}else{
+			}
+			else{
 				throw new RuntimeException("code 的子属性 "+ childAttrName+"没有解析");
 			}
 		}

@@ -9,6 +9,9 @@ import me.lzb.jvm.engine.StackFrame;
 import me.lzb.jvm.method.Method;
 import me.lzb.jvm.print.ExecutionVisitor;
 
+/**
+ * @author LZB
+ */
 public class InvokeVirtualCmd extends TwoOperandCmd {
 
     public InvokeVirtualCmd(ClassFile clzFile, String opCode) {
@@ -40,7 +43,7 @@ public class InvokeVirtualCmd extends TwoOperandCmd {
             return;
         }
 
-        //注意：多态， 这才是真正的对象, 先从该对象的class 中去找对应的方法，找不到的话再去找父类的方法
+        //多态， 这才是真正的对象, 先从该对象的class 中去找对应的方法，找不到的话再去找父类的方法
         JavaObject jo = frame.getOprandStack().peek();
 
         MethodArea ma = MethodArea.getInstance();

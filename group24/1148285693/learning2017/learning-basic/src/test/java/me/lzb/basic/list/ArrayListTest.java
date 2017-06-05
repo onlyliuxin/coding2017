@@ -8,7 +8,8 @@ import org.junit.rules.ExpectedException;
 
 /**
  * ArrayList测试
- * Created by LZB on 2017/3/11.
+ *
+ * @author LZB
  */
 
 public class ArrayListTest {
@@ -50,10 +51,10 @@ public class ArrayListTest {
     }
 
     @Test
-    public void iteratoreTest(){
+    public void iteratoreTest() {
         Iterator iterator = arrayList.iterator();
         int a = 0;
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Assert.assertEquals(strArray[a], iterator.next().toString());
             a = a + 1;
         }

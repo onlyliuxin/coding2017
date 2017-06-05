@@ -8,6 +8,9 @@ import me.lzb.jvm.engine.JavaObject;
 import me.lzb.jvm.engine.StackFrame;
 import me.lzb.jvm.print.ExecutionVisitor;
 
+/**
+ * @author LZB
+ */
 public class GetFieldCmd extends TwoOperandCmd {
 
     public GetFieldCmd(ClassFile clzFile, String opCode) {
@@ -22,7 +25,7 @@ public class GetFieldCmd extends TwoOperandCmd {
 
     @Override
     public void execute(StackFrame frame, ExecutionResult result) {
-        FieldRefInfo fieldRef = (FieldRefInfo)this.getConstantInfo(this.getIndex());
+        FieldRefInfo fieldRef = (FieldRefInfo) this.getConstantInfo(this.getIndex());
         String fieldName = fieldRef.getFieldName();
         JavaObject jo = frame.getOprandStack().pop();
         JavaObject fieldValue = jo.getFieldValue(fieldName);

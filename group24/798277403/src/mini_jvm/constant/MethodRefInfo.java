@@ -1,5 +1,8 @@
 package mini_jvm.constant;
 
+/**
+ * 常量池中  类中方法的符号引用
+ */
 public class MethodRefInfo extends ConstantInfo {
 	
 	private int type = ConstantInfo.METHOD_INFO;
@@ -49,7 +52,10 @@ public class MethodRefInfo extends ConstantInfo {
 		NameAndTypeInfo  typeInfo = (NameAndTypeInfo)pool.getConstantInfo(this.getNameAndTypeIndex());
 		return typeInfo.getTypeInfo();
 	}
-	
-	
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visitMethodRef(this);
+	}
 	
 }

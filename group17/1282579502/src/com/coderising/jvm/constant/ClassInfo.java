@@ -1,6 +1,8 @@
 package com.coderising.jvm.constant;
 
-public class ClassInfo extends ConstantInfo {
+import com.coderising.jvm.print.ConstantPoolPrinterInterface;
+
+public class ClassInfo extends ConstantInfo{
 	private int type = ConstantInfo.CLASS_INFO;
 	private int utf8Index ;
 	public ClassInfo(ConstantPool pool) {
@@ -20,5 +22,9 @@ public class ClassInfo extends ConstantInfo {
 		int index = getUtf8Index();
 		UTF8Info utf8Info = (UTF8Info)constantPool.getConstantInfo(index);
 		return utf8Info.getValue();		
+	}
+	@Override
+	public void print(ConstantPoolPrinterInterface cpp) {
+		cpp.printClassInfo(this);
 	}
 }

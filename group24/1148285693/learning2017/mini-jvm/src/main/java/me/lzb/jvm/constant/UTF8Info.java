@@ -3,7 +3,7 @@ package me.lzb.jvm.constant;
 import me.lzb.jvm.print.PrintVisitor;
 
 /**
- * Created by LZB on 2017/4/15.
+ * @author LZB
  */
 public class UTF8Info extends ConstantInfo {
     private int type = ConstantInfo.Class_info;

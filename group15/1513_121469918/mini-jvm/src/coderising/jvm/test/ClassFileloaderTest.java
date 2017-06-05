@@ -1,15 +1,18 @@
 package coderising.jvm.test;
 
-
 import java.util.List;
 
 import org.junit.After;
-import  org.junit.Assert;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import coderising.jvm.clz.ClassFile;
 import coderising.jvm.clz.ClassIndex;
+import coderising.jvm.cmd.BiPushCmd;
+import coderising.jvm.cmd.ByteCodeCommand;
+import coderising.jvm.cmd.OneOperandCmd;
+import coderising.jvm.cmd.TwoOperandCmd;
 import coderising.jvm.constant.ClassInfo;
 import coderising.jvm.constant.ConstantPool;
 import coderising.jvm.constant.MethodRefInfo;
@@ -19,24 +22,22 @@ import coderising.jvm.field.Field;
 import coderising.jvm.loader.ClassFileLoader;
 import coderising.jvm.method.Method;
 
-
-public class ClassFileloaderTest {	
+public class ClassFileloaderTest {
 	private static final String FULL_QUALIFIED_CLASS_NAME = "coderising/jvm/test/EmployeeV1";
-	
+
 	static String path1 = "D:\\develop\\GitHub\\coding2017\\group15\\1513_121469918\\mini-jvm\\bin";
 	static String path2 = "C:\temp";
-	
+
 	static ClassFile clzFile = null;
 	static {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
 		String className = "coderising.jvm.test.EmployeeV1";
-		
+
 		clzFile = loader.loadClass(className);
 		clzFile.print();
 	}
-	
-	
+
 	@Before
 	public void setUp() throws Exception {		 
 	}
@@ -64,7 +65,7 @@ public class ClassFileloaderTest {
 		ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
 		
-		String className = "coderising.jvm.test.EmployeeV1";
+		String className = "com.coderising.jvm.test.EmployeeV1";
 		
 		byte[] byteCodes = loader.readBinaryCode(className);
 		
@@ -78,7 +79,7 @@ public class ClassFileloaderTest {
 	public void testMagicNumber(){
     	ClassFileLoader loader = new ClassFileLoader();
 		loader.addClassPath(path1);
-		String className = "coderising.jvm.test.EmployeeV1";
+		String className = "com.coderising.jvm.test.EmployeeV1";
 		byte[] byteCodes = loader.readBinaryCode(className);
 		byte[] codes = new byte[]{byteCodes[0],byteCodes[1],byteCodes[2],byteCodes[3]};
 		
@@ -196,8 +197,8 @@ public class ClassFileloaderTest {
     	Assert.assertEquals(FULL_QUALIFIED_CLASS_NAME, thisClassInfo.getClassName());
     	Assert.assertEquals("java/lang/Object", superClassInfo.getClassName());
     }
-	
-     /**
+
+    /**
      * 下面是第三次JVM课应实现的测试用例
      */
     @Test
@@ -268,6 +269,78 @@ public class ClassFileloaderTest {
 		Assert.assertEquals(expectedDesc, methodDesc);
 		Assert.assertEquals(expectedCode, code);
     }
+    
+    @Test
+    public void testByteCodeCommand(){
+    	{
+	    	Method initMethod = this.clzFile.getMethod("<init>", "(Ljava/lang/String;I)V");
+	    	ByteCodeCommand [] cmds = initMethod.getCmds();
+	    	
+	    	assertOpCodeEquals("0: aload_0", cmds[0]);
+	    	assertOpCodeEquals("1: invokespecial #12", cmds[1]);
+	    	assertOpCodeEquals("4: aload_0", cmds[2]);
+	    	assertOpCodeEquals("5: aload_1", cmds[3]);
+	    	assertOpCodeEquals("6: putfield #15", cmds[4]);
+	    	assertOpCodeEquals("9: aload_0", cmds[5]);
+	    	assertOpCodeEquals("10: iload_2", cmds[6]);
+	    	assertOpCodeEquals("11: putfield #17", cmds[7]);
+	    	assertOpCodeEquals("14: return", cmds[8]);
+    	}
+    	
+    	{
+	    	Method setNameMethod = this.clzFile.getMethod("setName", "(Ljava/lang/String;)V");
+	    	ByteCodeCommand [] cmds = setNameMethod.getCmds();
+	    	
+	    	assertOpCodeEquals("0: aload_0", cmds[0]);
+	    	assertOpCodeEquals("1: aload_1", cmds[1]);
+	    	assertOpCodeEquals("2: putfield #15", cmds[2]);
+	    	assertOpCodeEquals("5: return", cmds[3]);
+	    	
+    	}
+    	
+    	{
+	    	Method sayHelloMethod = this.clzFile.getMethod("sayHello", "()V");
+	    	ByteCodeCommand [] cmds = sayHelloMethod.getCmds();
+	    	
+	    	assertOpCodeEquals("0: getstatic #28", cmds[0]);
+	    	assertOpCodeEquals("3: ldc #34", cmds[1]);
+	    	assertOpCodeEquals("5: invokevirtual #36", cmds[2]);
+	    	assertOpCodeEquals("8: return", cmds[3]);
+	    	
+    	}
+    	
+    	{
+	    	Method mainMethod = this.clzFile.getMainMethod();
+	    	
+	    	ByteCodeCommand [] cmds = mainMethod.getCmds();
+	    	
+	    	assertOpCodeEquals("0: new #1", cmds[0]);
+	    	assertOpCodeEquals("3: dup", cmds[1]);
+	    	assertOpCodeEquals("4: ldc #43", cmds[2]);
+	    	assertOpCodeEquals("6: bipush 29", cmds[3]);
+	    	assertOpCodeEquals("8: invokespecial #45", cmds[4]);
+	    	assertOpCodeEquals("11: astore_1", cmds[5]);
+	    	assertOpCodeEquals("12: aload_1", cmds[6]);
+	    	assertOpCodeEquals("13: invokevirtual #47", cmds[7]);
+	    	assertOpCodeEquals("16: return", cmds[8]);
+    	}
+    	
+    }
    
-
+    private void assertOpCodeEquals(String expected, ByteCodeCommand cmd){
+    	
+    	String acctual = cmd.getOffset()+": "+cmd.getReadableCodeText();
+    	
+    	if(cmd instanceof OneOperandCmd){
+    		if(cmd instanceof BiPushCmd){
+    			acctual += " " + ((OneOperandCmd)cmd).getOperand();
+    		} else{
+    			acctual += " #" + ((OneOperandCmd)cmd).getOperand();
+    		}
+    	}
+    	if(cmd instanceof TwoOperandCmd){
+    		acctual += " #" + ((TwoOperandCmd)cmd).getIndex();
+    	}
+    	Assert.assertEquals(expected, acctual);
+    }
 }

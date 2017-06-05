@@ -9,7 +9,9 @@ import me.lzb.jvm.engine.JavaObject;
 import me.lzb.jvm.engine.StackFrame;
 import me.lzb.jvm.print.ExecutionVisitor;
 
-
+/**
+ * @author LZB
+ */
 public class PutFieldCmd extends TwoOperandCmd {
 
     public PutFieldCmd(ClassFile clzFile, String opCode) {

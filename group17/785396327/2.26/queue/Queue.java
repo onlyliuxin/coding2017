@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 public class Queue<T> extends LinkedList<T> {
 
     public boolean add(T ele) {
-        return add(ele);
+        return super.add(ele);
     }
 
     public T element() {
@@ -20,7 +20,7 @@ public class Queue<T> extends LinkedList<T> {
     }
 
     public boolean offer(T ele) {
-        return add(ele);
+        return this.add(ele);
     }
 
     public T peek() {
@@ -38,6 +38,6 @@ public class Queue<T> extends LinkedList<T> {
     public T remove() {
         if (size() == 0)
             throw new NoSuchElementException("队列中没有元素！");
-        return remove(0);
+        return super.remove(0);
     }
 }

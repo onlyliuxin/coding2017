@@ -78,16 +78,25 @@ public class LinkedList<T> implements List<T> {
     public boolean remove(T ele) {
         if (!contains(ele))
             return false;
-        Node head = first;
-        Node prev = head.prev;
-        while (head != null) {
-            if ((ele == null && ele == head.data) || ele.equals(head.data)) {
-                prev.next = head.next;
+        Node cur = first;
+        Node prev = cur.prev;
+        while (cur != null) {
+            if ((null == ele && null == cur.data) || ele.equals(cur.data)) {
+                if (prev == null) {
+                    //第一个元素
+                    first = cur.next;//下一个元素为总的首元素
+                    if (first != null)//删除当前元素后还有元素
+                        first.prev = null;//首元素的上一个元素为null
+                } else {
+                    //不是第一个元素
+                    prev.next = cur.next;//上一个元素的下一个元素指向当前元素的下一个元素
+                    cur.next.prev = prev;//下一个元素的上一个元素指向当前元素的上一个元素
+                }
                 size--;
                 return true;
             }
-            prev = head;
-            head = head.next;
+            prev = cur;
+            cur = cur.next;
         }
         return false;
     }

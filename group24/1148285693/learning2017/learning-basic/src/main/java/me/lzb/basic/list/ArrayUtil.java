@@ -1,5 +1,8 @@
 package me.lzb.basic.list;
 
+/**
+ * @author LZB
+ */
 public class ArrayUtil {
 
     /**
@@ -68,9 +71,9 @@ public class ArrayUtil {
         int a1 = array1[0];
         int a2 = array2[0];
 
-        if(a1 < a2){
+        if (a1 < a2) {
             mini = a1;
-        }else {
+        } else {
             mini = a2;
         }
 
@@ -88,11 +91,10 @@ public class ArrayUtil {
             int oldMin = mini;
 
 
-
             int aa1 = mini;
-            if(mini < array1[array1.length - 1] ){
+            if (mini < array1[array1.length - 1]) {
                 for (int j = 0; j < array1.length; j++) {
-                    if(array1[j] > mini){
+                    if (array1[j] > mini) {
                         aa1 = array1[j];
                         break;
                     }
@@ -101,9 +103,9 @@ public class ArrayUtil {
             }
 
             int aa2 = mini;
-            if(mini < array2[array2.length - 1] ){
+            if (mini < array2[array2.length - 1]) {
                 for (int j = 0; j < array2.length; j++) {
-                    if(array2[j] > mini){
+                    if (array2[j] > mini) {
                         aa2 = array2[j];
                         break;
                     }
@@ -111,20 +113,20 @@ public class ArrayUtil {
             }
 
 
-            if(aa1 != oldMin && aa2 != oldMin){
-                if(aa1 < aa2){
+            if (aa1 != oldMin && aa2 != oldMin) {
+                if (aa1 < aa2) {
                     mini = aa1;
-                }else {
+                } else {
                     mini = aa2;
                 }
-            }else if(aa1 != oldMin){
+            } else if (aa1 != oldMin) {
                 mini = aa1;
-            }else {
+            } else {
                 mini = aa2;
             }
 
 
-            if(oldMin == mini){
+            if (oldMin == mini) {
                 l3 = i;
                 break;
             }
@@ -137,11 +139,8 @@ public class ArrayUtil {
         System.arraycopy(tmp, 0, result, 0, l3);
 
 
-
         return result;
     }
-
-
 
 
     /**
@@ -170,7 +169,7 @@ public class ArrayUtil {
      * @return
      */
     public int[] fibonacci(int max) {
-        if (max <= 1){
+        if (max <= 1) {
             return new int[0];
         }
 
@@ -181,12 +180,12 @@ public class ArrayUtil {
 
         int n = 0;
 
-        while (n < max){
+        while (n < max) {
             int[] t = new int[result.length + 1];
             System.arraycopy(result, 0, t, 0, result.length);
-            n = t[i-1] + t[i - 2];
+            n = t[i - 1] + t[i - 2];
 
-            if(n >= max){
+            if (n >= max) {
                 return result;
             }
 
@@ -208,29 +207,29 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPrimes(int max) {
-        if (max <= 2){
+        if (max <= 2) {
             return new int[0];
         }
 
-        if (max == 3){
+        if (max == 3) {
             return new int[]{2};
         }
 
 
-        int[] primes = new int[max+1];
+        int[] primes = new int[max + 1];
         primes[0] = 2;
         int count = 1;
         for (int i = 3; i < max; i = i + 2) {
 
             boolean isPrime = true;
             for (int j = 3; j < i; j++) {
-                if(i % j == 0){
+                if (i % j == 0) {
                     isPrime = false;
                     break;
                 }
             }
 
-            if(isPrime){
+            if (isPrime) {
                 primes[count] = i;
                 count = count + 1;
             }
@@ -243,7 +242,7 @@ public class ArrayUtil {
 
     }
 
-    private boolean isPrime(int a){
+    private boolean isPrime(int a) {
         if (a < 2) {
             return false;
         }
@@ -252,20 +251,19 @@ public class ArrayUtil {
             return true;
         }
 
-        if(a % 2 == 0){
+        if (a % 2 == 0) {
             return false;
         }
 
 
         for (int i = 3; i < a; i = i + 2) {
-            if(a % i == 0){
+            if (a % i == 0) {
                 return false;
             }
         }
 
         return true;
     }
-
 
 
     /**
@@ -276,7 +274,7 @@ public class ArrayUtil {
      * @return
      */
     public int[] getPerfectNumbers(int max) {
-        if (max < 6){
+        if (max < 6) {
             return new int[0];
         }
 
@@ -285,12 +283,11 @@ public class ArrayUtil {
 
         int count = 0;
         for (int i = 6; i < max; i++) {
-            if (isPerfectNumber(i)){
+            if (isPerfectNumber(i)) {
                 pns[count] = i;
                 count = count + 1;
             }
         }
-
 
 
         int[] result = new int[count];
@@ -299,21 +296,20 @@ public class ArrayUtil {
     }
 
 
-    private boolean isPerfectNumber(int a){
-        if(a < 6){
+    private boolean isPerfectNumber(int a) {
+        if (a < 6) {
             return false;
         }
 
         int sum = 0;
         for (int i = 1; i < a; i++) {
-            if(a % i == 0){
+            if (a % i == 0) {
                 sum = sum + i;
             }
         }
 
         return sum == a;
     }
-
 
 
     /**
@@ -324,10 +320,10 @@ public class ArrayUtil {
      * @param array
      * @return
      */
-    public static  String join(int[] array, String seperator) {
+    public static String join(int[] array, String seperator) {
         String result = "";
         for (int i = 0; i < array.length; i++) {
-            result = result + array[i] + seperator ;
+            result = result + array[i] + seperator;
         }
 
         result = result.substring(0, result.length() - 1);

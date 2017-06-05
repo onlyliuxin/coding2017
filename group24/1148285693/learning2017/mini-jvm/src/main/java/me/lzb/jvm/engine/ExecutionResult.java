@@ -3,6 +3,10 @@ package me.lzb.jvm.engine;
 
 import me.lzb.jvm.method.Method;
 
+/**
+ * 定义了返回结果，有时候执行结束了是返回，或者，执行下一个方法，等等
+ * @author LZB
+ */
 public class ExecutionResult {
     public static final int RUN_NEXT_CMD = 1;
     public static final int JUMP = 2;

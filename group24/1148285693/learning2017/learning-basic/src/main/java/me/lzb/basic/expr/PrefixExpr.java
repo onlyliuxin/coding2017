@@ -6,7 +6,8 @@ import java.util.Stack;
 
 /**
  * 前缀表达式
- * Created by LZB on 2017/4/20.
+ *
+ * @author LZB
  */
 public class PrefixExpr {
 
