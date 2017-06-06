@@ -1,7 +1,7 @@
 package com.coderising.jvm.method;
 
 import com.coderising.jvm.clz.ClassFile;
-//import com.coderising.jvm.cmd.ByteCodeCommand;
+import com.coderising.jvm.cmd.ByteCodeCommand;
 import com.coderising.jvm.attr.AttributeInfo;
 import com.coderising.jvm.attr.CodeAttr;
 import com.coderising.jvm.attr.LineNumberTable;
@@ -75,9 +75,11 @@ public class Method {
 	public static Method parse(ClassFile clzFile,ConstantPool pool, ByteCodeIterator iter){
 		int accessFlag = iter.nextU2AsInt();
 		int nameIndex = iter.nextU2AsInt();
-		System.out.println("++>MethodName="+pool.getUTF8String(nameIndex));
+		
 		int descIndex = iter.nextU2AsInt();
 		Method method = new Method(clzFile,accessFlag,nameIndex,descIndex);
+		System.out.println("++>MethodName="+pool.getUTF8String(nameIndex)+","+pool.getUTF8String(descIndex));
+		
 		int attrCount = iter.nextU2AsInt();
 		System.out.println("AttrCount="+attrCount);
 		for(int i=0;i<attrCount;i++){
@@ -87,7 +89,7 @@ public class Method {
 		return method;
 	}
 
-//	public ByteCodeCommand[] getCmds() {		
-//		return this.getCodeAttr().getCmds();
-//	}
+	public ByteCodeCommand[] getCmds() {		
+		return this.getCodeAttr().getCmds();
+	}
 }
