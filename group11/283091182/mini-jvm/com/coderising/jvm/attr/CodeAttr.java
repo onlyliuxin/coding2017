@@ -1,6 +1,8 @@
 package com.coderising.jvm.attr;
 
 import com.coderising.jvm.clz.ClassFile;
+import com.coderising.jvm.cmd.ByteCodeCommand;
+import com.coderising.jvm.cmd.CommandParser;
 import com.coderising.jvm.constant.ConstantPool;
 import com.coderising.jvm.loader.ByteCodeIterator;
 
@@ -14,21 +16,21 @@ public class CodeAttr extends AttributeInfo {
 		return code;
 	}
 
-	//private ByteCodeCommand[] cmds ;
-	//public ByteCodeCommand[] getCmds() {
-	//	return cmds;
-	//}
+	private ByteCodeCommand[] cmds ;
+	public ByteCodeCommand[] getCmds() {
+		return cmds;
+	}
 	private LineNumberTable lineNumTable;
 	private LocalVariableTable localVarTable;
 	private StackMapTable stackMapTable;
 	
-	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code /*ByteCodeCommand[] cmds*/) {
+	public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen,String code,ByteCodeCommand[] cmds) {
 		super(attrNameIndex, attrLen);
 		this.maxStack = maxStack;
 		this.maxLocals = maxLocals;
 		this.codeLen = codeLen;
 		this.code = code;
-		//this.cmds = cmds;
+		this.cmds = cmds;
 	}
 
 	public void setLineNumberTable(LineNumberTable t) {
@@ -47,7 +49,8 @@ public class CodeAttr extends AttributeInfo {
 		int maxLocal = iter.nextU2AsInt();
 		int codeLen = iter.nextU4AsInt();
 		String code = iter.getBytesAsHexString(codeLen);
-		CodeAttr codeAttr = new CodeAttr(attrNameIdx, attrLen, maxStack, maxLocal, codeLen, code);
+		ByteCodeCommand[] cmds = CommandParser.parse(clzFile, code);
+		CodeAttr codeAttr = new CodeAttr(attrNameIdx, attrLen, maxStack, maxLocal, codeLen, code,cmds);
 		
 		int exceptionTblLen = iter.nextU2AsInt();
 		if(exceptionTblLen>0){

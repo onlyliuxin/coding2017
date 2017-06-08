@@ -8,7 +8,7 @@ import java.util.List;
  * @author chenming E-mail:cm_20094020@163.com
  * @version 创建时间：2017年5月7日 下午10:16:22
  *
- * 用Queue来实现Josephus问题
+ * 用Queue来实现Josephus问题(约瑟夫环)
  * 在这个古老的问题当中， N个深陷绝境的人一致同意用这种方式减少生存人数：
  * N个人围成一圈（位置记为0到N-1），并且从第一个人报数， 报到M的人会被杀死， 直到最后一个人留下来
  */

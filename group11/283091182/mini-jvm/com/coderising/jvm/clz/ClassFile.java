@@ -91,12 +91,17 @@ public class ClassFile {
 	}
 	
 	public Method getMethod(String methodName, String paramAndReturnType){
-		
+		for(Method m:methods){
+			if(pool.getUTF8String(m.getNameIndex()).equals(methodName) && 
+					pool.getUTF8String(m.getDescriptorIndex()).equals(paramAndReturnType))
+			{
+				return m;
+			}
+		}
 		
 		return null;
 	}
 	public Method getMainMethod(){
-		
-		return null;
+		return this.getMethod("main", "([Ljava/lang/String;)V");
 	}
 }
