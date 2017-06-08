@@ -29,7 +29,7 @@ public class BinarySearchTree<T extends Comparable> {
 	public void remove(T e){
 		
 	}
-	public List<T> c(){
+	public List<T> levelVisit(){
 		
 		return null;
 	}
