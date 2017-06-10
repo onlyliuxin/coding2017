@@ -14,12 +14,12 @@ public class DuckTest {
         duck.preFormFly();
         duck.preFormQuack();
 
+
         duck.setFlyBehavior(new FlyNoWay());
         duck.setQuackBehavior(new Squeak());
 
         duck.preFormFly();
         duck.preFormQuack();
-
     }
 
 }

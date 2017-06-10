@@ -8,7 +8,6 @@ public abstract class Duck {
     private QuackBehavior quackBehavior;
     private FlyBehavior flyBehavior;
 
-
     public void setFlyBehavior(FlyBehavior flyBehavior) {
         this.flyBehavior = flyBehavior;
     }
