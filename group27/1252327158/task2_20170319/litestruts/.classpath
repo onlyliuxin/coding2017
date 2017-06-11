@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="E:/myGitHub/coding2017/group27/1252327158/task2_20170319/litestruts/lib/dom4j-2.0.0-RC1.jar"/>
-	<classpathentry kind="output" path="bin"/>
-</classpath>
