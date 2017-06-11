@@ -1,9 +1,0 @@
-/bin/
-*.class
-*.settings
-*.project
-*.classpath
-*/.settings
-*.iml
-/.idea
-/**/target/**/*

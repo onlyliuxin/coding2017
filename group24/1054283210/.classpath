@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/1054283210Learning/lib/dom4j-1.6.1.jar" sourcepath="C:/Users/英豪/Desktop/dom4j-1.6.1.jar"/>
-	<classpathentry kind="output" path="bin"/>
-</classpath>

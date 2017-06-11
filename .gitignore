@@ -214,9 +214,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-#.gitignore
-=======
-
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -233,8 +230,6 @@ hs_err_pid*
 .metadata
 .recommenders
 
-
-#*.xml
 *.iml
 .idea
 *.iml
@@ -256,8 +251,6 @@ tmp
 
 .metadata
 RemoteSystemsTempFiles
-#.gitignore
-
 
 build/
 .idea/
