@@ -1,5 +1,0 @@
-package com.ace.download.api;
-
-public interface DownloadListener {
-	public void notifyFinished();
-}
