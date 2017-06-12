@@ -10,7 +10,12 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin){
-		
+		int length = origin.length;
+		for(int i = 0; i < length/2; i++){
+			int temp = origin[i];
+			origin[i] = origin[length-1-i];
+			origin[length-1-i] = temp;
+		}
 	}
 	
 	/**
@@ -22,7 +27,21 @@ public class ArrayUtil {
 	 */
 	
 	public int[] removeZero(int[] oldArray){
-		return null;
+		int oldLength = oldArray.length;
+		int zeroCount = 0;
+		for(int i : oldArray){
+			if(i==0){
+				zeroCount++;
+			}
+		}
+		int[] newArray = new int[oldLength-zeroCount];
+		for(int i = 0,j=0; i<oldLength ; i++){
+			if(oldArray[i] != 0){
+				newArray[j] = oldArray[i];
+				j++;
+			}
+		}
+		return newArray;
 	}
 	
 	/**
@@ -92,5 +111,53 @@ public class ArrayUtil {
 		return null;
 	}
 	
-
+	/************************自己增加的方法*******************************/
+	/**
+	 * 删除指定数组中的指定数字，生成一个新数组
+	 * @param array
+	 * @param num
+	 * @return
+	 */
+	
+	public int[] removeNum(int[] oldArray,int num){
+		int oldLength = oldArray.length;
+		int zeroCount = 0;
+		for(int i : oldArray){
+			if(i==0){
+				zeroCount++;
+			}
+		}
+		int[] newArray = new int[oldLength-zeroCount];
+		for(int i = 0,j=0; i<oldLength ; i++){
+			if(oldArray[i] != num){
+				newArray[j] = oldArray[i];
+				j++;
+			}
+		}
+		return newArray;
+	}
+	
+	public String toString(int[] array){
+		String s = "";
+		for(int i : array){
+			s += i+",";
+		}
+		return s.substring(0, s.lastIndexOf(","));
+	}
+	
+	public static void main(String[] args) {
+		ArrayUtil arrayUtil = new ArrayUtil();
+		int[] arr1 = {1,3,5,7,8,9,2,4,6};
+		System.out.println("原数组:"+arrayUtil.toString(arr1));
+		arrayUtil.reverseArray(arr1);
+		System.out.println("结果数组:"+arrayUtil.toString(arr1));
+		System.out.println("***********reverseArray方法测试完************");
+		
+		int[] arr20 = {1,2,4,0,3,5,0,9,0,0,0,1,2,3,4,0,5,4};
+		//int[] arr20 = {1,2,0,3,4,0,5,0,6};
+		System.out.println("原数组:"+arrayUtil.toString(arr20));
+		int[] arrResult = arrayUtil.removeZero(arr20);
+		System.out.println("结果数组:"+arrayUtil.toString(arrResult));
+		System.out.println("***********removeZero方法测试完************");
+	}
 }
