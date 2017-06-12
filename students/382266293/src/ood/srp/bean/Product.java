@@ -1,4 +1,4 @@
-package com.coderising.ood.srp.bean;
+package ood.srp.bean;
 
 import java.util.List;
 

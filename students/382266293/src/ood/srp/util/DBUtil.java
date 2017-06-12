@@ -1,6 +1,6 @@
-package com.coderising.ood.srp.util;
+package ood.srp.util;
 
-import com.coderising.ood.srp.bean.Product;
+import ood.srp.bean.Product;
 
 public class DBUtil {
 

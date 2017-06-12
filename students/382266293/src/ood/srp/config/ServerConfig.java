@@ -1,4 +1,4 @@
-package com.coderising.ood.srp.config;
+package ood.srp.config;
 
 /**
  * Created by onlyLYJ on 2017/6/12.

@@ -1,4 +1,4 @@
-package com.coderising.ood.srp.config;
+package ood.srp.config;
 
 import java.util.HashMap;
 import java.util.Map;

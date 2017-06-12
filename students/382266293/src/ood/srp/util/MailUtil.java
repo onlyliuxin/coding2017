@@ -1,7 +1,7 @@
-package com.coderising.ood.srp.util;
+package ood.srp.util;
 
-import com.coderising.ood.srp.bean.Mail;
-import com.coderising.ood.srp.config.ServerConfig;
+import ood.srp.bean.Mail;
+import ood.srp.config.ServerConfig;
 
 public class MailUtil {
 

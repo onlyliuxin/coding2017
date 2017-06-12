@@ -1,8 +1,8 @@
-package com.coderising.ood.srp.dao;
+package ood.srp.dao;
 
-import com.coderising.ood.srp.bean.Mail;
-import com.coderising.ood.srp.bean.Product;
-import com.coderising.ood.srp.bean.Subscriber;
+import ood.srp.bean.Mail;
+import ood.srp.bean.Product;
+import ood.srp.bean.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;

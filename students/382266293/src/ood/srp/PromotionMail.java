@@ -1,6 +1,6 @@
-package com.coderising.ood.srp;
+package ood.srp;
 
-import com.coderising.ood.srp.bean.Mail;
+import ood.srp.bean.Mail;
 
 import java.io.File;
 import java.util.List;

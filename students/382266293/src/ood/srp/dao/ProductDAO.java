@@ -1,6 +1,6 @@
-package com.coderising.ood.srp.dao;
+package ood.srp.dao;
 
-import com.coderising.ood.srp.bean.Product;
+import ood.srp.bean.Product;
 
 import java.io.BufferedReader;
 import java.io.File;

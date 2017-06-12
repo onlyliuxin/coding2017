@@ -1,12 +1,12 @@
-package com.coderising.ood.srp;
+package ood.srp;
 
-import com.coderising.ood.srp.bean.Mail;
-import com.coderising.ood.srp.bean.Product;
-import com.coderising.ood.srp.config.Configuration;
-import com.coderising.ood.srp.config.ServerConfig;
-import com.coderising.ood.srp.dao.MailDAO;
-import com.coderising.ood.srp.dao.ProductDAO;
-import com.coderising.ood.srp.util.MailUtil;
+import ood.srp.bean.Mail;
+import ood.srp.bean.Product;
+import ood.srp.config.Configuration;
+import ood.srp.config.ServerConfig;
+import ood.srp.dao.MailDAO;
+import ood.srp.dao.ProductDAO;
+import ood.srp.util.MailUtil;
 
 import java.io.File;
 import java.util.List;

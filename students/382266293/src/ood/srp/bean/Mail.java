@@ -1,4 +1,4 @@
-package com.coderising.ood.srp.bean;
+package ood.srp.bean;
 
 /**
  * Created by onlyLYJ on 2017/6/12.
