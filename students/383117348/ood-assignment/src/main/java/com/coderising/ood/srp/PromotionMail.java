@@ -1,199 +1,101 @@
 package com.coderising.ood.srp;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Serializable;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class PromotionMail {
 
-
-	protected String sendMailQuery = null;
-
-
-	protected String smtpHost = null;
-	protected String altSmtpHost = null; 
-	protected String fromAddress = null;
-	protected String toAddress = null;
 	protected String subject = null;
 	protected String message = null;
 
-	protected String productID = null;
-	protected String productDesc = null;
+	private static List<String[]> products = new ArrayList<String[]>();
 
-	private static Configuration config; 
-	
-	
-	
-	private static final String NAME_KEY = "NAME";
-	private static final String EMAIL_KEY = "EMAIL";
-	
+	private static String filePath = "E:\\coding2017\\students\\383117348\\ood-assignment\\src\\main\\java\\com\\coderising\\ood\\srp\\product_promotion.txt";
+
+	private UserInfoService uis = new UserInfoServiceImpl();
+
+	public PromotionMail(File file) throws Exception {
+		// 读取配置文件， 文件中只有一行用空格隔开， 例如 P8756 iPhone8
+		readFile(file);
+	}
 
 	public static void main(String[] args) throws Exception {
-
-		File f = new File("C:\\coderising\\workspace_ds\\ood-example\\src\\product_promotion.txt");
-		boolean emailDebug = false;
-
-		PromotionMail pe = new PromotionMail(f, emailDebug);
-
-	}
-
-	
-	public PromotionMail(File file, boolean mailDebug) throws Exception {
-		
-		//读取配置文件， 文件中只有一行用空格隔开， 例如 P8756 iPhone8
-		readFile(file);
-
-		
-		config = new Configuration();
-		
-		setSMTPHost();
-		setAltSMTPHost(); 
-	
-
-		setFromAddress();
-
-		
-		setLoadQuery();
-		
-		sendEMails(mailDebug, loadMailingList()); 
-
-		
-	}
-
-
-
-
-	protected void setProductID(String productID) 
-	{ 
-		this.productID = productID; 
-		
-	} 
-
-	protected String getproductID() 
-	{
-		return productID; 
-	} 
-
-	protected void setLoadQuery() throws Exception {
-		
-		sendMailQuery = "Select name from subscriptions "
-				+ "where product_id= '" + productID +"' "
-				+ "and send_mail=1 ";
-		
-		
-		System.out.println("loadQuery set");
-	}
-
-	
-	protected void setSMTPHost() 
-	{
-		smtpHost = config.getProperty(ConfigurationKeys.SMTP_SERVER); 
-	}
-
-	
-	protected void setAltSMTPHost() 
-	{
-		altSmtpHost = config.getProperty(ConfigurationKeys.ALT_SMTP_SERVER); 
-
-	}
-
-	
-	protected void setFromAddress() 
-	{
-			fromAddress = config.getProperty(ConfigurationKeys.EMAIL_ADMIN); 
-	}
-
-	protected void setMessage(HashMap userInfo) throws IOException 
-	{
-		
-		String name = (String) userInfo.get(NAME_KEY);
-		
-		subject = "您关注的产品降价了";
-		message = "尊敬的 "+name+", 您关注的产品 " + productDesc + " 降价了，欢迎购买!" ;		
-				
-		
-
-	}
-
-	
-	protected void readFile(File file) throws IOException // @02C
-	{
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new FileReader(file));
-			String temp = br.readLine();
-			String[] data = temp.split(" ");
-			
-			setProductID(data[0]); 
-			setProductDesc(data[1]); 
-			
-			System.out.println("产品ID = " + productID + "\n");
-			System.out.println("产品描述 = " + productDesc + "\n");
-
-		} catch (IOException e) {
-			throw new IOException(e.getMessage());
-		} finally {
-			br.close();
+		File f = FileUtil.readFile(filePath);
+		PromotionMail pe = new PromotionMail(f);
+		// 遍历每条产品信息
+		for (String[] data : products) {
+			List<Map<String, String>> list = pe.loadUserInfoList(data[0]);
+			if (list != null && list.size() > 0) {
+				pe.sendEMails(list, data[1]);
+			}
 		}
 	}
 
-	private void setProductDesc(String desc) {
-		this.productDesc = desc;		
+	/**
+	 * 读取产品文件,获得所有的产品信息
+	 * 
+	 * @param file
+	 */
+	protected void readFile(File file) {
+		List<String[]> datas = FileUtil.parseToString(file, " ");
+		if (datas != null && datas.size() > 0) {
+			products = datas;
+			for (String[] data : products) {
+				System.out.print("产品ID = " + data[0] + "\n");
+				System.out.println("产品描述 = " + data[1] + "\n");
+			}
+		}
 	}
 
-
-	protected void configureEMail(HashMap userInfo) throws IOException 
-	{
-		toAddress = (String) userInfo.get(EMAIL_KEY); 
-		if (toAddress.length() > 0) 
-			setMessage(userInfo); 
+	/**
+	 * 根据产品id获取需要发送的用户信息,暂未考虑sql注入的安全问题
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	protected List<Map<String, String>> loadUserInfoList(String productID) throws Exception {
+		return uis.getList(productID);
 	}
 
-	protected List loadMailingList() throws Exception {
-		return DBUtil.query(this.sendMailQuery);
+	/**
+	 * 设置发送的消息体
+	 * 
+	 * @param name
+	 * @throws IOException
+	 */
+	protected void setMessage(String name, String productDesc) throws IOException {
+		this.subject = "您关注的产品降价了";
+		this.message = "尊敬的 " + name + ", 您关注的产品 " + productDesc + " 降价了，欢迎购买!";
 	}
-	
-	
-	protected void sendEMails(boolean debug, List mailingList) throws IOException 
-	{
+
+	/**
+	 * 发送邮件
+	 * 
+	 * @param mailingList
+	 * @throws IOException
+	 */
+	protected void sendEMails(List<Map<String, String>> mailingList, String productDesc) throws IOException {
 
 		System.out.println("开始发送邮件");
-	
 
 		if (mailingList != null) {
-			Iterator iter = mailingList.iterator();
+			Iterator<Map<String, String>> iter = mailingList.iterator();
 			while (iter.hasNext()) {
-				configureEMail((HashMap) iter.next());  
-				try 
-				{
-					if (toAddress.length() > 0)
-						MailUtil.sendEmail(toAddress, fromAddress, subject, message, smtpHost, debug);
-				} 
-				catch (Exception e) 
-				{
-					
-					try {
-						MailUtil.sendEmail(toAddress, fromAddress, subject, message, altSmtpHost, debug); 
-						
-					} catch (Exception e2) 
-					{
-						System.out.println("通过备用 SMTP服务器发送邮件失败: " + e2.getMessage()); 
-					}
-				}
+				Map<String, String> map = iter.next();
+				String toAddress = (String) map.get("EMAIL");
+				String name = (String) map.get("NAME");
+				setMessage(name, productDesc);
+				if (toAddress != null && toAddress.length() > 0)
+					MailUtil.sendEmail(toAddress, subject, message);
 			}
-			
-
-		}
-
-		else {
+		} else {
 			System.out.println("没有邮件发送");
-			
 		}
 
 	}
+
 }
