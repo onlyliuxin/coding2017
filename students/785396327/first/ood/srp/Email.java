@@ -11,19 +11,6 @@ public class Email {
     protected String subject;
     protected String message;
 
-    public Email() {
-
-    }
-
-    public Email(String smtpHost, String altSmtpHost, String fromAddress, String toAddress, String subject, String message) {
-        this.smtpHost = smtpHost;
-        this.altSmtpHost = altSmtpHost;
-        this.fromAddress = fromAddress;
-        this.toAddress = toAddress;
-        this.subject = subject;
-        this.message = message;
-    }
-
     protected void setSMTPHost(String smtpHost) {
         this.smtpHost = smtpHost;
     }

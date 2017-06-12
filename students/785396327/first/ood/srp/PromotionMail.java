@@ -1,12 +1,8 @@
 package first.ood.srp;
 
 public class PromotionMail extends Email {
-    private String productID = null;
-    private String productDesc = null;
-
-    public PromotionMail(Email email) {
-        super(email.smtpHost, email.altSmtpHost, email.fromAddress, email.toAddress, email.subject, email.message);
-    }
+    private String productID;
+    private String productDesc;
 
     public void setProductID(String productID) {
         this.productID = productID;

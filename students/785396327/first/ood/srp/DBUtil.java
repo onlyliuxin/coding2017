@@ -13,8 +13,8 @@ public class DBUtil {
      * @param sql
      * @return
      */
-    public static List<HashMap<String, String>> query(String sql) {
-//        validateSQL(sql, params);
+    public static List<HashMap<String, String>> query(String sql, Object[] params) {
+        formateSQL(sql, params);
 
         List userList = new ArrayList();
         for (int i = 1; i <= 3; i++) {
@@ -27,12 +27,17 @@ public class DBUtil {
         return userList;
     }
 
-    private static void validateSQL(String sql, Object[] params) {
+    private static String formateSQL(String sql, Object[] params) {
         if (StringUtils.isEmpty(sql))
             throw new RuntimeException("empty sql");
         String[] sqlFaction = sql.split("\\?");
         if (sqlFaction.length - 1 != params.length)
             throw new RuntimeException("wrong number of parameters");
+        for (int i = 0; i < params.length; i++) {
+            sql = sql.replaceFirst("\\?", "'" + params[i].toString() + "'");
+        }
 
+        return sql;
     }
+
 }
