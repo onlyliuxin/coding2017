@@ -1,8 +1,15 @@
-package com.coderising.ood.srp;
+package com.coderising.ood.srp.util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 模拟获取数据库
+ * <p>标题: </p>
+ * <p>描述: </p>
+ * @autho zx
+ * @time 2017年6月12日 下午11:47:21
+*/
 public class DBUtil {
 	
 	/**
