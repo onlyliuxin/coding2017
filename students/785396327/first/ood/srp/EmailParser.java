@@ -9,10 +9,10 @@ import java.util.List;
  */
 public class EmailParser {
 
-    public List<PromotionMail> parseEmailList(String filepath, String loadQuery, Object[] params) {
+    public List<PromotionMail> parseEmailList(String filepath, String loadQuery) {
         PromotionMail email = packageInfoFromConfig();
         packageInfoFromFile(email, filepath);
-        return packageInfoFromDB(loadQuery, email, params);
+        return packageInfoFromDB(loadQuery, email);
     }
 
     private String parseMessage(HashMap<String, String> map, PromotionMail promotionMail) {
@@ -26,8 +26,8 @@ public class EmailParser {
     }
 
 
-    private List<PromotionMail> packageInfoFromDB(String loadQuery, PromotionMail email, Object[] params) {
-        List<HashMap<String, String>> individualInfo = getIndividualInfo(loadQuery, params);
+    private List<PromotionMail> packageInfoFromDB(String loadQuery, PromotionMail email) {
+        List<HashMap<String, String>> individualInfo = getIndividualInfo(loadQuery, new Object[]{email.getproductID()});
         List<PromotionMail> mailList = new ArrayList<PromotionMail>();
         for (HashMap<String, String> map : individualInfo) {
             PromotionMail completeMail = new PromotionMail();
