@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -35,7 +34,7 @@ public class PromotionMail {
 
 	public static void main(String[] args) throws Exception {
 
-		File f = new File("C:\\coderising\\workspace_ds\\ood-example\\src\\product_promotion.txt");
+		File f = new File("C:\\Users\\pikachu\\IdeaProjects\\coding2017\\students\\3903150101\\ood\\ood-assignment\\src\\main\\java\\com\\coderising\\ood\\srp\\product_promotion.txt");
 		boolean emailDebug = false;
 
 		PromotionMail pe = new PromotionMail(f, emailDebug);
