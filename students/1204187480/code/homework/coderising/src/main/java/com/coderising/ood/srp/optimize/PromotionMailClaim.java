@@ -3,7 +3,7 @@ package com.coderising.ood.srp.optimize;
 /**
  * Created by luoziyihao on 6/12/17.
  */
-public class EmailSendClaim {
+public class PromotionMailClaim {
     private String toAddress;
     private String fromAddress;
     private String subject;
