@@ -3,6 +3,7 @@ package com.coderising.ood.srp.optimize;
 import java.util.List;
 
 /**
+ * main 函数启动类
  * Created by luoziyihao on 6/12/17.
  */
 public class PromotionMailApp {

@@ -3,6 +3,7 @@ package com.coderising.ood.srp.optimize;
 import java.util.List;
 
 /**
+ * 发邮件的行为类
  * Created by luoziyihao on 6/12/17.
  */
 public class PromotionMailableBehavior {

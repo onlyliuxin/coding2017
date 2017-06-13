@@ -1,6 +1,7 @@
 package com.coderising.ood.srp.optimize;
 
 /**
+ * 用户类
  * Created by luoziyihao on 6/12/17.
  */
 public class User {

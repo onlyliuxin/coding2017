@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 用户service, 管理用户的数据
  * Created by luoziyihao on 6/12/17.
  */
 public class UserService {

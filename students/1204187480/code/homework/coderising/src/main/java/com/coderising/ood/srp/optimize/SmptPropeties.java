@@ -1,6 +1,7 @@
 package com.coderising.ood.srp.optimize;
 
 /**
+ * 邮件服务器配置类
  * Created by luoziyihao on 6/12/17.
  */
 public class SmptPropeties {

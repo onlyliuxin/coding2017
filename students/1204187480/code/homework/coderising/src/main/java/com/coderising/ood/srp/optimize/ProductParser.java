@@ -7,6 +7,7 @@ import static com.coding.common.util.FileUtils2.openStream;
 import static com.coding.common.util.IOUtils2.readToStringList;
 
 /**
+ * 产品文件解析器
  * Created by luoziyihao on 6/12/17.
  */
 public class ProductParser {

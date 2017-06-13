@@ -1,8 +1,7 @@
 package com.coderising.ood.srp.optimize;
 
-import lombok.Setter;
-
 /**
+ * 产品对象
  * Created by luoziyihao on 6/12/17.
  */
 

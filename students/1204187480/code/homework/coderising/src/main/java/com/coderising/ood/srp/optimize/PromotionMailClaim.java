@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 发发送邮件的必要参数 vo
  * Created by luoziyihao on 6/12/17.
  */
 public class PromotionMailClaim {
