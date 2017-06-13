@@ -1,1 +1,0 @@
-学习-CPU、内存、硬盘、指令及它们之间的关系:　https://stevenshane.github.io/study/2017/02/27/coding2017-reading.html
