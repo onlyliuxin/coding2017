@@ -1,4 +1,4 @@
-package java.com.coderising.ood.srp;
+package com.coderising.ood.srp;
 
 public class MailUtil {
 
