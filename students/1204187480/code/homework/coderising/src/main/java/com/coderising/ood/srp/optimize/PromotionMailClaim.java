@@ -32,7 +32,7 @@ public class PromotionMailClaim {
         for (Product product : products) {
             for (User user : users) {
                 PromotionMailClaim promotionMailClaim = new PromotionMailClaim()
-                        .init(product, user, smptPropeties, true);
+                        .init(product, user, smptPropeties, mailDebug);
                 promotionMailClaims.add(promotionMailClaim);
             }
         }
