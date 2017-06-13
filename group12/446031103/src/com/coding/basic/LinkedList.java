@@ -1,5 +1,12 @@
 package com.coding.basic;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import org.junit.experimental.theories.Theories;
+
+import sun.reflect.Reflection;
+
 /**
  * 
  * LinkedList集合-链
@@ -221,5 +228,143 @@ public class LinkedList implements List {
 			this.data = data;
 			this.next = next;
 		}
+	}
+	/**
+	 * 把该链表逆置
+	 * 例如链表为 3->7->10 , 逆置后变为  10->7->3
+	 */
+	public  void reverse(){		
+		for (int i = size; i <0; i--) {
+			Node last=(Node) get(i);
+			if(0==i)
+				last.next = null;
+			else
+			last.next = (Node) get(i-1);
+		}
+	}
+	
+	/**
+	 * 删除一个单链表的前半部分
+	 * 例如：list = 2->5->7->8 , 删除以后的值为 7->8
+	 * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
+	 */
+	public  void removeFirstHalf(){
+		
+			for (int i = 0; i < size%2; i++) {
+				remove(i);
+			}
+	}
+	
+	/**
+	 * 从第i个元素开始， 删除length 个元素 ， 注意i从0开始
+	 * @param i
+	 * @param length
+	 */
+	public  void remove(int i, int length){
+		for (int a = i; a < i+length; a++) {
+			remove(a);
+		}
+		
+	}
+	/**
+	 * 假定当前链表和list均包含已升序排列的整数
+	 * 从当前链表中取出那些list所指定的元素
+	 * 例如当前链表 = 11->101->201->301->401->501->601->701
+	 * listB = 1->3->4->6
+	 * 返回的结果应该是[101,301,401,601]  
+	 * @param list
+	 */
+	public static int[] getElements(LinkedList list){
+		int [] result =new int[list.size];
+		Class<?> callClass=Reflection.getCallerClass();
+		for (int i = 0; i < list.size; i++) {
+			Node node=(Node) list.get(i);
+			try {
+				Method method=callClass.getDeclaredMethod("get", new Class[]{int.class});
+				result[i]=(int) method.invoke(callClass, new Object[]{node.data});
+			} catch (NoSuchMethodException | SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
+	 * 从当前链表中中删除在list中出现的元素 
+
+	 * @param list
+	 */
+	
+	public  void subtract(LinkedList list){	
+		for (int i = 0; i < list.size; i++) {
+			Node node=(Node) list.get(i);
+			for (int j = 0; j < size; j++) {
+				Node orgNode=(Node) get(i);
+				if (node.data.equals(orgNode.data)) {
+					remove(j);
+				}
+			}		
+		}
+	}
+	
+	/**
+	 * 已知当前链表中的元素以值递增有序排列，并以单链表作存储结构。
+	 * 删除表中所有值相同的多余元素（使得操作后的线性表中所有元素的值均不相同）
+	 */
+	public  void removeDuplicateValues(){
+		for (int i = 0; i < size; i++) {
+			Node node=(Node) get(i);
+			for (int j = i+1; j < size; j++) {
+				Node newNode=(Node) get(j);
+				if(newNode.data.equals(node.data))
+					remove(j);
+			}
+		}
+	}
+	
+	/**
+	 * 已知链表中的元素以值递增有序排列，并以单链表作存储结构。
+	 * 试写一高效的算法，删除表中所有值大于min且小于max的元素（若表中存在这样的元素）
+	 * @param min
+	 * @param max
+	 */
+	public  void removeRange(int min, int max){
+		for (int i = 0; i < size; i++) {
+			Node node=(Node) get(i);
+			if((int)node.data>min && (int)node.data<max)
+				remove(i);
+		}
+	}
+	
+	/**
+	 * 假设当前链表和参数list指定的链表均以元素依值递增有序排列（同一表中的元素值各不相同）
+	 * 现要求生成新链表C，其元素为当前链表和list中元素的交集，且表C中的元素有依值递增有序排列
+	 * @param list
+	 */
+	public  LinkedList intersection( LinkedList list){
+		LinkedList newList = new LinkedList();
+		for (int i = 0; i < size; i++) {
+			Node node=(Node) get(i);
+			for (int j = 0; j < list.size; j++) {
+				Node newNode=(Node) get(j);
+				if(newNode.data.equals(node.data)){
+					newList.add(node);
+					break;
+				}
+					
+			}
+		}
+		return newList;
 	}
 }

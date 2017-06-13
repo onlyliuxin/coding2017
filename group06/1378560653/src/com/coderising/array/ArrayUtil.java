@@ -10,6 +10,10 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin){
+		//一定要判断边界条件
+		if(origin == null || origin.length == 0){
+			return;
+		}
 		int N = origin.length;
 		for(int i = 0; i < N/2; i++){
 			int temp = origin[i];

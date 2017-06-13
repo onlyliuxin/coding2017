@@ -1,4 +1,4 @@
-package com.coderising.litestruts;
+package com.github.PingPi357.coding2017.homework2.litestruts;
 
 /**
  * 这是一个用来展示登录的业务类， 其中的用户名和密码都是硬编码的。

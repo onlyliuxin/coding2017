@@ -1,5 +1,9 @@
 package com.github.HarryHook.coding2017.array;
 
+import java.util.Arrays;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
 public class ArrayUtil 
 {
 	
@@ -11,7 +15,12 @@ public class ArrayUtil
 	 * @return
 	 */
 	public void reverseArray(int[] origin)
-	{
+	{	
+		if(origin == null || origin.length == 0)
+		{
+			return ;
+		}
+		
 		 for(int i=0, j = origin.length-1; i<j; i++, j--)
 		 {
 			 int t = origin[i];
@@ -31,7 +40,10 @@ public class ArrayUtil
 	public int[] removeZero(int[] oldArray)
 	{	//传进空数组是返回空数组
 		if(oldArray == null)
+		{
 			return null;
+		}
+			
 		int count = 0; //统计非零元素个数
 		int b[] = new int[oldArray.length];
 		//先统计非零元素个数，并将非零元素存入一个和原数组同样大小的新数组
@@ -42,22 +54,9 @@ public class ArrayUtil
 				b[count++] = oldArray[i];
 			}	
 		}
-		//初始化一个元素个数为非零元素个数的新数组
-		int newArray[] = new int[count]; 
 		//将非零元素copy到新数组
-		System.arraycopy(b, 0, newArray, 0, count);
-		
-		/*
-		 * int k=0;
-		for(int i=0; i<oldArray.length; i++)
-		{
-			if(oldArray[i] != 0)
-			{
-				newArray[k++] = oldArray[i];   
-			}
-		}*/
-		
-		return newArray;
+		return Arrays.copyOf(b, count);
+
 	}
 	
 	/**
@@ -70,8 +69,14 @@ public class ArrayUtil
 	
 	public int[] merge(int[] array1, int[] array2)
 	{   //当array1和array2都为空时，返回空
-		if(array1 == null && array2 == null)
-			return null;
+		if(array1 == null)
+		{
+			return array2;
+		}
+		if(array2 == null)
+		{
+			return array1;
+		}
 		int[] newArray = new int[array1.length + array2.length];
 		//应该让a1，a2两个数组先进行比较 比较后插入元素
 		int i = 0;  //array1下标
@@ -102,10 +107,8 @@ public class ArrayUtil
 			newArray[count++] = array1[i++];
 		}
 	
-		int[] newArray1 = new int[count];
-		System.arraycopy(newArray, 0, newArray1, 0, count);
-		
-		return  newArray1;
+
+		return  Arrays.copyOf(newArray, count);
 	}
 	/**
 	 * 把一个已经存满数据的数组 oldArray的容量进行扩展， 扩展后的新数据大小为oldArray.length + size
@@ -120,7 +123,9 @@ public class ArrayUtil
 	public int[] grow(int [] oldArray,  int size)
 	{
 		if(oldArray == null)
+		{
 			return null;
+		}
 		if(size < 0)
 			throw new IndexOutOfBoundsException("size小于0");
 		int[] newArray = new int[oldArray.length + size];
@@ -138,24 +143,32 @@ public class ArrayUtil
 	public int[] fibonacci(int max)
 	{	
 		if(max == 1)
+		{
 			return new int[0];
+		}
+		if(max == 2)
+		{
+			return new int[] {1, 1};
+		}
 		//先将max设置为数组长度,但会浪费空间
 		int[] a = new int[max];
 		a[0] = 1;
 		a[1] = 1;
+		int count = 2;
 		for(int i=2; i<max; i++)
-			a[i] = a[i-1] + a[i-2];
-		//再将max与数组中元素进行比较，获得元素节点位置
-		int j = 0;
-		for(j = 0; j<a.length; j++)
 		{
-			if(max < a[j])
+			a[i] = a[i-1] + a[i-2];
+			if(a[i] >= max)
+			{
 				break;
+			}
+			else
+			{
+				count++;
+			}
 		}
-		int[] newArray = new int[j];
-		System.arraycopy(a, 0, newArray, 0, j);
 			
-		return newArray;
+		return Arrays.copyOf(a, count);
 	}
 	
 	/**
@@ -171,33 +184,35 @@ public class ArrayUtil
 		 */
 		//max小于3时，返回空数组
 		if(max < 3)
-			return new int[0];
-		int[] Array = new int[max];
-		int count = 0;  //
-		int n = 0;
-		//判断小于max的数有哪些是素数
-		for(n = 2; n < max; n++)
 		{
-			if( count < max)
-		    {	
-				//判断当前n是不是素数
-				int i = 2;
-				while(i < n)  
-				{
-					if(n % i == 0)
-						break;
-					if(n % i != 0)
-						i++;
-				}
-				if(i == n)
-				{	//将素数统计出来
-					Array[count++] = n;
-				}
+			return new int[0];
+		}
+		int[] array = new int[max];
+		int count = 0;  
+
+		for(int n = 2; n < max; n++)
+		{
+			if(isPrime(n))
+			{
+				array[count++] = n;
 			}
 		}
-		int[] newArray = new int[count];
-		System.arraycopy(Array, 0, newArray, 0, count);
-		return newArray;
+		
+		return Arrays.copyOf(array, count);
+	}
+
+	private boolean isPrime(int n)
+	{
+		//判断当前n是不是素数
+		int i = 2;
+		while(i < n)  
+		{
+			if(n % i == 0)
+				break;
+			if(n % i != 0)
+				i++;
+		}
+		return i == n;
 	}
 	
 	/**
@@ -207,27 +222,29 @@ public class ArrayUtil
 	 * @return
 	 */
 	public int[] getPerfectNumbers(int max)
-	{
-		int[] Array = new int[max];
-		
-		int n = 0;
+	{	
+		if(max < 0)
+		{
+			return null;
+		}
+		int[] array = new int[max];
 		int count = 0;
-		int i = 0;
-		for(n = 2; n < max; n++)
+		
+		for(int n = 2; n < max; n++)
 		{
 			int sum = 0;
-			for(i=1; i<n; i++)
+			for(int i=1; i<n; i++)
 			{
 				if(n%i == 0)
 					sum += i;
 			}
 			if(sum == n)
-				Array[count++] = n;
+			{
+				array[count++] = n;
+			}
 		}
 		
-		int[] newArray = new int[count];
-		System.arraycopy(Array, 0, newArray, 0, count);
-		return newArray;
+		return Arrays.copyOf(array, count);
 	}
 	
 	/**
@@ -240,18 +257,26 @@ public class ArrayUtil
 	 */
 	public String join(int[] array, String seperator)
 	{
-		String s = null;
-		if(array.length == 0)
-			return "";
-		s = Integer.toString(array[0]);
-		if(array.length > 1)
+		if(array == null )
 		{
-			s = s + seperator;
-			for(int i=1; i<array.length-1; i++)
-				s = s + array[i] + seperator;
-			s = s + array[array.length -1];
-		}	
-		return s;
+			return null;
+		}
+		if(array.length == 0)
+		{
+			return "";
+		}
+		
+		StringBuilder buffer = new StringBuilder();
+		for(int i=0; i<array.length; i++)
+		{
+			buffer.append(array[i]);
+			if(i < array.length -1)
+			{
+				buffer.append(seperator);
+			}
+		}
+	 
+		return buffer.toString();
 	}
 	
  

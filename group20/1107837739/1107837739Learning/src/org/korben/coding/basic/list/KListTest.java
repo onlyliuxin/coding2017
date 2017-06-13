@@ -24,6 +24,9 @@ public class KListTest {
         // 测试KLinkedList
         list = new KLinkedList<>();
 
+        //// 测试KDoubleLinkedList
+        //list = new KDoubleLinkedList<>();
+
         initTestSize = 5;
 
         for (int i = 0; i < initTestSize; i++) {

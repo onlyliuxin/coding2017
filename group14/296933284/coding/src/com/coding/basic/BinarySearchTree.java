@@ -1,16 +1,10 @@
 package com.coding.basic;
 
-/**
- * BST 二叉排序树  实现 第14小组 296933284
- * 
- * @author Tonnyson
- *
- */
-public class BinarySearchTree implements Comparable {
+public class BinarySearchTree<T extends Comparable> {
 
-	private Object data;
-	private BinarySearchTree leftChild;
-	private BinarySearchTree rightChild;
+	private T data;
+	private BinarySearchTree<T> leftChild;
+	private BinarySearchTree<T> rightChild;
 
 	public BinarySearchTree() {
 		super();
@@ -19,79 +13,50 @@ public class BinarySearchTree implements Comparable {
 		this.rightChild = null;
 	}
 
-	public BinarySearchTree(Object data) {
+	public BinarySearchTree(T data) {
 		this();
 		this.data = data;
 	}
 
-	public Object getData() {
+	public T getData() {
 		return data;
 	}
 
-	public void setData(Object data) {
-		this.data = data;
-	}
-
-	public BinarySearchTree getLeftChild() {
+	public BinarySearchTree<T> getLeftChild() {
 		return leftChild;
 	}
 
-	public void setLeftChild(BinarySearchTree leftChild) {
-		this.leftChild = leftChild;
-	}
-
-	public BinarySearchTree getRightChild() {
+	public BinarySearchTree<T> getRightChild() {
 		return rightChild;
 	}
 
-	public void setRightChild(BinarySearchTree rightChild) {
+	public void setData(T data) {
+		this.data = data;
+	}
+
+	public void setLeftChild(BinarySearchTree<T> leftChild) {
+		this.leftChild = leftChild;
+	}
+
+	public void setRightChild(BinarySearchTree<T> rightChild) {
 		this.rightChild = rightChild;
 	}
 
-	/**
-	 * 向树中插入节点
-	 * 
-	 * @param obj
-	 *            节点值
-	 */
-	public void insert(Object obj) {
-		insert(obj, this);
+	public void insert(T element) {
+		insert(element, this);
 	}
 
-	private boolean insert(Object obj, BinarySearchTree node) {
+	private boolean insert(T element, BinarySearchTree<T> node) {
 
-		BinarySearchTree bstNode = new BinarySearchTree(obj);
+		BinarySearchTree<T> bstNode = new BinarySearchTree(element);
 
-		if (node == null) {
-			node = bstNode;
-			return true;
-		} else if (node.compareTo(obj) == 0) {
-			return true;
-		} else if (node.compareTo(obj) > 0) {
 
-			if (node.getLeftChild() != null) {
-				return insert(obj, node.getLeftChild());
-			}
-
-			node.leftChild = bstNode;
-
-		} else if (node.compareTo(obj) < 0) {
-
-			if (node.getRightChild() != null) {
-				return insert(obj, node.getRightChild());
-			}
-
-			node.rightChild = bstNode;
-		}
 
 		return false;
 
 	}
 
-	/**
-	 * 中序遍历 BST 的节点，使之有序输出
-	 */
-	public void inOrder(BinarySearchTree node) {
+	public void inOrder(BinarySearchTree<T> node) {
 
 		if (node != null) {
 			inOrder(node.getLeftChild());
@@ -101,12 +66,9 @@ public class BinarySearchTree implements Comparable {
 
 	}
 
-	/**
-	 * 层序遍历 BST 的节点值
-	 */
-	public void levelOrder(BinarySearchTree node) {
+	public void levelOrder(BinarySearchTree<T> node) {
 		Queue queue = new Queue();
-		BinarySearchTree bstNode = null;
+		BinarySearchTree<T> bstNode = null;
 		queue.enQueue(node);
 
 		while (!queue.isEmpty()) {
@@ -123,32 +85,8 @@ public class BinarySearchTree implements Comparable {
 		}
 	}
 	
-	/**
-	 * 访问指定节点值
-	 * 
-	 * @param node
-	 */
-	public void visit(BinarySearchTree node) {
+	public void visit(BinarySearchTree<T> node) {
 		System.out.println(node.getData());
-	}
-
-	/**
-	 * 比较 BST 节点值大小
-	 */
-	@Override
-	public int compareTo(Object obj) {
-		int result = 0;
-
-		if (obj instanceof Integer) {
-			Integer value = (Integer) obj;
-			Integer thisValue = (Integer) this.data;
-			result = thisValue.compareTo(value);
-		} else {
-			String value = obj.toString();
-			result = this.data.toString().compareTo(value);
-		}
-
-		return result;
 	}
 
 }

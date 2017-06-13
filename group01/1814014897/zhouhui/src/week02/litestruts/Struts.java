@@ -6,8 +6,9 @@ import java.util.*;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
-import week01.BasicDataStructure.LinkedList;
-import week01.BasicDataStructure.List;
+
+import week01.datastructure.LinkedList;
+import week01.datastructure.List;
 
 /**
  * @author Hui Zhou

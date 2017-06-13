@@ -43,11 +43,7 @@ public class Struts {
         try {
             clazz = Class.forName(className);
             obj = clazz.newInstance();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
 
@@ -56,13 +52,10 @@ public class Struts {
         String result = null;
 
         try {
+            assert clazz != null;
             Method method = clazz.getDeclaredMethod("execute");
             result = (String) method.invoke(obj);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
 
@@ -98,9 +91,7 @@ public class Struts {
                 Field field = clazz.getDeclaredField(name);
                 field.setAccessible(true);
                 field.set(obj, value);
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (NoSuchFieldException | IllegalAccessException e) {
                 e.printStackTrace();
             }
         }

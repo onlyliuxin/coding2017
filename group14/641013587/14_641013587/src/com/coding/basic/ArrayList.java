@@ -7,7 +7,7 @@ public class ArrayList implements List {
 	private Object[] elementData = new Object[100];
 	
 	public void add(Object o){
-		//找出最后一个空的位置赋值
+		//脮脪鲁枚脳卯潞贸脪禄赂枚驴脮碌脛脦禄脰脙赂鲁脰碌
 		for(int i=0;i<elementData.length;i++){
 			if(elementData[i]==null){
 				elementData[i]=o;

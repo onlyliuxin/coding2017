@@ -6,7 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.coding.Queue;
+import com.coding.basic.Queue;
+
 
 public class QueueTest {
 	

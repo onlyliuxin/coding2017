@@ -2,22 +2,22 @@ package com.coding.basic;
 
 import java.util.EmptyStackException;
 
-public class Stack {
-	private ArrayList elementData = new ArrayList();
+public class Stack<E> {
+	private ArrayList<E> elementData = new ArrayList<E>();
 	
 	public void push(Object o){
 		elementData.add(o);
 	}
 	
-	public Object pop(){
+	public E pop(){
 		int length = size();
-		Object lastData = peek();
+		E lastData = peek();
 		elementData.remove(length - 1);
 		
 		return lastData;
 	}
 	
-	public Object peek(){
+	public E peek(){
 		if(size()<=0)
 			throw new EmptyStackException();
 		

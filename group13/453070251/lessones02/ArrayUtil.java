@@ -1,6 +1,6 @@
 package lessones02;
-import others.Others;
-import lessones01.LinkedListWithFloat;
+import others.PrimeGetter;
+import lessones01.LinkedList;
 public class ArrayUtil{
 	public static void reverseArray(int[] arg_arr){
 		for(int i = arg_arr.length/2;i>0;i--){
@@ -72,19 +72,19 @@ public class ArrayUtil{
 	}
 	public static int[] getPrimes(int max){
 		int i=0;
-		for(;Others.PrimeGetter.get(i)<max;i++){}
+		for(;PrimeGetter.get(i)<max;i++){}
 		int[] arr = new int[i];
-		for(i--;i>=0;i--){arr[i] = Others.PrimeGetter.get(i);}
+		for(i--;i>=0;i--){arr[i] = PrimeGetter.get(i);}
 		return arr;
 	}
 	private static int[] two_s_TimesEnd = {8,6,2,4};
 	public static int[] getPerfectNumbers(int arg_num){
-		LinkedListWithFloat<Integer> arr = new LinkedListWithFloat<Integer>();
+		LinkedList<Integer> arr = new LinkedList<Integer>();
 		for(int i=2;;i++){
 			int z = (int)Math.pow(2,i) - 1;
 			int zz = z*two_s_TimesEnd[i&3];
 			if(zz%10 == 8||zz%10 == 6){
-				if(Others.PrimeGetter.isPrime(z)){
+				if(PrimeGetter.isPrime(z)){
 					int zzz = (int)Math.pow(2,i-1)*z;
 					if(zzz<arg_num&&zzz>0){
 						arr.add(zzz);

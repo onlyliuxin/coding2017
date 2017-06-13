@@ -58,7 +58,6 @@ public class ArrayListTest {
 		
 		assertEquals(2, list.get(2));
 		assertEquals(4, list.size());
-		assertEquals(null, list.get(4));
 		
 		list.add(6);
 		assertEquals(6, list.get(4));

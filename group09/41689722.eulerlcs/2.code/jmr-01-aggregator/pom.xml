@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.eulerlcs</groupId>
+	<artifactId>jmr-01-aggregator</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<description>eulerlcs master java road aggregator</description>
+
+	<modules>
+		<module>../jmr-02-parent</module>
+		<module>../jmr-11-challenge</module>
+		<module>../jmr-61-170226-collection</module>
+		<module>../jmr-61-170305-litestruts</module>
+		<module>../jmr-61-170312-multiThreadDownload</module>
+	</modules>
+</project>

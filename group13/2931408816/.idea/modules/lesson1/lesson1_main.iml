@@ -49,7 +49,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/../../../lesson1/build/classes/main" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../lesson1/src/main">

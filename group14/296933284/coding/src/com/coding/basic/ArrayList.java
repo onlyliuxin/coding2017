@@ -8,7 +8,7 @@ import java.util.Arrays;
  * @author Tonnyson
  *
  */
-public class ArrayList implements List {
+public class ArrayList<T> implements List<T> {
 
 	private int size;
 	private static final int DEFAULT_CAPACITY = 10;
@@ -19,110 +19,78 @@ public class ArrayList implements List {
 		elementData = new Object[DEFAULT_CAPACITY];
 	}
 
-	public ArrayList(int initCapacity) {
-		elementData = new Object[initCapacity];
+	@Override
+	public boolean add(T element) {
+		ensureCapacity(size + 1);
+		elementData[size++] = element;
+		return true;
 	}
 
-	/**
-	 * 在数组末尾添加指定元素，若数组已满，则自动扩展为原来长度的两倍
-	 */
-	public void add(Object obj) {
-		
-		ensureCapacityInternal(size);
-
-		elementData[size] = obj;
-		size++;
-	}
-	
-
-	/**
-	 * 在数组的指定位置插入元素
-	 */
-	public void add(int index, Object obj) {
-
+	@Override
+	public void add(int index, T element) {
 		rangCheckForAdd(index);
-		ensureCapacityInternal(size + 1);
-		
-		for (int i = size - 1; i >= index; i--)
-			elementData[i + 1] = elementData[i];
 
-		elementData[index] = obj;
+		ensureCapacity(size + 1);
+		
+		System.arraycopy(elementData, index, elementData, index + 1, size - index);
+
+		elementData[index] = element;
 		size++;
 	}
 
-	/**
-	 * 给数组扩容
-	 */
-	private void ensureCapacityInternal(int minCapacity) {
+	private void ensureCapacity(int minCapacity) {
 		if (minCapacity - elementData.length > 0) {
 			int newCapacity = elementData.length * 2;
 			elementData = Arrays.copyOf(elementData, newCapacity);
-			// elementData = tempElementData;
 		}
 	}
-	
-	/**
-	 * 用于在 add() 中检查数组下表是否越界
-	 */
+
 	private void rangCheckForAdd(int index) {
 		if (index > size || index < 0)
 			throw new IndexOutOfBoundsException();
 	}
 
-	/**
-	 * 返回指定索引位置的元素值
-	 */
-	public Object get(int index) {
-
+	@Override
+	public T get(int index) {
 		rangCheck(index);
 
-		return elementData[index];
+		return (T) elementData[index];
 	}
 
-	/**
-	 * 删除指定索引位置的元素，并返回该值
-	 */
-	public Object remove(int index) {
+	@Override
+	public T remove(int index) {
 		rangCheck(index);
 
-		Object obj = elementData[index];
+		T element = (T) elementData[index];
 
-		for (int i = index; i < size; i++)
-			elementData[i] = elementData[i + 1];
-
+		System.arraycopy(elementData, index + 1, elementData, index,size - index - 1);
+		elementData[size - 1] = null;
 		size--;
 
-		return obj;
+		return element;
 	}
 
-	/**
-	 * 检查数组下表是否越界
-	 * 
-	 * @param index
-	 */
 	private void rangCheck(int index) {
-		if (index >= size)
+		if (index < 0 || index >= size)
 			throw new IndexOutOfBoundsException();
 	}
 
-	/**
-	 * 返回数组长度
-	 */
+	@Override
 	public int size() {
 		return size;
 	}
-	
-	/**
-	 * 迭代器
-	 * 
-	 * @return
-	 */
-	public Iterator iterator() {
+
+	@Override
+	public boolean isEmpty() {
+		return size == 0;
+	}
+
+	@Override
+	public Iterator<T> iterator() {
 		return new Iter();
 	}
 	
-	//迭代器内部类
-	private class Iter implements Iterator {
+	private class Iter implements Iterator<T> {
 		int current;
 		
 		@Override
@@ -131,13 +99,13 @@ public class ArrayList implements List {
 		}
 
 		@Override
-		public Object next() {
+		public T next() {
 			
 			int i = current;
 			rangCheck(i);
 			current++;
 			
-			return elementData[i];
+			return (T) elementData[i];
 		}
 		
 	}

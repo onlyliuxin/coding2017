@@ -6,7 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import com.github.miniyk2012.coding2017.basic.Iterator;
-import com.github.miniyk2012.coding2017.basic.List;;
+import com.github.miniyk2012.coding2017.basic.List;
 
 public class ListTest {
 	

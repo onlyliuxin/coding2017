@@ -1,1 +1,4 @@
 /bin/
+.classpath
+.project
+/src/*.jar

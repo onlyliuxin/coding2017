@@ -1,4 +1,4 @@
-package com.github.PingPi357.coding2017.basic;
+package com.github.PingPi357.coding2017.homework1;
 
 public class Queue {
 	private LinkedList linkedList = new LinkedList();

@@ -26,8 +26,6 @@ public class ArrayList implements List {
 	 * @param o: 需要添加的对象.
 	 */
 	public void add(int index, Object o) {
-		rangeCheck(index);   //判断指定的位置index是否合法
-
 		ensureCapacity(size + 1); //确保数组的容量可以装的下size + 1个元素，如果不够则扩容
 
 		System.arraycopy(elementData, index, elementData, index + 1, size - index); //将index位置到结束位置所有的数组往后移动一个位置

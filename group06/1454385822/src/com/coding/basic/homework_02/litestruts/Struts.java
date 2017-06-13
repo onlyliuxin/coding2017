@@ -42,11 +42,10 @@ public class Struts {
 		放到View对象的jsp字段中。
         
         */
-    	
-    	View view = new View();
 		Element root = getRoot();
 		Class clazz = getClazz(actionName, root);
 		Object obj = clazz.newInstance();
+		View view = new View();
 		
 		methodInvoke(clazz, obj, params);
 		String result = getExecuteInfo(clazz, obj);
