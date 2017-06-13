@@ -19,8 +19,8 @@ public class PromotionMailableBehavior {
         try {
             doSendMail(promotionMailClaim);
         } catch (Exception e) {
-            promotionMailClaim.setSmtpHost(promotionMailClaim.getAltSmtpHost());
             try {
+                promotionMailClaim.setSmtpHost(promotionMailClaim.getAltSmtpHost());
                 doSendMail(promotionMailClaim);
             } catch (Exception e1) {
                 System.out.println("通过备用 SMTP服务器发送邮件失败: " + e.getMessage());
