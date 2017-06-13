@@ -1,9 +1,28 @@
 package com.coderising.ood.srp.optimize;
 
+import lombok.Setter;
+
 /**
  * Created by luoziyihao on 6/12/17.
  */
+
 public class Product {
-    private static String productID;
-    private static String productDesc;
+    private String productID;
+    private String productDesc;
+
+    public String getProductID() {
+        return productID;
+    }
+
+    public void setProductID(String productID) {
+        this.productID = productID;
+    }
+
+    public String getProductDesc() {
+        return productDesc;
+    }
+
+    public void setProductDesc(String productDesc) {
+        this.productDesc = productDesc;
+    }
 }

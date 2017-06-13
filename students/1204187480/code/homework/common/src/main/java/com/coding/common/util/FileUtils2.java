@@ -3,6 +3,7 @@ package com.coding.common.util;
 import com.google.common.base.Preconditions;
 
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public abstract class FileUtils2 {
     }
 
 
-    public static byte[] getBytes(File classFile) throws IllegalStateException {
+    public static byte[] getBytes(File classFile) {
         // byteArrayOutputStream, 可写的动长数组
         ByteArrayOutputStream baos = null;
         BufferedInputStream bis = null;
@@ -65,5 +66,8 @@ public abstract class FileUtils2 {
         }
     }
 
+    public static InputStream openStream(String classPath) {
+        return ClassLoader.getSystemResourceAsStream(classPath);
+    }
 
 }
