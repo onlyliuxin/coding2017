@@ -1,4 +1,4 @@
-package com.coderising.ood.srp;
+package com.coderising.ood.srp.config;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +16,6 @@ public class Configuration {
 	 * @return
 	 */
 	public String getProperty(String key) {
-		
 		return configurations.get(key);
 	}
 
