@@ -11,13 +11,7 @@ import static com.coding.common.util.IOUtils2.readToStringList;
  */
 public class ProductParser {
 
-    private String productClassPath;
-
-    public void setProductClassPath(String productClassPath) {
-        this.productClassPath = productClassPath;
-    }
-
-    public List<Product> parse() {
+    public List<Product> parse(String productClassPath) {
         List<String> stringList = readToStringList(openStream(productClassPath));
         return stringList.stream()
                 .map(String::trim)

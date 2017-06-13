@@ -1,5 +1,6 @@
 package com.coderising.ood.srp.optimize;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,7 +8,14 @@ import java.util.List;
  */
 public class UserService {
 
-    List<User> loadMailingList(){
-        return null;
+    List<User> loadMailingList() {
+        List<User> userList = new ArrayList<>();
+        for (int i = 1; i <= 3; i++) {
+            User user = new User();
+            user.setName("User" + i);
+            user.setEmail("aa@bb.com");
+            userList.add(user);
+        }
+        return userList;
     }
 }

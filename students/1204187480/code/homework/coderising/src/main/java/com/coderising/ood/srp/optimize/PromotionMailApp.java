@@ -7,9 +7,16 @@ import java.util.List;
  */
 public class PromotionMailApp {
 
-    public static void main(String args[]){
-        ProductParser productParser = new ProductParser();
-        productParser.setProductClassPath("product_promotion.txt");
-        List<Product> products = productParser.parse();
+    public static void main(String args[]) {
+        List<Product> products = new ProductParser().parse("product_promotion.txt");
+
+        List<User> users = new UserService().loadMailingList();
+
+        List<PromotionMailClaim> promotionMailClaims = new PromotionMailClaim()
+                .load(products, users, new SmptPropeties(), true);
+
+        new PromotionMailableBehavior().send(promotionMailClaims);
+
     }
+
 }
