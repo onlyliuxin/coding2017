@@ -7,10 +7,10 @@ import java.io.IOException;
 /**
  * Created by gongxun on 2017/6/12.
  */
-public class FileParser {
-    private String[] data;
+public abstract class FileParser {
+    protected String[] data;
 
-    public FileParser(String filePath) {
+    protected FileParser(String filePath) {
         try {
             if (StringUtils.isEmpty(filePath))
                 throw new RuntimeException("init file parser must contains a legal file");
@@ -20,8 +20,7 @@ public class FileParser {
         }
     }
 
-    private void readFile(String filePath) throws IOException
-    {
+    private void readFile(String filePath) throws IOException {
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(filePath));
@@ -34,11 +33,6 @@ public class FileParser {
         }
     }
 
-    public String parseProductID() {
-        return data[0];
-    }
+    protected abstract void parseInfoFromFile(Email email);
 
-    public String parseProductDesc() {
-        return data[1];
-    }
 }

@@ -8,12 +8,16 @@ import java.util.List;
 public class SendMailTest {
 
     public static void main(String[] args) {
-        String loadQuery = "Select name from subscriptions where product_id= ? and send_mail=1";
+        String sql = "Select name from subscriptions where product_id= ? and send_mail=1";
         String filepath = "D:\\workspace\\IDEA\\homework\\coding2017_section2\\coding2017\\students\\785396327\\first\\ood\\srp\\product_promotion.txt";
         boolean isDebug = false;
 
-        EmailParser emailParser = new EmailParser();
-        List<PromotionMail> promotionMails = emailParser.parseEmailList(filepath, loadQuery);
+        ConfigParser configParser = new PromotionMailConfigParser();
+        FileParser fileParser = new PromotionFileParser(filepath);
+        DBParser<PromotionMail> DBParser = new PromotionMailDBParser(sql);
+
+        EmailParser emailParser = new EmailParser(configParser, fileParser, DBParser);
+        List promotionMails = emailParser.parseEmailList();
         MailSender mailSender = new MailSender();
         mailSender.sendMailList(promotionMails, isDebug);
     }
