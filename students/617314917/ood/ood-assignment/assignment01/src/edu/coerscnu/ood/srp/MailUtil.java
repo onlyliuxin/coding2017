@@ -1,7 +1,7 @@
 package edu.coerscnu.ood.srp;
 
 /**
- * 邮件类公共类 1、配置服务器 2、发送邮件
+ * 邮件公共类 1、配置服务器 2、发送邮件
  * 
  * @author xujie
  *
