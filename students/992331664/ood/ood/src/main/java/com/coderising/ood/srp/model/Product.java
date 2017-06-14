@@ -1,10 +1,8 @@
 package com.coderising.ood.srp.model;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-
+/**
+ * 产品信息
+ */
 public class Product {
 
 	private String productID;

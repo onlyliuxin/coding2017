@@ -12,6 +12,7 @@ public class DBUtil {
 	 * @param sql
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static List query(String sql) {
 
 		List userList = new ArrayList();

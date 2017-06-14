@@ -1,5 +1,9 @@
 package com.coderising.ood.srp.config;
 
+/**
+ * 邮箱连接配置类
+ *
+ */
 public class ConnectionConfig {
 	private String smtpHost;
 	private String altSmtpHost;

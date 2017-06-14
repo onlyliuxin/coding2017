@@ -10,7 +10,7 @@ public interface ProductService {
 
 	/**
 	 * 查询促销产品
-	 * @return
+	 * @return 促销产品
 	 * @throws IOException 
 	 */
 	List<Product> doFindPromotionalProducts(File file) throws IOException;

@@ -1,15 +1,19 @@
 package com.coderising.ood.srp.model;
 
-public class Mail {
+/**
+ * 邮箱信息
+ *
+ */
+public class MailInfo {
 	private String subject;
 	private String message;
 	private String toAddress;
 
-	public Mail() {
+	public MailInfo() {
 		super();
 	}
 
-	public Mail(String subject, String message, String toAddress) {
+	public MailInfo(String subject, String message, String toAddress) {
 		super();
 		this.subject = subject;
 		this.message = message;

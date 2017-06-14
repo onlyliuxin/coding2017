@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.coderising.ood.srp.config.Configuration;
 import com.coderising.ood.srp.config.ConnectionConfig;
-import com.coderising.ood.srp.model.Mail;
+import com.coderising.ood.srp.model.MailInfo;
 import com.coderising.ood.srp.model.Product;
 import com.coderising.ood.srp.model.Subscriptions;
 import com.coderising.ood.srp.service.ProductService;
@@ -27,7 +27,9 @@ public class PromotionMail {
 
 	/**
 	 * 发送促销邮件
-	 * @param file 促销产品文件
+	 * 
+	 * @param file
+	 *            促销产品文件
 	 * @param mailDebug
 	 * @throws Exception
 	 */
@@ -40,44 +42,44 @@ public class PromotionMail {
 		List<Subscriptions> subscriptions = subscriptionsService.doFindByProducts(products);
 
 		// 得到订阅人的邮箱和名称，邮箱内容
-		List<Mail> mails = getMails(subscriptions);
+		List<MailInfo> mails = getMails(subscriptions);
 
 		// 发送邮箱
 		sendEMails(new ConnectionConfig(new Configuration()), mails, mailDebug);
 	}
 
-	protected List<Mail> getMails(List<Subscriptions> subscriptions) {
+	// 得到发送的邮箱对象
+	protected List<MailInfo> getMails(List<Subscriptions> subscriptions) {
 
-		List<Mail> mails = new ArrayList<Mail>();
+		List<MailInfo> mails = new ArrayList<MailInfo>();
 		String subject = "您关注的产品降价了";
 
 		for (Subscriptions sub : subscriptions) {
 			String productDesc = sub.getProduct().getProductDesc();
 			String message = "尊敬的 " + sub.getName() + ", 您关注的产品 " + productDesc + " 降价了，欢迎购买!";
-			mails.add(new Mail(subject, message, sub.getEmail()));
+			mails.add(new MailInfo(subject, message, sub.getEmail()));
 		}
 		return mails;
 	}
 
-	protected void sendEMails(ConnectionConfig config, List<Mail> mails, boolean debug) {
+	// 发送邮件
+	protected void sendEMails(ConnectionConfig config, List<MailInfo> mails, boolean debug) {
 		if (mails == null) {
 			System.out.println("没有邮件需要发送");
 			return;
 		}
 		System.out.println("开始发送邮件");
-		Iterator<Mail> iter = mails.iterator();
+		Iterator<MailInfo> iter = mails.iterator();
 		while (iter.hasNext()) {
-			Mail mail = iter.next();
+			MailInfo mail = iter.next();
 			if (mail.getToAddress().length() <= 0) {
 				continue;
 			}
 			try {
-				MailUtil.sendEmail(mail.getToAddress(), config.getFromAddress(), mail.getSubject(), mail.getMessage(),
-						config.getSmtpHost(), debug);
+				MailUtil.sendEmail(mail.getToAddress(), config.getFromAddress(), mail.getSubject(), mail.getMessage(),config.getSmtpHost(), debug);
 			} catch (Exception e) {
 				try {
-					MailUtil.sendEmail(mail.getToAddress(), config.getFromAddress(), mail.getSubject(),
-							mail.getMessage(), config.getAltSmtpHost(), debug);
+					MailUtil.sendEmail(mail.getToAddress(), config.getFromAddress(), mail.getSubject(),mail.getMessage(), config.getAltSmtpHost(), debug);
 
 				} catch (Exception e2) {
 					System.out.println("通过备用 SMTP服务器发送邮件失败: " + e2.getMessage());
