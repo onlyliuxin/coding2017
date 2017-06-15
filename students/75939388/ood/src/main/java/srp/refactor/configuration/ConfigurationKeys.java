@@ -1,4 +1,4 @@
-package srp;
+package srp.refactor.configuration;
 
 public class ConfigurationKeys {
 

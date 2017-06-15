@@ -1,4 +1,9 @@
-package srp;
+package srp.original;
+
+import srp.refactor.configuration.Configuration;
+import srp.refactor.configuration.ConfigurationKeys;
+import srp.refactor.util.DBUtil;
+import srp.refactor.util.MailUtil;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,7 +29,7 @@ public class PromotionMail {
 	protected String productID = null;
 	protected String productDesc = null;
 
-	private static Configuration config; 
+	private static Configuration config;
 	
 	
 	
@@ -91,7 +96,7 @@ public class PromotionMail {
 	
 	protected void setSMTPHost() 
 	{
-		smtpHost = config.getProperty(ConfigurationKeys.SMTP_SERVER); 
+		smtpHost = config.getProperty(ConfigurationKeys.SMTP_SERVER);
 	}
 
 	

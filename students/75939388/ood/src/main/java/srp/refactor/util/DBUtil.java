@@ -1,4 +1,4 @@
-package srp;
+package srp.refactor.util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +12,7 @@ public class DBUtil {
 	 */
 	public static List query(String sql){
 		
-		List userList = new ArrayList();
+		List<HashMap> userList = new ArrayList();
 		for (int i = 1; i <= 3; i++) {
 			HashMap userInfo = new HashMap();
 			userInfo.put("NAME", "User" + i);			

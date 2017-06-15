@@ -1,4 +1,4 @@
-package srp;
+package srp.refactor.configuration;
 import java.util.HashMap;
 import java.util.Map;
 

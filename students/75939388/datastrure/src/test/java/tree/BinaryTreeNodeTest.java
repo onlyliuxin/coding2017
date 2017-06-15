@@ -17,6 +17,6 @@ public class BinaryTreeNodeTest {
 
     @Test
     public void test1(){
-        
+
     }
 }
