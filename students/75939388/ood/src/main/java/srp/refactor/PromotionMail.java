@@ -77,13 +77,18 @@ public class PromotionMail extends Mail {
 
             List<HashMap> userList = DBUtil.query(sendMailQuery);
             for(HashMap userInfo : userList){
-                createMail(
-                        (String)userInfo.get(EMAIL_KEY),
-                        "您关注的" + productName + "已降价",
-                        "尊敬的 "+ userInfo.get(NAME_KEY) +", 您关注的产品 " + productDesc + " 降价了，欢迎购买!"
-                );
+                createMail((String)userInfo.get(EMAIL_KEY),
+                        generateSubject(productName), generateMessage(userInfo, productDesc));
             }
         }
+    }
+
+    private String generateSubject(String productName){
+        return "您关注的" + productName + "已降价";
+    }
+
+    private String generateMessage(HashMap userInfo, String productDesc){
+        return "尊敬的 "+ userInfo.get(NAME_KEY) +", 您关注的产品 " + productDesc + " 降价了，欢迎购买!";
     }
 
     /**

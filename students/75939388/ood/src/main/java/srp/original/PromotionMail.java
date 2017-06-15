@@ -3,7 +3,6 @@ package srp.original;
 import srp.refactor.configuration.Configuration;
 import srp.refactor.configuration.ConfigurationKeys;
 import srp.refactor.util.DBUtil;
-import srp.refactor.util.MailUtil;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -175,14 +174,14 @@ public class PromotionMail {
 				configureEMail((HashMap) iter.next());  
 				try 
 				{
-					if (toAddress.length() > 0)
-						MailUtil.sendEmail(toAddress, fromAddress, subject, message, smtpHost, debug);
+					if (toAddress.length() > 0){}
+//						MailContentUtil.sendEmail(toAddress, fromAddress, subject, message, smtpHost, debug);
 				} 
 				catch (Exception e) 
 				{
 					
 					try {
-						MailUtil.sendEmail(toAddress, fromAddress, subject, message, altSmtpHost, debug); 
+//						MailContentUtil.sendEmail(toAddress, fromAddress, subject, message, altSmtpHost, debug);
 						
 					} catch (Exception e2) 
 					{

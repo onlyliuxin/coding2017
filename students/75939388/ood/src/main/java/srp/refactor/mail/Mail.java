@@ -1,7 +1,6 @@
 package srp.refactor.mail;
 
 import org.apache.commons.lang3.StringUtils;
-import srp.refactor.util.MailUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,7 +66,7 @@ public abstract class Mail {
     /**
      * 批量发送
      */
-    public void batchSend(boolean debug){
+    protected void batchSend(boolean debug){
         if(!isInit()){
             throw new RuntimeException("邮件客户端还未做配置");
         }
@@ -93,12 +92,27 @@ public abstract class Mail {
             System.out.println("\n正在发送第[" + i + "]封邮件");
             System.out.println("==========================================================");
             try{
-                MailUtil.sendEmail(toAddress, this.fromAddress, subject, message, this.smtpHost, debug);
+                sendEmail(toAddress, this.fromAddress, subject, message, this.smtpHost, debug);
             }catch(Exception e){
-                MailUtil.sendEmail(toAddress, this.fromAddress, subject, message, this.altSmtpHost, debug);
+                sendEmail(toAddress, this.fromAddress, subject, message, this.altSmtpHost, debug);
             }
             System.out.println("==========================================================");
             System.out.println("第[" + i + "]封邮件发送完成");
         }
+    }
+
+    /**
+     * 发送邮件客户端的功能和责任，所以移入邮件客户端，但是只能被基础客户端调用
+     * 子类只能通过batchSend来发送邮件
+     */
+    private void sendEmail(String toAddress, String fromAddress, String subject,
+                           String message, String smtpHost, boolean debug) {
+        //假装发了一封邮件
+        StringBuilder buffer = new StringBuilder();
+        buffer.append("From:").append(fromAddress).append("\n");
+        buffer.append("To:").append(toAddress).append("\n");
+        buffer.append("Subject:").append(subject).append("\n");
+        buffer.append("Content:").append(message).append("\n");
+        System.out.print(buffer.toString());
     }
 }
