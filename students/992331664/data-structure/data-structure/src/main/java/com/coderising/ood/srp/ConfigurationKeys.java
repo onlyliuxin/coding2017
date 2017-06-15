@@ -1,5 +1,4 @@
-package com.coderising.ood.srp.config;
-
+package com.coderising.ood.srp;
 
 public class ConfigurationKeys {
 
