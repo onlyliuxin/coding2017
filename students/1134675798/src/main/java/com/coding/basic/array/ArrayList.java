@@ -16,6 +16,11 @@ public class ArrayList implements List {
 		checkIndex(index);
 
 		elementData[index] = o;
+
+		for (int i = size - 1; i > index; i--) {
+			elementData[i + 1] = elementData[i];
+		}
+
 		size++;
 	}
 	
