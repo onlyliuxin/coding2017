@@ -42,7 +42,7 @@ public class PromotionMail extends Mail {
         this.toAddress = toAddress;
         this.subject = subject;
         this.message = message;
-        super.write();
+        super.addToMailList();
     }
 
     public void setProductPromotion(String productID, String productDesc) throws Exception{

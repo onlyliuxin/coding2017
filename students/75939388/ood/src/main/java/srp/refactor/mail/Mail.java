@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ * 具有初始化设置、可以批量发送邮件的邮件客户端
+ *
  * Created by Tee on 2017/6/15.
  */
 public abstract class Mail {
@@ -43,7 +45,7 @@ public abstract class Mail {
     /**
      * 撰写邮件
      */
-    protected void write(){
+    protected void addToMailList(){
         HashMap<String, Object> mailToSend = new HashMap<>();
         mailToSend.put(TO_ADDRESS_KEY, this.toAddress);
         mailToSend.put(SUBJECT_KEY, this.subject);
@@ -89,11 +91,13 @@ public abstract class Mail {
             String message = (String)mail.get(MESSAGE_KEY);
 
             System.out.println("\n正在发送第[" + i + "]封邮件");
+            System.out.println("==========================================================");
             try{
                 MailUtil.sendEmail(toAddress, this.fromAddress, subject, message, this.smtpHost, debug);
             }catch(Exception e){
                 MailUtil.sendEmail(toAddress, this.fromAddress, subject, message, this.altSmtpHost, debug);
             }
+            System.out.println("==========================================================");
             System.out.println("第[" + i + "]封邮件发送完成");
         }
     }
