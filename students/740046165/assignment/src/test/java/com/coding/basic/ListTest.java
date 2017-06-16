@@ -160,4 +160,21 @@ public class ListTest {
 	}
 	
 	
+	@Test
+	public void testIter() {
+		ArrayList list = new ArrayList();
+		list.add("a");
+		list.add("b");
+		list.add("c");
+				
+		Iterator iter = list.iterator();
+		
+		while (iter.hasNext()) {
+			System.out.println(iter.next());
+		}
+		
+		
+	}
+	
+	
 }

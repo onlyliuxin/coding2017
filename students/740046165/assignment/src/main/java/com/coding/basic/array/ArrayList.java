@@ -120,7 +120,27 @@ public class ArrayList implements List {
 	 * @return
 	 */
 	public Iterator iterator() {
-		return null;
+		
+		final int arrSize = this.size;
+		final Object[] arr = this.elementData;
+		
+		Iterator iter;
+		iter = new Iterator() {
+			//当前索引
+			int iterIndex = 0;
+			
+			@Override
+			public Object next() {
+				return arr[iterIndex++];
+			}
+			
+			@Override
+			public boolean hasNext() {
+				return arrSize > iterIndex ;
+			}
+		};
+		
+		return iter;
 	}
 
 	

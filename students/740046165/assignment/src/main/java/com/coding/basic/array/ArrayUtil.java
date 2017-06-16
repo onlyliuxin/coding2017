@@ -1,5 +1,7 @@
 package com.coding.basic.array;
 
+import java.util.Arrays;
+
 public class ArrayUtil {
 	
 	private ArrayUtil() {
@@ -13,9 +15,31 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public static void reverseArray(int[] origin){
+		//length = 4, i~~[0,3]
+		
+		int length = origin.length;
+		//取中值 
+		int mid = length / 2; 
+		
+		//交换
+		for (int i = 0; i < mid; i++) {
+			swap(origin, i, length - 1 -i);
+		}
+		
 		
 	}
-	
+	/**
+	 * 交换数组数据
+	 * @param origin
+	 * @param i
+	 * @param j
+	 */
+	private static void swap(int[] origin, int i, int j) {
+		int temp = origin[i];
+		origin[i] = origin[j];
+		origin[j] = temp;
+	}
+
 	/**
 	 * 现在有如下的一个数组：   int oldArr[]={1,3,4,5,0,0,6,6,0,5,4,7,6,7,0,5}   
 	 * 要求将以上数组中值为0的项去掉，将不为0的值存入一个新的数组，生成的新数组为：   
