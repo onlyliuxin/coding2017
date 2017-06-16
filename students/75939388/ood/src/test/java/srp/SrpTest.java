@@ -15,6 +15,8 @@ public class SrpTest {
 
     PromotionMail promotionMail = null;
 
+    private static int in = 0;
+
     @Before
     public void init(){
 
@@ -30,7 +32,7 @@ public class SrpTest {
         List<String> data = FileUtil.readFile(file);
 
         PromotionMail promotionMail = new PromotionMail();
-        promotionMail.batchSetMails(data);
+        promotionMail.batchWrite(data);
         promotionMail.send();
     }
 }

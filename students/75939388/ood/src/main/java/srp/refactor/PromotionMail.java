@@ -65,7 +65,12 @@ public class PromotionMail extends Mail {
         System.out.println("loadQuery set, productID -> " + productID);
     }
 
-    public void batchSetMails(List<String> data) throws Exception{
+    /**
+     * 批量编写邮件
+     * @param data 从文件中获取的产品促销信息的list
+     * @throws Exception 查询sql时报的异常，这里选择不处理
+     */
+    public void batchWrite(List<String> data) throws Exception{
         if(data.isEmpty()){
             throw new RuntimeException("data不能为空");
         }
@@ -77,18 +82,13 @@ public class PromotionMail extends Mail {
 
             List<HashMap> userList = DBUtil.query(sendMailQuery);
             for(HashMap userInfo : userList){
-                createMail((String)userInfo.get(EMAIL_KEY),
-                        generateSubject(productName), generateMessage(userInfo, productDesc));
+                String add = (String)userInfo.get(EMAIL_KEY);
+                String subj = "您关注的" + productName + "已降价";
+                String msg = "尊敬的 "+ userInfo.get(NAME_KEY) +", 您关注的产品 " + productDesc + " 降价了，欢迎购买!";
+
+                createMail(add, subj, msg);
             }
         }
-    }
-
-    private String generateSubject(String productName){
-        return "您关注的" + productName + "已降价";
-    }
-
-    private String generateMessage(HashMap userInfo, String productDesc){
-        return "尊敬的 "+ userInfo.get(NAME_KEY) +", 您关注的产品 " + productDesc + " 降价了，欢迎购买!";
     }
 
     /**
