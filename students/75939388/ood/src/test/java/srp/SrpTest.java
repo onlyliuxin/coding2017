@@ -2,7 +2,9 @@ package srp;
 
 import org.junit.Before;
 import org.junit.Test;
-import srp.refactor.PromotionMail;
+import srp.refactor.PromotionMailClient;
+import srp.refactor.domain.Product;
+import srp.refactor.services.ProductService;
 import srp.refactor.util.FileUtil;
 
 import java.io.File;
@@ -13,7 +15,7 @@ import java.util.List;
  */
 public class SrpTest {
 
-    PromotionMail promotionMail = null;
+    PromotionMailClient promotionMail = null;
 
     private static int in = 0;
 
@@ -31,8 +33,9 @@ public class SrpTest {
                 "students/75939388/ood/src/main/resources/ood_demo_file/product_promotion.txt");
         List<String> data = FileUtil.readFile(file);
 
-        PromotionMail promotionMail = new PromotionMail();
-        promotionMail.batchWrite(data);
-        promotionMail.send();
+        PromotionMailClient promotionMail = new PromotionMailClient();
+        List<Product> promotionProducts = new ProductService().getPromotionInfoList(data);
+        promotionMail.batchWrite(promotionProducts);
+        promotionMail.batchSend(false);
     }
 }
