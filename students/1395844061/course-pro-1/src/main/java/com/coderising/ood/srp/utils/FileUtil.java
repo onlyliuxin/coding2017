@@ -2,10 +2,7 @@ package com.coderising.ood.srp.utils;
 
 import com.coderising.ood.srp.ProductInfo;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +20,10 @@ public final class FileUtil {
     }
 
     public static List<ProductInfo> readProductInfoFromFile(String filePath) throws IOException{
+
+        if (!ArgsUtil.isNotNull(filePath))
+            throw new IllegalArgumentException("illegal arguments");
+
         File file = new File(filePath);
         BufferedReader br = null;
         List<ProductInfo> productInfoList = new ArrayList<>();

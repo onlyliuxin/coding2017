@@ -2,6 +2,7 @@ package com.coderising.ood.srp;
 
 import com.coderising.ood.srp.utils.DBUtil;
 import com.coderising.ood.srp.utils.MailUtil;
+import com.coderising.ood.srp.utils.ArgsUtil;
 
 import java.io.IOException;
 import java.util.*;
@@ -45,7 +46,7 @@ public class PromotionMail {
      * @param mailingList
      */
     private void initMailInfoList(List<Map<String, String>> mailingList) {
-        if (mailingList!=null && !mailingList.isEmpty()){
+        if (ArgsUtil.isNotEmpty(mailingList)){
             for (Map<String, String> map : mailingList){
                 // 初始化 mailInfoList
                 mailInfoList.add(buildMailInfo(map));
@@ -73,7 +74,7 @@ public class PromotionMail {
      */
     public void sendEMails(boolean debug) throws IOException {
         System.out.println("开始发送邮件... ...");
-        if (mailInfoList!=null && !mailInfoList.isEmpty()) {
+        if (ArgsUtil.isNotEmpty(mailInfoList)) {
             for (MailInfo mailInfo : mailInfoList){
                 MailUtil.sendEmail(mailInfo.toAddress, mailInfo.subject, mailInfo.message, debug);
             }
