@@ -18,12 +18,12 @@ public class PromotionMail {
     private ProductInfo productInfo;
     private List<MailInfo> mailInfoList = new ArrayList<>();
 
-    private static final String NAME_KEY = "NAME";
-    private static final String EMAIL_KEY = "EMAIL";
+    private static final String NAME_KEY    = "NAME";
+    private static final String EMAIL_KEY   = "EMAIL";
 
     public PromotionMail(){}
+
     public PromotionMail(ProductInfo productInfo) throws Exception {
-        //读取配置文件， 文件中只有一行用空格隔开， 例如 P8756 iPhone8
         this.productInfo = productInfo;
         initMailInfoList(loadMailingList());
     }
