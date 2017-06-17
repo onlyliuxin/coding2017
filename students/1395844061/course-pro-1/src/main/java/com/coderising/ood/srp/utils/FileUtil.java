@@ -18,6 +18,9 @@ import java.util.List;
  */
 public final class FileUtil {
 
+    private FileUtil(){
+        throw new RuntimeException("illegal called!");
+    }
 
     public static List<ProductInfo> readProductInfoFromFile(String filePath) throws IOException{
 

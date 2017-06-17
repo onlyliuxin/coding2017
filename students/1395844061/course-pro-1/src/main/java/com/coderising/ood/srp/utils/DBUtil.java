@@ -12,7 +12,12 @@ import java.util.Map;
  * @package com.coderising.ood.srp
  * @date 2017/6/12/23:32
  */
-public class DBUtil {
+public final class DBUtil {
+
+    private DBUtil(){
+        throw new RuntimeException("illegal called!");
+    }
+
     /**
      * 应该从数据库读， 但是简化为直接生成。
      * @param sql
