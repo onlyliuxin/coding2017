@@ -23,7 +23,6 @@ public final class FileUtil {
     }
 
     public static List<ProductInfo> readProductInfoFromFile(String filePath) throws IOException{
-
         File file = new File(filePath);
         BufferedReader br = null;
         List<ProductInfo> productInfoList = new ArrayList<>();

@@ -15,11 +15,9 @@ public final class MailUtil {
     private static String smtpHost      = null;
     private static String altSmtpHost   = null;
     private static String fromAddress   = null;
-    private static Configuration config;
-
 
     static{
-        config = new Configuration();
+        Configuration config = new Configuration();
         smtpHost = config.getProperty(ConfigurationKeys.SMTP_SERVER);
         altSmtpHost = config.getProperty(ConfigurationKeys.ALT_SMTP_SERVER);
         fromAddress = config.getProperty(ConfigurationKeys.EMAIL_ADMIN);
