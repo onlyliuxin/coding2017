@@ -1,17 +1,17 @@
 package first.ood.srp;
 
 /**
- * Created by gongxun on 2017/6/12.
+ * Created by william on 2017/6/12.
  */
 public class StringUtils {
 
     /**
-     * 判断文件路径是否为空
+     * 判断字符串是否为空
      *
-     * @param filePath
+     * @param str
      * @return
      */
-    public static boolean isEmpty(String filePath) {
-        return filePath == null || filePath.trim().isEmpty();
+    public static boolean isEmpty(String str) {
+        return str == null || str.trim().isEmpty();
     }
 }

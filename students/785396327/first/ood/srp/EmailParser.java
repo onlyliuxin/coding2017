@@ -3,7 +3,7 @@ package first.ood.srp;
 import java.util.List;
 
 /**
- * Created by gongxun on 2017/6/12.
+ * Created by william on 2017/6/12.
  */
 public class EmailParser {
     private ConfigParser configParser;

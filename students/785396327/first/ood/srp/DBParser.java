@@ -4,19 +4,21 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by gongxun on 2017/6/14.
+ * Created by william on 2017/6/14.
  */
-public abstract class DBParser<T> {
-    private String sql;
+public abstract class DBParser<T extends Email> {
+    protected String sql;
+    protected Object[] params;
 
-    protected DBParser(String sql) {
+    protected DBParser(String sql, Object[] params) {
         this.sql = sql;
+        this.params = params;
     }
 
-    protected List<T> parseInfoFromDB(Email email) {
-        List<HashMap<String, String>> data = DBUtil.query(sql, null);
+    protected List<T> parseInfoFromDB(T email) {
+        List<HashMap<String, String>> data = DBUtil.query(sql, params);
         return convertData(email, data);
     }
 
-    abstract List<T> convertData(Email email, List<HashMap<String, String>> data);
+    abstract List<T> convertData(T email, List<HashMap<String, String>> data);
 }

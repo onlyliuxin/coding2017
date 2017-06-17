@@ -3,7 +3,7 @@ package first.ood.srp;
 import java.util.List;
 
 /**
- * Created by gongxun on 2017/6/12.
+ * Created by william on 2017/6/12.
  */
 public class SendMailTest {
 
@@ -14,11 +14,11 @@ public class SendMailTest {
 
         ConfigParser configParser = new PromotionMailConfigParser();
         FileParser fileParser = new PromotionFileParser(filepath);
-        DBParser<PromotionMail> DBParser = new PromotionMailDBParser(sql);
+        DBParser<PromotionMail> DBParser = new PromotionMailDBParser(sql, null);
 
         EmailParser emailParser = new EmailParser(configParser, fileParser, DBParser);
         List promotionMails = emailParser.parseEmailList();
-        MailSender mailSender = new MailSender();
+        MailSender<PromotionMail> mailSender = new MailSender();
         mailSender.sendMailList(promotionMails, isDebug);
     }
 }

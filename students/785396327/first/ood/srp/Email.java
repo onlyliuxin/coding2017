@@ -1,7 +1,7 @@
 package first.ood.srp;
 
 /**
- * Created by gongxun on 2017/6/12.
+ * Created by william on 2017/6/12.
  */
 public class Email {
     protected String smtpHost;
