@@ -1,9 +1,11 @@
-package com.coderising.ood.srp;
+package com.coderising.ood.config;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Configuration {
 
+
+	
 	static Map<String,String> configurations = new HashMap<>();
 	static{
 		configurations.put(ConfigurationKeys.SMTP_SERVER, "smtp.163.com");
