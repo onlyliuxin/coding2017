@@ -3,6 +3,7 @@ package com.coderising.ood.srp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * DBUtil
@@ -17,11 +18,11 @@ public class DBUtil {
      * @param sql
      * @return
      */
-    public static List query(String sql){
-
-        List userList = new ArrayList();
+    public static List<Map<String, String>> query(String sql){
+        System.out.println("sql: "+sql);
+        List<Map<String, String>> userList = new ArrayList<>();
         for (int i = 1; i <= 3; i++) {
-            HashMap userInfo = new HashMap();
+            Map<String, String> userInfo = new HashMap<>();
             userInfo.put("NAME", "User" + i);
             userInfo.put("EMAIL", "aa@bb.com");
             userList.add(userInfo);
