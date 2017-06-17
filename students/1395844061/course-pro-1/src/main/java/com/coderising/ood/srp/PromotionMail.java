@@ -1,5 +1,8 @@
 package com.coderising.ood.srp;
 
+import com.coderising.ood.srp.utils.DBUtil;
+import com.coderising.ood.srp.utils.MailUtil;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -12,19 +15,16 @@ import java.util.*;
  */
 public class PromotionMail {
 
-
-    private String productID = null;
-    private String productDesc = null;
+    private ProductInfo productInfo;
     private List<MailInfo> mailInfoList = new ArrayList<>();
 
     private static final String NAME_KEY = "NAME";
     private static final String EMAIL_KEY = "EMAIL";
 
     public PromotionMail(){}
-    public PromotionMail(String productID, String productDesc) throws Exception {
+    public PromotionMail(ProductInfo productInfo) throws Exception {
         //读取配置文件， 文件中只有一行用空格隔开， 例如 P8756 iPhone8
-        this.productID = productID;
-        this.productDesc = productDesc;
+        this.productInfo = productInfo;
         initMailInfoList(loadMailingList());
     }
 
@@ -35,7 +35,7 @@ public class PromotionMail {
      */
     private List<Map<String, String>> loadMailingList() throws Exception {
         String sql = "select name from subscriptions "
-                        + "where product_id= '" + productID +"' "
+                        + "where product_id= '" + productInfo.getProductID() +"' "
                         + "and send_mail=1 ";
         return DBUtil.query(sql);
     }
@@ -54,6 +54,19 @@ public class PromotionMail {
     }
 
     /**
+     * 组装邮件内容信息
+     * @param userInfo
+     * @return
+     */
+    private MailInfo buildMailInfo(Map<String, String> userInfo){
+        String name = userInfo.get(NAME_KEY);
+        String subject = "您关注的产品降价了";
+        String message = "尊敬的 "+name+", 您关注的产品 " + productInfo.getProductDesc() + " 降价了，欢迎购买!" ;
+        String toAddress = userInfo.get(EMAIL_KEY);
+        return new MailInfo(toAddress, subject, message);
+    }
+
+    /**
      * 发送促销邮件
      * @param debug
      * @throws IOException
@@ -67,16 +80,6 @@ public class PromotionMail {
         }else {
             System.out.println("没有邮件发送... ...");
         }
-    }
-
-
-
-    private MailInfo buildMailInfo(Map<String, String> userInfo){
-        String name = userInfo.get(NAME_KEY);
-        String subject = "您关注的产品降价了";
-        String message = "尊敬的 "+name+", 您关注的产品 " + productDesc + " 降价了，欢迎购买!" ;
-        String toAddress = userInfo.get(EMAIL_KEY);
-        return new MailInfo(toAddress, subject, message);
     }
 
     class MailInfo{

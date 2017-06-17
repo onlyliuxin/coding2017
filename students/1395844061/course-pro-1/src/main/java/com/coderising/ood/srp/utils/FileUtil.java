@@ -1,4 +1,6 @@
-package com.coderising.ood.srp;
+package com.coderising.ood.srp.utils;
+
+import com.coderising.ood.srp.ProductInfo;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,7 +16,7 @@ import java.util.List;
  * @package com.coderising.ood.srp
  * @date 2017/6/14/22:43
  */
-public final class FileUtils {
+public final class FileUtil {
 
 
     public static List<ProductInfo> readProductInfoFromFile(String filePath) throws IOException{

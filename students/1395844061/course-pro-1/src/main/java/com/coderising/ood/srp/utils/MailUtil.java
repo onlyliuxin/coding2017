@@ -1,4 +1,7 @@
-package com.coderising.ood.srp;
+package com.coderising.ood.srp.utils;
+
+import com.coderising.ood.srp.config.Configuration;
+import com.coderising.ood.srp.config.ConfigurationKeys;
 
 /**
  * MailUtil
