@@ -6,7 +6,8 @@
 
     <groupId>com.mimieye</groupId>
     <artifactId>learning</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>RELEASE</version>
+    <packaging>jar</packaging>
 
 
 </project>
