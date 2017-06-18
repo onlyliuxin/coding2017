@@ -9,7 +9,7 @@ public class Configuration {
 
 	static Map<String,String> configurations = new HashMap<>();
 	static{
-		// TODO 从配置文件中加载配置到 map  中
+		// TODO 从配置文件中加载配置到 map 中
 		configurations.put(ConfigurationKeys.SMTP_SERVER, "smtp.163.com");
 		configurations.put(ConfigurationKeys.ALT_SMTP_SERVER, "smtp1.163.com");
 		configurations.put(ConfigurationKeys.EMAIL_ADMIN, "admin@company.com");
