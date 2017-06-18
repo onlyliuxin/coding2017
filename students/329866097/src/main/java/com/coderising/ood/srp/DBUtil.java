@@ -10,16 +10,13 @@ public class DBUtil {
 	 * @param sql
 	 * @return
 	 */
-	public static List query(String sql){
+	public static List<User> query(String sql){
 		
-		List userList = new ArrayList();
+		List<User> userList = new ArrayList<>();
 		for (int i = 1; i <= 3; i++) {
-			HashMap userInfo = new HashMap();
-			userInfo.put("NAME", "User" + i);			
-			userInfo.put("EMAIL", "aa@bb.com");
-			userList.add(userInfo);
+			User user = new User("User" + i, "aa@bb.com");
+			userList.add(user);
 		}
-
 		return userList;
 	}
 }
