@@ -41,14 +41,19 @@ public class PromotionMail {
 	private static Set<String> readFile(File file) throws IOException{
 		Set<String> proIds = new HashSet<String>();
 		BufferedReader br = null;
+		boolean flag = true;
 		try {
 			br = new BufferedReader(new FileReader(file));
-			String temp = br.readLine();
-			while(temp != null && "".equals(temp)){
-				String[] data = temp.split(" ");
-				proIds.add(data[0]);
-				System.out.println("产品ID = " + data[0] + "\n");
-				System.out.println("产品描述 = " + data[1] + "\n");
+			while(flag){
+				String temp = br.readLine();
+				if(temp != null && !"".equals(temp)){
+					String[] data = temp.split(" ");
+					proIds.add(data[0]);
+					System.out.println("产品ID = " + data[0]);
+					System.out.println("产品描述 = " + data[1] + "\n");
+				}else{
+					flag = false;
+				}
 			}
 		} catch (IOException e) {
 			throw new IOException(e.getMessage());
