@@ -29,22 +29,16 @@ public class PromotionMail
     protected     String   message       = null;
     protected     String   productID     = null;
     protected     String   productDesc   = null;
+    private boolean emailDebug;
 
     public PromotionMail( File file, boolean mailDebug ) throws Exception
     {
+        this.emailDebug = mailDebug;
         readProductInfos( file );
         configuringEMAILSetting();
         setLoadQuery();
         List mailingList = loadMailingList();
         sendEMails( mailDebug, mailingList );
-    }
-
-    private void configuringEMAILSetting()
-    {
-        config = new Configuration();
-        setSMTPHost();
-        setAltSMTPHost();
-        setFromAddress();
     }
 
     private void readProductInfos( File file ) throws IOException
@@ -56,19 +50,12 @@ public class PromotionMail
         System.out.println( "产品描述 = " + productDesc + "\n" );
     }
 
-    protected void setSMTPHost()
+    private void configuringEMAILSetting()
     {
-        smtpHost = config.getProperty( ConfigurationKeys.SMTP_SERVER );
-    }
-
-    protected void setAltSMTPHost()
-    {
-        altSmtpHost = config.getProperty( ConfigurationKeys.ALT_SMTP_SERVER );
-    }
-
-    protected void setFromAddress()
-    {
-        fromAddress = config.getProperty( ConfigurationKeys.EMAIL_ADMIN );
+        config = new Configuration();
+        setSMTPHost();
+        setAltSMTPHost();
+        setFromAddress();
     }
 
     protected void setLoadQuery() throws Exception
@@ -76,6 +63,11 @@ public class PromotionMail
         sendMailQuery
                 = "Select name from subscriptions " + "where product_id= '" + productID + "' " + "and send_mail=1 ";
         System.out.println( "loadQuery set" );
+    }
+
+    protected List loadMailingList() throws Exception
+    {
+        return DBUtil.query( this.sendMailQuery );
     }
 
     protected void sendEMails( boolean debug, List mailingList ) throws IOException
@@ -114,11 +106,6 @@ public class PromotionMail
 
     }
 
-    protected List loadMailingList() throws Exception
-    {
-        return DBUtil.query( this.sendMailQuery );
-    }
-
     private void setProductID( String productID )
     {
         this.productID = productID;
@@ -127,6 +114,21 @@ public class PromotionMail
     private void setProductDesc( String productDesc )
     {
         this.productDesc = productDesc;
+    }
+
+    protected void setSMTPHost()
+    {
+        smtpHost = config.getProperty( ConfigurationKeys.SMTP_SERVER );
+    }
+
+    protected void setAltSMTPHost()
+    {
+        altSmtpHost = config.getProperty( ConfigurationKeys.ALT_SMTP_SERVER );
+    }
+
+    protected void setFromAddress()
+    {
+        fromAddress = config.getProperty( ConfigurationKeys.EMAIL_ADMIN );
     }
 
     protected void configureEMail( HashMap userInfo ) throws IOException
