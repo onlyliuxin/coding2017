@@ -8,9 +8,7 @@
 
 package com.coderising.ood.srp;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,22 +19,21 @@ public class PromotionMail
     private static final String NAME_KEY  = "NAME";
     private static final String EMAIL_KEY = "EMAIL";
     private static Configuration config;
-    protected String sendMailQuery = null;
-    protected String smtpHost      = null;
-    protected String altSmtpHost   = null;
-    protected String fromAddress   = null;
-    protected String toAddress     = null;
-    protected String subject       = null;
-    protected String message       = null;
-    protected String productID     = null;
-    protected String productDesc   = null;
+    private final FileUtil fileUtil      = new FileUtil();
+    protected     String   sendMailQuery = null;
+    protected     String   smtpHost      = null;
+    protected     String   altSmtpHost   = null;
+    protected     String   fromAddress   = null;
+    protected     String   toAddress     = null;
+    protected     String   subject       = null;
+    protected     String   message       = null;
+    protected     String   productID     = null;
+    protected     String   productDesc   = null;
 
     public PromotionMail( File file, boolean mailDebug ) throws Exception
     {
-        //读取配置文件， 文件中只有一行用空格隔开， 例如 P8756 iPhone8
-        readFile( file );
+        readProductInfos( file );
         config = new Configuration();
-
         setSMTPHost();
         setAltSMTPHost();
         setFromAddress();
@@ -44,30 +41,13 @@ public class PromotionMail
         sendEMails( mailDebug, loadMailingList() );
     }
 
-    protected void readFile( File file ) throws IOException // @02C
-    {
-        BufferedReader br = null;
-        try
-        {
-            br = new BufferedReader( new FileReader( file ) );
-            String   temp = br.readLine();
-            String[] data = temp.split( " " );
-
-            setProductID( data[ 0 ] );
-            setProductDesc( data[ 1 ] );
-
-            System.out.println( "产品ID = " + productID + "\n" );
-            System.out.println( "产品描述 = " + productDesc + "\n" );
-
-        }
-        catch ( IOException e )
-        {
-            throw new IOException( e.getMessage() );
-        }
-        finally
-        {
-            br.close();
-        }
+    private void readProductInfos( File file ) throws IOException
+    {//读取配置文件， 文件中只有一行用空格隔开， 例如 P8756 iPhone8
+        String[] productInfos = fileUtil.readFile( file );
+        setProductID( productInfos[ 0 ] );
+        setProductDesc( productInfos[ 1 ] );
+        System.out.println( "产品ID = " + productID + "\n" );
+        System.out.println( "产品描述 = " + productDesc + "\n" );
     }
 
     protected void setSMTPHost()
@@ -136,14 +116,14 @@ public class PromotionMail
         return DBUtil.query( this.sendMailQuery );
     }
 
-    protected void setProductID( String productID )
+    private void setProductID( String productID )
     {
         this.productID = productID;
     }
 
-    private void setProductDesc( String desc )
+    private void setProductDesc( String productDesc )
     {
-        this.productDesc = desc;
+        this.productDesc = productDesc;
     }
 
     protected void configureEMail( HashMap userInfo ) throws IOException
