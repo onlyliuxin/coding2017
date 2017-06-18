@@ -16,27 +16,26 @@ import java.util.List;
 
 public class PromotionMail
 {
-    private static final String NAME_KEY  = "NAME";
-    private static final String EMAIL_KEY = "EMAIL";
-    private Configuration config;
-    private FileUtil    fileUtil      = new FileUtil();
-    private String      sendMailQuery = null;
-    private String      smtpHost      = null;
-    private String      altSmtpHost   = null;
-    private String      fromAddress   = null;
-    private String      toAddress     = null;
-    private String      subject       = null;
-    private String      message       = null;
-    private ProductInfo productInfo   = new ProductInfo();
-    private boolean emailDebug;
+    private static final String        NAME_KEY      = "NAME";
+    private static final String        EMAIL_KEY     = "EMAIL";
+    private              Configuration config        = new Configuration();
+    private              ProductInfo   productInfo   = new ProductInfo();
+    private              FileUtil      fileUtil      = new FileUtil();
+    private              boolean       emailDebug    = false;
+    private              String        sendMailQuery = null;
+    private              String        smtpHost      = null;
+    private              String        altSmtpHost   = null;
+    private              String        fromAddress   = null;
+    private              String        toAddress     = null;
+    private              String        subject       = null;
+    private              String        message       = null;
 
     public PromotionMail( File file, boolean mailDebug ) throws Exception
     {
         this.emailDebug = mailDebug;
         readProductInfos( file );
         configuringEMAILSetting();
-        setLoadQuery();
-        List mailingList = loadMailingList();
+        List mailingList = queryMailingList();
         sendEMails( mailDebug, mailingList );
     }
 
@@ -45,28 +44,21 @@ public class PromotionMail
         String[] productInfos = fileUtil.readFile( file );
         productInfo.setProductID( productInfos[ 0 ] );
         productInfo.setProductDesc( productInfos[ 1 ] );
-        System.out.println( "产品ID = " + productInfo.productID + "\n" );
-        System.out.println( "产品描述 = " + productInfo.productDesc + "\n" );
+        System.out.println( "产品ID = " + productInfo.getProductID() + "\n" );
+        System.out.println( "产品描述 = " + productInfo.getProductDesc() + "\n" );
     }
 
     private void configuringEMAILSetting()
     {
-        config = new Configuration();
         setSMTPHost();
         setAltSMTPHost();
         setFromAddress();
     }
 
-    protected void setLoadQuery() throws Exception
+    private List queryMailingList() throws Exception
     {
-        sendMailQuery
-                = "Select name from subscriptions " + "where product_id= '" + productInfo.productID + "' " + "and send_mail=1 ";
-        System.out.println( "loadQuery set" );
-    }
-
-    protected List loadMailingList() throws Exception
-    {
-        return DBUtil.query( this.sendMailQuery );
+        setLoadQuery();
+        return loadMailingList();
     }
 
     protected void sendEMails( boolean debug, List mailingList ) throws IOException
@@ -120,6 +112,18 @@ public class PromotionMail
         fromAddress = config.getProperty( ConfigurationKeys.EMAIL_ADMIN );
     }
 
+    protected void setLoadQuery() throws Exception
+    {
+        sendMailQuery = "Select name from subscriptions " + "where product_id= '" + productInfo
+                .getProductID() + "' " + "and send_mail=1 ";
+        System.out.println( "loadQuery set" );
+    }
+
+    protected List loadMailingList() throws Exception
+    {
+        return DBUtil.query( this.sendMailQuery );
+    }
+
     protected void configureEMail( HashMap userInfo ) throws IOException
     {
         toAddress = ( String ) userInfo.get( EMAIL_KEY );
@@ -133,7 +137,7 @@ public class PromotionMail
     {
         String name = ( String ) userInfo.get( NAME_KEY );
         subject = "您关注的产品降价了";
-        message = "尊敬的 " + name + ", 您关注的产品 " + productInfo.productDesc + " 降价了，欢迎购买!";
+        message = "尊敬的 " + name + ", 您关注的产品 " + productInfo.getProductDesc() + " 降价了，欢迎购买!";
     }
 
     public static void main( String[] args ) throws Exception
@@ -144,18 +148,5 @@ public class PromotionMail
         PromotionMail pe         = new PromotionMail( productPromotionFile, emailDebug );
     }
 
-    private void setProductID( String productID )
-    {
-        productInfo.setProductID( productID );
-    }
 
-    private void setProductDesc( String productDesc )
-    {
-        productInfo.setProductDesc( productDesc );
-    }
-
-    protected String getproductID()
-    {
-        return productInfo.productID;
-    }
 }

@@ -12,8 +12,8 @@ import java.util.Objects;
 
 public class ProductInfo
 {
-    public String productID = null;
-    public String productDesc = null;
+    private String productID = null;
+    private String productDesc = null;
 
     public ProductInfo() { }
 
