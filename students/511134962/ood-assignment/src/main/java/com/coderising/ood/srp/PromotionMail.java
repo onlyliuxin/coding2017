@@ -18,17 +18,16 @@ public class PromotionMail
 {
     private static final String NAME_KEY  = "NAME";
     private static final String EMAIL_KEY = "EMAIL";
-    private static Configuration config;
-    private final FileUtil fileUtil      = new FileUtil();
-    protected     String   sendMailQuery = null;
-    protected     String   smtpHost      = null;
-    protected     String   altSmtpHost   = null;
-    protected     String   fromAddress   = null;
-    protected     String   toAddress     = null;
-    protected     String   subject       = null;
-    protected     String   message       = null;
-    protected     String   productID     = null;
-    protected     String   productDesc   = null;
+    private Configuration config;
+    private FileUtil    fileUtil      = new FileUtil();
+    private String      sendMailQuery = null;
+    private String      smtpHost      = null;
+    private String      altSmtpHost   = null;
+    private String      fromAddress   = null;
+    private String      toAddress     = null;
+    private String      subject       = null;
+    private String      message       = null;
+    private ProductInfo productInfo   = new ProductInfo();
     private boolean emailDebug;
 
     public PromotionMail( File file, boolean mailDebug ) throws Exception
@@ -44,10 +43,10 @@ public class PromotionMail
     private void readProductInfos( File file ) throws IOException
     {//读取配置文件， 文件中只有一行用空格隔开， 例如 P8756 iPhone8
         String[] productInfos = fileUtil.readFile( file );
-        setProductID( productInfos[ 0 ] );
-        setProductDesc( productInfos[ 1 ] );
-        System.out.println( "产品ID = " + productID + "\n" );
-        System.out.println( "产品描述 = " + productDesc + "\n" );
+        productInfo.setProductID( productInfos[ 0 ] );
+        productInfo.setProductDesc( productInfos[ 1 ] );
+        System.out.println( "产品ID = " + productInfo.productID + "\n" );
+        System.out.println( "产品描述 = " + productInfo.productDesc + "\n" );
     }
 
     private void configuringEMAILSetting()
@@ -61,7 +60,7 @@ public class PromotionMail
     protected void setLoadQuery() throws Exception
     {
         sendMailQuery
-                = "Select name from subscriptions " + "where product_id= '" + productID + "' " + "and send_mail=1 ";
+                = "Select name from subscriptions " + "where product_id= '" + productInfo.productID + "' " + "and send_mail=1 ";
         System.out.println( "loadQuery set" );
     }
 
@@ -106,16 +105,6 @@ public class PromotionMail
 
     }
 
-    private void setProductID( String productID )
-    {
-        this.productID = productID;
-    }
-
-    private void setProductDesc( String productDesc )
-    {
-        this.productDesc = productDesc;
-    }
-
     protected void setSMTPHost()
     {
         smtpHost = config.getProperty( ConfigurationKeys.SMTP_SERVER );
@@ -144,7 +133,7 @@ public class PromotionMail
     {
         String name = ( String ) userInfo.get( NAME_KEY );
         subject = "您关注的产品降价了";
-        message = "尊敬的 " + name + ", 您关注的产品 " + productDesc + " 降价了，欢迎购买!";
+        message = "尊敬的 " + name + ", 您关注的产品 " + productInfo.productDesc + " 降价了，欢迎购买!";
     }
 
     public static void main( String[] args ) throws Exception
@@ -155,8 +144,18 @@ public class PromotionMail
         PromotionMail pe         = new PromotionMail( productPromotionFile, emailDebug );
     }
 
+    private void setProductID( String productID )
+    {
+        productInfo.setProductID( productID );
+    }
+
+    private void setProductDesc( String productDesc )
+    {
+        productInfo.setProductDesc( productDesc );
+    }
+
     protected String getproductID()
     {
-        return productID;
+        return productInfo.productID;
     }
 }
