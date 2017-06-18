@@ -19,8 +19,5 @@ public class MailUtil {
 		buffer.append("Subject:").append(subject).append("\n");
 		buffer.append("Content:").append(message).append("\n");
 		System.out.println(buffer.toString());
-		
 	}
-
-	
 }

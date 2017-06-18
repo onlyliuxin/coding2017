@@ -19,7 +19,6 @@ public class DBUtil {
 	 * @return
 	 */
 	public static List query(String sql){
-		
 		List userList = new ArrayList();
 		for (int i = 1; i <= 3; i++) {
 			HashMap userInfo = new HashMap();
@@ -27,7 +26,6 @@ public class DBUtil {
 			userInfo.put("EMAIL", "aa@bb.com");
 			userList.add(userInfo);
 		}
-
 		return userList;
 	}
 }

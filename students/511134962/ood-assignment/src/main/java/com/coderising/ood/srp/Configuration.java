@@ -16,7 +16,6 @@ public class Configuration {
 	 * @return
 	 */
 	public String getProperty(String key) {
-		
 		return configurations.get(key);
 	}
 
