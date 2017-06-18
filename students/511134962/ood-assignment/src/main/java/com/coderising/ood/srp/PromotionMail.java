@@ -139,7 +139,6 @@ public class PromotionMail
     protected void setProductID( String productID )
     {
         this.productID = productID;
-
     }
 
     private void setProductDesc( String desc )
@@ -165,10 +164,10 @@ public class PromotionMail
 
     public static void main( String[] args ) throws Exception
     {
-        File f = new File(
+        File productPromotionFile = new File(
                 "D:\\02_workspace\\myproject\\coding2017\\students\\511134962\\ood-assignment\\src\\main\\java\\com\\coderising\\ood\\srp\\product_promotion.txt" );
         boolean       emailDebug = false;
-        PromotionMail pe         = new PromotionMail( f, emailDebug );
+        PromotionMail pe         = new PromotionMail( productPromotionFile, emailDebug );
     }
 
     protected String getproductID()
