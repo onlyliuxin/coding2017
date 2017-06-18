@@ -1,10 +1,17 @@
+/**********************************************************************************************************************
+ * Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.                                       *
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.                        *
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.                                                   *
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.                     *
+ * Vestibulum commodo. Ut rhoncus gravida arcu.                                                                       *
+ **********************************************************************************************************************/
+
 package com.coderising.ood.srp;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -35,7 +42,7 @@ public class PromotionMail {
 
 	public static void main(String[] args) throws Exception {
 
-		File f = new File("C:\\coderising\\workspace_ds\\ood-example\\src\\product_promotion.txt");
+		File f = new File("D:\\02_workspace\\myproject\\coding2017\\students\\511134962\\ood-assignment\\src\\main\\java\\com\\coderising\\ood\\srp\\product_promotion.txt");
 		boolean emailDebug = false;
 
 		PromotionMail pe = new PromotionMail(f, emailDebug);
