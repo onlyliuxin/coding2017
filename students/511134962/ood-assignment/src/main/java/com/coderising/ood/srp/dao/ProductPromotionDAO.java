@@ -6,38 +6,28 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.                                                                       *
  **********************************************************************************************************************/
 
-package com.coderising.ood.srp;
+package com.coderising.ood.srp.dao;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import com.coderising.ood.srp.util.DBUtil;
 
-public class FileUtil
+import java.util.HashMap;
+import java.util.List;
+
+public class ProductPromotionDAO
 {
-    public FileUtil() { }
+    private String sendMailQuery = null;
 
-    public String[] readFile( File file ) throws IOException // @02C
+    public ProductPromotionDAO() { }
+
+    public void setLoadQuery( String productID ) throws Exception
     {
-        BufferedReader br = null;
-        try
-        {
-            br = new BufferedReader( new FileReader( file ) );
-            String   temp = br.readLine();
-            String[] data = temp.split( " " );
-            br.close();
-            return data;
-        }
-        catch ( IOException e )
-        {
-            throw new IOException( e.getMessage() );
-        }
-        finally
-        {
-            if ( null != br )
-            {
-                br.close();
-            }
-        }
+        sendMailQuery
+                = "Select name from subscriptions " + "where product_id= '" + productID + "' " + "and send_mail=1 ";
+        System.out.println( "loadQuery set" );
+    }
+
+    public List<HashMap > loadMailingList() throws Exception
+    {
+        return DBUtil.query( this.sendMailQuery );
     }
 }

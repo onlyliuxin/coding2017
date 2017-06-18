@@ -6,18 +6,38 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.                                                                       *
  **********************************************************************************************************************/
 
-package com.coderising.ood.srp;
+package com.coderising.ood.srp.util;
 
-public class MailUtil {
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
-	public static void sendEmail(String toAddress, String fromAddress, String subject, String message, String smtpHost,
-			boolean debug) {
-		//假装发了一封邮件
-		StringBuilder buffer = new StringBuilder();
-		buffer.append("From:").append(fromAddress).append("\n");
-		buffer.append("To:").append(toAddress).append("\n");
-		buffer.append("Subject:").append(subject).append("\n");
-		buffer.append("Content:").append(message).append("\n");
-		System.out.println(buffer.toString());
-	}
+public class FileUtil
+{
+    public FileUtil() { }
+
+    public String[] readFile( File file ) throws IOException // @02C
+    {
+        BufferedReader br = null;
+        try
+        {
+            br = new BufferedReader( new FileReader( file ) );
+            String   temp = br.readLine();
+            String[] data = temp.split( " " );
+            br.close();
+            return data;
+        }
+        catch ( IOException e )
+        {
+            throw new IOException( e.getMessage() );
+        }
+        finally
+        {
+            if ( null != br )
+            {
+                br.close();
+            }
+        }
+    }
 }

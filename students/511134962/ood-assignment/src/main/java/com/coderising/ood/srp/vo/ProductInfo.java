@@ -6,7 +6,7 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.                                                                       *
  **********************************************************************************************************************/
 
-package com.coderising.ood.srp;
+package com.coderising.ood.srp.vo;
 
 import java.util.Objects;
 

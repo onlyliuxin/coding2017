@@ -8,6 +8,13 @@
 
 package com.coderising.ood.srp;
 
+import com.coderising.ood.srp.common.Configuration;
+import com.coderising.ood.srp.common.ConfigurationKeys;
+import com.coderising.ood.srp.dao.ProductPromotionDAO;
+import com.coderising.ood.srp.util.FileUtil;
+import com.coderising.ood.srp.util.MailUtil;
+import com.coderising.ood.srp.vo.ProductInfo;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -79,8 +86,7 @@ public class PromotionMail
 
     public static void main( String[] args ) throws Exception
     {
-        File productPromotionFile = new File(
-                "D:\\02_workspace\\myproject\\coding2017\\students\\511134962\\ood-assignment\\src\\main\\java\\com\\coderising\\ood\\srp\\product_promotion.txt" );
+        File productPromotionFile = new File( "D:\\02_workspace\\myproject\\coding2017\\students\\511134962\\ood-assignment\\src\\main\\resources\\product_promotion.txt" );
         boolean       emailDebug = false;
         PromotionMail pe         = new PromotionMail( productPromotionFile, emailDebug );
         pe.sendEMails();

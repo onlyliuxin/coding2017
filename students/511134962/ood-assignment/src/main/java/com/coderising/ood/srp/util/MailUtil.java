@@ -6,26 +6,18 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.                                                                       *
  **********************************************************************************************************************/
 
-package com.coderising.ood.srp;
+package com.coderising.ood.srp.util;
 
-import java.util.HashMap;
-import java.util.List;
+public class MailUtil {
 
-public class ProductPromotionDAO
-{
-    private String sendMailQuery = null;
-
-    public ProductPromotionDAO() { }
-
-    public void setLoadQuery( String productID ) throws Exception
-    {
-        sendMailQuery
-                = "Select name from subscriptions " + "where product_id= '" + productID + "' " + "and send_mail=1 ";
-        System.out.println( "loadQuery set" );
-    }
-
-    public List<HashMap > loadMailingList() throws Exception
-    {
-        return DBUtil.query( this.sendMailQuery );
-    }
+	public static void sendEmail(String toAddress, String fromAddress, String subject, String message, String smtpHost,
+			boolean debug) {
+		//假装发了一封邮件
+		StringBuilder buffer = new StringBuilder();
+		buffer.append("From:").append(fromAddress).append("\n");
+		buffer.append("To:").append(toAddress).append("\n");
+		buffer.append("Subject:").append(subject).append("\n");
+		buffer.append("Content:").append(message).append("\n");
+		System.out.println(buffer.toString());
+	}
 }
