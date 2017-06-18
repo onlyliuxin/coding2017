@@ -33,12 +33,18 @@ public class PromotionMail
     public PromotionMail( File file, boolean mailDebug ) throws Exception
     {
         readProductInfos( file );
+        configuringEMAILSetting();
+        setLoadQuery();
+        List mailingList = loadMailingList();
+        sendEMails( mailDebug, mailingList );
+    }
+
+    private void configuringEMAILSetting()
+    {
         config = new Configuration();
         setSMTPHost();
         setAltSMTPHost();
         setFromAddress();
-        setLoadQuery();
-        sendEMails( mailDebug, loadMailingList() );
     }
 
     private void readProductInfos( File file ) throws IOException
@@ -67,7 +73,6 @@ public class PromotionMail
 
     protected void setLoadQuery() throws Exception
     {
-
         sendMailQuery
                 = "Select name from subscriptions " + "where product_id= '" + productID + "' " + "and send_mail=1 ";
         System.out.println( "loadQuery set" );
@@ -94,7 +99,6 @@ public class PromotionMail
                     try
                     {
                         MailUtil.sendEmail( toAddress, fromAddress, subject, message, altSmtpHost, debug );
-
                     }
                     catch ( Exception e2 )
                     {
@@ -103,7 +107,6 @@ public class PromotionMail
                 }
             }
         }
-
         else
         {
             System.out.println( "没有邮件发送" );
