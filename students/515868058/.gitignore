@@ -1,0 +1,16 @@
+/target/
+/bin/
+.classpath
+.project
+/.project
+.idea/libraries/Maven__junit_junit_4_12.xml
+.idea/libraries/Maven__org_apache_ant_ant_1_9_6.xml
+.idea/libraries/Maven__org_apache_ant_ant_launcher_1_9_6.xml
+.idea/libraries/Maven__org_apache_commons_commons_lang3_3_5.xml
+.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml
+.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_24.xml
+.idea/sonarlint/
+.idea/workspace.xml
+logfile.log
+logfile1.log
+/.idea/
