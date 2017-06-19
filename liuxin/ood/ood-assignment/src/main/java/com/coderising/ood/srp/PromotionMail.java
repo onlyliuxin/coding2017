@@ -35,7 +35,7 @@ public class PromotionMail {
 
 	public static void main(String[] args) throws Exception {
 
-		File f = new File("C:\\coderising\\workspace_ds\\ood-example\\src\\product_promotion.txt");
+		File f = new File("/Users/thomas_young/Documents/code/liuxintraining/coding2017/liuxin/ood/ood-assignment/src/main/java/com/coderising/ood/srp/product_promotion.txt");
 		boolean emailDebug = false;
 
 		PromotionMail pe = new PromotionMail(f, emailDebug);
