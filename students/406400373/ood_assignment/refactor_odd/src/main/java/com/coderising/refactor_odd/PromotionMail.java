@@ -15,10 +15,6 @@ import org.apache.commons.collections4.CollectionUtils;
 
 public class PromotionMail {
 
-	public PromotionMail(File file, boolean mailDebug) throws Exception {
-
-	}
-
 	public static void main(String[] args) throws Exception {
 		// 初始化处理器
 		EmailHandler emailHandler = new EmailHandler();

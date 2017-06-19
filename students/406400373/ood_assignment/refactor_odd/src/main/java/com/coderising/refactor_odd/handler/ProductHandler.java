@@ -1,13 +1,13 @@
 package com.coderising.refactor_odd.handler;
 
-import com.coderising.refactor_odd.entity.ProductEntity;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.coderising.refactor_odd.entity.ProductEntity;
 
 /**
  * @author cenkailun
@@ -19,8 +19,7 @@ public class ProductHandler {
 	private List<ProductEntity> products = new ArrayList<>();
 
 	public ProductHandler() throws IOException {
-		File f = new File(
-				"/Users/cenkailun/codelab/coding2017/students/406400373/ood_assignment/refactor_odd/src/main/java/com/coderising/ood/srp/product_promotion.txt");
+		File f = new File(this.getClass().getClassLoader().getResource("product_promotion.txt").getFile());
 		initProducts(f);
 	}
 
@@ -45,6 +44,6 @@ public class ProductHandler {
 	}
 
 	public List<ProductEntity> fetchProducts() {
-	    return products;
-    }
+		return products;
+	}
 }
