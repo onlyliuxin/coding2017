@@ -1,0 +1,10 @@
+target/
+.idea/
+ood/target/
+datastrure/target/
+
+*.class
+*.jar
+*.war
+*.zip
+*.iml
