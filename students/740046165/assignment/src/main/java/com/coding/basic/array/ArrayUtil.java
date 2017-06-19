@@ -20,7 +20,6 @@ public class ArrayUtil {
 		int length = origin.length;
 		// 取中值
 		int mid = length / 2;
-
 		// 交换
 		for (int i = 0; i < mid; i++) {
 			swap3(origin, i, length - 1 - i);
@@ -142,6 +141,28 @@ public class ArrayUtil {
 		return newArray;
 	}
 
+	
+	/**
+	 * 把一个已经存满的数组oldArray的容量进行缩减，缩减后的大小为 size
+	 *  例如 oldArray = [2,3,6] , size =2,则返回的新数组为[2,3]
+	 * @param oldArray
+	 * @param size
+	 * @return
+	 */
+	public static int[] remain(int[] oldArray, int size) {
+		
+		int length = oldArray.length;
+		if (size > length) {
+			throw new IndexOutOfBoundsException("size overflow!");
+		}
+		
+		int[] newArray = new int[size];
+		
+		for (int i = 0; i < size; i++) {
+			newArray[i] = oldArray[i];
+		}
+		return newArray;
+	}
 	/**
 	 * 斐波那契数列为：1，1，2，3，5，8，13，21...... ，给定一个最大值， 返回小于该值的数列 例如， max = 15 ,
 	 * 则返回的数组应该为 [1，1，2，3，5，8，13] max = 1, 则返回空数组 []
@@ -154,26 +175,60 @@ public class ArrayUtil {
 		if (max == 1) {
 			return new int[]{};
 		}
+		if (max == 2) {
+			return new int[]{1, 1};
+		}
+		int current = 0; //通项值
+		int index = 0;
+		//当通项值大于max,跳出while循环
+		while(current < max) {
+			//计算current值【index先自增】
+			current = Fibonacci.calFibonacciNum2(++index);
+		}
 		
-		
-		
-		return null;
+		//计算出array[index -1]
+		return Fibonacci.fibonacci(index - 1);
 	}
 
 	/**
-	 * 计算斐波那契数列第n个数值，n从0开始
-	 * @param index
+	 * 斐波那契数列为：1，1，2，3，5，8，13，21...... ，给定一个最大值， 返回小于该值的数列 例如， max = 15 ,
+	 * 则返回的数组应该为 [1，1，2，3，5，8，13] max = 1, 则返回空数组 []
+	 * 
+	 * @param max
 	 * @return
 	 */
-	private int calFibonacciNum(int index) {
-		if (index < 0) {
-			throw new IndexOutOfBoundsException("fibonacc index must over zere");
+	public static int[] fibonacci2(int max) {
+		
+		if (max == 1) {
+			return new int[]{};
 		}
-		if (index == 0 || index == 1) {
-			return 1;
+
+		
+		//arr[] 不能自动扩容
+		int initSize = 16;
+		int[] arr = new int[initSize]; //初始化16个容量
+		arr[0] = 1;
+		arr[1] = 1;
+		
+		//index=2，从第三项开始计算
+		int index = 1;
+		//当通项值大于max,跳出while循环
+		while(arr[index] < max) {
+			
+			index++;
+			//检查容量
+			if(index >= arr.length) {
+				arr = Arrays.copyOf(arr, initSize = arr.length * 3/2 + 1);
+			}
+			//计算current值
+			arr[index] = arr[index -1] + arr[index -2];
+			
 		}
-		return calFibonacciNum(index - 1) + calFibonacciNum(index - 2);
+		
+		//计算出array
+		return remain(arr, index);
 	}
+	
 	/**
 	 * 返回小于给定最大值max的所有素数数组 例如max = 23, 返回的数组为[2,3,5,7,11,13,17,19]
 	 * 
