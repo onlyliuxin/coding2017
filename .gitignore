@@ -280,6 +280,9 @@ target
 liuxin/.DS_Store
 liuxin/src/.DS_Store
 
+students/*
+!students/785396327
+
 
 
 
