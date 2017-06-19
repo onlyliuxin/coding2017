@@ -7,45 +7,38 @@ public class ArrayList implements List {
 
 	private int size = 0;
 
-	private Object[] elementData = new Object[100];
+	private Object[] elementData = new Object[10];
 
-	public void add(Object o) {
-		size++;
-		if(size == elementData.length){
-			expansion();
-		}
-		elementData[size] = o;
+	public boolean add(Object o) {
+		return this.add(this.size + 1, o);
 	}
 
-	public void add(int index, Object o) {
+	public boolean add(int index, Object o) {
 		if (index > size + 1 || index < 0) {
 			throw new RuntimeException("index越界，不能大于size或小于0");
 		}
-		if (index >= elementData.length) {
-			expansion();
-			elementData[index] = o;
-			size ++;
-			return;
-		}
-		Object temp = elementData[index];
+		expansion(size + 1);
+		System.arraycopy(elementData, index, elementData, index + 1, size - index);
 		elementData[index] = o;
-		for (int i = index + 1; i < size; i++) {
-			Object temp1 = elementData[i + 1];
-			elementData[i] = temp;
-			temp = temp1;
-		}
-		size ++;
+		size++;
+		return true;
 	}
 
 	public Object get(int index) {
-		if (index > size + 1 || index < 0) {
+		if (index >= size || index < 0) {
 			throw new RuntimeException("index越界，不能大于size或小于0");
 		}
 		return elementData[index];
 	}
 
 	public Object remove(int index) {
-		return null;
+		if (index >= size || index < 0) {
+			throw new RuntimeException("index越界，不能大于size或小于0");
+		}
+		Object result = elementData[index];
+		System.arraycopy(elementData, index + 1, elementData, index, size - index - 1);
+		size--;
+		return result;
 	}
 
 	public int size() {
@@ -55,17 +48,19 @@ public class ArrayList implements List {
 	public Iterator iterator() {
 		return null;
 	}
-	
+
 	/**
 	 * 对数组进行扩容
 	 */
-	private void expansion(){
-		System.out.println("数组长度不够，扩容到" + (elementData.length + 100));
-		Object[] e = new Object[elementData.length + 100];
-		for (int i = 0; i < elementData.length; i++) {
-			e[i] = elementData[i];
+	private void expansion(int size) {
+		if (size >= elementData.length) {
+			System.out.println("数组长度不够，扩容到" + (elementData.length + (elementData.length / 2)));
+			Object[] e = new Object[elementData.length + (elementData.length / 2)];
+			for (int i = 0; i < elementData.length; i++) {
+				e[i] = elementData[i];
+			}
+			elementData = e;
 		}
-		elementData = e;
 	}
 
 }
