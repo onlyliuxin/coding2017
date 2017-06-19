@@ -22,4 +22,14 @@ public class DBUtil {
 
 		return userList;
 	}
+	
+	public static void setLoadQuery(String productID) throws Exception {
+		
+		String sendMailQuery = "Select name from subscriptions "
+				+ "where product_id= '" + productID +"' "
+				+ "and send_mail=1 ";
+		
+		
+		System.out.println("loadQuery set");
+	}
 }
