@@ -17,12 +17,7 @@ public class MailContent {
 
     private String message;
 
-    public void setMailContent(String uName, String productDesc) {
-        setSMTPHost();
-        setAltSMTPHost();
-        setFromAddress();
-        setMessage(uName,productDesc);
-    }
+
 
     public String getSmtpHost() {
         return smtpHost;
@@ -44,17 +39,17 @@ public class MailContent {
         return message;
     }
 
-    private void setSMTPHost() {
+    public void setSMTPHost() {
         smtpHost = config.getProperty(ConfigurationKeys.SMTP_SERVER);
 
     }
 
-    private void setAltSMTPHost() {
+    public void setAltSMTPHost() {
         altSmtpHost = config.getProperty(ConfigurationKeys.ALT_SMTP_SERVER);
     }
 
 
-    private void setFromAddress() {
+    public void setFromAddress() {
         fromAddress = config.getProperty(ConfigurationKeys.EMAIL_ADMIN);
     }
 

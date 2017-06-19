@@ -17,7 +17,7 @@ import java.util.List;
 public class MainTest {
 
     @Test
-    public void readFile() {
+    public void testReadFile() {
         File f = new File("C:\\Users\\wang\\Documents\\ood\\coding2017\\students\\349184132\\ood\\ood-assignment\\src\\main\\java\\com\\coderising\\ood\\srp\\product_promotion.txt");
         ProductInfoDAO pDAO = new ProductInfoDAO();
         pDAO.readFile(f);
@@ -28,7 +28,7 @@ public class MainTest {
     }
 
     @Test
-    public void showUserInfo(){
+    public void testUserInfo(){
         File f = new File("C:\\Users\\wang\\Documents\\ood\\coding2017\\students\\349184132\\ood\\ood-assignment\\src\\main\\java\\com\\coderising\\ood\\srp\\product_promotion.txt");
         ProductInfoDAO pDAO = new ProductInfoDAO();
         pDAO.readFile(f);
@@ -42,7 +42,7 @@ public class MainTest {
     }
 
     @Test
-    public void mailInfo(){
+    public void testSendMail(){
         File f = new File("C:\\Users\\wang\\Documents\\ood\\coding2017\\students\\349184132\\ood\\ood-assignment\\src\\main\\java\\com\\coderising\\ood\\srp\\product_promotion.txt");
         ProductInfoDAO pDAO = new ProductInfoDAO();
         pDAO.readFile(f);
