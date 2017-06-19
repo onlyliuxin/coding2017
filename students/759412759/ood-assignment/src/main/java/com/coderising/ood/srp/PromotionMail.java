@@ -15,7 +15,7 @@ public class PromotionMail {
         PromotionMail pe = new PromotionMail();
 
         String path = "F:\\IDEA_PRO_01\\coderrising\\ood-assignment\\src\\main\\java\\com\\coderising\\ood\\srp\\product_promotion.txt";
-        Product product = FileUtil.loadProductFromFile(path);
+        Product product = ProductService.loadProductFromFile(path);
         List<HashMap<String, String>> list = userService.loadMailingList(product.getProductID());
 
         pe.sendEMails(list,product,Boolean.FALSE);

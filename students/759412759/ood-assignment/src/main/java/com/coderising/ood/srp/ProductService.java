@@ -5,7 +5,7 @@ import java.io.*;
 /**
  * Created by Tudou on 2017/6/16.
  */
-public class FileUtil {
+public class ProductService {
 
     public static Product loadProductFromFile(String filePath) throws IOException {
         Product product = new Product();
