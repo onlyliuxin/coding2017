@@ -4,12 +4,11 @@
  */
 package com.coderising.ood.ocp;
 
-import com.coderising.ood.ocp.log.Logger;
-import com.coderising.ood.ocp.log.formatter.DateUtil;
-import com.coderising.ood.ocp.log.formatter.LogFormatter;
-import com.coderising.ood.ocp.log.handler.LogHandler;
-import com.coderising.ood.ocp.log.handler.MailUtil;
-import com.coderising.ood.ocp.log.handler.SMSUtil;
+import com.coderising.ood.ocp.formatter.DateUtil;
+import com.coderising.ood.ocp.formatter.LogFormatter;
+import com.coderising.ood.ocp.handler.LogHandler;
+import com.coderising.ood.ocp.handler.MailUtil;
+import com.coderising.ood.ocp.handler.SMSUtil;
 
 /**
   * @Description:
