@@ -10,7 +10,7 @@ public class PromotionMail {
 
     public static void main(String[] args) throws Exception {
         //这里可以做成参数输入
-        File f = new File("C:\\coderising\\workspace_ds\\ood-example\\src\\product_promotion.txt");
+        File f = new File("product_promotion.txt");
         boolean debug = true;
         PromotionMail pe = new PromotionMail();
         pe.sendEMails(f, debug);
