@@ -2,7 +2,7 @@ package com.coding.basic.array;
 
 import com.coding.basic.Iterator;
 import com.coding.basic.List;
-//实现arraylist
+//实现arraylist写呢
 public class ArrayList implements List {
 	
 	private int size = 0;
@@ -10,7 +10,7 @@ public class ArrayList implements List {
 	private Object[] elementData = new Object[100];
 	
 	public void add(Object o){
-		
+		elementData[size++] = o;
 	}
 	public void add(int index, Object o){
 		
