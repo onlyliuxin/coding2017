@@ -17,15 +17,29 @@ public class ArrayList implements List {
 	}
 	
 	public Object get(int index){
-		return null;
+		if (size < index) {//判断是否存在
+			return null;
+		}
+		return elementData[index];
 	}
-	
+	//返回删除对象
 	public Object remove(int index){
+		if (index > size) {//不存在
+			System.out.println("数据不存在");
+			return null;
+		} else if (index == size) {//刚好最后一个
+			return elementData[index];
+		} else {
+			
+		}
 		return null;
 	}
 	
 	public int size(){
-		return -1;
+		if (elementData[0]==null) {
+			return -1;
+		}
+		return elementData.length;
 	}
 	
 	public Iterator iterator(){
