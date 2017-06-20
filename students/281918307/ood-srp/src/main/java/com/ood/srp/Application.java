@@ -1,14 +1,18 @@
 package com.ood.srp;
 
-import org.apache.log4j.Logger;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
- * Created by ajaxfeng on 2017/6/20.
+ * Created by ajaxfeng on 2017/4/28.
  */
+@SpringBootApplication
+@EnableConfigurationProperties
+@ComponentScan("com.ood.srp")
 public class Application {
-    static final Logger logger = Logger.getLogger(Application.class);
-
-    public static void main(String [] args) {
-        logger.error("Application running ...");
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(Application.class, args);
     }
 }

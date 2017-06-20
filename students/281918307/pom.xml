@@ -15,14 +15,41 @@
     </modules>
 
 
+    <repositories>
+        <repository>
+            <id>aliyun maven</id>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>maven.nuxeo.org</id>
+            <url>http://maven.nuxeo.org/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
+
     <properties>
+        <!-- define encoding for source, resources and javadoc-->
         <encoding>UTF-8</encoding>
+        <!-- define java compile level-->
         <compile.version>1.8</compile.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.boot.version>1.5.3.RELEASE</spring.boot.version>
     </properties>
 
 
     <dependencyManagement>
+
         <dependencies>
+
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
