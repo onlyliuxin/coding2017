@@ -21,7 +21,7 @@ import com.coderising.ood.srp2.util.DBUtil;
  * @author mazan
  */
 public class SubscriptionService {
-
+	
 	/*
 	 * DB订阅表结构
 	 * | id | userId | productId|
@@ -101,6 +101,8 @@ public class SubscriptionService {
 	/**
 	 * map util类
 	 * @param map1
+	 * --> 可以抽取成一个PO
+	 * --> 或者类似于Hibernate一样的添加为User的属性
 	 * @return
 	 */
 	private static Map<FollowUser, List<Product>> merge(Map<Product, List<FollowUser>> map1) {
@@ -112,9 +114,7 @@ public class SubscriptionService {
 		for (Map.Entry<Product, List<FollowUser>> entry : map1.entrySet()) {
 			Product key = entry.getKey();
 			List<FollowUser> value = entry.getValue();
-//			System.out.println("-product:" + key.getProductDesc());
 			for (FollowUser user : value) {
-//				System.out.println("--user:" + user.getUserName() + "----" + user.toString());
 				
 				//不能用对象--hashcode不一致 ==>>重写hashCode和equals方法,或者用户单例
 				//实际使用中仅保证id一致即可

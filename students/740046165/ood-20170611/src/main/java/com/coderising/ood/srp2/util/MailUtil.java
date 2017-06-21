@@ -21,7 +21,7 @@ public class MailUtil {
 	 * 批量发送邮件
 	 * @param map
 	 */
-	public static void SendMail(Map<FollowUser, List<Product>> map) {
+	public static void SendMail(Map<FollowUser, List<Product>> map, boolean debug) {
 		for (Map.Entry<FollowUser, List<Product>> entry : map.entrySet()) {
 			SendMail(entry.getKey(), entry.getValue());
 		}

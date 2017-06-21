@@ -26,10 +26,11 @@ public class Client {
 		 * P8904 Oppo_R15	-- user1,user3
 		 * P4955 Vivo_X20	-- user4,user5
 		 */
+		//配置一个参数,来决定是否合并发送邮件 FollowUser + List<Product> = Subscription
 		Map<FollowUser, List<Product>> map = SubscriptionService.getFollowUserMergeProductList(list);
 		
 		//发送邮件
-		MailUtil.SendMail(map);
+		MailUtil.SendMail(map, false);
 		
 		
 	}
