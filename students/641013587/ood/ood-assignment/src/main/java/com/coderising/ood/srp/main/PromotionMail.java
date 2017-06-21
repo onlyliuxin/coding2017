@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import com.coderising.ood.srp.Configuration;
-import com.coderising.ood.srp.ConfigurationKeys;
 import com.coderising.ood.srp.dao.UserDao;
 import com.coderising.ood.srp.entity.Product;
 import com.coderising.ood.srp.entity.User;
