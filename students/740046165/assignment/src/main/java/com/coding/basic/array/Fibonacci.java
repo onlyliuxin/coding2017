@@ -25,7 +25,7 @@ public class Fibonacci {
 	 */
 	public static int calFibonacciNum1(int index) {
 		if (index < 0) {
-			throw new IndexOutOfBoundsException("fibonacc index must over zere");
+			throw new IndexOutOfBoundsException("fibonacc index must over zero");
 		}
 		if (index == 0 || index == 1) {
 			return 1;
@@ -104,7 +104,6 @@ public class Fibonacci {
 		int[] arr = new int[index + 1];
 		arr[0] = 1;
 		arr[1] = 1;
-		int current = 0;
 		for (int i = 2; i <= index; i++) {
 			arr[i] = arr[i-2] + arr[i-1];
 		}

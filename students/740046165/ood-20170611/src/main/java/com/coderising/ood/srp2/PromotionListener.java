@@ -17,7 +17,7 @@ public class PromotionListener {
 
 	/**
 	 * 获取促销信息
-	 * --> TODO 监听器
+	 * 监听器或取降价信息
 	 * @return
 	 */
 	public static List<Product> getPromotionList() {

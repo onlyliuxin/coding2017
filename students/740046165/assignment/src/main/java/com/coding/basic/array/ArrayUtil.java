@@ -66,7 +66,6 @@ public class ArrayUtil {
 	 * @param oldArray
 	 * @return
 	 */
-
 	public static int[] removeZero(int[] oldArray) {
 		int[] newArray = new int[oldArray.length];
 		int zereNum = 0;
@@ -79,7 +78,7 @@ public class ArrayUtil {
 				newArray[i - zereNum] = oldArray[i];
 			}
 		}
-		// decrise
+		// decrease
 		return decrease(newArray, zereNum);
 	}
 
@@ -90,8 +89,8 @@ public class ArrayUtil {
 	 * @param array1
 	 * @param array2
 	 * @return
+	 * TODO 
 	 */
-
 	public static int[] merge(int[] array1, int[] array2) {
 		return null;
 	}
@@ -234,6 +233,7 @@ public class ArrayUtil {
 	 * 
 	 * @param max
 	 * @return
+	 * TODO 
 	 */
 	public static int[] getPrimes(int max) {
 		return null;
@@ -244,6 +244,7 @@ public class ArrayUtil {
 	 * 
 	 * @param max
 	 * @return
+	 * TODO 
 	 */
 	public static int[] getPerfectNumbers(int max) {
 		return null;
@@ -255,6 +256,7 @@ public class ArrayUtil {
 	 * @param array
 	 * @param s
 	 * @return
+	 * TODO 
 	 */
 	public static String join(int[] array, String seperator) {
 		return null;

@@ -2,6 +2,7 @@ package com.coderising.ood.srp2.util;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.coderising.ood.srp.Configuration;
 import com.coderising.ood.srp.ConfigurationKeys;
@@ -16,7 +17,15 @@ import com.coderising.ood.srp2.model.Product;
  */
 public class MailUtil {
 	
-	
+	/**
+	 * 批量发送邮件
+	 * @param map
+	 */
+	public static void SendMail(Map<FollowUser, List<Product>> map) {
+		for (Map.Entry<FollowUser, List<Product>> entry : map.entrySet()) {
+			SendMail(entry.getKey(), entry.getValue());
+		}
+	}
 	/**
 	 * 发送邮件通知
 	 */
@@ -26,18 +35,27 @@ public class MailUtil {
 		Configuration config = new Configuration();
 		//发送邮箱
 		String sendMail = config.getProperty(ConfigurationKeys.EMAIL_ADMIN);
-
+		
+		//封装邮件内容
 		String content = createContextByPromotionList(user, list);
 		//创建一封邮件
 		MimeMessage mineMessage = createMimeMessage(sendMail, user.getUserEmail(), content);
         //发送邮件
+		sendMail(mineMessage);
 		
 	}
 	/**
-	 * 邮件发送
+	 * 邮件发送--使用另外一个线程异步发送,或者MQ
 	 * @param mineMessage
 	 */
 	private static void sendMail(MimeMessage mineMessage) {
+		//校验
+		try {
+			checkMineMessage(mineMessage);
+		} catch (Exception e) {
+			//检验失败不发送
+			return;
+		}
 		
 		//假装发了一封邮件
 		StringBuilder buffer = new StringBuilder();
@@ -45,10 +63,27 @@ public class MailUtil {
 		buffer.append("To:").append(mineMessage.getToAddress()).append("\n");
 		buffer.append("Subject:").append(mineMessage.getSubject()).append("\n");
 		buffer.append("Content:").append(mineMessage.getContent()).append("\n");
-		System.out.println(buffer.toString());
+		
+		
+		try {
+			System.out.println(buffer.toString());
+		} catch (Exception e) {
+			//备用服务器发送
+			//异常：邮箱地址错误啦之类的
+			e.printStackTrace();
+		}
 	}
 	
-	
+	/**
+	 * 邮件检验
+	 * @param mineMessage
+	 */
+	private static void checkMineMessage(MimeMessage mineMessage) {
+		if (mineMessage.getToAddress().length() < 0) {
+			throw new RuntimeException("接收邮件地址错误");
+		}
+		//others...
+	}
 	/**
      * 创建一封只包含文本的简单邮件
      *
@@ -88,7 +123,7 @@ public class MailUtil {
     		.append(",")
     		.append("您关注的产品")
     		.append(ListUtil.ListToString(list))
-    		.append(" 降价了, 换用购买!");
+    		.append(" 降价了, 欢迎购买!");
     	return sb.toString();
     }
     
