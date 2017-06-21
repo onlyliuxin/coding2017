@@ -1,8 +1,8 @@
 package com.coderising.ood.ocp;
 
-public class MailUtil {
+public class MailUtil implements Sender{
 
-	public static void send(String logMsg) {
+	public void send(String logMsg) {
 		// TODO Auto-generated method stub
 		
 	}
