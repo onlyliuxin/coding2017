@@ -15,8 +15,8 @@ public class DBUtil {
 		List userList = new ArrayList();
 		for (int i = 1; i <= 3; i++) {
 			HashMap userInfo = new HashMap();
-			userInfo.put("NAME", "User" + i);			
-			userInfo.put("EMAIL", "aa@bb.com");
+			userInfo.put(CommonKeys.NAME_KEY, "User" + i);			
+			userInfo.put(CommonKeys.EMAIL_KEY, "aa@bb.com");
 			userList.add(userInfo);
 		}
 
