@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 public class Application {
     static final Logger logger = Logger.getLogger(Application.class);
 
-    public static void main(String [] args) {
+    public static void main(String[] args) {
         logger.error("Application running ...");
     }
 }

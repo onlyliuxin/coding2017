@@ -2,6 +2,7 @@ package com.ood.srp.user;
 
 /**
  * 用户数据类。
+ *
  * @since 06.18.2017
  */
 public class UserInfo {
@@ -9,7 +10,7 @@ public class UserInfo {
     private String email;
     private String productDesc;
 
-    public UserInfo(String name, String email, String productDesc){
+    public UserInfo(String name, String email, String productDesc) {
         this.name = name;
         this.email = email;
         this.productDesc = productDesc;

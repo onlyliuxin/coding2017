@@ -2,6 +2,7 @@ package com.ood.srp.product;
 
 /**
  * 产品信息数据类。
+ *
  * @since 06.18.2017
  */
 public class ProductDetail {
