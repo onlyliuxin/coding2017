@@ -1,7 +1,7 @@
 SRP
 
-![SRP](./src\main\resourse\SRP-Mail.png)
+![SRP](./src/main/resourse/SRP-Mail.png)
 
 OCP
 
-![OCP](./src\main\resourse\OCP-Logger.png)
+![OCP](./src/main/resourse/OCP-Logger.png)
