@@ -14,7 +14,12 @@ public class Test {
 	private static final Logger log = LogManager.getLogger(Test.class);
 	public static void main(String[] args) {
 		MailService service = new MailService();
-		List<Product> list = ProductUtils.getList(FileUtils.readFile());
-		service.sendMail(list);
+		//List<Product> list = ProductUtils.getList(FileUtils.readFile());
+		//service.sendMail(list);
+		String s = "";
+		String b = null;
+		log.info(s.isEmpty()+"---"+b.isEmpty());
 	}
+	
+	
 }

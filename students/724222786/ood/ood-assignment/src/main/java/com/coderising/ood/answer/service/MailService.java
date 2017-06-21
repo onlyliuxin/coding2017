@@ -19,7 +19,7 @@ public class MailService {
 		for(Product p: list){
 			List<User> uList = DBUtils.queryByProductID(p.getpId());
 			for(User u : uList){
-				MailMessage m = MailMessage.getMessage("", "", p, u);
+				MailMessage m = MailMessage.getMessage("","", "", p, u);
 				MailUtils.sendMail(m);
 			}
 		}

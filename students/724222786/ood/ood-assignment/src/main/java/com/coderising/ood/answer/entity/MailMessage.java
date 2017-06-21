@@ -18,13 +18,14 @@ public class MailMessage implements Serializable{
 	private String subject;
 	private String content;
 	
-	public static MailMessage getMessage(String from,String subject,Product p,User u){
+	public static MailMessage getMessage(String from,String subject,String content,Product p,User u){
 		MailMessage m = new MailMessage();
-		String content = "尊敬的 "+u.getName()+", 您关注的产品 " + p.getpDec() + " 降价了，欢迎购买!" ;
-		if(subject.isEmpty()){
+		if(content != null && !content.isEmpty())
+		content = "尊敬的 "+u.getName()+", 您关注的产品 " + p.getpDec() + " 降价了，欢迎购买!" ;
+		if(subject != null && !subject.isEmpty()){
 			subject = "您关注的产品降价了";
 		}
-		if(from.isEmpty()){
+		if(from != null && !from.isEmpty()){
 			from = ConfigUtils.getProperty("smtp.server");
 		}
 		m.setFromAddr(from);
