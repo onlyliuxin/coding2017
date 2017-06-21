@@ -13,18 +13,6 @@ import com.coderising.ood.srp.util.MailUtil;
 import com.coderising.ood.srp.util.PropertiesUtil;
 
 public class EmailService {
-	public static void sendEmail(
-			boolean debug,Msg msg) {
-		//假装发了一封邮件
-		StringBuilder buffer = new StringBuilder();
-		buffer.append("From:").append(msg.getFromAddress()).append("\n");
-		buffer.append("To:").append(msg.getToAddress()).append("\n");
-		buffer.append("Subject:").append(msg.getSubject()).append("\n");
-		buffer.append("Content:").append(msg.getMessage()).append("\n");
-		System.out.println(buffer.toString());
-		
-	}
-	
 	
 	public boolean sendEMails(boolean debug, List<User> mailingList, Product product) throws IOException 
 	{
@@ -38,13 +26,13 @@ public class EmailService {
 				basemsg.setSubject(CommonConstant.SUBJECT);
 				basemsg.setMessage(CommonConstant.getProductMessage(user, product));
 				if (basemsg.getToAddress().length() > 0)
-					MailUtil.sendEmail(debug,PropertiesUtil.BASEMSG);
+					MailUtil.sendEmail(debug,basemsg);
 			} 
 			catch (Exception e) 
 			{
 				
 				try {
-					MailUtil.sendEmail(debug,PropertiesUtil.BASEMSG);
+					MailUtil.sendEmail(debug,basemsg);
 					
 				} catch (Exception e2) 
 				{
