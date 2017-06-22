@@ -1,5 +1,8 @@
 package com.coderising.ood.srp;
 
+
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class MailUtil {
 
 	public static void sendEmail(String toAddress, String fromAddress, String subject, String message, String smtpHost,
@@ -11,7 +14,6 @@ public class MailUtil {
 		buffer.append("Subject:").append(subject).append("\n");
 		buffer.append("Content:").append(message).append("\n");
 		System.out.println(buffer.toString());
-		
 	}
 
 	
