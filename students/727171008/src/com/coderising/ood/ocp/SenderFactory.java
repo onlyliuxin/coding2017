@@ -3,7 +3,7 @@ package com.coderising.ood.ocp;
 public class SenderFactory {
     public Sender createSender(int type) {
 	Sender sender = null;
-	if (type == 1) {
+	if(type == 1) {
 	    sender = new MailSenderImp();
 	}
 	if (type == 2) {
