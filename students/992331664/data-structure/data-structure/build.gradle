@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.21'
+	compile 'org.apache.poi:poi:3.16'
+	compile 'org.apache.poi:poi-ooxml:3.16'
+    testCompile 'junit:junit:4.12'
+}
