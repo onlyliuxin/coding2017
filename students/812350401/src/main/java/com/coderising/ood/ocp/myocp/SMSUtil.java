@@ -1,4 +1,4 @@
-package com.coderising.ood.ocp;
+package com.coderising.ood.ocp.myocp;
 
 public class SMSUtil {
 
