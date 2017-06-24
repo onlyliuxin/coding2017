@@ -3,9 +3,9 @@ package com.coderising.ood.ocp.myocp;
 /**
  * Created by thomas_young on 24/6/2017.
  */
-public class PrintMethod implements Method {
+public class PrintSender implements Sender {
     @Override
-    public void action(String msg) {
+    public void send(String msg) {
         System.out.println(msg);
     }
 }

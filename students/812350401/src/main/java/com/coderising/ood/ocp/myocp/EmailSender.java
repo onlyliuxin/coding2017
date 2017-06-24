@@ -4,9 +4,9 @@ package com.coderising.ood.ocp.myocp;
 /**
  * Created by thomas_young on 24/6/2017.
  */
-public class SmsMethod implements Method {
+public class EmailSender implements Sender {
     @Override
-    public void action(String msg) {
-        SMSUtil.send(msg);
+    public void send(String msg) {
+        MailUtil.send(msg);
     }
 }

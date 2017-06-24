@@ -2,15 +2,15 @@ package com.coderising.ood.ocp.myocp;
 
 public class Logger {
 
-	Method method;
-	Msg msg;
+	Sender sender;
+	Formatter formatter;
 			
-	public Logger(Msg aMsg, Method aMethod){
-		msg= aMsg;
-		method = aMethod;
+	public Logger(Formatter aFormatter, Sender aSender){
+		formatter = aFormatter;
+		sender = aSender;
 	}
 	public void log(String message){
-        method.action(msg.msg(message));
+        sender.send(formatter.format(message));
 	}
 }
 

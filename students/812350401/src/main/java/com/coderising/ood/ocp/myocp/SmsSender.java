@@ -1,12 +1,12 @@
 package com.coderising.ood.ocp.myocp;
 
+
 /**
  * Created by thomas_young on 24/6/2017.
  */
-public class RawMsg implements Msg {
-
+public class SmsSender implements Sender {
     @Override
-    public String msg(String msg) {
-        return msg;
+    public void send(String msg) {
+        SMSUtil.send(msg);
     }
 }
