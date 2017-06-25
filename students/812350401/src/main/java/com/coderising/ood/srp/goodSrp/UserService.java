@@ -12,7 +12,7 @@ public class UserService {
     public List<User> getUsers(List<Product> ps) {
         List<User> users = new LinkedList<>();
         String sql = "Select name from subscriptions where send_mail=1";
-        System.out.println("loadQuery set");
+        System.out.println("loadQuery set\n");
         List userInfoList = DBUtil.query(sql);
         for (Object userInfo: userInfoList) {
             User user = new User();

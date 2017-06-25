@@ -1,12 +1,15 @@
 package com.coderising.ood.srp.goodSrp;
 
+import com.coderising.ood.srp.goodSrp.template.MailBodyTemplate;
+import com.coderising.ood.srp.goodSrp.template.TextMailBodyTemplate;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Mail {
 
 	private User user;
-	
+	MailBodyTemplate mailBodyTemplate;
 	public Mail(User u){
 		this.user = u;	
 	}
@@ -17,8 +20,8 @@ public class Mail {
 		return "您关注的产品降价了";
 	}
 	public String getBody(){
-		
-		return "尊敬的 "+user.getName()+", 您关注的产品 " + this.buildProductDescList() + " 降价了，欢迎购买!" ;		
+		mailBodyTemplate = new TextMailBodyTemplate(user.getName(), buildProductDescList(), getAddress());
+		return mailBodyTemplate.render();
 	}
 	private String buildProductDescList() {
 		List<Product> products = user.getSubscribedProducts();

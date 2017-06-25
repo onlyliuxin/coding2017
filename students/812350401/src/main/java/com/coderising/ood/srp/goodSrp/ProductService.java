@@ -26,7 +26,7 @@ public class ProductService {
 		String[] data = line.split(" ");
 		String productID = data[0];
 		String productDesc = data[1];
-		System.out.println("产品ID = " + productID + "\n");
+		System.out.println("产品ID = " + productID);
 		System.out.println("产品描述 = " + productDesc + "\n");
 		Product p = new Product();
 		p.setDesc(productDesc);

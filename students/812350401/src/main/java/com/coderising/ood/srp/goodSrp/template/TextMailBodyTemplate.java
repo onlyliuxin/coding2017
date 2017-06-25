@@ -1,25 +1,20 @@
 package com.coderising.ood.srp.goodSrp.template;
 
-import com.coderising.ood.srp.goodSrp.Mail;
-
 
 public class TextMailBodyTemplate implements MailBodyTemplate {
-	private Mail mail;
-	String fromAdress;
-	public TextMailBodyTemplate(Mail mail, String fromAdress){
-		this.mail = mail;
-		this.fromAdress = fromAdress;
+	String productDescription;
+	String name;
+	String toAdress;
+	public TextMailBodyTemplate(String name, String productDescription, String toAdress){
+		this.productDescription = productDescription;
+		this.name = name;
+		this.toAdress = toAdress;
 	}
 	
 	@Override
 	public String render() {
 		//使用某种模板技术实现Render
-		StringBuilder buffer = new StringBuilder();
-		buffer.append("From:").append(fromAdress).append("\n");
-		buffer.append("To:").append(mail.getAddress()).append("\n");
-		buffer.append("Subject:").append(mail.getSubject()).append("\n");
-		buffer.append("Content:").append(mail.getBody()).append("\n");
-		return buffer.toString();
+        return "尊敬的 "+ name +", 您关注的产品 " + productDescription + " 降价了，欢迎购买!" ;
 	}
 
 }
