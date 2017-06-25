@@ -6,34 +6,25 @@ package com.coderising.ood.srp.model;
  */
 public class Subscriptions {
 
-	// name 和 email 应该存放在用户信息中，如叫订阅用户，
-	private String name;
-	private String email;
-	private String productId;
+	private User user;
 	private Product product;
 
-	public String getName() {
-		return name;
+	public Subscriptions() {
+		super();
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public Subscriptions(User user, Product product) {
+		super();
+		this.user = user;
+		this.product = product;
 	}
 
-	public String getEmail() {
-		return email;
+	public User getUser() {
+		return user;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getProductId() {
-		return productId;
-	}
-
-	public void setProductId(String productId) {
-		this.productId = productId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Product getProduct() {
@@ -46,8 +37,6 @@ public class Subscriptions {
 
 	@Override
 	public String toString() {
-		return "Subscriptions [name=" + name + ", email=" + email + ", productId=" + productId + ", product=" + product
-				+ "]";
+		return "Subscriptions [user=" + user + ", product=" + product + "]";
 	}
-
 }
