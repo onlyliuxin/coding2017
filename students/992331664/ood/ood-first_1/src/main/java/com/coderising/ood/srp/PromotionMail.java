@@ -10,7 +10,6 @@ import com.coderising.ood.srp.config.ConnectionConfig;
 import com.coderising.ood.srp.model.MailInfo;
 import com.coderising.ood.srp.model.Product;
 import com.coderising.ood.srp.model.Subscriptions;
-import com.coderising.ood.srp.service.MailService;
 import com.coderising.ood.srp.service.ProductService;
 import com.coderising.ood.srp.service.SubscriptionsService;
 import com.coderising.ood.srp.util.MailUtil;
@@ -20,8 +19,6 @@ public class PromotionMail {
 	protected SubscriptionsService subscriptionsService;
 
 	protected ProductService productService;
-
-	protected MailService mailService;
 
 	public PromotionMail(SubscriptionsService subscriptionsService, ProductService productService) {
 		this.subscriptionsService = subscriptionsService;
@@ -71,12 +68,19 @@ public class PromotionMail {
 			System.out.println("没有邮件需要发送");
 			return;
 		}
-		for (MailInfo mail : mails) {
+		System.out.println("开始发送邮件");
+		Iterator<MailInfo> iter = mails.iterator();
+		while (iter.hasNext()) {
+			MailInfo mail = iter.next();
+			if (mail.getToAddress().length() <= 0) {
+				continue;
+			}
 			try {
-				mailService.sendMail(mail, config.getFromAddress(), config.getSmtpHost(), debug);
+				MailUtil.sendEmail(mail.getToAddress(), config.getFromAddress(), mail.getSubject(), mail.getMessage(),config.getSmtpHost(), debug);
 			} catch (Exception e) {
 				try {
-					mailService.sendMail(mail, config.getFromAddress(), config.getAltSmtpHost(), debug);
+					MailUtil.sendEmail(mail.getToAddress(), config.getFromAddress(), mail.getSubject(),mail.getMessage(), config.getAltSmtpHost(), debug);
+
 				} catch (Exception e2) {
 					System.out.println("通过备用 SMTP服务器发送邮件失败: " + e2.getMessage());
 				}
