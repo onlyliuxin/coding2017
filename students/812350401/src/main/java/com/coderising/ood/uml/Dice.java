@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class Dice {
 
-    private ImmutableList<Integer> values = ImmutableList.of(0, 1, 2, 3, 4, 5, 6);
+    private ImmutableList<Integer> values = ImmutableList.of(1, 2, 3, 4, 5, 6);
 
     public int roll() {
        return values.get(new Random().nextInt(values.size()));
