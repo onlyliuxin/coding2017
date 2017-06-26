@@ -7,9 +7,14 @@ import java.util.List;
 public class ThreadPool {
 
     private BlockingQueue taskQueue = null;
-    private List<WorkerThread> threads = new ArrayList<WorkerThread>();
+    private List<WorkerThread> threads = new ArrayList<>();
     private boolean isStopped = false;
 
+    /**
+     * 线程池实例化的时候，线程就都启动了
+     * @param numOfThreads
+     * @param maxNumOfTasks
+     */
     public ThreadPool(int numOfThreads, int maxNumOfTasks){
         taskQueue = new BlockingQueue(maxNumOfTasks);
 
@@ -21,7 +26,12 @@ public class ThreadPool {
         }
     }
 
-    public synchronized void  execute(Task task) throws Exception{
+    /**
+     * 往阻塞队列里面加task
+     * @param task
+     * @throws Exception
+     */
+    public synchronized void execute(Task task) throws Exception{
         if(this.isStopped) throw
             new IllegalStateException("ThreadPool is stopped");
 

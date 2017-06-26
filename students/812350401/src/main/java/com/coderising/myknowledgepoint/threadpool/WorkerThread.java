@@ -17,13 +17,14 @@ public class WorkerThread extends Thread {
             } catch(Exception e){
                 //log or otherwise report exception,
                 //but keep pool thread alive.
+                System.out.println("doStop");
             }
         }
     }
 
     public synchronized void doStop(){
         isStopped = true;
-        this.interrupt(); //break pool thread out of dequeue() call.
+        this.interrupt();  //break pool thread out of dequeue() call，可以令waiting状态的线程抛出异常从而跳出
     }
 
     public synchronized boolean isStopped(){
