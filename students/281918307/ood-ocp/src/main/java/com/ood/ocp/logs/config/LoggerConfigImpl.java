@@ -2,18 +2,23 @@ package com.ood.ocp.logs.config;
 
 import com.ood.ocp.logs.content.ContentService;
 import com.ood.ocp.logs.sender.LoggerSender;
+import com.ood.ocp.logs.sender.LoggerSenderWacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by ajaxfeng on 2017/6/24.
  */
 @Service
 public class LoggerConfigImpl implements LoggerConfig {
+    @Autowired
+    private LoggerSenderWacher loggerSenderWacher;
 
     private int contentType;
 
-    private int sendType;
+    private List<Integer> sendTypeList;
     @Autowired
     private LoggerSender mailLoggerSender;
     @Autowired
@@ -38,20 +43,17 @@ public class LoggerConfigImpl implements LoggerConfig {
         return contentService;
     }
 
-    @Override
-    public LoggerSender getLoggerSender() {
-        if (EMAIL_LOG == sendType) {
-            return mailLoggerSender;
+    private void initLoggerWacher(){
+        if(sendTypeList.contains(EMAIL_LOG)){
+            loggerSenderWacher.addLoggerSender(mailLoggerSender);
         }
-        if (SMS_LOG == sendType) {
-            return smsLoggerSender;
+         if(sendTypeList.contains(SMS_LOG)){
+            loggerSenderWacher.addLoggerSender(smsLoggerSender);
         }
-        if (PRINT_LOG == sendType) {
-            return consoleLoggerSender;
+         if(sendTypeList.contains(PRINT_LOG)){
+            loggerSenderWacher.addLoggerSender(consoleLoggerSender);
         }
-        return mailLoggerSender;
     }
-
 
     public int getContentType() {
         return contentType;
@@ -61,11 +63,16 @@ public class LoggerConfigImpl implements LoggerConfig {
         this.contentType = contentType;
     }
 
-    public int getSendType() {
-        return sendType;
+    public List<Integer> getSendTypeList() {
+        return sendTypeList;
     }
 
-    public void setSendType(int sendType) {
-        this.sendType = sendType;
+    /**
+     * 设置类型
+     * @param sendTypeList
+     */
+    public void setSendTypeList(List<Integer> sendTypeList) {
+        this.sendTypeList = sendTypeList;
+        initLoggerWacher();
     }
 }

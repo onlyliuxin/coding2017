@@ -1,7 +1,8 @@
 package com.ood.ocp.logs.config;
 
 import com.ood.ocp.logs.content.ContentService;
-import com.ood.ocp.logs.sender.LoggerSender;
+
+import java.util.List;
 
 /**
  * Created by ajaxfeng on 2017/6/24.
@@ -14,12 +15,17 @@ public interface LoggerConfig {
     public final int SMS_LOG = 2;
     public final int PRINT_LOG = 3;
 
+    /**
+     *
+     * @return
+     */
     public ContentService getContentService();
 
-    public LoggerSender getLoggerSender();
-
-    public void setContentType(int contentType);
-
-    public void setSendType(int sendType);
+    /**
+     * 设置类型
+     *
+     * @param sendTypeList
+     */
+    public void setSendTypeList(List<Integer> sendTypeList);
 
 }
