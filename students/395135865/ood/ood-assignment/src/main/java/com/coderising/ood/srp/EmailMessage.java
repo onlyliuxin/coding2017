@@ -1,21 +1,41 @@
 package com.coderising.ood.srp;
 
 /**
- * the email message content will be sent to user.
+ * the email message entity class.
  *
  * @author Thomson Tang
  * @version Created: 23/06/2017.
  */
 public class EmailMessage {
+    private String fromAddress;
+    private String toAddress;
     private String subject;
-    private String message;
+    private String content;
 
     public EmailMessage() {
     }
 
-    public EmailMessage(String subject, String message) {
+    public EmailMessage(String fromAddress, String toAddress, String subject, String content) {
+        this.fromAddress = fromAddress;
+        this.toAddress = toAddress;
         this.subject = subject;
-        this.message = message;
+        this.content = content;
+    }
+
+    public String getFromAddress() {
+        return fromAddress;
+    }
+
+    public void setFromAddress(String fromAddress) {
+        this.fromAddress = fromAddress;
+    }
+
+    public String getToAddress() {
+        return toAddress;
+    }
+
+    public void setToAddress(String toAddress) {
+        this.toAddress = toAddress;
     }
 
     public String getSubject() {
@@ -26,11 +46,11 @@ public class EmailMessage {
         this.subject = subject;
     }
 
-    public String getMessage() {
-        return message;
+    public String getContent() {
+        return content;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setContent(String content) {
+        this.content = content;
     }
 }
