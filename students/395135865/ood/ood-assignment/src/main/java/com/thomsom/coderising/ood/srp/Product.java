@@ -1,4 +1,4 @@
-package com.coderising.ood.srp;
+package com.thomsom.coderising.ood.srp;
 
 /**
  * Product entity class.

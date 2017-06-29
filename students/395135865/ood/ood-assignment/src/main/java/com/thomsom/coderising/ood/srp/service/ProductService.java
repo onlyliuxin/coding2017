@@ -1,4 +1,6 @@
-package com.coderising.ood.srp;
+package com.thomsom.coderising.ood.srp.service;
+
+import com.thomsom.coderising.ood.srp.Product;
 
 import java.util.List;
 

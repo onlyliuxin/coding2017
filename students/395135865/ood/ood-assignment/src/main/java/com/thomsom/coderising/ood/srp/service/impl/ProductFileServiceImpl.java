@@ -1,4 +1,7 @@
-package com.coderising.ood.srp;
+package com.thomsom.coderising.ood.srp.service.impl;
+
+import com.thomsom.coderising.ood.srp.Product;
+import com.thomsom.coderising.ood.srp.service.ProductService;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

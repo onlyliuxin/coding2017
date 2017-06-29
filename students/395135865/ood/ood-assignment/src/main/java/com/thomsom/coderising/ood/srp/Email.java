@@ -1,4 +1,4 @@
-package com.coderising.ood.srp;
+package com.thomsom.coderising.ood.srp;
 
 /**
  * the email message entity class.
@@ -6,16 +6,16 @@ package com.coderising.ood.srp;
  * @author Thomson Tang
  * @version Created: 23/06/2017.
  */
-public class EmailMessage {
+public class Email {
     private String fromAddress;
     private String toAddress;
     private String subject;
     private String content;
 
-    public EmailMessage() {
+    public Email() {
     }
 
-    public EmailMessage(String fromAddress, String toAddress, String subject, String content) {
+    public Email(String fromAddress, String toAddress, String subject, String content) {
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
         this.subject = subject;

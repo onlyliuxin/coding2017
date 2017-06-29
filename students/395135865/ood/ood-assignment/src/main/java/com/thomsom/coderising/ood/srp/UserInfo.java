@@ -1,4 +1,7 @@
-package com.coderising.ood.srp;
+package com.thomsom.coderising.ood.srp;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * the user info entity class.
@@ -10,6 +13,8 @@ public class UserInfo {
     private String userId;
     private String userName;
     private String email;
+
+    List<Product> products = new ArrayList<>();
 
     public UserInfo() {
     }
@@ -42,5 +47,13 @@ public class UserInfo {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }
