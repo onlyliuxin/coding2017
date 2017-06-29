@@ -1,10 +1,5 @@
 package com.coderising.ood.srp;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
 /**
  * 发送邮件
  *
@@ -12,33 +7,40 @@ import java.util.List;
  *         date 2017/6/26
  */
 public class MailService {
-    protected static void sendEMails(boolean debug, List mailingList, PromotionMail promotionMail) throws IOException {
+    private String fromAddress;
+    private String smtpHost;
+    private String altSmtpHost;
 
-        System.out.println("开始发送邮件");
+    public MailService(Configuration config) {
+        this.fromAddress = config.getProperty(ConfigurationKeys.EMAIL_ADMIN);
+        this.smtpHost = config.getProperty(ConfigurationKeys.SMTP_SERVER);
+        this.altSmtpHost = config.getProperty(ConfigurationKeys.ALT_SMTP_SERVER);
+    }
 
-        if (mailingList != null) {
-            Iterator iter = mailingList.iterator();
-            while (iter.hasNext()) {
-                promotionMail.configureEMail((HashMap) iter.next());
-                try {
-                    if (promotionMail.hasValidToAddress())
-                        MailUtil.sendEmail(promotionMail, debug);
-                } catch (Exception e) {
-
-                    try {
-                        MailUtil.sendEmail(promotionMail, debug);
-
-                    } catch (Exception e2) {
-                        System.out.println("通过备用 SMTP服务器发送邮件失败: " + e2.getMessage());
-                    }
-                }
+    public void sendMail(Mail mail) {
+        try {
+            sendEmail(mail, this.smtpHost);
+        } catch (Exception e) {
+            try {
+                sendEmail(mail, this.altSmtpHost);
+            } catch (Exception ex) {
+                System.out.println("通过备用 SMTP服务器发送邮件失败: " + ex.getMessage());
             }
 
-
-        } else {
-            System.out.println("没有邮件发送");
-
         }
+    }
 
+    private void sendEmail(Mail mail, String smtpHost) {
+        String toAddress = mail.getAddress();
+        String subject = mail.getSubject();
+        String msg = mail.getBody();
+        //发送邮件
+        //假装发了一封邮件
+        StringBuilder buffer = new StringBuilder();
+        buffer.append("From:").append(fromAddress).append("\n");
+        buffer.append("To:").append(toAddress).append("\n");
+        buffer.append("Subject:").append(subject).append("\n");
+        buffer.append("Content:").append(msg).append("\n");
+        System.out.println(buffer.toString());
     }
 }
