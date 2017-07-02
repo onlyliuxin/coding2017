@@ -32,6 +32,11 @@ public class ProductFileServiceImpl implements ProductService {
         return products;
     }
 
+    @Override
+    public List<Product> listSubscriptProduct(String userId) {
+        return null;
+    }
+
     private Product resolveProduct(String line) {
         String[] items = line.split(" ");
         if (items.length > 2) {
