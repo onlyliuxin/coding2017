@@ -27,8 +27,11 @@ public class PromotionMail {
 
 	public static void main(String[] args) throws Exception {
 
+		// 降价产品文件路径
 		String path = "src/edu/coerscnu/ood/srp/product_promotion.txt";
+		// 获得降价产品列表
 		List<String[]> productList = FileUtil.readFile(path);
+		// 对于每个降价产品，挨个向关注该产品的用户发送邮件
 		for (String[] prod : productList) {
 			Product product = new Product(prod[0], prod[1]);
 			PromotionMail pm = new PromotionMail();
@@ -82,6 +85,7 @@ public class PromotionMail {
 			while (iter.hasNext()) {
 				HashMap<String, String> user = iter.next();
 				String toAddress = (String) user.get(UserService.MAIL_KEY);
+				// 用户邮箱地址有效则设置邮件主题和正文，并发送
 				if (toAddress.length() > 0) {
 					setSubject("您关注的产品降价了");
 					setMessage(user, product);
