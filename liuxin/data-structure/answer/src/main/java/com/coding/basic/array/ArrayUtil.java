@@ -10,11 +10,7 @@ public class ArrayUtil {
 	 * @return
 	 */
 	public void reverseArray(int[] origin){
-		for(int i = 0 ; i<origin.length/2; i++){
-			int temp = origin[i];
-			origin[i] = origin[origin.length-1-i];
-			origin[origin.length-1-i] = temp;
-		}
+		
 	}
 	
 	/**
@@ -96,17 +92,5 @@ public class ArrayUtil {
 		return null;
 	}
 	
-	public String toString(int[] array){
-		String s = "";
-		for(int i: array){
-			s += String.valueOf(i)+",";
-		}
-		return s.substring(0, s.lastIndexOf(","));
-	}
-	public static void main(String[] args) {
-		int[] ia = {2,4,6,8,9,1,4};
-		ArrayUtil util = new ArrayUtil();
-		util.reverseArray(ia);
-		System.out.println(util.toString(ia));
-	}
+
 }
