@@ -3,15 +3,15 @@ package com.coderising.payroll.domain;
 import java.util.Date;
 
 public class Employee {
-	String id;
-	String name;
-	String address;
-	Affiliation affiliation;
+	private String id;
+	private String name;
+	private String address;
+	private Affiliation affiliation;
 	
 
-	PaymentClassification classification;
-	PaymentSchedule schedule;
-	PaymentMethod paymentMethod;
+	private PaymentClassification classification;
+	private PaymentSchedule schedule;
+	private PaymentMethod paymentMethod;
 
 	public Employee(String name, String address){
 		this.name = name;
