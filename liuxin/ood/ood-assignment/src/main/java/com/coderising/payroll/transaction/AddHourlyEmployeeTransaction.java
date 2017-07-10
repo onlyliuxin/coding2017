@@ -1,4 +1,4 @@
-package transaction;
+package com.coderising.payroll.transaction;
 
 import com.coderising.payroll.classification.HourlyClassification;
 import com.coderising.payroll.domain.PaymentClassification;

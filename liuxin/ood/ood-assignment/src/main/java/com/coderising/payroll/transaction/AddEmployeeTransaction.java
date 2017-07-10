@@ -1,4 +1,4 @@
-package transaction;
+package com.coderising.payroll.transaction;
 
 import com.coderising.payroll.domain.Employee;
 import com.coderising.payroll.domain.HoldMethod;
