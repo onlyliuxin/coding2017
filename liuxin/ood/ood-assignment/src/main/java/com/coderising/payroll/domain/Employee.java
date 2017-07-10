@@ -1,4 +1,4 @@
-package com.coderising.payroll;
+package com.coderising.payroll.domain;
 
 import java.util.Date;
 
@@ -18,15 +18,21 @@ public class Employee {
 		this.address = address;
 	}
 	public boolean isPayDay(Date d) {
-		return false;
+		return this.schedule.isPayDate(d);
 	}
 
 	public Date getPayPeriodStartDate(Date d) {
-		return null;
+		return this.schedule.getPayPeriodStartDate(d);
 	}
 
 	public void payDay(Paycheck pc){
-		 
+		 double grossPay = classification.calculatePay(pc);
+		 double deductions = affiliation.calculateDeductions(pc);
+		 double netPay = grossPay - deductions;
+		 pc.setGrossPay(grossPay);
+		 pc.setDeductions(deductions);
+		 pc.setNetPay(netPay);
+		 paymentMethod.pay(pc);
 	}
 	
 	public void setClassification(PaymentClassification classification) {

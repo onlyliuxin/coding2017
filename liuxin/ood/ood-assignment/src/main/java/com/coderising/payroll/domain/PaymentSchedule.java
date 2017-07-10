@@ -1,4 +1,4 @@
-package com.coderising.payroll;
+package com.coderising.payroll.domain;
 
 import java.util.Date;
 

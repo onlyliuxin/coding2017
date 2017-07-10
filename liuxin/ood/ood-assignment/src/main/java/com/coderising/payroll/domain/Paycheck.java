@@ -1,4 +1,4 @@
-package com.coderising.payroll;
+package com.coderising.payroll.domain;
 
 import java.util.Date;
 import java.util.Map;
@@ -9,7 +9,7 @@ public class Paycheck {
 	private double grossPay;
 	private double netPay;
 	private double deductions;
-	
+	private Map<String, String> itsFields;
 	public Paycheck(Date payPeriodStart, Date payPeriodEnd){
 		this.payPeriodStart = payPeriodStart;
 		this.payPeriodEnd = payPeriodEnd;
