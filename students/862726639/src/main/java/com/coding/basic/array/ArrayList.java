@@ -6,13 +6,29 @@ import com.coding.basic.List;
 public class ArrayList implements List {
 	
 	private  int size = 0;
+	private  Object[] elementData ;
 	
-	private  Object[] elementData = new Object[10];
-	
+	public ArrayList(){
+		elementData	= new Object[10];
+	}
+	public ArrayList(int index){
+		
+	}
+	/**
+	 * 
+	 * TODO 简单描述该方法的实现功能（添加元素）. 
+	 * @see com.coding.basic.List#add(java.lang.Object)
+	 */
 	public void add(Object o){
 		ensureCapacity(size + 1);
 		elementData[size++] = o;
 	}
+	/**
+	 * 
+	 * @param i
+	 * 2017年7月10日
+	 * @author 高欢
+	 */
 	private void ensureCapacity(int i) {
 		System.out.println(i);
 		if(i < size()){
@@ -23,6 +39,9 @@ public class ArrayList implements List {
 		}
 		
 	}
+	/**
+	 * 添加
+	 */
 	public void add(int index, Object o){
 		if(index>size()){
 			throw new IndexOutOfBoundsException("数组越界");
