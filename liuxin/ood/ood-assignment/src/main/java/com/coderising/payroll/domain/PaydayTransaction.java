@@ -3,6 +3,8 @@ package com.coderising.payroll.domain;
 import java.util.Date;
 import java.util.List;
 
+import com.coderising.payroll.PayrollService;
+
 public class PaydayTransaction {
 	private Date date;
 	private PayrollService payrollService;

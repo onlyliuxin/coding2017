@@ -1,10 +1,13 @@
-package com.coderising.payroll.domain;
+package com.coderising.payroll;
 
 import java.util.List;
 
 import com.coderising.payroll.classification.CommissionedClassification;
 import com.coderising.payroll.classification.HourlyClassification;
 import com.coderising.payroll.classification.SalariedClassification;
+import com.coderising.payroll.domain.Employee;
+import com.coderising.payroll.domain.HoldMethod;
+import com.coderising.payroll.domain.Paycheck;
 import com.coderising.payroll.schedule.BiweeklySchedule;
 import com.coderising.payroll.schedule.MonthlySchedule;
 import com.coderising.payroll.schedule.WeeklySchedule;
