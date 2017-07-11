@@ -1,0 +1,43 @@
+open git server deretory
+mkdir abc.git
+cd abc.git
+
+run git bash
+	git --bare init --shared
+
+git clone
+cd abc
+
+git config --global push. default simple
+git push --set-upstream origin master
+git push
+
+get remot branch list
+	git remote update
+
+
+add deleted files
+	git rm <filename>
+	git rm $(git ls-files --deleted)
+	
+
+delete (remote) branch
+	git branch -d branch.abc
+	git push origin :branch.abc
+	
+	or
+	
+	git push --delete origin branch.abc
+	
+
+romote branch douki
+	git fecth --all --prune
+	
+git log
+	git log --graph --pretty=format:
+	
+// http://blog.toshimaru.net/git-log-graph/
+	[alias]
+  lg = git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  lga = git log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+ 
