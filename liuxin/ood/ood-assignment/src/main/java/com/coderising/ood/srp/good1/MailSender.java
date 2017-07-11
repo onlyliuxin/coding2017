@@ -1,5 +1,6 @@
 package com.coderising.ood.srp.good1;
 
+
 public class MailSender {
 	
 	private String fromAddress ;
