@@ -27,7 +27,7 @@ public class ProductServer {
      * @throws java.io.IOException
      */
     private static void initSpecialProductList() throws IOException {
-        String filePath = System.getProperty("user.dir") + "/src/ood/oldSrp/product_promotion.txt";
+        String filePath = System.getProperty("user.dir") + "/src/main/java/ood/srp1/product_promotion.txt";
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(filePath));
