@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ood</groupId>
+    <artifactId>ood-application</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <modules>
+        <module>ood-ocp</module>
+        <module>ood-srp</module>
+    </modules>
+
+
+    <repositories>
+        <repository>
+            <id>aliyun maven</id>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>maven.nuxeo.org</id>
+            <url>http://maven.nuxeo.org/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
+
+    <properties>
+        <!-- define encoding for source, resources and javadoc-->
+        <encoding>UTF-8</encoding>
+        <!-- define java compile level-->
+        <compile.version>1.8</compile.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.boot.version>1.5.3.RELEASE</spring.boot.version>
+    </properties>
+
+
+    <dependencyManagement>
+
+        <dependencies>
+
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+            <!--log tools start-->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.16</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.6.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>1.6.1</version>
+            </dependency>
+            <!--log tools end-->
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>
