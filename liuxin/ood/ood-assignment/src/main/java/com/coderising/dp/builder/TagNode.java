@@ -19,6 +19,7 @@ public class TagNode {
 		Attribute attr = findAttribute(name);
 		if(attr != null){
 			attr.value = value;
+			return;
 		}
 		
 		attributes.add(new Attribute(name,value));
