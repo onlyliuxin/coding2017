@@ -111,7 +111,7 @@ public class UtilsTest {
 		// 忽略ascii大小，写法一
 		Pattern p1 = Pattern.compile("(?iu)ａｂｃ");
 
-		// 忽略ascii大小，写法而
+		// 忽略ascii大小，写法二
 		// Pattern p1 = Pattern.compile(r1, Pattern.UNICODE_CASE);
 
 		Matcher m1 = p1.matcher(t1);
@@ -142,7 +142,7 @@ public class UtilsTest {
 		String text1 = "width height";
 		String text2 = "width\nheight";
 		// Pattern p = Pattern.compile("(?s)width.height");
-		p = Pattern.compile("width.height", Pattern.DOTALL);
+		p = Pattern.compile("width.height", Pattern.DOTALL);  // 让.也能匹配换行符
 
 		m = p.matcher(text1);
 		boolean result1 = m.find();
@@ -190,7 +190,7 @@ public class UtilsTest {
 		String abc = "a///b/c";
 
 		// 分割后的数组中包含空字符
-		String[] array1 = abc.split("/");
+		String[] array1 = abc.split("/");  // 可以直接写正则
 		for (String str : array1) {
 			System.out.println(str);
 		}
@@ -198,7 +198,7 @@ public class UtilsTest {
 		System.out.println("---------------------");
 
 		// 分割后的数组中取出了空字符
-		String[] array2 = abc.split("/+");
+		String[] array2 = abc.split("/+");  // 贪婪匹配斜杠"///"
 		for (String str : array2) {
 			System.out.println(str);
 		}
@@ -226,7 +226,7 @@ public class UtilsTest {
 	@Test
 	public void test06_02() {
 		String str = "Orange is 100yuan, Banana is 180 yuan.";
-		String regex = "(\\d)\\s*(yuan)";
+		String regex = "(\\d+)\\s*(yuan)";
 
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(str);
@@ -248,6 +248,15 @@ public class UtilsTest {
 
 		String filename = pathfFilename.replaceFirst(regex, replacement);
 		System.out.println(filename);
+
+		// 法2
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(pathfFilename);
+
+		String result = m.replaceFirst(replacement);
+
+		System.out.println(result);
+
 	}
 
 	/**
@@ -287,18 +296,21 @@ public class UtilsTest {
 		String text2 = "def abc";
 		String text3 = "def abc\n";
 
-		p = Pattern.compile("abc\\z");
+		p = Pattern.compile("abc\\z");  // \z: asserts position at the end of the string
 
 		m = p.matcher(text1);
 		result1 = m.find();
+		assertFalse(result1);
 
 		m = p.matcher(text2);
 		result2 = m.find();
+		assertTrue(result2);
 
 		m = p.matcher(text3);
 		result3 = m.find();
+		assertFalse(result3);
 
-		p = Pattern.compile("abc\\Z");
+		p = Pattern.compile("abc\\Z");  // \Z: asserts position at the end of the string, or before the line terminator right at the end of the string (if any)
 
 		m = p.matcher(text1);
 		result1 = m.find();
