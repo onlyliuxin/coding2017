@@ -12,7 +12,7 @@ public class TagBuilder {
 	public TagBuilder addChild(String childTagName){
 	    TagNode newTagNode = new TagNode(childTagName);
 		tagNode.add(newTagNode);
-        parentTagNode = tagNode;
+		parentTagNode = tagNode;
 		tagNode = newTagNode;
 		return this;
 	}
