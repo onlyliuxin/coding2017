@@ -3,6 +3,9 @@ package com.coderising.myknowledgepoint.regex;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringJoiner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -325,4 +328,32 @@ public class UtilsTest {
 		assertTrue(result2);
 		assertTrue(result3);
 	}
+
+	@Test
+    public void testTemplate() {
+	    String origin = "【工银信用卡】于${startTime}至${endTime}申办奋斗卡，无年费，赢郎平签名排球！详情${link}";
+	    Map<String, String> map = new HashMap<String, String>() {
+            {
+                put("startTime", "昨天");
+                put("endTime", "今天");
+                put("link", "没有");
+            }
+        };
+        String newStr = renderTemplate(origin, map);
+        assertTrue(newStr.equals("【工银信用卡】于昨天至今天申办奋斗卡，无年费，赢郎平签名排球！详情没有"));
+    }
+
+    private String renderTemplate(String origin, Map<String, String> map) {
+        Pattern p = Pattern.compile("\\$\\{(.*?)\\}");
+        Matcher m = p.matcher(origin);
+        String newStr = origin;
+        Matcher newM;
+        String match;
+        while (m.find()) {
+            match = m.group(1);
+            newM = p.matcher(newStr);
+            newStr = newM.replaceFirst(map.get(match));
+        }
+        return newStr;
+    }
 }
