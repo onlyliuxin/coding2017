@@ -1,11 +1,13 @@
 package com.coderising.myknowledgepoint.regex;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -356,4 +358,44 @@ public class UtilsTest {
         }
         return newStr;
     }
+
+    @Test
+    public void testReverseTemplate() {
+        String origin = "【工银信用卡】于${startTime}至${endTime}申办奋斗卡，\n" +
+                "无年费，赢郎平签名排球！详情${link}.";
+        String newStr = "【工银信用卡】于昨天至今天申办奋斗卡，\n" +
+                "无年费，赢郎平签名排球！详情没有.";
+        Map<String, String> map = extractTemplateMap(origin, newStr);
+        Map<String, String> map2 = new HashMap<String, String>() {
+            {
+                put("startTime", "昨天");
+                put("endTime", "今天");
+                put("link", "没有");
+            }
+        };
+        assertEquals( map, map2 );
+    }
+
+    private Map<String,String> extractTemplateMap(String origin, String newStr) {
+        Map<String, String> map = new HashMap<>(10);
+        List<String> keys = new LinkedList<>();
+        Pattern p1 = Pattern.compile("\\$\\{(\\w+)\\}");
+        Matcher m1 = p1.matcher(origin);
+        while (m1.find()) {
+            keys.add(m1.group(1));
+        }
+        String newRegex = m1.replaceAll("(.*)");  // newRegex = "【工银信用卡】于(.*)至(.*)申办奋斗卡，无年费，赢郎平签名排球！详情(.*)."
+        Pattern p2 = Pattern.compile(newRegex);
+        Matcher m2 = p2.matcher(newStr);
+        int index = 0;
+        while (m2.find()) {
+            for (int i = 1; i <= m2.groupCount(); i++) {
+                map.put(keys.get(index), m2.group(i));
+                index++;
+            }
+        }
+        return map;
+    }
+
+
 }
