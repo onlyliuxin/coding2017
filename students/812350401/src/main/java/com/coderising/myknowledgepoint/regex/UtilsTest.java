@@ -4,13 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 // http://www.cnblogs.com/playing/archive/2011/03/15/1984943.html
@@ -362,9 +360,9 @@ public class UtilsTest {
     @Test
     public void testReverseTemplate() {
         String origin = "【工银信用卡】于${startTime}至${endTime}申办奋斗卡，\n" +
-                "无年费，赢郎平签名排球！详情${link}.";
+                "无年费，赢郎平签名排球！详情${link}";
         String newStr = "【工银信用卡】于昨天至今天申办奋斗卡，\n" +
-                "无年费，赢郎平签名排球！详情没有.";
+                "无年费，赢郎平签名排球！详情没有";
         Map<String, String> map = extractTemplateMap(origin, newStr);
         Map<String, String> map2 = new HashMap<String, String>() {
             {
@@ -374,17 +372,23 @@ public class UtilsTest {
             }
         };
         assertEquals( map, map2 );
+
+        // 我的方法无法用于下面的代码
+//        origin = "(【工银信用卡】于${startTime}至${endTime}申办奋斗卡，无年费，赢郎平签名排球！详情${link}.";
+//        newStr = "(【工银信用卡】于昨天至今天申办奋斗卡，无年费，赢郎平签名排球！详情没有.";
+//        map = extractTemplateMap(origin, newStr);
+//        System.out.println(map);
     }
 
     private Map<String,String> extractTemplateMap(String origin, String newStr) {
         Map<String, String> map = new HashMap<>(10);
         List<String> keys = new LinkedList<>();
-        Pattern p1 = Pattern.compile("\\$\\{(\\w+)\\}");
+        Pattern p1 = Pattern.compile("\\$\\{(.+?)\\}");
         Matcher m1 = p1.matcher(origin);
         while (m1.find()) {
             keys.add(m1.group(1));
         }
-        String newRegex = m1.replaceAll("(.*)");  // newRegex = "【工银信用卡】于(.*)至(.*)申办奋斗卡，无年费，赢郎平签名排球！详情(.*)."
+        String newRegex = "^" + m1.replaceAll("(.*?)") + "$";  // newRegex = "【工银信用卡】于(.*?)至(.*?)申办奋斗卡，无年费，赢郎平签名排球！详情(.*?)."
         Pattern p2 = Pattern.compile(newRegex);
         Matcher m2 = p2.matcher(newStr);
         int index = 0;
@@ -397,5 +401,79 @@ public class UtilsTest {
         return map;
     }
 
+    @Test
+    public void test_template_string() {
+        String tmpl = null;
+        String text = null;
+
+        // test data 1
+        tmpl = "【工银信用卡】于${startTime}至${endTime}申办奋斗卡，无年费，赢郎平签名排球！详情${link}.";
+        text = "【工银信用卡】于昨天至今天申办奋斗卡，无年费，赢郎平签名排球！详情没有.";
+
+        // test data 2
+        tmpl = "a${startTime}b${endTime}";
+        text = "abbc";
+
+        // test data 3
+        tmpl = "(${startTime}至)${endTime}.";
+        text = "(昨天至)今天.";
+
+        System.out.println("模板字符串：" + tmpl);
+        System.out.println("文本字符串：" + text);
+        System.out.println();
+
+        // 模板字符串中变量的正则表达式
+        String keyRegex = "\\$\\{.*?\\}";
+
+        // 找出模板字符串中变量
+        List<String> keyList = new ArrayList<>();
+        {
+            Pattern p = Pattern.compile(keyRegex);
+            Matcher m = p.matcher(tmpl);
+
+            while (m.find()) {
+                keyList.add(m.group());
+            }
+        }
+
+        // 找出文本字符串中替换值集合
+        List<String> valueList = new ArrayList<>();
+        {
+            // **关键想法** 把模板字符串改装成正则表达式
+
+            // ** 难点**
+            // 如果字符串中有元字符，改装后的正则表达式会有语法错误。
+            // 例子：如果模板字符串中仅存在一个（，该装后的正则表达式会有语法错误。
+            // 所以在每一个字符前都加\,这样（就变成\（,变成匹配（，符合原意。
+            // 但是如果模板字符串中仅存在一个t，变成了\t,变成了匹配tab键，又出现了错误。
+            // 结合以上的说明，我们要有选择的在字符前加\, 我们在非数字字母的字符前加\
+            String tmplEscape = tmpl.replaceAll("([^\\w])", "\\\\$1");
+
+            // 在原始模板字符串中的占位符中的非数字字母的字符前，
+            // 已经被加\，所以占位符的正则表达式也要做相应的编辑
+            String keyRegexEscape = "\\\\\\$\\\\\\{.*?\\\\\\}";
+
+            String tmplRegex = "^" + tmplEscape.replaceAll(keyRegexEscape, "(.*?)") + "$";
+            System.out.println("模板字符串改装后的正则表达式：" + tmplRegex);
+            System.out.println();
+            // 注: "\至" 也匹配 "至"
+            Pattern p = Pattern.compile(tmplRegex);
+            Matcher m = p.matcher(text);
+            if (m.find()) {
+                for (int i = 1; i <= m.groupCount(); i++) {
+                    valueList.add(m.group(i));
+                }
+            }
+        }
+
+        // 输出结果
+        if (valueList.isEmpty()) {
+            System.out.println("the text file format is not correct");
+        } else {
+            for (int i = 0; i < keyList.size(); i++) {
+                System.out.println(keyList.get(i) + "\t\t" + valueList.get(i));
+            }
+        }
+    }
 
 }
