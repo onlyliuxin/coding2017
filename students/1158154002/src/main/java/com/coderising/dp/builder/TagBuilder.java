@@ -13,9 +13,9 @@ public class TagBuilder {
 
 	public TagBuilder addChild(String childTagName) {
 		prev=now;
-		TagNode temp=new TagNode(childTagName);
-		now.add(temp);
-		now=temp;
+		now=new TagNode(childTagName);
+		prev.add(now);
+
 		return this;
 	}
 
