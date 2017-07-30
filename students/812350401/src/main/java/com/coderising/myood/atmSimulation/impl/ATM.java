@@ -78,6 +78,7 @@ public class ATM {
         Transaction transaction = superKeyPad.getTransaction(account, password);
         boolean valid = transaction.preProcess(this);
         if (!valid) {
+            cardReader.ejectCard();
             return;
         }
         boolean success = bankProxy.process(transaction);

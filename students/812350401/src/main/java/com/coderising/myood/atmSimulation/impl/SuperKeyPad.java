@@ -33,7 +33,7 @@ public class SuperKeyPad {
         display.outputPlainText("W: 取款, ");
         display.outputPlainText("D: 存款, ");
         display.outputPlainText("T: 转账, ");
-        display.outputPlainText("B: 查询余额");
+        display.outputPlainText("Q: 查询余额");
         while(true) {
             String input = keyBoard.input();
             switch (input) {
@@ -42,9 +42,9 @@ public class SuperKeyPad {
                 case "D":
                     return getDepositTrx(account, password);
                 case "T":
-                    return null;
-                case "B":
-                    return null;
+                    return getTransferTrx(account, password);
+                case "Q":
+                    return getQueryTrx(account, password);
                 default:
                     System.out.printf("输入有误，请重新输入");
             }
@@ -77,7 +77,28 @@ public class SuperKeyPad {
         }
     }
 
-    public Transaction
+    private Transaction getTransferTrx(String account, String password) {
+        while(true) {
+            display.outputPlainText("请输入对方账户：");
+            String counterAccount = keyBoard.input();
+            if ("".equals(counterAccount)) {
+                System.out.printf("输入账户有误，请重新输入");
+                continue;
+            }
+            display.outputPlainText("请输入转账金额：");
+            String input = keyBoard.input();
+            try {
+                Double amount = Double.valueOf(input);
+                return new TransferTransaction(account, password, amount, counterAccount);
+            } catch (NumberFormatException e) {
+                System.out.printf("格式有误，请重新输入");
+            }
+        }
+    }
+
+    private Transaction getQueryTrx(String account, String password) {
+        return new QueryTransaction(account, password);
+    }
 
     public void setDisplay(Display display) {
         this.display = display;
