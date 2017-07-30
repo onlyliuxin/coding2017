@@ -15,10 +15,16 @@ public class ATMTest {
         atm = new ATM();
         CardReader cardReader = new CardReaderImpl();
         SuperKeyPad superKeyPad = new SuperKeyPad();
+        KeyBoard keyBoard = new KeyBoardImpl();
+        Display display = new DisplayImpl();
+        superKeyPad.setDisplay(display);
+        superKeyPad.setKeyBoard(keyBoard);
         CashDispenser cashDispenser = new CashDispenserImpl();
         DepositSlot depositSlot = new DepositSlotImpl();
         Printer printer;
         BankProxy bankProxy = new BankProxyImpl();
+        NetworkClient networkClient = new NetworkClient();
+        bankProxy.setNetworkClient(networkClient);
         atm.setBankProxy(bankProxy);
         atm.setCardReader(cardReader);
         atm.setCashDispenser(cashDispenser);
@@ -26,9 +32,7 @@ public class ATMTest {
         atm.setSuperKeyPad(superKeyPad);
     }
 
-    @Test
-    public void start() throws Exception {
+    public static void main(String[] args) {
         atm.start();
     }
-
 }

@@ -30,7 +30,7 @@ public class DepositTransaction extends Transaction {
     @Override
     public boolean postProcess(ATM atm) {
         // TODO: 30/7/2017 只是为了调试，建议删除
-        System.out.printf("存款postProcess: 什么都不做");
+        System.out.println("存款postProcess: 什么都不做");
         return true;
     }
 
@@ -42,7 +42,7 @@ public class DepositTransaction extends Transaction {
     @Override
     public String toString() {
         return super.toString() + " DepositTransaction{" +
-                "amount=" + amount +
+                "amount=" + amount + ", actualAmount=" + actualAmount +
                 '}';
     }
 

@@ -30,9 +30,9 @@ public class SuperKeyPad {
 
     public Transaction getTransaction(String account, String password) {
         display.outputPlainText("请输入交易类型:");
-        display.outputPlainText("W: 取款");
-        display.outputPlainText("D: 存款");
-        display.outputPlainText("T: 转账");
+        display.outputPlainText("W: 取款, ");
+        display.outputPlainText("D: 存款, ");
+        display.outputPlainText("T: 转账, ");
         display.outputPlainText("B: 查询余额");
         while(true) {
             String input = keyBoard.input();
@@ -77,6 +77,8 @@ public class SuperKeyPad {
         }
     }
 
+    public Transaction
+
     public void setDisplay(Display display) {
         this.display = display;
     }
@@ -94,5 +96,7 @@ public class SuperKeyPad {
         Transaction transaction = superKeyPad.getTransaction("yangkai", "123456");
         System.out.println(transaction);
 
+        String password = superKeyPad.getPassword();
+        System.out.println(password);
     }
 }

@@ -58,16 +58,17 @@ public class ATM {
 
         // step2. 读取密码，并做校验
         int failedCount = 0;
-        boolean verfied = false;
+        boolean verified = false;
         String password = null;
         while (failedCount < 3) {
             password = superKeyPad.getPassword();
-            verfied = bankProxy.verify(account, password);
-            if (verfied) {
+            verified = bankProxy.verify(account, password);
+            if (verified) {
                 break;
             }
+            failedCount++;
         }
-        if (!verfied) {
+        if (!verified) {
             System.out.println("输错密码超过3次");
             cardReader.eatCard();
             return;

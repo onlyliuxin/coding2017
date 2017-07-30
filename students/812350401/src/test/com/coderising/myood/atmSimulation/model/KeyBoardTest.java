@@ -25,5 +25,4 @@ public class KeyBoardTest {
         }
         System.out.println("input is----" + input);
     }
-
 }
