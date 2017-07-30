@@ -1,6 +1,7 @@
 package com.coderising.myood.atmSimulation.model;
 
 import com.coderising.myood.atmSimulation.impl.KeyBoardImpl;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -24,5 +25,9 @@ public class KeyBoardTest {
             System.setIn(stdin);
         }
         System.out.println("input is----" + input);
+
+        System.setIn(new ByteArrayInputStream("haha\n".getBytes()));
+        input = keyBoard.input();
+        System.out.println(input);
     }
 }

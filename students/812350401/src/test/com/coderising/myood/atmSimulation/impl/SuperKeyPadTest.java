@@ -61,12 +61,6 @@ public class SuperKeyPadTest {
             System.setIn(stdin);
         }
         System.out.println(transaction);
-
-        // TODO: 30/7/2017 finally语句并不能使keyborad恢复到从console输入接收字符串，以后再说。因为源代码中流是不会变的
-          //测试输入流有没有问题
-//        KeyBoard keyBoard = new KeyBoardImpl();
-//        String input = keyBoard.input();
-//        System.out.println(input);
     }
 
 }
