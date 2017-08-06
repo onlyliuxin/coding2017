@@ -1,4 +1,4 @@
-package dp;
+package dp.builder;
 
 import org.junit.After;
 import org.junit.Before;
