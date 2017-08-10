@@ -1,4 +1,4 @@
-package dp.bridge;
+package dp.bridge.v2;
 
 /**
  * 图形库2

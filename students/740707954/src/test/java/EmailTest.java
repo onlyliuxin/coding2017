@@ -1,5 +1,7 @@
-package dp.decorator;
-
+import dp.decorator.Email;
+import dp.decorator.EmailImpl;
+import dp.decorator.EncryptionEmailImpl;
+import dp.decorator.OutsideEmailImpl;
 import org.junit.Test;
 
 /**

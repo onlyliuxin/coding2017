@@ -1,5 +1,4 @@
-package dp.composite;
-
+import dp.composite.*;
 import org.junit.Test;
 
 /**
