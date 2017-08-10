@@ -1,7 +1,8 @@
-package com.coderising.mydp.myResponseChain;
+package com.coderising.myknowledgepoint.myResponseChain;
 
 /**
  * Created by thomas_young on 10/8/2017.
+ * http://www.cnblogs.com/java-my-life/archive/2012/05/28/2516865.html
  */
 
 public class Client {

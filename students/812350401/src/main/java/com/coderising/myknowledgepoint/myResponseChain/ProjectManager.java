@@ -1,4 +1,4 @@
-package com.coderising.mydp.myResponseChain;
+package com.coderising.myknowledgepoint.myResponseChain;
 
 /**
  * Created by thomas_young on 10/8/2017.
