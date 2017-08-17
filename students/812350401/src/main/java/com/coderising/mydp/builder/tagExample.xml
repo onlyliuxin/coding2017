@@ -1,0 +1,9 @@
+<order>
+    <line-items>
+        <line-item pid="P3677" qty="3"/>
+        <line-item pid="P9877" qty="10"/>
+        <line-item pid="P4455" qty="12">
+            <child-line-item pid="P3333" qty="15"/>
+        </line-item>
+    </line-items>
+</order>

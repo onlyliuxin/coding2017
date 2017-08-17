@@ -1,0 +1,28 @@
+group 'com.yangdd'
+version '1.0-SNAPSHOT'
+description = '面向对象设计'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+//项目布局，下面是Java plugin的默认布局
+sourceSets {
+    main.java.srcDir('src/main/java')
+    main.resources.srcDir('src/main/resources')
+    test.java.srcDir('src/test/java')
+    test.resources.srcDir('src/test/resources')
+}
+
+dependencies {
+    testCompile('junit:junit:4.12')
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
