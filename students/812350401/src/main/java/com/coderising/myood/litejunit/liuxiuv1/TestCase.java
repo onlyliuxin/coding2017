@@ -18,7 +18,7 @@ public abstract class TestCase extends Assert implements Test {
 		return 1;
 	}
 
-	protected void runTest() throws Throwable{
+	protected void runTest() throws Throwable {
 		Method runMethod= null;
 		try {			
 			runMethod= getClass().getMethod(name, null);

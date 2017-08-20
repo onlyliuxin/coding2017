@@ -1,8 +1,6 @@
 package com.coderising.myood.litejunit.liuxiuv1;
 
 
-import java.util.Iterator;
-
 public class CalculatorTest extends TestCase {
 	public CalculatorTest(String name) {
 		super(name);
