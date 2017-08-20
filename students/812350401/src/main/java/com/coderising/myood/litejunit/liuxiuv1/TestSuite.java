@@ -16,7 +16,7 @@ import java.util.Vector;
 
 
 public class TestSuite extends Assert implements Test {	
-	private List<Test> tests= new ArrayList<>(10);
+	private List<Test> tests= new ArrayList<>(10);  // 组合模式
 	private String name;
 	public TestSuite(){
 		
@@ -39,7 +39,7 @@ public class TestSuite extends Assert implements Test {
 		Vector<String> names= new Vector<>();
 		Method[] methods= theClass.getDeclaredMethods();
 		for (int i= 0; i < methods.length; i++) {
-			addTestMethod(methods[i], names, constructor);
+			addTestMethod(methods[i], names, constructor);  // 该方法挺重要的
 		}		
 		
 		if (tests.size() == 0)

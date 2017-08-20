@@ -1,10 +1,12 @@
 package com.coderising.myood.litejunit.liuxiuv1;
 
 
-public class CalculatorTest extends TestCase {	
+import java.util.Iterator;
+
+public class CalculatorTest extends TestCase {
 	public CalculatorTest(String name) {
 		super(name);
-		
+
 	}
 	Calculator calculator =null;
 	public void setUp(){
@@ -23,6 +25,10 @@ public class CalculatorTest extends TestCase {
 		calculator.subtract(5);
 		assertEquals(4,calculator.getResult());
 	}
+
+	private void testXX() {
+
+    }
 	
 	public static void main(String[] args){
 		TestSuite ts = new TestSuite(CalculatorTest.class);
@@ -32,8 +38,16 @@ public class CalculatorTest extends TestCase {
 		for(TestFailure failure : tr.failures){
 			System.err.println(failure);
 		}
-
-		/*{
+        /*
+        Iterator<TestFailure> iterator = tr.failures();
+		while(iterator.hasNext()) {
+		    System.err.println(iterator.next());
+        }
+        */
+//        TestSuite ts2 = new TestSuite();
+//		ts2.addTest(ts);
+//        ts2.run(tr);
+        /*{
 		TestCase tc1 = new CalculatorTest("testAdd"){
 			protected void runTest() {
 				testAdd();

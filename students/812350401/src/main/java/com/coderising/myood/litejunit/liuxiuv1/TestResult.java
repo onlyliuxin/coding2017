@@ -6,8 +6,8 @@ import java.util.List;
 
 
 public class TestResult extends Object {
-	protected List<TestFailure> failures;
-	protected List<TestFailure> errors;
+	protected List<TestFailure> failures;  // 存储assert失败
+	protected List<TestFailure> errors;  // 存储业务代码异常，比如空指针
 	
 	protected int testCount;
 	private boolean stop;

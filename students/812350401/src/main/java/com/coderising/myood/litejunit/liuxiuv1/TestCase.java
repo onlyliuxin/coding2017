@@ -9,7 +9,7 @@ import java.lang.reflect.Modifier;
 public abstract class TestCase extends Assert implements Test {
 	private String name;
 	
-	
+	TestCase() {}
 	public TestCase(String name) {
 		this.name = name;
 	}
