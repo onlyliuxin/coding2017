@@ -16,7 +16,7 @@ public class ClientToTest {
 
         System.out.println("---------------------------------");
         tr.clearResult();
-        Test ts = new TestSuite(CalculatorTest.class);
+        Test ts = new TestSuite("AllTest");
         ((TestSuite)ts).addTest(new CalculatorTest("haha"));
         ((TestSuite)ts).addTest(new TestSuite(CalculatorTest.class));
         tryTest(ts, tr);

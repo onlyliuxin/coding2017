@@ -24,6 +24,10 @@ public class TestSuite implements Test {
         return totalCount;
     }
 
+    public TestSuite(String name) {
+        this.name = name;
+    }
+
     // 把某个测试类中的所有pulic的test方法构造成对象，塞入tests
     public TestSuite(final Class<?> theClass) {
         this.name = theClass.getName();

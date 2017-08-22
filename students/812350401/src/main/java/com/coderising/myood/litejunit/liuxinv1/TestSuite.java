@@ -16,7 +16,7 @@ import java.util.Vector;
 
 
 public class TestSuite extends Assert implements Test {	
-	private List<Test> tests= new ArrayList<>(10);  // 组合模式
+	private List<Test> tests= new ArrayList<>(10);  // 组合模式，可以放TestSuite,也可以放TestCase
 	private String name;
 	public TestSuite(){
 		

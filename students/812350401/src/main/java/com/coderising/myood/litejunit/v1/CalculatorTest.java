@@ -27,7 +27,7 @@ public class CalculatorTest extends TestCase {
 	}
 
 	public void haha() {
-        System.out.println("this is not test case");
+        System.out.println("haha is not test case");
     }
 
 	private void testXX() {
