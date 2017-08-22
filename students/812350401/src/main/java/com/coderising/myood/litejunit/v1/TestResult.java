@@ -78,4 +78,11 @@ public class TestResult {
         return this.failureCount() == 0 && this.errorCount() == 0;
     }
 
+    public void clearResult() {
+        failures.clear();
+        errors.clear();
+        testCount = 0;
+        stop= false;
+    }
+
 }

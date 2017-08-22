@@ -1,4 +1,4 @@
-package com.coderising.myood.litejunit.liuxiuv1;
+package com.coderising.myood.litejunit.liuxinv1;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -109,7 +109,7 @@ public class TestSuite extends Assert implements Test {
 	  		if (result.shouldStop() ){
 	  			break;
 	  		}
-			Test test= (Test)e.next();
+			Test test= e.next();
 			test.run(result);
 		}
 

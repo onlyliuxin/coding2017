@@ -1,4 +1,4 @@
-package com.coderising.myood.litejunit.liuxiuv1;
+package com.coderising.myood.litejunit.liuxinv1;
 
 /**
  * Thrown when an assertion failed.

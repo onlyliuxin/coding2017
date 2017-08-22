@@ -1,4 +1,4 @@
-package com.coderising.myood.litejunit.liuxiuv1;
+package com.coderising.myood.litejunit.liuxinv1;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

@@ -1,4 +1,4 @@
-package com.coderising.myood.litejunit.liuxiuv1;
+package com.coderising.myood.litejunit.liuxinv1;
 
 public interface Test {
 	public abstract int countTestCases();  // command模式，一个测试用例是一个command

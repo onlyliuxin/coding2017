@@ -1,4 +1,4 @@
-package com.coderising.myood.litejunit.liuxiuv1;
+package com.coderising.myood.litejunit.liuxinv1;
 
 /**
  * A <code>TestFailure</code> collects a failed test together with

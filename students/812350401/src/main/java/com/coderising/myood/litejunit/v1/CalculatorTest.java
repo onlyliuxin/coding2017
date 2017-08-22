@@ -8,9 +8,11 @@ public class CalculatorTest extends TestCase {
 	}
 	Calculator calculator =null;
 	public void setUp(){
+		System.out.println("init a calculator instance");
 		calculator = new Calculator();
 	}
 	public void tearDown(){
+		System.out.println("destroy a calculator instance");
 		calculator = null;
 	}
 	public void testAdd(){
@@ -23,6 +25,10 @@ public class CalculatorTest extends TestCase {
 		calculator.subtract(5);
 		assertEquals(4,calculator.getResult());
 	}
+
+	public void haha() {
+        System.out.println("this is not test case");
+    }
 
 	private void testXX() {
 
