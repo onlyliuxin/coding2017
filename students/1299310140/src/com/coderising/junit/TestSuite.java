@@ -11,6 +11,8 @@ public class TestSuite implements Test {
 
 	private List<Test> tests = new ArrayList<Test>();
 	
+	private String name = "";
+	
 	@Override
 	public void run(TestResult tr) {
 		for(Iterator<Test> iterator = tests.iterator();iterator.hasNext();){
@@ -23,11 +25,20 @@ public class TestSuite implements Test {
 		tests.add(test);
 	}
 	
+	public void addTestSuite(Class<?> theClass){
+		addTest(new TestSuite(theClass));
+	}
+	
 	public TestSuite(){
 		
 	}
 	
+	public TestSuite(String name){
+		this.name = name;
+	}
+	
     public TestSuite(final Class<?> theClass){
+    	this.name = theClass.getName();
 		Constructor<?> constructor = null;
 		try {
 			constructor = theClass.getConstructor(String.class);
@@ -71,5 +82,15 @@ public class TestSuite implements Test {
 		Class<?> returnType = method.getReturnType();
 		return Modifier.isPublic(method.getModifiers()) && name.startsWith("test") 
 				&& parameters.length == 0 && returnType.equals(Void.TYPE);
+	}
+
+	@Override
+	public int countTestCases() {
+		int count = 0;
+		for(Iterator<Test> iterator = tests.iterator();iterator.hasNext();){
+			Test test = iterator.next();
+			count += test.countTestCases();
+		}
+		return count;
 	}
 }

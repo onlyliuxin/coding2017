@@ -42,4 +42,9 @@ public abstract class TestCase extends Assert implements Test {
 	protected void tearDown(){
 		
 	}
+	
+	@Override
+	public int countTestCases() {
+		return 1;
+	}
 }
