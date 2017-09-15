@@ -4,7 +4,17 @@ import java.util.Map;
 
 public class Configuration {
 
-	static Map<String,String> configurations = new HashMap<>();
+	protected String smtpHost = null;
+	protected String altSmtpHost = null;
+	protected String fromAddress = null;
+
+	public Configuration() {
+		this.smtpHost = ConfigurationKeys.SMTP_SERVER;
+		this.altSmtpHost = ConfigurationKeys.ALT_SMTP_SERVER;
+		this.fromAddress = ConfigurationKeys.EMAIL_ADMIN;
+	}
+
+	static Map<String,String> configurations = new HashMap<String,String>();
 	static{
 		configurations.put(ConfigurationKeys.SMTP_SERVER, "smtp.163.com");
 		configurations.put(ConfigurationKeys.ALT_SMTP_SERVER, "smtp1.163.com");
@@ -16,7 +26,7 @@ public class Configuration {
 	 * @return
 	 */
 	public String getProperty(String key) {
-		
+
 		return configurations.get(key);
 	}
 
