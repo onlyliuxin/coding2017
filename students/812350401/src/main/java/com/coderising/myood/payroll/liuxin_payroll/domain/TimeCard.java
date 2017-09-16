@@ -1,4 +1,4 @@
-package com.coderising.myood.payroll;
+package com.coderising.myood.payroll.liuxin_payroll.domain;
 
 import java.util.Date;
 

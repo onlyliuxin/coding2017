@@ -1,4 +1,4 @@
-package com.coderising.myood.payroll;
+package com.coderising.myood.payroll.my_payroll;
 
 import java.util.Date;
 

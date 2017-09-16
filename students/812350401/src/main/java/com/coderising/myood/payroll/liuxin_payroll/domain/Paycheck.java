@@ -1,6 +1,7 @@
-package com.coderising.myood.payroll;
+package com.coderising.myood.payroll.liuxin_payroll.domain;
 
 import java.util.Date;
+import java.util.Map;
 
 public class Paycheck {
 	private Date payPeriodStart;
@@ -8,7 +9,7 @@ public class Paycheck {
 	private double grossPay;
 	private double netPay;
 	private double deductions;
-	
+	private Map<String, String> itsFields;
 	public Paycheck(Date payPeriodStart, Date payPeriodEnd){
 		this.payPeriodStart = payPeriodStart;
 		this.payPeriodEnd = payPeriodEnd;
