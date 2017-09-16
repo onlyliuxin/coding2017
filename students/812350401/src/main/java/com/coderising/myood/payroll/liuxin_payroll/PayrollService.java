@@ -38,7 +38,7 @@ public class PayrollService {
 		return e;	
 	}
 	
-	public Employee addCommissionedEmployee(String name, String address, double salary, double saleRate){
+	public Employee addCommissionedEmployee(String name, String address, double salary, double saleRate) {
 		Employee e = new Employee(name, address);		
 		e.setClassification(new CommissionedClassification(salary, saleRate));
 		e.setSchedule(new BiweeklySchedule());
@@ -46,4 +46,5 @@ public class PayrollService {
 		//保存员工到数据库.. 略		
 		return e;	
 	}
+
 }

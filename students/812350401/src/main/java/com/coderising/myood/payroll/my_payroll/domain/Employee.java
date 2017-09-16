@@ -18,15 +18,17 @@ public class Employee {
 		this.address = address;
 	}
 	public boolean isPayDay(Date d) {
-		return false;
+		return schedule.isPayDate(d);
 	}
 
 	public Date getPayPeriodStartDate(Date d) {
-		return null;
+		return schedule.getPayPeriodStartDate(d);
 	}
 
 	public void payDay(Paycheck pc){
-		 
+		// TODO: 16/9/2017
+
+
 	}
 	
 	public void setClassification(PaymentClassification classification) {

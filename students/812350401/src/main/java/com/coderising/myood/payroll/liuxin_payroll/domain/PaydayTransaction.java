@@ -14,7 +14,7 @@ public class PaydayTransaction {
 		List<Employee> employees = payrollService.getAllEmployees();
 		for(Employee e : employees){
 			if(e.isPayDay(date)){
-				Paycheck pc = new Paycheck(e.getPayPeriodStartDate(date),date);
+				Paycheck pc = new Paycheck(e.getPayPeriodStartDate(date), date);
 				e.payDay(pc);
 				payrollService.savePaycheck(pc);
 			}

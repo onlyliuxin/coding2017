@@ -54,4 +54,5 @@ public class DateUtil {
 	public static boolean between(Date d, Date date1, Date date2){
 		return d.after(date1) && d.before(date2);
 	}
+
 }
