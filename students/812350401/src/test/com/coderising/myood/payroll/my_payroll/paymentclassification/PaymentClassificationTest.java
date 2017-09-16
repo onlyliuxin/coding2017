@@ -14,7 +14,7 @@ public class PaymentClassificationTest {
     @Test
     public void hourlyCalculatePay1() throws Exception {
         HourlyClassification hc = new HourlyClassification(100);
-        Paycheck pc = new Paycheck(DateUtil.parseDate("2017-06-12"), DateUtil.parseDate("2017-07-12"));
+        Paycheck pc = new Paycheck(1, DateUtil.parseDate("2017-06-12"), DateUtil.parseDate("2017-07-12"));
         TimeCard t1 = new TimeCard("2017-06-12", 4);
         TimeCard t2 = new TimeCard("2017-06-15", 10);
         hc.addTimeCard(t1);
@@ -26,7 +26,7 @@ public class PaymentClassificationTest {
     @Test
     public void hourlyCalculatePay2() throws Exception {
         PaymentClassification hc = new HourlyClassification(100);
-        Paycheck pc = new Paycheck(DateUtil.parseDate("2017-06-12"), DateUtil.parseDate("2017-07-12"));
+        Paycheck pc = new Paycheck(1, DateUtil.parseDate("2017-06-12"), DateUtil.parseDate("2017-07-12"));
         TimeCard t1 = new TimeCard("2017-06-13", 4);
         TimeCard t2 = new TimeCard("2017-06-15", 10);
         ((HourlyClassification) hc).addTimeCard(t1);
@@ -45,7 +45,7 @@ public class PaymentClassificationTest {
     @Test
     public void commissionCalculatePay() {
         PaymentClassification cc = new CommissionClassification(2000d, 0.1);
-        Paycheck pc = new Paycheck(DateUtil.parseDate("2017-06-12"), DateUtil.parseDate("2017-07-12"));
+        Paycheck pc = new Paycheck(1, DateUtil.parseDate("2017-06-12"), DateUtil.parseDate("2017-07-12"));
 
         double pay = cc.calculatePay(pc);
         Assert.assertEquals(2000d, pay, TOLERANCE);

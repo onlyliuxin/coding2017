@@ -10,9 +10,10 @@ public class Paycheck {
 	private double deductions;
 	private int employeeId;
 
-	public Paycheck(Date payPeriodStart, Date payPeriodEnd){
+	public Paycheck(int employeeId, Date payPeriodStart, Date payPeriodEnd){
 		this.payPeriodStart = payPeriodStart;
 		this.payPeriodEnd = payPeriodEnd;
+		this.employeeId = employeeId;
 	}
 
 	public Date getPayPeriodStart() {

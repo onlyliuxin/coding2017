@@ -13,16 +13,6 @@ public class EmployeeTable extends AbstractTable {
 
     public static class EmployeeBuilder {
         private Map<String, Object> row;
-        private int id;
-        private String name;
-        private String address;
-        private String emp_type;  // "0": salary, "1": hourly, "2": commission
-        private double hourly_rate;
-        private double salary;
-        private double base_salary;  // commission base salary
-        private double commission_rate;
-        private String schedule_type;  // "0": monthly, "1": weekly, "2": double weekly
-        private String payment_type;  // "0": post office, "1": hold, "2": bank
 
         @Override
         public String toString() {
@@ -48,6 +38,11 @@ public class EmployeeTable extends AbstractTable {
             return this;
         }
 
+        /**
+         * 员工类型
+         * @param emp_type "0": salary, "1": hourly, "2": commission
+         * @return
+         */
         public EmployeeBuilder emp_type(String emp_type) {
             row.put("emp_type", emp_type);
             return this;
@@ -63,6 +58,11 @@ public class EmployeeTable extends AbstractTable {
             return this;
         }
 
+        /**
+         * 销售底薪
+         * @param base_salary commission base salary
+         * @return
+         */
         public EmployeeBuilder base_salary(double base_salary) {
             row.put("base_salary", base_salary);
             return this;
@@ -73,11 +73,21 @@ public class EmployeeTable extends AbstractTable {
             return this;
         }
 
+        /**
+         * 发薪日类型
+         * @param schedule_type "0": monthly, "1": weekly, "2": double weekly
+         * @return
+         */
         public EmployeeBuilder schedule_type(String schedule_type) {
             row.put("schedule_type", schedule_type);
             return this;
         }
 
+        /**
+         * 支付方式类型
+         * @param payment_type "0": post office, "1": hold, "2": bank
+         * @return
+         */
         public EmployeeBuilder payment_type(String payment_type) {
             row.put("payment_type", payment_type);
             return this;

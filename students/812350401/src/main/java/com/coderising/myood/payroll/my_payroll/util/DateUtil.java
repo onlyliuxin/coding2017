@@ -21,8 +21,9 @@ public class DateUtil {
 		}		
 	}
 	public static boolean isFriday(Date d){
-		 Calendar   calendar   =   Calendar.getInstance();    
-         return calendar.get(Calendar.DAY_OF_WEEK) == 5;    
+		 Calendar calendar   =   Calendar.getInstance();
+		 calendar.setTime(d);
+         return calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY;
 	}
 	
 	public static Date add(Date d, int days){
