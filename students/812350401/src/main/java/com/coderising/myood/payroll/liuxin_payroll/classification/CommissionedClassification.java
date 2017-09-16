@@ -1,12 +1,13 @@
 package com.coderising.myood.payroll.liuxin_payroll.classification;
 
+import com.coderising.myood.payroll.liuxin_payroll.domain.Paycheck;
+import com.coderising.myood.payroll.liuxin_payroll.domain.PaymentClassification;
+import com.coderising.myood.payroll.liuxin_payroll.domain.SalesReceipt;
+import com.coderising.myood.payroll.liuxin_payroll.util.DateUtil;
+
 import java.util.Date;
 import java.util.Map;
 
-import com.coderising.payroll.domain.Paycheck;
-import com.coderising.payroll.domain.PaymentClassification;
-import com.coderising.payroll.domain.SalesReceipt;
-import com.coderising.payroll.util.DateUtil;
 
 public class CommissionedClassification implements PaymentClassification {
 	double salary;
@@ -20,7 +21,7 @@ public class CommissionedClassification implements PaymentClassification {
 	public double calculatePay(Paycheck pc) {
 		double commission = 0.0;
 		for(SalesReceipt sr : receipts.values()){
-			if(DateUtil.between(sr.getSaleDate(), pc.getPayPeriodStartDate(), 
+			if(DateUtil.between(sr.getSaleDate(), pc.getPayPeriodStartDate(),
 					pc.getPayPeriodEndDate())){
 				commission += sr.getAmount() * rate;
 			}

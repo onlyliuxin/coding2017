@@ -1,10 +1,7 @@
 package com.coderising.myood.payroll.liuxin_payroll.transaction;
 
-import com.coderising.payroll.domain.Employee;
-import com.coderising.payroll.domain.HoldMethod;
-import com.coderising.payroll.domain.PaymentClassification;
-import com.coderising.payroll.domain.PaymentMethod;
-import com.coderising.payroll.domain.PaymentSchedule;
+
+import com.coderising.myood.payroll.liuxin_payroll.domain.*;
 
 public abstract class AddEmployeeTransaction {
 	private String name;
@@ -19,8 +16,8 @@ public abstract class AddEmployeeTransaction {
 	public void execute(){
 		PaymentClassification pc = getClassification();
 		PaymentSchedule ps = getSchedule();
-		PaymentMethod  pm = new HoldMethod();
-		Employee  e = new Employee(name, address);
+		PaymentMethod pm = new HoldMethod();
+		Employee e = new Employee(name, address);
 		e.setClassification(pc);
 		e.setSchedule(ps);
 		e.setPaymentMethod(pm);		

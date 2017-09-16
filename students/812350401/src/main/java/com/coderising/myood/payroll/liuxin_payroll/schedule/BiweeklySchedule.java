@@ -1,10 +1,11 @@
 package com.coderising.myood.payroll.liuxin_payroll.schedule;
 
+import com.coderising.myood.payroll.liuxin_payroll.domain.PaymentSchedule;
+import com.coderising.myood.payroll.liuxin_payroll.util.DateUtil;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.coderising.payroll.domain.PaymentSchedule;
-import com.coderising.payroll.util.DateUtil;
 
 public class BiweeklySchedule implements PaymentSchedule {
 	Date firstPayableFriday = DateUtil.parseDate("2017-6-2");

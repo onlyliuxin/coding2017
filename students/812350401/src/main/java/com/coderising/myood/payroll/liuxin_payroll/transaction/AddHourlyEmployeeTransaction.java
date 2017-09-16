@@ -1,9 +1,10 @@
 package com.coderising.myood.payroll.liuxin_payroll.transaction;
 
-import com.coderising.payroll.classification.HourlyClassification;
-import com.coderising.payroll.domain.PaymentClassification;
-import com.coderising.payroll.domain.PaymentSchedule;
-import com.coderising.payroll.schedule.WeeklySchedule;
+
+import com.coderising.myood.payroll.liuxin_payroll.classification.HourlyClassification;
+import com.coderising.myood.payroll.liuxin_payroll.domain.PaymentClassification;
+import com.coderising.myood.payroll.liuxin_payroll.domain.PaymentSchedule;
+import com.coderising.myood.payroll.liuxin_payroll.schedule.WeeklySchedule;
 
 public class AddHourlyEmployeeTransaction extends AddEmployeeTransaction{
 	private double rate;
@@ -12,7 +13,7 @@ public class AddHourlyEmployeeTransaction extends AddEmployeeTransaction{
 		this.rate = hourlyRate;
 	}
 	@Override
-	public PaymentClassification getClassification() {		
+	public PaymentClassification getClassification() {
 		return new HourlyClassification(rate);
 	}
 

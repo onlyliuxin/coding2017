@@ -1,12 +1,13 @@
 package com.coderising.myood.payroll.liuxin_payroll.classification;
 
+
+import com.coderising.myood.payroll.liuxin_payroll.domain.Paycheck;
+import com.coderising.myood.payroll.liuxin_payroll.domain.PaymentClassification;
+import com.coderising.myood.payroll.liuxin_payroll.domain.TimeCard;
+import com.coderising.myood.payroll.liuxin_payroll.util.DateUtil;
+
 import java.util.Date;
 import java.util.Map;
-
-import com.coderising.payroll.domain.Paycheck;
-import com.coderising.payroll.domain.PaymentClassification;
-import com.coderising.payroll.domain.TimeCard;
-import com.coderising.payroll.util.DateUtil;
 
 public class HourlyClassification implements PaymentClassification {
 	private double rate;
@@ -22,7 +23,7 @@ public class HourlyClassification implements PaymentClassification {
 	public double calculatePay(Paycheck pc) {
 		double totalPay = 0;
 		for(TimeCard tc : timeCards.values()){
-			if(DateUtil.between(tc.getDate(), pc.getPayPeriodStartDate(), 
+			if(DateUtil.between(tc.getDate(), pc.getPayPeriodStartDate(),
 					pc.getPayPeriodEndDate())){
 				totalPay += calculatePayForTimeCard(tc);
 			}

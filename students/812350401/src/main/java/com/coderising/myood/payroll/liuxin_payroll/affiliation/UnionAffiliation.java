@@ -1,7 +1,8 @@
 package com.coderising.myood.payroll.liuxin_payroll.affiliation;
 
-import com.coderising.payroll.domain.Affiliation;
-import com.coderising.payroll.domain.Paycheck;
+
+import com.coderising.myood.payroll.liuxin_payroll.domain.Affiliation;
+import com.coderising.myood.payroll.liuxin_payroll.domain.Paycheck;
 
 public class UnionAffiliation implements Affiliation {
 

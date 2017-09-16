@@ -1,9 +1,10 @@
 package com.coderising.myood.payroll.liuxin_payroll.domain;
 
+import com.coderising.myood.payroll.liuxin_payroll.PayrollService;
+
 import java.util.Date;
 import java.util.List;
 
-import com.coderising.payroll.PayrollService;
 
 public class PaydayTransaction {
 	private Date date;
