@@ -8,8 +8,8 @@ public class UnionAffiliation implements Affiliation {
 
 	@Override
 	public double calculateDeductions(Paycheck pc) {
-		
-		return 0;
+		return 0.0;
 	}
+
 
 }

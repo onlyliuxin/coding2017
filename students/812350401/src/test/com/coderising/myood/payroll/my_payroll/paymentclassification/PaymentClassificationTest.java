@@ -15,7 +15,7 @@ public class PaymentClassificationTest {
     public void hourlyCalculatePay1() throws Exception {
         HourlyClassification hc = new HourlyClassification(100);
         Paycheck pc = new Paycheck(1, DateUtil.parseDate("2017-06-12"), DateUtil.parseDate("2017-07-12"));
-        TimeCard t1 = new TimeCard("2017-06-12", 4);
+        TimeCard t1 = new TimeCard("2017-06-11", 4);
         TimeCard t2 = new TimeCard("2017-06-15", 10);
         hc.addTimeCard(t1);
         hc.addTimeCard(t2);
@@ -27,7 +27,7 @@ public class PaymentClassificationTest {
     public void hourlyCalculatePay2() throws Exception {
         PaymentClassification hc = new HourlyClassification(100);
         Paycheck pc = new Paycheck(1, DateUtil.parseDate("2017-06-12"), DateUtil.parseDate("2017-07-12"));
-        TimeCard t1 = new TimeCard("2017-06-13", 4);
+        TimeCard t1 = new TimeCard("2017-06-12", 4);
         TimeCard t2 = new TimeCard("2017-06-15", 10);
         ((HourlyClassification) hc).addTimeCard(t1);
         ((HourlyClassification) hc).addTimeCard(t2);

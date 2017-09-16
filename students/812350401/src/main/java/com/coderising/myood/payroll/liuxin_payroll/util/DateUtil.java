@@ -2,8 +2,13 @@ package com.coderising.myood.payroll.liuxin_payroll.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class DateUtil {
 	public static long getDaysBetween(Date d1, Date d2){
@@ -44,13 +49,15 @@ public class DateUtil {
 		calendar.add(Calendar.DATE, -(day-1));
 		return calendar.getTime();
 	}
-	public static void main(String [] args) throws Exception{
-		System.out.println(DateUtil.isLastDayOfMonth(DateUtil.parseDate("2017-6-29")));
-		
-		System.out.println(DateUtil.getFirstDay(DateUtil.parseDate("2017-6-30")));
-	}
-	
+
 	public static boolean between(Date d, Date date1, Date date2){
 		return d.after(date1) && d.before(date2);
 	}
+
+
+    public static void main(String [] args) throws Exception{
+        System.out.println(DateUtil.isLastDayOfMonth(DateUtil.parseDate("2017-6-29")));
+
+        System.out.println(DateUtil.getFirstDay(DateUtil.parseDate("2017-6-30")));
+    }
 }
