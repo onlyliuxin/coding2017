@@ -18,7 +18,6 @@ public class Utils {
 
 			return fileContentStr;
 		} catch (IOException | URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

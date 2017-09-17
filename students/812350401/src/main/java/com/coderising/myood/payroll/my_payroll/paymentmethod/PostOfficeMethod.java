@@ -15,9 +15,9 @@ public class PostOfficeMethod implements PaymentMethod {
         StringBuilder desp = new StringBuilder();
         desp.append("邮局入账:\n")
                 .append("employee_id: ").append(pc.getEmployeeId())
-                .append(", 金额: ").append(sdf.format(pc.getNetPay()))
+                .append(", 金额: ").append(pc.getNetPay())
                 .append(", 区间: ").append(sdf.format(pc.getPayPeriodStart()))
-                .append("~").append(pc.getPayPeriodEnd());
+                .append("~").append(sdf.format(pc.getPayPeriodEnd()));
         System.out.println(desp.toString());
     }
 }

@@ -64,5 +64,15 @@ public class Paycheck {
 		this.netPay = netPay;
 	}
 
-
+	@Override
+	public String toString() {
+		return "Paycheck{" +
+				"payPeriodStart=" + payPeriodStart +
+				", payPeriodEnd=" + payPeriodEnd +
+				", grossPay=" + grossPay +
+				", netPay=" + netPay +
+				", deductions=" + deductions +
+				", employeeId=" + employeeId +
+				'}';
+	}
 }

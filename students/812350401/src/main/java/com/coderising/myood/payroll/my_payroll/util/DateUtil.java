@@ -25,6 +25,12 @@ public class DateUtil {
 			return null;
 		}		
 	}
+
+	public static String toDateStr(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(date);
+    }
+
 	public static boolean isFriday(Date d){
 		 Calendar calendar   =   Calendar.getInstance();
 		 calendar.setTime(d);

@@ -21,6 +21,11 @@ public class AddHourlyEmployeeTransaction extends AddEmployeeTransaction{
 	public PaymentSchedule getSchedule() {
 		
 		return new WeeklySchedule();
-	}	
+	}
+
+	@Override
+	protected void saveToDataBase() {
+
+	}
 }
 

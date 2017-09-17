@@ -14,11 +14,6 @@ public class EmployeeTable extends AbstractTable {
     public static class EmployeeBuilder {
         private Map<String, Object> row;
 
-        @Override
-        public String toString() {
-            return "EmployeeBuilder{}";
-        }
-
         public EmployeeBuilder() {
             row = new HashMap<>();
         }
@@ -90,6 +85,16 @@ public class EmployeeTable extends AbstractTable {
          */
         public EmployeeBuilder payment_type(String payment_type) {
             row.put("payment_type", payment_type);
+            return this;
+        }
+
+        /**
+         * 是否参加协会
+         * @param affiliation_type "0": 未参加, "1": 参加
+         * @return
+         */
+        public EmployeeBuilder affiliation_type(String affiliation_type) {
+            row.put("affiliation_type", affiliation_type);
             return this;
         }
 

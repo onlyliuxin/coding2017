@@ -23,4 +23,6 @@ public abstract class AddEmployeeTransaction {
 		e.setPaymentMethod(pm);		
 		//保存到数据库, 略
 	}
+
+	protected abstract void saveToDataBase();
 }
