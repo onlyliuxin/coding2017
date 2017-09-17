@@ -20,7 +20,7 @@ public class PayTransaction {
 
                 Paycheck pc = new Paycheck(e.getId(), e.getPayPeriodStart(date), date);
                 if (!payrollService.checkRepeatedPay(pc)) {
-                    break;
+                    continue;
                 }
                 e.payDay(pc);
                 payrollService.savePaycheck(pc);
