@@ -1,0 +1,1 @@
+请运行com.coderising.myood.litejunit.liuxinv2.textui.TestRunner.main函数来触发运行

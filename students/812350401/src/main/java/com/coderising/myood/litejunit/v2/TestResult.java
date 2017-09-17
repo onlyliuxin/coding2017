@@ -10,13 +10,14 @@ import java.util.List;
 public class TestResult {
     protected List<TestFailure> failures;  // 存储assert失败
     protected List<TestFailure> errors;  // 存储业务代码异常，比如空指针
+    private List<TestListener> listeners;
     private int testCount;
     private boolean stop;
 
     public TestResult() {
         failures= new ArrayList<>();
         errors= new ArrayList<>();
-
+        listeners = new ArrayList<>();
         testCount= 0;
         stop= false;
     }
@@ -26,19 +27,39 @@ public class TestResult {
         try {
             testCase.doRun();
         } catch (AssertionFailedError e) {
-            failures.add(new TestFailure(testCase, e));
+            addFailure(testCase, e);
         } catch (Throwable e) {
-            errors.add(new TestFailure(testCase, e));
+            addError(testCase, e);
         }
         endTest(testCase);
+    }
+
+    private void addError(TestCase testCase, Throwable e) {
+        errors.add(new TestFailure(testCase, e));
+        for (TestListener listener: listeners) {
+            listener.addError(testCase, e);
+        }
+    }
+
+    private void addFailure(TestCase testCase, AssertionFailedError e) {
+        failures.add(new TestFailure(testCase, e));
+        for (TestListener listener: listeners) {
+            listener.addFailure(testCase, e);
+        }
     }
 
     private void startTest(TestCase testCase) {
         int count= testCase.countTestCases();
         testCount+= count;
+        for (TestListener listener: listeners) {
+            listener.startTest(testCase);
+        }
     }
 
     private void endTest(TestCase testCase) {
+        for (TestListener listener: listeners) {
+            listener.endTest(testCase);
+        }
     }
     /**
      * Gets the number of run tests.
@@ -83,6 +104,14 @@ public class TestResult {
         errors.clear();
         testCount = 0;
         stop= false;
+    }
+
+    public void addListener(TestListener listener) {
+        this.listeners.add(listener);
+    }
+
+    public void removeListener(TestListener listener) {
+        this.listeners.remove(listener);
     }
 
 }
