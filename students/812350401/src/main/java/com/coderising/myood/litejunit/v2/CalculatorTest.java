@@ -1,12 +1,13 @@
-package com.coderising.myood.litejunit.v1;
+package com.coderising.myood.litejunit.v2;
 
 
 public class CalculatorTest extends TestCase {
+
+	private Calculator calculator =null;
+
 	public CalculatorTest(String name) {
 		super(name);
-
 	}
-	private Calculator calculator =null;
 
 	public void setUp(){
 		System.out.println("init a calculator instance");
@@ -24,7 +25,7 @@ public class CalculatorTest extends TestCase {
 	public void testSubtract(){
 		calculator.add(10);
 		calculator.subtract(5);
-		assertEquals(4, calculator.getResult());
+		assertEquals(4,calculator.getResult());
 	}
 
 	public void haha() {
