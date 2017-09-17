@@ -18,7 +18,7 @@ public class TestRunner implements TestListener {
         TestRunner testRunner = new TestRunner();
         TestResult tr = new TestResult();
         tr.addListener(testRunner);
-        Test testAll = AllTest.suite();
+        Test testAll = AllTest.suite();  // TODO: 17/9/2017 后续要用反射实现这一步 
         testRunner.tryTest(testAll, tr);
     }
 
