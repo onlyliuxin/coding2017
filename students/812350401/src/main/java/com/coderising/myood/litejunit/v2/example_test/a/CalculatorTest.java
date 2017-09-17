@@ -42,7 +42,8 @@ public class CalculatorTest extends TestCase {
     {
         Calculator cal = new Calculator();
         int result = cal.minus(5, 2);
-        Assert.assertEquals(3, result);
+        throw new RuntimeException("我是异常");
+//        Assert.assertEquals(3, result);
     }
 
     public void testMultiply()

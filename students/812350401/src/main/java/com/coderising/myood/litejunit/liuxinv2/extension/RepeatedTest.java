@@ -19,6 +19,7 @@ public class RepeatedTest extends  TestDecorator {
 	public int countTestCases() {
 		return super.countTestCases()*fTimesRepeat;
 	}
+	@Override
 	public void run(TestResult result) {
 		for (int i= 0; i < fTimesRepeat; i++) {
 			if (result.shouldStop())
