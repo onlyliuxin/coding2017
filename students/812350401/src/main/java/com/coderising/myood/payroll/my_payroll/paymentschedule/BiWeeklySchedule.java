@@ -1,7 +1,7 @@
 package com.coderising.myood.payroll.my_payroll.paymentschedule;
 
-import com.coderising.myood.payroll.liuxin_payroll.util.DateUtil;
 import com.coderising.myood.payroll.my_payroll.domain.PaymentSchedule;
+import com.coderising.myood.payroll.my_payroll.util.DateUtil;
 
 import java.util.Date;
 
