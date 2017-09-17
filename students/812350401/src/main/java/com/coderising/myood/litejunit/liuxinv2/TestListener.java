@@ -1,7 +1,7 @@
 package com.coderising.myood.litejunit.liuxinv2;
 
 /**
- * A Listener for test progress
+ * A TestListener for test progress
  */
 public interface TestListener {
 	

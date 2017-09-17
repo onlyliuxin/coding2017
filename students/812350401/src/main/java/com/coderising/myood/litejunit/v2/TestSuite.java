@@ -24,6 +24,8 @@ public class TestSuite implements Test {
         return totalCount;
     }
 
+    public TestSuite(){
+    }
     public TestSuite(String name) {
         this.name = name;
     }
@@ -125,4 +127,7 @@ public class TestSuite implements Test {
 
     }
 
+    public void addTestSuite(Class testClass) {
+        addTest(new TestSuite(testClass));
+    }
 }
