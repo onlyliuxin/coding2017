@@ -1,6 +1,5 @@
 package com.coderising.myood.litejunit.v1;
 
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -36,7 +35,7 @@ public abstract class TestCase extends Assert implements Test {
     private void runTest() throws Throwable {
         Method method = null;
         try {
-            method = getClass().getMethod(name, null);
+            method = getClass().getMethod(name, new Class[0]);
         } catch (NoSuchMethodException e) {
             fail("Method \""+name+"\" not found");
         }

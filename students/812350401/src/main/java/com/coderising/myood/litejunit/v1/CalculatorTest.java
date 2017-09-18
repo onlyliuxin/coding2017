@@ -6,7 +6,8 @@ public class CalculatorTest extends TestCase {
 		super(name);
 
 	}
-	Calculator calculator =null;
+	private Calculator calculator =null;
+
 	public void setUp(){
 		System.out.println("init a calculator instance");
 		calculator = new Calculator();
@@ -23,7 +24,7 @@ public class CalculatorTest extends TestCase {
 	public void testSubtract(){
 		calculator.add(10);
 		calculator.subtract(5);
-		assertEquals(4,calculator.getResult());
+		assertEquals(4, calculator.getResult());
 	}
 
 	public void haha() {
@@ -31,7 +32,6 @@ public class CalculatorTest extends TestCase {
     }
 
 	private void testXX() {
-
     }
 
 }

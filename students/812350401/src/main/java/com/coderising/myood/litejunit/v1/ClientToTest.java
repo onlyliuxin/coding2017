@@ -9,17 +9,22 @@ public class ClientToTest {
     public static void main(String[] args) {
         TestResult tr = new TestResult();
 
-//        Test cs1 = new CalculatorTest("testAdd");
-//        tryTest(cs1, tr);
+        Test cs1 = new CalculatorTest("testAdd");
+        tryTest(cs1, tr);
 //        Test cs2 = new CalculatorTest("testSubtract");
 //        tryTest(cs2, tr);
 
+//        System.out.println("---------------------------------");
+//        tr.clearResult();
+//        Test ts1 = new TestSuite("AllTest1");
+//        ((TestSuite)ts).addTest(new CalculatorTest("haha"));
+//        ((TestSuite)ts1).addTest(new TestSuite(CalculatorTest.class));
+//        tryTest(ts1, tr);
+
         System.out.println("---------------------------------");
         tr.clearResult();
-        Test ts = new TestSuite("AllTest");
-        ((TestSuite)ts).addTest(new CalculatorTest("haha"));
-        ((TestSuite)ts).addTest(new TestSuite(CalculatorTest.class));
-        tryTest(ts, tr);
+        Test ts2 = new TestSuite(CalculatorTest.class);
+        tryTest(ts2, tr);
 
     }
 
