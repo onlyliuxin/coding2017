@@ -1,0 +1,2223 @@
+
+<?xml version='1.0' encoding='GBK'?>
+<!-- 根元素 -->
+<getUnApplyRedeemData>
+	<!-- 操作结果元素 -->
+	<result>
+		<flag>0</flag>
+		<totalPerson>47</totalPerson>
+		<message>操作结果提示信息</message>
+	</result>
+	<getInsureDetails>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231013320298</Bookno>
+				<memberNo>342623101332029801</memberNo>
+				<Name>孙兴武</Name>
+				<sexName>男</sexName>
+				<Birthday>1962-04-13</Birthday>
+				<masterName>孙兴武</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623196204132713</idCard>
+				<Address>无城镇西桥行政村西桥自然村２２号</Address>
+				<doorPropName></doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000118082607853555</inpatientSn>
+					<Redeem_Sn>000118082607853555</Redeem_Sn>
+					<hosOrgno>0001</hosOrgno>
+					<hosOrgName>无为县人民医院</hosOrgName>
+					<totalCosts>1684.8300</totalCosts>
+					<enableMoney>1601.2700</enableMoney>
+					<startMoney>300.0000</startMoney>
+					<redeemMoney>1280.8000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>404.0300</personalPayMoney>
+					<Icdname>T50.901</Icdname>
+					<officeDate>2017-07-16 10:11:41</officeDate>
+					<leaveDate>2017-07-18 8:26:33</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 8:27:23</redeemDate>
+					<CIIEligibleCosts>272.5300</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>168.5000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231012461948</Bookno>
+				<memberNo>342623101246194801</memberNo>
+				<Name>黄万长</Name>
+				<sexName>男</sexName>
+				<Birthday>1943-03-08</Birthday>
+				<masterName>黄万长</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623194303088958</idCard>
+				<Address>无城镇檀树社区沃二自然村４１号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000207080039619556</inpatientSn>
+					<Redeem_Sn>000207080039619556</Redeem_Sn>
+					<hosOrgno>0002</hosOrgno>
+					<hosOrgName>无为县中医医院</hosOrgName>
+					<totalCosts>5733.1200</totalCosts>
+					<enableMoney>3768.3700</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>5073.3000</redeemMoney>
+					<HospitalUndertake>-200.1600</HospitalUndertake>
+					<personalPayMoney>859.9800</personalPayMoney>
+					<Icdname>ZDZ486</Icdname>
+					<officeDate>2017-07-05 9:20:00</officeDate>
+					<leaveDate>2017-07-17 9:44:01</leaveDate>
+					<RedeemTypeCode>2104</RedeemTypeCode>
+					<redeemDate>2017-07-18 7:40:27</redeemDate>
+					<CIIEligibleCosts>933.1200</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>573.3000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>1013110051</Bookno>
+				<memberNo>342623101311005013</memberNo>
+				<Name>季金龙</Name>
+				<sexName>男</sexName>
+				<Birthday>1974-08-10</Birthday>
+				<masterName>季金龙</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623197408102756</idCard>
+				<Address>无城镇仓头社区</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>233521081028602568</inpatientSn>
+					<Redeem_Sn>233521081028602568</Redeem_Sn>
+					<hosOrgno>2335</hosOrgno>
+					<hosOrgName>中铁上海局芜湖医院</hosOrgName>
+					<totalCosts>4933.0300</totalCosts>
+					<enableMoney>4737.6300</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>4105.0000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>828.0300</personalPayMoney>
+					<Icdname>F20.901</Icdname>
+					<officeDate>2017-06-21 8:13:52</officeDate>
+					<leaveDate>2017-07-18 8:17:45</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 8:30:35</redeemDate>
+					<CIIEligibleCosts>874.3300</CIIEligibleCosts>
+					<CIIRedeemMoney>53.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>493.3000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231512130395</Bookno>
+				<memberNo>342623151213039502</memberNo>
+				<Name>陈先翠</Name>
+				<sexName>女</sexName>
+				<Birthday>1951-01-21</Birthday>
+				<masterName>赵帮宝</masterName>
+				<relationName>女</relationName>
+				<identityName>一般农户</identityName>
+				<idCard>342623195101213022</idCard>
+				<Address>石涧镇孙岗行政村竹园自然村３２号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>005616080011604122</inpatientSn>
+					<Redeem_Sn>005616080011604122</Redeem_Sn>
+					<hosOrgno>0056</hosOrgno>
+					<hosOrgName>无为县惠民眼科医院</hosOrgName>
+					<totalCosts>1705.5200</totalCosts>
+					<enableMoney>1621.6800</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>1295.5000</redeemMoney>
+					<HospitalUndertake>154.1400</HospitalUndertake>
+					<personalPayMoney>255.8800</personalPayMoney>
+					<Icdname>ZDZ103</Icdname>
+					<officeDate>2017-07-16 7:59:54</officeDate>
+					<leaveDate>2017-07-18 7:53:40</leaveDate>
+					<RedeemTypeCode>2104</RedeemTypeCode>
+					<redeemDate>2017-07-18 8:03:08</redeemDate>
+					<CIIEligibleCosts>280.5200</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>170.5000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232006190458</Bookno>
+				<memberNo>342623200619045801</memberNo>
+				<Name>张加英</Name>
+				<sexName>女</sexName>
+				<Birthday>1938-10-26</Birthday>
+				<masterName>张加英</masterName>
+				<relationName>女</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623193810264720</idCard>
+				<Address>刘渡镇花园行政村新江自然村</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000115145258439815</inpatientSn>
+					<Redeem_Sn>000115145258439815</Redeem_Sn>
+					<hosOrgno>0001</hosOrgno>
+					<hosOrgName>无为县人民医院</hosOrgName>
+					<totalCosts>4978.6200</totalCosts>
+					<enableMoney>4842.1800</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>4837.8000</redeemMoney>
+					<HospitalUndertake>-854.9700</HospitalUndertake>
+					<personalPayMoney>995.7900</personalPayMoney>
+					<Icdname>ZDZ015</Icdname>
+					<officeDate>2017-07-14 7:52:19</officeDate>
+					<leaveDate>2017-07-18 9:18:41</leaveDate>
+					<RedeemTypeCode>2104</RedeemTypeCode>
+					<redeemDate>2017-07-18 9:17:18</redeemDate>
+					<CIIEligibleCosts>338.6200</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>497.8000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231801301806</Bookno>
+				<memberNo>342623180130180602</memberNo>
+				<Name>徐静梅</Name>
+				<sexName>女</sexName>
+				<Birthday>1973-04-24</Birthday>
+				<masterName>任光能</masterName>
+				<relationName>女</relationName>
+				<identityName>一般农户</identityName>
+				<idCard>342623197304245349</idCard>
+				<Address>蜀山镇蜀山行政村仁桥自然村４５号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>004218092418328810</inpatientSn>
+					<Redeem_Sn>004218092418328810</Redeem_Sn>
+					<hosOrgno>0042</hosOrgno>
+					<hosOrgName>无为县济民医院</hosOrgName>
+					<totalCosts>1799.6000</totalCosts>
+					<enableMoney>1267.3000</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>1439.7000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>359.9000</personalPayMoney>
+					<Icdname>N18.903</Icdname>
+					<officeDate>2017-04-13 9:22:06</officeDate>
+					<leaveDate>2017-07-18 9:22:06</leaveDate>
+					<RedeemTypeCode>15  </RedeemTypeCode>
+					<redeemDate>2017-07-18 9:25:42</redeemDate>
+					<CIIEligibleCosts>239.9000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>180.0000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231616030563</Bookno>
+				<memberNo>342623161603056303</memberNo>
+				<Name>朱光英</Name>
+				<sexName>女</sexName>
+				<Birthday>1948-03-27</Birthday>
+				<masterName>任家福</masterName>
+				<relationName>女</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623194803273826</idCard>
+				<Address>严桥镇福民行政村柑树自然村０１１号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>112418102447877740</inpatientSn>
+					<Redeem_Sn>112418102447877740</Redeem_Sn>
+					<hosOrgno>1124</hosOrgno>
+					<hosOrgName>安徽医科大学附属巢湖医院（原巢</hosOrgName>
+					<totalCosts>6931.3800</totalCosts>
+					<enableMoney>5664.5300</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>4851.9000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>2079.4800</personalPayMoney>
+					<Icdname>Z47.002</Icdname>
+					<officeDate>2017-07-10 9:43:26</officeDate>
+					<leaveDate>2017-07-18 8:47:45</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 10:28:50</redeemDate>
+					<CIIEligibleCosts>1772.5800</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>693.1000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232402160473</Bookno>
+				<memberNo>342623240216047302</memberNo>
+				<Name>王曾学</Name>
+				<sexName>男</sexName>
+				<Birthday>1948-10-17</Birthday>
+				<masterName>王曾学</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623194810171393</idCard>
+				<Address>福渡镇河坝社区王村自然村００６</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>129218074258857075</inpatientSn>
+					<Redeem_Sn>129218074258857075</Redeem_Sn>
+					<hosOrgno>1292</hosOrgno>
+					<hosOrgName>马鞍山市中心医院</hosOrgName>
+					<totalCosts>2659.0000</totalCosts>
+					<enableMoney>2436.6000</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>1994.2000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>664.8000</personalPayMoney>
+					<Icdname>N40 01</Icdname>
+					<officeDate>2017-07-12 7:36:50</officeDate>
+					<leaveDate>2017-07-14 7:36:50</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 7:47:09</redeemDate>
+					<CIIEligibleCosts>430.7000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>265.9000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232001040088</Bookno>
+				<memberNo>342623200104008801</memberNo>
+				<Name>王先华</Name>
+				<sexName>男</sexName>
+				<Birthday>1955-04-28</Birthday>
+				<masterName>王先华</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623195504287034</idCard>
+				<Address>刘渡镇大成行政村沟北自然村００１号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>112711090227086225</inpatientSn>
+					<Redeem_Sn>112711090227086225</Redeem_Sn>
+					<hosOrgno>1127</hosOrgno>
+					<hosOrgName>芜湖市第二人民医院</hosOrgName>
+					<totalCosts>11444.3100</totalCosts>
+					<enableMoney>10554.8100</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>11087.4000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>356.9100</personalPayMoney>
+					<Icdname>D46.901</Icdname>
+					<officeDate>2017-07-11 9:03:27</officeDate>
+					<leaveDate>2017-07-18 8:26:06</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 8:42:49</redeemDate>
+					<CIIEligibleCosts>2933.3100</CIIEligibleCosts>
+					<CIIRedeemMoney>1521.2000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>1144.4000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>410.8000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231816230821</Bookno>
+				<memberNo>342623181623082101</memberNo>
+				<Name>何宝玉</Name>
+				<sexName>男</sexName>
+				<Birthday>1974-11-22</Birthday>
+				<masterName>何宝玉</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623197411223612</idCard>
+				<Address>蜀山镇石岗行政村正房自然村２０号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>233517154520542487</inpatientSn>
+					<Redeem_Sn>233517154520542487</Redeem_Sn>
+					<hosOrgno>2335</hosOrgno>
+					<hosOrgName>中铁上海局芜湖医院</hosOrgName>
+					<totalCosts>5757.5400</totalCosts>
+					<enableMoney>5495.3400</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>4699.2000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>1058.3400</personalPayMoney>
+					<Icdname>F20.901</Icdname>
+					<officeDate>2017-06-17 15:48:22</officeDate>
+					<leaveDate>2017-07-18 8:18:42</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 8:31:55</redeemDate>
+					<CIIEligibleCosts>1134.1400</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>575.8000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231803431056</Bookno>
+				<memberNo>342623180343105601</memberNo>
+				<Name>陈昌荣</Name>
+				<sexName>男</sexName>
+				<Birthday>1968-12-05</Birthday>
+				<masterName>陈昌荣</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623196812053613</idCard>
+				<Address>蜀山镇小坳行政村何寨自然村</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>004212161554691195</inpatientSn>
+					<Redeem_Sn>004212161554691195</Redeem_Sn>
+					<hosOrgno>0042</hosOrgno>
+					<hosOrgName>无为县济民医院</hosOrgName>
+					<totalCosts>3227.7900</totalCosts>
+					<enableMoney>3079.2700</enableMoney>
+					<startMoney>300.0000</startMoney>
+					<redeemMoney>2700.8000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>526.9900</personalPayMoney>
+					<Icdname>J98.505</Icdname>
+					<officeDate>2017-07-12 16:16:11</officeDate>
+					<leaveDate>2017-07-18 11:33:18</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 15:05:19</redeemDate>
+					<CIIEligibleCosts>549.7900</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>322.8000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231808180842</Bookno>
+				<memberNo>342623180818084204</memberNo>
+				<Name>陈春香</Name>
+				<sexName>女</sexName>
+				<Birthday>1969-03-15</Birthday>
+				<masterName>张玉环</masterName>
+				<relationName>女</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623196903155324</idCard>
+				<Address>蜀山镇建成行政村钟井自然村０３号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>246614065803519157</inpatientSn>
+					<Redeem_Sn>246614065803519157</Redeem_Sn>
+					<hosOrgno>2466</hosOrgno>
+					<hosOrgName>无为黄姑医院</hosOrgName>
+					<totalCosts>2323.0000</totalCosts>
+					<enableMoney>2296.0000</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>2206.9000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>116.1000</personalPayMoney>
+					<Icdname>N93.801</Icdname>
+					<officeDate>2017-07-14 6:58:05</officeDate>
+					<leaveDate>2017-07-18 7:44:54</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 8:10:03</redeemDate>
+					<CIIEligibleCosts>248.4000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>232.3000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231909090376</Bookno>
+				<memberNo>342623190909037604</memberNo>
+				<Name>裴苏娜</Name>
+				<sexName>女</sexName>
+				<Birthday>2005-05-24</Birthday>
+				<masterName>裴学刚</masterName>
+				<relationName>女</relationName>
+				<identityName>一般农户</identityName>
+				<idCard>341422200505245923</idCard>
+				<Address>牛埠镇柏杨行政村土墩俞自然村０５８号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000112075724118546</inpatientSn>
+					<Redeem_Sn>000112075724118546</Redeem_Sn>
+					<hosOrgno>0001</hosOrgno>
+					<hosOrgName>无为县人民医院</hosOrgName>
+					<totalCosts>2199.1900</totalCosts>
+					<enableMoney>2066.7700</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>1829.9000</redeemMoney>
+					<HospitalUndertake>-70.5700</HospitalUndertake>
+					<personalPayMoney>439.8600</personalPayMoney>
+					<Icdname>ZDZ226</Icdname>
+					<officeDate>2017-07-12 8:03:36</officeDate>
+					<leaveDate>2017-07-18 10:46:03</leaveDate>
+					<RedeemTypeCode>2104</RedeemTypeCode>
+					<redeemDate>2017-07-18 11:12:22</redeemDate>
+					<CIIEligibleCosts>289.1900</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>219.9000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231019210964</Bookno>
+				<memberNo>342623101921096404</memberNo>
+				<Name>雷和春</Name>
+				<sexName>男</sexName>
+				<Birthday>1991-10-20</Birthday>
+				<masterName>王日兵</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623199110200352</idCard>
+				<Address>无城镇七里行政村杨村自然村１１号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>112618093606289584</inpatientSn>
+					<Redeem_Sn>112618093606289584</Redeem_Sn>
+					<hosOrgno>1126</hosOrgno>
+					<hosOrgName>芜湖市第四人民医院</hosOrgName>
+					<totalCosts>829.8000</totalCosts>
+					<enableMoney>476.4000</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>622.3000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>207.5000</personalPayMoney>
+					<Icdname>F20.901</Icdname>
+					<officeDate>2017-07-14 9:34:54</officeDate>
+					<leaveDate>2017-07-14 9:34:54</leaveDate>
+					<RedeemTypeCode>15  </RedeemTypeCode>
+					<redeemDate>2017-07-18 9:36:51</redeemDate>
+					<CIIEligibleCosts>-209.5000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>83.0000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232508040208</Bookno>
+				<memberNo>342623250804020805</memberNo>
+				<Name>范桂香</Name>
+				<sexName>女</sexName>
+				<Birthday>1963-09-23</Birthday>
+				<masterName>丁仁堂</masterName>
+				<relationName>女</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623196309235022</idCard>
+				<Address>泉塘镇梅圩行政村韩老自然村９号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>004218071743845620</inpatientSn>
+					<Redeem_Sn>004218071743845620</Redeem_Sn>
+					<hosOrgno>0042</hosOrgno>
+					<hosOrgName>无为县济民医院</hosOrgName>
+					<totalCosts>735.0000</totalCosts>
+					<enableMoney>595.0000</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>588.0000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>147.0000</personalPayMoney>
+					<Icdname>N18.903</Icdname>
+					<officeDate>2017-07-17 7:16:17</officeDate>
+					<leaveDate>2017-07-18 7:16:17</leaveDate>
+					<RedeemTypeCode>15  </RedeemTypeCode>
+					<redeemDate>2017-07-18 7:18:24</redeemDate>
+					<CIIEligibleCosts>-79.5000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>73.5000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426233102040322</Bookno>
+				<memberNo>342623310204032204</memberNo>
+				<Name>马义华</Name>
+				<sexName>男</sexName>
+				<Birthday>1953-07-15</Birthday>
+				<masterName>马义华</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>34262319530715681X</idCard>
+				<Address>昆山乡涧李行政村涧马自然村６７号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>112715110644012483</inpatientSn>
+					<Redeem_Sn>112715110644012483</Redeem_Sn>
+					<hosOrgno>1127</hosOrgno>
+					<hosOrgName>芜湖市第二人民医院</hosOrgName>
+					<totalCosts>3986.3200</totalCosts>
+					<enableMoney>3521.5700</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>4108.6000</redeemMoney>
+					<HospitalUndertake>-919.5800</HospitalUndertake>
+					<personalPayMoney>797.3000</personalPayMoney>
+					<Icdname>ZDZ034</Icdname>
+					<officeDate>2017-07-15 11:06:22</officeDate>
+					<leaveDate>2017-07-18 9:34:43</leaveDate>
+					<RedeemTypeCode>2103</RedeemTypeCode>
+					<redeemDate>2017-07-18 9:47:23</redeemDate>
+					<CIIEligibleCosts>-223.6800</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>398.6000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232002170768</Bookno>
+				<memberNo>342623200217076801</memberNo>
+				<Name>钟正祥</Name>
+				<sexName>男</sexName>
+				<Birthday>1939-01-05</Birthday>
+				<masterName>钟正祥</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623193901054710</idCard>
+				<Address>刘渡镇荣胜行政村前湾自然村</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000118082021080533</inpatientSn>
+					<Redeem_Sn>000118082021080533</Redeem_Sn>
+					<hosOrgno>0001</hosOrgno>
+					<hosOrgName>无为县人民医院</hosOrgName>
+					<totalCosts>2955.1800</totalCosts>
+					<enableMoney>2945.1800</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>2798.9000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>156.2800</personalPayMoney>
+					<Icdname>C64 01</Icdname>
+					<officeDate>2017-07-07 8:18:56</officeDate>
+					<leaveDate>2017-07-18 8:18:56</leaveDate>
+					<RedeemTypeCode>15  </RedeemTypeCode>
+					<redeemDate>2017-07-18 8:20:56</redeemDate>
+					<CIIEligibleCosts>151.7800</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>295.5000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232708120384</Bookno>
+				<memberNo>342623270812038402</memberNo>
+				<Name>汪克英</Name>
+				<sexName>女</sexName>
+				<Birthday>1953-09-24</Birthday>
+				<masterName>石开业</masterName>
+				<relationName>女</relationName>
+				<identityName>一般农户</identityName>
+				<idCard>34262319530924360X</idCard>
+				<Address>红庙镇油坊行政村石咀自然村０６０</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000218082940310312</inpatientSn>
+					<Redeem_Sn>000218082940310312</Redeem_Sn>
+					<hosOrgno>0002</hosOrgno>
+					<hosOrgName>无为县中医医院</hosOrgName>
+					<totalCosts>3780.0400</totalCosts>
+					<enableMoney>3662.7600</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>4578.0000</redeemMoney>
+					<HospitalUndertake>-1364.9700</HospitalUndertake>
+					<personalPayMoney>567.0100</personalPayMoney>
+					<Icdname>ZDZ420</Icdname>
+					<officeDate>2017-07-07 9:03:00</officeDate>
+					<leaveDate>2017-07-18 8:04:01</leaveDate>
+					<RedeemTypeCode>2104</RedeemTypeCode>
+					<redeemDate>2017-07-18 8:46:05</redeemDate>
+					<CIIEligibleCosts>-719.9600</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>378.0000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231028150665</Bookno>
+				<memberNo>342623102815066502</memberNo>
+				<Name>袁为新</Name>
+				<sexName>男</sexName>
+				<Birthday>1939-02-19</Birthday>
+				<masterName>袁为新</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623193902192736</idCard>
+				<Address>无城镇义兴行政村袁村自然村１７号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000112104607382178</inpatientSn>
+					<Redeem_Sn>000112104607382178</Redeem_Sn>
+					<hosOrgno>0001</hosOrgno>
+					<hosOrgName>无为县人民医院</hosOrgName>
+					<totalCosts>2102.3600</totalCosts>
+					<enableMoney>2060.4800</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>2760.2000</redeemMoney>
+					<HospitalUndertake>-973.2300</HospitalUndertake>
+					<personalPayMoney>315.3900</personalPayMoney>
+					<Icdname>ZDZ560</Icdname>
+					<officeDate>2017-07-12 10:52:45</officeDate>
+					<leaveDate>2017-07-18 9:38:36</leaveDate>
+					<RedeemTypeCode>2104</RedeemTypeCode>
+					<redeemDate>2017-07-18 9:42:46</redeemDate>
+					<CIIEligibleCosts>-747.6400</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>210.2000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232901381552</Bookno>
+				<memberNo>342623290138155202</memberNo>
+				<Name>王成胜</Name>
+				<sexName>男</sexName>
+				<Birthday>1993-11-01</Birthday>
+				<masterName>王金年</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623199311015794</idCard>
+				<Address>鹤毛乡鹤毛社区王中自然村００３号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>112606081455041224</inpatientSn>
+					<Redeem_Sn>112606081455041224</Redeem_Sn>
+					<hosOrgno>1126</hosOrgno>
+					<hosOrgName>芜湖市第四人民医院</hosOrgName>
+					<totalCosts>9096.1500</totalCosts>
+					<enableMoney>6881.7500</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>8641.3000</redeemMoney>
+					<HospitalUndertake>-898.6900</HospitalUndertake>
+					<personalPayMoney>1353.5400</personalPayMoney>
+					<Icdname>ZDZ046</Icdname>
+					<officeDate>2017-06-06 8:13:19</officeDate>
+					<leaveDate>2017-07-18 10:49:11</leaveDate>
+					<RedeemTypeCode>2107</RedeemTypeCode>
+					<redeemDate>2017-07-18 12:28:42</redeemDate>
+					<CIIEligibleCosts>1330.1500</CIIEligibleCosts>
+					<CIIRedeemMoney>465.7000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>909.6000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232005050137</Bookno>
+				<memberNo>342623200505013705</memberNo>
+				<Name>姚氏</Name>
+				<sexName>女</sexName>
+				<Birthday>1939-01-09</Birthday>
+				<masterName>马胜新</masterName>
+				<relationName>女</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623193901094827</idCard>
+				<Address>刘渡镇马坝行政村马坝自然村０２６号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000118090426455871</inpatientSn>
+					<Redeem_Sn>000118090426455871</Redeem_Sn>
+					<hosOrgno>0001</hosOrgno>
+					<hosOrgName>无为县人民医院</hosOrgName>
+					<totalCosts>2867.3300</totalCosts>
+					<enableMoney>2716.2900</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>2736.7000</redeemMoney>
+					<HospitalUndertake>-442.8700</HospitalUndertake>
+					<personalPayMoney>573.5000</personalPayMoney>
+					<Icdname>ZDZ136</Icdname>
+					<officeDate>2017-07-14 19:37:23</officeDate>
+					<leaveDate>2017-07-18 8:32:28</leaveDate>
+					<RedeemTypeCode>2104</RedeemTypeCode>
+					<redeemDate>2017-07-18 9:05:34</redeemDate>
+					<CIIEligibleCosts>117.3300</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>286.7000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426233006190720</Bookno>
+				<memberNo>342623300619072002</memberNo>
+				<Name>丁亚勇</Name>
+				<sexName>男</sexName>
+				<Birthday>1976-03-30</Birthday>
+				<masterName>何家秀</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623197603307554</idCard>
+				<Address>十里墩乡镇河行政村塘北自然村０２３号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>233521080914049038</inpatientSn>
+					<Redeem_Sn>233521080914049038</Redeem_Sn>
+					<hosOrgno>2335</hosOrgno>
+					<hosOrgName>中铁上海局芜湖医院</hosOrgName>
+					<totalCosts>5093.8400</totalCosts>
+					<enableMoney>4908.4400</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>4216.3000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>877.5400</personalPayMoney>
+					<Icdname>F20.901</Icdname>
+					<officeDate>2017-06-21 8:12:37</officeDate>
+					<leaveDate>2017-07-18 8:16:57</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 8:27:03</redeemDate>
+					<CIIEligibleCosts>886.9400</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>509.4000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231802241569</Bookno>
+				<memberNo>342623180224156901</memberNo>
+				<Name>周保国</Name>
+				<sexName>男</sexName>
+				<Birthday>1972-01-10</Birthday>
+				<masterName>周保国</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623197201105335</idCard>
+				<Address>蜀山镇黄姑行政村周村自然村</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>246615063314827750</inpatientSn>
+					<Redeem_Sn>246615063314827750</Redeem_Sn>
+					<hosOrgno>2466</hosOrgno>
+					<hosOrgName>无为黄姑医院</hosOrgName>
+					<totalCosts>2378.0000</totalCosts>
+					<enableMoney>2378.0000</enableMoney>
+					<startMoney>100.0000</startMoney>
+					<redeemMoney>2259.1000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>118.9000</personalPayMoney>
+					<Icdname>J03.904</Icdname>
+					<officeDate>2017-07-14 8:05:24</officeDate>
+					<leaveDate>2017-07-18 7:23:35</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 8:14:24</redeemDate>
+					<CIIEligibleCosts>256.7000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>237.8000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231603020437</Bookno>
+				<memberNo>342623160302043701</memberNo>
+				<Name>王应苗</Name>
+				<sexName>男</sexName>
+				<Birthday>1965-01-22</Birthday>
+				<masterName>王应苗</masterName>
+				<relationName>男</relationName>
+				<identityName>一般农户</identityName>
+				<idCard>34262319650122557X</idCard>
+				<Address>严桥镇坳口行政村胡庄自然村３８号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>111219172205505280</inpatientSn>
+					<Redeem_Sn>111219172205505280</Redeem_Sn>
+					<hosOrgno>1112</hosOrgno>
+					<hosOrgName>安徽医科大学第一附属医院</hosOrgName>
+					<totalCosts>36353.2800</totalCosts>
+					<enableMoney>11043.6600</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>31299.1000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>5054.1800</personalPayMoney>
+					<Icdname>C43.601</Icdname>
+					<officeDate>2017-06-19 15:40:00</officeDate>
+					<leaveDate>2017-07-18 0:00:00</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 14:52:41</redeemDate>
+					<CIIEligibleCosts>11723.6800</CIIEligibleCosts>
+					<CIIRedeemMoney>4034.2000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>3635.3000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232212110409</Bookno>
+				<memberNo>342623221211040906</memberNo>
+				<Name>孙来秀</Name>
+				<sexName>女</sexName>
+				<Birthday>1949-08-22</Birthday>
+				<masterName>姚为昌</masterName>
+				<relationName>女</relationName>
+				<identityName>一般农户</identityName>
+				<idCard>342623194908222187</idCard>
+				<Address>泥汊镇新板桥行政村轿湾自然村００５</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>112818090609587595</inpatientSn>
+					<Redeem_Sn>112818090609587595</Redeem_Sn>
+					<hosOrgno>1128</hosOrgno>
+					<hosOrgName>皖南医学院弋矶山医院</hosOrgName>
+					<totalCosts>1060.3100</totalCosts>
+					<enableMoney>268.5100</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>742.1000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>318.2100</personalPayMoney>
+					<Icdname>C16.902</Icdname>
+					<officeDate>2017-07-11 9:04:09</officeDate>
+					<leaveDate>2017-07-11 9:04:09</leaveDate>
+					<RedeemTypeCode>15  </RedeemTypeCode>
+					<redeemDate>2017-07-18 9:06:45</redeemDate>
+					<CIIEligibleCosts>-575.7900</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>106.0000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232705120425</Bookno>
+				<memberNo>342623270512042501</memberNo>
+				<Name>花国喜</Name>
+				<sexName>男</sexName>
+				<Birthday>1936-10-22</Birthday>
+				<masterName>花国喜</masterName>
+				<relationName>男</relationName>
+				<identityName>一般农户</identityName>
+				<idCard>342623193610223596</idCard>
+				<Address>红庙镇马泽行政村龚冲自然村０１１</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000112080308801349</inpatientSn>
+					<Redeem_Sn>000112080308801349</Redeem_Sn>
+					<hosOrgno>0001</hosOrgno>
+					<hosOrgName>无为县人民医院</hosOrgName>
+					<totalCosts>4868.9400</totalCosts>
+					<enableMoney>4681.9400</enableMoney>
+					<startMoney>300.0000</startMoney>
+					<redeemMoney>4274.4000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>594.5400</personalPayMoney>
+					<Icdname>N28.101</Icdname>
+					<officeDate>2017-07-12 8:09:17</officeDate>
+					<leaveDate>2017-07-18 14:55:18</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 15:07:09</redeemDate>
+					<CIIEligibleCosts>781.4400</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>486.9000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231914050425</Bookno>
+				<memberNo>342623191405042502</memberNo>
+				<Name>邢春梅</Name>
+				<sexName>女</sexName>
+				<Birthday>1967-04-02</Birthday>
+				<masterName>徐树和</masterName>
+				<relationName>女</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623196704026829</idCard>
+				<Address>牛埠镇临湖行政村徐村自然村８５号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000118104220021677</inpatientSn>
+					<Redeem_Sn>000118104220021677</Redeem_Sn>
+					<hosOrgno>0001</hosOrgno>
+					<hosOrgName>无为县人民医院</hosOrgName>
+					<totalCosts>8555.7000</totalCosts>
+					<enableMoney>8472.3000</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>8127.9000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>427.8000</personalPayMoney>
+					<Icdname>N18.902</Icdname>
+					<officeDate>2017-07-12 10:41:28</officeDate>
+					<leaveDate>2017-07-18 10:41:28</leaveDate>
+					<RedeemTypeCode>15  </RedeemTypeCode>
+					<redeemDate>2017-07-18 10:42:45</redeemDate>
+					<CIIEligibleCosts>1054.3000</CIIEligibleCosts>
+					<CIIRedeemMoney>70.9000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>855.6000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231515180628</Bookno>
+				<memberNo>342623151518062801</memberNo>
+				<Name>秦正好</Name>
+				<sexName>男</sexName>
+				<Birthday>1947-09-16</Birthday>
+				<masterName>秦正好</masterName>
+				<relationName>男</relationName>
+				<identityName>五保户</identityName>
+				<idCard>342623194709168536</idCard>
+				<Address>石涧镇太平行政村秦小自然村４６号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000112105012505391</inpatientSn>
+					<Redeem_Sn>000112105012505391</Redeem_Sn>
+					<hosOrgno>0001</hosOrgno>
+					<hosOrgName>无为县人民医院</hosOrgName>
+					<totalCosts>3150.0400</totalCosts>
+					<enableMoney>3001.0400</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>4140.0000</redeemMoney>
+					<HospitalUndertake>-1462.4700</HospitalUndertake>
+					<personalPayMoney>472.5100</personalPayMoney>
+					<Icdname>ZDZ348</Icdname>
+					<officeDate>2017-07-12 10:56:18</officeDate>
+					<leaveDate>2017-07-18 10:20:17</leaveDate>
+					<RedeemTypeCode>2104</RedeemTypeCode>
+					<redeemDate>2017-07-18 10:18:16</redeemDate>
+					<CIIEligibleCosts>-974.9600</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>315.0000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231517110543</Bookno>
+				<memberNo>342623151711054303</memberNo>
+				<Name>潘家献</Name>
+				<sexName>男</sexName>
+				<Birthday>1971-01-13</Birthday>
+				<masterName>潘克维</masterName>
+				<relationName>男</relationName>
+				<identityName>一般农户</identityName>
+				<idCard>342623197101138439</idCard>
+				<Address>石涧镇团山行政村潘家大村自然村１４９号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>112418141245997147</inpatientSn>
+					<Redeem_Sn>112418141245997147</Redeem_Sn>
+					<hosOrgno>1124</hosOrgno>
+					<hosOrgName>安徽医科大学附属巢湖医院（原巢</hosOrgName>
+					<totalCosts>4761.6900</totalCosts>
+					<enableMoney>4266.0900</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>3076.1000</redeemMoney>
+					<HospitalUndertake>-695.3200</HospitalUndertake>
+					<personalPayMoney>2380.9100</personalPayMoney>
+					<Icdname>ZDZ347</Icdname>
+					<officeDate>2017-07-10 10:14:32</officeDate>
+					<leaveDate>2017-07-18 14:09:18</leaveDate>
+					<RedeemTypeCode>2102</RedeemTypeCode>
+					<redeemDate>2017-07-18 14:14:13</redeemDate>
+					<CIIEligibleCosts>1161.6900</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>476.1000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232702100504</Bookno>
+				<memberNo>342623270210050402</memberNo>
+				<Name>张加秀</Name>
+				<sexName>女</sexName>
+				<Birthday>1946-08-15</Birthday>
+				<masterName>张志扣</masterName>
+				<relationName>女</relationName>
+				<identityName>一般农户</identityName>
+				<idCard>34262319460815344X</idCard>
+				<Address>红庙镇海云行政村后村自然村００５</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>888888180842361258</inpatientSn>
+					<Redeem_Sn>888888180842361258</Redeem_Sn>
+					<hosOrgno>888888</hosOrgno>
+					<hosOrgName>省外医疗机构</hosOrgName>
+					<totalCosts>23809.2000</totalCosts>
+					<enableMoney>11816.2000</enableMoney>
+					<startMoney>4761.8000</startMoney>
+					<redeemMoney>11904.5000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>11904.7000</personalPayMoney>
+					<Icdname>M48.061</Icdname>
+					<officeDate>2017-05-09 0:00:00</officeDate>
+					<leaveDate>2017-06-02 0:00:00</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 8:43:52</redeemDate>
+					<CIIEligibleCosts>9523.8000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>3</CIIRedeemSource>
+					<CIVILRedeemMoney>2380.9000</CIVILRedeemMoney>
+					<CIVILRedeemSource>2</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>2</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231906111237</Bookno>
+				<memberNo>342623190611123703</memberNo>
+				<Name>王翠平</Name>
+				<sexName>女</sexName>
+				<Birthday>1970-04-11</Birthday>
+				<masterName>朱金开</masterName>
+				<relationName>女</relationName>
+				<identityName>低保户</identityName>
+				<idCard>34262319700411614X</idCard>
+				<Address>牛埠镇东湖行政村蒋村自然村４５号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>113118085747515065</inpatientSn>
+					<Redeem_Sn>113118085747515065</Redeem_Sn>
+					<hosOrgno>1131</hosOrgno>
+					<hosOrgName>铜陵市第三人民医院</hosOrgName>
+					<totalCosts>2108.7200</totalCosts>
+					<enableMoney>877.9000</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>1581.5000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>527.2200</personalPayMoney>
+					<Icdname>F32.902</Icdname>
+					<officeDate>2017-01-03 8:51:29</officeDate>
+					<leaveDate>2017-07-05 8:51:29</leaveDate>
+					<RedeemTypeCode>15  </RedeemTypeCode>
+					<redeemDate>2017-07-18 8:58:53</redeemDate>
+					<CIIEligibleCosts>238.1200</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>210.9000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232514070385</Bookno>
+				<memberNo>342623251407038501</memberNo>
+				<Name>徐根胜</Name>
+				<sexName>男</sexName>
+				<Birthday>1974-09-23</Birthday>
+				<masterName>徐根胜</masterName>
+				<relationName>男</relationName>
+				<identityName>一般农户</identityName>
+				<idCard>342623197409235016</idCard>
+				<Address>泉塘镇三益行政村龙舟自然村８６号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000118102549575673</inpatientSn>
+					<Redeem_Sn>000118102549575673</Redeem_Sn>
+					<hosOrgno>0001</hosOrgno>
+					<hosOrgName>无为县人民医院</hosOrgName>
+					<totalCosts>2968.4000</totalCosts>
+					<enableMoney>2891.6200</enableMoney>
+					<startMoney>300.0000</startMoney>
+					<redeemMoney>2512.0000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>456.4000</personalPayMoney>
+					<Icdname>Z99.914</Icdname>
+					<officeDate>2017-07-07 9:05:38</officeDate>
+					<leaveDate>2017-07-18 10:29:41</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 10:27:20</redeemDate>
+					<CIIEligibleCosts>453.2000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>296.8000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231614270998</Bookno>
+				<memberNo>342623161427099802</memberNo>
+				<Name>黄兴梅</Name>
+				<sexName>女</sexName>
+				<Birthday>1977-01-06</Birthday>
+				<masterName>蒋拥民</masterName>
+				<relationName>女</relationName>
+				<identityName>一般农户</identityName>
+				<idCard>342623197701064023</idCard>
+				<Address>严桥镇走马行政村走马自然村０３号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>112618081402655014</inpatientSn>
+					<Redeem_Sn>112618081402655014</Redeem_Sn>
+					<hosOrgno>1126</hosOrgno>
+					<hosOrgName>芜湖市第四人民医院</hosOrgName>
+					<totalCosts>1063.6000</totalCosts>
+					<enableMoney>3.6000</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>797.7000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>265.9000</personalPayMoney>
+					<Icdname>F20.901</Icdname>
+					<officeDate>2017-03-14 8:12:04</officeDate>
+					<leaveDate>2017-03-14 8:12:04</leaveDate>
+					<RedeemTypeCode>15  </RedeemTypeCode>
+					<redeemDate>2017-07-18 8:14:58</redeemDate>
+					<CIIEligibleCosts>-127.7000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>106.4000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231027020500</Bookno>
+				<memberNo>342623102702050002</memberNo>
+				<Name>李业芳</Name>
+				<sexName>女</sexName>
+				<Birthday>1946-12-04</Birthday>
+				<masterName></masterName>
+				<relationName>女</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623194612042726</idCard>
+				<Address>无城镇北庄行政村北埂自然村１４号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000118100955337559</inpatientSn>
+					<Redeem_Sn>000118100955337559</Redeem_Sn>
+					<hosOrgno>0001</hosOrgno>
+					<hosOrgName>无为县人民医院</hosOrgName>
+					<totalCosts>1126.5700</totalCosts>
+					<enableMoney>977.2800</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>962.0000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>164.5700</personalPayMoney>
+					<Icdname>N18.902</Icdname>
+					<officeDate>2017-07-17 8:35:20</officeDate>
+					<leaveDate>2017-07-18 9:51:58</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 10:11:09</redeemDate>
+					<CIIEligibleCosts>-22.7300</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>112.7000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426233104080410</Bookno>
+				<memberNo>342623310408041002</memberNo>
+				<Name>章兰英</Name>
+				<sexName>女</sexName>
+				<Birthday>1978-07-07</Birthday>
+				<masterName>王先林</masterName>
+				<relationName>女</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623197807075740</idCard>
+				<Address>昆山乡汪田行政村将庙自然村６号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>004210163614466214</inpatientSn>
+					<Redeem_Sn>004210163614466214</Redeem_Sn>
+					<hosOrgno>0042</hosOrgno>
+					<hosOrgName>无为县济民医院</hosOrgName>
+					<totalCosts>4153.7300</totalCosts>
+					<enableMoney>3954.2700</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>3790.3000</redeemMoney>
+					<HospitalUndertake>-259.7000</HospitalUndertake>
+					<personalPayMoney>623.1300</personalPayMoney>
+					<Icdname>ZDZ053</Icdname>
+					<officeDate>2017-07-10 16:36:00</officeDate>
+					<leaveDate>2017-07-18 7:56:49</leaveDate>
+					<RedeemTypeCode>2104</RedeemTypeCode>
+					<redeemDate>2017-07-18 8:02:39</redeemDate>
+					<CIIEligibleCosts>478.7300</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>415.3000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231021090716</Bookno>
+				<memberNo>342623102109071602</memberNo>
+				<Name>胡先兰</Name>
+				<sexName>女</sexName>
+				<Birthday>1939-04-29</Birthday>
+				<masterName>丁大胜</masterName>
+				<relationName>女</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623193904290022</idCard>
+				<Address>无城镇王福行政村白池自然村０４２</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000218090046744447</inpatientSn>
+					<Redeem_Sn>000218090046744447</Redeem_Sn>
+					<hosOrgno>0002</hosOrgno>
+					<hosOrgName>无为县中医医院</hosOrgName>
+					<totalCosts>4713.6100</totalCosts>
+					<enableMoney>4360.6200</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>4221.3000</redeemMoney>
+					<HospitalUndertake>-214.7900</HospitalUndertake>
+					<personalPayMoney>707.1000</personalPayMoney>
+					<Icdname>ZDZ705</Icdname>
+					<officeDate>2017-07-11 8:23:00</officeDate>
+					<leaveDate>2017-07-18 8:23:01</leaveDate>
+					<RedeemTypeCode>2104</RedeemTypeCode>
+					<redeemDate>2017-07-18 9:06:03</redeemDate>
+					<CIIEligibleCosts>663.6100</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>471.3000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232609090400</Bookno>
+				<memberNo>342623260909040001</memberNo>
+				<Name>李亚勇</Name>
+				<sexName>男</sexName>
+				<Birthday>1991-01-24</Birthday>
+				<masterName>李其平</masterName>
+				<relationName>男</relationName>
+				<identityName>一般农户</identityName>
+				<idCard>342623199101244855</idCard>
+				<Address>赫店镇苏塘行政村李冲自然村４２号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>234118100913563244</inpatientSn>
+					<Redeem_Sn>234118100913563244</Redeem_Sn>
+					<hosOrgno>2341</hosOrgno>
+					<hosOrgName>芜湖手足医院</hosOrgName>
+					<totalCosts>12041.2000</totalCosts>
+					<enableMoney>9418.2000</enableMoney>
+					<startMoney>500.0000</startMoney>
+					<redeemMoney>8661.2000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>3380.0000</personalPayMoney>
+					<Icdname>S99.901</Icdname>
+					<officeDate>2017-06-25 9:03:57</officeDate>
+					<leaveDate>2017-07-01 9:03:57</leaveDate>
+					<RedeemTypeCode>34  </RedeemTypeCode>
+					<redeemDate>2017-07-18 10:09:46</redeemDate>
+					<CIIEligibleCosts>8474.0000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>2</CIIRedeemSource>
+					<CIVILRedeemMoney>1204.1000</CIVILRedeemMoney>
+					<CIVILRedeemSource>2</CIVILRedeemSource>
+					<Fiscalout>3889.9000</Fiscalout>
+					<FiscaloutRedeemSource>2</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231602260770</Bookno>
+				<memberNo>342623160226077005</memberNo>
+				<Name>沈久武</Name>
+				<sexName>男</sexName>
+				<Birthday>1977-08-20</Birthday>
+				<masterName>沈金玉</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623197708204199</idCard>
+				<Address>严桥镇响山社区陶村自然村０２８号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>004218144113217583</inpatientSn>
+					<Redeem_Sn>004218144113217583</Redeem_Sn>
+					<hosOrgno>0042</hosOrgno>
+					<hosOrgName>无为县济民医院</hosOrgName>
+					<totalCosts>2195.4000</totalCosts>
+					<enableMoney>1915.5000</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>1847.6000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>347.8000</personalPayMoney>
+					<Icdname>N18.903</Icdname>
+					<officeDate>2017-04-29 9:22:06</officeDate>
+					<leaveDate>2017-07-15 9:22:06</leaveDate>
+					<RedeemTypeCode>15  </RedeemTypeCode>
+					<redeemDate>2017-07-18 14:44:22</redeemDate>
+					<CIIEligibleCosts>267.3000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>219.5000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231906111238</Bookno>
+				<memberNo>342623190611123801</memberNo>
+				<Name>朱军成</Name>
+				<sexName>男</sexName>
+				<Birthday>1953-03-22</Birthday>
+				<masterName>朱军成</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623195303226155</idCard>
+				<Address>牛埠镇东湖行政村蒋村自然村４６号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>888888180910373435</inpatientSn>
+					<Redeem_Sn>888888180910373435</Redeem_Sn>
+					<hosOrgno>888888</hosOrgno>
+					<hosOrgName>省外医疗机构</hosOrgName>
+					<totalCosts>28049.0000</totalCosts>
+					<enableMoney>24115.0000</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>18479.6000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>9569.4000</personalPayMoney>
+					<Icdname>J60 01</Icdname>
+					<officeDate>2017-06-12 0:00:00</officeDate>
+					<leaveDate>2017-07-07 0:00:00</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 9:15:57</redeemDate>
+					<CIIEligibleCosts>6764.5000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>3</CIIRedeemSource>
+					<CIVILRedeemMoney>2804.9000</CIVILRedeemMoney>
+					<CIVILRedeemSource>2</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>2</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232501030177</Bookno>
+				<memberNo>342623250103017704</memberNo>
+				<Name>焦秀英</Name>
+				<sexName>女</sexName>
+				<Birthday>1943-01-16</Birthday>
+				<masterName>张正华</masterName>
+				<relationName>女</relationName>
+				<identityName>一般农户</identityName>
+				<idCard>342623194301163029</idCard>
+				<Address>泉塘镇安宁行政村焦村自然村３８号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>005815202526443116</inpatientSn>
+					<Redeem_Sn>005815202526443116</Redeem_Sn>
+					<hosOrgno>0058</hosOrgno>
+					<hosOrgName>无为县三泰医院</hosOrgName>
+					<totalCosts>1549.0000</totalCosts>
+					<enableMoney>1475.2000</enableMoney>
+					<startMoney>100.0000</startMoney>
+					<redeemMoney>1454.4000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>94.6000</personalPayMoney>
+					<Icdname>I10 05</Icdname>
+					<officeDate>2017-07-15 20:25:26</officeDate>
+					<leaveDate>2017-07-18 9:08:12</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 9:48:38</redeemDate>
+					<CIIEligibleCosts>149.5000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>154.9000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426231909050079</Bookno>
+				<memberNo>342623190905007901</memberNo>
+				<Name>裴启会</Name>
+				<sexName>男</sexName>
+				<Birthday>1947-03-16</Birthday>
+				<masterName>裴启会</masterName>
+				<relationName>男</relationName>
+				<identityName>五保户</identityName>
+				<idCard>342623194703166273</idCard>
+				<Address>牛埠镇柏杨行政村裴家自然村１３５号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>264912072701645298</inpatientSn>
+					<Redeem_Sn>264912072701645298</Redeem_Sn>
+					<hosOrgno>2649</hosOrgno>
+					<hosOrgName>无为土桥医院</hosOrgName>
+					<totalCosts>2446.0000</totalCosts>
+					<enableMoney>2414.0000</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>2323.7000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>122.3000</personalPayMoney>
+					<Icdname>ZDZ001</Icdname>
+					<officeDate>2017-07-12 7:25:54</officeDate>
+					<leaveDate>2017-07-18 9:57:12</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 10:03:11</redeemDate>
+					<CIIEligibleCosts>266.9000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>244.6000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232104250962</Bookno>
+				<memberNo>342623210425096203</memberNo>
+				<Name>程永平</Name>
+				<sexName>男</sexName>
+				<Birthday>1969-02-24</Birthday>
+				<masterName>陈大忠</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623196902247710</idCard>
+				<Address>姚沟镇飞雁行政村新桥自然村门牌３１号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000118093718673134</inpatientSn>
+					<Redeem_Sn>000118093718673134</Redeem_Sn>
+					<hosOrgno>0001</hosOrgno>
+					<hosOrgName>无为县人民医院</hosOrgName>
+					<totalCosts>1236.7200</totalCosts>
+					<enableMoney>1201.7200</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>1145.1000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>91.6200</personalPayMoney>
+					<Icdname>N18.902</Icdname>
+					<officeDate>2017-01-05 9:35:57</officeDate>
+					<leaveDate>2017-07-18 9:35:57</leaveDate>
+					<RedeemTypeCode>15  </RedeemTypeCode>
+					<redeemDate>2017-07-18 9:37:53</redeemDate>
+					<CIIEligibleCosts>-84.6800</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>123.7000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426233204070330</Bookno>
+				<memberNo>342623320407033001</memberNo>
+				<Name>戴茂开</Name>
+				<sexName>男</sexName>
+				<Birthday>1970-09-19</Birthday>
+				<masterName>戴茂开</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623197009196513</idCard>
+				<Address>洪巷乡姥山行政村团山自然村</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>112624085058312777</inpatientSn>
+					<Redeem_Sn>112624085058312777</Redeem_Sn>
+					<hosOrgno>1126</hosOrgno>
+					<hosOrgName>芜湖市第四人民医院</hosOrgName>
+					<totalCosts>12234.4000</totalCosts>
+					<enableMoney>10947.4000</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>11541.5000</redeemMoney>
+					<HospitalUndertake>-950.9200</HospitalUndertake>
+					<personalPayMoney>1643.8200</personalPayMoney>
+					<Icdname>ZDZ046</Icdname>
+					<officeDate>2017-05-24 8:50:00</officeDate>
+					<leaveDate>2017-07-18 10:10:21</leaveDate>
+					<RedeemTypeCode>2107</RedeemTypeCode>
+					<redeemDate>2017-07-18 12:42:17</redeemDate>
+					<CIIEligibleCosts>2219.4000</CIIEligibleCosts>
+					<CIIRedeemMoney>803.1000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>1223.4000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232602050151</Bookno>
+				<memberNo>342623260205015103</memberNo>
+				<Name>伍莹华</Name>
+				<sexName>女</sexName>
+				<Birthday>1957-09-10</Birthday>
+				<masterName>喻维国</masterName>
+				<relationName>女</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623195709104828</idCard>
+				<Address>赫店镇平安行政村大喻自然村１３号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000111075141336280</inpatientSn>
+					<Redeem_Sn>000111075141336280</Redeem_Sn>
+					<hosOrgno>0001</hosOrgno>
+					<hosOrgName>无为县人民医院</hosOrgName>
+					<totalCosts>3333.6000</totalCosts>
+					<enableMoney>3183.1400</enableMoney>
+					<startMoney>300.0000</startMoney>
+					<redeemMoney>2786.0000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>547.6000</personalPayMoney>
+					<Icdname>R00.201</Icdname>
+					<officeDate>2017-07-11 7:58:02</officeDate>
+					<leaveDate>2017-07-18 8:45:01</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 10:24:06</redeemDate>
+					<CIIEligibleCosts>581.0000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>333.4000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426233201090836</Bookno>
+				<memberNo>342623320109083601</memberNo>
+				<Name>洪爱兵</Name>
+				<sexName>男</sexName>
+				<Birthday>1968-06-11</Birthday>
+				<masterName>洪爱兵</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623196806116518</idCard>
+				<Address>洪巷乡洪巷社区灯西自然村５５号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>004318093638175330</inpatientSn>
+					<Redeem_Sn>004318093638175330</Redeem_Sn>
+					<hosOrgno>0043</hosOrgno>
+					<hosOrgName>无为县无纺医院</hosOrgName>
+					<totalCosts>1963.0000</totalCosts>
+					<enableMoney>1953.0000</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>1864.9000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>98.1000</personalPayMoney>
+					<Icdname>I63.902</Icdname>
+					<officeDate>2017-07-09 0:00:00</officeDate>
+					<leaveDate>2017-07-18 9:41:33</leaveDate>
+					<RedeemTypeCode>21  </RedeemTypeCode>
+					<redeemDate>2017-07-18 9:44:44</redeemDate>
+					<CIIEligibleCosts>-5.6000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>196.3000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232402050175</Bookno>
+				<memberNo>342623240205017501</memberNo>
+				<Name>范修银</Name>
+				<sexName>男</sexName>
+				<Birthday>1936-01-03</Birthday>
+				<masterName>范修银</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>34262319360103139X</idCard>
+				<Address>福渡镇河坝社区范湾自然村</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>888888181039278391</inpatientSn>
+					<Redeem_Sn>888888181039278391</Redeem_Sn>
+					<hosOrgno>888888</hosOrgno>
+					<hosOrgName>省外医疗机构</hosOrgName>
+					<totalCosts>10347.5000</totalCosts>
+					<enableMoney>9313.5000</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>3434.8000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>6912.7000</personalPayMoney>
+					<Icdname>ZDZ023</Icdname>
+					<officeDate>2017-06-12 0:00:00</officeDate>
+					<leaveDate>2017-06-16 0:00:00</leaveDate>
+					<RedeemTypeCode>99  </RedeemTypeCode>
+					<redeemDate>2017-07-18 10:39:56</redeemDate>
+					<CIIEligibleCosts>5878.0000</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>3</CIIRedeemSource>
+					<CIVILRedeemMoney>1034.8000</CIVILRedeemMoney>
+					<CIVILRedeemSource>2</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>2</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+		<getInsureDetail>
+			<!-- 就诊人员基本信息元素 -->
+			<personbaseinfo>
+				<Bookno>3426232804160253</Bookno>
+				<memberNo>342623280416025301</memberNo>
+				<Name>马美喜</Name>
+				<sexName>男</sexName>
+				<Birthday>1937-08-26</Birthday>
+				<masterName>马美喜</masterName>
+				<relationName>男</relationName>
+				<identityName>低保户</identityName>
+				<idCard>342623193708267917</idCard>
+				<Address>高沟镇定兴行政村友谊自然村门牌３８号</Address>
+				<doorPropName>一般农户</doorPropName>
+			</personbaseinfo>
+			<!-- 补偿数据集合元素 -->
+			<redeemDatas>
+				<redeemData>
+					<inpatientSn>000118104842815812</inpatientSn>
+					<Redeem_Sn>000118104842815812</Redeem_Sn>
+					<hosOrgno>0001</hosOrgno>
+					<hosOrgName>无为县人民医院</hosOrgName>
+					<totalCosts>6654.8400</totalCosts>
+					<enableMoney>5699.6600</enableMoney>
+					<startMoney>0.0000</startMoney>
+					<redeemMoney>5510.2000</redeemMoney>
+					<HospitalUndertake>0.0000</HospitalUndertake>
+					<personalPayMoney>1144.6400</personalPayMoney>
+					<Icdname>N18.902</Icdname>
+					<officeDate>2017-01-17 10:47:19</officeDate>
+					<leaveDate>2017-07-18 10:47:19</leaveDate>
+					<RedeemTypeCode>15  </RedeemTypeCode>
+					<redeemDate>2017-07-18 10:49:09</redeemDate>
+					<CIIEligibleCosts>1510.1400</CIIEligibleCosts>
+					<CIIRedeemMoney>0.0000</CIIRedeemMoney>
+					<CIIRedeemSource>1</CIIRedeemSource>
+					<CIVILRedeemMoney>665.5000</CIVILRedeemMoney>
+					<CIVILRedeemSource>1</CIVILRedeemSource>
+					<Fiscalout>0.0000</Fiscalout>
+					<FiscaloutRedeemSource>1</FiscaloutRedeemSource>
+					<OtherPay>0</OtherPay>
+					<OtherPayRedeemSource>3</OtherPayRedeemSource>
+					<ISRepeal>1</ISRepeal>
+					<DataType>1</DataType>
+				</redeemData>
+			</redeemDatas>
+		</getInsureDetail>
+	</getInsureDetails>
+</getUnApplyRedeemData>
+                                                        

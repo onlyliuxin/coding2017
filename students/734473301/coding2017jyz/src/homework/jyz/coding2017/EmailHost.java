@@ -10,6 +10,7 @@ public class EmailHost {
     private String altHost;
     private String hostAdmin;
 
+
     /**
      * 构建主机
      * @param config 主机配置
