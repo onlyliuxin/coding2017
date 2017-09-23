@@ -1,29 +1,32 @@
 package com.coderising.myood.litejunit.v2;
 
-
-import com.coderising.myood.litejunit.v2.example_test.AllTest;
-
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 
 /**
  * Created by thomas_young on 21/8/2017.
  */
 public class TestRunner implements TestListener {
-    PrintStream writer = System.out;
+    private PrintStream writer = System.out;
+    private static final String SUITE = "suite";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         TestRunner testRunner = new TestRunner();
         TestResult tr = new TestResult();
-        tr.addListener(testRunner);
-        Test testAll = AllTest.suite();  // TODO: 17/9/2017 后续要用反射实现这一步 
-        testRunner.tryTest(testAll, tr);
+        tr.addListener(testRunner);  // 添加listener
+        String className = "com.coderising.myood.litejunit.v2.example_test.AllTest";
+        Class caseClazz = Class.forName(className);
+        Method suiteMethod = caseClazz.getMethod(SUITE, new Class[0]);
+        Test suite = (Test) suiteMethod.invoke(null);
+        testRunner.tryTest(suite, tr);
     }
 
-    private void tryTest(Test test, TestResult tr) {
-        test.run(tr);
+    private void tryTest(Test suite, TestResult tr) {
+        suite.run(tr);
         System.out.println();
         print(tr);
     }
