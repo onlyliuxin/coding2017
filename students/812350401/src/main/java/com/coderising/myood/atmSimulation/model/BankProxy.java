@@ -9,7 +9,6 @@ public abstract class BankProxy {
     protected NetworkClient networkClient;
 
     public abstract boolean verify(String account, String password);
-
     /**
      * 交易发送到银行做处理
      * @param transaction
