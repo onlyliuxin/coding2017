@@ -30,7 +30,7 @@ public class TestSuite implements Test {
         this.name = name;
     }
 
-    // 把某个测试类中的所有pulic的test方法构造成对象，塞入tests
+    // 把某个测试类中的所有public的test方法构造成对象，塞入tests
     public TestSuite(final Class<?> theClass) {
         this.name = theClass.getName();
         Constructor<?> constructor = null;
