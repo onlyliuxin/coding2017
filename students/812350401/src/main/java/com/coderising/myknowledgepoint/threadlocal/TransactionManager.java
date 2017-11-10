@@ -1,7 +1,7 @@
 package com.coderising.myknowledgepoint.threadlocal;
 
 public class TransactionManager {
-	private static final ThreadLocal<String> context = new ThreadLocal<String>();
+	private static final ThreadLocal<String> context = new ThreadLocal<>();
 
 	public static void startTransaction() {
 		// logic to start a transaction
