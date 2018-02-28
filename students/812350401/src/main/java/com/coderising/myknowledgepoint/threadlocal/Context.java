@@ -6,7 +6,7 @@ import java.util.Map;
 public class Context {
 	
 	private static final ThreadLocal<String> txThreadLocal 
-		= new ThreadLocal<String>();
+		= new ThreadLocal<>();
 	
 	public static void setTransactionID(String txID) {		
 		txThreadLocal.set(txID); 
